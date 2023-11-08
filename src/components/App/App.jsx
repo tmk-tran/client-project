@@ -14,12 +14,13 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
-import InfoPage from "../InfoPage/InfoPage";
+import NewOrgForm from "../NewOrgForm/NewOrgForm";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 
 import "./App.css";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -62,9 +63,9 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/org-input"
           >
-            <InfoPage />
+            <NewOrgForm />
           </ProtectedRoute>
 
           <Route exact path="/login">
