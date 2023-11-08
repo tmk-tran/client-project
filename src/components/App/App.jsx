@@ -22,6 +22,7 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 
 import "./App.css";
 
+// theme establishing global color for MUI
 const theme = createTheme({
   palette: {
     primary: {
@@ -29,6 +30,7 @@ const theme = createTheme({
     },
   },
 });
+// end theme
 
 function App() {
   const dispatch = useDispatch();

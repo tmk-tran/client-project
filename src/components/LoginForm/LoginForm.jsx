@@ -37,48 +37,14 @@ function LoginForm() {
     <>
       <LogoPSG />
       <br />
-      {/* Default form with template */}
-      <form className="formPanel" onSubmit={login}>
-        <h2>Login</h2>
-        {errors.loginMessage && (
-          <h3 className="alert" role="alert">
-            {errors.loginMessage}
-          </h3>
-        )}
-        <div>
-          <label htmlFor="username">
-            Username:
-            <input
-              type="text"
-              name="username"
-              required
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              name="password"
-              required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <input className="btn" type="submit" name="submit" value="Log In" />
-        </div>
-      </form>
-
-      {/* Added new login form MUI styled */}
-      <form className="formPanel" onSubmit={login}>
+      <form className="formPanel"> {/* <-- this is default template styling, can remove later */}
         <Card>
           <CardContent>
-            <Typography variant="h5" component="h2" style={{ fontWeight: "bold" }}>
+            <Typography
+              variant="h5"
+              component="h2"
+              style={{ fontWeight: "bold" }}
+            >
               Login
             </Typography>
             <br />
@@ -106,7 +72,9 @@ function LoginForm() {
             </div>
             <br />
             <div>
-              <Button variant="contained" onClick={login}>Log In</Button>
+              <Button variant="contained" onClick={login}>
+                Log In
+              </Button>
             </div>
           </CardContent>
         </Card>
