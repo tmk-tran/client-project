@@ -37,6 +37,7 @@ function LoginForm() {
     <>
       <LogoPSG />
       <br />
+      {/* Default form with template */}
       <form className="formPanel" onSubmit={login}>
         <h2>Login</h2>
         {errors.loginMessage && (
@@ -72,16 +73,40 @@ function LoginForm() {
           <input className="btn" type="submit" name="submit" value="Log In" />
         </div>
       </form>
+
+      {/* Added new login form MUI styled */}
       <form className="formPanel" onSubmit={login}>
         <Card>
           <CardContent>
-            <Typography variant="h5" component="h2">
+            <Typography variant="h5" component="h2" style={{ fontWeight: "bold" }}>
               Login
             </Typography>
+            <br />
             <div style={{ display: "flex", flexDirection: "column" }}>
-            <TextField label="Username">Username</TextField>
-            <TextField label="Password">Username</TextField>
-            <Button variant="contained">Log In</Button>
+              <TextField
+                type="text"
+                label="Username"
+                name="username"
+                required
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+              >
+                Username
+              </TextField>
+              <TextField
+                type="password"
+                label="Password"
+                name="password"
+                required
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              >
+                Username
+              </TextField>
+            </div>
+            <br />
+            <div>
+              <Button variant="contained" onClick={login}>Log In</Button>
             </div>
           </CardContent>
         </Card>
