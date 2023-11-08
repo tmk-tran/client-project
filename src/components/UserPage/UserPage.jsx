@@ -12,16 +12,15 @@ function UserPage() {
       <div style={{ display: "flex", flexDirection: "column" }}>
         <h2>Welcome, {user.username}!</h2>
         <p>Your ID is: {user.id}</p>
-        {/* <LogOutButton className="btn" /> */}
       </div>
+      
+      {/* Can remove this Card, just for fun  */}
       <Card elevation={6}>
         <CardContent style={{ textAlign: "center" }}>
-          <Typography variant="h6">Your client project goes here</Typography>
-          <br />
-          <br />
-          <br />
+          <Typography variant="h5">Your client project goes here</Typography>
           <Card elevation={6}>
             <CardContent>
+              <img src="./images/psg-logo2.jpeg" alt="psg alternate logo" style={{ height: "300px", width: "300px" }} />
               <Typography variant="h5" style={{ textAlign: "center" }}>
                 LET'S GOOOOOOO!
               </Typography>
@@ -29,6 +28,8 @@ function UserPage() {
           </Card>
         </CardContent>
       </Card>
+      {/* End of Card, can remove when needed */}
+
     </div>
   );
 }
