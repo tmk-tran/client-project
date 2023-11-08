@@ -3,6 +3,14 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import LogoPSG from "../LogoPSG/LogoPSG";
 
+import {
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+} from "@mui/material";
+
 function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -63,6 +71,20 @@ function LoginForm() {
         <div>
           <input className="btn" type="submit" name="submit" value="Log In" />
         </div>
+      </form>
+      <form className="formPanel" onSubmit={login}>
+        <Card>
+          <CardContent>
+            <Typography variant="h5" component="h2">
+              Login
+            </Typography>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+            <TextField label="Username">Username</TextField>
+            <TextField label="Password">Username</TextField>
+            <Button variant="contained">Log In</Button>
+            </div>
+          </CardContent>
+        </Card>
       </form>
     </>
   );
