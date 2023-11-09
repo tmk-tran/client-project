@@ -15,7 +15,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
-import NewOrgForm from "../NewOrgForm/NewOrgForm";
+import OrgDetails from "../OrgDetails/OrgDetails";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
@@ -74,9 +74,9 @@ function App() {
             <ProtectedRoute
               // logged in shows InfoPage else shows LoginPage
               exact
-              path="/org-input"
+              path="/org-details"
             >
-              <NewOrgForm />
+              <OrgDetails />
             </ProtectedRoute>
 
             <Route exact path="/login">

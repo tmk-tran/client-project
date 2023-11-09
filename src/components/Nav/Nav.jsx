@@ -28,8 +28,8 @@ function Nav() {
               Admin
             </Link>
 
-            <Link className="navLink" to="/org-input">
-              New Organization Input Form
+            <Link className="navLink" to="/org-details">
+              Organization Details
             </Link>
 
             <LogOutButton className="navLink" />
