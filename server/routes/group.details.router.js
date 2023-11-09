@@ -21,11 +21,21 @@ router.get('/:id', (req, res) => {
   })
 });
 
-/**
- * POST route template
- */
+//Post route for groups
 router.post('/', (req, res) => {
-  // POST route code here
+//   const id = req.params.id;
+  const newGroup = req.body;
+  const queryText = `INSERT INTO "group" ("organization_id", "department", "sub_department", "group_nickname", "group_photo", "group_description")
+  VALUES ($1, $2, $3, $4, $5, $6);`
+
+  pool.query(queryText, [newGroup.organization_id, newGroup.department, newGroup.sub_department, newGroup.group_nickname, newGroup.group_photo, newGroup.group_desctiption])
+  .then(() => {
+    res.sendStatus(201);
+  })
+  .catch((err) => {
+    console.log("Error adding new group", err);
+    res.sendStatus(500);
+  })
 });
 
 module.exports = router;
