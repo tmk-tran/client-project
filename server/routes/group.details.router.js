@@ -38,4 +38,19 @@ router.post('/', (req, res) => {
   })
 });
 
+router.put('/:id', (req, res) => {
+    const id = req.params.id;
+    const updatedGroup = req.body;
+    const queryText = `UPDATE "group" SET "department" = $1, "sub_department" = $2, "group_nickname" = $3, "group_photo" = $4, "group_description" = $5 WHERE "id" = $6;`;
+
+    pool.query(queryText, [updatedGroup.department, updatedGroup.sub_department, updatedGroup.group_nickname, updatedGroup.group_photo, updatedGroup.group_desctiption, id])
+    .then(() => {
+        res.sendStatus(200)
+    })
+    .catch((err) => {
+        console.log("Error updating group", err);
+        res.sendStatus(500);
+    })
+})
+
 module.exports = router;
