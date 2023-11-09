@@ -7,6 +7,8 @@ PSG Logo image
 }
 
 .psg-logo img {
-  height: 200px;
-  width: 400px;
+  /* height: 200px;
+  width: 400px; */
+  height: 150px;
+  width: 300px;
 }
