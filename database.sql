@@ -23,7 +23,7 @@ CREATE TABLE "organization" (
 	"zip" integer NOT NULL,
 	"primary_contact_first_name" varchar(50) NOT NULL,
 	"primary_contact_last_name" varchar(50) NOT NULL,
-	"primary_contact_phone" integer NOT NULL,
+	"primary_contact_phone" bigint NOT NULL,
 	"primary_contact_email" varchar(100),
 	"organization_logo" varchar,
 	"is_deleted" BOOLEAN NOT NULL DEFAULT 'false'
@@ -59,14 +59,14 @@ CREATE TABLE "fundraiser" (
 	"id" serial primary key NOT NULL,
 	"group_id" integer REFERENCES "group"("id") NOT NULL,
 	"title" varchar(100) NOT NULL,
-	"description" integer NOT NULL,
+	"description" varchar NOT NULL,
 	"photo" varchar,
 	"requested_book_quantity" integer NOT NULL,
 	"book_quantity_checked_out" integer NOT NULL,
 	"book_checked_out_total_value" DECIMAL NOT NULL,
-	"book_quantity_checked_in" integer NOT NULL,
-	"books_sold" DECIMAL NOT NULL,
-	"money_received" DECIMAL NOT NULL,
+	"book_quantity_checked_in" integer,
+	"books_sold" DECIMAL,
+	"money_received" DECIMAL,
 	"start_date" DATE NOT NULL,
 	"end_date" DATE NOT NULL,
 	"coupon_book_id" integer REFERENCES "coupon_book"("id") NOT NULL,
@@ -74,3 +74,41 @@ CREATE TABLE "fundraiser" (
 	"is_deleted" BOOLEAN NOT NULL DEFAULT 'false',
 	"closed" BOOLEAN NOT NULL DEFAULT 'false'
 );
+
+----------------------------------------------------------------------------------------------
+
+-- Create a trigger function to calculate the checked_out_total_value
+CREATE OR REPLACE FUNCTION update_checked_out_total_value()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.book_checked_out_total_value = NEW.book_quantity_checked_out * 25;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger on your_table
+CREATE TRIGGER update_checked_out_total_value_trigger
+BEFORE INSERT OR UPDATE ON fundraiser
+FOR EACH ROW EXECUTE FUNCTION update_checked_out_total_value();
+
+----------------------------------------------------------------------------------------------
+
+-- Create a function to calculate the outstanding_balance
+CREATE OR REPLACE FUNCTION calculate_outstanding_balance()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.outstanding_balance = NEW.book_checked_out_total_value 
+                             - COALESCE(NEW.money_received, 0) 
+                             - COALESCE(NEW.book_quantity_checked_in * 25, 0);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Create a trigger to update outstanding_balance before insert or update
+CREATE TRIGGER update_outstanding_balance
+BEFORE INSERT OR UPDATE ON fundraiser
+FOR EACH ROW
+EXECUTE FUNCTION calculate_outstanding_balance();
+
+----------------------------------------------------------------------------------------------
