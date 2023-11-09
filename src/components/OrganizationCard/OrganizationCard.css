@@ -1,0 +1,14 @@
+.cardContainer {
+    display : flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: antiquewhite;
+    width: 20%;
+  }
+  
+  .organizationCard {
+    width: 100%; /* Adjust the width as needed */
+    margin: 10px;
+    object-fit: cover; /* Adjust the margin as needed */
+  }
+

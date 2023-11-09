@@ -31,7 +31,7 @@ function* fetchOrganizationsSaga() {
   }
 
 
-  export default function* servicesSaga() {
+  export default function* organizationsSaga() {
     yield takeEvery("FETCH_ORGANIZATIONS", fetchOrganizationsSaga);
     yield takeEvery("ADD_ORGANIZATION", addOrganizationSaga);
     yield takeEvery("DELETE_ORGANIZATION", deleteOrganizationSaga);
