@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { Typography } from "@mui/material";
 
 // This is one of our simplest components
 // It doesn't have local state
@@ -8,7 +9,9 @@ import React from 'react';
 function NewOrgForm() {
   return (
     <div className="container">
-      <p>New Organization Input Form</p>
+      <center>
+        <Typography variant="h4">Organization Details</Typography>
+      </center>
     </div>
   );
 }
