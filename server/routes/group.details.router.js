@@ -8,7 +8,7 @@ router.get('/:id', (req, res) => {
   const queryText = `SELECT "f".group_id, "f".title, "f".description, "f".photo, "f". requested_book_quantity, "f".book_quantity_checked_out, "f".book_checked_out_total_value, "f".book_quantity_checked_in, "f".books_sold, "f".money_received, "f".start_date, "f".end_date, "cb".year, "f".outstanding_balance, "g".department, "g".sub_department, "g".group_photo, "g".group_description  FROM "fundraiser" AS "f" 
   JOIN "group" AS "g" on "f".group_id = "g".id 
   JOIN "coupon_book" AS "cb" ON "f".coupon_book_id = "cb".id
-   WHERE "g".id = $1 
+  WHERE "g".id = $1 
   ORDER BY "f".closed = false;`;
 
   pool.query(queryText, id)
@@ -58,5 +58,14 @@ router.put('/delete/:id', (req, res) => {
     const queryText = `UPDATE "group" SET "is_deleted" = true WHERE "id" = $1`
 
     pool.query(queryText, [id])
+    .then(() => {
+        res.sendStatus(200)
+    })
+    .catch((err) => {
+        console.log("Error in marking group as deleted", err);
+        res.sendStatus(500)
+    })
 })
+
+
 module.exports = router;
