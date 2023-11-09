@@ -53,4 +53,10 @@ router.put('/:id', (req, res) => {
     })
 })
 
+router.put('/delete/:id', (req, res) => {
+    const id = req.params.id;
+    const queryText = `UPDATE "group" SET "is_deleted" = true WHERE "id" = $1`
+
+    pool.query(queryText, [id])
+})
 module.exports = router;
