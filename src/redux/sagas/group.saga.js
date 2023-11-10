@@ -11,6 +11,15 @@ function* fetchGroupSaga(action) {
     }
 }
 
+// function* addGroupSaga(action) {
+//     try {
+//         yield axios.post("/api/group/", action.payload)
+//         yield 
+//     } catch (error) {
+        
+//     }
+// }
+
 
 
 export default function* groupSaga(){
