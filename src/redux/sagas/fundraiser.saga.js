@@ -31,8 +31,19 @@ function* updatedFundraiserSaga(action) {
     }
 }
 
+function* closeFundraiserSaga(action) {
+    try {
+        console.log(action.payload)
+        yield axiox.put(`/api/fundraisers/close/${action.payload}`, action.payload)
+        yield put ({type: "FETCH_FUNDRAISERS"})
+    } catch (err) {
+        console.log("Error setting fundraiser to closed", err)
+    }
+}
+
 export default function* fundraiserSaga() {
     yield takeEvery ("FETCH_FUNDRAISERS", fetchFundraisersSaga);
     yield takeEvery ("ADD_FUNDRAISER", addFundraiserSaga);
-    yield takeEvery ("UPDATE_FUNDRAISER", updatedFundraiserSaga)
+    yield takeEvery ("UPDATE_FUNDRAISER", updatedFundraiserSaga);
+    yield takeEvery ("CLOSE_FUNDRAISER", closeFundraiserSaga)
 }
