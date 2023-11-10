@@ -3,7 +3,9 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 
 import orgDetailsReducer from './orgDetails.reducer';
-import organizations from './organizations.reducer.js'
+import organizations from './organizations.reducer.js';
+import group from './group.reducer';
+import fundraisers from './fundraisers.reducer'
 
 
 // rootReducer is the primary reducer for our entire project
@@ -19,6 +21,8 @@ const rootReducer = combineReducers({
   orgDetailsReducer,
 
   organizations,
+  group,
+  fundraisers
 
 });
 
