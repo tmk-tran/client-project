@@ -18,6 +18,8 @@ const orgDetailsRouter = require('./routes/orgDetails.router');
 
 const organizationsRouter = require('./routes/organizations.router');
 
+const fundraisersRouter = require('./routes/fundraisers.router')
+
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -40,6 +42,8 @@ app.use('/api/group', groupRouter)
 app.use('/api/orgdetails', orgDetailsRouter);
 
 app.use('/api/organizations', organizationsRouter);
+
+app.use('/api/fundraisers', fundraisersRouter)
 
 
 // Serve static files
