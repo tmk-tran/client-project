@@ -36,6 +36,10 @@ function orgDetails() {
               <Typography>{info.city}</Typography>
               <Typography>{info.state}</Typography>
               <Typography>{info.zip}</Typography>
+              <Typography>{info.primary_contact_first_name}</Typography>
+              <Typography>{info.primary_contact_last_name}</Typography>
+              <Typography>{info.primary_contact_phone}</Typography>
+              <Typography>{info.primary_contact_email}</Typography>
             </div>
           ))}
         </CardContent>
