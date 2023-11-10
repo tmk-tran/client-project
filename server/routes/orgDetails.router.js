@@ -44,7 +44,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
     .then((result) => {
       console.log("orgId = ", orgId);
       console.log("FROM orgDetails.router: ", result.rows);
-      res.send(result.rows, orgId);
+      res.send(result.rows);
     })
     .catch((err) => {
       console.log("error in the GET / request for authorized users", err);

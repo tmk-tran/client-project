@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NavLinks from "../NavLinks/NavLinks";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TextField, Typography, Card, CardContent } from "@mui/material";
 
 function orgDetails() {
   const paramsObject = useParams();
   const dispatch = useDispatch();
+
+  const detailsOrg = useSelector((store) => store.orgDetailsReducer);
+  console.log(detailsOrg);
 
   useEffect(() => {
     dispatch({
@@ -19,12 +22,22 @@ function orgDetails() {
     <div className="container">
       <center>
         <NavLinks />
-        <Typography variant="h5">Organization Details</Typography>
       </center>
       <Card elevation={6}>
         <CardContent>
-          <Typography variant="h5">Details</Typography>
-          <TextField label="Name Edit"></TextField>
+          <center>
+          <Typography variant="h6">Organization Details</Typography>
+          </center>
+          {/* <TextField label="Name Edit"></TextField> */}
+          {detailsOrg.map((info, i) => (
+            <div key={i} className="org-details">
+              <Typography variant="h6">{info.organization_name}</Typography>
+              <Typography>{info.address}</Typography>
+              <Typography>{info.city}</Typography>
+              <Typography>{info.state}</Typography>
+              <Typography>{info.zip}</Typography>
+            </div>
+          ))}
         </CardContent>
       </Card>
     </div>
