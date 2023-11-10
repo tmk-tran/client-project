@@ -8,8 +8,9 @@ const {
 /**
  * Get all of the details for an organization
  */
-router.get("/", rejectUnauthenticated, (req, res) => {
+router.get("/:id", rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
+  console.log("ID = ", id);
   const queryText = `
     SELECT
         o.id AS organization_id,
@@ -35,13 +36,14 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     JOIN
         "group" g ON o.id = g.organization_id
     WHERE
-      
+        o.id = $1 AND
         o.is_deleted = false AND
         g.is_deleted = false;
 `;
   pool
     .query(queryText, [id])
     .then((result) => {
+      console.log("ID = ", id);
       console.log("FROM orgDetails.router: ", result.rows);
       res.send(result.rows);
     })

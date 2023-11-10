@@ -1,19 +1,19 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { TextField, Typography, Card, CardContent } from "@mui/material";
 
-// This is one of our simplest components
-// It doesn't have local state
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is
-
-function NewOrgForm() {
+function orgDetails() {
   return (
     <div className="container">
       <center>
         <Typography variant="h4">Organization Details</Typography>
       </center>
+      <Card>
+        <CardContent>
+          <TextField></TextField>
+        </CardContent>
+      </Card>
     </div>
   );
 }
 
-export default NewOrgForm;
+export default orgDetails;

@@ -28,7 +28,7 @@ function Nav() {
               Admin
             </Link>
 
-            <Link className="navLink" to="/org-details">
+            <Link className="navLink" to="/orgDetails">
               Organization Details
             </Link>
 
