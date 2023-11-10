@@ -9,8 +9,7 @@ const {
  * Get all of the details for an organization
  */
 router.get("/:id", rejectUnauthenticated, (req, res) => {
-  const id = req.params.id;
-  console.log("ID = ", id);
+  const orgId = req.params.id;
   const queryText = `
     SELECT
         o.id AS organization_id,
@@ -41,11 +40,11 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
         g.is_deleted = false;
 `;
   pool
-    .query(queryText, [id])
+    .query(queryText, [orgId])
     .then((result) => {
-      console.log("ID = ", id);
+      console.log("orgId = ", orgId);
       console.log("FROM orgDetails.router: ", result.rows);
-      res.send(result.rows);
+      res.send(result.rows, orgId);
     })
     .catch((err) => {
       console.log("error in the GET / request for authorized users", err);

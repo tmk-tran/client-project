@@ -3,7 +3,6 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  console.log("GET /api/organizations");
   pool
     .query('SELECT * from "organization" WHERE "is_deleted" = false ORDER by "organization_name" ASC;')
     .then((response) => {
