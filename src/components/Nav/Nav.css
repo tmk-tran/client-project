@@ -3,10 +3,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  margin: 0 0 30px;
-  background-color: black;
+  /* margin: 25px 0 30px; */
+  /* background-color: black; */
+  margin: 25px auto 0 auto;
   overflow: hidden;
+  width: 80%;
 }
 
 .nav a {
@@ -16,15 +17,15 @@
 .nav-title {
   font-size: 24px;
   font-weight: 700;
-  color: #f2f2f2;
+  color: #273b91;
   padding-left: 10px;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .navLink {
   display: inline-block;
-  color: #f2f2f2;
-  background-color: black;
+  color: #273b91;
+  /* background-color: black; */
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;

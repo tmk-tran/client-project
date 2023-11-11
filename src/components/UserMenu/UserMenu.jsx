@@ -10,7 +10,7 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import PersonIcon from "@mui/icons-material/Person";
 
-export default function MenuListComposition() {
+export default function UserMenu() {
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
@@ -50,7 +50,7 @@ export default function MenuListComposition() {
   return (
     <Stack direction="row" spacing={2}>
       <div>
-        <Button
+        {/* <Button
           ref={anchorRef}
           id="composition-button"
           aria-controls={open ? "composition-menu" : undefined}
@@ -59,7 +59,16 @@ export default function MenuListComposition() {
           onClick={handleToggle}
         >
           <PersonIcon />
-        </Button>
+        </Button> */}
+        <PersonIcon
+          ref={anchorRef}
+          id="composition-button"
+          aria-controls={open ? "composition-menu" : undefined}
+          aria-expanded={open ? "true" : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+          style={{ cursor: "pointer" }}
+        />
         <Popper
           open={open}
           anchorEl={anchorRef.current}
@@ -86,7 +95,9 @@ export default function MenuListComposition() {
                   >
                     <MenuItem onClick={handleClose}>Profile</MenuItem>
                     <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={() => dispatch({ type: "LOGOUT" })}>Logout</MenuItem>
+                    <MenuItem onClick={() => dispatch({ type: "LOGOUT" })}>
+                      Logout
+                    </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

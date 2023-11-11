@@ -24,9 +24,6 @@ function orgDetails() {
 
   return (
     <div className="container">
-      <center>
-        <NavLinks />
-      </center>
       <Card elevation={6}>
         <CardContent>
           <center>
@@ -34,12 +31,12 @@ function orgDetails() {
           </center>
           {/* <TextField label="Name Edit"></TextField> */}
           <div className="detailsOrg-container">
-          {detailsOrg.map((info, i) => (
-            <OrgContactDetails key={i} info={info} />
-          ))}
-          {detailsOrg.map((groupInfo, i) => (
-            <OrgGroupInfo key={i} groupInfo={groupInfo}/>
-          ))}
+            {detailsOrg.map((info, i) => (
+              <OrgContactDetails key={i} info={info} />
+            ))}
+            {detailsOrg.map((groupInfo, i) => (
+              <OrgGroupInfo key={i} groupInfo={groupInfo} />
+            ))}
           </div>
         </CardContent>
       </Card>
