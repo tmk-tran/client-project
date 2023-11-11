@@ -23,6 +23,8 @@ export default function NavLinks() {
       {user.id && (
         <>
           <Link to="/home">Home</Link>
+          <li>Groups</li>
+          <li>Add New Fundraiser</li>
         </>
       )}
 

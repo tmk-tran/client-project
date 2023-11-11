@@ -1,6 +1,22 @@
 .NavLinks-container {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin: 0 auto;
+  font-size: larger;
+  font-family: Arial;
+}
+
+@media (max-width: 600px) {
+  .NavLinks-container {
+    /* flex-direction: column; Stack the links vertically on smaller screens */
+    align-items: center; /* Center the links in the container */
+    width: 100%; /* Make the container take full width */
+  }
+}
+
+@media (max-width: 400px) {
+  .NavLinks-container {
+    display: none; /* Hide the navbar on really small screens */
+  }
 }

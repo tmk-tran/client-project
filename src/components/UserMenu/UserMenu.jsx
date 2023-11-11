@@ -9,6 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import PersonIcon from "@mui/icons-material/Person";
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function UserMenu() {
   const dispatch = useDispatch();
@@ -50,16 +51,7 @@ export default function UserMenu() {
   return (
     <Stack direction="row" spacing={2}>
       <div>
-        {/* <Button
-          ref={anchorRef}
-          id="composition-button"
-          aria-controls={open ? "composition-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
-          aria-haspopup="true"
-          onClick={handleToggle}
-        >
-          <PersonIcon />
-        </Button> */}
+        <SearchIcon style={{ fontSize: "30px" }}/>
         <PersonIcon
           ref={anchorRef}
           id="composition-button"
@@ -67,7 +59,7 @@ export default function UserMenu() {
           aria-expanded={open ? "true" : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", marginLeft: "10px", fontSize: "30px" }}
         />
         <Popper
           open={open}

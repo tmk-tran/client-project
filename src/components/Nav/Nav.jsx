@@ -38,9 +38,9 @@ function Nav() {
               </Link>
             </>
           )}
-          
         </div>
       </div>
+      <br />
       <div className="NavLinks-container">
         <NavLinks />
       </div>
