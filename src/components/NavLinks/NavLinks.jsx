@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector } from "react-redux";
 
 export default function NavLinks() {

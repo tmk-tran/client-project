@@ -2,10 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 // Component
-import LogOutButton from "../LogOutButton/LogOutButton";
+import MenuList from "../MenuList/MenuList";
 // Style
 import "./Nav.css";
-import PersonIcon from '@mui/icons-material/Person';
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -36,10 +35,8 @@ function Nav() {
             </Link>
 
             <Link className="navLink" to="/user">
-            <PersonIcon />
+            <MenuList />
             </Link>
-
-            <LogOutButton className="navLink" />
           </>
         )}
 
