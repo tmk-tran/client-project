@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Nav from "../Nav/Nav";
 
@@ -22,11 +22,11 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 
 import "./App.css";
 
-// theme establishing global color for MUI
+// Theme establishing global color for MUI
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#273b91", // Set your preferred global color here
+      main: "#273b91", // Set to PSG brand blue
     },
   },
 });
