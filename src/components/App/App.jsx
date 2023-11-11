@@ -19,6 +19,7 @@ import OrgDetails from "../OrgDetails/OrgDetails";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+import Footer from "../Footer/Footer";
 
 import "./App.css";
 
@@ -118,6 +119,7 @@ function App() {
             </Route>
           </Switch>
         </div>
+        <Footer />
       </ThemeProvider>
     </Router>
   );
