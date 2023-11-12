@@ -14,19 +14,22 @@ function Nav() {
   return (
     <>
       <div className="nav">
-        <div></div>
-        <Link to="/home">
-          <LogoPSG />
-        </Link>
+        {user.id && (
+          <div className="logoPSG-container">
+            <Link to="/home" className="logo-psg">
+              <LogoPSG />
+            </Link>
+          </div>
+        )}
 
         <div>
           {/* If no user is logged in, show these links */}
-          {!user.id && (
+          {/* {!user.id && (
             // If there's no user, show login/registration links
             <Link className="navLink" to="/login">
               Login / Register
             </Link>
-          )}
+          )} */}
 
           {/* If a user is logged in, show these links */}
           {user.id && (
@@ -39,6 +42,7 @@ function Nav() {
           )}
         </div>
       </div>
+      <br />
       <br />
       <div className="NavLinks-container">
         <NavLinks />
