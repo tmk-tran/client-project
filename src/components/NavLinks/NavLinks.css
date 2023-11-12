@@ -15,11 +15,9 @@
   color: #273b91;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .NavLinks-container {
-    /* flex-direction: column; Stack the links vertically on smaller screens */
-    align-items: center; /* Center the links in the container */
-    width: 100%; /* Make the container take full width */
+    display: none;
   }
 }
 

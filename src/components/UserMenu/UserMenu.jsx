@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import Button from "@mui/material/Button";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
@@ -9,11 +10,14 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import PersonIcon from "@mui/icons-material/Person";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function UserMenu() {
   const dispatch = useDispatch();
-
+  
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -25,7 +29,6 @@ export default function UserMenu() {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -48,10 +51,10 @@ export default function UserMenu() {
     prevOpen.current = open;
   }, [open]);
 
-  return (
+  return isSmallScreen ? null : (
     <Stack direction="row" spacing={2}>
       <div>
-        <SearchIcon style={{ fontSize: "30px", cursor: "not-allowed" }}/>
+        <SearchIcon style={{ fontSize: "30px", cursor: "not-allowed" }} />
         <PersonIcon
           ref={anchorRef}
           id="person-icon"

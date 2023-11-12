@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import NavLinks from "../NavLinks/NavLinks";
 import { useDispatch, useSelector } from "react-redux";
 // Style
 import "./OrgDetails.css";
@@ -8,6 +7,7 @@ import { TextField, Typography, Card, CardContent } from "@mui/material";
 // Components
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
+import MenuLinks from "../MenuLinks/MenuLinks";
 
 function orgDetails() {
   const paramsObject = useParams();
@@ -24,6 +24,7 @@ function orgDetails() {
 
   return (
     <div className="container">
+      <MenuLinks />
       <Card elevation={6}>
         <CardContent>
           <center>

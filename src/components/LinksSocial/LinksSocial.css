@@ -16,4 +16,5 @@
 #li-icon:hover,
 #x-icon:hover {
   transform: scale(1.2);
+  cursor: pointer;
 }

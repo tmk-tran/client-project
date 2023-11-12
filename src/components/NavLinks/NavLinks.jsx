@@ -1,16 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Link as MuiLink } from "@mui/material";
 import { useSelector } from "react-redux";
+
 // Style
-import { Typography, ThemeProvider, createTheme } from "@mui/material";
+import {
+  Typography,
+  ThemeProvider,
+  createTheme,
+  Link as MuiLink,
+} from "@mui/material";
 import "./NavLinks.css";
 
 // Custom theme for MUI components
 const theme = createTheme({
   typography: {
     fontSize: 15,
-    fontFamily: "Telugu Sangam MN"
+    fontFamily: "Telugu Sangam MN",
   },
   components: {
     MuiLink: {
@@ -35,14 +40,14 @@ export default function NavLinks() {
         {/* If no user is logged in, show these links */}
         {!user.id && (
           // If there's no user, show login/registration links
-          <>
+          <div style={{ margin: "0 auto" }}>
             <Link className="navLink" to="/login">
               Login / Register
             </Link>
             <Link className="navLink" to="/about">
               About
             </Link>
-          </>
+          </div>
         )}
 
         {/* If a user is logged in, show these links */}
@@ -58,8 +63,16 @@ export default function NavLinks() {
                 Home
               </MuiLink>
             </Typography>
-            <Typography style={{ textTransform: "uppercase", cursor: "not-allowed" }}>Groups</Typography>
-            <Typography style={{ textTransform: "uppercase", cursor: "not-allowed" }}>Add New Fundraiser</Typography>
+            <Typography
+              style={{ textTransform: "uppercase", cursor: "not-allowed" }}
+            >
+              Groups
+            </Typography>
+            <Typography
+              style={{ textTransform: "uppercase", cursor: "not-allowed" }}
+            >
+              Add New Fundraiser
+            </Typography>
             <Typography>
               <MuiLink
                 component={Link}
