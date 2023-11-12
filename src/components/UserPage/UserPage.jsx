@@ -17,7 +17,7 @@ function UserPage() {
   return (
     <div className="container">
       <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-        <h2>Welcome, {user.username}!</h2>
+        <Typography variant="h5" style={{ fontWeight: "bold" }}>Welcome, {user.username}!</Typography>
         <p>Your ID is: {user.id}</p>
       </div>
     <div className="organizationsContainer">
