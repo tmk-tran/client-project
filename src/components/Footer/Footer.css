@@ -11,5 +11,36 @@ footer {
 .footer-container {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   margin: 0 auto;
+}
+
+.center-icon-container {
+  position: absolute;
+  flex-grow: 1;
+}
+
+.center-icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Media query for smaller screens */
+@media (max-width: 968px) {
+  .footer-container {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+  }
+
+  .center-icon-container {
+    position: relative; /* Remove absolute positioning */
+  }
+
+  .center-icon {
+    position: static; /* Remove absolute positioning */
+    transform: none; /* Remove the transform */
+    margin-bottom: 10px; /* Add spacing between items */
+  }
 }

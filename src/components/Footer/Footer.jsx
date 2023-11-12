@@ -6,14 +6,22 @@ import "./Footer.css";
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className="footer">
       <div className="footer-container">
-        <Typography>
-          COPYRIGHT © 2023 THE PREFERRED SAVINGS GUIDE <br /> - ALL RIGHTS
-          RESERVED.
-        </Typography>
-        <LinksSocial />
-        <Typography>ALL SALES ARE FINAL</Typography>
+        <div style={{ textAlign: "left", flexGrow: "1" }}>
+          <Typography variant="body2">
+            COPYRIGHT © 2023 THE PREFERRED SAVINGS GUIDE <br /> - ALL RIGHTS
+            RESERVED.
+          </Typography>
+        </div>
+        <div className="center-icon-container">
+          <div className="center-icon">
+            <LinksSocial />
+          </div>
+        </div>
+        <div style={{ textAlign: "right", flexGrow: "1" }}>
+          <Typography>ALL SALES ARE FINAL</Typography>
+        </div>
       </div>
     </footer>
   );

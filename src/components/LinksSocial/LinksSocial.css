@@ -1,4 +1,19 @@
 .links-social {
   display: flex;
-  gap: 10px;
+  gap: 15px;
+  align-items: center;
 }
+
+#fb-icon,
+#ig-icon,
+#li-icon,
+#x-icon {
+  font-size: 28px;
+}
+
+/* #fb-icon:hover,
+#ig-icon:hover,
+#li-icon:hover,
+#x-icon:hover {
+  transform: scale(1.2);
+} */

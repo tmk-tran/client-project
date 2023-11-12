@@ -51,10 +51,10 @@ export default function UserMenu() {
   return (
     <Stack direction="row" spacing={2}>
       <div>
-        <SearchIcon style={{ fontSize: "30px" }}/>
+        <SearchIcon style={{ fontSize: "30px", cursor: "not-allowed" }}/>
         <PersonIcon
           ref={anchorRef}
-          id="composition-button"
+          id="person-icon"
           aria-controls={open ? "composition-menu" : undefined}
           aria-expanded={open ? "true" : undefined}
           aria-haspopup="true"
