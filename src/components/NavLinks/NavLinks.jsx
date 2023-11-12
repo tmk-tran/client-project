@@ -9,14 +9,17 @@ import "./NavLinks.css";
 // Custom theme for MUI components
 const theme = createTheme({
   typography: {
-    fontSize: 18,
+    fontSize: 15,
+    fontFamily: "Telugu Sangam MN"
   },
   components: {
     MuiLink: {
       styleOverrides: {
         root: {
-          color: '#273b91', // Customize link color
+          color: "#273b91", // Customize link color
           // Add other styles for MuiLink here
+          textTransform: "uppercase",
+          fontFamily: "Telugu Sangam MN",
         },
       },
     },
@@ -45,24 +48,28 @@ export default function NavLinks() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <MuiLink
-              component={Link}
-              className="main-navlink"
-              to="/home"
-              underline="hover"
-            >
-              <Typography>Home</Typography>
-            </MuiLink>
-            <Typography>Groups</Typography>
-            <Typography>Add New Fundraiser</Typography>
-            <MuiLink
-              component={Link}
-              className="main-navlink"
-              to="/about"
-              underline="hover"
-            >
-              <Typography>About</Typography>
-            </MuiLink>
+            <Typography>
+              <MuiLink
+                component={Link}
+                className="main-navlink"
+                to="/home"
+                underline="hover"
+              >
+                Home
+              </MuiLink>
+            </Typography>
+            <Typography style={{ textTransform: "uppercase", cursor: "not-allowed" }}>Groups</Typography>
+            <Typography style={{ textTransform: "uppercase", cursor: "not-allowed" }}>Add New Fundraiser</Typography>
+            <Typography>
+              <MuiLink
+                component={Link}
+                className="main-navlink"
+                to="/about"
+                underline="hover"
+              >
+                About
+              </MuiLink>
+            </Typography>
           </>
         )}
       </div>

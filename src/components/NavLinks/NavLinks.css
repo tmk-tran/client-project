@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-between;
   width: 70%;
-  margin: 0 auto;
-  font-family: Arial;
+  margin: 20px auto 0 auto;
+  font-family: Telugu Sangam MN;
 }
 
 .main-navlink {

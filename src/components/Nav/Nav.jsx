@@ -43,7 +43,6 @@ function Nav() {
         </div>
       </div>
       <br />
-      <br />
       <div className="NavLinks-container">
         <NavLinks />
       </div>
