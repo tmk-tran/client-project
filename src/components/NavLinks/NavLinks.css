@@ -3,8 +3,16 @@
   justify-content: space-between;
   width: 70%;
   margin: 0 auto;
-  font-size: 20px;
   font-family: Arial;
+}
+
+.main-navlink {
+  color: black;
+  text-decoration: none;
+}
+
+.main-navlink:hover {
+  color: #273b91;
 }
 
 @media (max-width: 600px) {
