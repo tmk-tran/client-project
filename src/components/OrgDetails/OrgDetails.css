@@ -1,4 +1,17 @@
-.detailsOrg-container {
-    display: flex;
-    flex-direction: column;
+/* .detailsOrg-container {
+  display: flex;
+  flex-direction: column;
+} */
+
+
+@media (max-width: 400px) {
+    .OrgDetails-container {
+        width: 100%;
+        padding: 10px;
+    }    
+
+    .detailsOrg-container {
+        width: 100%;
+        padding: 10px;
+    }
 }

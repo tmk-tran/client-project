@@ -4,12 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 // Style
 import "./OrgDetails.css";
 import { TextField, Typography, Card, CardContent } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import MenuLinks from "../MenuLinks/MenuLinks";
 
 function orgDetails() {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
   const dispatch = useDispatch();
 
@@ -45,7 +49,7 @@ function orgDetails() {
   });
 
   return (
-    <div className="container">
+    <div className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}>
       <MenuLinks />
       <Card elevation={6} style={{ width: "75%", margin: "0 auto"  }}>
         <CardContent>

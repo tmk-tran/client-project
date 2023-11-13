@@ -14,3 +14,10 @@
     margin: 15px auto;
     border: 1px solid black
 }
+
+@media (max-width: 400px) {
+    .org-details {
+        display: flex;
+        flex-direction: column;
+    }
+}
