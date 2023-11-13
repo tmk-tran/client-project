@@ -53,6 +53,7 @@ export default function GroupDetails () {
                             <TableCell>End Date</TableCell>
                             <TableCell>Year</TableCell>
                             <TableCell>Outstanding Balance</TableCell>
+                            <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

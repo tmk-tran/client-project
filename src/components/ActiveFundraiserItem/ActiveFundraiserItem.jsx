@@ -1,7 +1,15 @@
 import React from "react";
-import { TableCell, TableRow } from "@mui/material";
+import { Button, TableCell, TableRow, Typography } from "@mui/material";
 
 export default function ActiveFundraiserItem({ fundraiser }) {
+    const formatDate = (dateString) => {
+        if (!dateString) {
+          return " ";
+        }
+        const date = new Date(dateString); // Assuming the date string is in 'YYYY-MM-DD' format
+        const options = { year: "numeric", month: "long", day: "numeric" };
+        return date.toLocaleDateString(undefined, options);
+      };   
     return (
         <>
             {fundraiser.closed != true &&
@@ -14,10 +22,11 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                     <TableCell>{fundraiser.book_quantity_checked_in}</TableCell>
                     <TableCell>{fundraiser.books_sold}</TableCell>
                     <TableCell>{fundraiser.money_received}</TableCell>
-                    <TableCell>{fundraiser.start_date}</TableCell>
-                    <TableCell>{fundraiser.end_date}</TableCell>
+                    <TableCell>{formatDate(fundraiser.start_date)}</TableCell>
+                    <TableCell>{formatDate(fundraiser.end_date)}</TableCell>
                     <TableCell>{fundraiser.year}</TableCell>
                     <TableCell>{fundraiser.outstanding_balance}</TableCell>
+                    <TableCell> <Button>Edit Details</Button> <Button>Update</Button> <Button>Close</Button> </TableCell>
                 </TableRow>
             }
         </>
