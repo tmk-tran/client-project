@@ -17,7 +17,7 @@ function OrganizationCard({ organization }) {
   const organizationsList = useSelector((store) => store.organizations);
 
   return (
-    <div className="cardContainer">
+
         <Card elevation={4}
           onClick={() => history.push(`/orgDetails/${organization.id}`)}
           className="organizationCard"
@@ -38,7 +38,7 @@ function OrganizationCard({ organization }) {
           </CardContent>
         </Card>
 
-    </div>
+
   );
 }
 

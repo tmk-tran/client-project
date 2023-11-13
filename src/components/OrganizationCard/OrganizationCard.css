@@ -1,19 +1,11 @@
-.cardContainer {
-    display : flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 250px;
-  }
-  
-  .cardContainer:hover {
+  .organizationCard:hover {
     transform: scale(1.05);
   }
   
   .organizationCard {
-    width: 100%; /* Adjust the width as needed */
-    margin: 10px;
-    object-fit: cover; /* Adjust the margin as needed */
+    width: 250px;
+    margin: 15px;
+    object-fit: cover;
     height: 400px;
-    min-width: 200px;
   }
 

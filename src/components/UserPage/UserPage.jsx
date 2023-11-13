@@ -50,12 +50,12 @@ function UserPage() {
   };
 
   return (
-    <div className="container">
+    <div className="organizationsContainer">
       <Paper elevation={6} style={{ width: "90%", margin: "0 auto"  }}>
         <br />
       <center><h1 className="organization-header">Organization List</h1>
      <Button onClick={handleAddOrganizationClick}>Add Organization</Button></center>
-      <div>
+      <div className="fuzzy-search">
         <TextField
           style={{
             marginLeft: "3%",
