@@ -6,7 +6,7 @@ import {
   CardContent,
   Typography,
   CardMedia,
-  CardActionArea
+  CardActionArea,
 } from "@mui/material";
 import "./OrganizationCard.css";
 
@@ -16,31 +16,28 @@ function OrganizationCard({ organization }) {
   const user = useSelector((store) => store.user);
   const organizationsList = useSelector((store) => store.organizations);
 
-
   return (
     <div className="cardContainer">
-      <Card
-        onClick={() => history.push(`/orgDetails/${organization.id}`)}
-        className="organizationCard"
-      >
-        <CardActionArea>
-        <CardMedia
-          style={{ objectFit: "cover" }}
-          className="cardMedia"
-          component="img"
-          image={organization.organization_logo}
-        />
-        <CardContent>
-          <Typography variant="h4" gutterBottom>
-            {organization.organization_name}
-          </Typography>
-          <Typography variant="h6" gutterBottom>
-            {organization.city}, {organization.state} {organization.zip}
-          </Typography>
-        </CardContent>
-        </CardActionArea>
-      </Card>
-      
+        <Card elevation={4}
+          onClick={() => history.push(`/orgDetails/${organization.id}`)}
+          className="organizationCard"
+        >
+          <CardMedia
+            style={{ objectFit: "cover" }}
+            className="cardMedia"
+            component="img"
+            image={organization.organization_logo}
+          />
+          <CardContent>
+            <Typography style={{ fontSize: "1.7em" }} gutterBottom>
+              {organization.organization_name}
+            </Typography>
+            <Typography style={{ fontSize: "1.2em" }} gutterBottom>
+              {organization.city}, {organization.state} {organization.zip}
+            </Typography>
+          </CardContent>
+        </Card>
+
     </div>
   );
 }

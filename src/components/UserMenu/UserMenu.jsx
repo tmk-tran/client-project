@@ -18,7 +18,6 @@ export default function UserMenu() {
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -55,7 +54,7 @@ export default function UserMenu() {
   return isSmallScreen ? null : (
     <Stack direction="row" spacing={2}>
       <div>
-        <SearchIcon style={{ fontSize: "30px", cursor: "not-allowed" }} />
+        <SearchIcon style={{ fontSize: "30px" }} />
         <PersonIcon
           ref={anchorRef}
           id="person-icon"

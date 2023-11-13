@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import {
-  Card,
-  CardContent,
-  Typography,
-  CardMedia,
   Button,
   TextField,
+  Paper
 } from "@mui/material";
 import OrganizationCard from "../OrganizationCard/OrganizationCard";
 import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
 import "./UserPage.css";
+import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 
 function UserPage() {
   const dispatch = useDispatch();
@@ -24,6 +21,8 @@ function UserPage() {
   const organizationsList = useSelector((store) => store.organizations);
 
   const [query, setQuery] = useState(" ");
+  const [isModalOpen, setModalOpen] = useState(false);
+
   const fuse = new Fuse(organizationsList, {
     keys: ["organization_name"],
     includeScore: true,
@@ -42,14 +41,20 @@ function UserPage() {
     setQuery(" ");
   }
 
+  const handleAddOrganizationClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div className="container">
-      <div
-        style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
-      >
-        <h2>Welcome, {user.username}!</h2>
-        <p>Your ID is: {user.id}</p>
-      </div>
+      <Paper elevation={6} style={{ width: "90%", margin: "0 auto"  }}>
+        <br />
+      <center><h1 className="organization-header">Organization List</h1>
+     <Button onClick={handleAddOrganizationClick}>Add Organization</Button></center>
       <div>
         <TextField
           style={{
@@ -98,6 +103,9 @@ function UserPage() {
               <OrganizationCard key={index} organization={organization} />
             ))}
       </div>
+      <AddOrganizationModal open={isModalOpen} handleModalClose={handleModalClose} />
+      <br />
+      </Paper>
     </div>
   );
 }
