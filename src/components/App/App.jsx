@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Nav from "../Nav/Nav";
 
@@ -19,14 +19,18 @@ import OrgDetails from "../OrgDetails/OrgDetails";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+import Footer from "../Footer/Footer";
 
 import "./App.css";
 
-// theme establishing global color for MUI
+// Theme establishing global color for MUI
 const theme = createTheme({
+  typography: {
+    fontSize: 18,
+  },
   palette: {
     primary: {
-      main: "#273b91", // Set your preferred global color here
+      main: "#273b91", // Set to PSG brand blue
     },
   },
 });
@@ -74,7 +78,7 @@ function App() {
             <ProtectedRoute
               // logged in shows InfoPage else shows LoginPage
               exact
-              path="/org-details"
+              path="/orgDetails/:id"
             >
               <OrgDetails />
             </ProtectedRoute>
@@ -118,6 +122,7 @@ function App() {
             </Route>
           </Switch>
         </div>
+        <Footer />
       </ThemeProvider>
     </Router>
   );

@@ -1,0 +1,16 @@
+.org-details {
+    display: flex;
+    /* flex-direction: column; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+}
+
+.org-address-container {
+    border: 1px solid black;
+
+}
+
+.org-address {
+    margin: 15px auto;
+    border: 1px solid black
+}

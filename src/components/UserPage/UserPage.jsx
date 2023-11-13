@@ -23,7 +23,6 @@ function UserPage() {
 
   const user = useSelector((store) => store.user);
   const organizationsList = useSelector((store) => store.organizations);
-  console.log(organizationsList);
 
   const [query, setQuery] = useState(" ");
   const fuse = new Fuse(organizationsList, {

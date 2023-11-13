@@ -13,8 +13,10 @@ import "./OrganizationCard.css";
 
 function OrganizationCard({ organization }) {
   const history = useHistory();
+
   const user = useSelector((store) => store.user);
   const organizationsList = useSelector((store) => store.organizations);
+
 
   return (
     <div className="cardContainer">

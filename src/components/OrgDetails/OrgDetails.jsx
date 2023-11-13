@@ -1,19 +1,89 @@
-import React from "react";
-import { Typography } from "@mui/material";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+// Style
+import "./OrgDetails.css";
+import { TextField, Typography, Card, CardContent } from "@mui/material";
+// Components
+import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
+import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
+import MenuLinks from "../MenuLinks/MenuLinks";
 
-// This is one of our simplest components
-// It doesn't have local state
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is
+function orgDetails() {
+  const paramsObject = useParams();
+  const dispatch = useDispatch();
 
-function NewOrgForm() {
+  const detailsOrg = useSelector((store) => store.orgDetailsReducer);
+
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_ORG_DETAILS",
+      payload: paramsObject.id,
+    });
+  }, []);
+
+  // Create a map to store organization details and associated groups
+  const orgMap = new Map();
+
+  // Populate the map with unique organizations and associated groups
+  detailsOrg.forEach((info) => {
+    const orgId = info.organization_id;
+
+    if (!orgMap.has(orgId)) {
+      orgMap.set(orgId, { orgDetails: info, groups: [] });
+    }
+
+    // Add group details to the associated organization
+    orgMap.get(orgId).groups.push({
+      group_id: info.group_id,
+      department: info.department,
+      sub_department: info.sub_department,
+      group_nickname: info.group_nickname,
+      group_photo: info.group_photo,
+      group_description: info.group_description,
+    });
+  });
+
   return (
     <div className="container">
-      <center>
-        <Typography variant="h4">Organization Details</Typography>
-      </center>
+      <MenuLinks />
+      <Card elevation={6} style={{ width: "75%", margin: "0 auto"  }}>
+        <CardContent>
+          <center>
+            <Typography variant="h6">Organization Details</Typography>
+          </center>
+          <div className="detailsOrg-container">
+            {/* Iterate over the unique organizations in the map */}
+            {[...orgMap.values()].map(({ orgDetails, groups }) => (
+              <React.Fragment key={orgDetails.organization_id}>
+                {/* Display organization details once */}
+                <OrgContactDetails info={orgDetails} />
+
+                {/* Display associated groups */}
+                {groups.length === 0 && <p>No groups yet</p>}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  {groups.map((groupInfo, i) => (
+                    <OrgGroupInfo
+                      key={groupInfo.group_id}
+                      groupInfo={groupInfo}
+                      groupNumber={i + 1}
+                    />
+                  ))}
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
 
-export default NewOrgForm;
+export default orgDetails;

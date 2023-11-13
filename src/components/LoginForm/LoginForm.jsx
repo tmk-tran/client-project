@@ -45,7 +45,7 @@ function LoginForm() {
               component="h2"
               style={{ fontWeight: "bold" }}
             >
-              Login
+              Account Sign In
             </Typography>
             <br />
             <div style={{ display: "flex", flexDirection: "column" }}>
@@ -72,8 +72,8 @@ function LoginForm() {
             </div>
             <br />
             <div>
-              <Button variant="contained" onClick={login}>
-                Log In
+              <Button variant="contained" onClick={login} fullWidth>
+                Sign In
               </Button>
             </div>
           </CardContent>

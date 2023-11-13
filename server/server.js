@@ -36,10 +36,12 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 
 
+
 app.use('/api/group', groupRouter)
 
 
 app.use('/api/orgdetails', orgDetailsRouter);
+
 
 app.use('/api/organizations', organizationsRouter);
 

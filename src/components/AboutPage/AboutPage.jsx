@@ -1,8 +1,5 @@
 import React from "react";
 
-// Logo
-import LogoPSG from "../LogoPSG/LogoPSG";
-
 // Styling
 import { Typography } from "@mui/material";
 
@@ -14,7 +11,6 @@ import { Typography } from "@mui/material";
 function AboutPage() {
   return (
     <div className="container">
-      <LogoPSG />
       <br />
       <div>
         <center>

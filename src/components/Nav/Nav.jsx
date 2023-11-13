@@ -1,46 +1,41 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import LogOutButton from "../LogOutButton/LogOutButton";
-import "./Nav.css";
 import { useSelector } from "react-redux";
+// Component
+import UserMenu from "../UserMenu/UserMenu";
+import LogoPSG from "../LogoPSG/LogoPSG";
+import NavLinks from "../NavLinks/NavLinks";
+// Style
+import "./Nav.css";
 
 function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
-    <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">Client Project</h2>
-      </Link>
-      <div>
-        {/* If no user is logged in, show these links */}
-        {!user.id && (
-          // If there's no user, show login/registration links
-          <Link className="navLink" to="/login">
-            Login / Register
-          </Link>
-        )}
-
-        {/* If a user is logged in, show these links */}
+    <>
+      <div className="nav">
         {user.id && (
-          <>
-            <Link className="navLink" to="/user">
-              Admin
+          <div className="logoPSG-container">
+            <Link to="/home" className="logo-psg">
+              <LogoPSG />
             </Link>
-
-            <Link className="navLink" to="/org-details">
-              Organization Details
-            </Link>
-
-            <LogOutButton className="navLink" />
-          </>
+          </div>
         )}
 
-        <Link className="navLink" to="/about">
-          About
-        </Link>
+        <div>
+          {/* If a user is logged in, show these links */}
+          {user.id && (
+            <>
+              <UserMenu />
+            </>
+          )}
+        </div>
       </div>
-    </div>
+      <br />
+      <div className="NavLinks-container">
+        <NavLinks />
+      </div>
+    </>
   );
 }
 

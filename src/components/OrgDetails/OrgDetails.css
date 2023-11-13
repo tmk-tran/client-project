@@ -1,0 +1,4 @@
+.detailsOrg-container {
+    display: flex;
+    flex-direction: column;
+}
