@@ -1,10 +1,12 @@
-const express = require('express');
-const pool = require('../modules/pool');
+const express = require("express");
+const pool = require("../modules/pool");
 const router = express.Router();
 
 router.get("/", (req, res) => {
   pool
-    .query('SELECT * from "organization" WHERE "is_deleted" = false ORDER by "organization_name" ASC;')
+    .query(
+      'SELECT * from "organization" WHERE "is_deleted" = false ORDER by "organization_name" ASC;'
+    )
     .then((response) => {
       res.send(response.rows).status(200);
     })
@@ -42,10 +44,10 @@ router.post("/", (req, res) => {
       organization.address,
       organization.city,
       organization.state,
-      Number(organization.zip),
+      organization.zip,
       organization.primary_contact_first_name,
       organization.primary_contact_last_name,
-      Number(organization.primary_contact_phone),
+      organization.primary_contact_phone,
       organization.primary_contact_email,
       organization.organization_logo,
     ])
@@ -58,11 +60,12 @@ router.post("/", (req, res) => {
     });
 });
 
-
 // DELETE
 router.delete("/:id", (req, res) => {
   pool
-    .query(`UPDATE "organization" SET is_deleted = true WHERE id = $1;`, [req.params.id])
+    .query(`UPDATE "organization" SET is_deleted = true WHERE id = $1;`, [
+      req.params.id,
+    ])
     .then((response) => {
       res.sendStatus(200);
     })
@@ -93,13 +96,13 @@ router.put("/:id", (req, res) => {
       organization.address,
       organization.city,
       organization.state,
-      Number(organization.zip),
+      organization.zip,
       organization.primary_contact_first_name,
       organization.primary_contact_last_name,
-      Number(organization.primary_contact_phone),
+      organization.primary_contact_phone,
       organization.primary_contact_email,
       organization.organization_logo,
-      req.params.id
+      req.params.id,
     ])
     .then((response) => {
       res.sendStatus(200);

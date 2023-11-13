@@ -1,18 +1,19 @@
 .cardContainer {
     display : flex;
     flex-wrap: wrap;
-    justify-content: center;
-    background-color: #F2F3FB;
-    width: 20%;
+    justify-content: space-between;
+    width: 250px;
+  }
+  
+  .cardContainer:hover {
+    transform: scale(1.05);
   }
   
   .organizationCard {
     width: 100%; /* Adjust the width as needed */
     margin: 10px;
     object-fit: cover; /* Adjust the margin as needed */
+    height: 400px;
+    min-width: 200px;
   }
-
-  /* .cardMedia{
-    
-  } */
 

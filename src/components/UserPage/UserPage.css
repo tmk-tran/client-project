@@ -1,5 +1,13 @@
-.organizationsContainer{
-    display : flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.organizationsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.organization-header {
+  width: 30%;
+  font-family: Telugu Sangam MN;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
 }
