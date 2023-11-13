@@ -20,6 +20,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import Footer from "../Footer/Footer";
+import GroupDetails from "../GroupDetails/GroupDetails";
 
 import "./App.css";
 
@@ -81,6 +82,9 @@ function App() {
               path="/orgDetails/:id"
             >
               <OrgDetails />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/group/:id">
+              <GroupDetails  user={user}/>
             </ProtectedRoute>
 
             <Route exact path="/login">

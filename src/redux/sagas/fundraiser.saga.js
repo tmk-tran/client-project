@@ -4,7 +4,7 @@ import { takeEvery, put } from "redux-saga/effects";
 function* fetchFundraisersSaga(action) {
     try {
         console.log(action.payload)
-        const response = yield axios.get(`/api/fundraisers/groupfundraisers${action.payload}`)
+        const response = yield axios.get(`/api/fundraisers/groupfundraisers/${action.payload}`)
         yield put ({ type: "SET_FUNDRAISERS", payload: response.data})
     } catch (err) {
         console.log("Error fetching fundraisers ", err)
