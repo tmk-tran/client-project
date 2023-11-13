@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -7,7 +7,7 @@ import {
   CardContent,
   Typography,
   CardMedia,
-  Button,
+  CardActionArea
 } from "@mui/material";
 import "./OrganizationCard.css";
 
@@ -15,7 +15,6 @@ function OrganizationCard({ organization }) {
   const history = useHistory();
   const user = useSelector((store) => store.user);
   const organizationsList = useSelector((store) => store.organizations);
-  console.log(organizationsList);
 
   return (
     <div className="cardContainer">
@@ -23,6 +22,7 @@ function OrganizationCard({ organization }) {
         onClick={() => history.push(`/orgDetails/${organization.id}`)}
         className="organizationCard"
       >
+        <CardActionArea>
         <CardMedia
           style={{ objectFit: "cover" }}
           className="cardMedia"
@@ -37,7 +37,9 @@ function OrganizationCard({ organization }) {
             {organization.city}, {organization.state} {organization.zip}
           </Typography>
         </CardContent>
+        </CardActionArea>
       </Card>
+      
     </div>
   );
 }

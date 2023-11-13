@@ -9,7 +9,7 @@ const {
  * Get all of the details for an organization
  */
 router.get("/", rejectUnauthenticated, (req, res) => {
-  const id = 1;
+  const id = req.params.id;
   const queryText = `
     SELECT
         o.id AS organization_id,
