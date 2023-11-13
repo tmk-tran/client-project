@@ -18,6 +18,7 @@ function OrganizationCard({ organization }) {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const organizationsList = useSelector((store) => store.organizations);
+
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
   const handleEdit = () => {
@@ -54,18 +55,20 @@ function OrganizationCard({ organization }) {
         className="organizationCard"
       >
         <CardMedia
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "cover", height: "240px", width: "100%", }}
           className="cardMedia"
           component="img"
           image={organization.organization_logo}
         />
         <CardContent>
+          <center>
           <Typography style={{ fontSize: "1.7em" }} gutterBottom>
             {organization.organization_name}
           </Typography>
           <Typography style={{ fontSize: "1.2em" }} gutterBottom>
             {organization.city}, {organization.state} {organization.zip}
           </Typography>
+          </center>
         </CardContent>
       </Card>
       <center>

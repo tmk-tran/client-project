@@ -13,3 +13,11 @@
   margin-right: auto;
 }
 
+.fuzzy-search{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  margin-top: -100px;
+  margin-bottom: 80px
+}
+
