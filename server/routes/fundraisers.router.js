@@ -38,14 +38,29 @@ router.post('/', (req, res) => {
 router.put("/:id", (req, res) =>{
   const id = req.params.id;
   const updatedFundraiser = req.body;
-  const queryText = `UPDATE "fundraiser" SET "group_id" = $1, "title" = $2, "description" = $3, "photo" = $4, "requested_book_quantity" = $5, "book_quantity_checked_out" = $6, "book_checked_out_total_value" = $7, "book_quantity_checked_in" = $8, "books_sold" = $9, "money_received" = $10, "start_date" = $11, "end_date" = $12, "coupon_book_id" = $13, "outstanding_balance" = $14;`;
+  const queryText = `UPDATE "fundraiser" SET "title" = $1, "description" = $2, "photo" = $3 WHERE "id" = $4;`;
 
-  pool.query(queryText, [updatedFundraiser.group_id, updatedFundraiser.title, updatedFundraiser.description, updatedFundraiser.photo, updatedFundraiser.requested_book_quantity, updatedFundraiser.book_quantity_checked_out, updatedFundraiser.book_checked_out_total_value, updatedFundraiser.book_quantity_checked_in, updatedFundraiser.books_sold, updatedFundraiser.money_received, updatedFundraiser.start_date, updatedFundraiser.end_date, updatedFundraiser.coupon_book_id, updatedFundraiser.outstanding_balance])
+  pool.query(queryText, [updatedFundraiser.title, updatedFundraiser.description, updatedFundraiser.photo, id])
   .then(() => {
     res.sendStatus(200)
   })
   .catch((err) => {
     console.log("Error in updating fundraiser", err);
+    res.sendStatus(500)
+  })
+})
+//Put route for updating amounts of books and money
+router.put("/money/:id", (req, res) => {
+  const id = req.params.id;
+  const updatedAmount = req.body;
+  const queryText = `UPDATE "fundraiser" SET "book_quantity_checked_out" = $1, "book_quantity_checked_in" = $2, "books_sold" = $3, "money_recieved" = $4 WHERE "id" = $5;`;
+
+  pool.query(queryText, [updatedAmount.book_quantity_checked_out, updatedAmount.book_quantity_checked_in, updatedAmount.books_sold, updatedAmount.money_received, id])
+  .then(() => {
+    res.sendStatus(200)
+  })
+  .catch((err) => {
+    console.log("Error in updating amounts", err);
     res.sendStatus(500)
   })
 })

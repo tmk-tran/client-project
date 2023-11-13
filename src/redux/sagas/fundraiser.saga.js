@@ -31,6 +31,16 @@ function* updatedFundraiserSaga(action) {
     }
 }
 
+function* updateedFundraiserAmountsSaga(action) {
+    try {
+        console.log(action.payload)
+        yield axios.put(`/api/fundraisers/money/${action.payload.id}`, action.payload)
+        yield put ({ type: "FETCH_FUNDRAISERS" })
+    } catch (err) {
+        console.log("Unable to update amounts for fundraisers", err)
+    }
+}
+
 function* closeFundraiserSaga(action) {
     try {
         console.log(action.payload)
@@ -45,5 +55,6 @@ export default function* fundraiserSaga() {
     yield takeEvery ("FETCH_FUNDRAISERS", fetchFundraisersSaga);
     yield takeEvery ("ADD_FUNDRAISER", addFundraiserSaga);
     yield takeEvery ("UPDATE_FUNDRAISER", updatedFundraiserSaga);
-    yield takeEvery ("CLOSE_FUNDRAISER", closeFundraiserSaga)
+    yield takeEvery ("CLOSE_FUNDRAISER", closeFundraiserSaga);
+    yield takeEvery ("UPDATE_FUNDRAISER_AMOUNTS", updateedFundraiserAmountsSaga)
 }
