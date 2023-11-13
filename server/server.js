@@ -20,7 +20,7 @@ const organizationsRouter = require('./routes/organizations.router');
 
 const fundraisersRouter = require('./routes/fundraisers.router')
 
-
+const archivedOrganizationsRouter = require('./routes/archivedOrganizations.router');
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,7 +46,7 @@ app.use('/api/orgdetails', orgDetailsRouter);
 app.use('/api/organizations', organizationsRouter);
 
 app.use('/api/fundraisers', fundraisersRouter)
-
+app.use ('/api/archivedOrganizations', archivedOrganizationsRouter);
 
 // Serve static files
 app.use(express.static('build'));

@@ -10,6 +10,7 @@ import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
 import "./UserPage.css";
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
+import { useHistory } from "react-router-dom";
 
 function UserPage() {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ function UserPage() {
 
   const user = useSelector((store) => store.user);
   const organizationsList = useSelector((store) => store.organizations);
-
+  const history = useHistory();
   const [query, setQuery] = useState(" ");
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -49,12 +50,17 @@ function UserPage() {
     setModalOpen(false);
   };
 
+function seeArchived(){
+  history.push('/archivedOrganizations');
+}
+
   return (
     <div className="organizationsContainer">
       <Paper elevation={6} style={{ width: "90%", margin: "0 auto"  }}>
         <br />
       <center><h1 className="organization-header">Organization List</h1>
-     <Button onClick={handleAddOrganizationClick}>Add Organization</Button></center>
+     <Button onClick={handleAddOrganizationClick}>Add Organization</Button><br />
+     <Button onClick={seeArchived}> View Archived Organizations</Button></center>
       <div className="fuzzy-search">
         <TextField
           style={{

@@ -9,29 +9,28 @@ import {
   CardActionArea,
   Button,
 } from "@mui/material";
-import "./OrganizationCard.css";
 import Swal from "sweetalert2";
 
-function OrganizationCard({ organization }) {
+
+function ArchivedOrganizationCard({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const organizationsList = useSelector((store) => store.organizations);
 
-  const handleArchive = (organizationId) => {
+function unArchive(organizationId){
     Swal.fire({
-      title: "Are you sure you want to Archive this Organization?",
+      title: "Are you sure you want to Un-Archive this Organization?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Archive It",
+      confirmButtonText: "Yes, Un-Archive It",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch({ type: "DELETE_ORGANIZATION", payload: organizationId });
+        dispatch({ type: "RESET_ORGANIZATION", payload: organizationId });
         dispatch({ type: "FETCH_ORGANIZATIONS" });
-        // dispatch({ type: "FETCH_ARCHIVED_CUSTOMERS" });
-        Swal.fire("Organization Successfully Archived!");
+        dispatch({ type: "FETCH_ARCHIVED_ORGANIZATIONS" });
+        Swal.fire("Organization Successfully Un-Archived!");
       }
     });
   };
@@ -58,11 +57,11 @@ function OrganizationCard({ organization }) {
           </Typography>
         </CardContent>
       </Card>
-      <center><Button onClick={() => handleArchive(organization.id)}>Archive</Button></center>
+      <center><Button onClick={() => unArchive(organization.id)}>Un-Archive</Button></center>
     </div>
   );
   
 }
 
 // this allows us to use <App /> in index.js
-export default OrganizationCard;
+export default ArchivedOrganizationCard;

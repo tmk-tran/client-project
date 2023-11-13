@@ -19,7 +19,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import Footer from "../Footer/Footer";
-
+import ArchivedOrganizations from "../ArchivedOrganizations/ArchivedOrganizations";
 import "./App.css";
 
 // Theme establishing global color for MUI
@@ -72,6 +72,13 @@ function App() {
               path="/user"
             >
               <UserPage />
+            </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/archivedOrganizations"
+            >
+              <ArchivedOrganizations />
             </ProtectedRoute>
 
             <ProtectedRoute
