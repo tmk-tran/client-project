@@ -8,7 +8,7 @@ import orgDetailsSaga from './orgDetails.saga';
 import organizationsSaga from './organizations.saga';
 import groupSaga from './group.saga';
 import fundraiserSaga from './fundraiser.saga';
-
+import archivedOrganizationsSaga from './archivedOrganizations.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -28,7 +28,7 @@ export default function* rootSaga() {
     organizationsSaga(),
 
     groupSaga(),
-    fundraiserSaga()
-
+    fundraiserSaga(),
+    archivedOrganizationsSaga()
   ]);
 }
