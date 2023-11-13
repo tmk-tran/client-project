@@ -101,7 +101,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
                 onChange={(e) => handleChange("zip", e.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <TextField
                 label="Contact First Name"
                 fullWidth
@@ -134,7 +134,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
                 value={editedOrganization.primary_contact_email}
                 onChange={(e) => handleChange("primary_contact_email", e.target.value)}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField
                 label="Logo URL (optional)"

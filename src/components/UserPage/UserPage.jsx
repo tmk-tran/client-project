@@ -75,8 +75,8 @@ function UserPage() {
         <br />
         <center>
           <h1 className="organization-header">Organization List</h1>
-          <Button onClick={handleAddOrganizationClick}>Add Organization</Button><br />
-          <Button onClick={seeArchived}> View Archived Organizations</Button>
+          <Button style={{marginBottom: "5px"}} variant="outlined" onClick={handleAddOrganizationClick}>Add Organization</Button><br />
+          <Button variant="outlined" onClick={seeArchived}> View Archived Organizations</Button>
         </center>
         <div className="fuzzy-search">
           <TextField

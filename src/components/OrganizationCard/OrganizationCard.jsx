@@ -25,7 +25,6 @@ function OrganizationCard({ organization }) {
     setEditModalOpen(true);
   };
 
-
   const handleEditClose = () => {
     setEditModalOpen(false);
   };
@@ -54,20 +53,38 @@ function OrganizationCard({ organization }) {
         onClick={() => history.push(`/orgDetails/${organization.id}`)}
         className="organizationCard"
       >
-        <CardMedia
-          style={{ objectFit: "cover", height: "240px", width: "100%", }}
-          className="cardMedia"
-          component="img"
-          image={organization.organization_logo}
-        />
-        <CardContent>
-          <center>
-          <Typography style={{ fontSize: "1.7em" }} gutterBottom>
+        {organization.organization_logo ? (
+          <CardMedia
+            style={{ objectFit: "cover", height: "240px", width: "100%" }}
+            className="cardMedia"
+            component="img"
+            image={organization.organization_logo}
+            alt={organization.organization_name}
+          />
+        ) : (
+          <Typography
+            variant="h5"
+            component="div"
+            style={{
+              height: "240px", // Set the height to match the image height
+              width: "100%", // Set the width to match the image width
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "#DADADC", // Optional: Add a background color for visual separation
+            }}
+          >
             {organization.organization_name}
           </Typography>
-          <Typography style={{ fontSize: "1.2em" }} gutterBottom>
-            {organization.city}, {organization.state} {organization.zip}
-          </Typography>
+        )}
+        <CardContent>
+          <center>
+            <Typography style={{ fontSize: "1.7em" }} gutterBottom>
+              {organization.organization_name}
+            </Typography>
+            <Typography style={{ fontSize: "1.2em" }} gutterBottom>
+              {organization.city}, {organization.state} {organization.zip}
+            </Typography>
           </center>
         </CardContent>
       </Card>
