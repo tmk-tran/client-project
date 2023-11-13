@@ -20,3 +20,29 @@ export const capitalizeWords = (sentence) => {
     : "";
 };
 
+// Style for Modal in OrgGroupInfo
+export const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  textAlign: "center",
+  // height: "50vh",
+  display: "flex",
+  flexDirection: "column",
+  // Media query for smaller screens
+  "@media (max-width: 700px)": {
+    height: "80vw",
+    width: "90vw", // Adjust the width for smaller screens
+    maxWidth: "50vw", // Adjust the maximum width for smaller screens
+    maxHeight: "100vw",
+  },
+  "@media (max-width: 400px)": {
+    height: "100vw",
+  },
+};

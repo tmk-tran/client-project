@@ -10,6 +10,7 @@ import {
   createTheme,
 } from "@mui/material";
 import { capitalizeWords } from "../Utils/helpers";
+import { style } from "../Utils/helpers";
 
 const theme = createTheme({
   typography: {
@@ -17,22 +18,6 @@ const theme = createTheme({
     //   fontFamily: "Telugu Sangam MN",
   },
 });
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  textAlign: "center",
-  height: "50vh",
-  display: "flex",
-  flexDirection: "column",
-};
 
 export default function GroupInfoModal({ groupInfo, groupNumber }) {
   const [open, setOpen] = React.useState(false);
@@ -50,17 +35,18 @@ export default function GroupInfoModal({ groupInfo, groupNumber }) {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <Typography>
-              {groupInfo.group_photo ? (
-                <img
-                  src={groupInfo.group_photo}
-                  alt={`Group Photo for ${groupInfo.group_nickname}`}
-                  style={{ height: "150px", width: "150px" }}
-                />
-              ) : (
-                "No Photo"
-              )}
-            </Typography>
+            {groupInfo.group_photo ? (
+              <img
+                id="group-photo"
+                src={groupInfo.group_photo}
+                alt={`Group Photo for ${groupInfo.group_nickname}`}
+              />
+            ) : (
+              <div style={{ margin: "15vh auto 0 auto" }}>
+                <Typography>No Photo</Typography>
+              </div>
+            )}
+
             <Box style={{ flex: 1 }}></Box>
             <div>
               <hr />
