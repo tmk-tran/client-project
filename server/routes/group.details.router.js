@@ -17,6 +17,11 @@ router.get('/:id', (req, res) => {
   })
 });
 
+router.get("/", (req, res) => {
+    const groupId = req.body;
+    const queryText = ``
+})
+
 //Post route for groups
 router.post('/', (req, res) => {
 //   const id = req.params.id;
