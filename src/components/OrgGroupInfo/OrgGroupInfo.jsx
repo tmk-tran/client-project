@@ -14,18 +14,24 @@ export default function OrgGroupInfoCard({ groupInfo, groupNumber }) {
   return (
     <Card elevation={6} id="orgGroup-details-container">
       <CardContent>
-        {groupInfo.group_photo ? (
-          <img
-            id="group-photo"
-            src={groupInfo.group_photo}
-            alt={`Group Photo for ${groupInfo.group_nickname}`}
-          />
-        ) : (
-          <div style={{ margin: "15vh auto 0 auto" }}>
-            <Typography>No Photo</Typography>
-          </div>
-        )}
-
+        <div style={{ position: "relative" }}>
+          {/* <div style={{ position: "absolute", top: 0, right: 0 }}>
+            <Button>Edit</Button>
+          </div> */}
+          {groupInfo.group_photo ? (
+            <center>
+              <img
+                id="group-photo"
+                src={groupInfo.group_photo}
+                alt={`Group Photo for ${groupInfo.group_nickname}`}
+              />
+            </center>
+          ) : (
+            <div className="no-photo-container">
+              <Typography>No Photo</Typography>
+            </div>
+          )}
+        </div>
         <Box style={{ flex: 1 }}></Box>
         <div>
           <hr />
@@ -41,7 +47,7 @@ export default function OrgGroupInfoCard({ groupInfo, groupNumber }) {
               ? capitalizeWords(groupInfo.sub_department)
               : "N/A"}
           </Typography>
-          <Typography sx={{ mt: 2 }}>
+          <Typography sx={{ mt: 2, overflowWrap: "break-word" }}>
             Description:{" "}
             {groupInfo.group_description
               ? `${groupInfo.group_description

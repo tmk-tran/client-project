@@ -10,8 +10,7 @@ export default function Footer() {
       <div className="footer-container">
         <div style={{ textAlign: "left", flexGrow: "1" }}>
           <Typography variant="body2">
-            COPYRIGHT © 2023 THE PREFERRED SAVINGS GUIDE <br /> - ALL RIGHTS
-            RESERVED.
+            © 2023 THE PREFERRED SAVINGS GUIDE <br /> - ALL RIGHTS RESERVED.
           </Typography>
         </div>
         <div className="center-icon-container">

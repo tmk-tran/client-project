@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // Style
 import "./OrgDetails.css";
-import { TextField, Typography, Card, CardContent } from "@mui/material";
+import { TextField, Typography, Card, CardContent, Paper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
@@ -72,8 +72,11 @@ function orgDetails() {
                   style={{
                     display: "flex",
                     flexDirection: "row",
-                    justifyContent: "space-between",
+                    // justifyContent: "space-between",
+                    justifyContent: "center",
+                    gap: "50px",
                     alignItems: "center",
+                    marginTop: "25px",
                   }}
                 >
                   {groups.map((groupInfo, i) => (
@@ -84,6 +87,8 @@ function orgDetails() {
                     />
                   ))}
                 </div>
+                <br />
+                <br />
                 <div>
                   <OrgGroupTabs groups={groups} />
                 </div>

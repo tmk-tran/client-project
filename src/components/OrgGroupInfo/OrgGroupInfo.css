@@ -1,8 +1,12 @@
-/* #orgGroup-details-container {
-  height: 100%;
-  width: 25%;
-  overflow: hidden;
-} */
+#orgGroup-details-container {
+  width: 30%;
+  margin-top: 30px;
+}
+
+#orgGroup-details-container:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
 
 .group-info {
   margin-top: 15px;
@@ -11,7 +15,8 @@
 #group-photo {
   height: 300px;
   width: 320px;
-  object-fit: cover;
+  /* object-fit: cover; */
+  object-fit: contain;
 }
 
 .no-photo-container {
@@ -22,6 +27,12 @@
   align-items: center;
   justify-content: center;
   border: 1px dotted rgb(96, 93, 93);
+}
+
+/* Style for OrgGroupTabs */
+#OrgGroupTab-card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
 }
 
 @media (max-width: 400px) {

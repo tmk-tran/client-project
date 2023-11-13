@@ -100,7 +100,8 @@ export default function OrgGroupTabs({ groups }) {
           ))}
         </Tabs>
       </Box>
-      <Card elevation={6} style={{ width: "50%", margin: "0 auto" }}>
+      <br /><br />
+      <Card id="OrgGroupTab-card" elevation={6} style={{ width: "50%", margin: "0 auto" }}>
         <CardContent>
           {groups.map((group, index) => (
             <CustomTabPanel key={index} value={value} index={index}>

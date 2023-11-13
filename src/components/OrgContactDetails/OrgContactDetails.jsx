@@ -1,36 +1,49 @@
-import React from "react";
-import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
-import { Typography } from "@mui/material";
+import React, { useState } from "react";
 
-import {
-  Box,
-  Card,
-  List,
-  ListItem,
-  ListItemIcon,
-  Divider,
-} from "@mui/material";
-
-import ListItemText from "@mui/material/ListItemText";
+// Icons
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+// Helpers
 import {
   centeredStyle,
   formatPhoneNumber,
   listItemStyle,
 } from "../Utils/helpers";
+// Styles
+import {
+  Box,
+  Button,
+  Card,
+  List,
+  ListItem,
+  ListItemIcon,
+  Divider,
+  Typography,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 import "./OrgContactDetails.css";
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
+// Component
+import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
 
 export default function OrgContactDetails({ info }) {
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
+
+  const [ editContactInfo, setEditContactInfo ] = useState(false);
+  const [editFirstName, setEditFirstName] = useState(info.primary_contact_first_name);
+  const [editLastName, setEditLastName] = useState(info.primary_contact_last_name);
+  const [editPhone, setEditPhone] = useState(info.primary_contact_phone);
+  const [editEmail, setEditEmail] = useState(info.primary_contact_email);
+
+  // const editedItem = {
+  //   : editGameDate,
+  //   game_notes: editGameNotes,
+  //   target_name: editTargetName,
+  //   target_score_value: editScore,
+  //   total_game_score: editTotalScore,
+  // };
 
   return (
     <>
@@ -52,7 +65,7 @@ export default function OrgContactDetails({ info }) {
           </div>
         </div>
 
-        {/* <ThemeProvider theme={darkTheme}> */}
+        <OrgContactEdit />
         <Card
           elevation={5}
           sx={{
@@ -82,11 +95,13 @@ export default function OrgContactDetails({ info }) {
               </ListItemIcon>
               <Typography>{info.primary_contact_email}</Typography>
             </ListItem>
+            <div>
+              <Button onClick={() => setEditContactInfo(!editContactInfo)}>Edit</Button>
+            </div>
           </List>
           <Divider />
         </Card>
         <Box sx={{ flexGrow: 1 }}></Box>
-        {/* </ThemeProvider> */}
       </div>
     </>
   );
