@@ -1,0 +1,10 @@
+.org-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.org-address {
+    margin: 15px auto 0 auto;
+}

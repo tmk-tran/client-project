@@ -1,9 +1,11 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { Typography, Card, CardContent } from "@mui/material";
+import "./OrgGroupInfo.css";
 
 export default function OrgGroupInfo({ groupInfo }) {
   return (
-    <div className="group-info" style={{ border: "1px solid black" }}>
+    <Card className="group-info" elevation={6}>
+      <CardContent>
       <Typography>
         Department:{" "}
         {groupInfo.department &&
@@ -35,6 +37,7 @@ export default function OrgGroupInfo({ groupInfo }) {
               .toLowerCase()}`
           : "None Entered"}
       </Typography>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

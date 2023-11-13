@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
@@ -14,7 +15,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 export default function UserMenu() {
   const dispatch = useDispatch();
-  
+
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   
@@ -88,8 +89,8 @@ export default function UserMenu() {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    {/* <MenuItem onClick={handleClose}>Sign In</MenuItem> */}
+                    <MenuItem onClick={handleClose}>Orders</MenuItem>
                     <MenuItem onClick={() => dispatch({ type: "LOGOUT" })}>
                       Logout
                     </MenuItem>

@@ -1,53 +1,81 @@
 import React from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Typography } from "@mui/material";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { formatPhoneNumber } from "../Utils/helpers";
+import "./OrgContactDetails.css";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 function OrgContactDetails({ info }) {
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
 
   return (
+    <>
     <div className="org-details" style={{ border: "1px solid black" }}>
-      <Typography variant="h6">{info.organization_name}</Typography>
-      <Typography>{info.address}</Typography>
-      <Typography>{info.city}</Typography>
-      <Typography>{info.state}</Typography>
-      <Typography>{info.zip}</Typography>
       <div>
-        <Typography>{info.primary_contact_first_name}</Typography>
-        <Typography>{info.primary_contact_last_name}</Typography>
-        <Typography>{contactPhone}</Typography>
-        <Typography>{info.primary_contact_email}</Typography>
+        <Typography variant="h6">{info.organization_name}</Typography>
+        <Typography>{info.type}</Typography>
       </div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="right">Primary Contact First Name </TableCell>
-              <TableCell align="right">Last Name</TableCell>
-              <TableCell align="right">Last Name</TableCell>
-              <TableCell align="right">Last Name</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Last Name</TableCell>
-              <TableCell align="right">asfkn</TableCell>
-              <TableCell align="right">scaf</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div className="org-address">
+        <center>
+          <Typography>{info.address}</Typography>
+          <Typography>
+            {info.city}, {info.state} {info.zip}
+          </Typography>
+        </center>
+      </div>
+
+      {/* <ThemeProvider theme={darkTheme}> */}
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: 360,
+          bgcolor: "background.paper",
+          border: "1px solid black",
+        }}
+      >
+        <List>
+          <ListItem disablePadding>
+            <ListItemIcon>
+              <AccountBoxIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`${info.primary_contact_first_name}, ${info.primary_contact_last_name}`}
+            />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemIcon>
+              <PhoneIcon />
+            </ListItemIcon>
+            <ListItemText primary={contactPhone} />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemIcon>
+              <EmailIcon />
+            </ListItemIcon>
+            {/* <ListItemText primary={info.primary_contact_email} /> */}
+            <Typography>{info.primary_contact_email}</Typography>
+          </ListItem>
+        </List>
+        <Divider />
+      </Box>
+      {/* </ThemeProvider> */}
     </div>
+    </>
   );
 }
 

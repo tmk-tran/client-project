@@ -22,6 +22,28 @@ function orgDetails() {
     });
   }, []);
 
+  // Create a map to store organization details and associated groups
+  const orgMap = new Map();
+
+  // Populate the map with unique organizations and associated groups
+  detailsOrg.forEach((info) => {
+    const orgId = info.organization_id;
+
+    if (!orgMap.has(orgId)) {
+      orgMap.set(orgId, { orgDetails: info, groups: [] });
+    }
+
+    // Add group details to the associated organization
+    orgMap.get(orgId).groups.push({
+      group_id: info.group_id,
+      department: info.department,
+      sub_department: info.sub_department,
+      group_nickname: info.group_nickname,
+      group_photo: info.group_photo,
+      group_description: info.group_description,
+    });
+  });
+
   return (
     <div className="container">
       <MenuLinks />
@@ -30,13 +52,20 @@ function orgDetails() {
           <center>
             <Typography variant="h6">Organization Details</Typography>
           </center>
-          {/* <TextField label="Name Edit"></TextField> */}
           <div className="detailsOrg-container">
-            {detailsOrg.map((info, i) => (
-              <OrgContactDetails key={i} info={info} />
-            ))}
-            {detailsOrg.map((groupInfo, i) => (
-              <OrgGroupInfo key={i} groupInfo={groupInfo} />
+            {/* Iterate over the unique organizations in the map */}
+            {[...orgMap.values()].map(({ orgDetails, groups }) => (
+              <React.Fragment key={orgDetails.organization_id}>
+                {/* Display organization details once */}
+                <OrgContactDetails info={orgDetails} />
+                {/* Display associated groups */}
+                {groups.map((groupInfo) => (
+                  <OrgGroupInfo
+                    key={groupInfo.group_id}
+                    groupInfo={groupInfo}
+                  />
+                ))}
+              </React.Fragment>
             ))}
           </div>
         </CardContent>
