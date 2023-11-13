@@ -19,6 +19,7 @@ function UserPage() {
 
   const history = useHistory();
   const [query, setQuery] = useState(" ");
+  const [isSearchVisible, setSearchVisible] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -35,6 +36,9 @@ function UserPage() {
   const handleOnSearch = (value) => {
     setQuery(value);
     setCurrentPage(1); // Reset to the first page when searching
+  };
+  const toggleSearchVisibility = () => {
+    setSearchVisible(!isSearchVisible);
   };
 
   const clearInput = () => {
@@ -77,44 +81,45 @@ function UserPage() {
           <h1 className="organization-header">Organization List</h1>
           <Button style={{marginBottom: "5px"}} variant="outlined" onClick={handleAddOrganizationClick}>Add Organization</Button><br />
           <Button variant="outlined" onClick={seeArchived}> View Archived Organizations</Button>
+          <div className="fuzzy-search">
+                <TextField
+                  style={{
+                    marginLeft: "3%",
+                    borderRadius: "4px",
+                    width: "250px",
+                    marginBottom: "20px",
+                    backgroundColor: "white",
+                  }}
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  label="Search By Organization"
+                  value={query}
+                  onChange={(e) => handleOnSearch(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <SearchIcon color="primary" style={{ marginRight: "10px" }} />
+                    ),
+                  }}
+                />
+                <Button
+                  style={{
+                    marginTop: "5px",
+                    marginLeft: "10px",
+                    backgroundColor: "#DAA226",
+                    height: "30px",
+                    color: "white",
+                    width: "80px",
+                    fontSize: "13px",
+                  }}
+                  variant="contained"
+                  onClick={clearInput}
+                >
+                  Clear
+                </Button>
+ 
+          </div>
         </center>
-        <div className="fuzzy-search">
-          <TextField
-            style={{
-              marginLeft: "3%",
-              borderRadius: "4px",
-              width: "250px",
-              marginBottom: "20px",
-              backgroundColor: "white",
-            }}
-            variant="outlined"
-            fullWidth
-            size="small"
-            label="Search By Organization"
-            value={query}
-            onChange={(e) => handleOnSearch(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <SearchIcon color="primary" style={{ marginRight: "10px" }} />
-              ),
-            }}
-          />
-          <Button
-            style={{
-              marginTop: "5px",
-              marginLeft: "10px",
-              backgroundColor: "#DAA226",
-              height: "30px",
-              color: "white",
-              width: "80px",
-              fontSize: "13px",
-            }}
-            variant="contained"
-            onClick={clearInput}
-          >
-            Clear
-          </Button>
-        </div>
         <div className="organizationsContainer">
           {currentItems.map((organization, index) => (
             <OrganizationCard key={index} organization={organization} />
