@@ -3,6 +3,8 @@ import { useSelector, useDispatch} from "react-redux";
 import { useParams } from "react-router-dom";
 import { Card, Table, TableBody, TableCell, TableContainer, TableRow, TableHead, Typography, Container, CardContent  } from "@mui/material";
 import GroupDetailsCard from "../GroupDetailsCard/GroupDetailsCard";
+import ActiveFundraiserItem from "../ActiveFundraiserItem/ActiveFundraiserItem";
+import ClosedFundraiserItem from "../ClosedFundraiserItem/ClosedFundraiserItem";
 
 
 
@@ -17,8 +19,6 @@ export default function GroupDetails () {
     useEffect(() => {
         dispatch({ type: "FETCH_GROUP_DETAILS", payload: id})
     }, [])
-    
-    
    
     useEffect(() => {
         dispatch({ type: "FETCH_FUNDRAISERS", payload: id})
@@ -27,8 +27,6 @@ export default function GroupDetails () {
     console.log(groupDetails)
     console.log(fundraisers)
 
-
-    
     return(
         <Container>
             {groupDetails.map(group => {
@@ -39,12 +37,12 @@ export default function GroupDetails () {
             <br />
             <br />
              <TableContainer>
+                <Typography>Active Campaigns</Typography>
                 <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>Title</TableCell>
                             <TableCell>Description</TableCell>
-                            
                             <TableCell>Books Requested</TableCell>
                             <TableCell>Books Checked Out</TableCell>
                             <TableCell>Books Out Value</TableCell>
@@ -57,11 +55,19 @@ export default function GroupDetails () {
                             <TableCell>Outstanding Balance</TableCell>
                         </TableRow>
                     </TableHead>
+                    <TableBody>
+                    {fundraisers.map(fundraiser => {
+                        return(
+                            <ActiveFundraiserItem key={fundraiser.id} fundraiser={fundraiser}/>
+                         )
+                        })}
+                        </TableBody> 
                 </Table>
             </TableContainer>
             <br />
             <br />
             <TableContainer>
+                <Typography>Closed Campaigns</Typography>
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -75,6 +81,13 @@ export default function GroupDetails () {
                             <TableCell>Outstanding Balance</TableCell>
                         </TableRow>
                     </TableHead>
+                    <TableBody>
+                    {fundraisers.map(fundraiser => {
+                        return(
+                            <ClosedFundraiserItem key={fundraiser.id} fundraiser={fundraiser}/>
+                         )
+                        })}
+                    </TableBody>
                 </Table>
             </TableContainer>
         </Container>
