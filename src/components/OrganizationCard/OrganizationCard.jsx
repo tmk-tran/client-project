@@ -7,6 +7,7 @@ import {
   CardContent,
   Typography,
   CardMedia,
+  CardActionArea
 } from "@mui/material";
 import "./OrganizationCard.css";
 
@@ -21,6 +22,7 @@ function OrganizationCard({ organization }) {
         onClick={() => history.push(`/orgDetails/${organization.id}`)}
         className="organizationCard"
       >
+        <CardActionArea>
         <CardMedia
           style={{ objectFit: "cover" }}
           className="cardMedia"
@@ -35,7 +37,9 @@ function OrganizationCard({ organization }) {
             {organization.city}, {organization.state} {organization.zip}
           </Typography>
         </CardContent>
+        </CardActionArea>
       </Card>
+      
     </div>
   );
 }
