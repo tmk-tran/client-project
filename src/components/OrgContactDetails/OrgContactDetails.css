@@ -1,23 +1,23 @@
-.org-details {
-    display: flex;
-    /* flex-direction: column; */
-    /* justify-content: space-between; */
-    /* align-items: center; */
-}
+/* .org-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+} */
 
 .org-address-container {
-    border: 1px solid black;
-
+  border: 1px solid black;
 }
 
 .org-address {
-    margin: 15px auto;
-    border: 1px solid black
+  margin: 15px auto;
+  border: 1px solid black;
 }
 
 @media (max-width: 400px) {
-    .org-details {
-        display: flex;
-        flex-direction: column;
-    }
+  .org-details {
+    display: flex;
+    flex-direction: column;
+  }
 }
+

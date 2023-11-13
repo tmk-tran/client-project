@@ -51,7 +51,7 @@ function orgDetails() {
   return (
     <div className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}>
       <MenuLinks />
-      <Card elevation={6} style={{ width: "75%", margin: "0 auto"  }}>
+      <Card className="OrgDetails-card" elevation={6}>
         <CardContent>
           <center>
             <Typography variant="h6">Organization Details</Typography>
