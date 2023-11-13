@@ -15,7 +15,9 @@ export const capitalizeWords = (sentence) => {
   return sentence
     ? sentence
         .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        )
         .join(" ")
     : "";
 };
@@ -45,4 +47,15 @@ export const style = {
   "@media (max-width: 400px)": {
     height: "100vw",
   },
+};
+
+// Variables for List style in OrgContactDetails
+export const listItemStyle = {
+  textAlign: "center",
+};
+
+export const centeredStyle = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
 };

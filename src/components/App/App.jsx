@@ -19,6 +19,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import Footer from "../Footer/Footer";
+import MenuLinks from "../MenuLinks/MenuLinks";
 import ArchivedOrganizations from "../ArchivedOrganizations/ArchivedOrganizations";
 import "./App.css";
 
@@ -49,6 +50,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <div>
           <Nav />
+          <MenuLinks />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />

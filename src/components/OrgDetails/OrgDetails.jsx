@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // Style
 import "./OrgDetails.css";
-import { TextField, Typography, Card, CardContent } from "@mui/material";
+import { TextField, Typography, Card, CardContent, Paper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
-import MenuLinks from "../MenuLinks/MenuLinks";
+import OrgGroupTabs from "../OrgGroupTabs/OrgGroupTabs";
 
 function orgDetails() {
   const theme = useTheme();
@@ -49,8 +49,9 @@ function orgDetails() {
   });
 
   return (
-    <div className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}>
-      <MenuLinks />
+    <div
+      className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
+    >
       <Card className="OrgDetails-card" elevation={6}>
         <CardContent>
           <center>
@@ -61,16 +62,21 @@ function orgDetails() {
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
                 {/* Display organization details once */}
+                <center>
                 <OrgContactDetails info={orgDetails} />
+                </center>
 
                 {/* Display associated groups */}
                 {groups.length === 0 && <p>No groups yet</p>}
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    // justifyContent: "space-between",
+                    justifyContent: "center",
+                    gap: "50px",
                     alignItems: "center",
+                    marginTop: "25px",
                   }}
                 >
                   {groups.map((groupInfo, i) => (
@@ -80,6 +86,11 @@ function orgDetails() {
                       groupNumber={i + 1}
                     />
                   ))}
+                </div>
+                <br />
+                <br />
+                <div>
+                  <OrgGroupTabs groups={groups} />
                 </div>
               </React.Fragment>
             ))}

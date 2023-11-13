@@ -98,31 +98,30 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 // });
 
 /**
- * Update a game if it's one the logged in user added
+ * Update a group
  */
-// router.put("/:id", rejectUnauthenticated, (req, res) => {
-//   const game = req.body;
-//   console.log("REQ ID FOR EDIT: ", game.game_id);
-//   console.log("USER IS: ", req.user.user_id);
-//   console.log("GAME IS: ", game);
-//   const queryText = `UPDATE "games" SET game_date = $1, game_notes = $2, target_name = $3, target_score_value = $4, total_game_score = $5 WHERE game_id = $6 AND user_id = $7;`;
-//   pool
-//     .query(queryText, [
-//       game.game_date,
-//       game.game_notes,
-//       game.target_name,
-//       game.target_score_value,
-//       game.total_game_score,
-//       game.game_id,
-//       req.user.user_id,
-//     ])
-//     .then((response) => {
-//       res.sendStatus(200);
-//     })
-//     .catch((err) => {
-//       console.log("error saving to database", err);
-//       res.sendStatus(500);
-//     });
-// });
+router.put("/:id", rejectUnauthenticated, (req, res) => {
+  const groupId = req.params.id;
+  const group = req.body;
+  const user = req.user.id;
+  const queryText = `UPDATE "group" SET department = $1, sub_department = $2, group_nickname = $3, group_photo = $4, group_description = $5 WHERE id = $6 AND id = $7;`;
+  pool
+    .query(queryText, [
+      group.department,
+      group.sub_department,
+      group.group_nickname,
+      group.group_photo,
+      group.group_description,
+      groupId,
+      user
+    ])
+    .then((response) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error saving to database", err);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;
