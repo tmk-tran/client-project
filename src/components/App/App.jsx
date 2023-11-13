@@ -25,6 +25,9 @@ import "./App.css";
 
 // Theme establishing global color for MUI
 const theme = createTheme({
+  typography: {
+    fontSize: 18,
+  },
   palette: {
     primary: {
       main: "#273b91", // Set to PSG brand blue
