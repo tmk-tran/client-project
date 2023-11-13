@@ -14,7 +14,7 @@ function* fetchGroupSaga(action) {
 function* fetchOrgGroupsSaga(action) {
     try {
         console.log(action.payload)
-        const response = yield axios.get("/api/group/orggroups/", action.payload)
+        const response = yield axios.get(`/api/group/orggroups/${action.payload}`)
         yield put ({ type: "SET_ORG_GROUPS", payload: response.data})
     } catch (err) {
         console.log("Error fetching organization groups", err)

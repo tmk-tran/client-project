@@ -3,8 +3,8 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 //Get route for fundraisers
-router.get("/groupfundraisers", (req, res) => {
-  const groupId = req.body
+router.get("/groupfundraisers/:id", (req, res) => {
+  const groupId = req.params.id
   const queryText = `SELECT "f".group_id, "f".title, "f".description, "f".photo, "f". requested_book_quantity, "f".book_quantity_checked_out, "f".book_checked_out_total_value, "f".book_quantity_checked_in, "f".books_sold, "f".money_received, "f".start_date, "f".end_date, "cb".year, "f".outstanding_balance  FROM "fundraiser" AS "f"
   JOIN "coupon_book" AS "cb" ON "f".coupon_book_id = "cb".id
   WHERE "f".group_id = $1
@@ -53,7 +53,7 @@ router.put("/:id", (req, res) =>{
 router.put("/money/:id", (req, res) => {
   const id = req.params.id;
   const updatedAmount = req.body;
-  const queryText = `UPDATE "fundraiser" SET "book_quantity_checked_out" = $1, "book_quantity_checked_in" = $2, "books_sold" = $3, "money_recieved" = $4 WHERE "id" = $5;`;
+  const queryText = `UPDATE "fundraiser" SET "book_quantity_checked_out" = $1, "book_quantity_checked_in" = $2, "books_sold" = $3, "money_received" = $4 WHERE "id" = $5;`;
 
   pool.query(queryText, [updatedAmount.book_quantity_checked_out, updatedAmount.book_quantity_checked_in, updatedAmount.books_sold, updatedAmount.money_received, id])
   .then(() => {

@@ -4,7 +4,7 @@ import { takeEvery, put } from "redux-saga/effects";
 function* fetchFundraisersSaga(action) {
     try {
         console.log(action.payload)
-        const response = yield axios.get(`/api/fundraisers/${action.payload}`)
+        const response = yield axios.get(`/api/fundraisers/groupfundraisers${action.payload}`)
         yield put ({ type: "SET_FUNDRAISERS", payload: response.data})
     } catch (err) {
         console.log("Error fetching fundraisers ", err)
@@ -31,7 +31,7 @@ function* updatedFundraiserSaga(action) {
     }
 }
 
-function* updateedFundraiserAmountsSaga(action) {
+function* updatedFundraiserAmountsSaga(action) {
     try {
         console.log(action.payload)
         yield axios.put(`/api/fundraisers/money/${action.payload.id}`, action.payload)
@@ -56,5 +56,5 @@ export default function* fundraiserSaga() {
     yield takeEvery ("ADD_FUNDRAISER", addFundraiserSaga);
     yield takeEvery ("UPDATE_FUNDRAISER", updatedFundraiserSaga);
     yield takeEvery ("CLOSE_FUNDRAISER", closeFundraiserSaga);
-    yield takeEvery ("UPDATE_FUNDRAISER_AMOUNTS", updateedFundraiserAmountsSaga)
+    yield takeEvery ("UPDATE_FUNDRAISER_AMOUNTS", updatedFundraiserAmountsSaga)
 }

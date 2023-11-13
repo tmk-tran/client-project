@@ -7,7 +7,7 @@ router.get('/:id', (req, res) => {
     const id = req.params.id
   const queryText = `SELECT * FROM "group" WHERE "id" = $1;`;
 
-  pool.query(queryText, id)
+  pool.query(queryText, [id])
   .then(result => {
     res.send(result.rows);
   })
@@ -17,11 +17,11 @@ router.get('/:id', (req, res) => {
   })
 });
 //GET route for groups for specific organizations
-router.get("/orggroups/", (req, res) => {
-    const orgId = req.body;
+router.get("/orggroups/:id", (req, res) => {
+    const id = req.params.id;
     const queryText = `SELECT * FROM "group" WHERE "organization_id" = $1;`;
 
-    pool.query(queryText, [orgId])
+    pool.query(queryText, [id])
     .then(result => {
         res.send(result.rows);
     })
@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
   const queryText = `INSERT INTO "group" ("organization_id", "department", "sub_department", "group_nickname", "group_photo", "group_description")
   VALUES ($1, $2, $3, $4, $5, $6);`
 
-  pool.query(queryText, [newGroup.organization_id, newGroup.department, newGroup.sub_department, newGroup.group_nickname, newGroup.group_photo, newGroup.group_desctiption])
+  pool.query(queryText, [newGroup.organization_id, newGroup.department, newGroup.sub_department, newGroup.group_nickname, newGroup.group_photo, newGroup.group_description])
   .then(() => {
     res.sendStatus(201);
   })
@@ -52,7 +52,7 @@ router.put('/:id', (req, res) => {
     const updatedGroup = req.body;
     const queryText = `UPDATE "group" SET "department" = $1, "sub_department" = $2, "group_nickname" = $3, "group_photo" = $4, "group_description" = $5 WHERE "id" = $6;`;
 
-    pool.query(queryText, [updatedGroup.department, updatedGroup.sub_department, updatedGroup.group_nickname, updatedGroup.group_photo, updatedGroup.group_desctiption, id])
+    pool.query(queryText, [updatedGroup.department, updatedGroup.sub_department, updatedGroup.group_nickname, updatedGroup.group_photo, updatedGroup.group_description, id])
     .then(() => {
         res.sendStatus(200)
     })
