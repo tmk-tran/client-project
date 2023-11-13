@@ -7,10 +7,8 @@ import LogoPSG from "../LogoPSG/LogoPSG";
 import NavLinks from "../NavLinks/NavLinks";
 // Style
 import "./Nav.css";
-
 function Nav() {
   const user = useSelector((store) => store.user);
-
   return (
     <>
       <div className="nav">
@@ -21,7 +19,6 @@ function Nav() {
             </Link>
           </div>
         )}
-
         <div>
           {/* If a user is logged in, show these links */}
           {user.id && (
@@ -38,5 +35,4 @@ function Nav() {
     </>
   );
 }
-
 export default Nav;

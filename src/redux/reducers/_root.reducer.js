@@ -7,6 +7,7 @@ import organizations from './organizations.reducer.js';
 import group from './group.reducer';
 import fundraisers from './fundraisers.reducer'
 import orgGroups from './orgGroups.reducer'
+import archivedOrganizations from './archivedOrganizations.reducer.js';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   organizations,
   group,
   fundraisers,
-  orgGroups
+  orgGroups,
+  archivedOrganizations,
 
 });
 

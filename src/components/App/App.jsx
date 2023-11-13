@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Nav from "../Nav/Nav";
-
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import AboutPage from "../AboutPage/AboutPage";
@@ -21,7 +20,7 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import Footer from "../Footer/Footer";
 import GroupDetails from "../GroupDetails/GroupDetails";
-
+import ArchivedOrganizations from "../ArchivedOrganizations/ArchivedOrganizations";
 import "./App.css";
 
 // Theme establishing global color for MUI
@@ -74,6 +73,13 @@ function App() {
               path="/user"
             >
               <UserPage />
+            </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/archivedOrganizations"
+            >
+              <ArchivedOrganizations />
             </ProtectedRoute>
 
             <ProtectedRoute
