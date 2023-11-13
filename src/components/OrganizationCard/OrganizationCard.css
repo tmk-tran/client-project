@@ -2,7 +2,7 @@
     display : flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-color: antiquewhite;
+    background-color: #F2F3FB;
     width: 20%;
   }
   
@@ -11,4 +11,8 @@
     margin: 10px;
     object-fit: cover; /* Adjust the margin as needed */
   }
+
+  /* .cardMedia{
+    
+  } */
 
