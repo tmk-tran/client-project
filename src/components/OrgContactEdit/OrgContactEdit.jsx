@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { TextField } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -34,9 +35,14 @@ export default function OrgContactEdit() {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Text in a modal
           </Typography>
+          <TextField></TextField>
+          <TextField></TextField>
+          <TextField></TextField>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography>
+          <Button>Cancel</Button>
+          <Button>Save</Button>
         </Box>
       </Modal>
     </div>
