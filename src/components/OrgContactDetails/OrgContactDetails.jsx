@@ -47,7 +47,7 @@ function OrgContactDetails({ info }) {
         {/* <ThemeProvider theme={darkTheme}> */}
         <Box
           sx={{
-            width: "100%",
+            // width: "100%",
             maxWidth: 360,
             bgcolor: "background.paper",
             border: "1px solid black",

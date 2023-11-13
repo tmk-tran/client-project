@@ -3,15 +3,15 @@
   flex-direction: column;
 } */
 
+.OrgDetails-card {
+  width: 50%;
+  margin: 0 auto;
+}
 
 @media (max-width: 400px) {
-    .OrgDetails-container {
-        width: 100%;
-        padding: 10px;
-    }    
-
-    .detailsOrg-container {
-        width: 100%;
-        padding: 10px;
-    }
+  .OrgDetails-container,
+  .detailsOrg-container,
+  .OrgDetails-card {
+    width: 100%;
+  }
 }
