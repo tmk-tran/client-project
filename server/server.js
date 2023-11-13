@@ -10,9 +10,15 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 
+
+const groupRouter = require('./routes/group.details.router');
+
 const orgDetailsRouter = require('./routes/orgDetails.router');
 
+
 const organizationsRouter = require('./routes/organizations.router');
+
+const fundraisersRouter = require('./routes/fundraisers.router')
 
 
 // Body parser middleware
@@ -29,8 +35,17 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 
-app.use('/api/orgDetails', orgDetailsRouter);
+
+
+app.use('/api/group', groupRouter)
+
+
+app.use('/api/orgdetails', orgDetailsRouter);
+
+
 app.use('/api/organizations', organizationsRouter);
+
+app.use('/api/fundraisers', fundraisersRouter)
 
 
 // Serve static files
