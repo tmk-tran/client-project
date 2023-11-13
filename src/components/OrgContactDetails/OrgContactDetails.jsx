@@ -1,5 +1,5 @@
 import React from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -22,6 +22,7 @@ const darkTheme = createTheme({
 
 function OrgContactDetails({ info }) {
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
+  const isSmallScreen = useMediaQuery("(max-width:400px)");
 
   return (
     <>
@@ -50,6 +51,9 @@ function OrgContactDetails({ info }) {
             maxWidth: 360,
             bgcolor: "background.paper",
             border: "1px solid black",
+            ...(isSmallScreen && {
+              maxWidth: "100%", // Adjust styles for smaller screens
+            }),
           }}
         >
           <List>
