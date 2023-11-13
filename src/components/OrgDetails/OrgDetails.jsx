@@ -9,7 +9,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
-import MenuLinks from "../MenuLinks/MenuLinks";
 import OrgGroupTabs from "../OrgGroupTabs/OrgGroupTabs";
 
 function orgDetails() {
@@ -53,7 +52,6 @@ function orgDetails() {
     <div
       className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
     >
-      <MenuLinks />
       <Card className="OrgDetails-card" elevation={6}>
         <CardContent>
           <center>
