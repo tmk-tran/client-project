@@ -1,15 +1,15 @@
 .group-info {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 #group-photo {
-    height: 200px;
-    width: 200px;
+  height: 200px;
+  width: 200px;
 }
 
 @media (max-width: 600px) {
-    #modalContainer {
-      width: 90vw; /* Adjust the width for smaller screens */
-      max-width: 90vw; /* Adjust the maximum width for smaller screens */
-    }
+  #modalContainer {
+    width: 90vw; /* Adjust the width for smaller screens */
+    max-width: 90vw; /* Adjust the maximum width for smaller screens */
   }
+}

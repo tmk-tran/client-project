@@ -24,7 +24,7 @@ function orgDetails() {
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();
-  
+
   // Populate the map with unique organizations and associated groups
   detailsOrg.forEach((info) => {
     const orgId = info.organization_id;
@@ -60,13 +60,22 @@ function orgDetails() {
                 <OrgContactDetails info={orgDetails} />
                 {/* Display associated groups */}
                 {groups.length === 0 && <p>No groups yet</p>}
-                {groups.map((groupInfo, i) => (
-                  <OrgGroupInfo
-                    key={groupInfo.group_id}
-                    groupInfo={groupInfo}
-                    groupNumber={i + 1}
-                  />
-                ))}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  {groups.map((groupInfo, i) => (
+                    <OrgGroupInfo
+                      key={groupInfo.group_id}
+                      groupInfo={groupInfo}
+                      groupNumber={i + 1}
+                    />
+                  ))}
+                </div>
               </React.Fragment>
             ))}
           </div>

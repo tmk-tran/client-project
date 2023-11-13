@@ -1,8 +1,13 @@
 .org-details {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    /* flex-direction: column; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+}
+
+.org-address-container {
+    border: 1px solid black;
+
 }
 
 .org-address {

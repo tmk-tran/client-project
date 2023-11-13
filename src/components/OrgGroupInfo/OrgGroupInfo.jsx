@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  Modal,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Modal, Typography } from "@mui/material";
 import { capitalizeWords } from "../Utils/helpers";
 import { style } from "../Utils/helpers";
 
@@ -14,8 +9,8 @@ export default function GroupInfoModal({ groupInfo, groupNumber }) {
   const handleClose = () => setOpen(false);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <Button variant="contained" onClick={handleOpen}>
+    <div>
+      <Button variant="contained" onClick={handleOpen} sx={{ m: 5 }}>
         Group {groupNumber}
       </Button>
       <Modal

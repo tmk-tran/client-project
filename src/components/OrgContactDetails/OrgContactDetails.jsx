@@ -26,22 +26,25 @@ function OrgContactDetails({ info }) {
   return (
     <>
       <div className="org-details" style={{ border: "1px solid black" }}>
-        <div style={{ border: "1px solid black" }}>
-          <center>
-            <Typography variant="h6">{info.organization_name}</Typography>
-            <Typography>{info.type}</Typography>
-          </center>
-        </div>
-        <div className="org-address">
-          <center>
-            <Typography>{info.address}</Typography>
-            <Typography>
-              {info.city}, {info.state} {info.zip}
-            </Typography>
-          </center>
+        <div className="org-address-container">
+          <div style={{ border: "1px solid black" }}>
+            <center>
+              <Typography variant="h6">{info.organization_name}</Typography>
+              <Typography>{info.type}</Typography>
+            </center>
+          </div>
+          <div className="org-address">
+            <center>
+              <Typography>{info.address}</Typography>
+              <Typography>
+                {info.city}, {info.state} {info.zip}
+              </Typography>
+            </center>
+          </div>
         </div>
 
         {/* <ThemeProvider theme={darkTheme}> */}
+        {/* <Box sx={{ flexGrow: 1 }}></Box> */}
         <Box
           sx={{
             width: "100%",
