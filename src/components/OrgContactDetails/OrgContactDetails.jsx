@@ -1,17 +1,25 @@
 import React from "react";
 import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
 import { Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
+
+import {
+  Box,
+  Card,
+  List,
+  ListItem,
+  ListItemIcon,
+  Divider,
+} from "@mui/material";
+
 import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import { formatPhoneNumber } from "../Utils/helpers";
+import {
+  centeredStyle,
+  formatPhoneNumber,
+  listItemStyle,
+} from "../Utils/helpers";
 import "./OrgContactDetails.css";
 
 const darkTheme = createTheme({
@@ -20,15 +28,15 @@ const darkTheme = createTheme({
   },
 });
 
-function OrgContactDetails({ info }) {
+export default function OrgContactDetails({ info }) {
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
 
   return (
     <>
-      <div className="org-details" style={{ border: "1px solid black" }}>
+      <div className="org-details">
         <div className="org-address-container">
-          <div style={{ border: "1px solid black" }}>
+          <div>
             <center>
               <Typography variant="h6">{info.organization_name}</Typography>
               <Typography>{info.type}</Typography>
@@ -45,46 +53,41 @@ function OrgContactDetails({ info }) {
         </div>
 
         {/* <ThemeProvider theme={darkTheme}> */}
-        <Box
+        <Card
+          elevation={5}
           sx={{
-            // width: "100%",
             maxWidth: 360,
             bgcolor: "background.paper",
-            border: "1px solid black",
             ...(isSmallScreen && {
               maxWidth: "100%", // Adjust styles for smaller screens
             }),
           }}
         >
-          <List>
-            <ListItem disablePadding>
-              <ListItemIcon>
+          <List style={{ width: "60%" }}>
+            <ListItem disablePadding style={listItemStyle}>
+              <ListItemIcon style={centeredStyle}>
                 <AccountBoxIcon />
               </ListItemIcon>
-              <ListItemText
-                primary={`${info.primary_contact_first_name}, ${info.primary_contact_last_name}`}
-              />
+              <Typography>{`${info.primary_contact_first_name}, ${info.primary_contact_last_name}`}</Typography>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemIcon>
+            <ListItem disablePadding style={listItemStyle}>
+              <ListItemIcon style={centeredStyle}>
                 <PhoneIcon />
               </ListItemIcon>
-              <ListItemText primary={contactPhone} />
+              <Typography>{contactPhone}</Typography>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemIcon>
+            <ListItem disablePadding style={listItemStyle}>
+              <ListItemIcon style={centeredStyle}>
                 <EmailIcon />
               </ListItemIcon>
               <Typography>{info.primary_contact_email}</Typography>
             </ListItem>
           </List>
           <Divider />
-        </Box>
+        </Card>
         <Box sx={{ flexGrow: 1 }}></Box>
         {/* </ThemeProvider> */}
       </div>
     </>
   );
 }
-
-export default OrgContactDetails;

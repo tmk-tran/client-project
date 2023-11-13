@@ -1,17 +1,17 @@
 /* .org-details {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 } */
 
-.org-address-container {
+/* .org-address-container {
   border: 1px solid black;
-}
+} */
 
 .org-address {
   margin: 15px auto;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 @media (max-width: 400px) {

@@ -10,6 +10,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import MenuLinks from "../MenuLinks/MenuLinks";
+import OrgGroupTabs from "../OrgGroupTabs/OrgGroupTabs";
 
 function orgDetails() {
   const theme = useTheme();
@@ -49,7 +50,9 @@ function orgDetails() {
   });
 
   return (
-    <div className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}>
+    <div
+      className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
+    >
       <MenuLinks />
       <Card className="OrgDetails-card" elevation={6}>
         <CardContent>
@@ -61,14 +64,16 @@ function orgDetails() {
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
                 {/* Display organization details once */}
+                <center>
                 <OrgContactDetails info={orgDetails} />
+                </center>
 
                 {/* Display associated groups */}
                 {groups.length === 0 && <p>No groups yet</p>}
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column",
+                    flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
                   }}
@@ -80,6 +85,9 @@ function orgDetails() {
                       groupNumber={i + 1}
                     />
                   ))}
+                </div>
+                <div>
+                  <OrgGroupTabs groups={groups} />
                 </div>
               </React.Fragment>
             ))}
