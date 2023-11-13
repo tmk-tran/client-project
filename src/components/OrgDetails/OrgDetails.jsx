@@ -47,7 +47,7 @@ function orgDetails() {
   return (
     <div className="container">
       <MenuLinks />
-      <Card elevation={6}>
+      <Card elevation={6} style={{ width: "75%", margin: "0 auto"  }}>
         <CardContent>
           <center>
             <Typography variant="h6">Organization Details</Typography>
@@ -58,6 +58,7 @@ function orgDetails() {
               <React.Fragment key={orgDetails.organization_id}>
                 {/* Display organization details once */}
                 <OrgContactDetails info={orgDetails} />
+
                 {/* Display associated groups */}
                 {groups.length === 0 && <p>No groups yet</p>}
                 <div

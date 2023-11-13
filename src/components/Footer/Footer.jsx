@@ -6,7 +6,7 @@ import "./Footer.css";
 
 export default function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" style={{ width: "75%" }}>
       <div className="footer-container">
         <div style={{ textAlign: "left", flexGrow: "1" }}>
           <Typography variant="body2">
@@ -20,7 +20,7 @@ export default function Footer() {
           </div>
         </div>
         <div style={{ textAlign: "right", flexGrow: "1" }}>
-          <Typography>ALL SALES ARE FINAL</Typography>
+          <Typography variant="body2">ALL SALES ARE FINAL</Typography>
         </div>
       </div>
     </footer>

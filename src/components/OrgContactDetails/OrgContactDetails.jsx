@@ -44,7 +44,6 @@ function OrgContactDetails({ info }) {
         </div>
 
         {/* <ThemeProvider theme={darkTheme}> */}
-        {/* <Box sx={{ flexGrow: 1 }}></Box> */}
         <Box
           sx={{
             width: "100%",
@@ -77,6 +76,7 @@ function OrgContactDetails({ info }) {
           </List>
           <Divider />
         </Box>
+        <Box sx={{ flexGrow: 1 }}></Box>
         {/* </ThemeProvider> */}
       </div>
     </>
