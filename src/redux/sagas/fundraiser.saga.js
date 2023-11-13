@@ -44,8 +44,8 @@ function* updatedFundraiserAmountsSaga(action) {
 function* closeFundraiserSaga(action) {
     try {
         console.log(action.payload)
-        yield axios.put(`/api/fundraisers/close/${action.payload}`, action.payload)
-        yield put ({type: "FETCH_FUNDRAISERS"})
+        yield axios.put(`/api/fundraisers/close/${action.payload.id}`)
+        yield put ({type: "FETCH_FUNDRAISERS", payload: Number(action.payload.group_id)})
     } catch (err) {
         console.log("Error setting fundraiser to closed", err)
     }

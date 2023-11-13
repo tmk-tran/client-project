@@ -1,7 +1,10 @@
 import React from "react";
+import { Dispatch } from "react";
 import { Button, TableCell, TableRow, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
 
 export default function ActiveFundraiserItem({ fundraiser }) {
+    const dispatch = useDispatch();
     const formatDate = (dateString) => {
         if (!dateString) {
           return " ";
@@ -10,6 +13,15 @@ export default function ActiveFundraiserItem({ fundraiser }) {
         const options = { year: "numeric", month: "long", day: "numeric" };
         return date.toLocaleDateString(undefined, options);
       };   
+
+    const editDetails = () => {
+        console.log(fundraiser.id)
+    }
+
+    const updateAmount = () => {
+        console.log(fundraiser.id)
+    }
+
     return (
         <>
             {fundraiser.closed != true &&
@@ -26,7 +38,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                     <TableCell>{formatDate(fundraiser.end_date)}</TableCell>
                     <TableCell>{fundraiser.year}</TableCell>
                     <TableCell>{fundraiser.outstanding_balance}</TableCell>
-                    <TableCell> <Button>Edit Details</Button> <Button>Update</Button> <Button>Close</Button> </TableCell>
+                    <TableCell> <Button onClick={editDetails}>Edit Details</Button> <Button onClick={updateAmount}>Update</Button> <Button onClick={() => dispatch({ type:"CLOSE_FUNDRAISER", payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id)} })}>Close</Button> </TableCell>
                 </TableRow>
             }
         </>

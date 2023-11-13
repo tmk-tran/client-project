@@ -29,6 +29,7 @@ export default function GroupDetails () {
 
     return(
         <Container>
+            <br />
             {groupDetails.map(group => {
                 return(
                     <GroupDetailsCard key={id} group={group} />
