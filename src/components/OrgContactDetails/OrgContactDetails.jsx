@@ -25,56 +25,57 @@ function OrgContactDetails({ info }) {
 
   return (
     <>
-    <div className="org-details" style={{ border: "1px solid black" }}>
-      <div>
-        <Typography variant="h6">{info.organization_name}</Typography>
-        <Typography>{info.type}</Typography>
-      </div>
-      <div className="org-address">
-        <center>
-          <Typography>{info.address}</Typography>
-          <Typography>
-            {info.city}, {info.state} {info.zip}
-          </Typography>
-        </center>
-      </div>
+      <div className="org-details" style={{ border: "1px solid black" }}>
+        <div style={{ border: "1px solid black" }}>
+          <center>
+            <Typography variant="h6">{info.organization_name}</Typography>
+            <Typography>{info.type}</Typography>
+          </center>
+        </div>
+        <div className="org-address">
+          <center>
+            <Typography>{info.address}</Typography>
+            <Typography>
+              {info.city}, {info.state} {info.zip}
+            </Typography>
+          </center>
+        </div>
 
-      {/* <ThemeProvider theme={darkTheme}> */}
-      <Box
-        sx={{
-          width: "100%",
-          maxWidth: 360,
-          bgcolor: "background.paper",
-          border: "1px solid black",
-        }}
-      >
-        <List>
-          <ListItem disablePadding>
-            <ListItemIcon>
-              <AccountBoxIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={`${info.primary_contact_first_name}, ${info.primary_contact_last_name}`}
-            />
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemIcon>
-              <PhoneIcon />
-            </ListItemIcon>
-            <ListItemText primary={contactPhone} />
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemIcon>
-              <EmailIcon />
-            </ListItemIcon>
-            {/* <ListItemText primary={info.primary_contact_email} /> */}
-            <Typography>{info.primary_contact_email}</Typography>
-          </ListItem>
-        </List>
-        <Divider />
-      </Box>
-      {/* </ThemeProvider> */}
-    </div>
+        {/* <ThemeProvider theme={darkTheme}> */}
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: 360,
+            bgcolor: "background.paper",
+            border: "1px solid black",
+          }}
+        >
+          <List>
+            <ListItem disablePadding>
+              <ListItemIcon>
+                <AccountBoxIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={`${info.primary_contact_first_name}, ${info.primary_contact_last_name}`}
+              />
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemIcon>
+                <PhoneIcon />
+              </ListItemIcon>
+              <ListItemText primary={contactPhone} />
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemIcon>
+                <EmailIcon />
+              </ListItemIcon>
+              <Typography>{info.primary_contact_email}</Typography>
+            </ListItem>
+          </List>
+          <Divider />
+        </Box>
+        {/* </ThemeProvider> */}
+      </div>
     </>
   );
 }

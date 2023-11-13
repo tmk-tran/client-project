@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import "./NavLinks.css";
 
-// Custom theme for MUI components
+// Custom theme for MUI component
 const theme = createTheme({
   typography: {
     fontSize: 15,

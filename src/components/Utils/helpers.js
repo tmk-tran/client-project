@@ -10,3 +10,13 @@ export function formatPhoneNumber(phoneNumber) {
   return "Invalid phone number";
 }
 
+// Function to capitalize the first letter of each word
+export const capitalizeWords = (sentence) => {
+  return sentence
+    ? sentence
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(" ")
+    : "";
+};
+
