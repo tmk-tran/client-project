@@ -1,34 +1,55 @@
-import React from "react";
-import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
-import { Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
+import React, { useState } from "react";
+
+// Icons
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import { formatPhoneNumber } from "../Utils/helpers";
+// Helpers
+import {
+  centeredStyle,
+  formatPhoneNumber,
+  listItemStyle,
+} from "../Utils/helpers";
+// Styles
+import {
+  Box,
+  Button,
+  Card,
+  List,
+  ListItem,
+  ListItemIcon,
+  Divider,
+  Typography,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 import "./OrgContactDetails.css";
+// Component
+import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
-
-function OrgContactDetails({ info }) {
+export default function OrgContactDetails({ info }) {
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
 
+  const [ editContactInfo, setEditContactInfo ] = useState(false);
+  const [editFirstName, setEditFirstName] = useState(info.primary_contact_first_name);
+  const [editLastName, setEditLastName] = useState(info.primary_contact_last_name);
+  const [editPhone, setEditPhone] = useState(info.primary_contact_phone);
+  const [editEmail, setEditEmail] = useState(info.primary_contact_email);
+
+  // const editedItem = {
+  //   : editGameDate,
+  //   game_notes: editGameNotes,
+  //   target_name: editTargetName,
+  //   target_score_value: editScore,
+  //   total_game_score: editTotalScore,
+  // };
+
   return (
     <>
-      <div className="org-details" style={{ border: "1px solid black" }}>
+      <div className="org-details">
         <div className="org-address-container">
-          <div style={{ border: "1px solid black" }}>
+          <div>
             <center>
               <Typography variant="h6">{info.organization_name}</Typography>
               <Typography>{info.type}</Typography>
@@ -44,47 +65,44 @@ function OrgContactDetails({ info }) {
           </div>
         </div>
 
-        {/* <ThemeProvider theme={darkTheme}> */}
-        <Box
+        <OrgContactEdit />
+        <Card
+          elevation={5}
           sx={{
-            // width: "100%",
             maxWidth: 360,
             bgcolor: "background.paper",
-            border: "1px solid black",
             ...(isSmallScreen && {
               maxWidth: "100%", // Adjust styles for smaller screens
             }),
           }}
         >
-          <List>
-            <ListItem disablePadding>
-              <ListItemIcon>
+          <List style={{ width: "60%" }}>
+            <ListItem disablePadding style={listItemStyle}>
+              <ListItemIcon style={centeredStyle}>
                 <AccountBoxIcon />
               </ListItemIcon>
-              <ListItemText
-                primary={`${info.primary_contact_first_name}, ${info.primary_contact_last_name}`}
-              />
+              <Typography>{`${info.primary_contact_first_name}, ${info.primary_contact_last_name}`}</Typography>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemIcon>
+            <ListItem disablePadding style={listItemStyle}>
+              <ListItemIcon style={centeredStyle}>
                 <PhoneIcon />
               </ListItemIcon>
-              <ListItemText primary={contactPhone} />
+              <Typography>{contactPhone}</Typography>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemIcon>
+            <ListItem disablePadding style={listItemStyle}>
+              <ListItemIcon style={centeredStyle}>
                 <EmailIcon />
               </ListItemIcon>
               <Typography>{info.primary_contact_email}</Typography>
             </ListItem>
+            <div>
+              <Button onClick={() => setEditContactInfo(!editContactInfo)}>Edit</Button>
+            </div>
           </List>
           <Divider />
-        </Box>
+        </Card>
         <Box sx={{ flexGrow: 1 }}></Box>
-        {/* </ThemeProvider> */}
       </div>
     </>
   );
 }
-
-export default OrgContactDetails;
