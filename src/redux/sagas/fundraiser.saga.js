@@ -15,7 +15,7 @@ function* addFundraiserSaga(action) {
     try {
         console.log(action.payload)
         yield axios.post("/api/fundraisers", action.payload)
-        yield put({ type: "FETCH_FUNDRAISERS"})
+        yield put ({type: "FETCH_FUNDRAISERS", payload: Number(action.payload.group_id)})
     } catch (err) {
         console.log("Unable to add fundraiser", err)
     }
@@ -25,7 +25,7 @@ function* updatedFundraiserSaga(action) {
     try {
         console.log(action.payload)
         yield axios.put(`/api/fundraisers/${action.payload.id}`, action.payload)
-        yield put ({type: "FETCH_FUNDRAISERS" })
+        yield put ({type: "FETCH_FUNDRAISERS", payload: Number(action.payload.group_id)})
     } catch (err) {
         console.log("Unable to update fundraiser", err)
     }
@@ -35,7 +35,7 @@ function* updatedFundraiserAmountsSaga(action) {
     try {
         console.log(action.payload)
         yield axios.put(`/api/fundraisers/money/${action.payload.id}`, action.payload)
-        yield put ({ type: "FETCH_FUNDRAISERS" })
+        yield put ({type: "FETCH_FUNDRAISERS", payload: Number(action.payload.group_id)})
     } catch (err) {
         console.log("Unable to update amounts for fundraisers", err)
     }

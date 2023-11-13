@@ -1,10 +1,14 @@
-import React from "react";
-import { Dispatch } from "react";
-import { Button, TableCell, TableRow, Typography } from "@mui/material";
+import React, {useState} from "react";
+import { Button, OutlinedInput, TableCell, TableRow, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 
 export default function ActiveFundraiserItem({ fundraiser }) {
     const dispatch = useDispatch();
+    let [booksSold, setBooksSold] = useState(fundraiser.books_sold)
+    let [booksCheckedOut, setBooksCheckedOut] = useState(fundraiser.book_quantity_checked_out)
+    let [booksCheckedIn, setBooksCheckedIn] = useState(fundraiser.book_quantity_checked_in)
+    let [moneyReceived, setMoneyRecieved] = useState(fundraiser.money_received)
+
     const formatDate = (dateString) => {
         if (!dateString) {
           return " ";
@@ -19,7 +23,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     }
 
     const updateAmount = () => {
-        console.log(fundraiser.id)
+        const updatedAmount = { id: fundraiser.id, newbooksSold: booksSold, newBooksCheckedOut: booksCheckedOut, newBooksCheckedIn: booksCheckedIn, }
     }
 
     return (
@@ -29,11 +33,11 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                     <TableCell>{fundraiser.title}</TableCell>
                     <TableCell>{fundraiser.description}</TableCell>
                     <TableCell>{fundraiser.requested_book_quantity}</TableCell>
-                    <TableCell>{fundraiser.book_quantity_checked_out}</TableCell>
+                    <TableCell><OutlinedInput value={booksCheckedOut} onChange={(e) => setBooksCheckedOut(e.target.value)}>{fundraiser.book_quantity_checked_out}</OutlinedInput></TableCell>
                     <TableCell>{fundraiser.book_checked_out_total_value}</TableCell>
-                    <TableCell>{fundraiser.book_quantity_checked_in}</TableCell>
-                    <TableCell>{fundraiser.books_sold}</TableCell>
-                    <TableCell>{fundraiser.money_received}</TableCell>
+                    <TableCell><OutlinedInput value={booksCheckedIn} onChange={(e) => setBooksCheckedIn(e.target.value)}>{fundraiser.book_quantity_checked_in}</OutlinedInput></TableCell>
+                    <TableCell> <OutlinedInput value={booksSold} onChange={(e) => setBooksSold(e.target.value)}>{fundraiser.books_sold}</OutlinedInput></TableCell>
+                    <TableCell><OutlinedInput value={moneyReceived} onChange={(e) => setMoneyRecieved(e.target.value)}>{fundraiser.money_received}</OutlinedInput></TableCell>
                     <TableCell>{formatDate(fundraiser.start_date)}</TableCell>
                     <TableCell>{formatDate(fundraiser.end_date)}</TableCell>
                     <TableCell>{fundraiser.year}</TableCell>
