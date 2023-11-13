@@ -3,13 +3,13 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 //Get route for fundraisers
-router.get("/:id", (req, res) => {
-  const id = req.params.id
+router.get("/groupfundraisers", (req, res) => {
+  const groupId = req.body
   const queryText = `SELECT "f".group_id, "f".title, "f".description, "f".photo, "f". requested_book_quantity, "f".book_quantity_checked_out, "f".book_checked_out_total_value, "f".book_quantity_checked_in, "f".books_sold, "f".money_received, "f".start_date, "f".end_date, "cb".year, "f".outstanding_balance  FROM "fundraiser" AS "f"
   JOIN "coupon_book" AS "cb" ON "f".coupon_book_id = "cb".id
   WHERE "f".group_id = $1
   ORDER BY "f".closed = false;`;
-  pool.query(queryText, [id])
+  pool.query(queryText, [groupId])
   .then(result => {
     res.send(result.rows);
   })

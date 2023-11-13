@@ -16,10 +16,18 @@ router.get('/:id', (req, res) => {
     res.sendStatus(500)
   })
 });
+//GET route for groups for specific organizations
+router.get("/orggroups/", (req, res) => {
+    const orgId = req.body;
+    const queryText = `SELECT * FROM "group" WHERE "organization_id" = $1;`;
 
-router.get("/", (req, res) => {
-    const groupId = req.body;
-    const queryText = ``
+    pool.query(queryText, [orgId])
+    .then(result => {
+        res.send(result.rows);
+    })
+    .catch(err => {
+        console.log("Error fetching organization groups", err)
+    })
 })
 
 //Post route for groups
