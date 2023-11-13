@@ -11,12 +11,23 @@ import {
 } from "@mui/material";
 import "./OrganizationCard.css";
 import Swal from "sweetalert2";
+import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
 
 function OrganizationCard({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const organizationsList = useSelector((store) => store.organizations);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+
+  const handleEdit = () => {
+    setEditModalOpen(true);
+  };
+
+
+  const handleEditClose = () => {
+    setEditModalOpen(false);
+  };
 
   const handleArchive = (organizationId) => {
     Swal.fire({
@@ -30,7 +41,6 @@ function OrganizationCard({ organization }) {
       if (result.isConfirmed) {
         dispatch({ type: "DELETE_ORGANIZATION", payload: organizationId });
         dispatch({ type: "FETCH_ORGANIZATIONS" });
-        // dispatch({ type: "FETCH_ARCHIVED_CUSTOMERS" });
         Swal.fire("Organization Successfully Archived!");
       }
     });
@@ -58,10 +68,17 @@ function OrganizationCard({ organization }) {
           </Typography>
         </CardContent>
       </Card>
-      <center><Button onClick={() => handleArchive(organization.id)}>Archive</Button></center>
+      <center>
+        <Button onClick={() => handleArchive(organization.id)}>Archive</Button>
+        <Button onClick={() => handleEdit(organization.id)}>Edit</Button>
+      </center>
+      <EditOrganizationModal
+        open={isEditModalOpen}
+        handleClose={handleEditClose}
+        organization={organization}
+      />
     </div>
   );
-  
 }
 
 // this allows us to use <App /> in index.js
