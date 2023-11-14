@@ -24,12 +24,9 @@ export default function GlobalFundraiserInput() {
   }, []);
 
   const [selectedOrganizationId, setSelectedOrganizationId] = useState("");
-  const [selectedGroup, setSelectedGroup] = useState('');
   const handleOrganizationChange = (event) => {
     setSelectedOrganizationId(event.target.value);
-    setSelectedGroup('');
   };
-  
   const filteredGroups = groupList.filter(
     (group) => group.organization_id === selectedOrganizationId
   );
@@ -82,11 +79,13 @@ export default function GlobalFundraiserInput() {
                   onChange={handleOrganizationChange}
                   fullWidth
                 >
-                  {organizations?.map((organization, index) => (
-                    <MenuItem key={organization.id} value={organization.id}>
-                      {organization.organization_name}
-                    </MenuItem>
-                  ))}
+                  {organizations
+                    .filter((organization) => organization.total_groups > 0)
+                    .map((organization, index) => (
+                      <MenuItem key={organization.id} value={organization.id}>
+                        {organization.organization_name}
+                      </MenuItem>
+                    ))}
                 </TextField>
               </Box>
               <Box
@@ -115,39 +114,13 @@ export default function GlobalFundraiserInput() {
                 >
                   {filteredGroups?.map((group, index) => (
                     <MenuItem key={group.id} value={group.id}>
-                      {group.department}
+                      {group.department} -{" "}
+                      {group.sub_department || "No Sub Group"}
                     </MenuItem>
                   ))}
                 </TextField>
               </Box>
-              {filteredGroups.find((group) => group.id === filteredGroups)
-                ?.sub_department && (
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    padding: "5px",
-                    "& .MuiTextField-root": { m: 0.4, width: "45ch" },
-                  }}
-                >
-                  <InputLabel
-                    sx={{
-                      fontWeight: "normal",
-                      fontSize: "18px",
-                      color: "black",
-                    }}
-                  >
-                    Sub Department:
-                  </InputLabel>
-                  <TextField
-                    type="text"
-                    id="subDepartment"
-                    label="Sub Department"
-                    fullWidth
-                  />
-                </Box>
-              )}
+
               <Box
                 sx={{
                   display: "flex",
