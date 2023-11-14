@@ -111,3 +111,12 @@ input {
   margin: 5px;
   margin-bottom: 10px;
 }
+
+.fundraiser-form-header{
+  width: 100%;
+  font-family: Telugu Sangam MN;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0
+}
