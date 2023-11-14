@@ -37,40 +37,42 @@ export default function ActiveFundraiserItem({ fundraiser }) {
             {editMode === false ? ( 
                 <>
             {fundraiser.closed != true &&
-                <TableRow>
-                    <TableCell>{fundraiser.title}</TableCell>
-                    <TableCell>{fundraiser.description}</TableCell>
-                    <TableCell>{fundraiser.requested_book_quantity}</TableCell>
-                    <TableCell><OutlinedInput value={booksCheckedOut} onChange={(e) => setBooksCheckedOut(e.target.value)}>{fundraiser.book_quantity_checked_out}</OutlinedInput></TableCell>
-                    <TableCell>{fundraiser.book_checked_out_total_value}</TableCell>
-                    <TableCell><OutlinedInput value={booksCheckedIn} onChange={(e) => setBooksCheckedIn(e.target.value)}>{fundraiser.book_quantity_checked_in}</OutlinedInput></TableCell>
-                    <TableCell> <OutlinedInput value={booksSold} onChange={(e) => setBooksSold(e.target.value)}>{fundraiser.books_sold}</OutlinedInput></TableCell>
-                    <TableCell><OutlinedInput value={moneyReceived} onChange={(e) => setMoneyRecieved(e.target.value)}>{fundraiser.money_received}</OutlinedInput></TableCell>
-                    <TableCell>{formatDate(fundraiser.start_date)}</TableCell>
-                    <TableCell>{formatDate(fundraiser.end_date)}</TableCell>
-                    <TableCell>{fundraiser.year}</TableCell>
-                    <TableCell>{fundraiser.outstanding_balance}</TableCell>
-                    <TableCell> <Button onClick={() => setEditMode(true)}>Edit Details</Button> <Button onClick={updateAmount}>Update</Button> <Button onClick={() => dispatch({ type:"CLOSE_FUNDRAISER", payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id)} })}>Close</Button> </TableCell>
+                <TableRow style={{border: "2px solid black"}}>
+                    <TableCell style={{border: "2px solid black", width: "100px", height: "100px", padding: "5px"}}><Typography style={{fontSize: "15px", width: "100px"}}>{fundraiser.title}</Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}>{fundraiser.description}</Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><img src={fundraiser.photo}></img></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}>{fundraiser.requested_book_quantity}</Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}><OutlinedInput value={booksCheckedOut} onChange={(e) => setBooksCheckedOut(e.target.value)}>{fundraiser.book_quantity_checked_out}</OutlinedInput></Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}>{fundraiser.book_checked_out_total_value}</Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}><OutlinedInput value={booksCheckedIn} onChange={(e) => setBooksCheckedIn(e.target.value)}>{fundraiser.book_quantity_checked_in}</OutlinedInput></Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}> <Typography style={{fontSize: "15px", width: "100px"}}><OutlinedInput value={booksSold} onChange={(e) => setBooksSold(e.target.value)}>{fundraiser.books_sold}</OutlinedInput></Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}><OutlinedInput  style={{fontSize: "15px", width: "65px"}} value={moneyReceived} onChange={(e) => setMoneyRecieved(e.target.value)}>{fundraiser.money_received}</OutlinedInput></Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}>{formatDate(fundraiser.start_date)}</Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}>{formatDate(fundraiser.end_date)}</Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}>{fundraiser.year}</Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}>{fundraiser.outstanding_balance}</Typography></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Button onClick={() => setEditMode(true)}>Edit Details</Button> <Button onClick={updateAmount}>Update</Button><Typography style={{fontSize: "15px", width: "100px"}}><Button onClick={() => dispatch({ type:"CLOSE_FUNDRAISER", payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id)} })}>Close</Button></Typography> </TableCell>
                 </TableRow>
                 
             } 
             </>) : ( 
                 <>
                 {fundraiser.closed != true &&
-                <TableRow>
-                    <TableCell><OutlinedInput value={editTitle} onChange={(e) => setEditTitle(e.target.value)}>{fundraiser.title}</OutlinedInput></TableCell>
-                    <TableCell><OutlinedInput value={editDescription} onChange={(e) => setEditDescription(e.target.value)}>{fundraiser.description}</OutlinedInput></TableCell>
-                    <TableCell>{fundraiser.requested_book_quantity}</TableCell>
-                    <TableCell>{fundraiser.book_quantity_checked_out}</TableCell>
-                    <TableCell>{fundraiser.book_checked_out_total_value}</TableCell>
-                    <TableCell>{fundraiser.book_quantity_checked_in}</TableCell>
-                    <TableCell> {fundraiser.books_sold}</TableCell>
-                    <TableCell>{fundraiser.money_received}</TableCell>
-                    <TableCell>{formatDate(fundraiser.start_date)}</TableCell>
-                    <TableCell>{formatDate(fundraiser.end_date)}</TableCell>
-                    <TableCell>{fundraiser.year}</TableCell>
-                    <TableCell>{fundraiser.outstanding_balance}</TableCell>
-                    <TableCell> <Button onClick={handleSubmit}>Submit</Button> <Button onClick={updateAmount}>Update</Button> <Button onClick={() => dispatch({ type:"CLOSE_FUNDRAISER", payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id)} })}>Close</Button> </TableCell>
+                <TableRow style={{border: "2px solid black"}}>
+                    <TableCell style={{border: "2px solid black"}}><OutlinedInput value={editTitle} onChange={(e) => setEditTitle(e.target.value)}>{fundraiser.title}</OutlinedInput></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><OutlinedInput value={editDescription} onChange={(e) => setEditDescription(e.target.value)}>{fundraiser.description}</OutlinedInput></TableCell>
+                    <TableCell style={{border: "2px solid black"}}><img src={fundraiser.photo}></img></TableCell>
+                    <TableCell style={{border: "2px solid black"}}>{fundraiser.requested_book_quantity}</TableCell>
+                    <TableCell style={{border: "2px solid black"}}>{fundraiser.book_quantity_checked_out}</TableCell>
+                    <TableCell style={{border: "2px solid black"}}>{fundraiser.book_checked_out_total_value}</TableCell>
+                    <TableCell style={{border: "2px solid black"}}>{fundraiser.book_quantity_checked_in}</TableCell>
+                    <TableCell style={{border: "2px solid black"}}> {fundraiser.books_sold}</TableCell>
+                    <TableCell style={{border: "2px solid black"}}>{fundraiser.money_received}</TableCell>
+                    <TableCell style={{border: "2px solid black"}}>{formatDate(fundraiser.start_date)}</TableCell>
+                    <TableCell style={{border: "2px solid black"}}>{formatDate(fundraiser.end_date)}</TableCell>
+                    <TableCell style={{border: "2px solid black"}}>{fundraiser.year}</TableCell>
+                    <TableCell style={{border: "2px solid black"}}>{fundraiser.outstanding_balance}</TableCell>
+                    <TableCell style={{border: "2px solid black"}}> <Button onClick={handleSubmit}>Submit</Button> <Button onClick={updateAmount}>Update</Button> <Button onClick={() => dispatch({ type:"CLOSE_FUNDRAISER", payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id)} })}>Close</Button> </TableCell>
                 </TableRow>
             }
             </>)

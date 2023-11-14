@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import { useSelector, useDispatch} from "react-redux";
 import { useParams } from "react-router-dom";
-import { Card, Table, TableBody, TableCell, TableContainer, TableRow, TableHead, Typography, Container, CardContent  } from "@mui/material";
+import { Card, Table, TableBody, TableCell, TableContainer, TableRow, TableHead, Typography, Container, CardContent, Paper  } from "@mui/material";
 import GroupDetailsCard from "../GroupDetailsCard/GroupDetailsCard";
 import ActiveFundraiserItem from "../ActiveFundraiserItem/ActiveFundraiserItem";
 import ClosedFundraiserItem from "../ClosedFundraiserItem/ClosedFundraiserItem";
@@ -28,6 +28,7 @@ export default function GroupDetails () {
     console.log(fundraisers)
 
     return(
+        <>
         <Container>
             <br />
             {groupDetails.map(group => {
@@ -35,26 +36,29 @@ export default function GroupDetails () {
                     <GroupDetailsCard key={id} group={group} />
                 )
             })}
+            </Container>
             <br />
             <br />
-             <TableContainer>
+            <Paper>
+             <TableContainer style={{width: "90%", margin: "auto"}} >
                 <Typography>Active Campaigns</Typography>
-                <Table>
+                <Table size="small">
                     <TableHead>
-                        <TableRow>
-                            <TableCell>Title</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell>Books Requested</TableCell>
-                            <TableCell>Books Checked Out</TableCell>
-                            <TableCell>Books Out Value</TableCell>
-                            <TableCell>Books Checked In</TableCell>
-                            <TableCell>Books Sold</TableCell>
-                            <TableCell>Money Received</TableCell>
-                            <TableCell>Start Date</TableCell>
-                            <TableCell>End Date</TableCell>
-                            <TableCell>Year</TableCell>
-                            <TableCell>Outstanding Balance</TableCell>
-                            <TableCell>Actions</TableCell>
+                        <TableRow style={{border: "2px solid black"}}>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Title</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Description</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}}>Photo</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Books Requested</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px" }} variant="body2">Books Checked Out</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Books Out Value</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Books Checked In</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Books Sold</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Money Received</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Start Date</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">End Date</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Year</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Outstanding Balance</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px", width: "100px"}}><Typography style={{fontSize: "15px", width: "100px"}}>Actions</Typography></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -72,15 +76,16 @@ export default function GroupDetails () {
                 <Typography>Closed Campaigns</Typography>
                 <Table>
                     <TableHead>
-                        <TableRow>
-                            <TableCell>Title</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell>Books Sold</TableCell>
-                            <TableCell>Money Received</TableCell>
-                            <TableCell>Start Date</TableCell>
-                            <TableCell>End Date</TableCell>
-                            <TableCell>Year</TableCell>
-                            <TableCell>Outstanding Balance</TableCell>
+                        <TableRow style={{border: "2px solid black"}}>
+                            <TableCell style={{border: "2px solid black"}}>Title</TableCell>
+                            <TableCell style={{border: "2px solid black"}}>Description</TableCell>
+                            <TableCell style={{border: "2px solid black"}}>Photo</TableCell>
+                            <TableCell style={{border: "2px solid black"}}>Books Sold</TableCell>
+                            <TableCell style={{border: "2px solid black"}}>Money Received</TableCell>
+                            <TableCell style={{border: "2px solid black"}}>Start Date</TableCell>
+                            <TableCell style={{border: "2px solid black"}}>End Date</TableCell>
+                            <TableCell style={{border: "2px solid black"}}>Year</TableCell>
+                            <TableCell style={{border: "2px solid black"}}>Outstanding Balance</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -92,8 +97,8 @@ export default function GroupDetails () {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Container>
-       
+        </Paper>
+        </>
     )
         
     
