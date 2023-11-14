@@ -10,6 +10,8 @@ import {
   centeredStyle,
   formatPhoneNumber,
   listItemStyle,
+  styleIconColor,
+  capitalizeWords,
 } from "../Utils/helpers";
 // Styles
 import {
@@ -27,6 +29,9 @@ import {
 import "./OrgContactDetails.css";
 // Component
 import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
+// Toast
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function OrgContactDetails({ info }) {
   const dispatch = useDispatch();
@@ -76,22 +81,29 @@ export default function OrgContactDetails({ info }) {
             }),
           }}
         >
-          <List style={{ width: "60%" }}>
+          <ToastContainer
+            style={{
+              top: "45%",
+              left: "68%",
+              transform: "translate(-50%, -50%)",
+            }}
+          />
+          <List style={{ width: "60%", marginTop: "10px" }}>
             <ListItem disablePadding style={listItemStyle}>
               <ListItemIcon style={centeredStyle}>
-                <AccountBoxIcon />
+                <AccountBoxIcon style={styleIconColor} />
               </ListItemIcon>
-              <Typography>{`${info.primary_contact_first_name}, ${info.primary_contact_last_name}`}</Typography>
+              <Typography>{`${capitalizeWords(info.primary_contact_first_name)}, ${capitalizeWords(info.primary_contact_last_name)}`}</Typography>
             </ListItem>
             <ListItem disablePadding style={listItemStyle}>
               <ListItemIcon style={centeredStyle}>
-                <PhoneIcon />
+                <PhoneIcon style={styleIconColor} />
               </ListItemIcon>
               <Typography>{contactPhone}</Typography>
             </ListItem>
             <ListItem disablePadding style={listItemStyle}>
               <ListItemIcon style={centeredStyle}>
-                <EmailIcon />
+                <EmailIcon style={styleIconColor} />
               </ListItemIcon>
               <Typography>{info.primary_contact_email}</Typography>
             </ListItem>
