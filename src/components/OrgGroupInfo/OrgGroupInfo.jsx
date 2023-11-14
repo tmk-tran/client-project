@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import {
   Box,
   Button,
@@ -11,8 +12,13 @@ import { capitalizeWords } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
 
 export default function OrgGroupInfoCard({ groupInfo, groupNumber }) {
+  const history = useHistory();
   return (
-    <Card elevation={6} id="orgGroup-details-container">
+    <Card
+      elevation={6}
+      id="orgGroup-details-container"
+      onClick={() => history.push("/group/:id")}
+    >
       <CardContent>
         <div style={{ position: "relative" }}>
           {/* <div style={{ position: "absolute", top: 0, right: 0 }}>
