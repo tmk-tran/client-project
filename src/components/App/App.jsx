@@ -23,7 +23,8 @@ import GroupDetails from "../GroupDetails/GroupDetails";
 import MenuLinks from "../MenuLinks/MenuLinks";
 import ArchivedOrganizations from "../ArchivedOrganizations/ArchivedOrganizations";
 import "./App.css";
-
+import GlobalFundraiserInput
+ from "../GlobalFundraiserInput/GlobalFundraiserInput";
 // Theme establishing global color for MUI
 const theme = createTheme({
   typography: {
@@ -94,7 +95,13 @@ function App() {
             <ProtectedRoute exact path="/group/:id">
               <GroupDetails  user={user}/>
             </ProtectedRoute>
-
+            <ProtectedRoute
+              // logged in shows InfoPage else shows LoginPage
+              exact
+              path="/newFundraiser"
+            >
+              <GlobalFundraiserInput />
+            </ProtectedRoute>
             <Route exact path="/login">
               {user.id ? (
                 // If the user is already logged in,

@@ -63,15 +63,25 @@ export default function NavLinks() {
                 Home
               </MuiLink>
             </Typography>
-            <Typography
-              style={{ textTransform: "uppercase", cursor: "not-allowed" }}
-            >
-              Groups
+            <Typography>
+                  <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/newFundraiser"
+                  underline="hover"
+                >
+                  New Fundraiser
+                </MuiLink>
             </Typography>
-            <Typography
-              style={{ textTransform: "uppercase", cursor: "not-allowed" }}
-            >
-              Add New Fundraiser
+            <Typography>
+              <MuiLink
+                component={Link}
+                className="main-navlink"
+                to="/archivedOrganizations"
+                underline="hover"
+              >
+                Archived Organizations
+              </MuiLink>
             </Typography>
             <Typography>
               <MuiLink

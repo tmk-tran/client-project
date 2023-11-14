@@ -15,6 +15,7 @@ export default function ArchivedOrganizations() {
   const itemsPerPage = 4;
 const history = useHistory();
   const [query, setQuery] = useState(" ");
+  const [showInput, setShowInput] = useState(false);
   const user = useSelector((store) => store.user);
   const archivedList = useSelector((store) => store.archivedOrganizations);
   console.log("ARCHIVED", archivedList);
@@ -32,11 +33,15 @@ const history = useHistory();
 
   const handleOnSearch = (value) => {
     setQuery(value);
+    if (!showInput) {
+      setShowInput(true);
+    }
     setCurrentPage(1); // Reset to the first page when searching
   };
 
   const clearInput = () => {
     setQuery(" ");
+    setShowInput(false);
     setCurrentPage(1); // Reset to the first page when clearing the search
   };
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -67,42 +72,53 @@ function backToHome(){
           <Button onClick={backToHome}> </Button>
         </center>
         <div className="fuzzy-search-archived">
-          <TextField
-            style={{
-              marginLeft: "3%",
-              borderRadius: "4px",
-              width: "250px",
-              marginBottom: "20px",
-              backgroundColor: "white",
-            }}
-            variant="outlined"
-            fullWidth
-            size="small"
-            label="Search By Organization"
-            value={query}
-            onChange={(e) => handleOnSearch(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <SearchIcon color="primary" style={{ marginRight: "10px" }} />
-              ),
-            }}
-          />
-          <Button
-            style={{
-              marginTop: "5px",
-              marginLeft: "10px",
-              backgroundColor: "#DAA226",
-              height: "30px",
-              color: "white",
-              width: "80px",
-              fontSize: "13px",
-            }}
-            variant="contained"
-            onClick={clearInput}
-          >
-            Clear
-          </Button>
-        </div>
+      {showInput ? (
+        <TextField
+          style={{
+            marginLeft: '3%',
+            borderRadius: '4px',
+            width: '230px',
+            backgroundColor: 'white',
+          }}
+          variant="outlined"
+          fullWidth
+          size="small"
+          label="Search By Organization"
+          value={query}
+          onChange={(e) => handleOnSearch(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <SearchIcon color="primary" style={{ marginRight: '10px' }} />
+            ),
+          }}
+        />
+      ) : (
+        <SearchIcon
+          color="primary"
+          style={{
+            cursor: 'pointer',
+          }}
+          onClick={() => setShowInput(true)}
+        />
+      )}
+      {showInput && (
+        <Button
+          style={{
+            marginTop: '5px',
+            marginLeft: '10px',
+            backgroundColor: '#DAA226',
+            height: '30px',
+            color: 'white',
+            width: '0px',
+            fontSize: '13px',
+          }}
+          variant="contained"
+          onClick={clearInput}
+        >
+          Clear
+        </Button>
+      )}
+    </div>
         <div className="organizationsContainer">
           {currentItems.map((organization, index) => (
             <ArchivedOrganizationCard key={index} organization={organization} />
