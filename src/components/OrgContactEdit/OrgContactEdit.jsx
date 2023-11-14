@@ -8,8 +8,12 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import "./OrgContactEdit.css";
 // Utils
 import { formatPhoneNumber } from "../Utils/helpers";
+// Toast
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function OrgContactEdit({
   isOpen,
@@ -25,8 +29,19 @@ export default function OrgContactEdit({
   );
   const [editedPhone, setEditedPhone] = useState(info.primary_contact_phone);
   const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
+  const [emailError, setEmailError] = useState(false);
 
   const handleSave = () => {
+    // Validate email before saving
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(editedEmail)) {
+      setEmailError(true);
+      return; // Do not proceed with saving if email is invalid
+    }
+
+    // Clear email error if it was previously set
+    setEmailError(false);
+
     const newContactInfo = {
       ...info,
       primary_contact_first_name: editedFirstName,
@@ -46,6 +61,13 @@ export default function OrgContactEdit({
       primary_contact_email: editedEmail,
     };
 
+    toast.success("Changes saved successfully!", {
+      position: toast.POSITION.RIGHT_CENTER,
+      autoClose: 3000,
+      closeButton: false,
+      hideProgressBar: true,
+    });
+
     onSaveChanges(editedItem);
   };
 
@@ -55,6 +77,7 @@ export default function OrgContactEdit({
     setEditedLastName(info.primary_contact_last_name);
     setEditedPhone(info.primary_contact_phone);
     setEditedEmail(info.primary_contact_email);
+    setEmailError(false); // Clear email error on reset
   };
 
   const handleClose = () => {
@@ -107,13 +130,33 @@ export default function OrgContactEdit({
           value={formatPhoneNumber(editedPhone)}
           onChange={(e) => setEditedPhone(e.target.value)}
         />
-        <TextField
+        {/* <TextField
           label="Email"
+          type="email"
           value={editedEmail}
           onChange={(e) => setEditedEmail(e.target.value)}
+        /> */}
+        <TextField
+          label="Email"
+          type="email"
+          value={editedEmail}
+          onChange={(e) => {
+            setEditedEmail(e.target.value);
+            setEmailError(false); // Clear email error when typing
+          }}
+          error={emailError}
+          helperText={emailError ? 'Invalid email format' : ''}
         />
-        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-          <Button onClick={handleClose}>Cancel</Button>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Button className="modal-cancel-btn" onClick={handleClose}>
+            Cancel
+          </Button>
           <Button onClick={handleSave}>Save</Button>
         </div>
       </Box>

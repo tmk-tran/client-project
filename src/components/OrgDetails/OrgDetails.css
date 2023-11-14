@@ -1,7 +1,6 @@
-/* .detailsOrg-container {
-  display: flex;
-  flex-direction: column;
-} */
+.detailsOrg-container {
+  margin-top: 15px;
+}
 
 .OrgDetails-card {
   width: 88%;
