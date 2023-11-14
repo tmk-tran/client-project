@@ -42,19 +42,60 @@ function unArchive(organizationId){
         onClick={() => history.push(`/orgDetails/${organization.id}`)}
         className="organizationCard"
       >
-        <CardMedia
-          style={{ objectFit: "cover" }}
-          className="cardMedia"
-          component="img"
-          image={organization.organization_logo}
-        />
-        <CardContent>
-          <Typography style={{ fontSize: "1.7em" }} gutterBottom>
+        {organization.organization_logo ? (
+          <CardMedia
+            style={{ objectFit: "cover", height: "230px", width: "100%" }}
+            className="cardMedia"
+            component="img"
+            image={organization.organization_logo}
+            alt={organization.organization_name}
+          />
+        ) : (
+          <Typography
+            variant="h5"
+            component="div"
+            style={{
+              height: "230px", // Set the height to match the image height
+              width: "100%", // Set the width to match the image width
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "#DADADC", // Optional: Add a background color for visual separation
+            }}
+          >
             {organization.organization_name}
           </Typography>
-          <Typography style={{ fontSize: "1.2em" }} gutterBottom>
-            {organization.city}, {organization.state} {organization.zip}
-          </Typography>
+        )}
+        <CardContent style={{ position: "relative", height: "32%" }}>
+          <center>
+            <Typography style={{ fontSize: "1.7em" }} gutterBottom>
+              {organization.organization_name}
+            </Typography>
+            <Typography
+              style={{
+                fontSize: "1em",
+                position: "absolute",
+                bottom: "30px",
+                left: "0",
+                width: "100%",
+              }}
+              gutterBottom
+            >
+              Inactive Organization
+            </Typography>
+            <Typography
+              style={{
+                fontSize: "1em",
+                position: "absolute",
+                bottom: "0",
+                left: "0",
+                width: "100%",
+              }}
+              gutterBottom
+            >
+              Total Groups: {organization.total_groups}
+            </Typography>
+          </center>
         </CardContent>
       </Card>
       <center><Button onClick={() => unArchive(organization.id)}>Un-Archive</Button></center>
