@@ -51,7 +51,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                     <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}>{formatDate(fundraiser.end_date)}</Typography></TableCell>
                     <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}>{fundraiser.year}</Typography></TableCell>
                     <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "100px"}}>{fundraiser.outstanding_balance}</Typography></TableCell>
-                    <TableCell style={{border: "2px solid black"}}><Button onClick={() => setEditMode(true)}>Edit Details</Button> <Button onClick={updateAmount}>Update</Button><Typography style={{fontSize: "15px", width: "100px"}}><Button onClick={() => dispatch({ type:"CLOSE_FUNDRAISER", payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id)} })}>Close</Button></Typography> </TableCell>
+                    <TableCell style={{border: "2px solid black"}}><Button onClick={() => setEditMode(true)}>Edit Details</Button> <Button onClick={updateAmount}>Update</Button><Typography style={{fontSize: "15px", width: "100px"}}><Button size="small" onClick={() => dispatch({ type:"CLOSE_FUNDRAISER", payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id)} })}>Close</Button></Typography> </TableCell>
                 </TableRow>
                 
             } 
