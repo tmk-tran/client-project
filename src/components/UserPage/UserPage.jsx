@@ -19,6 +19,7 @@ function UserPage() {
 
   const history = useHistory();
   const [query, setQuery] = useState(" ");
+  const [showInput, setShowInput] = useState(false);
   const [isSearchVisible, setSearchVisible] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,14 +36,16 @@ function UserPage() {
 
   const handleOnSearch = (value) => {
     setQuery(value);
+    if (!showInput) {
+      setShowInput(true);
+    }
     setCurrentPage(1); // Reset to the first page when searching
   };
-  const toggleSearchVisibility = () => {
-    setSearchVisible(!isSearchVisible);
-  };
+
 
   const clearInput = () => {
     setQuery(" ");
+    setShowInput(false);
     setCurrentPage(1); // Reset to the first page when clearing the search
   };
 
@@ -52,10 +55,6 @@ function UserPage() {
 
   const handleModalClose = () => {
     setModalOpen(false);
-  };
-
-  const seeArchived = () => {
-    history.push("/archivedOrganizations");
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -79,46 +78,62 @@ function UserPage() {
         <br />
         <center>
           <h1 className="organization-header">Organization List</h1>
-          <Button style={{marginBottom: "5px"}} variant="outlined" onClick={handleAddOrganizationClick}>Add Organization</Button><br />
-          <Button variant="outlined" onClick={seeArchived}> View Archived Organizations</Button>
-          <div className="fuzzy-search">
-                <TextField
-                  style={{
-                    marginLeft: "3%",
-                    borderRadius: "4px",
-                    width: "250px",
-                    marginBottom: "20px",
-                    backgroundColor: "white",
-                  }}
-                  variant="outlined"
-                  fullWidth
-                  size="small"
-                  label="Search By Organization"
-                  value={query}
-                  onChange={(e) => handleOnSearch(e.target.value)}
-                  InputProps={{
-                    startAdornment: (
-                      <SearchIcon color="primary" style={{ marginRight: "10px" }} />
-                    ),
-                  }}
-                />
-                <Button
-                  style={{
-                    marginTop: "5px",
-                    marginLeft: "10px",
-                    backgroundColor: "#DAA226",
-                    height: "30px",
-                    color: "white",
-                    width: "80px",
-                    fontSize: "13px",
-                  }}
-                  variant="contained"
-                  onClick={clearInput}
-                >
-                  Clear
-                </Button>
- 
-          </div>
+          <Button
+            style={{ marginBottom: "5px" }}
+            variant="outlined"
+            onClick={handleAddOrganizationClick}
+          >
+            Add Organization
+          </Button>
+      
+          {showInput ? (
+        <TextField
+          style={{
+            marginLeft: '3%',
+            borderRadius: '4px',
+            width: '230px',
+            backgroundColor: 'white',
+          }}
+          variant="outlined"
+          fullWidth
+          size="small"
+          label="Search By Organization"
+          value={query}
+          onChange={(e) => handleOnSearch(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <SearchIcon color="primary" style={{ marginRight: '10px' }} />
+            ),
+          }}
+        />
+      ) : (
+        <SearchIcon
+          color="primary"
+          style={{
+            marginLeft: '3%',
+            marginBottom: '-7px',
+            cursor: 'pointer',
+          }}
+          onClick={() => setShowInput(true)}
+        />
+      )}
+      {showInput && (
+        <Button
+          style={{
+            marginTop: '5px',
+            marginLeft: '10px',
+            backgroundColor: '#DAA226',
+            height: '30px',
+            color: 'white',
+            width: '0px',
+            fontSize: '13px',
+          }}
+          variant="contained"
+          onClick={clearInput}
+        >
+          Clear
+        </Button>
+      )}
         </center>
         <div className="organizationsContainer">
           {currentItems.map((organization, index) => (

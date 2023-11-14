@@ -1,9 +1,8 @@
 .fuzzy-search-archived{
-
         display: flex;
-        justify-content: flex-end;
-        margin-right: 20px;
-        margin-top: -32px;
-        margin-bottom: 80px
+        justify-content: center;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: -10px;
       
 }
