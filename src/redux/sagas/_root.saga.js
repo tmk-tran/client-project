@@ -4,12 +4,13 @@ import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 
 import orgDetailsSaga from './orgDetails.saga';
-
 import organizationsSaga from './organizations.saga';
 import groupSaga from './group.saga';
 import fundraiserSaga from './fundraiser.saga';
 import archivedOrganizationsSaga from './archivedOrganizations.saga';
 import allGroupsSaga from './allGroups.saga';
+import couponBookSaga from './couponBook.saga';
+
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -22,14 +23,12 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
-
     orgDetailsSaga(),
-
     organizationsSaga(),
-
     groupSaga(),
     fundraiserSaga(),
     archivedOrganizationsSaga(),
     allGroupsSaga()
+    couponBookSaga()
   ]);
 }

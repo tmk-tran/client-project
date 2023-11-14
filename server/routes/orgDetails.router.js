@@ -42,8 +42,8 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [orgId])
     .then((result) => {
-      console.log("orgId = ", orgId);
-      console.log("FROM orgDetails.router: ", result.rows);
+      // console.log("orgId = ", orgId);
+      // console.log("FROM orgDetails.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -100,20 +100,23 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 /**
  * Update a group
  */
-router.put("/:id", rejectUnauthenticated, (req, res) => {
-  const groupId = req.params.id;
-  const group = req.body;
+router.put("/:id", (req, res) => {
+  const organization = req.body;
+  console.log("ORGANIZATION = ", organization);
+  const firstName = organization.primary_contact_first_name;
+  const lastName = organization.primary_contact_last_name;
+  const phone = organization.primary_contact_phone;
+  const email = organization.primary_contact_email;
+  const orgId = organization.organization_id;
   const user = req.user.id;
-  const queryText = `UPDATE "group" SET department = $1, sub_department = $2, group_nickname = $3, group_photo = $4, group_description = $5 WHERE id = $6 AND id = $7;`;
+  const queryText = `UPDATE "organization" SET primary_contact_first_name = $1, primary_contact_last_name = $2, primary_contact_phone = $3, primary_contact_email = $4 WHERE id = $5;`;
   pool
     .query(queryText, [
-      group.department,
-      group.sub_department,
-      group.group_nickname,
-      group.group_photo,
-      group.group_description,
-      groupId,
-      user
+      firstName,
+      lastName,
+      phone,
+      email,
+      orgId,
     ])
     .then((response) => {
       res.sendStatus(200);

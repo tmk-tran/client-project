@@ -47,6 +47,10 @@ function App() {
     dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
 
+  useEffect(() =>{
+    dispatch({ type: "FETCH_COUPON_BOOKS"})
+  }, [user])
+
   return (
     <Router>
       <ThemeProvider theme={theme}>

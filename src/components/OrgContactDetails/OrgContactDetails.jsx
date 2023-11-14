@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 // Icons
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -28,26 +29,22 @@ import "./OrgContactDetails.css";
 import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
 
 export default function OrgContactDetails({ info }) {
+  const dispatch = useDispatch();
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
 
-  const [editContactInfo, setEditContactInfo] = useState(false);
-  const [editFirstName, setEditFirstName] = useState(
-    info.primary_contact_first_name
-  );
-  const [editLastName, setEditLastName] = useState(
-    info.primary_contact_last_name
-  );
-  const [editPhone, setEditPhone] = useState(info.primary_contact_phone);
-  const [editEmail, setEditEmail] = useState(info.primary_contact_email);
+  const [isEditing, setIsEditing] = useState(false);
 
-  // const editedItem = {
-  //   : editGameDate,
-  //   game_notes: editGameNotes,
-  //   target_name: editTargetName,
-  //   target_score_value: editScore,
-  //   total_game_score: editTotalScore,
-  // };
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveChanges = (editedItem) => {
+    // Dispatch action to update the state or save data
+    console.log("New Contact Info:", editedItem);
+    dispatch({ type: "EDIT_CONTACT_INFO", payload: editedItem });
+    setIsEditing(false);
+  };
 
   return (
     <>
@@ -99,7 +96,24 @@ export default function OrgContactDetails({ info }) {
               <Typography>{info.primary_contact_email}</Typography>
             </ListItem>
             <div>
-              <OrgContactEdit />
+              {/* <OrgContactEdit
+                isOpen={isEditing}
+                onClose={() => setIsEditing(false)}
+                editedContactInfo={info}
+                onSaveChanges={(editedItem) => {
+                  // Handle saving changes (make API call, dispatch action, etc.)
+                  console.log("New Contact Info:", editedItem);
+                  dispatch({ type: "EDIT_CONTACT_INFO", payload: editedItem });
+                  setIsEditing(false);
+                }}
+              /> */}
+              <OrgContactEdit
+                isOpen={isEditing}
+                onClose={() => setIsEditing(false)}
+                info={info}
+                onSaveChanges={handleSaveChanges}
+              />
+              <Button onClick={handleEdit}>Edit</Button>
             </div>
           </List>
           <Divider />

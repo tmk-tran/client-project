@@ -9,6 +9,7 @@ import fundraisers from './fundraisers.reducer'
 import orgGroups from './orgGroups.reducer'
 import archivedOrganizations from './archivedOrganizations.reducer.js';
 import allGroups from './allGroups.reducer.js';
+import couponBooks from "./couponBook.reducer"
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,16 +20,14 @@ import allGroups from './allGroups.reducer.js';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-
   orgDetailsReducer,
-
   organizations,
   group,
   fundraisers,
   orgGroups,
   archivedOrganizations,
   allGroups
-
+  couponBooks,
 });
 
 export default rootReducer;
