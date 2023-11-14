@@ -27,6 +27,9 @@ import {
 import "./OrgContactDetails.css";
 // Component
 import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
+// Toast
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function OrgContactDetails({ info }) {
   const dispatch = useDispatch();
@@ -76,6 +79,13 @@ export default function OrgContactDetails({ info }) {
             }),
           }}
         >
+          <ToastContainer
+            style={{
+              top: "45%",
+              left: "68%",
+              transform: "translate(-50%, -50%)",
+            }}
+          />
           <List style={{ width: "60%" }}>
             <ListItem disablePadding style={listItemStyle}>
               <ListItemIcon style={centeredStyle}>

@@ -8,8 +8,12 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import "./OrgContactEdit.css";
 // Utils
 import { formatPhoneNumber } from "../Utils/helpers";
+// Toast
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function OrgContactEdit({
   isOpen,
@@ -45,6 +49,13 @@ export default function OrgContactEdit({
       primary_contact_phone: editedPhone,
       primary_contact_email: editedEmail,
     };
+
+    toast.success("Changes saved successfully!", {
+      position: toast.POSITION.RIGHT_CENTER,
+      autoClose: 3000,
+      closeButton: false,
+      hideProgressBar: true,
+    });
 
     onSaveChanges(editedItem);
   };
@@ -112,8 +123,16 @@ export default function OrgContactEdit({
           value={editedEmail}
           onChange={(e) => setEditedEmail(e.target.value)}
         />
-        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-          <Button onClick={handleClose}>Cancel</Button>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Button className="modal-cancel-btn" onClick={handleClose}>
+            Cancel
+          </Button>
           <Button onClick={handleSave}>Save</Button>
         </div>
       </Box>
