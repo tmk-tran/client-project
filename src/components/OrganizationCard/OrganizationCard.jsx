@@ -17,7 +17,9 @@ function OrganizationCard({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const organizationsList = useSelector((store) => store.organizations);
+
+  // const organizationsList = useSelector((store) => store.organizations);
+
 
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
@@ -82,8 +84,11 @@ function OrganizationCard({ organization }) {
             <Typography style={{ fontSize: "1.7em" }} gutterBottom>
               {organization.organization_name}
             </Typography>
-            <Typography style={{ fontSize: "1.2em" }} gutterBottom>
-              {organization.city}, {organization.state} {organization.zip}
+            <Typography style={{ fontSize: "1em" }} gutterBottom>
+              Total Groups: {organization.total_groups}
+            </Typography>
+            <Typography style={{ fontSize: "1em" }} gutterBottom>
+              Total Active Fundraisers: {organization.total_active_fundraisers}
             </Typography>
           </center>
         </CardContent>
