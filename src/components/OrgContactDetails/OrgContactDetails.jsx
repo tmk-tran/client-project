@@ -88,7 +88,7 @@ export default function OrgContactDetails({ info }) {
               transform: "translate(-50%, -50%)",
             }}
           />
-          <List style={{ width: "60%", marginTop: "10px" }}>
+          <List style={{ width: "70%", marginTop: "10px" }}>
             <ListItem disablePadding style={listItemStyle}>
               <ListItemIcon style={centeredStyle}>
                 <AccountBoxIcon style={styleIconColor} />

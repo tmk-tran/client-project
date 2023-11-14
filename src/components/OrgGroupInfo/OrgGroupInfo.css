@@ -15,7 +15,6 @@
 #group-photo {
   height: 300px;
   width: 320px;
-  /* object-fit: cover; */
   object-fit: contain;
 }
 

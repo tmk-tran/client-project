@@ -121,6 +121,7 @@ export default function OrgGroupTabs({ groups }) {
                 </div>
               )}
               <hr />
+              <div style={{ width: "60%", margin: "0 auto" }}>
               <Typography sx={{ mt: 2 }}>
                 Group Name: {capitalizeWords(group.group_nickname)}
               </Typography>
@@ -143,7 +144,7 @@ export default function OrgGroupTabs({ groups }) {
                       .toLowerCase()}`
                   : "None Entered"}
               </Typography>
-              {/* Add more content as needed */}
+              </div>
             </CustomTabPanel>
           ))}
         </CardContent>

@@ -8,7 +8,7 @@ import {
   Modal,
   Typography,
 } from "@mui/material";
-import { capitalizeWords } from "../Utils/helpers";
+import { capitalizeWords, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
 
 export default function OrgGroupInfoCard({ groupInfo, groupNumber }) {
@@ -27,9 +27,10 @@ export default function OrgGroupInfoCard({ groupInfo, groupNumber }) {
           {groupInfo.group_photo ? (
             <center>
               <img
-                id="group-photo"
+                // id="group-photo"
                 src={groupInfo.group_photo}
                 alt={`Group Photo for ${groupInfo.group_nickname}`}
+                style={styleImage}
               />
             </center>
           ) : (
