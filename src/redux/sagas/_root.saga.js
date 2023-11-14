@@ -28,7 +28,7 @@ export default function* rootSaga() {
     groupSaga(),
     fundraiserSaga(),
     archivedOrganizationsSaga(),
-    allGroupsSaga()
+    allGroupsSaga(),
     couponBookSaga()
   ]);
 }
