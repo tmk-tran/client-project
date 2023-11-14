@@ -16,6 +16,7 @@ router.get('/:id', (req, res) => {
     res.sendStatus(500)
   })
 });
+
 //GET route for groups for specific organizations
 router.get("/orggroups/:id", (req, res) => {
     const id = req.params.id;

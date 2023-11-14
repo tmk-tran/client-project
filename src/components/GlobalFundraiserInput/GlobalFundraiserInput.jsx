@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-
 import { InputLabel } from "@mui/material";
 import { MenuItem, Box, Paper } from "@mui/material";
 import { Button, TextField } from "@mui/material";
@@ -13,18 +12,27 @@ import Swal from "sweetalert2";
 
 export default function GlobalFundraiserInput() {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const params = useParams();
 
-  const fundraiserList = useSelector((store) => store);
   const organizations = useSelector((store) => store.organizations);
-
+  const groupList = useSelector((store) => store.allGroups);
+  console.log("GROUPS", groupList);
   useEffect(() => {
     dispatch({ type: "FETCH_ORGANIZATIONS" });
     dispatch({
-      type: "FETCH_INVOICE_DETAILS",
+      type: "FETCH_ALL_GROUPS",
     });
   }, []);
+
+  const [selectedOrganizationId, setSelectedOrganizationId] = useState("");
+  const [selectedGroup, setSelectedGroup] = useState('');
+  const handleOrganizationChange = (event) => {
+    setSelectedOrganizationId(event.target.value);
+    setSelectedGroup('');
+  };
+  
+  const filteredGroups = groupList.filter(
+    (group) => group.organization_id === selectedOrganizationId
+  );
 
   return (
     <div>
@@ -70,6 +78,8 @@ export default function GlobalFundraiserInput() {
                   select
                   label="Select an Organization"
                   id="serviceSelect"
+                  value={selectedOrganizationId}
+                  onChange={handleOrganizationChange}
                   fullWidth
                 >
                   {organizations?.map((organization, index) => (
@@ -103,13 +113,41 @@ export default function GlobalFundraiserInput() {
                   id="serviceSelect"
                   fullWidth
                 >
-                  {organizations?.map((organization, index) => (
-                    <MenuItem key={organization.id} value={organization.id}>
-                      {organization.organization_name}
+                  {filteredGroups?.map((group, index) => (
+                    <MenuItem key={group.id} value={group.id}>
+                      {group.department}
                     </MenuItem>
                   ))}
                 </TextField>
               </Box>
+              {filteredGroups.find((group) => group.id === filteredGroups)
+                ?.sub_department && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    padding: "5px",
+                    "& .MuiTextField-root": { m: 0.4, width: "45ch" },
+                  }}
+                >
+                  <InputLabel
+                    sx={{
+                      fontWeight: "normal",
+                      fontSize: "18px",
+                      color: "black",
+                    }}
+                  >
+                    Sub Department:
+                  </InputLabel>
+                  <TextField
+                    type="text"
+                    id="subDepartment"
+                    label="Sub Department"
+                    fullWidth
+                  />
+                </Box>
+              )}
               <Box
                 sx={{
                   display: "flex",
@@ -164,7 +202,6 @@ export default function GlobalFundraiserInput() {
                     id="service_price"
                     label="Books Requested"
                     fullWidth
-                    
                   />
                   <TextField
                     type="number"
@@ -186,7 +223,6 @@ export default function GlobalFundraiserInput() {
                     id="service_price"
                     label="Books Returned"
                     fullWidth
-                    
                   />
                   <TextField
                     type="number"
