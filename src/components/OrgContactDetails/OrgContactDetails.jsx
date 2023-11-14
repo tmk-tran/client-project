@@ -31,9 +31,13 @@ export default function OrgContactDetails({ info }) {
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
 
-  const [ editContactInfo, setEditContactInfo ] = useState(false);
-  const [editFirstName, setEditFirstName] = useState(info.primary_contact_first_name);
-  const [editLastName, setEditLastName] = useState(info.primary_contact_last_name);
+  const [editContactInfo, setEditContactInfo] = useState(false);
+  const [editFirstName, setEditFirstName] = useState(
+    info.primary_contact_first_name
+  );
+  const [editLastName, setEditLastName] = useState(
+    info.primary_contact_last_name
+  );
   const [editPhone, setEditPhone] = useState(info.primary_contact_phone);
   const [editEmail, setEditEmail] = useState(info.primary_contact_email);
 
@@ -65,7 +69,6 @@ export default function OrgContactDetails({ info }) {
           </div>
         </div>
 
-        <OrgContactEdit />
         <Card
           elevation={5}
           sx={{
@@ -96,7 +99,7 @@ export default function OrgContactDetails({ info }) {
               <Typography>{info.primary_contact_email}</Typography>
             </ListItem>
             <div>
-              <Button onClick={() => setEditContactInfo(!editContactInfo)}>Edit</Button>
+              <OrgContactEdit />
             </div>
           </List>
           <Divider />
