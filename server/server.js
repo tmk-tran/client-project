@@ -9,18 +9,12 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
-
-
 const groupRouter = require('./routes/group.details.router');
-
 const orgDetailsRouter = require('./routes/orgDetails.router');
-
-
 const organizationsRouter = require('./routes/organizations.router');
-
 const fundraisersRouter = require('./routes/fundraisers.router')
-
 const archivedOrganizationsRouter = require('./routes/archivedOrganizations.router');
+const couponBookRouter = require('./routes/couponbook.router')
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,20 +28,12 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-
-
-
 app.use('/api/group', groupRouter)
-
-
 app.use('/api/orgdetails', orgDetailsRouter);
-
-
 app.use('/api/organizations', organizationsRouter);
-
 app.use('/api/fundraisers', fundraisersRouter)
-app.use ('/api/archivedOrganizations', archivedOrganizationsRouter);
-
+app.use('/api/archivedOrganizations', archivedOrganizationsRouter);
+app.use('/api/couponbook', couponBookRouter) 
 // Serve static files
 app.use(express.static('build'));
 
