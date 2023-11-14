@@ -59,3 +59,6 @@ export const centeredStyle = {
   flexDirection: "column",
   alignItems: "center",
 };
+
+// Style for Icon colors in OrgContactDetails
+export const styleIconColor = { color: "#273b91" };

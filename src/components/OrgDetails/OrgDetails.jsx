@@ -55,7 +55,7 @@ function orgDetails() {
       <Card className="OrgDetails-card" elevation={6}>
         <CardContent>
           <center>
-            <Typography variant="h6">Organization Details</Typography>
+            <Typography variant="h5">Organization Details</Typography>
           </center>
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}
@@ -63,7 +63,7 @@ function orgDetails() {
               <React.Fragment key={orgDetails.organization_id}>
                 {/* Display organization details once */}
                 <center>
-                <OrgContactDetails info={orgDetails} />
+                  <OrgContactDetails info={orgDetails} />
                 </center>
 
                 {/* Display associated groups */}
