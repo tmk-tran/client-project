@@ -23,7 +23,8 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     }
 
     const updateAmount = () => {
-        const updatedAmount = { id: fundraiser.id, newbooksSold: booksSold, newBooksCheckedOut: booksCheckedOut, newBooksCheckedIn: booksCheckedIn, }
+        const updatedAmount = { id: Number(fundraiser.id), newBooksSold: Number(booksSold), newBooksCheckedOut: Number(booksCheckedOut), newBooksCheckedIn: Number(booksCheckedIn), newMoneyReceived: Number(moneyReceived), group_id: Number(fundraiser.group_id)}
+        dispatch({ type: "UPDATE_FUNDRAISER_AMOUNTS", payload: updatedAmount })
     }
 
     return (
