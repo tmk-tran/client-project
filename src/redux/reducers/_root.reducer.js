@@ -26,7 +26,7 @@ const rootReducer = combineReducers({
   fundraisers,
   orgGroups,
   archivedOrganizations,
-  allGroups
+  allGroups,
   couponBooks,
 });
 
