@@ -16,11 +16,8 @@ export default function GlobalFundraiserInput() {
   const history = useHistory();
   const params = useParams();
 
-
-
   const fundraiserList = useSelector((store) => store);
-    const organizations = useSelector((store) => store.organizations);
-
+  const organizations = useSelector((store) => store.organizations);
 
   useEffect(() => {
     dispatch({ type: "FETCH_ORGANIZATIONS" });
@@ -37,7 +34,7 @@ export default function GlobalFundraiserInput() {
         <Paper
           elevation={3}
           style={{
-            width: "40%",
+            width: "55%",
             marginTop: "30px",
             minWidth: "400px",
           }}
@@ -73,7 +70,6 @@ export default function GlobalFundraiserInput() {
                   select
                   label="Select an Organization"
                   id="serviceSelect"
-                 
                   fullWidth
                 >
                   {organizations?.map((organization, index) => (
@@ -105,7 +101,6 @@ export default function GlobalFundraiserInput() {
                   select
                   label="Select a Group"
                   id="serviceSelect"
-                 
                   fullWidth
                 >
                   {organizations?.map((organization, index) => (
@@ -121,7 +116,7 @@ export default function GlobalFundraiserInput() {
                   flexDirection: "column",
                   alignItems: "center",
                   padding: "5px",
-                  "& .MuiTextField-root": { m: 0.4, width: "45ch" },
+                  "& .MuiTextField-root": { m: 0.4 },
                 }}
               >
                 <InputLabel
@@ -131,14 +126,96 @@ export default function GlobalFundraiserInput() {
                     color: "black",
                   }}
                 >
-                  Fundraiser Name:
+                  Fundraiser Information:
                 </InputLabel>
                 <TextField
                   type="text"
                   id="service_price"
                   label="Fundraiser Name"
                   fullWidth
+                  sx={{ width: "60ch" }}
                 />
+                <TextField
+                  type="text"
+                  id="service_price"
+                  label="Photo URL (optional)"
+                  fullWidth
+                  sx={{ width: "60ch" }} // Adjusted width for Photo URL
+                />
+                <TextField
+                  multiline
+                  rows={2}
+                  type="text"
+                  id="service_price"
+                  label="Description"
+                  fullWidth
+                  sx={{ width: "60ch" }} // Adjusted width for Description
+                />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <TextField
+                    type="number"
+                    id="service_price"
+                    label="Books Requested"
+                    fullWidth
+                    
+                  />
+                  <TextField
+                    type="number"
+                    id="service_price"
+                    label="Books Sold"
+                    fullWidth
+                  />
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <TextField
+                    type="number"
+                    id="service_price"
+                    label="Books Returned"
+                    fullWidth
+                    
+                  />
+                  <TextField
+                    type="number"
+                    id="service_price"
+                    label="Money Received"
+                    fullWidth
+                  />
+                </Box>
+                <InputLabel
+                  sx={{
+                    fontWeight: "normal",
+                    fontSize: "18px",
+                    color: "black",
+                  }}
+                >
+                  Start and End Date:
+                </InputLabel>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <TextField type="date" id="service_price" fullWidth />
+                  <span style={{ margin: "0 5px" }}>to</span>
+                  <TextField type="date" id="service_price" fullWidth />
+                </Box>
               </Box>
               <br />
               <Button
