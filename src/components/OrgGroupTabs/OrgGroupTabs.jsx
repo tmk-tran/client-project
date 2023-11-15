@@ -2,16 +2,12 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 // Style
 import { Box, Card, CardContent, Tab, Tabs, Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 // Utils
 import { capitalizeWords } from "../Utils/helpers";
-import "../OrgGroupInfo/OrgGroupInfo.css";
-// import "./OrgGroupTabs.css";
+// import "../OrgGroupInfo/OrgGroupInfo.css";
+import "./OrgGroupTabs.css";
 
 function CustomTabPanel(props) {
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { children, value, index, ...other } = props;
 
   return (
@@ -32,8 +28,6 @@ function CustomTabPanel(props) {
 }
 
 export default function OrgGroupTabs({ groups }) {
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {

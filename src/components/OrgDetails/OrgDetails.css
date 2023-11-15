@@ -1,3 +1,11 @@
+.org-details-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
 .detailsOrg-container {
   margin-top: 15px;
 }
@@ -7,10 +15,22 @@
   margin: 20px auto 0 auto;
 }
 
+.edit-icon-btn {
+  position: absolute;
+  top: 0;
+  right: 37%;
+}
+
 @media (max-width: 400px) {
   .OrgDetails-container,
   .detailsOrg-container,
   .OrgDetails-card {
     width: 100%;
+  }
+
+  .edit-icon-btn {
+    position: absolute;
+    top: 100%;
+    right: 2%;
   }
 }

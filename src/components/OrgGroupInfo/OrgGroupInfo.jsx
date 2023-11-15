@@ -7,21 +7,16 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 // Utils
 import { capitalizeWords, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const history = useHistory();
-
   return (
     <Card
       elevation={6}
-      id={`orgGroup-details-container ${isSmallScreen ? "small-screen" : ""}`}
+      id="orgGroup-details-container"
       onClick={() => history.push(`/group/${groupInfo.group_id}`)}
     >
       <CardContent>

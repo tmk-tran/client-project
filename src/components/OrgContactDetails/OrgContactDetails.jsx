@@ -93,7 +93,7 @@ export default function OrgContactDetails({ info }) {
               <ListItemIcon style={centeredStyle}>
                 <AccountBoxIcon style={styleIconColor} />
               </ListItemIcon>
-              <Typography>{`${capitalizeWords(info.primary_contact_first_name)}, ${capitalizeWords(info.primary_contact_last_name)}`}</Typography>
+              <Typography>{`${capitalizeWords(info.primary_contact_first_name)} ${capitalizeWords(info.primary_contact_last_name)}`}</Typography>
             </ListItem>
             <ListItem disablePadding style={listItemStyle}>
               <ListItemIcon style={centeredStyle}>
