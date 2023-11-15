@@ -39,7 +39,6 @@ export default function OrgContactDetails({ info }) {
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
   const [edit, setEdit] = useState(false);
-  console.log(edit);
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -66,11 +65,28 @@ export default function OrgContactDetails({ info }) {
                     <EditNoteIcon />
                   </Button>
                 </div>
-                {/* <Button><EditNoteIcon /></Button> */}
-                <div>
+                {edit ? (
+                  <div
+                    className="edit-info-org"
+                    style={{ display: "flex", flexDirection: "column" }}
+                  >
+                    <TextField label="Name"></TextField>
+                    <TextField label="Address"></TextField>
+                    <Button>Save</Button>
+                    <Button>Cancel</Button>
+                  </div>
+                ) : (
+                  <div>
+                    <Typography variant="h6">
+                      {info.organization_name}
+                    </Typography>
+                    <Typography>{info.type}</Typography>
+                  </div>
+                )}
+                {/* <div>
                   <Typography variant="h6">{info.organization_name}</Typography>
                   <Typography>{info.type}</Typography>
-                </div>
+                </div> */}
               </div>
             </center>
           </div>
