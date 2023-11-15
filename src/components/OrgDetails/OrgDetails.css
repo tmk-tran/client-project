@@ -7,10 +7,35 @@
   margin: 20px auto 0 auto;
 }
 
+.add-group-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-group-fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .add-group-btns {
+
+} */
+
+.popover-container {
+  margin-right: 3%;
+}
+
 @media (max-width: 400px) {
   .OrgDetails-container,
   .detailsOrg-container,
   .OrgDetails-card {
     width: 100%;
+  }
+
+  .add-group-btn {
+    justify-content: center;
+    margin-top: 15px;
   }
 }

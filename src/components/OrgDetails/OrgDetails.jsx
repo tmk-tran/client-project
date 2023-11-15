@@ -18,6 +18,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import OrgGroupTabs from "../OrgGroupTabs/OrgGroupTabs";
+import Popover from "../Popover/Popover";
 
 export default function orgDetails() {
   const theme = useTheme();
@@ -77,6 +78,9 @@ export default function orgDetails() {
                 <center>
                   <OrgContactDetails info={orgDetails} />
                 </center>
+                <div className="add-group-btn">
+                  <Popover />
+                </div>
 
                 {/* Display associated groups */}
                 {groups.length === 0 && <p>No groups yet</p>}

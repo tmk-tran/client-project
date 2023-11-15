@@ -85,14 +85,15 @@ export default function OrgContactDetails({ info }) {
             </center>
           </div>
           <div className="org-address">
-            <center>
-              <Typography>{info.organization_name}</Typography>
+            {/* <center> */}
+              <Typography variant="h6">{info.organization_name}</Typography>
               <Typography>{info.address}</Typography>
               <Typography>
                 {info.city}, {info.state} {info.zip}
               </Typography>
-            </center>
+            {/* </center> */}
           </div>
+          <br />
         </div>
 
         <Card

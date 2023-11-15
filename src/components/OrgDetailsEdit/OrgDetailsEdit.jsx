@@ -129,7 +129,9 @@ export default function OrgContactEdit({
           gap: 2,
         }}
       >
+        {/* <center> */}
         <Typography variant="h6">Edit Organization Details</Typography>
+        {/* </center> */}
         <TextField
           label="Name"
           value={editedName}
@@ -145,6 +147,7 @@ export default function OrgContactEdit({
           value={editedAddress}
           onChange={(e) => setEditedAddress(e.target.value)}
         />
+        {/* <div style={{ display: "flex", flexDirection: "row", gap: "3px" }}> */}
         <TextField
           label="City"
           value={editedCity}
@@ -160,6 +163,7 @@ export default function OrgContactEdit({
           value={editedZip}
           onChange={(e) => setEditedZip(e.target.value)}
         />
+        {/* </div> */}
         <div
           style={{
             display: "flex",

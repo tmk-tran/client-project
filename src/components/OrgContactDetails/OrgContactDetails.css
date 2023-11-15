@@ -18,14 +18,14 @@
 }
 
 .org-address {
-  margin: 15px auto;
+  margin: 5px auto;
   /* border: 1px solid black; */
 }
 
 .edit-icon-btn {
   position: absolute;
   top: 0;
-  right: 37%;
+  right: 39%;
 }
 
 @media (max-width: 400px) {
