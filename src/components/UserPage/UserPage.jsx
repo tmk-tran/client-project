@@ -85,10 +85,12 @@ function UserPage() {
           >
             Add Organization
           </Button>
-      
           {showInput ? (
+            <>
+            <br />
         <TextField
           style={{
+            marginTop: "10px",
             marginLeft: '3%',
             borderRadius: '4px',
             width: '230px',
@@ -105,7 +107,7 @@ function UserPage() {
               <SearchIcon color="primary" style={{ marginRight: '10px' }} />
             ),
           }}
-        />
+        /></>
       ) : (
         <SearchIcon
           color="primary"
@@ -120,7 +122,7 @@ function UserPage() {
       {showInput && (
         <Button
           style={{
-            marginTop: '5px',
+            marginTop: '15px',
             marginLeft: '10px',
             backgroundColor: '#DAA226',
             height: '30px',
