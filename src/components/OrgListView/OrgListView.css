@@ -1,0 +1,107 @@
+.organizationListContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 85%;
+    border: 1px solid #9f9e9e; /* Optional: Add a border for better visibility */
+    border-radius: 3px;
+    margin: 5px;
+    height: 130px;
+  }
+  
+  .organizationHeader {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .logoImage {
+    width: 150px; /* Set a fixed width for the logo image */
+    height: 130px; /* Set a fixed height for the logo image */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+  }
+  
+  .organizationDetails {
+    flex-grow: 1; /* Allow details to take up remaining space */
+    display: flex;
+    flex-direction: column;
+    font-family: Telugu Sangam MN;
+    align-items: center;
+    padding-right: 150px;
+  }
+  
+  .organizationActions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 10px;
+    margin-top: -110px;
+    margin-bottom: 50px;
+  }
+  
+  .initialsContainer {
+    width: 150px;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d6d2d2; /* Optional: Add a background color for better visibility */
+    font-size: 50px;
+    font-weight: bold;
+    color: #000000; /* Optional: Set text color */
+  }
+  
+  @media (max-width: 600px) {
+    .organizationListContainer {
+        display: flex;
+        flex-direction: column;
+        width: 95%; /* Full width on small screens */
+        border: 1px solid #9f9e9e;
+        margin: 5px;
+        height: 410px; /* Automatically adjust height */
+      }
+      
+      .organizationHeader {
+        display: flex;
+        flex-direction: column; /* Stack items vertically on small screens */
+        align-items: center;
+      }
+      
+      .logoImage {
+        width: 100%; /* Full width on small screens */
+        height: 200px; /* Maintain aspect ratio */
+      }
+      
+      .organizationDetails {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        font-family: Telugu Sangam MN;
+        align-items: center;
+        padding: 0 15px; /* Adjust padding for small screens */
+      }
+      
+      .organizationActions {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center actions on small screens */
+        margin-top: 10px; /* Add some space between details and actions */
+        margin-bottom: 0 !important;
+      }
+      
+      .initialsContainer {
+        width: 100%; /* Full width on small screens */
+        height: 200px; /* Automatically adjust height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #d6d2d2;
+        font-size: 70px; /* Adjust font size for small screens */
+        font-weight: bold;
+        color: #000000;
+      }
+      .media-header{
+        margin-top:20px !important;
+      }
+      
+  }

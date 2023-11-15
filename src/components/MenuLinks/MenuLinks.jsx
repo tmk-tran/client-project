@@ -32,6 +32,16 @@ function archivedOrganizations(){
   history.push('/archivedOrganizations');
   handleClose()
 }
+
+function goHome(){
+  history.push('/user');
+  handleClose()
+}
+function aboutPage(){
+  history.push('/about');
+  handleClose()
+}
+
 function logOut(){
   Swal.fire({
     title: "Are you sure you want to Logout?",
@@ -69,9 +79,10 @@ function logOut(){
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={goHome}>Home</MenuItem>
         <MenuItem onClick={newFundraiserForm}>New Fundraiser</MenuItem>
         <MenuItem onClick={archivedOrganizations}>Archived Organizations</MenuItem>
+        <MenuItem onClick={aboutPage}>About</MenuItem>
         <MenuItem onClick={logOut}>Logout</MenuItem>
       </Menu>
     </div>
