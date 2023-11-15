@@ -20,7 +20,6 @@ function UserPage() {
   const history = useHistory();
   const [query, setQuery] = useState(" ");
   const [showInput, setShowInput] = useState(false);
-  const [isSearchVisible, setSearchVisible] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -74,7 +73,7 @@ function UserPage() {
 
   return (
     <div className="organizationsContainer">
-      <Paper elevation={6} style={{ width: "90%", margin: "0 auto" }}>
+      <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
         <br />
         <center>
           <h1 className="organization-header">Organization List</h1>
