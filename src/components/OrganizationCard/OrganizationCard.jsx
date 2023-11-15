@@ -51,12 +51,13 @@ function OrganizationCard({ organization }) {
     <div className="organizationCardContainer">
       <Card
         elevation={4}
+        style={{height: "350px", width: "230px" }}
         onClick={() => history.push(`/orgDetails/${organization.id}`)}
         className="organizationCard"
       >
         {organization.organization_logo ? (
           <CardMedia
-            style={{ objectFit: "cover", height: "230px", width: "100%" }}
+            style={{ objectFit: "cover", height: "56%", width: "100%" }}
             className="cardMedia"
             component="img"
             image={organization.organization_logo}
@@ -67,7 +68,7 @@ function OrganizationCard({ organization }) {
             variant="h5"
             component="div"
             style={{
-              height: "230px", // Set the height to match the image height
+              height: "56%", // Set the height to match the image height
               width: "100%", // Set the width to match the image width
               display: "flex",
               alignItems: "center",
@@ -80,14 +81,14 @@ function OrganizationCard({ organization }) {
         )}
         <CardContent style={{ position: "relative", height: "32%" }}>
           <center>
-            <Typography style={{ fontSize: "1.7em" }} gutterBottom>
+            <Typography style={{ fontSize: "1.6em" }} gutterBottom>
               {organization.organization_name}
             </Typography>
             <Typography
               style={{
                 fontSize: "1em",
                 position: "absolute",
-                bottom: "30px",
+                bottom: "27px",
                 left: "0",
                 width: "100%",
               }}

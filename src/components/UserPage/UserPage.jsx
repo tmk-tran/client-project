@@ -13,6 +13,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import "./UserPage.css";
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
+import OrgListView from "../OrgListView/OrgListView.jsx";
 
 function UserPage() {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function UserPage() {
   const [showInput, setShowInput] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
+  const itemsPerPage = 15;
 
   const fuse = new Fuse(organizationsList, {
     keys: ["organization_name"],
@@ -79,6 +80,7 @@ function UserPage() {
   return (
     <div className="organizationsContainer">
       <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
+        <br />
         <br />
         <center>
           <Typography
@@ -152,6 +154,7 @@ function UserPage() {
         </center>
         <div className="organizationsContainer">
           {currentItems.map((organization, index) => (
+            // <OrgListView key={index} organization={organization} />
             <OrganizationCard key={index} organization={organization} />
           ))}
         </div>

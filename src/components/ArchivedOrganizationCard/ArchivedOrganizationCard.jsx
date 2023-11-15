@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import Swal from "sweetalert2";
 
-
 function ArchivedOrganizationCard({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -37,14 +36,15 @@ function unArchive(organizationId){
 
   return (
     <div className="organizationCardContainer">
-      <Card
+       <Card
         elevation={4}
+        style={{height: "350px", width: "230px"}}
         onClick={() => history.push(`/orgDetails/${organization.id}`)}
         className="organizationCard"
       >
         {organization.organization_logo ? (
           <CardMedia
-            style={{ objectFit: "cover", height: "230px", width: "100%" }}
+            style={{ objectFit: "cover", height: "56%", width: "100%" }}
             className="cardMedia"
             component="img"
             image={organization.organization_logo}
@@ -55,7 +55,7 @@ function unArchive(organizationId){
             variant="h5"
             component="div"
             style={{
-              height: "230px", // Set the height to match the image height
+              height: "56%", // Set the height to match the image height
               width: "100%", // Set the width to match the image width
               display: "flex",
               alignItems: "center",
@@ -68,20 +68,20 @@ function unArchive(organizationId){
         )}
         <CardContent style={{ position: "relative", height: "32%" }}>
           <center>
-            <Typography style={{ fontSize: "1.7em" }} gutterBottom>
+            <Typography style={{ fontSize: "1.6em" }} gutterBottom>
               {organization.organization_name}
             </Typography>
             <Typography
               style={{
                 fontSize: "1em",
                 position: "absolute",
-                bottom: "30px",
+                bottom: "27px",
                 left: "0",
                 width: "100%",
               }}
               gutterBottom
             >
-              Inactive Organization
+              Total Groups: {organization.total_groups}
             </Typography>
             <Typography
               style={{
@@ -93,7 +93,7 @@ function unArchive(organizationId){
               }}
               gutterBottom
             >
-              Total Groups: {organization.total_groups}
+              Total Active Fundraisers: {organization.total_active_fundraisers}
             </Typography>
           </center>
         </CardContent>

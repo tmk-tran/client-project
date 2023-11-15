@@ -114,17 +114,15 @@ export default function GlobalFundraiserInput() {
           }}
         >
           <center>
+            <br />
             <CardContent>
-              <h1
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  fontFamily: "Telugu Sangam MN",
-                }}
+              <Typography
+                variant="h5"
+                className="organization-header"
+                style={{ fontWeight: "bold" }}
               >
                 New Fundraiser Form
-              </h1>
+              </Typography>
               <Typography
                 sx={{
                   fontWeight: "normal",
@@ -136,7 +134,7 @@ export default function GlobalFundraiserInput() {
                 }}
               >
                 <br /> Step 1: Select Organization, Group, and Book Year <br />{" "}
-                Step 2: Fill out Fundraiser Details and Add Fundraiser <br />{" "}
+                Step 2: Fill out Fundraiser Details and Submit <br />{" "}
                 <strong>
                   ** Only Organizations with existing groups will be displayed
                   **
@@ -268,7 +266,7 @@ export default function GlobalFundraiserInput() {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                "& .MuiTextField-root": { m: 0.4},
+                "& .MuiTextField-root": { m: 0.4 },
               }}
             >
               <TextField
@@ -277,7 +275,7 @@ export default function GlobalFundraiserInput() {
                 onChange={(e) => setBooksRequested(Number(e.target.value))}
                 label="Books Requested"
                 fullWidth
-                style={{marginLeft: "10.5%"}}
+                style={{ marginLeft: "10.5%" }}
               />
               <TextField
                 type="number"
@@ -285,7 +283,7 @@ export default function GlobalFundraiserInput() {
                 onChange={(e) => setBooksCheckedOut(Number(e.target.value))}
                 label="Books Checked Out"
                 fullWidth
-                style={{marginRight: "10.5%"}}
+                style={{ marginRight: "10.5%" }}
               />
             </Box>
             <InputLabel
@@ -313,7 +311,7 @@ export default function GlobalFundraiserInput() {
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
                 fullWidth
-                style={{marginLeft: "10%"}}
+                style={{ marginLeft: "10%" }}
               />
               <span style={{ margin: "0 5px" }}>to</span>
               <TextField
@@ -321,7 +319,7 @@ export default function GlobalFundraiserInput() {
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
                 fullWidth
-                style={{marginRight: "10%"}}
+                style={{ marginRight: "10%" }}
               />
             </Box>
             <br />
@@ -337,7 +335,7 @@ export default function GlobalFundraiserInput() {
               sx={{ padding: "10px 28px" }}
               onClick={() => submitFundraiser(selectedGroup)}
             >
-              Add Fundraiser
+              Submit
             </Button>
           </center>
           <br />
