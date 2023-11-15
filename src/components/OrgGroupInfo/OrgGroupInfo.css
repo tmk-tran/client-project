@@ -15,7 +15,6 @@
 #group-photo {
   height: 300px;
   width: 320px;
-  /* object-fit: cover; */
   object-fit: contain;
 }
 
@@ -27,12 +26,6 @@
   align-items: center;
   justify-content: center;
   border: 1px dotted rgb(96, 93, 93);
-}
-
-/* Style for OrgGroupTabs */
-#OrgGroupTab-card:hover {
-  cursor: pointer;
-  transform: scale(1.05);
 }
 
 @media (max-width: 400px) {

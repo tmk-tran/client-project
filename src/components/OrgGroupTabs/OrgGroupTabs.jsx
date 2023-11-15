@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+// Style
 import { Box, Card, CardContent, Tab, Tabs, Typography } from "@mui/material";
+// Utils
 import { capitalizeWords } from "../Utils/helpers";
-import "../OrgGroupInfo/OrgGroupInfo.css";
+// import "../OrgGroupInfo/OrgGroupInfo.css";
+import "./OrgGroupTabs.css";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -24,47 +27,6 @@ function CustomTabPanel(props) {
   );
 }
 
-// CustomTabPanel.propTypes = {
-//   children: PropTypes.node,
-//   index: PropTypes.number.isRequired,
-//   value: PropTypes.number.isRequired,
-// };
-
-// function a11yProps(index) {
-//   return {
-//     id: `simple-tab-${index}`,
-//     'aria-controls': `simple-tabpanel-${index}`,
-//   };
-// }
-
-// export default function BasicTabs() {
-//   const [value, setValue] = React.useState(0);
-
-//   const handleChange = (event, newValue) => {
-//     setValue(newValue);
-//   };
-
-//   return (
-//     <Box sx={{ width: '100%' }}>
-//       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-//         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-//           <Tab label="Item One" {...a11yProps(0)} />
-//           <Tab label="Item Two" {...a11yProps(1)} />
-//           <Tab label="Item Three" {...a11yProps(2)} />
-//         </Tabs>
-//       </Box>
-//       <CustomTabPanel value={value} index={0}>
-//         Group One
-//       </CustomTabPanel>
-//       <CustomTabPanel value={value} index={1}>
-//         Item Two
-//       </CustomTabPanel>
-//       <CustomTabPanel value={value} index={2}>
-//         Item Three
-//       </CustomTabPanel>
-//     </Box>
-//   );
-// }
 export default function OrgGroupTabs({ groups }) {
   const [value, setValue] = useState(0);
 
@@ -101,7 +63,7 @@ export default function OrgGroupTabs({ groups }) {
         </Tabs>
       </Box>
       <br /><br />
-      <Card id="OrgGroupTab-card" elevation={6} style={{ width: "50%", margin: "0 auto" }}>
+      <Card id="OrgGroupTab-card" elevation={6} >
         <CardContent>
           {groups.map((group, index) => (
             <CustomTabPanel key={index} value={value} index={index}>
@@ -121,6 +83,7 @@ export default function OrgGroupTabs({ groups }) {
                 </div>
               )}
               <hr />
+              <div style={{ width: "60%", margin: "0 auto" }}>
               <Typography sx={{ mt: 2 }}>
                 Group Name: {capitalizeWords(group.group_nickname)}
               </Typography>
@@ -143,7 +106,7 @@ export default function OrgGroupTabs({ groups }) {
                       .toLowerCase()}`
                   : "None Entered"}
               </Typography>
-              {/* Add more content as needed */}
+              </div>
             </CustomTabPanel>
           ))}
         </CardContent>

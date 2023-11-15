@@ -1,17 +1,17 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+// Style
 import {
   Box,
-  Button,
   Card,
   CardContent,
-  Modal,
   Typography,
 } from "@mui/material";
-import { capitalizeWords } from "../Utils/helpers";
+// Utils
+import { capitalizeWords, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
 
-export default function OrgGroupInfoCard({ groupInfo, groupNumber }) {
+export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
   return (
     <Card
@@ -27,9 +27,10 @@ export default function OrgGroupInfoCard({ groupInfo, groupNumber }) {
           {groupInfo.group_photo ? (
             <center>
               <img
-                id="group-photo"
+                // id="group-photo"
                 src={groupInfo.group_photo}
                 alt={`Group Photo for ${groupInfo.group_nickname}`}
+                style={styleImage}
               />
             </center>
           ) : (
@@ -39,22 +40,30 @@ export default function OrgGroupInfoCard({ groupInfo, groupNumber }) {
           )}
         </div>
         <Box style={{ flex: 1 }}></Box>
+        <Typography variant="h6" style={{ textAlign: "center" }}>
+          {capitalizeWords(groupInfo.group_nickname)}
+        </Typography>
         <div>
           <hr />
-          <Typography sx={{ mt: 2 }}>
-            Group Name: {capitalizeWords(groupInfo.group_nickname)}
+          {/* <Typography sx={{ mt: 2 }}>
+              Group Name: {capitalizeWords(groupInfo.group_nickname)}
+            </Typography> */}
+          <center>
+            <Typography sx={{ mt: 2 }}>
+              Department: {capitalizeWords(groupInfo.department)}
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              Division:{" "}
+              {groupInfo.sub_department
+                ? capitalizeWords(groupInfo.sub_department)
+                : "N/A"}
+            </Typography>
+          </center>
+          <Typography sx={{ mt: 2, fontWeight: "bold" }}>
+            Description:
           </Typography>
-          <Typography sx={{ mt: 2 }}>
-            Department: {capitalizeWords(groupInfo.department)}
-          </Typography>
-          <Typography sx={{ mt: 2 }}>
-            Division:{" "}
-            {groupInfo.sub_department
-              ? capitalizeWords(groupInfo.sub_department)
-              : "N/A"}
-          </Typography>
-          <Typography sx={{ mt: 2, overflowWrap: "break-word" }}>
-            Description:{" "}
+          <Typography sx={{ overflowWrap: "break-word" }}>
+            {/* Description:{" "} */}
             {groupInfo.group_description
               ? `${groupInfo.group_description
                   .charAt(0)

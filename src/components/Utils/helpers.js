@@ -62,3 +62,10 @@ export const centeredStyle = {
 
 // Style for Icon colors in OrgContactDetails
 export const styleIconColor = { color: "#273b91" };
+
+// Style for images
+export const styleImage = {
+  width: "300px",
+  height: "320px",
+  objectFit: "contain",
+};

@@ -29,6 +29,7 @@ import GlobalFundraiserInput
 const theme = createTheme({
   typography: {
     fontSize: 18,
+    fontFamily: "Telugu Sangam MN",
   },
   palette: {
     primary: {
