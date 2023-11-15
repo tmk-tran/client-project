@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 // Helpers
 import {
   centeredStyle,
@@ -37,6 +38,8 @@ export default function OrgContactDetails({ info }) {
   const dispatch = useDispatch();
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
+  const [edit, setEdit] = useState(false);
+  console.log(edit);
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -57,8 +60,18 @@ export default function OrgContactDetails({ info }) {
         <div className="org-address-container">
           <div>
             <center>
-              <Typography variant="h6">{info.organization_name}</Typography>
-              <Typography>{info.type}</Typography>
+              <div className="org-details-header">
+                <div className="edit-icon-btn">
+                  <Button onClick={() => setEdit(!edit)}>
+                    <EditNoteIcon />
+                  </Button>
+                </div>
+                {/* <Button><EditNoteIcon /></Button> */}
+                <div>
+                  <Typography variant="h6">{info.organization_name}</Typography>
+                  <Typography>{info.type}</Typography>
+                </div>
+              </div>
             </center>
           </div>
           <div className="org-address">
@@ -93,7 +106,11 @@ export default function OrgContactDetails({ info }) {
               <ListItemIcon style={centeredStyle}>
                 <AccountBoxIcon style={styleIconColor} />
               </ListItemIcon>
-              <Typography>{`${capitalizeWords(info.primary_contact_first_name)} ${capitalizeWords(info.primary_contact_last_name)}`}</Typography>
+              <Typography>{`${capitalizeWords(
+                info.primary_contact_first_name
+              )} ${capitalizeWords(
+                info.primary_contact_last_name
+              )}`}</Typography>
             </ListItem>
             <ListItem disablePadding style={listItemStyle}>
               <ListItemIcon style={centeredStyle}>

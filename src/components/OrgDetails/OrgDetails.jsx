@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // Style
 import "./OrgDetails.css";
-import { Button, TextField, Typography, Card, CardContent, Paper } from "@mui/material";
-import EditNoteIcon from "@mui/icons-material/EditNote";
+import {
+  Button,
+  TextField,
+  Typography,
+  Card,
+  CardContent,
+  Paper,
+} from "@mui/material";
+
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
@@ -12,13 +19,11 @@ import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import OrgGroupTabs from "../OrgGroupTabs/OrgGroupTabs";
 
-function orgDetails() {
+export default function orgDetails() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
   const dispatch = useDispatch();
-  const [edit, setEdit] = useState(false);
-  console.log(edit);
 
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
 
@@ -62,9 +67,6 @@ function orgDetails() {
               <Typography variant="h5" style={{ fontWeight: "bold" }}>
                 Organization Details
               </Typography>
-              <div className="edit-icon-btn">
-                <Button onClick={() => setEdit(!edit)}><EditNoteIcon /></Button>
-              </div>
             </div>
           </center>
           <div className="detailsOrg-container">
@@ -110,5 +112,3 @@ function orgDetails() {
     </div>
   );
 }
-
-export default orgDetails;
