@@ -53,65 +53,37 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 });
 
 /**
- * Add a game for the logged in user
- */
-// router.post("/", rejectUnauthenticated, (req, res) => {
-//   const item = req.body;
-//   const user = req.user;
-//   const queryText = ``;
-//   pool
-//     .query(queryText, [
-//       user.user_id,
-
-//     ])
-//     .then((result) => {
-//       const newGameId = result.rows[0].game_id;
-//       console.log("new game_id: ", newGameId);
-//       res.send({ game_id: newGameId }).status(201);
-//       // .json({ message: "Values inserted!", game_id: newGameId });
-//     })
-//     .catch((error) => {
-//       console.log("Error in POST: ", error);
-//       res.sendStatus(500);
-//     });
-// });
-
-/**
- * Delete a game if it's one the logged in user added
- */
-// router.delete("/:id", rejectUnauthenticated, (req, res) => {
-//   // endpoint functionality
-//   console.log("REQ: ", req.params.id);
-//   console.log("USER: ", req.user.user_id);
-//   pool
-//     .query(`DELETE FROM "games" WHERE "game_id" = $1 AND "user_id" = $2`, [
-//       req.params.id,
-//       req.user.user_id,
-//     ])
-//     .then((results) => {
-//       res.sendStatus(200);
-//     })
-//     .catch((error) => {
-//       console.log("Error in DELETE with id", error);
-//       res.sendStatus(500);
-//     });
-// });
-
-/**
  * Update a group
  */
-router.put("/:id", (req, res) => {
+router.put("/:id", rejectUnauthenticated, (req, res) => {
   const organization = req.body;
   console.log("ORGANIZATION = ", organization);
+
+  // Org Details
+  const orgName = organization.organization_name;
+  const type = organization.type;
+  const address = organization.address;
+  const city = organization.city;
+  const state = organization.state;
+  const zip = organization.zip;
+
+  // Org Contact Details
   const firstName = organization.primary_contact_first_name;
   const lastName = organization.primary_contact_last_name;
   const phone = organization.primary_contact_phone;
   const email = organization.primary_contact_email;
   const orgId = organization.organization_id;
-  const user = req.user.id;
-  const queryText = `UPDATE "organization" SET primary_contact_first_name = $1, primary_contact_last_name = $2, primary_contact_phone = $3, primary_contact_email = $4 WHERE id = $5;`;
+  
+  // const user = req.user.id;
+  const queryText = `UPDATE "organization" SET organization_name = $1, type = $2, address = $3, city = $4, state = $5, zip = $6, primary_contact_first_name = $7, primary_contact_last_name = $8, primary_contact_phone = $9, primary_contact_email = $10 WHERE id = $11;`;
   pool
     .query(queryText, [
+      orgName,
+      type,
+      address,
+      city,
+      state,
+      zip,
       firstName,
       lastName,
       phone,

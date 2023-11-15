@@ -11,22 +11,22 @@ function* orgDetails(action) {
   }
 }
 
-function* editContact(action) {
+function* editOrg(action) {
   try {
     const items = yield axios.put(
       `/api/orgDetails/${action.payload.id}`,
       action.payload
     );
-    console.log("FETCH request from orgDetails.saga, ITEMS = ", items);
+    console.log("FETCH request from orgDetails.saga, ITEMS FOR editContact = ", items);
     console.log("EDIT_CONTACT_INFO action.payload = ", action.payload);
 
     yield put({ type: "FETCH_ORG_DETAILS", payload: action.payload.organization_id });
   } catch {
-    console.log("error in editContactSaga");
+    console.log("error in editOrgSaga");
   }
 }
 
 export default function* orgDetailsSaga() {
   yield takeEvery("FETCH_ORG_DETAILS", orgDetails);
-  yield takeEvery("EDIT_CONTACT_INFO", editContact);
+  yield takeEvery("EDIT_ORG_DETAILS", editOrg);
 }

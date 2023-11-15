@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // Style
 import {
   Backdrop,
@@ -21,6 +21,12 @@ export default function OrgContactEdit({
   info,
   onSaveChanges,
 }) {
+  const [orgName, setOrgName] = useState(info.organization_name);
+  const [orgType, setOrgType] = useState(info.type);
+  const [orgAddress, setOrgAddress] = useState(info.address);
+  const [orgCity, setOrgCity] = useState(info.city);
+  const [orgState, setOrgState] = useState(info.state);
+  const [orgZip, setOrgZip] = useState(info.zip);
   const [editedFirstName, setEditedFirstName] = useState(
     info.primary_contact_first_name
   );
@@ -30,6 +36,15 @@ export default function OrgContactEdit({
   const [editedPhone, setEditedPhone] = useState(info.primary_contact_phone);
   const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
   const [emailError, setEmailError] = useState(false);
+
+  useEffect(() => {
+    setOrgName(info.organization_name);
+    setOrgType(info.type);
+    setOrgAddress(info.address);
+    setOrgCity(info.city);
+    setOrgState(info.state);
+    setOrgZip(info.zip);
+  }, [info]);
 
   const handleSave = () => {
     // Validate email before saving
@@ -42,23 +57,36 @@ export default function OrgContactEdit({
     // Clear email error if it was previously set
     setEmailError(false);
 
-    const newContactInfo = {
+    const contactInfo = {
       ...info,
+      organization_name: orgName,
+      type: orgType,
+      address: orgAddress,
+      city: orgCity,
+      state: orgState,
+      zip: orgZip,
       primary_contact_first_name: editedFirstName,
       primary_contact_last_name: editedLastName,
       primary_contact_phone: editedPhone,
       primary_contact_email: editedEmail,
     };
 
-    const orgId = newContactInfo.organization_id;
+    const orgId = contactInfo.organization_id;
     console.log("ORG ID = ", orgId);
 
     const editedItem = {
       organization_id: orgId,
+      organization_name: orgName,
+      type: orgType,
+      address: orgAddress,
+      city: orgCity,
+      state: orgState,
+      zip: orgZip,
       primary_contact_first_name: editedFirstName,
       primary_contact_last_name: editedLastName,
       primary_contact_phone: editedPhone,
       primary_contact_email: editedEmail,
+      organization_id: orgId,
     };
 
     toast.success("Changes saved successfully!", {
@@ -86,12 +114,6 @@ export default function OrgContactEdit({
   };
 
   return (
-    // <Modal
-    //   open={isOpen}
-    //   onClose={onClose}
-    //   aria-labelledby="org-contact-edit-modal"
-    //   aria-describedby="org-contact-edit-modal-description"
-    // >
     <Modal
       open={isOpen}
       onClose={() => {}} // Prevent closing on backdrop click
@@ -130,12 +152,6 @@ export default function OrgContactEdit({
           value={formatPhoneNumber(editedPhone)}
           onChange={(e) => setEditedPhone(e.target.value)}
         />
-        {/* <TextField
-          label="Email"
-          type="email"
-          value={editedEmail}
-          onChange={(e) => setEditedEmail(e.target.value)}
-        /> */}
         <TextField
           label="Email"
           type="email"
@@ -145,7 +161,7 @@ export default function OrgContactEdit({
             setEmailError(false); // Clear email error when typing
           }}
           error={emailError}
-          helperText={emailError ? 'Invalid email format' : ''}
+          helperText={emailError ? "Invalid email format" : ""}
         />
         <div
           style={{

@@ -24,12 +24,12 @@ import {
   ListItemIcon,
   Divider,
   Typography,
-  TextField,
   useMediaQuery,
 } from "@mui/material";
 import "./OrgContactDetails.css";
 // Component
 import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
+import OrgDetailsEdit from "../OrgDetailsEdit/OrgDetailsEdit";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,19 +38,29 @@ export default function OrgContactDetails({ info }) {
   const dispatch = useDispatch();
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
-  const [edit, setEdit] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingOrgDetails, setIsEditingOrgDetails] = useState(false);
 
-  const handleEdit = () => {
+  const handleEditOrg = () => {
+    setIsEditingOrgDetails(true);
+  };
+
+  const handleEditContact = () => {
     setIsEditing(true);
   };
 
-  const handleSaveChanges = (editedItem) => {
+  const handleSaveContact = (editedItem) => {
     // Dispatch action to update the state or save data
     console.log("New Contact Info:", editedItem);
-    dispatch({ type: "EDIT_CONTACT_INFO", payload: editedItem });
+    dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
     setIsEditing(false);
+  };
+
+  const handleSaveOrgDetails = (editedOrg) => {
+    // Dispatch action to update the state or save data
+    console.log("New Org Details:", editedOrg);
+    dispatch({ type: "EDIT_ORG_DETAILS", payload: editedOrg });
   };
 
   return (
@@ -61,37 +71,22 @@ export default function OrgContactDetails({ info }) {
             <center>
               <div className="org-details-header">
                 <div className="edit-icon-btn">
-                  <Button onClick={() => setEdit(!edit)}>
+                  <Button onClick={handleEditOrg}>
                     <EditNoteIcon />
                   </Button>
                 </div>
-                {edit ? (
-                  <div
-                    className="edit-info-org"
-                    style={{ display: "flex", flexDirection: "column" }}
-                  >
-                    <TextField label="Name"></TextField>
-                    <TextField label="Address"></TextField>
-                    <Button>Save</Button>
-                    <Button>Cancel</Button>
-                  </div>
-                ) : (
-                  <div>
-                    <Typography variant="h6">
-                      {info.organization_name}
-                    </Typography>
-                    <Typography>{info.type}</Typography>
-                  </div>
-                )}
-                {/* <div>
-                  <Typography variant="h6">{info.organization_name}</Typography>
-                  <Typography>{info.type}</Typography>
-                </div> */}
+                <OrgDetailsEdit
+                  isOpen={isEditingOrgDetails}
+                  onClose={() => setIsEditingOrgDetails(false)}
+                  info={info}
+                  onSaveChanges={handleSaveOrgDetails}
+                />
               </div>
             </center>
           </div>
           <div className="org-address">
             <center>
+              <Typography>{info.organization_name}</Typography>
               <Typography>{info.address}</Typography>
               <Typography>
                 {info.city}, {info.state} {info.zip}
@@ -156,9 +151,9 @@ export default function OrgContactDetails({ info }) {
                 isOpen={isEditing}
                 onClose={() => setIsEditing(false)}
                 info={info}
-                onSaveChanges={handleSaveChanges}
+                onSaveChanges={handleSaveContact}
               />
-              <Button onClick={handleEdit}>Edit</Button>
+              <Button onClick={handleEditContact}>Edit</Button>
             </div>
           </List>
           <Divider />
