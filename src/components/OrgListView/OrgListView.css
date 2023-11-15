@@ -8,6 +8,13 @@
     margin: 5px;
     height: 130px;
   }
+
+  .organizationListContainer:hover{
+    background-color: rgba(78, 77, 77, 0.1); /* Semi-transparent black overlay */
+    transform: scale(1.03); /* Scale up on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Light box shadow on hover */
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
   
   .organizationHeader {
     display: flex;
@@ -35,7 +42,7 @@
     flex-direction: column;
     align-items: flex-end;
     padding-right: 10px;
-    margin-top: -110px;
+    margin-top: -105px;
     margin-bottom: 50px;
   }
   

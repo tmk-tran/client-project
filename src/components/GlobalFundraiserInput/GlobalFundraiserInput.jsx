@@ -134,7 +134,7 @@ export default function GlobalFundraiserInput() {
                 }}
               >
                 <br /> Step 1: Select Organization, Group, and Book Year <br />{" "}
-                Step 2: Fill out Fundraiser Details and Add Fundraiser <br />{" "}
+                Step 2: Fill out Fundraiser Details and Submit <br />{" "}
                 <strong>
                   ** Only Organizations with existing groups will be displayed
                   **
@@ -335,7 +335,7 @@ export default function GlobalFundraiserInput() {
               sx={{ padding: "10px 28px" }}
               onClick={() => submitFundraiser(selectedGroup)}
             >
-              Add Fundraiser
+              Submit
             </Button>
           </center>
           <br />

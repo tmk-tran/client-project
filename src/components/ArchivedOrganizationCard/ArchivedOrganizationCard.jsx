@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import Swal from "sweetalert2";
 
-
 function ArchivedOrganizationCard({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -39,7 +38,7 @@ function unArchive(organizationId){
     <div className="organizationCardContainer">
        <Card
         elevation={4}
-        style={{height: "350px", width: "230px" }}
+        style={{height: "350px", width: "230px"}}
         onClick={() => history.push(`/orgDetails/${organization.id}`)}
         className="organizationCard"
       >

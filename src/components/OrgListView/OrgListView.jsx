@@ -65,7 +65,7 @@ function OrgListView({ organization }) {
 
   return (
     <>
-      <div className="organizationListContainer">
+      <div className="organizationListContainer" onClick={() => history.push(`/orgDetails/${organization.id}`)}>
         <div className="organizationHeader">
         {renderLogoOrInitials()}
         <div className="organizationDetails">

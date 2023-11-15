@@ -72,11 +72,11 @@ function backToHome(){
           <Typography
             variant="h5"
             className="organization-header"
-            style={{ fontWeight: "bold" }}
+            style={{ fontWeight: "bold", marginBottom: "15px"}}
           >
             Archived Organizations
           </Typography>
-          <Button onClick={backToHome}> </Button>
+          <br />
         </center>
         <div className="fuzzy-search-archived">
       {showInput ? (
