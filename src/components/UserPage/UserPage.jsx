@@ -80,6 +80,7 @@ function UserPage() {
     <div className="organizationsContainer">
       <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
         <br />
+        <br />
         <center>
           <Typography
             variant="h5"

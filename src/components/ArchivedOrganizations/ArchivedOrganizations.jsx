@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, TextField, Paper, Pagination } from "@mui/material";
+import { Button, TextField, Paper, Pagination, Typography } from "@mui/material";
 import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
 import ArchivedOrganizationCard from "../ArchivedOrganizationCard/ArchivedOrganizationCard";
@@ -68,7 +68,14 @@ function backToHome(){
       <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
         <br />
         <center>
-          <h1 className="organization-header">Archived Organizations</h1>
+        <br />
+          <Typography
+            variant="h5"
+            className="organization-header"
+            style={{ fontWeight: "bold" }}
+          >
+            Archived Organizations
+          </Typography>
           <Button onClick={backToHome}> </Button>
         </center>
         <div className="fuzzy-search-archived">
@@ -96,6 +103,7 @@ function backToHome(){
         <SearchIcon
           color="primary"
           style={{
+            marginTop: "-15px",
             cursor: 'pointer',
           }}
           onClick={() => setShowInput(true)}
