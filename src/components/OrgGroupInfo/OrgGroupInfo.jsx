@@ -1,20 +1,27 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+// Style
 import {
   Box,
   Card,
   CardContent,
   Typography,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+// Utils
 import { capitalizeWords, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const history = useHistory();
+
   return (
     <Card
       elevation={6}
-      id="orgGroup-details-container"
+      id={`orgGroup-details-container ${isSmallScreen ? "small-screen" : ""}`}
       onClick={() => history.push(`/group/${groupInfo.group_id}`)}
     >
       <CardContent>

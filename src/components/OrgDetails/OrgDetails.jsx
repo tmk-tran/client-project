@@ -52,10 +52,10 @@ function orgDetails() {
     <div
       className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
     >
-      <Card className="OrgDetails-card" elevation={6}>
+      <Card className="OrgDetails-card" elevation={3}>
         <CardContent>
           <center>
-            <Typography variant="h5">Organization Details</Typography>
+            <Typography variant="h5" style={{ fontWeight: "bold" }}>Organization Details</Typography>
           </center>
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}
