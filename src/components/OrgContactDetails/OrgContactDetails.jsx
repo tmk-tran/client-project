@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 // Helpers
 import {
   centeredStyle,
@@ -23,12 +24,12 @@ import {
   ListItemIcon,
   Divider,
   Typography,
-  TextField,
   useMediaQuery,
 } from "@mui/material";
 import "./OrgContactDetails.css";
 // Component
 import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
+import OrgDetailsEdit from "../OrgDetailsEdit/OrgDetailsEdit";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -39,16 +40,27 @@ export default function OrgContactDetails({ info }) {
   const isSmallScreen = useMediaQuery("(max-width:400px)");
 
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingOrgDetails, setIsEditingOrgDetails] = useState(false);
 
-  const handleEdit = () => {
+  const handleEditOrg = () => {
+    setIsEditingOrgDetails(true);
+  };
+
+  const handleEditContact = () => {
     setIsEditing(true);
   };
 
-  const handleSaveChanges = (editedItem) => {
+  const handleSaveContact = (editedItem) => {
     // Dispatch action to update the state or save data
     console.log("New Contact Info:", editedItem);
-    dispatch({ type: "EDIT_CONTACT_INFO", payload: editedItem });
+    dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
     setIsEditing(false);
+  };
+
+  const handleSaveOrgDetails = (editedOrg) => {
+    // Dispatch action to update the state or save data
+    console.log("New Org Details:", editedOrg);
+    dispatch({ type: "EDIT_ORG_DETAILS", payload: editedOrg });
   };
 
   return (
@@ -57,12 +69,24 @@ export default function OrgContactDetails({ info }) {
         <div className="org-address-container">
           <div>
             <center>
-              <Typography variant="h6">{info.organization_name}</Typography>
-              <Typography>{info.type}</Typography>
+              <div className="org-details-header">
+                <div className="edit-icon-btn">
+                  <Button onClick={handleEditOrg}>
+                    <EditNoteIcon />
+                  </Button>
+                </div>
+                <OrgDetailsEdit
+                  isOpen={isEditingOrgDetails}
+                  onClose={() => setIsEditingOrgDetails(false)}
+                  info={info}
+                  onSaveChanges={handleSaveOrgDetails}
+                />
+              </div>
             </center>
           </div>
           <div className="org-address">
             <center>
+              <Typography>{info.organization_name}</Typography>
               <Typography>{info.address}</Typography>
               <Typography>
                 {info.city}, {info.state} {info.zip}
@@ -93,7 +117,11 @@ export default function OrgContactDetails({ info }) {
               <ListItemIcon style={centeredStyle}>
                 <AccountBoxIcon style={styleIconColor} />
               </ListItemIcon>
-              <Typography>{`${capitalizeWords(info.primary_contact_first_name)} ${capitalizeWords(info.primary_contact_last_name)}`}</Typography>
+              <Typography>{`${capitalizeWords(
+                info.primary_contact_first_name
+              )} ${capitalizeWords(
+                info.primary_contact_last_name
+              )}`}</Typography>
             </ListItem>
             <ListItem disablePadding style={listItemStyle}>
               <ListItemIcon style={centeredStyle}>
@@ -123,9 +151,9 @@ export default function OrgContactDetails({ info }) {
                 isOpen={isEditing}
                 onClose={() => setIsEditing(false)}
                 info={info}
-                onSaveChanges={handleSaveChanges}
+                onSaveChanges={handleSaveContact}
               />
-              <Button onClick={handleEdit}>Edit</Button>
+              <Button onClick={handleEditContact}>Edit</Button>
             </div>
           </List>
           <Divider />

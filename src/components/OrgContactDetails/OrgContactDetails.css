@@ -9,14 +9,34 @@
   border: 1px solid black;
 } */
 
+.org-details-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
 .org-address {
   margin: 15px auto;
   /* border: 1px solid black; */
+}
+
+.edit-icon-btn {
+  position: absolute;
+  top: 0;
+  right: 37%;
 }
 
 @media (max-width: 400px) {
   .org-details {
     display: flex;
     flex-direction: column;
+  }
+
+  .edit-icon-btn {
+    position: absolute;
+    top: 100%;
+    right: 2%;
   }
 }
