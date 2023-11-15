@@ -65,7 +65,7 @@ function backToHome(){
 
   return (
     <div className="organizationsContainer">
-      <Paper elevation={6} style={{ width: "90%", margin: "0 auto" }}>
+      <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
         <br />
         <center>
           <h1 className="organization-header">Archived Organizations</h1>
@@ -124,8 +124,8 @@ function backToHome(){
             <ArchivedOrganizationCard key={index} organization={organization} />
           ))}
         </div>
-
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+<br />
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <Pagination
             count={pageCount}
             shape="rounded"
@@ -133,7 +133,6 @@ function backToHome(){
             onChange={handlePageChange}
           />
         </div>
-
         <br />
       </Paper>
     </div>

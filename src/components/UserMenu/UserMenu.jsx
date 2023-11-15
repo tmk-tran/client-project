@@ -12,6 +12,7 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import PersonIcon from "@mui/icons-material/Person";
 import SearchIcon from "@mui/icons-material/Search";
+import Swal from "sweetalert2";
 
 export default function UserMenu() {
   const dispatch = useDispatch();
@@ -51,6 +52,22 @@ export default function UserMenu() {
     prevOpen.current = open;
   }, [open]);
 
+  function logOut(){
+    Swal.fire({
+      title: "Are you sure you want to Logout?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Logout",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch({ type: "LOGOUT" });
+        Swal.fire("Logged out!");
+      }
+    });
+  }
+
   return isSmallScreen ? null : (
     <Stack direction="row" spacing={2}>
       <div>
@@ -88,8 +105,8 @@ export default function UserMenu() {
                     onKeyDown={handleListKeyDown}
                   >
                     {/* <MenuItem onClick={handleClose}>Sign In</MenuItem> */}
-                    <MenuItem onClick={handleClose}>Orders</MenuItem>
-                    <MenuItem onClick={() => dispatch({ type: "LOGOUT" })}>
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={logOut}>
                       Logout
                     </MenuItem>
                   </MenuList>
