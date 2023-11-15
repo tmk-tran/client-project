@@ -1,0 +1,15 @@
+#OrgGroupTab-card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+#OrgGroupTab-card {
+  width: 50%;
+  margin: 0 auto;
+}
+
+@media (max-width: 400px) {
+  #OrgGroupTab-card {
+    width: 100%;
+  }
+}

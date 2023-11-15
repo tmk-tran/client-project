@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, TextField, Paper, Pagination } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Paper,
+  Pagination,
+  Typography,
+} from "@mui/material";
 import OrganizationCard from "../OrganizationCard/OrganizationCard";
 import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
@@ -41,7 +47,6 @@ function UserPage() {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
-
   const clearInput = () => {
     setQuery(" ");
     setShowInput(false);
@@ -76,7 +81,14 @@ function UserPage() {
       <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
         <br />
         <center>
-          <h1 className="organization-header">Organization List</h1>
+          <Typography
+            variant="h5"
+            className="organization-header"
+            style={{ fontWeight: "bold" }}
+          >
+            Organization List
+          </Typography>
+          <br />
           <Button
             style={{ marginBottom: "5px" }}
             variant="outlined"
@@ -84,6 +96,7 @@ function UserPage() {
           >
             Add Organization
           </Button>
+
           {showInput ? (
             <>
             <br />
@@ -135,6 +148,7 @@ function UserPage() {
           Clear
         </Button>
       )}
+
         </center>
         <div className="organizationsContainer">
           {currentItems.map((organization, index) => (
