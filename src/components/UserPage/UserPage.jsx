@@ -29,7 +29,7 @@ function UserPage() {
   const [showInput, setShowInput] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 15;
 
   const fuse = new Fuse(organizationsList, {
     keys: ["organization_name"],

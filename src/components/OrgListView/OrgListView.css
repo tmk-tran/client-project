@@ -3,38 +3,16 @@
     justify-content: space-between;
     flex-direction: column;
     width: 85%;
-    border: 1px solid #9f9e9e; /* Optional: Add a border for better visibility */
+    border: 1px solid #9f9e9e;
     border-radius: 3px;
     margin: 5px;
     height: 130px;
   }
-
-  .organizationListContainer:hover{
-    background-color: rgba(78, 77, 77, 0.1); /* Semi-transparent black overlay */
-    transform: scale(1.03); /* Scale up on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Light box shadow on hover */
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-  }
   
-  .organizationHeader {
-    display: flex;
-    align-items: center;
-    
-  }
-  
-  .logoImage {
-    width: 150px; /* Set a fixed width for the logo image */
-    height: 130px; /* Set a fixed height for the logo image */
-    object-fit: cover; /* Maintain aspect ratio and cover the container */
-  }
-  
-  .organizationDetails {
-    flex-grow: 1; /* Allow details to take up remaining space */
-    display: flex;
-    flex-direction: column;
-    font-family: Telugu Sangam MN;
-    align-items: center;
-    padding-right: 150px;
+  .organizationClickable {
+    flex-grow: 1;
+    cursor: pointer;
+    overflow: hidden; /* Ensure that the clickable area doesn't overflow into the actions area */
   }
   
   .organizationActions {
@@ -42,9 +20,37 @@
     flex-direction: column;
     align-items: flex-end;
     padding-right: 10px;
-    margin-top: -105px;
-    margin-bottom: 50px;
+    margin-top: -135px;
+    margin-bottom: 25px;
   }
+  
+  .organizationListContainer:hover {
+    background-color: rgba(78, 77, 77, 0.1);
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .organizationHeader {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logoImage {
+    width: 150px;
+    height: 130px;
+    object-fit: cover;
+  }
+  
+  .organizationDetails {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    font-family: Telugu Sangam MN;
+    align-items: center;
+    padding-right: 150px;
+  }
+  
   
   .initialsContainer {
     width: 150px;

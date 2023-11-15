@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-  Button,
-} from "@mui/material";
+import { Button } from "@mui/material";
 import "./OrgListView.css";
 import Swal from "sweetalert2";
 import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
@@ -37,9 +35,9 @@ function OrgListView({ organization }) {
     } else {
       // If no logo, display initials of organization name
       const initials = organization.organization_name
-        .split(' ')
+        .split(" ")
         .map((word) => word[0])
-        .join('')
+        .join("")
         .toUpperCase();
 
       return <div className="initialsContainer">{initials}</div>;
@@ -63,31 +61,56 @@ function OrgListView({ organization }) {
     });
   };
 
+  function goToDetails() {
+    history.push(`/orgDetails/${organization.id}`);
+  }
+
   return (
     <>
-      <div className="organizationListContainer" onClick={() => history.push(`/orgDetails/${organization.id}`)}>
-        <div className="organizationHeader">
-        {renderLogoOrInitials()}
-        <div className="organizationDetails">
-          <h2 className="media-header" style={{fontSize: "26px", marginBottom: "0", marginTop: 0}}>{organization.organization_name}</h2>
-          <div style={{fontSize: "18px"}}>Total Groups: {organization.total_groups}</div>
-          <div style={{fontSize: "18px"}}>
-            Total Active Fundraisers: {organization.total_active_fundraisers}
-          </div>
+   <div className="organizationListContainer">
+  <div className="organizationClickable" onClick={goToDetails}>
+    <div className="organizationHeader">
+      {renderLogoOrInitials()}
+      <div className="organizationDetails">
+        <h2 className="media-header" style={{ fontSize: "26px", marginBottom: "0", marginTop: 0 }}>
+          {organization.organization_name}
+        </h2>
+        <div style={{ fontSize: "18px" }}>
+          Total Groups: {organization.total_groups}
         </div>
+        <div style={{ fontSize: "18px" }}>
+          Total Active Fundraisers: {organization.total_active_fundraisers}
         </div>
-        <div className="organizationActions">
-          <Button style={{marginRight: "15px"}} onClick={() => handleEdit(organization.id)}>Edit</Button>
-          <Button onClick={() => handleArchive(organization.id)}>
-            Archive
-          </Button>
-        </div>
-        <EditOrganizationModal
-        open={isEditModalOpen}
-        handleClose={handleEditClose}
-        organization={organization}
-      />
       </div>
+    </div>
+  </div>
+
+  <div className="organizationActions">
+    <Button
+      style={{ marginRight: "15px" }}
+      onClick={(e) => {
+        e.stopPropagation();
+        handleEdit(organization.id);
+      }}
+    >
+      Edit
+    </Button>
+    <Button
+      onClick={(e) => {
+        e.stopPropagation();
+        handleArchive(organization.id);
+      }}
+    >
+      Archive
+    </Button>
+  </div>
+
+  <EditOrganizationModal
+    open={isEditModalOpen}
+    handleClose={handleEditClose}
+    organization={organization}
+  />
+</div>
       <br />
     </>
   );
