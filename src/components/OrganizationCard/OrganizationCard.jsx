@@ -51,7 +51,7 @@ function OrganizationCard({ organization }) {
     <div className="organizationCardContainer">
       <Card
         elevation={4}
-        style={{height: "350px", width: "230px" }}
+        style={{ height: "350px", width: "230px" }}
         onClick={() => history.push(`/orgDetails/${organization.id}`)}
         className="organizationCard"
       >
