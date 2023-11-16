@@ -86,11 +86,11 @@ export default function OrgContactDetails({ info }) {
           </div>
           <div className="org-address">
             {/* <center> */}
-              <Typography variant="h6">{info.organization_name}</Typography>
-              <Typography>{info.address}</Typography>
-              <Typography>
-                {info.city}, {info.state} {info.zip}
-              </Typography>
+            <Typography variant="h6">{info.organization_name}</Typography>
+            <Typography>{info.address}</Typography>
+            <Typography>
+              {info.city}, {info.state} {info.zip}
+            </Typography>
             {/* </center> */}
           </div>
           <br />
@@ -113,7 +113,7 @@ export default function OrgContactDetails({ info }) {
               transform: "translate(-50%, -50%)",
             }}
           />
-          <List style={{ width: "70%", marginTop: "10px" }}>
+          <List style={{ padding: "15px", width: "70%", marginTop: "10px" }}>
             <ListItem disablePadding style={listItemStyle}>
               <ListItemIcon style={centeredStyle}>
                 <AccountBoxIcon style={styleIconColor} />

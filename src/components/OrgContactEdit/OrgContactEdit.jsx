@@ -136,7 +136,12 @@ export default function OrgContactEdit({
           gap: 2,
         }}
       >
-        <Typography variant="h6">Edit Contact Information</Typography>
+        <Typography
+          variant="h5"
+          sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
+        >
+          Edit Contact Information
+        </Typography>
         <TextField
           label="First Name"
           value={editedFirstName}

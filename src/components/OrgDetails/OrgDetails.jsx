@@ -75,6 +75,9 @@ export default function orgDetails() {
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
                 {/* Display organization details once */}
+                {/* <div className="add-group-btn">
+                  <Popover />
+                </div> */}
                 <center>
                   <OrgContactDetails info={orgDetails} />
                 </center>

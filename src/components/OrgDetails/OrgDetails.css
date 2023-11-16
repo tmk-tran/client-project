@@ -1,5 +1,6 @@
 .detailsOrg-container {
   margin-top: 15px;
+  position: relative;
 }
 
 .OrgDetails-card {
@@ -8,8 +9,14 @@
 }
 
 .add-group-btn {
+  /* display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0; */
   display: flex;
   justify-content: flex-end;
+
 }
 
 .add-group-fields {
@@ -18,10 +25,6 @@
   justify-content: center;
   align-items: center;
 }
-
-/* .add-group-btns {
-
-} */
 
 .popover-container {
   margin-right: 3%;

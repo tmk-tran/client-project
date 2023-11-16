@@ -1,6 +1,7 @@
 import * as React from "react";
 // Style
-import { Box, Button, TextField, Typography, Popover } from "@mui/material/";
+import { Box, Button, TextField, Typography, Popover, useTheme, useMediaQuery } from "@mui/material/";
+import "./Popover.css";
 
 export default function BasicPopover() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -12,6 +13,8 @@ export default function BasicPopover() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const isMobile = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -27,26 +30,31 @@ export default function BasicPopover() {
         anchorEl={anchorEl}
         onClose={handleClose}
         // anchorOrigin={{
-        //   vertical: "bottom",
+        //   vertical: "top",
         //   horizontal: "left",
         // }}
         transformOrigin={{
           vertical: "bottom",
-          horizontal: "right",
+          horizontal: isMobile ? "right" : "left",
+        //   horizontal: "right",
         }}
       >
         <Box style={{ padding: "10px" }}>
-        <Typography sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}>New Group</Typography>
-        <div className="add-group-fields">
-          <TextField label="Name"></TextField>
-          <TextField label="Department"></TextField>
-          <TextField label="Division"></TextField>
-          <TextField label="Description"></TextField>
-          <div className="add-group-btns">
-            <Button>Cancel</Button>
-            <Button>Save</Button>
+          <Typography sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}>
+            New Group
+          </Typography>
+          <div>
+            <div className="add-group-fields">
+              <TextField label="Name"></TextField>
+              <TextField label="Department"></TextField>
+              <TextField label="Division"></TextField>
+              <TextField label="Description"></TextField>
+              <div className="add-group-btns">
+                <Button>Cancel</Button>
+                <Button>Save</Button>
+              </div>
+            </div>
           </div>
-        </div>
         </Box>
       </Popover>
     </div>
