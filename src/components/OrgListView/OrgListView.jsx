@@ -67,50 +67,56 @@ function OrgListView({ organization }) {
 
   return (
     <>
-   <div className="organizationListContainer">
-  <div className="organizationClickable" onClick={goToDetails}>
-    <div className="organizationHeader">
-      {renderLogoOrInitials()}
-      <div className="organizationDetails">
-        <h2 className="media-header" style={{ fontSize: "26px", marginBottom: "0", marginTop: 0 }}>
-          {organization.organization_name}
-        </h2>
-        <div style={{ fontSize: "18px" }}>
-          Total Groups: {organization.total_groups}
+      <div className="organizationListContainer">
+        <div className="organizationClickable" onClick={goToDetails}>
+          <div className="organizationHeader">
+            {renderLogoOrInitials()}
+            <div className="organizationDetails">
+              <h2
+                className="media-header"
+                style={{ fontSize: "26px", marginBottom: "0", marginTop: 0 }}
+              >
+                {organization.organization_name}
+              </h2>
+              <div style={{ fontSize: "18px" }}>
+                Total Groups: {organization.total_groups}
+              </div>
+              <div style={{ fontSize: "18px" }}>
+                Total Active Fundraisers:{" "}
+                {organization.total_active_fundraisers}
+              </div>
+            </div>
+          </div>
         </div>
-        <div style={{ fontSize: "18px" }}>
-          Total Active Fundraisers: {organization.total_active_fundraisers}
+
+        <div className="organizationActions">
+          <Button
+            style={{ marginRight: "20px" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEdit(organization.id);
+            }}
+          >
+            <span className="edit-button">Edit</span>
+          </Button>
+          {organization.total_active_fundraisers <= 1 && (
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleArchive(organization.id);
+              }}
+            >
+              Archive
+            </Button>
+          )}
         </div>
+
+        <EditOrganizationModal
+          open={isEditModalOpen}
+          handleClose={handleEditClose}
+          organization={organization}
+        />
       </div>
-    </div>
-  </div>
-
-  <div className="organizationActions">
-    <Button
-      style={{ marginRight: "15px" }}
-      onClick={(e) => {
-        e.stopPropagation();
-        handleEdit(organization.id);
-      }}
-    >
-     <span className="edit-button">Edit</span>
-    </Button>
-    <Button
-      onClick={(e) => {
-        e.stopPropagation();
-        handleArchive(organization.id);
-      }}
-    >
-      Archive
-    </Button>
-  </div>
-
-  <EditOrganizationModal
-    open={isEditModalOpen}
-    handleClose={handleEditClose}
-    organization={organization}
-  />
-</div>
       <br />
     </>
   );
