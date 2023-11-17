@@ -22,6 +22,7 @@ const customTheme = createTheme({
 });
 
 export default function BasicMenu() {
+  const user = useSelector((store) => store.user);
   const theme = useTheme();
   const dispatch = useDispatch();
   const isSmallScreen = useMediaQuery(customTheme.breakpoints.down("md"));
@@ -51,6 +52,11 @@ export default function BasicMenu() {
   }
   function aboutPage() {
     history.push("/about");
+    handleClose();
+  }
+
+  function goToProfile(){
+    history.push(`/userProfile/${user.id}`);
     handleClose();
   }
 
@@ -96,7 +102,8 @@ export default function BasicMenu() {
         <MenuItem onClick={archivedOrganizations}>
           Archived Organizations
         </MenuItem>
-        <MenuItem onClick={aboutPage}>About</MenuItem>
+        <MenuItem onClick={goToProfile}>Profile</MenuItem>
+        {/* <MenuItem onClick={aboutPage}>About</MenuItem> */}
         <MenuItem onClick={logOut}>Logout</MenuItem>
       </Menu>
     </div>

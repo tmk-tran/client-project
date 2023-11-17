@@ -27,6 +27,10 @@ export default function orgDetails() {
   const dispatch = useDispatch();
 
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
+  const groups = useSelector((store) => store.orgGroups);
+  console.log(groups);
+  // console.log(detailsOrg);
+  // console.log(paramsObject.id);
 
   useEffect(() => {
     dispatch({
@@ -34,6 +38,13 @@ export default function orgDetails() {
       payload: paramsObject.id,
     });
   }, []);
+
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_ORG_DETAILS",
+      payload: paramsObject.id,
+    });
+  }, [groups]);
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();
@@ -79,7 +90,7 @@ export default function orgDetails() {
                   <OrgContactDetails info={orgDetails} />
                 </center>
                 <div className="add-group-btn">
-                  <AddGroupPopover />
+                  <AddGroupPopover info={orgDetails} />
                 </div>
 
                 {/* Display associated groups */}

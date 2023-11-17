@@ -87,9 +87,11 @@ export default function OrgContactDetails({ info }) {
             </center>
           </div>
           <div className="org-address">
+            <div className="org-name-container">
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
               {info.organization_name}
             </Typography>
+            </div>
             <Typography>{info.address}</Typography>
             <Typography>
               {info.city}, {info.state} {info.zip}
