@@ -88,9 +88,9 @@ export default function OrgContactDetails({ info }) {
           </div>
           <div className="org-address">
             <div className="org-name-container">
-            <Typography variant="h5" style={{ fontWeight: "bold" }}>
-              {info.organization_name}
-            </Typography>
+              <Typography variant="h5" style={{ fontWeight: "bold" }}>
+                {info.organization_name}
+              </Typography>
             </div>
             <Typography>{info.address}</Typography>
             <Typography>
@@ -150,11 +150,17 @@ export default function OrgContactDetails({ info }) {
               <ListItemIcon style={centeredStyle}>
                 <EmailIcon style={styleIconColor} />
               </ListItemIcon>
-              <Typography>
-                <a href={`mailto:${info.primary_contact_email}`}>
-                  {info.primary_contact_email}
-                </a>
-              </Typography>
+              {info.primary_contact_email ? (
+                <Typography>
+                  <a href={`mailto:${info.primary_contact_email}`}>
+                    {info.primary_contact_email}
+                  </a>
+                </Typography>
+              ) : (
+                <>
+                  <Typography>No Email Provided</Typography>
+                </>
+              )}
             </ListItem>
             <div style={{ marginBottom: "10px" }}>
               <OrgContactEdit
