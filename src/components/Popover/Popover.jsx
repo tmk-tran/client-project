@@ -9,7 +9,9 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material/";
+import CloseIcon from "@mui/icons-material/Close";
 import "./Popover.css";
+import { modalBtnStyle } from "../Utils/helpers";
 
 export default function BasicPopover() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -46,20 +48,22 @@ export default function BasicPopover() {
           horizontal: isMobile ? "center" : "right",
         }}
       >
-        <Box style={{ padding: "10px" }}>
-          <Typography sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}>
-            New Group
-          </Typography>
+        <Box style={{ padding: "20px" }}>
+          <div>
+            <Typography sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}>
+              New Group
+            </Typography>
+          </div>
           <div>
             <div className="add-group-fields">
-              <TextField label="Name"></TextField>
-              <TextField label="Department"></TextField>
-              <TextField label="Division"></TextField>
-              <TextField label="Description"></TextField>
-              <div className="add-group-btns">
-                <Button>Cancel</Button>
-                <Button>Save</Button>
-              </div>
+              <TextField fullWidth label="Name"></TextField>
+              <TextField fullWidth label="Department"></TextField>
+              <TextField fullWidth label="Division"></TextField>
+              <TextField multiline rows={2} label="Description"></TextField>
+            </div>
+            <div style={modalBtnStyle}>
+              <Button className="modal-cancel-btn">Cancel</Button>
+              <Button>Save</Button>
             </div>
           </div>
         </Box>

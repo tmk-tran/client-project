@@ -74,7 +74,7 @@ export default function OrgContactDetails({ info }) {
               <div className="org-details-header">
                 <div className="edit-icon-btn">
                   <Button onClick={handleEditOrg}>
-                    <EditNoteIcon />
+                    <EditNoteIcon className="edit-note-icon" />
                   </Button>
                 </div>
                 <OrgDetailsEdit

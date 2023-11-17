@@ -65,7 +65,6 @@ export const styleFlexBox = {
   justifyContent: "center",
   flexDirection: "row",
   alignItems: "center",
-  // gap: "20px",
 };
 
 // Style for Icon colors in OrgContactDetails
@@ -77,3 +76,10 @@ export const styleImage = {
   height: "220px",
   objectFit: "contain",
 };
+
+// Flexbox style for buttons in modals OrgDetails component
+export const modalBtnStyle = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+}

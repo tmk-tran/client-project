@@ -28,6 +28,10 @@
   right: 39%;
 }
 
+.edit-note-icon:hover {
+  color: #dd9f2f;
+}
+
 /* Push edit icon far right corner of Card */
 
 /* .edit-icon-btn {

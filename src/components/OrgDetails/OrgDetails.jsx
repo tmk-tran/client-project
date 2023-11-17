@@ -75,9 +75,6 @@ export default function orgDetails() {
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
                 {/* Display organization details once */}
-                {/* <div className="add-group-btn">
-                  <Popover />
-                </div> */}
                 <center>
                   <OrgContactDetails info={orgDetails} />
                 </center>
@@ -87,18 +84,7 @@ export default function orgDetails() {
 
                 {/* Display associated groups */}
                 {groups.length === 0 && <p>No groups yet</p>}
-                <div
-                className="OrgGroupInfo-container"
-                  // style={{
-                  //   display: "flex",
-                  //   flexDirection: "row",
-                  //   // justifyContent: "space-between",
-                  //   justifyContent: "center",
-                  //   gap: "50px",
-                  //   alignItems: "center",
-                  //   marginTop: "50px",
-                  // }}
-                >
+                <div className="OrgGroupInfo-container">
                   {groups.map((groupInfo, i) => (
                     <OrgGroupInfo
                       key={groupInfo.group_id}
