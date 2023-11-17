@@ -1,36 +1,37 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Box, Button, Card, CardMedia, Modal, Typography, FormControl, OutlinedInput, InputLabel, TextField, Select, MenuItem, Grid } from "@mui/material";
-import { style } from "../Utils/helpers";
+import { Box, Button, Card, CardMedia, Modal, Typography, InputLabel, TextField, Select, MenuItem, Grid } from "@mui/material";
+import  {modalBtnStyle} from "../Utils/helpers"
 
 
+//Function for the component, takes in the group prop for use
 export default function GroupDetailsCard({ group }) {
+   //Instanciates history and dispatch for use in the component
    const history = useHistory()
    const dispatch = useDispatch()
+   //Selector for the coupon books. Used to grab the year of the coupon book in the dropdown menu
    const couponBooks = useSelector((store) => store.couponBooks)
-
+   //State used for the modal add fundraiser form
    const [open, setOpen] = useState(false);
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
-
+   //State used for the inputs in the modal add fundraiser form, set by on change eventes
    const [title, setTitle] = useState("")
    const [description, setDescription] = useState("")
    const [photoUrl, setPhotoUrl] = useState("")
    const [booksRequested, setBooksRequested] = useState("")
    const [booksCheckedOut, setBooksCheckedOut] = useState("")
-   const [booksOutValue, setBooksOutValue] = useState("")
    const [booksCheckedIn, setBooksCheckedIn] = useState("")
    const [booksSold, setBooksSold] = useState("")
    const [moneyReceived, setMoneyRecieved] = useState("")
    const [startDtate, setStartDate] = useState("")
    const [endDate, setEndDate] = useState("")
    const [couponBookId, setCouponBookId] = useState("")
-   const [outstandingBalance, setOutstandingBalance] = useState("")
-
+   //Function that runs on click of the submit button in add fundraiser form. This creates a new objcet that is sent to the back end to be added to the database and resets the state of the inputs in the form and closes the modal.
    const submitFundraiser = (e) => {
       e.preventDefault;
-      const newFundraiser = { group_id: group.id, title: title, description: description, photo: photoUrl, requested_book_quantity: booksRequested, book_quantity_checked_out: booksCheckedOut, book_checked_out_total_value: booksOutValue, book_quantity_checked_in: booksCheckedIn, books_sold: booksSold, money_received: moneyReceived, start_date: startDtate, end_date: endDate, coupon_book_id: couponBookId, outstanding_balance: outstandingBalance }
+      const newFundraiser = { group_id: group.id, title: title, description: description, photo: photoUrl, requested_book_quantity: booksRequested, book_quantity_checked_out: booksCheckedOut, book_quantity_checked_in: booksCheckedIn, books_sold: booksSold, money_received: moneyReceived, start_date: startDtate, end_date: endDate, coupon_book_id: couponBookId }
       console.log(newFundraiser);
       dispatch({ type: "ADD_FUNDRAISER", payload: newFundraiser });
       setTitle("");
@@ -38,18 +39,18 @@ export default function GroupDetailsCard({ group }) {
       setPhotoUrl("")
       setBooksRequested("");
       setBooksCheckedOut("");
-      setBooksOutValue(0);
-      setBooksCheckedIn(0);
-      setBooksSold(0);
-      setMoneyRecieved(0);
+      setBooksOutValue("");
+      setBooksCheckedIn("");
+      setBooksSold("");
+      setMoneyRecieved("");
       setStartDate("");
       setEndDate("");
       setCouponBookId("");
-      setOutstandingBalance(0);
+      setOutstandingBalance("");
       setOpen(false)
    }
 
-
+   //Style used for the modal
    const style = {
       position: "absolute",
       top: "50%",
@@ -62,10 +63,10 @@ export default function GroupDetailsCard({ group }) {
       p: 4,
    };
 
-
+   //Elements and data used in the component. Displays the group card and the add fundraiser modal 
    return (
       <>
-         <Card elevation={6} style={{ display: "flex", flexDirection: "column", padding: "10px", width: "600px", margin: "auto" }}>
+         <Card elevation={6} style={{ display: "flex", flexDirection: "column", padding: "10px", paddingTop:"30px", paddingBottom: "30px", width: "500px", margin: "auto" }}>
             <CardMedia style={{ objectFit: "cover", width: "300px", height: "300px", margin: "auto" }}
                className="cardMedia"
                component="img"
@@ -74,10 +75,8 @@ export default function GroupDetailsCard({ group }) {
                <Typography variant="h5">{group.department} {group.sub_department}</Typography>
                <Typography>{group.group_description}</Typography>
             </div>
-            <div style={{
-               margin: "auto "
-            }}>
-               <Button variant="outlined" onClick={() => history.goBack()}>Back</Button> <Button variant="outlined" onClick={handleOpen}>Add Fundraiser</Button>
+            <div style={modalBtnStyle} >
+               <Button   variant="outlined" onClick={() => history.goBack()}><Typography style={{ fontSize: "15px" }}>Back</Typography></Button> <Button variant="outlined" onClick={handleOpen}><Typography style={{ fontSize: "15px" }}>Add Fundraiser</Typography></Button>
             </div>
          </Card>
          <Modal open={open} onClose={handleClose} aria-labelledby="title"
@@ -114,52 +113,49 @@ export default function GroupDetailsCard({ group }) {
                            <TextField fullWidth style={{ margin: "5px" }} label="Books Checked Out" type="number" placeholder="Books Checked Out" value={booksCheckedOut} onChange={(e) => setBooksCheckedOut(e.target.value)}></TextField>
                         </Grid>
                         <Grid item xs={6}>
-                           <TextField fullWidth style={{ margin: "5px" }} label="Books Out Value" type="number" placeholder="Books Out Value" value={booksOutValue} onChange={(e) => setBooksOutValue(e.target.value)}></TextField>
-                        </Grid>
-                     </Grid>
-                  </div>
-                  <div>
-                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                        <Grid item xs={6}>
                            <TextField fullWidth style={{ margin: "5px" }} label="Books Checked In" type="number" placeholder="Books Checked In" value={booksCheckedIn} onChange={(e) => setBooksCheckedIn(e.target.value)}></TextField>
                         </Grid>
-                        <Grid item xs={6}>
-                           <TextField fullWidth style={{ margin: "5px" }} label="Books Sold" type="number" placeholder="Books Sold" value={booksSold} onChange={(e) => setBooksSold(e.target.value)}></TextField>
-                        </Grid>
-                     </Grid>
-                  </div>
-                  <div>
-                     <Grid container spacing={{ xs: 2, md: 1 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                        <Grid item xs={4}>
-                           <InputLabel>Money Received</InputLabel>
-                           <TextField style={{ margin: "5px", marginRight: "0" }} type="number" placeholder="Money Received" value={moneyReceived} onChange={(e) => setMoneyRecieved(e.target.value)}></TextField>
-                        </Grid>
-                        <Grid item xs={4}>
-                           <InputLabel>Start Date</InputLabel>
-                           <TextField style={{ margin: "5px", marginLeft: "0" }} type="date" value={startDtate} onChange={(e) => setStartDate(e.target.value)}></TextField>
-                        </Grid>
-                        <Grid item xs={4}>
-                           <InputLabel>End Date</InputLabel>
-                           <TextField style={{ margin: "5px" }} type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)}></TextField>
-                        </Grid>
                      </Grid>
                   </div>
                   <div>
                      <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={6}>
-                           <InputLabel htmlFor="coupon-book">Coupon Book Year</InputLabel>
-                           <Select fullWidth style={{ margin: "5px" }} label="Select A Coupon Book Year" value={couponBookId} onChange={(e) => setCouponBookId(e.target.value)}>
+                           <TextField fullWidth style={{ margin: "5px" }} label="Books Sold" type="number" placeholder="Books Sold" value={booksSold} onChange={(e) => setBooksSold(e.target.value)}></TextField>
+                           </Grid>
+                          
+                        </Grid>
+                  </div>
+                  <div>
+                  <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                  <Grid item xs={6}>
+                           <InputLabel >Coupon Book Year</InputLabel>
+                           <Select fullWidth style={{ margin: "5px" }}  value={couponBookId} onChange={(e) => setCouponBookId(e.target.value)}>
                               <MenuItem value="" disabled>Please Select A Coupon Book Year</MenuItem>
                               {couponBooks.map(couponBook => {
                                  return (<MenuItem value={couponBook.id} key={couponBook.id}>{couponBook.year}</MenuItem>)
                               })}
                            </Select>
                         </Grid>
-                        <Grid item xs={6}>
-                           <InputLabel>Outstanding Balance</InputLabel>
-                           <TextField fullWidth style={{ margin: "5px" }} type="number" placeholder="Outstanding Balance" value={outstandingBalance} onChange={(e) => setOutstandingBalance(e.target.value)}></TextField>
+                  <Grid item xs={6}>
+                           <InputLabel>Money Received</InputLabel>
+                           <TextField fullWidth style={{ margin: "5px", marginRight: "0" }} type="number" placeholder="Money Received" value={moneyReceived} onChange={(e) => setMoneyRecieved(e.target.value)}></TextField>
                         </Grid>
-                     </Grid>
+                        </Grid>
+                  </div>
+                  <div>
+                  <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                       
+                        <Grid item xs={6}>
+                           <InputLabel>Start Date</InputLabel>
+                           <TextField fullWidth style={{ margin: "5px", marginLeft: "0" }} type="date" value={startDtate} onChange={(e) => setStartDate(e.target.value)}></TextField>
+                        </Grid>
+                        <Grid item xs={6}>
+                           <InputLabel>End Date</InputLabel>
+                           <TextField fullWidth style={{ margin: "5px" }} type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)}></TextField>
+                           </Grid>
+                           
+                        </Grid>
+                    
                   </div>
                   <Button type="submit" variant="contained" style={{ margin: "5px" }}>Submit</Button>
                </form>
