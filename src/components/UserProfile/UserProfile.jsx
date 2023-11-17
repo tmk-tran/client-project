@@ -99,7 +99,7 @@ function UserProfile() {
                     <CardContent>
                       {/* Render details of each fundraiser */}
                       <Typography variant="subtitle1">
-                        Fundraiser Name: {fundraiser.title}
+                        Fundraiser: {fundraiser.title}
                       </Typography>
                       <Typography variant="body2">
                         Books Requested: {fundraiser.books_requested}

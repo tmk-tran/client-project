@@ -15,7 +15,7 @@ g.group_nickname,
 g.group_photo,
 g.group_description,
 u.username,
-u.is_admin, -- Add this line to select the is_admin column
+u.is_admin, 
 json_agg(json_build_object(
     'id', f.id,
     'title', f.title,
