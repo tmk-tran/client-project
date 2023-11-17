@@ -13,6 +13,7 @@ import {
   listItemStyle,
   styleIconColor,
   capitalizeWords,
+  styleFlexBox,
 } from "../Utils/helpers";
 // Styles
 import {
@@ -65,6 +66,7 @@ export default function OrgContactDetails({ info }) {
 
   return (
     <>
+      {/* Organization Details */}
       <div className="org-details">
         <div className="org-address-container">
           <div>
@@ -85,17 +87,18 @@ export default function OrgContactDetails({ info }) {
             </center>
           </div>
           <div className="org-address">
-            {/* <center> */}
-            <Typography variant="h5" style={{ fontWeight: "bold" }}>{info.organization_name}</Typography>
+            <Typography variant="h5" style={{ fontWeight: "bold" }}>
+              {info.organization_name}
+            </Typography>
             <Typography>{info.address}</Typography>
             <Typography>
               {info.city}, {info.state} {info.zip}
             </Typography>
-            {/* </center> */}
           </div>
           <br />
         </div>
 
+        {/* Organization Contact Details Card */}
         <Card
           elevation={5}
           sx={{
@@ -113,7 +116,18 @@ export default function OrgContactDetails({ info }) {
               transform: "translate(-50%, -50%)",
             }}
           />
-          <List style={{ padding: "15px", width: "70%", marginTop: "10px" }}>
+          <div className="contact-info-header">
+            <Typography style={{ fontWeight: "bold", marginTop: "15px" }}>
+              Contact
+            </Typography>
+
+            <div className="contact-info-edit-btn">
+              <Button onClick={handleEditContact}>Edit</Button>
+            </div>
+          </div>
+
+          <hr style={{ width: "50%" }} />
+          <List style={{ padding: "15px", width: "70%", marginTop: "5px" }}>
             <ListItem disablePadding style={listItemStyle}>
               <ListItemIcon style={centeredStyle}>
                 <AccountBoxIcon style={styleIconColor} />
@@ -134,27 +148,20 @@ export default function OrgContactDetails({ info }) {
               <ListItemIcon style={centeredStyle}>
                 <EmailIcon style={styleIconColor} />
               </ListItemIcon>
-              <Typography>{info.primary_contact_email}</Typography>
+              <Typography>
+                <a href={`mailto:${info.primary_contact_email}`}>
+                  {info.primary_contact_email}
+                </a>
+              </Typography>
             </ListItem>
-            <div>
-              {/* <OrgContactEdit
-                isOpen={isEditing}
-                onClose={() => setIsEditing(false)}
-                editedContactInfo={info}
-                onSaveChanges={(editedItem) => {
-                  // Handle saving changes (make API call, dispatch action, etc.)
-                  console.log("New Contact Info:", editedItem);
-                  dispatch({ type: "EDIT_CONTACT_INFO", payload: editedItem });
-                  setIsEditing(false);
-                }}
-              /> */}
+            <div style={{ marginBottom: "10px" }}>
               <OrgContactEdit
                 isOpen={isEditing}
                 onClose={() => setIsEditing(false)}
                 info={info}
                 onSaveChanges={handleSaveContact}
               />
-              <Button onClick={handleEditContact}>Edit</Button>
+              {/* <Button onClick={handleEditContact}>Edit</Button> */}
             </div>
           </List>
           <Divider />

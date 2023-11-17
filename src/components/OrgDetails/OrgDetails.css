@@ -8,6 +8,15 @@
   margin: 20px auto 0 auto;
 }
 
+.OrgGroupInfo-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
+  margin-top: 50px;
+}
+
 .add-group-btn {
   /* display: flex;
   justify-content: flex-end;
@@ -40,5 +49,9 @@
   .add-group-btn {
     justify-content: center;
     margin-top: 15px;
+  }
+
+  .OrgGroupInfo-container {
+    flex-direction: column;
   }
 }

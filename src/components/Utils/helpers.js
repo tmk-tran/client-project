@@ -60,6 +60,14 @@ export const centeredStyle = {
   alignItems: "center",
 };
 
+export const styleFlexBox = {
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "row",
+  alignItems: "center",
+  // gap: "20px",
+};
+
 // Style for Icon colors in OrgContactDetails
 export const styleIconColor = { color: "#273b91" };
 

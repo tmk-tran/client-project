@@ -28,7 +28,30 @@
   right: 39%;
 }
 
-@media (max-width: 1400px) {
+/* Push edit icon far right corner of Card */
+
+/* .edit-icon-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+} */
+
+.contact-info-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 10px;
+}
+
+.contact-info-edit-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@media (max-width: 1200px) {
   .edit-icon-btn {
     right: 30%;
   }

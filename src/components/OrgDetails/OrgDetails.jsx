@@ -88,15 +88,16 @@ export default function orgDetails() {
                 {/* Display associated groups */}
                 {groups.length === 0 && <p>No groups yet</p>}
                 <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    // justifyContent: "space-between",
-                    justifyContent: "center",
-                    gap: "50px",
-                    alignItems: "center",
-                    marginTop: "25px",
-                  }}
+                className="OrgGroupInfo-container"
+                  // style={{
+                  //   display: "flex",
+                  //   flexDirection: "row",
+                  //   // justifyContent: "space-between",
+                  //   justifyContent: "center",
+                  //   gap: "50px",
+                  //   alignItems: "center",
+                  //   marginTop: "50px",
+                  // }}
                 >
                   {groups.map((groupInfo, i) => (
                     <OrgGroupInfo

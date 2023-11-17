@@ -1,6 +1,14 @@
 import * as React from "react";
 // Style
-import { Box, Button, TextField, Typography, Popover, useTheme, useMediaQuery } from "@mui/material/";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Popover,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material/";
 import "./Popover.css";
 
 export default function BasicPopover() {
@@ -29,14 +37,13 @@ export default function BasicPopover() {
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
-        // anchorOrigin={{
-        //   vertical: "top",
-        //   horizontal: "left",
-        // }}
+        anchorOrigin={{
+          vertical: isMobile ? "top" : "bottom",
+          horizontal: isMobile ? "center" : "left",
+        }}
         transformOrigin={{
-          vertical: "bottom",
-          horizontal: isMobile ? "right" : "left",
-        //   horizontal: "right",
+          vertical: isMobile ? "bottom" : "bottom",
+          horizontal: isMobile ? "center" : "right",
         }}
       >
         <Box style={{ padding: "10px" }}>

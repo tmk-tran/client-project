@@ -56,12 +56,12 @@ export default function BasicMenu() {
 
   function logOut() {
     Swal.fire({
-      title: "Are you sure you want to Logout?",
+      title: "Are you sure you want to logout?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Logout",
+      confirmButtonText: "Yes, logout",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch({ type: "LOGOUT" });
