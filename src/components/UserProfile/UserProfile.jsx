@@ -41,20 +41,33 @@ function UserProfile() {
 
   return (
     <div style={{ textAlign: "center" }}>
-        <br />
-      <Card  elevation={3} className="headerCard" style={{ marginBottom: "20px" }}>
-        <CardContent><center >
+      <br />
+      <Card
+        elevation={2}
+        className="headerCard"
+        style={{ width: "90%", margin: "auto", marginBotton: "20px" }}
+      >
+        <CardContent>
+          <center>
             <br />
-          <Typography variant="h5" style={{ fontWeight: "bold" }}>
-            Welcome {user.username ? capitalizeFirstLetter(user.username) : ""}
-          </Typography>
-          <Typography variant="h6">
-            Here are the groups that you are the admin of:
-          </Typography></center>
+            <Typography variant="h5" style={{ fontWeight: "bold" }}>
+              Welcome{" "}
+              {user.username ? capitalizeFirstLetter(user.username) : ""}
+            </Typography>
+            <Typography variant="h6">
+              Here are the groups that you are the admin of:
+            </Typography>
+          </center>
         </CardContent>
       </Card>
+      <br />
+      <br />
       {groups?.map((group, index) => (
-        <Card key={index} className="groupCard" style={{ width: "80%", margin: "auto" }}>
+        <Card
+          key={index}
+          className="groupCard"
+          style={{ width: "80%", margin: "auto" }}
+        >
           <CardContent>
             <center>
               <Typography variant="h6" style={{ fontWeight: "bold" }}>
