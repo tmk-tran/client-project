@@ -1,6 +1,7 @@
+//Imports used for this saga
 import axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
-
+//Fetches fundraiser data based on the group id
 function* fetchFundraisersSaga(action) {
     try {
         console.log(action.payload)
@@ -10,7 +11,7 @@ function* fetchFundraisersSaga(action) {
         console.log("Error fetching fundraisers ", err)
     }
 }
-
+//Saga used to add a fundraiser, will then fetch the updated list of fundraisers
 function* addFundraiserSaga(action) {
     try {
         console.log(action.payload)
@@ -20,7 +21,7 @@ function* addFundraiserSaga(action) {
         console.log("Unable to add fundraiser", err)
     }
 }
-
+//Saga used to update details in a fundraiser, will then fetch the updated fundraiser list
 function* updatedFundraiserSaga(action) {
     try {
         console.log(action.payload)
@@ -30,7 +31,7 @@ function* updatedFundraiserSaga(action) {
         console.log("Unable to update fundraiser", err)
     }
 }
-
+//Saga used to update the amounts in a fundraiser
 function* updatedFundraiserAmountsSaga(action) {
     try {
         console.log(action.payload)

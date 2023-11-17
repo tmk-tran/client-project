@@ -1,8 +1,9 @@
+//Imports used for function
 import React from "react";
 import { TableCell, TableRow, Typography } from "@mui/material";
-
+//Function to render the component, takes in the fundraiser prop
 export default function ClosedFundraiserItem({ fundraiser }) {
-
+    //Function to format the data without the timestamp
     const formatDate = (dateString) => {
         if (!dateString) {
             return " ";
@@ -11,7 +12,7 @@ export default function ClosedFundraiserItem({ fundraiser }) {
         const options = { year: "numeric", month: "long", day: "numeric" };
         return date.toLocaleDateString(undefined, options);
     };
-
+    //Elements used in component, conditionally renders data if the fundraiser is set to closed
     return (
         <>
             {fundraiser.closed != false &&

@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Box, Button, Card, CardMedia, Modal, Typography, FormControl, OutlinedInput, InputLabel, TextField, Select, MenuItem, Grid } from "@mui/material";
-import { style } from "../Utils/helpers";
+import { Box, Button, Card, CardMedia, Modal, Typography, InputLabel, TextField, Select, MenuItem, Grid } from "@mui/material";
 
-
+//Function for the component, takes in the group prop for use
 export default function GroupDetailsCard({ group }) {
+   //Instanciates history and dispatch for use in the component
    const history = useHistory()
    const dispatch = useDispatch()
+   //Selector for the coupon books. Used to grab the year of the coupon book in the dropdown menu
    const couponBooks = useSelector((store) => store.couponBooks)
-
+   //State used for the modal add fundraiser form
    const [open, setOpen] = useState(false);
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
-
+   //State used for the inputs in the modal add fundraiser form, set by on change eventes
    const [title, setTitle] = useState("")
    const [description, setDescription] = useState("")
    const [photoUrl, setPhotoUrl] = useState("")
@@ -27,7 +28,7 @@ export default function GroupDetailsCard({ group }) {
    const [endDate, setEndDate] = useState("")
    const [couponBookId, setCouponBookId] = useState("")
    const [outstandingBalance, setOutstandingBalance] = useState("")
-
+   //Function that runs on click of the submit button in add fundraiser form. This creates a new objcet that is sent to the back end to be added to the database and resets the state of the inputs in the form and closes the modal.
    const submitFundraiser = (e) => {
       e.preventDefault;
       const newFundraiser = { group_id: group.id, title: title, description: description, photo: photoUrl, requested_book_quantity: booksRequested, book_quantity_checked_out: booksCheckedOut, book_checked_out_total_value: booksOutValue, book_quantity_checked_in: booksCheckedIn, books_sold: booksSold, money_received: moneyReceived, start_date: startDtate, end_date: endDate, coupon_book_id: couponBookId, outstanding_balance: outstandingBalance }
@@ -38,18 +39,18 @@ export default function GroupDetailsCard({ group }) {
       setPhotoUrl("")
       setBooksRequested("");
       setBooksCheckedOut("");
-      setBooksOutValue(0);
-      setBooksCheckedIn(0);
-      setBooksSold(0);
-      setMoneyRecieved(0);
+      setBooksOutValue("");
+      setBooksCheckedIn("");
+      setBooksSold("");
+      setMoneyRecieved("");
       setStartDate("");
       setEndDate("");
       setCouponBookId("");
-      setOutstandingBalance(0);
+      setOutstandingBalance("");
       setOpen(false)
    }
 
-
+   //Style used for the modal
    const style = {
       position: "absolute",
       top: "50%",
@@ -62,10 +63,10 @@ export default function GroupDetailsCard({ group }) {
       p: 4,
    };
 
-
+   //Elements and data used in the component. Displays the group card and the add fundraiser modal 
    return (
       <>
-         <Card elevation={6} style={{ display: "flex", flexDirection: "column", padding: "10px", width: "600px", margin: "auto" }}>
+         <Card elevation={6} style={{ display: "flex", flexDirection: "column", padding: "10px", paddingTop:"30px", paddingBottom: "30px", width: "500px", margin: "auto" }}>
             <CardMedia style={{ objectFit: "cover", width: "300px", height: "300px", margin: "auto" }}
                className="cardMedia"
                component="img"
@@ -74,10 +75,10 @@ export default function GroupDetailsCard({ group }) {
                <Typography variant="h5">{group.department} {group.sub_department}</Typography>
                <Typography>{group.group_description}</Typography>
             </div>
-            <div style={{
-               margin: "auto "
+            <div  style={{
+               margin: "auto"
             }}>
-               <Button variant="outlined" onClick={() => history.goBack()}>Back</Button> <Button variant="outlined" onClick={handleOpen}>Add Fundraiser</Button>
+               <Button   variant="outlined" onClick={() => history.goBack()}><Typography style={{ fontSize: "15px" }}>Back</Typography></Button> <Button variant="outlined" onClick={handleOpen}><Typography style={{ fontSize: "15px" }}>Add Fundraiser</Typography></Button>
             </div>
          </Card>
          <Modal open={open} onClose={handleClose} aria-labelledby="title"

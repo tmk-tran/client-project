@@ -1,32 +1,38 @@
+//Imports used in component
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Card, Table, TableBody, TableCell, TableContainer, TableRow, TableHead, Typography, Container, CardContent, Paper } from "@mui/material";
+//Imports used for tables and data
 import GroupDetailsCard from "../GroupDetailsCard/GroupDetailsCard";
 import ActiveFundraiserItem from "../ActiveFundraiserItem/ActiveFundraiserItem";
 import ClosedFundraiserItem from "../ClosedFundraiserItem/ClosedFundraiserItem";
 
 
 
-
+//Function for the component
 export default function GroupDetails() {
+    //Used to get the group id number and display the correct fundraiser information 
     const id = Number(useParams().id);
+    //Instanciates dispatch for use in component
     const dispatch = useDispatch();
+    //Store used to get the group and fundraiser data
     const groupDetails = useSelector((store) => store.group)
     const fundraisers = useSelector((store) => store.fundraisers)
 
-
+    //Use Effect that runs on page load to fetch the group details
     useEffect(() => {
         dispatch({ type: "FETCH_GROUP_DETAILS", payload: id })
     }, [])
-
+    //Use Effect that runs after group details are fetched. Grabs the fundraisers tied to the group id number
     useEffect(() => {
         dispatch({ type: "FETCH_FUNDRAISERS", payload: id })
     }, [groupDetails])
-
+    //Console logs for testing
     console.log(groupDetails)
     console.log(fundraisers)
 
+    //Elements used in component. Displays data based on the components that are called and has the headers for both open fundraisers and closed fundarisers tables
     return (
         <>
             <Container>
@@ -41,7 +47,7 @@ export default function GroupDetails() {
             <br />
             <Paper elevation={6} style={{ margin: "10px", padding: "10px", paddingBottom: "40px", height: "80%" }}>
                 <TableContainer style={{ width: "95%", margin: "auto" }} >
-                    <Typography>Active Campaigns</Typography>
+                    <Typography variant="h6">Active Campaigns</Typography>
                     <Table size="small">
                         <TableHead>
                             <TableRow style={{ border: "2px solid black" }}>
@@ -73,7 +79,7 @@ export default function GroupDetails() {
                 <br />
                 <br />
                 <TableContainer style={{ width: "95%", margin: "auto" }}>
-                    <Typography>Closed Campaigns</Typography>
+                    <Typography variant="h6">Closed Campaigns</Typography>
                     <Table size="small">
                         <TableHead>
                             <TableRow style={{ border: "2px solid black" }}>

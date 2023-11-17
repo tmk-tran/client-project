@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
     res.sendStatus(500);
   })
 });
-
+//PUT route to update group department/sub-department, title, nickname, photo, and description
 router.put('/:id', (req, res) => {
     const id = req.params.id;
     const updatedGroup = req.body;
@@ -62,7 +62,7 @@ router.put('/:id', (req, res) => {
         res.sendStatus(500);
     })
 })
-
+//PUT route to update the soft delete for a group
 router.put('/delete/:id', (req, res) => {
     const id = req.params.id;
     const queryText = `UPDATE "group" SET "is_deleted" = 'true' WHERE "id" = $1`
