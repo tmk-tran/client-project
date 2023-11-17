@@ -35,7 +35,7 @@ app.use('/api/group', groupRouter)
 app.use('/api/orgdetails', orgDetailsRouter);
 app.use('/api/organizations', organizationsRouter);
 app.use('/api/fundraisers', fundraisersRouter)
-app.use ('/api/archivedOrganizations', archivedOrganizationsRouter);
+app.use('/api/archivedOrganizations', archivedOrganizationsRouter);
 app.use('/api/allGroups', allGroupsRouter);
 app.use('/api/archivedOrganizations', archivedOrganizationsRouter);
 app.use('/api/couponbook', couponBookRouter);

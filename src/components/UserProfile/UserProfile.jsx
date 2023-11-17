@@ -24,6 +24,7 @@ function UserProfile() {
 
   const user = useSelector((store) => store.user);
   const groups = useSelector((store) => store.groupAdmin);
+  console.log("GROUPS", groups);
 
   const history = useHistory();
 
@@ -54,9 +55,16 @@ function UserProfile() {
               Welcome{" "}
               {user.username ? capitalizeFirstLetter(user.username) : ""}
             </Typography>
-            <Typography variant="h6">
-              Here are the groups that you are the admin of:
-            </Typography>
+            {user.is_admin ? (
+              <Typography variant="h6">
+                You are the Administrator of PSG but here are also the groups
+                that you are assigned the admin of:
+              </Typography>
+            ) : (
+              <Typography variant="h6">
+                Here are the groups that you are the admin of:
+              </Typography>
+            )}
           </center>
         </CardContent>
       </Card>
@@ -91,7 +99,7 @@ function UserProfile() {
                     <CardContent>
                       {/* Render details of each fundraiser */}
                       <Typography variant="subtitle1">
-                        Fundraiser Name: {fundraiser.title}
+                        Fundraiser: {fundraiser.title}
                       </Typography>
                       <Typography variant="body2">
                         Books Requested: {fundraiser.books_requested}
