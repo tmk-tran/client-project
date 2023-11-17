@@ -18,7 +18,6 @@ export default function ClosedFundraiserItem({ fundraiser }) {
             {fundraiser.closed != false &&
                 <TableRow style={{ border: "2px solid black" }}>
                     <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{fundraiser.title}</Typography></TableCell>
-                    <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{fundraiser.description}</Typography></TableCell>
                     <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{fundraiser.books_sold}</Typography></TableCell>
                     <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{fundraiser.money_received}</Typography></TableCell>
                     <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{formatDate(fundraiser.start_date)}</Typography></TableCell>

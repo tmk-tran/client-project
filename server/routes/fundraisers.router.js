@@ -38,9 +38,9 @@ router.post('/', (req, res) => {
 router.put("/:id", (req, res) => {
   const id = req.params.id;
   const updatedFundraiser = req.body;
-  const queryText = `UPDATE "fundraiser" SET "title" = $1, "description" = $2 WHERE "id" = $3;`;
+  const queryText = `UPDATE "fundraiser" SET "title" = $1 WHERE "id" = $2;`;
 
-  pool.query(queryText, [updatedFundraiser.title, updatedFundraiser.description, id])
+  pool.query(queryText, [updatedFundraiser.title, id])
     .then(() => {
       res.sendStatus(200)
     })
