@@ -28,6 +28,12 @@
   right: 39%;
 }
 
+@media (max-width: 1400px) {
+  .edit-icon-btn {
+    right: 30%;
+  }
+}
+
 @media (max-width: 400px) {
   .org-details {
     display: flex;
@@ -35,8 +41,6 @@
   }
 
   .edit-icon-btn {
-    position: absolute;
-    top: 100%;
     right: 2%;
   }
 }
