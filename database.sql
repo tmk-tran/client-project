@@ -42,7 +42,6 @@ CREATE TABLE "group" (
     "is_deleted" BOOLEAN NOT NULL DEFAULT 'false'
 );
 
-
 CREATE TABLE "user-group" (
 	"id" serial primary key NOT NULL,
 	"group_id" integer REFERENCES "group"("id") NOT NULL,
