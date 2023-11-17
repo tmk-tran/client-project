@@ -16,6 +16,7 @@ function* fetchOrgGroupsSaga(action) {
         console.log(action.payload)
         const response = yield axios.get(`/api/group/orggroups/${action.payload}`)
         yield put({ type: "SET_ORG_GROUPS", payload: response.data })
+        console.log("response data = ", response.data);
     } catch (err) {
         console.log("Error fetching organization groups", err)
     }
@@ -25,7 +26,8 @@ function* addGroupSaga(action) {
     try {
         console.log(action.payload)
         yield axios.post("/api/group/", action.payload)
-        yield put({ type: "FETCH_ORG_GROUPS" })
+        yield put({ type: "FETCH_ORG_GROUPS", payload: Number(action.payload.organization_id) })
+        console.log("org id in saga  = ", Number(action.payload.organization_id));
     } catch (err) {
         console.log("Error adding a new group", err)
     }
@@ -35,7 +37,7 @@ function* updateGroupSaga(action) {
     try {
         console.log(action.payload)
         yield axios.put(`/api/group/${action.payload}`, action.payload)
-        yield put({ type: "FETCH_GROUP_DETAILS" })
+        yield put({ type: "FETCH_GROUP_DETAILS", payload: action.payload.organization_id })
     } catch (err) {
         console.log("Error updating group details", err)
     }
