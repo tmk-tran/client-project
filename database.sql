@@ -132,3 +132,5 @@ WHERE
     ug.user_id = 2 AND ug.group_admin = true
 GROUP BY
     g.id, g.organization_id, g.department, g.sub_department, g.group_nickname, g.group_photo, g.group_description;
+
+--INSERT STATEMENTS -------------------------------------------------------------------------------------------
