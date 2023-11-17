@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 // Style
 import {
@@ -13,10 +13,20 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import "./AddGroupPopover.css";
 import { modalBtnStyle } from "../Utils/helpers";
+// Toast
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function BasicPopover() {
+export default function BasicPopover({ info }) {
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  // state for the popover
+  const [anchorEl, setAnchorEl] = useState(null);
+  // state for the add group form
+  const [orgId, setOrgId] = useState(info.organization_id);
+  const [groupName, setGroupName] = useState("");
+  const [department, setDepartment] = useState("");
+  const [subDepartment, setSubDepartment] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,6 +40,26 @@ export default function BasicPopover() {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  const handleSave = () => {
+    const groupInfo = {
+      organization_id: orgId,
+      department: department,
+      sub_department: subDepartment,
+      group_nickname: groupName,
+      group_description: description,
+    };
+
+    toast.success("Changes saved successfully!", {
+      position: toast.POSITION.RIGHT_CENTER,
+      autoClose: 3000,
+      closeButton: false,
+      hideProgressBar: true,
+    });
+
+    dispatch({ type: "ADD_GROUP", payload: groupInfo });
+    handleClose();
+  };
 
   return (
     <div className="popover-container">
@@ -59,14 +89,38 @@ export default function BasicPopover() {
           </div>
           <div>
             <div className="add-group-fields">
-              <TextField fullWidth label="Name"></TextField>
-              <TextField fullWidth label="Department"></TextField>
-              <TextField fullWidth label="Division"></TextField>
-              <TextField fullWidth multiline rows={2} label="Description"></TextField>
+              <TextField
+                fullWidth
+                label="Name"
+                value={groupName}
+                onChange={(e) => setGroupName(e.target.value)}
+              ></TextField>
+              <TextField
+                fullWidth
+                label="Department"
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+              ></TextField>
+              <TextField
+                fullWidth
+                label="Division"
+                value={subDepartment}
+                onChange={(e) => setSubDepartment(e.target.value)}
+              ></TextField>
+              <TextField
+                fullWidth
+                multiline
+                rows={2}
+                label="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              ></TextField>
             </div>
             <div style={modalBtnStyle}>
-              <Button className="modal-cancel-btn" onClick={handleClose}>Cancel</Button>
-              <Button>Save</Button>
+              <Button className="modal-cancel-btn" onClick={handleClose}>
+                Cancel
+              </Button>
+              <Button onClick={handleSave}>Save</Button>
             </div>
           </div>
         </Box>
