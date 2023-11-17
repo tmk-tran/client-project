@@ -28,9 +28,6 @@ export default function orgDetails() {
 
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
   const groups = useSelector((store) => store.orgGroups);
-  console.log(groups);
-  // console.log(detailsOrg);
-  // console.log(paramsObject.id);
 
   useEffect(() => {
     dispatch({
