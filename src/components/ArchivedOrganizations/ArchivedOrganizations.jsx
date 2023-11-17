@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, TextField, Paper, Pagination, Typography } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Paper,
+  Pagination,
+  Typography,
+} from "@mui/material";
 import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
 import ArchivedOrganizationCard from "../ArchivedOrganizationCard/ArchivedOrganizationCard";
@@ -13,7 +19,7 @@ export default function ArchivedOrganizations() {
     dispatch({ type: "FETCH_ARCHIVED_ORGANIZATIONS" });
   }, []);
   const itemsPerPage = 4;
-const history = useHistory();
+  const history = useHistory();
   const [query, setQuery] = useState(" ");
   const [showInput, setShowInput] = useState(false);
   const user = useSelector((store) => store.user);
@@ -59,80 +65,95 @@ const history = useHistory();
     setCurrentPage(value);
   };
 
-function backToHome(){
-  history.push("/user");
-}
+  function backToHome() {
+    history.push("/user");
+  }
 
   return (
     <div className="organizationsContainer">
       <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
         <br />
         <center>
-        <br />
-          <Typography
-            variant="h5"
-            className="organization-header"
-            style={{ fontWeight: "bold", marginBottom: "15px"}}
-          >
-            Archived Organizations
-          </Typography>
           <br />
+          {archivedList.length === 0 ? (
+            <Typography
+              variant="h5"
+              className="organization-header"
+              style={{ fontWeight: "bold", marginBottom: "15px" }}
+            >
+              No Archived Organizations
+            </Typography>
+          ) : (
+            <>
+              <Typography
+                variant="h5"
+                className="organization-header"
+                style={{ fontWeight: "bold", marginBottom: "15px" }}
+              >
+                Archived Organizations
+              </Typography>
+              <br />
+              <div className="fuzzy-search-archived">
+                {showInput ? (
+                  <TextField
+                    style={{
+                      marginLeft: "3%",
+                      borderRadius: "4px",
+                      width: "230px",
+                      backgroundColor: "white",
+                    }}
+                    variant="outlined"
+                    fullWidth
+                    size="small"
+                    label="Search By Organization"
+                    value={query}
+                    onChange={(e) => handleOnSearch(e.target.value)}
+                    InputProps={{
+                      startAdornment: (
+                        <SearchIcon
+                          color="primary"
+                          style={{ marginRight: "10px" }}
+                        />
+                      ),
+                    }}
+                  />
+                ) : (
+                  <SearchIcon
+                    color="primary"
+                    style={{
+                      marginTop: "-15px",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => setShowInput(true)}
+                  />
+                )}
+                {showInput && (
+                  <Button
+                    style={{
+                      marginTop: "5px",
+                      marginLeft: "10px",
+                      backgroundColor: "#DAA226",
+                      height: "30px",
+                      color: "white",
+                      width: "0px",
+                      fontSize: "13px",
+                    }}
+                    variant="contained"
+                    onClick={clearInput}
+                  >
+                    Clear
+                  </Button>
+                )}
+              </div>
+            </>
+          )}
         </center>
-        <div className="fuzzy-search-archived">
-      {showInput ? (
-        <TextField
-          style={{
-            marginLeft: '3%',
-            borderRadius: '4px',
-            width: '230px',
-            backgroundColor: 'white',
-          }}
-          variant="outlined"
-          fullWidth
-          size="small"
-          label="Search By Organization"
-          value={query}
-          onChange={(e) => handleOnSearch(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <SearchIcon color="primary" style={{ marginRight: '10px' }} />
-            ),
-          }}
-        />
-      ) : (
-        <SearchIcon
-          color="primary"
-          style={{
-            marginTop: "-15px",
-            cursor: 'pointer',
-          }}
-          onClick={() => setShowInput(true)}
-        />
-      )}
-      {showInput && (
-        <Button
-          style={{
-            marginTop: '5px',
-            marginLeft: '10px',
-            backgroundColor: '#DAA226',
-            height: '30px',
-            color: 'white',
-            width: '0px',
-            fontSize: '13px',
-          }}
-          variant="contained"
-          onClick={clearInput}
-        >
-          Clear
-        </Button>
-      )}
-    </div>
         <div className="organizationsContainer">
           {currentItems.map((organization, index) => (
             <ArchivedOrganizationCard key={index} organization={organization} />
           ))}
         </div>
-<br />
+        <br />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Pagination
             count={pageCount}
