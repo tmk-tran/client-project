@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
 // Style
 import {
   Box,
@@ -14,6 +15,7 @@ import "./AddGroupPopover.css";
 import { modalBtnStyle } from "../Utils/helpers";
 
 export default function BasicPopover() {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
