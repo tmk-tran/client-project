@@ -51,20 +51,20 @@ export default function GroupDetails() {
                     <Table size="small">
                         <TableHead>
                             <TableRow style={{ border: "2px solid black" }}>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Title</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Description</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }}>Photo</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Requested</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Checked Out</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Out Value</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Checked In</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Sold</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Money Received</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Start Date</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">End Date</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Year</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Outstanding Balance</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px", width: "100px" }}><Typography style={{ fontSize: "15px", width: "100px" }}>Actions</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px"}}><Typography style={{ fontSize: "15px", width: "100px", fontWeight: "bold" }}>Title</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Description</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }}>Photo</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Requested</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Checked Out</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Out Value</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Checked In</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Sold</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Money Received</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Start Date</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">End Date</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Year</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Outstanding Balance</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px", width: "100px" }}><Typography style={{ fontSize: "15px", width: "100px" }}>Actions</Typography></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -83,15 +83,15 @@ export default function GroupDetails() {
                     <Table size="small">
                         <TableHead>
                             <TableRow style={{ border: "2px solid black" }}>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Title</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Description</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Photo</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Sold</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Money Received</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Start Date</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">End Date</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Year</Typography></TableCell>
-                                <TableCell style={{ border: "2px solid black", height: "100px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Outstanding Balance</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Title</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Description</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Photo</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Books Sold</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Money Received</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Start Date</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">End Date</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Year</Typography></TableCell>
+                                <TableCell style={{ border: "2px solid black", height: "50px", width: "100px", padding: "10px" }}><Typography style={{ fontSize: "15px", width: "100px" }} variant="body2">Outstanding Balance</Typography></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
