@@ -52,7 +52,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                     <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "88px"}}>{fundraiser.year}</Typography></TableCell>
                     <TableCell style={{border: "2px solid black"}}><Typography style={{fontSize: "15px", width: "88px"}}>{fundraiser.outstanding_balance}</Typography></TableCell>
                     <TableCell style={{border: "2px solid black"}}>
-                    <Button style={{margin: "2px"}} variant="contained" size="small" onClick={() => setEditMode(true)}><Typography style={{fontSize: "15px"}}>Edit Details</Typography></Button> 
+                    <Button style={{margin: "2px"}} variant="contained" size="small" onClick={() => setEditMode(true)}><Typography style={{fontSize: "15px"}}>Edit</Typography></Button> 
                     <Button style={{margin: "2px"}} variant="contained" size="small" onClick={updateAmount}><Typography style={{fontSize: "15px"}}>Update</Typography></Button>
                     <Button style={{margin: "2px"}} variant="contained" size="small" onClick={() => dispatch({ type:"CLOSE_FUNDRAISER", payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id)} })}><Typography style={{fontSize: "15px"}}>Close</Typography></Button> </TableCell>
                 </TableRow>

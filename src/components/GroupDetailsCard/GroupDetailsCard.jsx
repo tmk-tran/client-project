@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Box, Button, Card, CardMedia, Modal, Typography, FormControl, OutlinedInput, InputLabel, TextField, Select, MenuItem } from "@mui/material";
+import  {style}  from "../Utils/helpers";
 
 
 export default function GroupDetailsCard({ group }) {
@@ -62,14 +63,20 @@ export default function GroupDetailsCard({ group }) {
 
 
    return (
-      <Card>
-         <CardMedia style={{ objectFit: "cover" }}
+      <Card style={{display: "flex", flexDirection: "column", padding: "10px", width: "600px", margin: "auto"}}>
+         <CardMedia style={{ objectFit: "cover", width: "400px", height:"400px", margin: "auto" }}
             className="cardMedia"
             component="img"
             image={group.group_photo} />
+            <div style={{margin: "auto"}}>
          <Typography variant="h5">{group.department} {group.sub_department}</Typography>
          <Typography>{group.group_description}</Typography>
-         <Button onClick={() => history.goBack()}>Back</Button> <Button onClick={handleOpen}>Add Fundraiser</Button>
+         </div>
+         <div style={{
+            margin: "auto "
+      }}>
+         <Button variant="outlined" onClick={() => history.goBack()}>Back</Button> <Button variant="outlined" onClick={handleOpen}>Add Fundraiser</Button>
+         </div>
          <Modal open={open} onClose={handleClose} aria-labelledby="title"
             aria-describedby="form">
             <Box sx={style}>
