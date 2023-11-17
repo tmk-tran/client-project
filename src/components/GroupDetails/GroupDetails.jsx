@@ -40,7 +40,7 @@ export default function GroupDetails () {
             <br />
             <br />
             <Paper>
-             <TableContainer style={{width: "90%", margin: "auto"}} >
+             <TableContainer  style={{width: "95%", margin: "auto"}} >
                 <Typography>Active Campaigns</Typography>
                 <Table size="small">
                     <TableHead>
@@ -72,20 +72,20 @@ export default function GroupDetails () {
             </TableContainer>
             <br />
             <br />
-            <TableContainer>
+            <TableContainer style={{width: "95%", margin: "auto"}}>
                 <Typography>Closed Campaigns</Typography>
-                <Table>
+                <Table size="small">
                     <TableHead>
                         <TableRow style={{border: "2px solid black"}}>
-                            <TableCell style={{border: "2px solid black"}}>Title</TableCell>
-                            <TableCell style={{border: "2px solid black"}}>Description</TableCell>
-                            <TableCell style={{border: "2px solid black"}}>Photo</TableCell>
-                            <TableCell style={{border: "2px solid black"}}>Books Sold</TableCell>
-                            <TableCell style={{border: "2px solid black"}}>Money Received</TableCell>
-                            <TableCell style={{border: "2px solid black"}}>Start Date</TableCell>
-                            <TableCell style={{border: "2px solid black"}}>End Date</TableCell>
-                            <TableCell style={{border: "2px solid black"}}>Year</TableCell>
-                            <TableCell style={{border: "2px solid black"}}>Outstanding Balance</TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Title</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Description</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Photo</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Books Sold</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Money Received</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Start Date</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">End Date</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Year</Typography></TableCell>
+                            <TableCell style={{border: "2px solid black", height: "100px", width: "100px", padding: "10px"}}><Typography style={{fontSize: "15px", width: "100px"}} variant="body2">Outstanding Balance</Typography></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -97,7 +97,7 @@ export default function GroupDetails () {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Paper>
+            </Paper>
         </>
     )
         
