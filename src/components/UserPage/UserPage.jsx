@@ -154,8 +154,8 @@ function UserPage() {
         </center>
         <div className="organizationsContainer">
           {currentItems.map((organization, index) => (
-            <OrgListView key={index} organization={organization} />
-            // <OrganizationCard key={index} organization={organization} />
+            // <OrgListView key={index} organization={organization} />
+            <OrganizationCard key={index} organization={organization} />
           ))}
         </div>
         <AddOrganizationModal
