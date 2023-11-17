@@ -10,7 +10,7 @@ import {
   useMediaQuery,
 } from "@mui/material/";
 import CloseIcon from "@mui/icons-material/Close";
-import "./Popover.css";
+import "./AddGroupPopover.css";
 import { modalBtnStyle } from "../Utils/helpers";
 
 export default function BasicPopover() {
@@ -38,7 +38,8 @@ export default function BasicPopover() {
         id={id}
         open={open}
         anchorEl={anchorEl}
-        onClose={handleClose}
+        // onClose={handleClose}
+        onClose={() => {}}
         anchorOrigin={{
           vertical: isMobile ? "top" : "bottom",
           horizontal: isMobile ? "center" : "left",
@@ -59,10 +60,10 @@ export default function BasicPopover() {
               <TextField fullWidth label="Name"></TextField>
               <TextField fullWidth label="Department"></TextField>
               <TextField fullWidth label="Division"></TextField>
-              <TextField multiline rows={2} label="Description"></TextField>
+              <TextField fullWidth multiline rows={2} label="Description"></TextField>
             </div>
             <div style={modalBtnStyle}>
-              <Button className="modal-cancel-btn">Cancel</Button>
+              <Button className="modal-cancel-btn" onClick={handleClose}>Cancel</Button>
               <Button>Save</Button>
             </div>
           </div>
