@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Box, Button, Card, CardMedia, Modal, Typography, InputLabel, TextField, Select, MenuItem, Grid } from "@mui/material";
+import  {modalBtnStyle} from "../Utils/helpers"
+
 
 //Function for the component, takes in the group prop for use
 export default function GroupDetailsCard({ group }) {
@@ -73,9 +75,7 @@ export default function GroupDetailsCard({ group }) {
                <Typography variant="h5">{group.department} {group.sub_department}</Typography>
                <Typography>{group.group_description}</Typography>
             </div>
-            <div  style={{
-               margin: "auto"
-            }}>
+            <div style={modalBtnStyle} >
                <Button   variant="outlined" onClick={() => history.goBack()}><Typography style={{ fontSize: "15px" }}>Back</Typography></Button> <Button variant="outlined" onClick={handleOpen}><Typography style={{ fontSize: "15px" }}>Add Fundraiser</Typography></Button>
             </div>
          </Card>
