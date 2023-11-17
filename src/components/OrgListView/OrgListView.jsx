@@ -93,7 +93,7 @@ function OrgListView({ organization }) {
         handleEdit(organization.id);
       }}
     >
-      Edit
+     <span className="edit-button">Edit</span>
     </Button>
     <Button
       onClick={(e) => {

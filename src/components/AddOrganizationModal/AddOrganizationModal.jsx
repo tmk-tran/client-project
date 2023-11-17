@@ -78,7 +78,8 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
+    width: "85%", // Adjusted width for smaller screens
+    maxWidth: 600, // Maximum width for larger screens
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,

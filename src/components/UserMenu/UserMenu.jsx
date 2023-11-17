@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -16,12 +16,12 @@ import Swal from "sweetalert2";
 
 export default function UserMenu() {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-
+  const user = useSelector((store) => store.user);
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -32,6 +32,11 @@ export default function UserMenu() {
     }
     setOpen(false);
   };
+
+  function goToProfile(){
+    history.push(`/userProfile/${user.id}`)
+    setOpen(false)
+  }
 
   function handleListKeyDown(event) {
     if (event.key === "Tab") {
@@ -105,7 +110,7 @@ export default function UserMenu() {
                     onKeyDown={handleListKeyDown}
                   >
                     {/* <MenuItem onClick={handleClose}>Sign In</MenuItem> */}
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={goToProfile}>Profile</MenuItem>
                     <MenuItem onClick={logOut}>
                       Logout
                     </MenuItem>
