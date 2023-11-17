@@ -82,15 +82,6 @@ export default function OrgContactEdit({
     onClose();
   };
 
-  const clearFields = () => {
-    setEditedName("");
-    setEditedType("");
-    setEditedAddress("");
-    setEditedCity("");
-    setEditedState("");
-    setEditedZip("");
-  };
-
   const handleReset = () => {
     // Reset form fields to their original values
     setEditedName(info.organization_name);
