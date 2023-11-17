@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import "./OrgContactEdit.css";
 // Utils
-import { formatPhoneNumber } from "../Utils/helpers";
+import { formatPhoneNumber, modalBtnStyle } from "../Utils/helpers";
 // Toast
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -136,7 +136,12 @@ export default function OrgContactEdit({
           gap: 2,
         }}
       >
-        <Typography variant="h6">Edit Contact Information</Typography>
+        <Typography
+          variant="h5"
+          sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
+        >
+          Edit Contact Information
+        </Typography>
         <TextField
           label="First Name"
           value={editedFirstName}
@@ -163,12 +168,12 @@ export default function OrgContactEdit({
           error={emailError}
           helperText={emailError ? "Invalid email format" : ""}
         />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
+        <div style={modalBtnStyle}
+          // style={{
+          //   display: "flex",
+          //   flexDirection: "row",
+          //   justifyContent: "space-between",
+          // }}
         >
           <Button className="modal-cancel-btn" onClick={handleClose}>
             Cancel

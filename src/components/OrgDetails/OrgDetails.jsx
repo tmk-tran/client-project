@@ -18,6 +18,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import OrgGroupTabs from "../OrgGroupTabs/OrgGroupTabs";
+import Popover from "../Popover/Popover";
 
 export default function orgDetails() {
   const theme = useTheme();
@@ -64,9 +65,9 @@ export default function orgDetails() {
         <CardContent>
           <center>
             <div className="org-details-header">
-              <Typography variant="h5" style={{ fontWeight: "bold" }}>
+              {/* <Typography variant="h5" style={{ fontWeight: "bold" }}>
                 Organization Details
-              </Typography>
+              </Typography> */}
             </div>
           </center>
           <div className="detailsOrg-container">
@@ -77,20 +78,13 @@ export default function orgDetails() {
                 <center>
                   <OrgContactDetails info={orgDetails} />
                 </center>
+                <div className="add-group-btn">
+                  <Popover />
+                </div>
 
                 {/* Display associated groups */}
                 {groups.length === 0 && <p>No groups yet</p>}
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    // justifyContent: "space-between",
-                    justifyContent: "center",
-                    gap: "50px",
-                    alignItems: "center",
-                    marginTop: "25px",
-                  }}
-                >
+                <div className="OrgGroupInfo-container">
                   {groups.map((groupInfo, i) => (
                     <OrgGroupInfo
                       key={groupInfo.group_id}

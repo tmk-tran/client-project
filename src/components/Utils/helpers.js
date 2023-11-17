@@ -60,12 +60,26 @@ export const centeredStyle = {
   alignItems: "center",
 };
 
+export const styleFlexBox = {
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "row",
+  alignItems: "center",
+};
+
 // Style for Icon colors in OrgContactDetails
 export const styleIconColor = { color: "#273b91" };
 
 // Style for images
 export const styleImage = {
-  width: "300px",
-  height: "320px",
+  width: "200px",
+  height: "220px",
   objectFit: "contain",
 };
+
+// Flexbox style for buttons in modals OrgDetails component
+export const modalBtnStyle = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+}

@@ -18,14 +18,47 @@
 }
 
 .org-address {
-  margin: 15px auto;
+  margin: 5px auto;
   /* border: 1px solid black; */
 }
 
 .edit-icon-btn {
   position: absolute;
   top: 0;
-  right: 37%;
+  right: 39%;
+}
+
+.edit-note-icon:hover {
+  color: #dd9f2f;
+}
+
+/* Push edit icon far right corner of Card */
+
+/* .edit-icon-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+} */
+
+.contact-info-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 10px;
+}
+
+.contact-info-edit-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@media (max-width: 1200px) {
+  .edit-icon-btn {
+    right: 30%;
+  }
 }
 
 @media (max-width: 400px) {
@@ -35,8 +68,6 @@
   }
 
   .edit-icon-btn {
-    position: absolute;
-    top: 100%;
     right: 2%;
   }
 }
