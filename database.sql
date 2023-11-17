@@ -112,3 +112,24 @@ FOR EACH ROW
 EXECUTE FUNCTION calculate_outstanding_balance();
 
 ----------------------------------------------------------------------------------------------
+
+-- get an array of groups tied to a specific user id that is the admin of the group
+SELECT
+    g.id AS group_id,
+    g.organization_id,
+    g.department,
+    g.sub_department,
+    g.group_nickname,
+    g.group_photo,
+    g.group_description,
+          json_agg(json_build_object('id', f.id, 'title', f.title, 'start_date', f.start_date, 'end_date', f.end_date )) AS fundraisers_info
+FROM
+    "group" g
+LEFT JOIN
+    "fundraiser" f ON g.id = f.group_id
+JOIN
+    "user-group" ug ON g.id = ug.group_id
+WHERE
+    ug.user_id = 2 AND ug.group_admin = true
+GROUP BY
+    g.id, g.organization_id, g.department, g.sub_department, g.group_nickname, g.group_photo, g.group_description;

@@ -11,7 +11,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Nav from "../Nav/Nav";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-
+import UserProfile from "../UserProfile/UserProfile";
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
 import OrgDetails from "../OrgDetails/OrgDetails";
@@ -81,6 +81,13 @@ function App() {
               path="/user"
             >
               <UserPage />
+            </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/userProfile/:id"
+            >
+              <UserProfile />
             </ProtectedRoute>
             <ProtectedRoute
               // logged in shows UserPage else shows LoginPage
