@@ -1,6 +1,7 @@
+//Imports for use in groups saga
 import axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
-
+//Fetches group details based in id number
 function* fetchGroupSaga(action) {
     try {
         console.log(action.payload)
@@ -10,7 +11,7 @@ function* fetchGroupSaga(action) {
         console.log("Error fetching group details", err)
     }
 }
-
+//Fetches organization groups based on group id
 function* fetchOrgGroupsSaga(action) {
     try {
         console.log(action.payload)
@@ -20,7 +21,7 @@ function* fetchOrgGroupsSaga(action) {
         console.log("Error fetching organization groups", err)
     }
 }
-
+//Saga used to add a new group to an organization, will then fetch the organization details
 function* addGroupSaga(action) {
     try {
         console.log(action.payload)
@@ -30,7 +31,7 @@ function* addGroupSaga(action) {
         console.log("Error adding a new group", err)
     }
 }
-
+//Saga used to update group details
 function* updateGroupSaga(action) {
     try {
         console.log(action.payload)
@@ -43,7 +44,7 @@ function* updateGroupSaga(action) {
 
 
 
-
+//Watcher saga that exports all sagas for use in root saga
 export default function* groupSaga() {
     yield takeEvery("FETCH_GROUP_DETAILS", fetchGroupSaga)
     yield takeEvery("FETCH_ORG_GROUPS", fetchOrgGroupsSaga)

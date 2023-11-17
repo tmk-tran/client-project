@@ -31,7 +31,7 @@ function* updatedFundraiserSaga(action) {
         console.log("Unable to update fundraiser", err)
     }
 }
-//Saga used to update the amounts in a fundraiser
+//Saga used to update the amounts in a fundraiser, will then fetch the updated fundraiser data
 function* updatedFundraiserAmountsSaga(action) {
     try {
         console.log(action.payload)
@@ -41,7 +41,7 @@ function* updatedFundraiserAmountsSaga(action) {
         console.log("Unable to update amounts for fundraisers", err)
     }
 }
-
+//Saga used to update a fundraiser to closed, will then fetch updated fundraisers data
 function* closeFundraiserSaga(action) {
     try {
         console.log(action.payload)
@@ -51,7 +51,7 @@ function* closeFundraiserSaga(action) {
         console.log("Error setting fundraiser to closed", err)
     }
 }
-
+//Watcher saga that exports all sagas to for use in the root saga
 export default function* fundraiserSaga() {
     yield takeEvery("FETCH_FUNDRAISERS", fetchFundraisersSaga);
     yield takeEvery("ADD_FUNDRAISER", addFundraiserSaga);

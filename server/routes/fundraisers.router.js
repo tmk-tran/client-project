@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-//Get route for fundraisers
+//Get route for fundraisers with a specific group id
 router.get("/groupfundraisers/:id", (req, res) => {
   const groupId = req.params.id
   const queryText = `SELECT "f".id, "f".group_id, "f".title, "f".description, "f".photo, "f". requested_book_quantity, "f".book_quantity_checked_out, "f".book_checked_out_total_value, "f".book_quantity_checked_in, "f".books_sold, "f".money_received, "f".start_date, "f".end_date, "cb".year, "f".outstanding_balance, "f".closed  FROM "fundraiser" AS "f"
@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
       res.sendStatus(500)
     })
 });
-//Updates all of the fundraiser details
+//Updates a fundraisers tite and description
 router.put("/:id", (req, res) => {
   const id = req.params.id;
   const updatedFundraiser = req.body;
@@ -49,7 +49,7 @@ router.put("/:id", (req, res) => {
       res.sendStatus(500)
     })
 })
-//Put route for updating amounts of books and money
+//Put route for updating amounts of books and money in a fundraiser
 router.put("/money/:id", (req, res) => {
   const id = req.params.id;
   const updatedAmount = req.body;
@@ -65,7 +65,7 @@ router.put("/money/:id", (req, res) => {
       res.sendStatus(500)
     })
 })
-//Sets status of fundraiser to closed when completed
+//PUT route that sets a fundraiser to closed
 router.put("/close/:id", (req, res) => {
   const id = req.params.id;
   const queryText = `UPDATE "fundraiser" SET "closed" = 'true' WHERE "id" = $1;`;
@@ -78,7 +78,7 @@ router.put("/close/:id", (req, res) => {
       res.sendStatus(500);
     })
 })
-//Delete route to set a fundraiser to deleted, need to check to see if we really need this one
+//Delete route to set a fundraiser to deleted, not used in current scope of admin dashboard
 router.put("/delete/:id", (req, res) => {
   const id = req.params.id;
   const queryText = `UPDATE "fundraiser" SET "is_deleted" = 'true' WHERE "id" = $1;`;
