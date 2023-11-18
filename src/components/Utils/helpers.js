@@ -72,7 +72,7 @@ export const styleIconColor = { color: "#273b91" };
 
 // Style for images
 export const styleImage = {
-  width: "300px",
+  width: "400px",
   height: "220px",
   objectFit: "contain",
 };

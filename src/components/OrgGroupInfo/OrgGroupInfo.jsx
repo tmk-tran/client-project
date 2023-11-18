@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 // Style
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent, Typography, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 // Utils
 import { capitalizeWords, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
@@ -14,6 +14,7 @@ export default function OrgGroupInfoCard({ groupInfo }) {
       elevation={6}
       id="orgGroup-details-container"
       onClick={() => history.push(`/group/${groupInfo.group_id}`)}
+      style={{ height: "700px", width: "400px", padding: "10px" }}
     >
       <CardContent>
         <div style={{ position: "relative" }}>
@@ -23,7 +24,6 @@ export default function OrgGroupInfoCard({ groupInfo }) {
           {groupInfo.group_photo ? (
             <center>
               <img
-                // id="group-photo"
                 src={groupInfo.group_photo}
                 alt={`Group Photo for ${groupInfo.group_nickname}`}
                 style={styleImage}
@@ -35,19 +35,17 @@ export default function OrgGroupInfoCard({ groupInfo }) {
             </div>
           )}
         </div>
-        <Box style={{ flex: 1 }}></Box>
+        <br />
         {groupInfo.group_nickname ? (
-          <>
-            <Typography variant="h6" style={{ textAlign: "center" }}>
+          <center>
+            <Typography variant="h6" sx={{ ta: "center" }}>
               {capitalizeWords(groupInfo.group_nickname)}
             </Typography>
-          </>
+          </center>
         ) : (
-          <>
-            <center>
-              <Typography variant="h6">No Group Name</Typography>
-            </center>
-          </>
+          <center>
+            <Typography variant="h6">No Group Name</Typography>
+          </center>
         )}
 
         <div>
@@ -56,7 +54,7 @@ export default function OrgGroupInfoCard({ groupInfo }) {
               Group Name: {capitalizeWords(groupInfo.group_nickname)}
             </Typography> */}
           <center>
-            <Typography sx={{ mt: 2 }}>
+            {/* <Typography sx={{ mt: 2 }}>
               Department: {capitalizeWords(groupInfo.department)}
             </Typography>
             <Typography sx={{ mt: 2 }}>
@@ -64,21 +62,54 @@ export default function OrgGroupInfoCard({ groupInfo }) {
               {groupInfo.sub_department
                 ? capitalizeWords(groupInfo.sub_department)
                 : "N/A"}
-            </Typography>
+            </Typography> */}
+            {/* <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
+              <Typography sx={{ mt: 2 }}>
+                <span style={{ textDecoration: "underline" }}>Department</span> <br />{capitalizeWords(groupInfo.department)}
+              </Typography>
+              
+              <Typography sx={{ mt: 2 }}>
+              <span style={{ textDecoration: "underline" }}>Division</span> <br />
+                {groupInfo.sub_department
+                  ? capitalizeWords(groupInfo.sub_department)
+                  : "N/A"}
+              </Typography>
+            </div> */}
+            <div>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell><strong>Department:</strong></TableCell>
+                    <TableCell>{capitalizeWords(groupInfo.department)}</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell><strong>Division:</strong></TableCell>
+                    <TableCell>{groupInfo.sub_department? capitalizeWords(groupInfo.sub_department) : "N/A"}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>
           </center>
           <Typography sx={{ mt: 2, fontWeight: "bold" }}>
             Description:
           </Typography>
-          <Typography sx={{ overflowWrap: "break-word" }}>
-            {/* Description:{" "} */}
-            {groupInfo.group_description
-              ? `${groupInfo.group_description
-                  .charAt(0)
-                  .toUpperCase()}${groupInfo.group_description
-                  .slice(1)
-                  .toLowerCase()}`
-              : "None Entered"}
-          </Typography>
+          <div
+            className="group-description-container"
+            style={{ maxHeight: "200px", overflowY: "auto" }}
+          >
+            <Typography sx={{ overflowWrap: "break-word" }}>
+              {/* Description:{" "} */}
+              {groupInfo.group_description
+                ? `${groupInfo.group_description
+                    .charAt(0)
+                    .toUpperCase()}${groupInfo.group_description
+                    .slice(1)
+                    .toLowerCase()}`
+                : "None Entered"}
+            </Typography>
+          </div>
         </div>
       </CardContent>
     </Card>
