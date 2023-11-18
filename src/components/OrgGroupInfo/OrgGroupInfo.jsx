@@ -50,11 +50,10 @@ export default function OrgGroupInfoCard({ groupInfo }) {
 
         <div>
           <hr />
-          {/* <Typography sx={{ mt: 2 }}>
-              Group Name: {capitalizeWords(groupInfo.group_nickname)}
-            </Typography> */}
           <center>
-            {/* <Typography sx={{ mt: 2 }}>
+
+            {/* Option 1, view details */}
+            <Typography sx={{ mt: 2 }}>
               Department: {capitalizeWords(groupInfo.department)}
             </Typography>
             <Typography sx={{ mt: 2 }}>
@@ -62,8 +61,10 @@ export default function OrgGroupInfoCard({ groupInfo }) {
               {groupInfo.sub_department
                 ? capitalizeWords(groupInfo.sub_department)
                 : "N/A"}
-            </Typography> */}
-            {/* <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
+            </Typography>
+
+            {/* Option 2, view details */}
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
               <Typography sx={{ mt: 2 }}>
                 <span style={{ textDecoration: "underline" }}>Department</span> <br />{capitalizeWords(groupInfo.department)}
               </Typography>
@@ -74,7 +75,9 @@ export default function OrgGroupInfoCard({ groupInfo }) {
                   ? capitalizeWords(groupInfo.sub_department)
                   : "N/A"}
               </Typography>
-            </div> */}
+            </div>
+
+            {/* Option 3, view details */}
             <div>
               <Table>
                 <TableHead>
@@ -91,7 +94,10 @@ export default function OrgGroupInfoCard({ groupInfo }) {
                 </TableBody>
               </Table>
             </div>
+
           </center>
+
+          {/* Description Section */}
           <Typography sx={{ mt: 2, fontWeight: "bold" }}>
             Description:
           </Typography>
