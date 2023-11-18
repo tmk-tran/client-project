@@ -104,9 +104,9 @@ export default function BasicMenu() {
         <MenuItem onClick={archivedOrganizations}>
           Archived Organizations
         </MenuItem>
-        {/* <MenuItem onClick={aboutPage}>About</MenuItem> */}
-        <hr />
-        <MenuItem onClick={logOut}>Logout</MenuItem>
+        <MenuItem onClick={aboutPage}>About</MenuItem>
+        {/* <hr /> */}
+        {/* <MenuItem onClick={logOut}>Logout</MenuItem> */}
       </Menu>
     </div>
   ) : null;
