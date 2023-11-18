@@ -98,12 +98,14 @@ export default function BasicMenu() {
         }}
       >
         <MenuItem onClick={goHome}>Home</MenuItem>
+        {/* <MenuItem onClick={goToProfile}>Profile</MenuItem> */}
+        <hr />
         <MenuItem onClick={newFundraiserForm}>New Fundraiser</MenuItem>
         <MenuItem onClick={archivedOrganizations}>
           Archived Organizations
         </MenuItem>
-        <MenuItem onClick={goToProfile}>Profile</MenuItem>
         {/* <MenuItem onClick={aboutPage}>About</MenuItem> */}
+        <hr />
         <MenuItem onClick={logOut}>Logout</MenuItem>
       </Menu>
     </div>
