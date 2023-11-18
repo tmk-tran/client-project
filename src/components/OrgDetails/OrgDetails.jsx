@@ -56,6 +56,7 @@ export default function orgDetails() {
     // Fetch organizations
     dispatch({
       type: "FETCH_ORGANIZATIONS",
+      payload: paramsObject.id,
       // Add any payload or params if needed for fetching organizations
     });
   }, [paramsObject.id, groups]);
@@ -86,7 +87,7 @@ export default function orgDetails() {
   const organizationDetails = orgList.find(
     (org) => org.organization_id === Number(paramsObject.id)
   );
-  
+
   return (
     <div
       className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
@@ -102,9 +103,9 @@ export default function orgDetails() {
           </center>
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}
-            {/* {[...orgMap.values()].map(({ orgDetails, groups }) => (
+            {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
-                Display organization details once
+                {/* Display organization details once */}
                 <center>
                   <OrgContactDetails info={orgDetails} />
                 </center>
@@ -112,19 +113,11 @@ export default function orgDetails() {
                   <AddGroupPopover info={orgDetails} />
                 </div>
 
-                Display associated groups
-                {groups.length === 0 && <p>No groups yet</p>}
+                {console.log("GROUPS = ", groups)}
+
+                {/* Display associated groups or "No groups" message */}
                 <div className="OrgGroupInfo-container">
-                  {groups.map((groupInfo, i) => (
-                    <OrgGroupInfo
-                      key={groupInfo.group_id}
-                      groupInfo={groupInfo}
-                      groupNumber={i + 1}
-                    />
-                  ))}
-                  {groups.length === 0 ? (
-                    <OrgContactDetails info={orgDetails} />
-                  ) : (
+                  {groups && groups.some((group) => group.group_id !== null) ? (
                     groups.map((groupInfo, i) => (
                       <OrgGroupInfo
                         key={groupInfo.group_id}
@@ -132,51 +125,27 @@ export default function orgDetails() {
                         groupNumber={i + 1}
                       />
                     ))
+                  ) : (
+                    <>
+                      <Typography variant="h6">No Groups Assigned</Typography>
+                    </>
                   )}
                 </div>
                 <br />
                 <br />
-                <div>
+                {/* <div>
                   <OrgGroupTabs groups={groups} />
+                </div> */}
+                <div>
+                  {groups && groups.some((group) => group.group_id !== null) ? (
+                    <OrgGroupTabs groups={groups} />
+                  ) : (
+                    // <Typography variant="h6" style={{ textAlign: "center" }}>No Groups Assigned</Typography>
+                    <></>
+                  )}
                 </div>
               </React.Fragment>
-            ))} */}
-            {[...orgMap.values()].map(({ orgDetails, groups }) => (
-  <React.Fragment key={orgDetails.organization_id}>
-    {/* Display organization details once */}
-    <center>
-      <OrgContactDetails info={orgDetails} />
-    </center>
-    <div className="add-group-btn">
-      <AddGroupPopover info={orgDetails} />
-    </div>
-
-    {/* Log the details for debugging purposes */}
-    {console.log('Organization Details:', orgDetails)}
-
-    {/* Display associated groups or "No groups" message */}
-    <div className="OrgGroupInfo-container">
-      {groups.length > 0 ? (
-        groups.map((groupInfo, i) => (
-          <OrgGroupInfo
-            key={groupInfo.group_id}
-            groupInfo={groupInfo}
-            groupNumber={i + 1}
-          />
-        ))
-      ) : (
-        <p>No groups yet</p>
-      )}
-    </div>
-    <br />
-    <br />
-    <div>
-      <OrgGroupTabs groups={groups} />
-    </div>
-  </React.Fragment>
-))}
-
-
+            ))}
           </div>
         </CardContent>
       </Card>

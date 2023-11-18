@@ -13,6 +13,7 @@ import "./OrgGroupInfo.css";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
+  
   return (
     <Card
       elevation={6}

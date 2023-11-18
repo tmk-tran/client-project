@@ -5,8 +5,8 @@
 }
 
 .organizationCard {
-  width: 250px;
+  /* width: 250px; */
+  /* height: 400px; */
   margin: 10px 20px;
   object-fit: cover;
-  height: 400px;
 }
