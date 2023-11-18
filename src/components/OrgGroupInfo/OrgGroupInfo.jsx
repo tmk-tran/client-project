@@ -1,19 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 // Style
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 // Utils
 import { capitalizeWords, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
-  
+
   return (
     <Card
       elevation={6}
@@ -41,9 +36,20 @@ export default function OrgGroupInfoCard({ groupInfo }) {
           )}
         </div>
         <Box style={{ flex: 1 }}></Box>
-        <Typography variant="h6" style={{ textAlign: "center" }}>
-          {capitalizeWords(groupInfo.group_nickname)}
-        </Typography>
+        {groupInfo.group_nickname ? (
+          <>
+            <Typography variant="h6" style={{ textAlign: "center" }}>
+              {capitalizeWords(groupInfo.group_nickname)}
+            </Typography>
+          </>
+        ) : (
+          <>
+            <center>
+              <Typography variant="h6">No Group Name</Typography>
+            </center>
+          </>
+        )}
+
         <div>
           <hr />
           {/* <Typography sx={{ mt: 2 }}>

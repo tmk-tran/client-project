@@ -113,9 +113,7 @@ export default function orgDetails() {
                   <AddGroupPopover info={orgDetails} />
                 </div>
 
-                {console.log("GROUPS = ", groups)}
-
-                {/* Display associated groups or "No groups" message */}
+                {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
                   {groups && groups.some((group) => group.group_id !== null) ? (
                     groups.map((groupInfo, i) => (
@@ -133,9 +131,6 @@ export default function orgDetails() {
                 </div>
                 <br />
                 <br />
-                {/* <div>
-                  <OrgGroupTabs groups={groups} />
-                </div> */}
                 <div>
                   {groups && groups.some((group) => group.group_id !== null) ? (
                     <OrgGroupTabs groups={groups} />

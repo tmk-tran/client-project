@@ -72,8 +72,8 @@ export const styleIconColor = { color: "#273b91" };
 
 // Style for images
 export const styleImage = {
-  // width: "100%",
-  height: "420px",
+  width: "300px",
+  height: "220px",
   objectFit: "contain",
 };
 
@@ -82,4 +82,4 @@ export const modalBtnStyle = {
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
-}
+};
