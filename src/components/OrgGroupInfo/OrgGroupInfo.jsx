@@ -1,9 +1,19 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 // Style
-import { Box, Card, CardContent, Typography, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 // Utils
-import { capitalizeWords, styleImage } from "../Utils/helpers";
+import { capitalizeWords, centerStyle, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
@@ -51,9 +61,8 @@ export default function OrgGroupInfoCard({ groupInfo }) {
         <div>
           <hr />
           <center>
-
             {/* Option 1, view details */}
-            <Typography sx={{ mt: 2 }}>
+            {/* <Typography sx={{ mt: 2 }}>
               Department: {capitalizeWords(groupInfo.department)}
             </Typography>
             <Typography sx={{ mt: 2 }}>
@@ -61,10 +70,10 @@ export default function OrgGroupInfoCard({ groupInfo }) {
               {groupInfo.sub_department
                 ? capitalizeWords(groupInfo.sub_department)
                 : "N/A"}
-            </Typography>
+            </Typography> */}
 
             {/* Option 2, view details */}
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
+            {/* <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
               <Typography sx={{ mt: 2 }}>
                 <span style={{ textDecoration: "underline" }}>Department</span> <br />{capitalizeWords(groupInfo.department)}
               </Typography>
@@ -75,26 +84,35 @@ export default function OrgGroupInfoCard({ groupInfo }) {
                   ? capitalizeWords(groupInfo.sub_department)
                   : "N/A"}
               </Typography>
-            </div>
+            </div> */}
 
             {/* Option 3, view details */}
             <div>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell><strong>Department:</strong></TableCell>
-                    <TableCell>{capitalizeWords(groupInfo.department)}</TableCell>
+                    <TableCell style={centerStyle}>
+                      <strong>Department:</strong>
+                    </TableCell>
+                    <TableCell>
+                      {capitalizeWords(groupInfo.department)}
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell><strong>Division:</strong></TableCell>
-                    <TableCell>{groupInfo.sub_department? capitalizeWords(groupInfo.sub_department) : "N/A"}</TableCell>
+                    <TableCell style={centerStyle}>
+                      <strong>Division:</strong>
+                    </TableCell>
+                    <TableCell>
+                      {groupInfo.sub_department
+                        ? capitalizeWords(groupInfo.sub_department)
+                        : "N/A"}
+                    </TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
             </div>
-
           </center>
 
           {/* Description Section */}

@@ -83,3 +83,9 @@ export const modalBtnStyle = {
   flexDirection: "row",
   justifyContent: "space-between",
 };
+
+
+// Center style for table cells in OrgContactDetails component
+export const centerStyle = {
+  textAlign: "center"
+};

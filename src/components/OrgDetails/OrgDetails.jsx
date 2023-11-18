@@ -32,32 +32,14 @@ export default function orgDetails() {
   console.log("ORGANIZATIONS = ", orgList);
   const groups = useSelector((store) => store.orgGroups);
 
-  // useEffect(() => {
-  //   dispatch({
-  //     type: "FETCH_ORG_DETAILS",
-  //     payload: paramsObject.id,
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: "FETCH_ORG_DETAILS",
-  //     payload: paramsObject.id,
-  //   });
-  // }, [groups]);
-
   useEffect(() => {
-    // Fetch organization details and groups
     dispatch({
       type: "FETCH_ORG_DETAILS",
       payload: paramsObject.id,
     });
-
-    // Fetch organizations
     dispatch({
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
-      // Add any payload or params if needed for fetching organizations
     });
   }, [paramsObject.id, groups]);
 
@@ -83,24 +65,19 @@ export default function orgDetails() {
     });
   });
 
-  // Find the organization details using orgList
-  const organizationDetails = orgList.find(
-    (org) => org.organization_id === Number(paramsObject.id)
-  );
-
   return (
     <div
       className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
     >
       <Card className="OrgDetails-card" elevation={3}>
         <CardContent>
-          <center>
-            <div className="org-details-header">
+          {/* <center>
+            <div className="org-details-header"> */}
               {/* <Typography variant="h5" style={{ fontWeight: "bold" }}>
                 Organization Details
               </Typography> */}
-            </div>
-          </center>
+            {/* </div>
+          </center> */}
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}
             {[...orgMap.values()].map(({ orgDetails, groups }) => (

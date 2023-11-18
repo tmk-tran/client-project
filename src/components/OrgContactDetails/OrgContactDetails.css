@@ -55,9 +55,20 @@
   right: 0;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
   .edit-icon-btn {
     right: 30%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .org-name-container {
+    width: 40%;
+  }
+
+  .edit-icon-btn {
+    top: 0;
+    right: 0;
   }
 }
 
@@ -75,6 +86,5 @@
 
   .org-name-container {
     width: 70%;
-    
   }
 }
