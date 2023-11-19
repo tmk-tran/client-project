@@ -73,10 +73,10 @@ export default function orgDetails() {
         <CardContent>
           {/* <center>
             <div className="org-details-header"> */}
-              {/* <Typography variant="h5" style={{ fontWeight: "bold" }}>
+          {/* <Typography variant="h5" style={{ fontWeight: "bold" }}>
                 Organization Details
               </Typography> */}
-            {/* </div>
+          {/* </div>
           </center> */}
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}

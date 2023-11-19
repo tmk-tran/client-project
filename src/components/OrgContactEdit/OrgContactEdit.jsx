@@ -33,7 +33,10 @@ export default function OrgContactEdit({
   const [editedLastName, setEditedLastName] = useState(
     info.primary_contact_last_name
   );
-  const [editedPhone, setEditedPhone] = useState(info.primary_contact_phone);
+  const [editedPhone, setEditedPhone] = useState(
+    Number(info.primary_contact_phone)
+  );
+  const [phoneError, setPhoneError] = useState(false);
   const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
   const [emailError, setEmailError] = useState(false);
 
@@ -56,6 +59,17 @@ export default function OrgContactEdit({
 
     // Clear email error if it was previously set
     setEmailError(false);
+
+    // Validate phone number before saving
+    if (!/^[0-9]*$/.test(editedPhone)) {
+      // Invalid phone number, handle accordingly (show error, prevent saving, etc.)
+      // alert("Invalid phone number, please enter a valid phone number.");
+      setPhoneError(true);
+      return;
+    }
+  
+    // Clear phone number error if it was previously set
+    setPhoneError(false);
 
     const contactInfo = {
       ...info,
@@ -91,7 +105,7 @@ export default function OrgContactEdit({
 
     toast.success("Changes saved successfully!", {
       position: toast.POSITION.RIGHT_CENTER,
-      autoClose: 3000,
+      autoClose: 2000,
       closeButton: false,
       hideProgressBar: true,
     });
@@ -106,6 +120,7 @@ export default function OrgContactEdit({
     setEditedPhone(info.primary_contact_phone);
     setEditedEmail(info.primary_contact_email);
     setEmailError(false); // Clear email error on reset
+    setPhoneError(false);
   };
 
   const handleClose = () => {
@@ -154,8 +169,18 @@ export default function OrgContactEdit({
         />
         <TextField
           label="Phone"
-          value={formatPhoneNumber(editedPhone)}
-          onChange={(e) => setEditedPhone(e.target.value)}
+          type="tel"
+          inputProps={{
+            pattern: "[0-9]*",
+            inputMode: "numeric",
+          }}
+          value={editedPhone}
+          onChange={(e) => {
+            setEditedPhone(e.target.value);
+            setPhoneError(false);
+          }}
+          error={phoneError}
+          helperText={phoneError ? "Invalid phone number" : ""}
         />
         <TextField
           label="Email"
@@ -168,7 +193,8 @@ export default function OrgContactEdit({
           error={emailError}
           helperText={emailError ? "Invalid email format" : ""}
         />
-        <div style={modalBtnStyle}
+        <div
+          style={modalBtnStyle}
           // style={{
           //   display: "flex",
           //   flexDirection: "row",

@@ -66,12 +66,13 @@ LEFT JOIN
 WHERE
   o.id = $1 AND
   o.is_deleted = false AND
-  (g.is_deleted = false OR g.is_deleted IS NULL)`;
+  (g.is_deleted = false OR g.is_deleted IS NULL)
+ORDER BY LOWER (g.group_nickname) ASC;`;
   pool
     .query(queryText, [orgId])
     .then((result) => {
       // console.log("orgId = ", orgId);
-      // console.log("FROM orgDetails.router: ", result.rows);
+      console.log("FROM orgDetails.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
