@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 // Style
 import { Box, Card, CardContent, Tab, Tabs, Typography } from "@mui/material";
 // Utils
-import { capitalizeWords } from "../Utils/helpers";
+import { capitalizeWords, styleImage } from "../Utils/helpers";
 // import "../OrgGroupInfo/OrgGroupInfo.css";
 import "./OrgGroupTabs.css";
 
@@ -75,6 +75,7 @@ export default function OrgGroupTabs({ groups }) {
                     id="group-photo"
                     src={group.group_photo}
                     alt={`Group Photo for ${group.group_nickname}`}
+                    // style={styleImage}
                   />
                 </center>
               ) : (
