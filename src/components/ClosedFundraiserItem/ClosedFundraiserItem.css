@@ -1,0 +1,6 @@
+.closed_item_cell{
+    border: 2px solid black; 
+    width: 100px ;
+    height: 50px;
+    padding: 5px 
+}

@@ -1,6 +1,7 @@
 //Imports used for function
 import React from "react";
 import { TableCell, TableRow, Typography } from "@mui/material";
+import "./ClosedFundraiserItem.css"
 //Function to render the component, takes in the fundraiser prop
 export default function ClosedFundraiserItem({ fundraiser }) {
     //Function to format the data without the timestamp
@@ -17,13 +18,14 @@ export default function ClosedFundraiserItem({ fundraiser }) {
         <>
             {fundraiser.closed != false &&
                 <TableRow style={{ border: "2px solid black" }}>
-                    <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{fundraiser.title}</Typography></TableCell>
-                    <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{fundraiser.books_sold}</Typography></TableCell>
-                    <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{fundraiser.money_received}</Typography></TableCell>
-                    <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{formatDate(fundraiser.start_date)}</Typography></TableCell>
-                    <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{formatDate(fundraiser.end_date)}</Typography></TableCell>
-                    <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{fundraiser.year}</Typography></TableCell>
-                    <TableCell style={{ border: "2px solid black", width: "100px", height: "100px", padding: "5px" }}><Typography style={{ fontSize: "15px", width: "88px" }}>{fundraiser.outstanding_balance}</Typography></TableCell>
+                    <TableCell className="closed_item_cell" ><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.title}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", wordWrap: "wrap" }}>{fundraiser.requested_book_quantity}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.books_sold}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.money_received}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{formatDate(fundraiser.start_date)}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{formatDate(fundraiser.end_date)}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.year}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.outstanding_balance}</Typography></TableCell>
                 </TableRow>
             }
         </>

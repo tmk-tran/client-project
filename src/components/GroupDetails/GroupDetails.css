@@ -1,0 +1,27 @@
+.active_header_cell{
+    border: 2px solid black;
+    height: 50px; 
+    width: 100px; 
+    padding: 10px;
+}
+
+.active_header_text{
+    width: 100px; 
+    text-align: center
+}
+
+.closed_header_cell{
+    border: 2px solid black; 
+    height: 50px; 
+    width: 100px; 
+    padding: 10px
+}
+
+.closed_header_text{
+    width: 100px; 
+    text-align: center;
+    padding: 5px;
+    margin: auto
+}
+
+.active_table{}
