@@ -55,7 +55,7 @@
   right: 0;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1400px) {
   .edit-icon-btn {
     right: 30%;
   }

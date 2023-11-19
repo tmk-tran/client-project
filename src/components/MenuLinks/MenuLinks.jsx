@@ -55,7 +55,7 @@ export default function BasicMenu() {
     handleClose();
   }
 
-  function goToProfile(){
+  function goToProfile() {
     history.push(`/userProfile/${user.id}`);
     handleClose();
   }

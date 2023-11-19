@@ -1,6 +1,8 @@
 #orgGroup-details-container {
-  width: 30%;
   margin-top: 30px;
+  height: 700px;
+  width: 400px;
+  padding: 10px;
 }
 
 #orgGroup-details-container:hover {
@@ -24,6 +26,12 @@
   justify-content: center;
   background-color: #dadadc;
   border: 1px dotted rgb(96, 93, 93);
+}
+
+@media (max-width: 1000px) {
+  #orgGroup-details-container {
+    width: 100%;
+  }
 }
 
 @media (max-width: 400px) {

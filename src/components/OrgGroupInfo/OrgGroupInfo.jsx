@@ -24,7 +24,6 @@ export default function OrgGroupInfoCard({ groupInfo }) {
       elevation={6}
       id="orgGroup-details-container"
       onClick={() => history.push(`/group/${groupInfo.group_id}`)}
-      style={{ height: "700px", width: "400px", padding: "10px" }}
     >
       <CardContent>
         <div style={{ position: "relative" }}>
