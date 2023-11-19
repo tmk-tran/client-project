@@ -17,7 +17,7 @@ export default function ClosedFundraiserItem({ fundraiser }) {
     return (
         <>
             {fundraiser.closed != false &&
-                <TableRow style={{ border: "2px solid black" }}>
+                <TableRow className="closed_row" style={{ border: "2px solid black" }}>
                     <TableCell className="closed_item_cell" ><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.title}</Typography></TableCell>
                     <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", wordWrap: "wrap" }}>{fundraiser.requested_book_quantity}</Typography></TableCell>
                     <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.books_sold}</Typography></TableCell>
