@@ -22,6 +22,25 @@ export const capitalizeWords = (sentence) => {
     : "";
 };
 
+// export const capitalizeWords = (sentence) => {
+//   return sentence
+//     ? sentence
+//         .split(" ")
+//         .map((word) => {
+//           // Check if the word is an acronym (all uppercase and at least 2 characters)
+//           if (/^[A-Z]+$/.test(word) && word.length >= 2) {
+//             return word; // If it's an acronym, leave it unchanged
+//           } else {
+//             // Convert the word to lowercase
+//             return word.toLowerCase();
+//           }
+//         })
+//         .join(" ")
+//     : "";
+// };
+
+
+
 // Style for Modal in OrgGroupInfo
 export const style = {
   position: "absolute",

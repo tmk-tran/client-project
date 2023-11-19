@@ -75,7 +75,7 @@ export default function OrgGroupTabs({ groups }) {
                     id="group-photo"
                     src={group.group_photo}
                     alt={`Group Photo for ${group.group_nickname}`}
-                    // style={styleImage}
+                    style={styleImage}
                   />
                 </center>
               ) : (

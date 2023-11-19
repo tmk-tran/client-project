@@ -124,7 +124,9 @@ export default function OrgContactDetails({ info }) {
             </Typography>
 
             <div className="contact-info-edit-btn">
-              <Button onClick={handleEditContact}>Edit</Button>
+              <Button onClick={handleEditContact} sx={{ fontSize: "16px" }}>
+                Edit
+              </Button>
             </div>
           </div>
 
