@@ -57,19 +57,11 @@ export default function OrgContactEdit({
       return; // Do not proceed with saving if email is invalid
     }
 
-    // Clear email error if it was previously set
-    setEmailError(false);
-
     // Validate phone number before saving
     if (!/^[0-9]*$/.test(editedPhone)) {
-      // Invalid phone number, handle accordingly (show error, prevent saving, etc.)
-      // alert("Invalid phone number, please enter a valid phone number.");
       setPhoneError(true);
       return;
     }
-  
-    // Clear phone number error if it was previously set
-    setPhoneError(false);
 
     const contactInfo = {
       ...info,
@@ -110,6 +102,11 @@ export default function OrgContactEdit({
       hideProgressBar: true,
     });
 
+    // Clear email error if it was previously set
+    setEmailError(false);
+    // Clear phone number error if it was previously set
+    setPhoneError(false);
+
     onSaveChanges(editedItem);
   };
 
@@ -119,7 +116,7 @@ export default function OrgContactEdit({
     setEditedLastName(info.primary_contact_last_name);
     setEditedPhone(info.primary_contact_phone);
     setEditedEmail(info.primary_contact_email);
-    setEmailError(false); // Clear email error on reset
+    setEmailError(false);
     setPhoneError(false);
   };
 
