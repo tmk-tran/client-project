@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Card, CardContent } from "@mui/material";
 import "./OrgListView.css";
 import Swal from "sweetalert2";
 import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
@@ -67,56 +67,53 @@ function OrgListView({ organization }) {
 
   return (
     <>
-      <div className="organizationListContainer">
-        <div className="organizationClickable" onClick={goToDetails}>
-          <div className="organizationHeader">
-            {renderLogoOrInitials()}
-            <div className="organizationDetails">
-              <h2
-                className="media-header"
-                style={{ fontSize: "26px", marginBottom: "0", marginTop: 0 }}
-              >
-                {organization.organization_name}
-              </h2>
-              <div style={{ fontSize: "18px" }}>
-                Total Groups: {organization.total_groups}
-              </div>
-              <div style={{ fontSize: "18px" }}>
-                Total Active Fundraisers:{" "}
-                {organization.total_active_fundraisers}
+      <Card className="organizationListContainer">
+        <CardContent>
+          <div className="organizationClickable" onClick={goToDetails}>
+            <div className="organizationHeader">
+              {renderLogoOrInitials()}
+              <div className="organizationDetails">
+                <h2 style={{marginTop: "0px"}}className="media-header">
+                  {organization.organization_name}
+                </h2>
+                <div>Total Groups: {organization.total_groups}</div>
+                <div>
+                  Total Active Fundraisers:{" "}
+                  {organization.total_active_fundraisers}
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="organizationActions">
-          <Button
-            style={{ marginRight: "20px" }}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleEdit(organization.id);
-            }}
-          >
-            <span className="edit-button">Edit</span>
-          </Button>
-          {organization.total_active_fundraisers <= 1 && (
+          <div className="organizationActions" style={{ marginTop: organization.total_active_fundraisers <= 1 ? "-115px" : "-83px" }}>
             <Button
+              style={{ marginRight: "16px" }}
               onClick={(e) => {
                 e.stopPropagation();
-                handleArchive(organization.id);
+                handleEdit(organization.id);
               }}
             >
-              Archive
+              <span className="edit-button">Edit</span>
             </Button>
-          )}
-        </div>
+            {organization.total_active_fundraisers <= 1 && (
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleArchive(organization.id);
+                }}
+              >
+                Archive
+              </Button>
+            )}
+          </div>
+        </CardContent>
 
         <EditOrganizationModal
           open={isEditModalOpen}
           handleClose={handleEditClose}
           organization={organization}
         />
-      </div>
+      </Card>
       <br />
     </>
   );

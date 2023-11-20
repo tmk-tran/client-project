@@ -33,73 +33,65 @@ function unArchive(organizationId){
       }
     });
   };
+  function goToDetails() {
+    history.push(`/orgDetails/${organization.id}`);
+  }
+  const renderLogoOrInitials = () => {
+    if (organization.organization_logo) {
+      return (
+        <img
+          className="logoImage"
+          src={organization.organization_logo}
+          alt="Organization Logo"
+        />
+      );
+    } else {
+      // If no logo, display initials of organization name
+      const initials = organization.organization_name
+        .split(" ")
+        .map((word) => word[0])
+        .join("")
+        .toUpperCase();
+
+      return <div className="initialsContainer">{initials}</div>;
+    }
+  };
 
   return (
-    <div className="organizationCardContainer">
-       <Card
-        elevation={4}
-        style={{height: "350px", width: "230px"}}
-        onClick={() => history.push(`/orgDetails/${organization.id}`)}
-        className="organizationCard"
-      >
-        {organization.organization_logo ? (
-          <CardMedia
-            style={{ objectFit: "cover", height: "56%", width: "100%" }}
-            className="cardMedia"
-            component="img"
-            image={organization.organization_logo}
-            alt={organization.organization_name}
-          />
-        ) : (
-          <Typography
-            variant="h5"
-            component="div"
-            style={{
-              height: "56%", // Set the height to match the image height
-              width: "100%", // Set the width to match the image width
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "#DADADC", // Optional: Add a background color for visual separation
+    <>
+    <Card className="organizationListContainer">
+      <CardContent>
+        <div className="organizationClickable" onClick={goToDetails}>
+          <div className="organizationHeader">
+            {renderLogoOrInitials()}
+            <div className="organizationDetails">
+              <h2 style={{marginTop: "0px"}}className="media-header">
+                {organization.organization_name}
+              </h2>
+              <div>Total Groups: {organization.total_groups}</div>
+              <div>
+                Total Active Fundraisers:{" "}
+                {organization.total_active_fundraisers}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="organizationActions" style={{ marginTop:"-83px" }}>
+          <Button
+            style={{ marginRight: "16px" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              unArchive(organization.id);
             }}
           >
-            {organization.organization_name}
-          </Typography>
-        )}
-        <CardContent style={{ position: "relative", height: "32%" }}>
-          <center>
-            <Typography style={{ fontSize: "1.6em" }} gutterBottom>
-              {organization.organization_name}
-            </Typography>
-            <Typography
-              style={{
-                fontSize: "1em",
-                position: "absolute",
-                bottom: "27px",
-                left: "0",
-                width: "100%",
-              }}
-              gutterBottom
-            >
-              Total Groups: {organization.total_groups}
-            </Typography>
-            <Typography
-              style={{
-                fontSize: "1em",
-                position: "absolute",
-                bottom: "0",
-                left: "0",
-                width: "100%",
-              }}
-              gutterBottom
-            >
-              Total Active Fundraisers: {organization.total_active_fundraisers}
-            </Typography>
-          </center>
-        </CardContent>
-      </Card>
-      <center><Button onClick={() => unArchive(organization.id)}>Un-Archive</Button></center>
-    </div>
+            <span className="edit-button">Un-archive</span>
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+    <br />
+  </>
   );
   
 }
