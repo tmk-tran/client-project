@@ -10,40 +10,69 @@ const {
  */
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const orgId = req.params.id;
-  const queryText = `
-      SELECT
-          o.id AS organization_id,
-          o.organization_name,
-          o.type,
-          o.address,
-          o.city,
-          o.state,
-          o.zip,
-          o.primary_contact_first_name,
-          o.primary_contact_last_name,
-          o.primary_contact_phone,
-          o.primary_contact_email,
-          o.organization_logo,
-          g.id AS group_id,
-          g.department,
-          g.sub_department,
-          g.group_nickname,
-          g.group_photo,
-          g.group_description
-      FROM
-          "organization" o
-      JOIN
-          "group" g ON o.id = g.organization_id
-      WHERE
-          o.id = $1 AND
-          o.is_deleted = false AND
-          g.is_deleted = false;
-  `;
+  // const queryText = `
+  //     SELECT
+  //         o.id AS organization_id,
+  //         o.organization_name,
+  //         o.type,
+  //         o.address,
+  //         o.city,
+  //         o.state,
+  //         o.zip,
+  //         o.primary_contact_first_name,
+  //         o.primary_contact_last_name,
+  //         o.primary_contact_phone,
+  //         o.primary_contact_email,
+  //         o.organization_logo,
+  //         g.id AS group_id,
+  //         g.department,
+  //         g.sub_department,
+  //         g.group_nickname,
+  //         g.group_photo,
+  //         g.group_description
+  //     FROM
+  //         "organization" o
+  //     JOIN
+  //         "group" g ON o.id = g.organization_id
+  //     WHERE
+  //         o.id = $1 AND
+  //         o.is_deleted = false AND
+  //         g.is_deleted = false;
+  // `;
+
+  const queryText = `SELECT
+  o.id AS organization_id,
+  o.organization_name,
+  o.type,
+  o.address,
+  o.city,
+  o.state,
+  o.zip,
+  o.primary_contact_first_name,
+  o.primary_contact_last_name,
+  o.primary_contact_phone,
+  o.primary_contact_email,
+  o.organization_logo,
+  g.id AS group_id,
+  g.department,
+  g.sub_department,
+  g.group_nickname,
+  g.group_photo,
+  g.group_description
+FROM
+  "organization" o
+LEFT JOIN
+  "group" g ON o.id = g.organization_id
+WHERE
+  o.id = $1 AND
+  o.is_deleted = false AND
+  (g.is_deleted = false OR g.is_deleted IS NULL)
+ORDER BY LOWER (g.group_nickname) ASC;`;
   pool
     .query(queryText, [orgId])
     .then((result) => {
       // console.log("orgId = ", orgId);
-      // console.log("FROM orgDetails.router: ", result.rows);
+      console.log("FROM orgDetails.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -73,7 +102,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   const phone = organization.primary_contact_phone;
   const email = organization.primary_contact_email;
   const orgId = organization.organization_id;
-  
+
   // const user = req.user.id;
   const queryText = `UPDATE "organization" SET organization_name = $1, type = $2, address = $3, city = $4, state = $5, zip = $6, primary_contact_first_name = $7, primary_contact_last_name = $8, primary_contact_phone = $9, primary_contact_email = $10 WHERE id = $11;`;
   pool

@@ -22,6 +22,23 @@ export const capitalizeWords = (sentence) => {
     : "";
 };
 
+// export const capitalizeWords = (sentence) => {
+//   return sentence
+//     ? sentence
+//         .split(" ")
+//         .map((word) => {
+//           // Check if the word is an acronym (all uppercase and at least 2 characters)
+//           if (/^[A-Z]+$/.test(word) && word.length >= 2) {
+//             return word; // If it's an acronym, leave it unchanged
+//           } else {
+//             // Convert the word to lowercase
+//             return word.toLowerCase();
+//           }
+//         })
+//         .join(" ")
+//     : "";
+// };
+
 // Style for Modal in OrgGroupInfo
 export const style = {
   position: "absolute",
@@ -49,11 +66,6 @@ export const style = {
   },
 };
 
-// Variables for List style in OrgContactDetails
-export const listItemStyle = {
-  textAlign: "center",
-};
-
 export const centeredStyle = {
   display: "flex",
   flexDirection: "column",
@@ -72,7 +84,7 @@ export const styleIconColor = { color: "#273b91" };
 
 // Style for images
 export const styleImage = {
-  width: "200px",
+  width: "400px",
   height: "220px",
   objectFit: "contain",
 };
@@ -82,4 +94,27 @@ export const modalBtnStyle = {
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
-}
+};
+
+// Center style for table cells, and list items in OrgContactDetails component
+export const centerStyle = {
+  textAlign: "center",
+};
+
+// Style for center of divs
+export const centerDiv = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
+// Toast in OrgDetailsEdit, OrgContactEdit, and AddGroupPopover
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+export const showToast = () => {toast.success("Changes saved successfully!", {
+  position: toast.POSITION.RIGHT_CENTER,
+  autoClose: 2000,
+  closeButton: false,
+  hideProgressBar: true,
+})};

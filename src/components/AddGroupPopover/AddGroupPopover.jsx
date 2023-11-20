@@ -12,10 +12,8 @@ import {
 } from "@mui/material/";
 import CloseIcon from "@mui/icons-material/Close";
 import "./AddGroupPopover.css";
-import { modalBtnStyle } from "../Utils/helpers";
-// Toast
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// Utils
+import { modalBtnStyle, showToast } from "../Utils/helpers";
 
 export default function BasicPopover({ info }) {
   const dispatch = useDispatch();
@@ -50,14 +48,15 @@ export default function BasicPopover({ info }) {
       group_description: description,
     };
 
-    toast.success("Changes saved successfully!", {
-      position: toast.POSITION.RIGHT_CENTER,
-      autoClose: 3000,
-      closeButton: false,
-      hideProgressBar: true,
-    });
+    // from Utils
+    showToast();
 
     dispatch({ type: "ADD_GROUP", payload: groupInfo });
+
+    setGroupName("");
+    setDepartment("");
+    setSubDepartment("");
+    setDescription("");
     handleClose();
   };
 
@@ -83,7 +82,7 @@ export default function BasicPopover({ info }) {
       >
         <Box style={{ padding: "20px" }}>
           <div>
-            <Typography sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}>
+            <Typography sx={{ p: 1, textAlign: "center", fontWeight: "bold" }}>
               New Group
             </Typography>
           </div>

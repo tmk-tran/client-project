@@ -1,3 +1,4 @@
+
   .organizationCard:hover {
     transform: scale(1.05);
     background-color: #F2F3FB;
@@ -10,4 +11,3 @@
     object-fit: cover;
     height: 400px;
   }
-
