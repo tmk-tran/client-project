@@ -87,7 +87,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}>{formatDate(fundraiser.end_date)}</Typography></TableCell>
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}>{fundraiser.year}</Typography></TableCell>
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}>{fundraiser.outstanding_balance}</Typography></TableCell>
-                            <TableCell className="active_table_cell" style={{textAlign: "center"}} >
+                            <TableCell className="active_table_cell" style={{textAlign: "center", width: "300px"}} >
                                 <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={() => setEditMode(true)}><Typography style={{ fontSize: "12px" }}>Edit</Typography></Button>
                                 <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={updateAmount}><Typography style={{ fontSize: "12px" }}>Update</Typography></Button>
                                 <Button style={{ margin: "2px", backgroundColor: "red" }} variant="contained" size="small" onClick={handleCloseFundraiser}><Typography style={{ fontSize: "12px" }}>Close</Typography></Button> </TableCell>
