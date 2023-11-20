@@ -11,6 +11,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
+import OrgNotes from "../OrgNotes/OrgNotes";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -78,7 +79,7 @@ export default function orgDetails() {
 
                 {/* Notes Section */}
                 <div>
-                  <Button>Notes</Button>
+                  <OrgNotes info={orgDetails} />
                 </div>
 
                 {/* buttons for views demo */}
