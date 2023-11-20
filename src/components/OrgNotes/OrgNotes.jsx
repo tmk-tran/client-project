@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 // Style
 import {
   Box,
@@ -15,7 +17,8 @@ import "./OrgNotes.css";
 import { modalBtnStyle, showToast } from "../Utils/helpers";
 
 export default function BasicPopover({ info }) {
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const paramsObject = useParams();
   // state for the popover
   const [anchorEl, setAnchorEl] = useState(null);
   // state for the add group form
@@ -26,6 +29,13 @@ export default function BasicPopover({ info }) {
   const isMobile = useMediaQuery(useTheme().breakpoints.down("sm"));
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+//   useEffect(() => {
+//     dispatch({
+//       type: "FETCH_ORG_NOTES",
+//       payload: paramsObject.id,
+//     });
+//   }, []);
 
   const handleSave = () => {
     // Trim the time part of the noteDate
@@ -43,7 +53,7 @@ export default function BasicPopover({ info }) {
     // from Utils
     // showToast();
 
-    dispatch({ type: "ADD_NOTE", payload: sendNote });
+    dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
 
     handleClose();
   };

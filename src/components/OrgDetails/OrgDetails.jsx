@@ -24,6 +24,8 @@ export default function orgDetails() {
 
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
   const groups = useSelector((store) => store.orgGroups);
+  const notes = useSelector((store) => store.orgNotes);
+  console.log(notes);
   // State
   const [view1, setView1] = useState(false);
   const [view2, setView2] = useState(false);
@@ -36,6 +38,10 @@ export default function orgDetails() {
     });
     dispatch({
       type: "FETCH_ORGANIZATIONS",
+      payload: paramsObject.id,
+    });
+    dispatch({
+      type: "FETCH_ORG_NOTES",
       payload: paramsObject.id,
     });
   }, [paramsObject.id, groups]);
@@ -68,6 +74,18 @@ export default function orgDetails() {
     >
       <Card className="OrgDetails-card" elevation={3}>
         <CardContent>
+          <div className="orgNotes-container">
+            {notes && notes.length > 0 ? (
+              notes.map((note, i) => (
+                <div key={i}>
+                  <p>{note.note_date}</p>
+                  <p>{note.note_content}</p>
+                </div>
+              ))
+            ) : (
+              <Typography variant="h6">No Notes Available</Typography>
+            )}
+          </div>
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}
             {[...orgMap.values()].map(({ orgDetails, groups }) => (

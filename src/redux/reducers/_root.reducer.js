@@ -1,22 +1,18 @@
-import { combineReducers } from 'redux';
-import errors from './errors.reducer';
-import user from './user.reducer';
+import { combineReducers } from "redux";
+import errors from "./errors.reducer";
+import user from "./user.reducer";
 
-import orgDetailsReducer from './orgDetails.reducer';
-import organizations from './organizations.reducer.js';
-import group from './group.reducer';
-import fundraisers from './fundraisers.reducer'
-import orgGroups from './orgGroups.reducer'
-import archivedOrganizations from './archivedOrganizations.reducer.js';
-import allGroups from './allGroups.reducer.js';
+import orgDetailsReducer from "./orgDetails.reducer";
+import organizations from "./organizations.reducer.js";
+import group from "./group.reducer";
+import fundraisers from "./fundraisers.reducer";
+import orgGroups from "./orgGroups.reducer";
+import archivedOrganizations from "./archivedOrganizations.reducer.js";
+import allGroups from "./allGroups.reducer.js";
 import couponBooks from "./couponBook.reducer";
-import groupAdmin from './groupAdmin.reducer.js';
+import groupAdmin from "./groupAdmin.reducer.js";
+import orgNotes from "./orgNotes.reducer.js";
 
-// rootReducer is the primary reducer for our entire project
-// It bundles up all of the other reducers so our project can use them.
-// This is imported in index.js as rootSaga
-
-// Lets make a bigger object for our store, with the objects from our reducers.
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
@@ -30,7 +26,7 @@ const rootReducer = combineReducers({
   allGroups,
   couponBooks,
   groupAdmin,
-
+  orgNotes,
 });
 
 export default rootReducer;

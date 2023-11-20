@@ -24,15 +24,14 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 router.post("/", rejectUnauthenticated, (req, res) => {
   const note = req.body;
   const orgId = note.organization_id;
-  const user = req.user.id;
   const date = note.note_date;
   const content = note.note_content;
 
-  const queryText = `INSERT INTO "organization_notes" ("organization_id", "user_id", "note_date", "note_content")
-  VALUES ($1, $2, $3, $4);`;
+  const queryText = `INSERT INTO "organization_notes" ("organization_id", "note_date", "note_content")
+  VALUES ($1, $2, $3);`;
 
   pool
-    .query(queryText, [orgId, user, date, content])
+    .query(queryText, [orgId, date, content])
     .then((response) => {
       res.sendStatus(201);
     })
