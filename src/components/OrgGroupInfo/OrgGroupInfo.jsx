@@ -38,15 +38,15 @@ export default function OrgGroupInfoCard({ groupInfo, view1, view2, view3 }) {
         </div>
         <br />
         {groupInfo.group_nickname ? (
-          <center>
-            <Typography variant="h6" sx={{ ta: "center" }}>
-              {capitalizeWords(groupInfo.group_nickname)}
-            </Typography>
-          </center>
+          <Typography variant="h6" style={centerStyle}>
+            {capitalizeWords(groupInfo.group_nickname)}
+          </Typography>
         ) : (
-          <center>
-            <Typography variant="h6">No Group Name</Typography>
-          </center>
+          <>
+            <Typography variant="h6" style={centerStyle}>
+              No Group Name
+            </Typography>
+          </>
         )}
 
         <div>

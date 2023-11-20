@@ -20,9 +20,6 @@ export default function orgDetails() {
   const dispatch = useDispatch();
 
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
-  // console.log("DETAILS = ", detailsOrg);
-  const orgList = useSelector((store) => store.organizations);
-  // console.log("ORGANIZATIONS = ", orgList);
   const groups = useSelector((store) => store.orgGroups);
   // State
   const [tabView, setTabView] = useState(false);

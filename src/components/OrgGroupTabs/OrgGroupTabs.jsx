@@ -3,7 +3,12 @@ import React, { useState } from "react";
 import { Box, Card, CardContent, Tab, Tabs, Typography } from "@mui/material";
 import "./OrgGroupTabs.css";
 // Utils
-import { capitalizeWords, centerDiv, styleImage } from "../Utils/helpers";
+import {
+  capitalizeWords,
+  centerDiv,
+  styleImage,
+  centerStyle,
+} from "../Utils/helpers";
 // Components
 import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 
@@ -89,15 +94,15 @@ export default function OrgGroupTabs({ groups, view1, view2, view3 }) {
                   Group Name: {capitalizeWords(group.group_nickname)}
                 </Typography> */}
                 {group.group_nickname ? (
-                  <center>
-                    <Typography variant="h6" sx={{ ta: "center" }}>
+                  <>
+                    <Typography variant="h6" style={centerStyle}>
                       {capitalizeWords(group.group_nickname)}
                     </Typography>
-                  </center>
+                  </>
                 ) : (
-                  <center>
-                    <Typography variant="h6">No Group Name</Typography>
-                  </center>
+                  <Typography variant="h6" style={centerStyle}>
+                    No Group Name
+                  </Typography>
                 )}
                 <hr />
 
@@ -166,9 +171,6 @@ export default function OrgGroupTabs({ groups, view1, view2, view3 }) {
                   <></>
                 )}
 
-                {/* <div style={centerDiv}>
-                  <TableGroupDetails groupInfo={group} />
-                </div> */}
                 {/* Description Section */}
                 <Typography sx={{ mt: 2, fontWeight: "bold" }}>
                   Description:
