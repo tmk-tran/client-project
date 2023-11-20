@@ -65,7 +65,7 @@ export default function GroupDetailsCard({ group }) {
    return (
       <>
          <Card elevation={6} style={{ display: "flex", flexDirection: "column", padding: "10px", paddingTop:"30px", paddingBottom: "30px", width: "500px", margin: "auto" }}>
-            <CardMedia style={{ objectFit: "cover", width: "300px", height: "300px", margin: "auto" }}
+            <CardMedia style={{ objectFit: "cover", margin: "auto" }}
                className="cardMedia"
                component="img"
                image={group.group_photo} />

@@ -35,15 +35,15 @@ export default function ClosedFundraiserItem({ fundraiser }) {
         <>
             {fundraiser.closed != false &&
                 <TableRow className="closed_row" style={{ border: "2px solid black" }}>
-                    <TableCell className="closed_item_cell" ><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.title}</Typography></TableCell>
-                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", wordWrap: "wrap" }}>{fundraiser.requested_book_quantity}</Typography></TableCell>
-                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.books_sold}</Typography></TableCell>
-                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.money_received}</Typography></TableCell>
-                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{formatDate(fundraiser.start_date)}</Typography></TableCell>
-                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{formatDate(fundraiser.end_date)}</Typography></TableCell>
-                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.year}</Typography></TableCell>
-                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px" }}>{fundraiser.outstanding_balance}</Typography></TableCell>
-                    <TableCell><Button style={{ margin: "2px" }} variant="contained" size="small" onClick={handleClick}><Typography style={{ fontSize: "12px" }}>Open</Typography></Button> </TableCell>
+                    <TableCell className="closed_item_cell" ><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>{fundraiser.title}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>{fundraiser.requested_book_quantity}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>{fundraiser.books_sold}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>{fundraiser.money_received}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>{formatDate(fundraiser.start_date)}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>{formatDate(fundraiser.end_date)}</Typography></TableCell>
+                    <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>{fundraiser.year}</Typography></TableCell>
+                    <TableCell className="closed_item_cell" style={{ textAlign: "center"}}><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>{fundraiser.outstanding_balance}</Typography></TableCell>
+                    <TableCell className="closed_item_cell" style={{ textAlign: "center"}}><Button style={{ margin: "2px" }} variant="contained" size="small" onClick={handleClick}><Typography style={{ fontSize: "12px" }}>Open</Typography></Button> </TableCell>
                 </TableRow>
             }
         </>
