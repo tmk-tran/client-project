@@ -1,16 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // Style
 import "./OrgDetails.css";
-import {
-  Button,
-  TextField,
-  Typography,
-  Card,
-  CardContent,
-  Paper,
-} from "@mui/material";
+import { Button, Typography, Card, CardContent } from "@mui/material";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -27,10 +20,11 @@ export default function orgDetails() {
   const dispatch = useDispatch();
 
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
-  console.log("DETAILS = ", detailsOrg);
+  // console.log("DETAILS = ", detailsOrg);
   const orgList = useSelector((store) => store.organizations);
-  console.log("ORGANIZATIONS = ", orgList);
+  // console.log("ORGANIZATIONS = ", orgList);
   const groups = useSelector((store) => store.orgGroups);
+  const [tabView, setTabView] = useState(false);
 
   useEffect(() => {
     dispatch({
@@ -86,12 +80,20 @@ export default function orgDetails() {
                 <center>
                   <OrgContactDetails info={orgDetails} />
                 </center>
+                <button
+                  onClick={() => {
+                    setTabView(!tabView);
+                  }}
+                >
+                  Tab View
+                </button>
                 <div className="add-group-btn">
                   <AddGroupPopover info={orgDetails} />
                 </div>
 
                 {/* Display associated groups or "No groups assigned" message */}
-                <div className="OrgGroupInfo-container">
+
+                {/* <div className="OrgGroupInfo-container">
                   {groups && groups.some((group) => group.group_id !== null) ? (
                     groups.map((groupInfo, i) => (
                       <OrgGroupInfo
@@ -112,8 +114,27 @@ export default function orgDetails() {
                   {groups && groups.some((group) => group.group_id !== null) ? (
                     <OrgGroupTabs groups={groups} />
                   ) : (
-                    // <Typography variant="h6" style={{ textAlign: "center" }}>No Groups Assigned</Typography>
+                    <Typography variant="h6" style={{ textAlign: "center" }}>No Groups Assigned</Typography>
                     <></>
+                  )}
+                </div> */}
+                <div className="OrgGroupInfo-container">
+                  {groups && groups.some((group) => group.group_id !== null) ? (
+                    tabView ? (
+                      // If tabView is true, render OrgGroupTabs
+                      <OrgGroupTabs groups={groups} />
+                    ) : (
+                      // If tabView is false, render OrgGroupInfo
+                      groups.map((groupInfo, i) => (
+                        <OrgGroupInfo
+                          key={groupInfo.group_id}
+                          groupInfo={groupInfo}
+                          groupNumber={i + 1}
+                        />
+                      ))
+                    )
+                  ) : (
+                    <Typography variant="h6">No Groups Assigned</Typography>
                   )}
                 </div>
               </React.Fragment>
