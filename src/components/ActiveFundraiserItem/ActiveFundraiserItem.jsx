@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Button, OutlinedInput, TableCell, TableRow, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 import "./ActiveFundraiserItem.css"
 //Function for the component
 export default function ActiveFundraiserItem({ fundraiser }) {
@@ -26,14 +27,48 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     //Funstion rins on click of the submit button when title and description are updated. Builds a new object with that data and sends it to the back end.
     const handleSubmit = () => {
         const updatedInfo = { id: fundraiser.id, title: editTitle, group_id: fundraiser.group_id }
+        Swal.fire(
+            'Updated!',
+            'The fundraiser has been updated.',
+            'success'
+        )
         dispatch({ type: "UPDATE_FUNDRAISER", payload: updatedInfo })
         setEditMode(false);
     }
     //Function that runs when the update button is clicked. Builds a new object with the updated data and sends it to the back end to be updated in the database
     const updateAmount = () => {
+
         const updatedAmount = { id: Number(fundraiser.id), newBooksSold: Number(booksSold), newBooksCheckedOut: Number(booksCheckedOut), newBooksCheckedIn: Number(booksCheckedIn), newMoneyReceived: Number(moneyReceived), group_id: Number(fundraiser.group_id) }
+        Swal.fire(
+            'Updated!',
+            'The fundraiser amounts have been updated.',
+            'success'
+        )
         dispatch({ type: "UPDATE_FUNDRAISER_AMOUNTS", payload: updatedAmount });
     }
+
+    const handleCloseFundraiser = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This fundraiser will be closed.",
+            icon: 'warning',
+            showCancelButton: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Closed!',
+                    'The fundraiser has been closed.',
+                    'success'
+                )
+                dispatch({
+                    type: "CLOSE_FUNDRAISER",
+                    payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id) }
+                })
+            }
+        })
+
+    }
+
     //Elements used in this component. Conditionally renders the table based on edit mode state and if the fundraiser is currently closed or active
     return (
         <>
@@ -55,7 +90,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                             <TableCell className="active_table_cell" >
                                 <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={() => setEditMode(true)}><Typography style={{ fontSize: "12px" }}>Edit</Typography></Button>
                                 <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={updateAmount}><Typography style={{ fontSize: "12px" }}>Update</Typography></Button>
-                                <Button style={{ margin: "2px", backgroundColor: "red" }} variant="contained" size="small" onClick={() => dispatch({ type: "CLOSE_FUNDRAISER", payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id) } })}><Typography style={{ fontSize: "12px" }}>Close</Typography></Button> </TableCell>
+                                <Button style={{ margin: "2px", backgroundColor: "red" }} variant="contained" size="small" onClick={handleCloseFundraiser}><Typography style={{ fontSize: "12px" }}>Close</Typography></Button> </TableCell>
                         </TableRow>
 
                     }
@@ -74,7 +109,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                             <TableCell className="active_table_cell"  ><Typography style={{ fontSize: "15px", width: "88px" }}>{formatDate(fundraiser.end_date)}</Typography></TableCell>
                             <TableCell className="active_table_cell"  ><Typography style={{ fontSize: "15px", width: "88px" }}>{fundraiser.year}</Typography></TableCell>
                             <TableCell className="active_table_cell"  ><Typography style={{ fontSize: "15px", width: "88px" }}>{fundraiser.outstanding_balance}</Typography></TableCell>
-                            <TableCell className="active_table_cell"  > <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={handleSubmit}><Typography style={{ fontSize: "12px" }}>Submit</Typography></Button> <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={updateAmount}><Typography style={{ fontSize: "12px" }}>Update</Typography></Button> <Button style={{ margin: "2px", backgroundColor: "red" }} variant="contained" size="small" onClick={() => dispatch({ type: "CLOSE_FUNDRAISER", payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id) } })}><Typography style={{ fontSize: "12px" }}>Close</Typography></Button> </TableCell>
+                            <TableCell className="active_table_cell"  > <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={handleSubmit}><Typography style={{ fontSize: "12px" }}>Submit</Typography></Button> <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={updateAmount}><Typography style={{ fontSize: "12px" }}>Update</Typography></Button> <Button style={{ margin: "2px", backgroundColor: "red" }} variant="contained" size="small" onClick={handleCloseFundraiser}><Typography style={{ fontSize: "12px" }}>Close</Typography></Button> </TableCell>
                         </TableRow>
                     }
                 </>)

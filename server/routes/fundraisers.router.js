@@ -78,6 +78,20 @@ router.put("/close/:id", (req, res) => {
       res.sendStatus(500);
     })
 })
+//PUT route to reopen a fundraiser
+router.put("/open/:id", (req, res) => {
+  const id = req.params.id;
+  const queryText = `UPDATE "fundraiser" SET "closed" = 'false' WHERE "id" = $1;`;
+  pool.query(queryText, [id])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("Error in opening fundraiser", err);
+      res.sendStatus(500);
+    })
+})
+
 //Delete route to set a fundraiser to deleted, not used in current scope of admin dashboard
 router.put("/delete/:id", (req, res) => {
   const id = req.params.id;

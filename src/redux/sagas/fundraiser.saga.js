@@ -51,11 +51,23 @@ function* closeFundraiserSaga(action) {
         console.log("Error setting fundraiser to closed", err)
     }
 }
+//Saga used to update a fundraiser to open, will then fetch updated fundraisers data
+function* openFundraiserSaga(action) {
+    try {
+        console.log(action.payload)
+        yield axios.put(`/api/fundraisers/open/${action.payload.id}`)
+        yield put({ type: "FETCH_FUNDRAISERS", payload: Number(action.payload.group_id) })
+    } catch (err) {
+        console.log("Error setting fundraiser to closed", err)
+    }
+}
+
 //Watcher saga that exports all sagas to for use in the root saga
 export default function* fundraiserSaga() {
     yield takeEvery("FETCH_FUNDRAISERS", fetchFundraisersSaga);
     yield takeEvery("ADD_FUNDRAISER", addFundraiserSaga);
     yield takeEvery("UPDATE_FUNDRAISER", updatedFundraiserSaga);
     yield takeEvery("CLOSE_FUNDRAISER", closeFundraiserSaga);
+    yield takeEvery("OPEN_FUNDRAISER", openFundraiserSaga);
     yield takeEvery("UPDATE_FUNDRAISER_AMOUNTS", updatedFundraiserAmountsSaga)
 }

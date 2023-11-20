@@ -89,6 +89,7 @@ export default function GroupDetails() {
                                 <TableCell className="closed_header_cell" ><Typography className="closed_header_text" style={{ fontSize: "16px", fontWeight: "bold"  }} variant="body2">End Date</Typography></TableCell>
                                 <TableCell className="closed_header_cell" ><Typography className="closed_header_text" style={{ fontSize: "16px", fontWeight: "bold"  }} variant="body2">Year</Typography></TableCell>
                                 <TableCell className="closed_header_cell" ><Typography className="closed_header_text" style={{ fontSize: "16px", fontWeight: "bold"  }} variant="body2">Outstanding Balance</Typography></TableCell>
+                                <TableCell className="active_header_cell"><Typography className="active_header_text" style={{fontSize: "16px",  fontWeight: "bold", textAlign: "center"}}>Actions</Typography></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
