@@ -23,8 +23,6 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const note = req.body;
-    console.log(req.body);
-    console.log(req.user);
   const orgId = note.organization_id;
   const user = req.user.id;
   const date = note.note_date;
@@ -46,7 +44,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 
 router.delete("/:id", (req, res) => {
   pool
-    .query(`UPDATE "organization_notes" SET is_deleted = true WHERE id = $1;`, [
+    .query(`UPDATE "organization_notes" SET is_deleted = true WHERE organization_id = $1;`, [
       req.params.id,
     ])
     .then((response) => {
