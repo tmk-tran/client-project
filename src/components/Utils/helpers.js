@@ -108,3 +108,10 @@ export const modalBtnStyle = {
 export const centerStyle = {
   textAlign: "center"
 };
+
+// Style for center of divs
+export const centerDiv = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+}

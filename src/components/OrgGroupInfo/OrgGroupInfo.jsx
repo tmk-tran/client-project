@@ -1,22 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 // Style
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 // Utils
 import { capitalizeWords, centerStyle, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
+// Components
+import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 
-export default function OrgGroupInfoCard({ groupInfo }) {
+export default function OrgGroupInfoCard({ groupInfo, view1, view2, view3 }) {
   const history = useHistory();
 
   return (
@@ -59,59 +51,69 @@ export default function OrgGroupInfoCard({ groupInfo }) {
 
         <div>
           <hr />
+
           <center>
             {/* Option 1, view details */}
-            {/* <Typography sx={{ mt: 2 }}>
-              Department: {capitalizeWords(groupInfo.department)}
-            </Typography>
-            <Typography sx={{ mt: 2 }}>
-              Division:{" "}
-              {groupInfo.sub_department
-                ? capitalizeWords(groupInfo.sub_department)
-                : "N/A"}
-            </Typography> */}
+            {view1 ? (
+              <>
+                <Typography sx={{ mt: 2 }}>
+                  <strong>Department:</strong>{" "}
+                  {capitalizeWords(groupInfo.department)}
+                </Typography>
+                <Typography sx={{ mt: 2 }}>
+                  <strong>Division:</strong>{" "}
+                  {groupInfo.sub_department
+                    ? capitalizeWords(groupInfo.sub_department)
+                    : "N/A"}
+                </Typography>
+              </>
+            ) : (
+              <></>
+            )}
 
             {/* Option 2, view details */}
-            {/* <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
-              <Typography sx={{ mt: 2 }}>
-                <span style={{ textDecoration: "underline" }}>Department</span> <br />{capitalizeWords(groupInfo.department)}
-              </Typography>
-              
-              <Typography sx={{ mt: 2 }}>
-              <span style={{ textDecoration: "underline" }}>Division</span> <br />
-                {groupInfo.sub_department
-                  ? capitalizeWords(groupInfo.sub_department)
-                  : "N/A"}
-              </Typography>
-            </div> */}
+            {view2 ? (
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <Typography sx={{ mt: 2 }}>
+                    <span style={{ textDecoration: "underline" }}>
+                      <strong>Department</strong>
+                    </span>{" "}
+                    <br />
+                    {capitalizeWords(groupInfo.department)}
+                  </Typography>
+
+                  <Typography sx={{ mt: 2 }}>
+                    <span style={{ textDecoration: "underline" }}>
+                      <strong>Division</strong>
+                    </span>{" "}
+                    <br />
+                    {groupInfo.sub_department
+                      ? capitalizeWords(groupInfo.sub_department)
+                      : "N/A"}
+                  </Typography>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
 
             {/* Option 3, view details */}
-            <div>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell style={centerStyle}>
-                      <strong>Department:</strong>
-                    </TableCell>
-                    <TableCell>
-                      {capitalizeWords(groupInfo.department)}
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell style={centerStyle}>
-                      <strong>Division:</strong>
-                    </TableCell>
-                    <TableCell>
-                      {groupInfo.sub_department
-                        ? capitalizeWords(groupInfo.sub_department)
-                        : "N/A"}
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
+            {view3 ? (
+              <></>
+            ) : (
+              <>
+                <div>
+                  <TableGroupDetails groupInfo={groupInfo} />
+                </div>
+              </>
+            )}
           </center>
 
           {/* Description Section */}
@@ -120,10 +122,9 @@ export default function OrgGroupInfoCard({ groupInfo }) {
           </Typography>
           <div
             className="group-description-container"
-            style={{ maxHeight: "200px", overflowY: "auto" }}
+            style={{ maxHeight: "150px", overflowY: "auto" }}
           >
             <Typography sx={{ overflowWrap: "break-word" }}>
-              {/* Description:{" "} */}
               {groupInfo.group_description
                 ? `${groupInfo.group_description
                     .charAt(0)

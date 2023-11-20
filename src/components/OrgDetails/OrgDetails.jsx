@@ -24,7 +24,11 @@ export default function orgDetails() {
   const orgList = useSelector((store) => store.organizations);
   // console.log("ORGANIZATIONS = ", orgList);
   const groups = useSelector((store) => store.orgGroups);
+  // State
   const [tabView, setTabView] = useState(false);
+  const [view1, setView1] = useState(false);
+  const [view2, setView2] = useState(false);
+  const [view3, setView3] = useState(false);
 
   useEffect(() => {
     dispatch({
@@ -80,49 +84,46 @@ export default function orgDetails() {
                 <center>
                   <OrgContactDetails info={orgDetails} />
                 </center>
-                <button
-                  onClick={() => {
-                    setTabView(!tabView);
-                  }}
-                >
-                  Tab View
-                </button>
+                {/* buttons for views demo */}
+                <div style={{ width: "10%" }}>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button
+                      onClick={() => {
+                        setTabView(!tabView);
+                      }}
+                    >
+                      Tab View
+                    </button>
+                    <br />
+                    <button onClick={() => setView1(!view1)}>
+                      {view1 ? "View Off" : "Left"}
+                    </button>
+                    <button onClick={() => setView2(!view2)}>
+                      {view2 ? "View Off" : "Center"}
+                    </button>
+                    <button onClick={() => setView3(!view3)}>
+                      {view3 ? "Table" : "View Off"}
+                    </button>
+                  </div>
+                </div>
+
+                {/* end buttons for demo */}
+
                 <div className="add-group-btn">
                   <AddGroupPopover info={orgDetails} />
                 </div>
 
                 {/* Display associated groups or "No groups assigned" message */}
-
-                {/* <div className="OrgGroupInfo-container">
-                  {groups && groups.some((group) => group.group_id !== null) ? (
-                    groups.map((groupInfo, i) => (
-                      <OrgGroupInfo
-                        key={groupInfo.group_id}
-                        groupInfo={groupInfo}
-                        groupNumber={i + 1}
-                      />
-                    ))
-                  ) : (
-                    <>
-                      <Typography variant="h6">No Groups Assigned</Typography>
-                    </>
-                  )}
-                </div>
-                <br />
-                <br />
-                <div>
-                  {groups && groups.some((group) => group.group_id !== null) ? (
-                    <OrgGroupTabs groups={groups} />
-                  ) : (
-                    <Typography variant="h6" style={{ textAlign: "center" }}>No Groups Assigned</Typography>
-                    <></>
-                  )}
-                </div> */}
                 <div className="OrgGroupInfo-container">
                   {groups && groups.some((group) => group.group_id !== null) ? (
                     tabView ? (
                       // If tabView is true, render OrgGroupTabs
-                      <OrgGroupTabs groups={groups} />
+                      <OrgGroupTabs
+                        groups={groups}
+                        view1={view1}
+                        view2={view2}
+                        view3={view3}
+                      />
                     ) : (
                       // If tabView is false, render OrgGroupInfo
                       groups.map((groupInfo, i) => (
@@ -130,6 +131,9 @@ export default function orgDetails() {
                           key={groupInfo.group_id}
                           groupInfo={groupInfo}
                           groupNumber={i + 1}
+                          view1={view1}
+                          view2={view2}
+                          view3={view3}
                         />
                       ))
                     )
