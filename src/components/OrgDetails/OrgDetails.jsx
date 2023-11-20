@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // Style
 import "./OrgDetails.css";
-import { Button, Typography, Card, CardContent } from "@mui/material";
+import { Typography, Card, CardContent } from "@mui/material";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -12,6 +12,9 @@ import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import OrgGroupTabs from "../OrgGroupTabs/OrgGroupTabs";
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
+// Toast
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function orgDetails() {
   const theme = useTheme();
@@ -112,9 +115,18 @@ export default function orgDetails() {
                     </button>
                   </div>
                 </div>
-
                 {/* end buttons for demo */}
 
+                {/* Toast */}
+                <ToastContainer
+                  style={{
+                    top: "45%",
+                    left: "68%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                />
+
+                {/* Add Group Button */}
                 <div className="add-group-btn">
                   <AddGroupPopover info={orgDetails} />
                 </div>

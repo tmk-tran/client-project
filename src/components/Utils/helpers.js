@@ -66,11 +66,6 @@ export const style = {
   },
 };
 
-// Variables for List style in OrgContactDetails
-export const listItemStyle = {
-  textAlign: "center",
-};
-
 export const centeredStyle = {
   display: "flex",
   flexDirection: "column",
@@ -101,7 +96,7 @@ export const modalBtnStyle = {
   justifyContent: "space-between",
 };
 
-// Center style for table cells in OrgContactDetails component
+// Center style for table cells, and list items in OrgContactDetails component
 export const centerStyle = {
   textAlign: "center",
 };
@@ -113,7 +108,7 @@ export const centerDiv = {
   alignItems: "center",
 };
 
-// Toast
+// Toast in OrgDetailsEdit, OrgContactEdit, and AddGroupPopover
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
