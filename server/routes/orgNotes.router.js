@@ -7,7 +7,7 @@ const {
 
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const orgId = req.params.id;
-  const queryText = `SELECT * FROM "organization" WHERE id = $1;`;
+  const queryText = `SELECT * FROM "organization_notes" WHERE organization_id = $1;`;
   pool
     .query(queryText, [orgId])
     .then((result) => {
@@ -21,21 +21,20 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// POST ROUTE
 router.post("/", rejectUnauthenticated, (req, res) => {
   const note = req.body;
-  //   console.log(req.body);
-  //   console.log(req.user);
+    console.log(req.body);
+    console.log(req.user);
+  const orgId = note.organization_id;
+  const user = req.user.id;
+  const date = note.note_date;
+  const content = note.note_content;
+
   const queryText = `INSERT INTO "organization_notes" ("organization_id", "user_id", "note_date", "note_content")
-  VALUES $1, $2, $3, $4;`;
+  VALUES ($1, $2, $3, $4);`;
 
   pool
-    .query(queryText, [
-      note.organization_id,
-      note.user_id,
-      note.note_date,
-      note.note_content,
-    ])
+    .query(queryText, [orgId, user, date, content])
     .then((response) => {
       res.sendStatus(201);
     })
@@ -45,7 +44,6 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// DELETE
 router.delete("/:id", (req, res) => {
   pool
     .query(`UPDATE "organization_notes" SET is_deleted = true WHERE id = $1;`, [
@@ -60,7 +58,6 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-// EDIT
 router.put("/:id", rejectUnauthenticated, (req, res) => {
   const note = req.body;
 
