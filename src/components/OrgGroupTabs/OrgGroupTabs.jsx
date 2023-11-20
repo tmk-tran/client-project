@@ -103,22 +103,13 @@ export default function OrgGroupTabs({ groups, view1, view2, view3 }) {
 
                 {/* Option 1, view details */}
                 {view1 ? (
-                  <>
-                    <center>
-                      <Typography sx={{ mt: 2 }}>
-                        <strong>Department:</strong>{" "}
-                        {capitalizeWords(group.department)}
-                      </Typography>
-                      <Typography sx={{ mt: 2 }}>
-                        <strong>Division:</strong>{" "}
-                        {group.sub_department
-                          ? capitalizeWords(group.sub_department)
-                          : "N/A"}
-                      </Typography>
-                    </center>
-                  </>
-                ) : (
                   <></>
+                ) : (
+                  <>
+                    <div style={centerDiv}>
+                      <TableGroupDetails groupInfo={group} />
+                    </div>
+                  </>
                 )}
 
                 {/* Option 2, view details */}
@@ -157,13 +148,22 @@ export default function OrgGroupTabs({ groups, view1, view2, view3 }) {
 
                 {/* Option 3, view details */}
                 {view3 ? (
-                  <></>
-                ) : (
                   <>
-                    <div style={centerDiv}>
-                      <TableGroupDetails groupInfo={group} />
-                    </div>
+                    <center>
+                      <Typography sx={{ mt: 2 }}>
+                        <strong>Department:</strong>{" "}
+                        {capitalizeWords(group.department)}
+                      </Typography>
+                      <Typography sx={{ mt: 2 }}>
+                        <strong>Division:</strong>{" "}
+                        {group.sub_department
+                          ? capitalizeWords(group.sub_department)
+                          : "N/A"}
+                      </Typography>
+                    </center>
                   </>
+                ) : (
+                  <></>
                 )}
 
                 {/* <div style={centerDiv}>

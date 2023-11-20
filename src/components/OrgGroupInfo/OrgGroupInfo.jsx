@@ -55,20 +55,13 @@ export default function OrgGroupInfoCard({ groupInfo, view1, view2, view3 }) {
           <center>
             {/* Option 1, view details */}
             {view1 ? (
-              <>
-                <Typography sx={{ mt: 2 }}>
-                  <strong>Department:</strong>{" "}
-                  {capitalizeWords(groupInfo.department)}
-                </Typography>
-                <Typography sx={{ mt: 2 }}>
-                  <strong>Division:</strong>{" "}
-                  {groupInfo.sub_department
-                    ? capitalizeWords(groupInfo.sub_department)
-                    : "N/A"}
-                </Typography>
-              </>
-            ) : (
               <></>
+            ) : (
+              <>
+                <div>
+                  <TableGroupDetails groupInfo={groupInfo} />
+                </div>
+              </>
             )}
 
             {/* Option 2, view details */}
@@ -106,13 +99,20 @@ export default function OrgGroupInfoCard({ groupInfo, view1, view2, view3 }) {
 
             {/* Option 3, view details */}
             {view3 ? (
-              <></>
-            ) : (
               <>
-                <div>
-                  <TableGroupDetails groupInfo={groupInfo} />
-                </div>
+                <Typography sx={{ mt: 2 }}>
+                  <strong>Department:</strong>{" "}
+                  {capitalizeWords(groupInfo.department)}
+                </Typography>
+                <Typography sx={{ mt: 2 }}>
+                  <strong>Division:</strong>{" "}
+                  {groupInfo.sub_department
+                    ? capitalizeWords(groupInfo.sub_department)
+                    : "N/A"}
+                </Typography>
               </>
+            ) : (
+              <></>
             )}
           </center>
 

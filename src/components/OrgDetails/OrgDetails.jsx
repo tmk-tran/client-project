@@ -85,8 +85,15 @@ export default function orgDetails() {
                   <OrgContactDetails info={orgDetails} />
                 </center>
                 {/* buttons for views demo */}
-                <div style={{ width: "10%" }}>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
+                <div style={{ width: "10%", position: "relative" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      position: "absolute",
+                      top: 150,
+                    }}
+                  >
                     <button
                       onClick={() => {
                         setTabView(!tabView);
@@ -96,13 +103,15 @@ export default function orgDetails() {
                     </button>
                     <br />
                     <button onClick={() => setView1(!view1)}>
-                      {view1 ? "View Off" : "Left"}
+                      {view1 ? "Table" : "View Off"}
                     </button>
+                    <br />
                     <button onClick={() => setView2(!view2)}>
                       {view2 ? "View Off" : "Center"}
                     </button>
+                    <br />
                     <button onClick={() => setView3(!view3)}>
-                      {view3 ? "Table" : "View Off"}
+                      {view3 ? "View Off" : "Left"}
                     </button>
                   </div>
                 </div>
