@@ -58,6 +58,10 @@ export default function BasicPopover({ info }) {
     });
 
     dispatch({ type: "ADD_GROUP", payload: groupInfo });
+    setGroupName("");
+    setDepartment("");
+    setSubDepartment("");
+    setDescription("");
     handleClose();
   };
 
@@ -83,7 +87,7 @@ export default function BasicPopover({ info }) {
       >
         <Box style={{ padding: "20px" }}>
           <div>
-            <Typography sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}>
+            <Typography sx={{ p: 1, textAlign: "center", fontWeight: "bold" }}>
               New Group
             </Typography>
           </div>
