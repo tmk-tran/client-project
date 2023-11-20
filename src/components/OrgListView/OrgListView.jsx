@@ -67,49 +67,6 @@ function OrgListView({ organization }) {
 
   return (
     <>
-      {/* <div className="organizationListContainer">
-        <div className="organizationClickable" onClick={goToDetails}>
-          <div className="organizationHeader">
-            {renderLogoOrInitials()}
-            <div className="organizationDetails">
-              <h2
-                className="media-header"
-                style={{ fontSize: "26px", marginBottom: "0", marginTop: 0 }}
-              >
-                {organization.organization_name}
-              </h2>
-              <div style={{ fontSize: "18px" }}>
-                Total Groups: {organization.total_groups}
-              </div>
-              <div style={{ fontSize: "18px" }}>
-                Total Active Fundraisers:{" "}
-                {organization.total_active_fundraisers}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="organizationActions">
-          <Button
-            style={{ marginRight: "16px" }}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleEdit(organization.id);
-            }}
-          >
-            <span className="edit-button">Edit</span>
-          </Button>
-          {organization.total_active_fundraisers <= 1 && (
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleArchive(organization.id);
-              }}
-            >
-              Archive
-            </Button>
-          )}
-        </div> */}
       <Card className="organizationListContainer">
         <CardContent>
           <div className="organizationClickable" onClick={goToDetails}>
@@ -128,7 +85,7 @@ function OrgListView({ organization }) {
             </div>
           </div>
 
-          <div className="organizationActions">
+          <div className="organizationActions" style={{ marginTop: organization.total_active_fundraisers <= 1 ? "-115px" : "-83px" }}>
             <Button
               style={{ marginRight: "16px" }}
               onClick={(e) => {
@@ -139,7 +96,7 @@ function OrgListView({ organization }) {
               <span className="edit-button">Edit</span>
             </Button>
             {organization.total_active_fundraisers <= 1 && (
-              <Button style={{ marginBottom: "50px !important"}}
+              <Button
                 onClick={(e) => {
                   e.stopPropagation();
                   handleArchive(organization.id);
