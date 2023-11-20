@@ -32,6 +32,9 @@
   #orgGroup-details-container {
     width: 100%;
   }
+  #orgGroup-details-container:hover {
+    transform: none;
+  }
 }
 
 @media (max-width: 400px) {
