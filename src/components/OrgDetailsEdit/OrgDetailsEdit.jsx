@@ -8,9 +8,8 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-// Toast
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// Utils
+import { showToast } from "../Utils/helpers";
 
 export default function OrgContactEdit({
   isOpen,
@@ -78,12 +77,8 @@ export default function OrgContactEdit({
       organization_id: orgId,
     };
 
-    toast.success("Changes saved successfully!", {
-      position: toast.POSITION.RIGHT_CENTER,
-      autoClose: 3000,
-      closeButton: false,
-      hideProgressBar: true,
-    });
+    // from Utils
+    showToast();
 
     setZipError(false);
 

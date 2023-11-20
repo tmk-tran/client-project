@@ -10,10 +10,7 @@ import {
 } from "@mui/material";
 import "./OrgContactEdit.css";
 // Utils
-import { formatPhoneNumber, modalBtnStyle } from "../Utils/helpers";
-// Toast
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { modalBtnStyle, showToast } from "../Utils/helpers";
 
 export default function OrgContactEdit({
   isOpen,
@@ -78,7 +75,6 @@ export default function OrgContactEdit({
     };
 
     const orgId = contactInfo.organization_id;
-    console.log("ORG ID = ", orgId);
 
     const editedItem = {
       organization_id: orgId,
@@ -95,12 +91,8 @@ export default function OrgContactEdit({
       organization_id: orgId,
     };
 
-    toast.success("Changes saved successfully!", {
-      position: toast.POSITION.RIGHT_CENTER,
-      autoClose: 2000,
-      closeButton: false,
-      hideProgressBar: true,
-    });
+    // from Utils
+    showToast();
 
     // Clear email error if it was previously set
     setEmailError(false);

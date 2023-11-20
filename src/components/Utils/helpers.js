@@ -39,8 +39,6 @@ export const capitalizeWords = (sentence) => {
 //     : "";
 // };
 
-
-
 // Style for Modal in OrgGroupInfo
 export const style = {
   position: "absolute",
@@ -103,10 +101,9 @@ export const modalBtnStyle = {
   justifyContent: "space-between",
 };
 
-
 // Center style for table cells in OrgContactDetails component
 export const centerStyle = {
-  textAlign: "center"
+  textAlign: "center",
 };
 
 // Style for center of divs
@@ -114,4 +111,15 @@ export const centerDiv = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-}
+};
+
+// Toast
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+export const showToast = () => {toast.success("Changes saved successfully!", {
+  position: toast.POSITION.RIGHT_CENTER,
+  autoClose: 2000,
+  closeButton: false,
+  hideProgressBar: true,
+})};
