@@ -44,9 +44,10 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 
 router.delete("/:id", (req, res) => {
   pool
-    .query(`UPDATE "organization_notes" SET is_deleted = true WHERE organization_id = $1;`, [
-      req.params.id,
-    ])
+    .query(
+      `UPDATE "organization_notes" SET is_deleted = true WHERE organization_id = $1;`,
+      [req.params.id]
+    )
     .then((response) => {
       res.sendStatus(200);
     })
@@ -58,24 +59,18 @@ router.delete("/:id", (req, res) => {
 
 router.put("/:id", rejectUnauthenticated, (req, res) => {
   const note = req.body;
+  const orgId = req.params.id;
 
-  const orgId = note.organization_id;
-  const user = req.user.id;
+  //   const user = req.user.id;
   const date = note.note_date;
   const content = note.note_content;
-
   const queryText = `
-  UPDATE "organization_notes"
-  SET
-    organization_id = $1,
-    user_id = $2,
-    note_date = $3,
-    note_content = $4,
-  WHERE
-    "id" = $5;
-  `;
+    UPDATE "organization_notes" SET note_date = $1, note_content = $2
+    WHERE
+        organization_id = $3;
+    `;
   pool
-    .query(queryText, [orgId, user, date, content])
+    .query(queryText, [date, content, orgId])
     .then((response) => {
       res.sendStatus(200);
     })
