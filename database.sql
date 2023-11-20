@@ -44,7 +44,7 @@ CREATE TABLE "user-group" (
 
 CREATE TABLE "coupon_book" (
 	"id" serial primary key NOT NULL,
-	"year" integer NOT NULL
+	"year" varchar(20) NOT NULL
 );
 
 CREATE TABLE "fundraiser" (

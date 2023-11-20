@@ -10,7 +10,8 @@ router.get("/", (req, res) => {
       COALESCE(group_count.total_groups, 0) AS total_groups,
       COALESCE(fundraiser_count.total_fundraisers, 0) AS total_fundraisers,
       COALESCE(closed_fundraiser_count.total_closed_fundraisers, 0) AS total_closed_fundraisers,
-      (COALESCE(fundraiser_count.total_fundraisers, 0) - COALESCE(closed_fundraiser_count.total_closed_fundraisers, 0)) AS total_active_fundraisers
+      (COALESCE(fundraiser_count.total_fundraisers, 0) - COALESCE(closed_fundraiser_count.total_closed_fundraisers, 0)) AS total_active_fundraisers,
+      COALESCE(total_books_sold.total_books_sold, 0) AS total_books_sold
   FROM
       organization o
   LEFT JOIN (
@@ -50,10 +51,24 @@ router.get("/", (req, res) => {
       GROUP BY
           g.organization_id
   ) AS closed_fundraiser_count ON o.id = closed_fundraiser_count.organization_id
+  LEFT JOIN (
+      SELECT
+          g.organization_id,
+          SUM(f.books_sold) AS total_books_sold
+      FROM
+          "group" g
+      LEFT JOIN
+          fundraiser f ON g.id = f.group_id
+      WHERE
+          g.is_deleted = false AND f.is_deleted = false
+      GROUP BY
+          g.organization_id
+  ) AS total_books_sold ON o.id = total_books_sold.organization_id
   WHERE
       o.is_deleted = false
   ORDER BY
-      o.organization_name ASC;`
+      o.organization_name ASC;
+  `
     )
     .then((response) => {
       res.send(response.rows).status(200);

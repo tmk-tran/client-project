@@ -77,7 +77,7 @@ function unArchive(organizationId){
           </div>
         </div>
 
-        <div className="organizationActions" style={{ marginTop:"-83px" }}>
+        <div className="organizationActions" style={{ marginTop:"-88px" }}>
           <Button
             style={{ marginRight: "16px" }}
             onClick={(e) => {

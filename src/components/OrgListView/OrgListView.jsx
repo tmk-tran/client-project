@@ -78,8 +78,8 @@ function OrgListView({ organization }) {
                 </h2>
                 <div>Total Groups: {organization.total_groups}</div>
                 <div>
-                  Total Active Fundraisers:{" "}
-                  {organization.total_active_fundraisers}
+                  Total Books Sold:{" "}
+                  {organization.total_books_sold}
                 </div>
               </div>
             </div>
