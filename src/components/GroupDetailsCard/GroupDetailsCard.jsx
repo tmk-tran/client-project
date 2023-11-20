@@ -39,14 +39,12 @@ export default function GroupDetailsCard({ group }) {
       setPhotoUrl("")
       setBooksRequested("");
       setBooksCheckedOut("");
-      setBooksOutValue("");
       setBooksCheckedIn("");
       setBooksSold("");
       setMoneyRecieved("");
       setStartDate("");
       setEndDate("");
       setCouponBookId("");
-      setOutstandingBalance("");
       setOpen(false)
    }
 
