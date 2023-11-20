@@ -64,6 +64,11 @@ function OrgListView({ organization }) {
   function goToDetails() {
     history.push(`/orgDetails/${organization.id}`);
   }
+  const earnings = organization.total_books_sold * organization.organization_earnings;
+const formattedEarnings = earnings.toLocaleString();
+
+const outstandingBalance = parseFloat(organization.total_outstanding_balance);
+const formattedOutstandingBalance = isNaN(outstandingBalance) ? "N/A" : outstandingBalance.toLocaleString();
 
   return (
     <>
@@ -81,13 +86,21 @@ function OrgListView({ organization }) {
                   Total Books Sold:{" "}
                   {organization.total_books_sold}
                 </div>
+                <div>
+                  Outstanding Balance:{" "}
+                  ${formattedOutstandingBalance}
+                </div>
+                <div>
+                  Total Raised:{" "}
+                  ${formattedEarnings}
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="organizationActions" style={{ marginTop: organization.total_active_fundraisers <= 1 ? "-115px" : "-83px" }}>
+          <div className="organizationActions" style={{ marginTop: organization.total_active_fundraisers <= 1 ? "-128px" : "-95px" }}>
             <Button
-              style={{ marginRight: "16px" }}
+              style={{ marginRight: "14px" }}
               onClick={(e) => {
                 e.stopPropagation();
                 handleEdit(organization.id);
