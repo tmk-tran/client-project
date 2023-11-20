@@ -15,12 +15,38 @@ import "./OrgNotes.css";
 import { modalBtnStyle, showToast } from "../Utils/helpers";
 
 export default function BasicPopover({ info }) {
-//   const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
   // state for the popover
   const [anchorEl, setAnchorEl] = useState(null);
   // state for the add group form
   const [orgId, setOrgId] = useState(info.organization_id);
   const [newNote, setNewNote] = useState("");
+  const [noteDate, setNoteDate] = useState(new Date());
+
+  const isMobile = useMediaQuery(useTheme().breakpoints.down("sm"));
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
+  const handleSave = () => {
+    // Trim the time part of the noteDate
+    const trimmedDate = new Date(noteDate);
+    trimmedDate.setUTCHours(0, 0, 0, 0);
+    // Format the date as "mm/dd/yyyy"
+    const formattedDate = trimmedDate.toLocaleDateString("en-US");
+
+    const sendNote = {
+      organization_id: orgId,
+      note_date: formattedDate,
+      note_content: newNote,
+    };
+
+    // from Utils
+    // showToast();
+
+    dispatch({ type: "ADD_NOTE", payload: sendNote });
+
+    handleClose();
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,25 +54,6 @@ export default function BasicPopover({ info }) {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const isMobile = useMediaQuery(useTheme().breakpoints.down("sm"));
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
-
-  const handleSave = () => {
-    const newNote = {
-      organization_id: orgId,
-      notes: notes,
-    };
-
-    // from Utils
-    showToast();
-
-    dispatch({ type: "ADD_GROUP", payload: groupInfo });
-
-    handleClose();
   };
 
   return (
@@ -62,11 +69,11 @@ export default function BasicPopover({ info }) {
         onClose={() => {}}
         anchorOrigin={{
           vertical: isMobile ? "top" : "bottom",
-          horizontal: isMobile ? "center" : "left",
+          horizontal: isMobile ? "center" : "right",
         }}
         transformOrigin={{
           vertical: isMobile ? "bottom" : "bottom",
-          horizontal: isMobile ? "center" : "right",
+          horizontal: isMobile ? "center" : "left",
         }}
       >
         <Box style={{ padding: "20px" }}>
