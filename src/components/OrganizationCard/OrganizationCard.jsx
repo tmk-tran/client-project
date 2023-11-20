@@ -57,7 +57,7 @@ function OrganizationCard({ organization }) {
       >
         {organization.organization_logo ? (
           <CardMedia
-            style={{ objectFit: "cover", height: "56%", width: "100%" }}
+            style={{ objectFit: "contain", height: "56%", width: "100%" }}
             className="cardMedia"
             component="img"
             image={organization.organization_logo}

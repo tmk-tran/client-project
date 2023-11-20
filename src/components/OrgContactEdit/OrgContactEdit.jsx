@@ -10,10 +10,7 @@ import {
 } from "@mui/material";
 import "./OrgContactEdit.css";
 // Utils
-import { formatPhoneNumber, modalBtnStyle } from "../Utils/helpers";
-// Toast
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { modalBtnStyle, showToast } from "../Utils/helpers";
 
 export default function OrgContactEdit({
   isOpen,
@@ -33,7 +30,10 @@ export default function OrgContactEdit({
   const [editedLastName, setEditedLastName] = useState(
     info.primary_contact_last_name
   );
-  const [editedPhone, setEditedPhone] = useState(info.primary_contact_phone);
+  const [editedPhone, setEditedPhone] = useState(
+    Number(info.primary_contact_phone)
+  );
+  const [phoneError, setPhoneError] = useState(false);
   const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
   const [emailError, setEmailError] = useState(false);
 
@@ -54,8 +54,11 @@ export default function OrgContactEdit({
       return; // Do not proceed with saving if email is invalid
     }
 
-    // Clear email error if it was previously set
-    setEmailError(false);
+    // Validate phone number before saving
+    if (!/^[0-9]*$/.test(editedPhone)) {
+      setPhoneError(true);
+      return;
+    }
 
     const contactInfo = {
       ...info,
@@ -72,7 +75,6 @@ export default function OrgContactEdit({
     };
 
     const orgId = contactInfo.organization_id;
-    console.log("ORG ID = ", orgId);
 
     const editedItem = {
       organization_id: orgId,
@@ -89,12 +91,13 @@ export default function OrgContactEdit({
       organization_id: orgId,
     };
 
-    toast.success("Changes saved successfully!", {
-      position: toast.POSITION.RIGHT_CENTER,
-      autoClose: 3000,
-      closeButton: false,
-      hideProgressBar: true,
-    });
+    // from Utils
+    showToast();
+
+    // Clear email error if it was previously set
+    setEmailError(false);
+    // Clear phone number error if it was previously set
+    setPhoneError(false);
 
     onSaveChanges(editedItem);
   };
@@ -105,7 +108,8 @@ export default function OrgContactEdit({
     setEditedLastName(info.primary_contact_last_name);
     setEditedPhone(info.primary_contact_phone);
     setEditedEmail(info.primary_contact_email);
-    setEmailError(false); // Clear email error on reset
+    setEmailError(false);
+    setPhoneError(false);
   };
 
   const handleClose = () => {
@@ -154,8 +158,18 @@ export default function OrgContactEdit({
         />
         <TextField
           label="Phone"
-          value={formatPhoneNumber(editedPhone)}
-          onChange={(e) => setEditedPhone(e.target.value)}
+          type="tel"
+          inputProps={{
+            pattern: "[0-9]*",
+            inputMode: "numeric",
+          }}
+          value={editedPhone}
+          onChange={(e) => {
+            setEditedPhone(e.target.value);
+            setPhoneError(false);
+          }}
+          error={phoneError}
+          helperText={phoneError ? "Invalid phone number" : ""}
         />
         <TextField
           label="Email"
@@ -168,7 +182,8 @@ export default function OrgContactEdit({
           error={emailError}
           helperText={emailError ? "Invalid email format" : ""}
         />
-        <div style={modalBtnStyle}
+        <div
+          style={modalBtnStyle}
           // style={{
           //   display: "flex",
           //   flexDirection: "row",

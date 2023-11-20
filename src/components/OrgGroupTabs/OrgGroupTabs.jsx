@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 // Style
 import { Box, Card, CardContent, Tab, Tabs, Typography } from "@mui/material";
-// Utils
-import { capitalizeWords } from "../Utils/helpers";
-// import "../OrgGroupInfo/OrgGroupInfo.css";
 import "./OrgGroupTabs.css";
+// Utils
+import {
+  capitalizeWords,
+  centerDiv,
+  styleImage,
+  centerStyle,
+} from "../Utils/helpers";
+// Components
+import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -27,7 +32,7 @@ function CustomTabPanel(props) {
   );
 }
 
-export default function OrgGroupTabs({ groups }) {
+export default function OrgGroupTabs({ groups, view1, view2, view3 }) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -62,8 +67,9 @@ export default function OrgGroupTabs({ groups }) {
           ))}
         </Tabs>
       </Box>
-      <br /><br />
-      <Card id="OrgGroupTab-card" elevation={6} >
+      <br />
+      <br />
+      <Card id="OrgGroupTab-card" elevation={6}>
         <CardContent>
           {groups.map((group, index) => (
             <CustomTabPanel key={index} value={value} index={index}>
@@ -75,6 +81,7 @@ export default function OrgGroupTabs({ groups }) {
                     id="group-photo"
                     src={group.group_photo}
                     alt={`Group Photo for ${group.group_nickname}`}
+                    style={styleImage}
                   />
                 </center>
               ) : (
@@ -82,30 +89,107 @@ export default function OrgGroupTabs({ groups }) {
                   <Typography>No Photo</Typography>
                 </div>
               )}
-              <hr />
-              <div style={{ width: "60%", margin: "0 auto" }}>
-              <Typography sx={{ mt: 2 }}>
-                Group Name: {capitalizeWords(group.group_nickname)}
-              </Typography>
-              <Typography sx={{ mt: 2 }}>
-                Department: {capitalizeWords(group.department)}
-              </Typography>
-              <Typography sx={{ mt: 2 }}>
-                Division:{" "}
-                {group.sub_department
-                  ? capitalizeWords(group.sub_department)
-                  : "N/A"}
-              </Typography>
-              <Typography sx={{ mt: 2 }}>
-                Description:{" "}
-                {group.group_description
-                  ? `${group.group_description
-                      .charAt(0)
-                      .toUpperCase()}${group.group_description
-                      .slice(1)
-                      .toLowerCase()}`
-                  : "None Entered"}
-              </Typography>
+              <div style={{ margin: "0 auto" }}>
+                {/* <Typography sx={{ mt: 2 }}>
+                  Group Name: {capitalizeWords(group.group_nickname)}
+                </Typography> */}
+                {group.group_nickname ? (
+                  <>
+                    <Typography variant="h6" style={centerStyle}>
+                      {capitalizeWords(group.group_nickname)}
+                    </Typography>
+                  </>
+                ) : (
+                  <Typography variant="h6" style={centerStyle}>
+                    No Group Name
+                  </Typography>
+                )}
+                <hr />
+
+                {/* Option 1, view details */}
+                {view1 ? (
+                  <></>
+                ) : (
+                  <>
+                    <div style={centerDiv}>
+                      <TableGroupDetails groupInfo={group} />
+                    </div>
+                  </>
+                )}
+
+                {/* Option 2, view details */}
+
+                {view2 ? (
+                  <>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-evenly",
+                      }}
+                    >
+                      <Typography sx={{ mt: 2 }}>
+                        <span style={{ textDecoration: "underline" }}>
+                          <strong>Department</strong>
+                        </span>{" "}
+                        <br />
+                        {capitalizeWords(group.department)}
+                      </Typography>
+
+                      <Typography sx={{ mt: 2 }}>
+                        <span style={{ textDecoration: "underline" }}>
+                          <strong>Division</strong>
+                        </span>{" "}
+                        <br />
+                        {group.sub_department
+                          ? capitalizeWords(group.sub_department)
+                          : "N/A"}
+                      </Typography>
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
+
+                {/* Option 3, view details */}
+                {view3 ? (
+                  <>
+                    <center>
+                      <Typography sx={{ mt: 2 }}>
+                        <strong>Department:</strong>{" "}
+                        {capitalizeWords(group.department)}
+                      </Typography>
+                      <Typography sx={{ mt: 2 }}>
+                        <strong>Division:</strong>{" "}
+                        {group.sub_department
+                          ? capitalizeWords(group.sub_department)
+                          : "N/A"}
+                      </Typography>
+                    </center>
+                  </>
+                ) : (
+                  <></>
+                )}
+
+                {/* Description Section */}
+                <Typography sx={{ mt: 2, fontWeight: "bold" }}>
+                  Description:
+                </Typography>
+                <div
+                  className="group-description-container"
+                  style={{ maxHeight: "150px", overflowY: "auto" }}
+                >
+                  <Typography sx={{ mt: 2 }}>
+                    Description:{" "}
+                    {group.group_description
+                      ? `${group.group_description
+                          .charAt(0)
+                          .toUpperCase()}${group.group_description
+                          .slice(1)
+                          .toLowerCase()}`
+                      : "None Entered"}
+                  </Typography>
+                </div>
               </div>
             </CustomTabPanel>
           ))}

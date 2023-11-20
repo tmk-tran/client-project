@@ -1,16 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // Style
 import "./OrgDetails.css";
-import {
-  Button,
-  TextField,
-  Typography,
-  Card,
-  CardContent,
-  Paper,
-} from "@mui/material";
+import { Typography, Card, CardContent } from "@mui/material";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -19,6 +12,9 @@ import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import OrgGroupTabs from "../OrgGroupTabs/OrgGroupTabs";
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
+// Toast
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function orgDetails() {
   const theme = useTheme();
@@ -28,20 +24,22 @@ export default function orgDetails() {
 
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
   const groups = useSelector((store) => store.orgGroups);
+  // State
+  const [tabView, setTabView] = useState(false);
+  const [view1, setView1] = useState(false);
+  const [view2, setView2] = useState(false);
+  const [view3, setView3] = useState(false);
 
   useEffect(() => {
     dispatch({
       type: "FETCH_ORG_DETAILS",
       payload: paramsObject.id,
     });
-  }, []);
-
-  useEffect(() => {
     dispatch({
-      type: "FETCH_ORG_DETAILS",
+      type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
-  }, [groups]);
+  }, [paramsObject.id, groups]);
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();
@@ -71,13 +69,13 @@ export default function orgDetails() {
     >
       <Card className="OrgDetails-card" elevation={3}>
         <CardContent>
-          <center>
-            <div className="org-details-header">
-              {/* <Typography variant="h5" style={{ fontWeight: "bold" }}>
+          {/* <center>
+            <div className="org-details-header"> */}
+          {/* <Typography variant="h5" style={{ fontWeight: "bold" }}>
                 Organization Details
               </Typography> */}
-            </div>
-          </center>
+          {/* </div>
+          </center> */}
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
@@ -86,25 +84,80 @@ export default function orgDetails() {
                 <center>
                   <OrgContactDetails info={orgDetails} />
                 </center>
+                {/* buttons for views demo */}
+                <div style={{ width: "10%", position: "relative" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      position: "absolute",
+                      top: 150,
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        setTabView(!tabView);
+                      }}
+                    >
+                      Tab View
+                    </button>
+                    <br />
+                    <button onClick={() => setView1(!view1)}>
+                      {view1 ? "Table" : "View Off"}
+                    </button>
+                    <br />
+                    <button onClick={() => setView2(!view2)}>
+                      {view2 ? "View Off" : "Center"}
+                    </button>
+                    <br />
+                    <button onClick={() => setView3(!view3)}>
+                      {view3 ? "View Off" : "Left"}
+                    </button>
+                  </div>
+                </div>
+                {/* end buttons for demo */}
+
+                {/* Toast */}
+                <ToastContainer
+                  style={{
+                    top: "45%",
+                    left: "68%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                />
+
+                {/* Add Group Button */}
                 <div className="add-group-btn">
                   <AddGroupPopover info={orgDetails} />
                 </div>
 
-                {/* Display associated groups */}
-                {groups.length === 0 && <p>No groups yet</p>}
+                {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
-                  {groups.map((groupInfo, i) => (
-                    <OrgGroupInfo
-                      key={groupInfo.group_id}
-                      groupInfo={groupInfo}
-                      groupNumber={i + 1}
-                    />
-                  ))}
-                </div>
-                <br />
-                <br />
-                <div>
-                  <OrgGroupTabs groups={groups} />
+                  {groups && groups.some((group) => group.group_id !== null) ? (
+                    tabView ? (
+                      // If tabView is true, render OrgGroupTabs
+                      <OrgGroupTabs
+                        groups={groups}
+                        view1={view1}
+                        view2={view2}
+                        view3={view3}
+                      />
+                    ) : (
+                      // If tabView is false, render OrgGroupInfo
+                      groups.map((groupInfo, i) => (
+                        <OrgGroupInfo
+                          key={groupInfo.group_id}
+                          groupInfo={groupInfo}
+                          groupNumber={i + 1}
+                          view1={view1}
+                          view2={view2}
+                          view3={view3}
+                        />
+                      ))
+                    )
+                  ) : (
+                    <Typography variant="h6">No Groups Assigned</Typography>
+                  )}
                 </div>
               </React.Fragment>
             ))}

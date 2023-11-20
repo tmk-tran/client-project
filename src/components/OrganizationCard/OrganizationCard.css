@@ -1,13 +1,12 @@
-  .organizationCard:hover {
-    transform: scale(1.05);
-    background-color: #F2F3FB;
-    cursor: pointer;
-  }
-  
-  .organizationCard {
-    width: 250px;
-    margin: 10px 20px;
-    object-fit: cover;
-    height: 400px;
-  }
+.organizationCard:hover {
+  transform: scale(1.05);
+  background-color: #f2f3fb;
+  cursor: pointer;
+}
 
+.organizationCard {
+  /* width: 250px; */
+  /* height: 400px; */
+  margin: 10px 20px;
+  object-fit: cover;
+}

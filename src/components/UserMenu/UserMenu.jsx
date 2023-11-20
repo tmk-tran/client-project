@@ -73,7 +73,7 @@ export default function UserMenu() {
     });
   }
 
-  return isSmallScreen ? null : (
+  return (
     <Stack direction="row" spacing={2}>
       <div>
         <PersonIcon

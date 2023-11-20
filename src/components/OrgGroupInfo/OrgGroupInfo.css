@@ -1,35 +1,49 @@
 #orgGroup-details-container {
-  width: 30%;
   margin-top: 30px;
+  height: 650px;
+  width: 400px;
+  padding: 10px;
 }
 
 #orgGroup-details-container:hover {
   cursor: pointer;
-  transform: scale(1.1);
+  transform: scale(1.03);
 }
 
 .group-info {
   margin-top: 15px;
 }
 
-#group-photo {
-  height: 300px;
-  width: 320px;
-  object-fit: contain;
-}
-
 .no-photo-container {
-  height: 300px;
-  width: 320px;
+  max-width: 100%; /* Allow the container to shrink as the screen size decreases */
+  height: 225px; /* Maintain the aspect ratio */
+  max-height: 225px; /* Set a maximum height if needed */
+  width: 100%; /* Take up the full width of the parent container */
+  object-fit: contain;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #dadadc;
   border: 1px dotted rgb(96, 93, 93);
+}
+
+@media (max-width: 1000px) {
+  #orgGroup-details-container {
+    width: 100%;
+  }
+  #orgGroup-details-container:hover {
+    transform: none;
+  }
 }
 
 @media (max-width: 400px) {
   #orgGroup-details-container {
     width: 100%;
+    padding: 0;
+  }
+
+  #orgGroup-details-container:hover {
+    transform: none;
   }
 }

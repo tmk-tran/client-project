@@ -8,9 +8,8 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-// Toast
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// Utils
+import { showToast } from "../Utils/helpers";
 
 export default function OrgContactEdit({
   isOpen,
@@ -24,6 +23,7 @@ export default function OrgContactEdit({
   const [editedCity, setEditedCity] = useState(info.city);
   const [editedState, setEditedState] = useState(info.state);
   const [editedZip, setEditedZip] = useState(info.zip);
+  const [zipError, setZipError] = useState(false);
   const [contactFirstName, setContactFirstName] = useState(
     info.primary_contact_first_name
   );
@@ -41,6 +41,12 @@ export default function OrgContactEdit({
   }, [info]);
 
   const handleSave = () => {
+    // Verification for zip code (assumes a 5 digit zip code)
+    if (!/^\d{5}$/.test(editedZip)) {
+      setZipError(true);
+      return;
+    }
+
     const orgInfo = {
       ...info,
       organization_name: editedName,
@@ -71,12 +77,10 @@ export default function OrgContactEdit({
       organization_id: orgId,
     };
 
-    toast.success("Changes saved successfully!", {
-      position: toast.POSITION.RIGHT_CENTER,
-      autoClose: 3000,
-      closeButton: false,
-      hideProgressBar: true,
-    });
+    // from Utils
+    showToast();
+
+    setZipError(false);
 
     onSaveChanges(editedOrg);
     onClose();
@@ -90,6 +94,7 @@ export default function OrgContactEdit({
     setEditedCity(info.city);
     setEditedState(info.state);
     setEditedZip(info.zip);
+    setZipError(false);
   };
 
   const handleClose = () => {
@@ -121,7 +126,12 @@ export default function OrgContactEdit({
         }}
       >
         {/* <center> */}
-        <Typography variant="h5" sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}>Edit Details</Typography>
+        <Typography
+          variant="h5"
+          sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
+        >
+          Edit Details
+        </Typography>
         {/* <Typography variant="h6">Edit Organization Details</Typography> */}
         {/* </center> */}
         <TextField
@@ -152,8 +162,14 @@ export default function OrgContactEdit({
         />
         <TextField
           label="Zip Code"
+          type="tel"
           value={editedZip}
-          onChange={(e) => setEditedZip(e.target.value)}
+          onChange={(e) => {
+            setEditedZip(e.target.value);
+            setZipError(false);
+          }}
+          error={zipError}
+          helperText={zipError ? "Invalid zip code" : ""}
         />
         {/* </div> */}
         <div

@@ -9,11 +9,10 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
-import OrganizationCard from "../OrganizationCard/OrganizationCard";
-import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
+import { capitalizeWords } from "../Utils/helpers.js";
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -36,9 +35,6 @@ function UserProfile() {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return date.toLocaleDateString(undefined, options);
   };
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  }
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -52,8 +48,7 @@ function UserProfile() {
           <center>
             <br />
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
-              Welcome{" "}
-              {user.username ? capitalizeFirstLetter(user.username) : ""}
+              Welcome, {user.username ? capitalizeWords(user.username) : ""}
             </Typography>
             {user.is_admin ? (
               <Typography variant="h6">

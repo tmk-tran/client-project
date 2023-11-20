@@ -7,11 +7,15 @@ One Paragraph of project description goes here
 ## Joe Colago, Alyssa Nichols, and T Mark Schisel ##
 
 ## Table of Contents
-- [About](#)
+- [About](#description)
 - [Start](#getting-started)
 - [Install](#development-setup-instructions)
+- [Databases](#database-configuration)
 - [Thanks](#acknowledgments)
 - [Dependencies](#dependencies)
+
+## Description
+This project (description here)
 
 ## Getting Started
 
@@ -38,6 +42,11 @@ Before you get started, make sure you have the following software installed on y
 - Run `npm run client`
 - Navigate to `localhost:3000`
 
+## Database Configuration
+
+- For this project, we created a database using Postico 2
+- If you would like to create a database using mock data, please review the database.sql file
+
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
@@ -59,13 +68,17 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Thanks to Emerging Digital Academy for teaching us the skills to complete this project
+
+* Thank you to our clients, Chris and Wendy from the Preferred Savings Guide
+
+* A big thanks to Anthony at Devii for providing us with a client, and for your support throughout the project
+
+* Thanks to Ann, for guiding us through to project completion
 
 ## Dependencies
 
 - Material UI
-- Material UI x-charts
+- React.toastify
 - Sweet Alerts
 - A full list of dependencies can be found in `package.json`
