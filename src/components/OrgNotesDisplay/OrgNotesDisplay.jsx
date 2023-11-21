@@ -1,7 +1,11 @@
 import React from "react";
 import { Button, Typography, Card, CardContent } from "@mui/material";
+// Icons
+import DeleteIcon from "@mui/icons-material/Delete";
+// Utils
+import { formatDate } from "../Utils/helpers";
 
-export default function OrgNotesDisplay() {
+export default function OrgNotesDisplay({ notes }) {
   return (
     <div className="notes-card-container">
       <Card elevation={4} className="notes-card">

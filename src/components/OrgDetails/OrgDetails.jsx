@@ -15,10 +15,8 @@ import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// Utils
-import { formatDate } from "../Utils/helpers";
 // Icons
-import DeleteIcon from '@mui/icons-material/Delete';
+import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 
 export default function orgDetails() {
   const theme = useTheme();
@@ -29,7 +27,6 @@ export default function orgDetails() {
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
   const groups = useSelector((store) => store.orgGroups);
   const notes = useSelector((store) => store.orgNotes);
-  console.log(notes);
   // State
   const [noteAdded, setNoteAdded] = useState(false);
 
@@ -79,33 +76,7 @@ export default function orgDetails() {
       <Card className="OrgDetails-card" elevation={3}>
         <CardContent>
           <div className="detailsOrg-container">
-            <div className="notes-card-container">
-              <Card elevation={4} className="notes-card">
-                <CardContent>
-                  <Typography variant="h6" sx={{ textAlign: "center", mb: 1 }}>Notes</Typography>
-                  <div className="orgNotes-container">
-                    {notes && notes.length > 0 ? (
-                      <div>
-                        {notes.map((note, i) => (
-                          <div key={i}>
-                            {/* <center> */}
-                            <Typography sx={{ mt:1 }} variant="body2">{formatDate(note.note_date)}</Typography>
-                            {/* </center> */}
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <li>{note.note_content}</li><Button className="notes-delete-btn"><DeleteIcon /></Button>
-                            </div>
-                            <br />
-                            <hr style={{ width: "80%" }} />
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <Typography variant="h6">No Notes Available</Typography>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <OrgNotesDisplay notes={notes} />
             {/* Iterate over the unique organizations in the map */}
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
@@ -116,7 +87,10 @@ export default function orgDetails() {
 
                 {/* Notes Section */}
                 <div>
-                  <OrgNotesModal info={orgDetails} onNoteAdded={handleNoteAdded} />
+                  <OrgNotesModal
+                    info={orgDetails}
+                    onNoteAdded={handleNoteAdded}
+                  />
                 </div>
 
                 {/* Toast */}
