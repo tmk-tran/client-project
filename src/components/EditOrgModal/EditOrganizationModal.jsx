@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, Box, TextField, Button, Typography, Grid } from "@mui/material";
 import Swal from "sweetalert2";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const EditOrganizationModal = ({ open, handleClose, organization }) => {
   const [editedOrganization, setEditedOrganization] = useState(organization);
   const dispatch = useDispatch();
+
   useEffect(() => {
     setEditedOrganization(organization);
   }, [organization]);
@@ -17,13 +19,12 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
   const handleEditSave = (editedOrganization) => {
     dispatch({ type: "EDIT_ORGANIZATION", payload: editedOrganization });
     dispatch({ type: "FETCH_ORGANIZATIONS" });
-    console.log("Organization edited:", editedOrganization);
     Swal.fire({
-        icon: "success",
-        title: "Organization Successfully Edited!",
-        showConfirmButton: false,
-        timer: 1500, // Adjust the timer as needed
-      });
+      icon: "success",
+      title: "Organization Successfully Edited!",
+      showConfirmButton: false,
+      timer: 1500, // Adjust the timer as needed
+    });
     handleClose();
   };
 
@@ -58,7 +59,9 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
                 label="Organization Name"
                 fullWidth
                 value={editedOrganization.organization_name}
-                onChange={(e) => handleChange("organization_name", e.target.value)}
+                onChange={(e) =>
+                  handleChange("organization_name", e.target.value)
+                }
               />
             </Grid>
             <Grid item xs={6}>
@@ -102,46 +105,30 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
                 onChange={(e) => handleChange("zip", e.target.value)}
               />
             </Grid>
-            {/* <Grid item xs={6}>
-              <TextField
-                label="Contact First Name"
-                fullWidth
-                value={editedOrganization.primary_contact_first_name}
-                onChange={(e) => handleChange("primary_contact_first_name", e.target.value)}
-
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Contact Last Name"
-                fullWidth
-                value={editedOrganization.primary_contact_last_name}
-                onChange={(e) => handleChange("primary_contact_last_name", e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Contact Phone"
-                fullWidth
-                type="number"
-                value={editedOrganization.primary_contact_phone}
-                onChange={(e) => handleChange("primary_contact_phone", e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Contact Email (optional)"
-                fullWidth
-                value={editedOrganization.primary_contact_email}
-                onChange={(e) => handleChange("primary_contact_email", e.target.value)}
-              />
-            </Grid> */}
-            <Grid item xs={12}>
+            <Grid item xs={8}>
               <TextField
                 label="Logo URL (optional)"
                 fullWidth
                 value={editedOrganization.organization_logo}
-                onChange={(e) => handleChange("organization_logo", e.target.value)}
+                onChange={(e) =>
+                  handleChange("organization_logo", e.target.value)
+                }
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                type="number"
+                label="Organization Earnings"
+                fullWidth
+                value={editedOrganization.organization_earnings}
+                onChange={(e) =>
+                  handleChange("organization_earnings", e.target.value)
+                }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
               />
             </Grid>
           </Grid>
@@ -149,7 +136,11 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
           <Button onClick={handleClose} variant="contained" color="primary">
             Cancel
           </Button>{" "}
-          <Button onClick={() => handleEditSave(editedOrganization)} variant="contained" color="primary">
+          <Button
+            onClick={() => handleEditSave(editedOrganization)}
+            variant="contained"
+            color="primary"
+          >
             Save
           </Button>
         </Box>
@@ -157,6 +148,5 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
     </div>
   );
 };
-
 
 export default EditOrganizationModal;

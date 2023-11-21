@@ -5,14 +5,15 @@ const router = express.Router();
 router.get("/", (req, res) => {
   pool
     .query(
-      `    SELECT
+      `SELECT
       o.*,
       COALESCE(group_count.total_groups, 0) AS total_groups,
       COALESCE(fundraiser_count.total_fundraisers, 0) AS total_fundraisers,
       COALESCE(closed_fundraiser_count.total_closed_fundraisers, 0) AS total_closed_fundraisers,
       (COALESCE(fundraiser_count.total_fundraisers, 0) - COALESCE(closed_fundraiser_count.total_closed_fundraisers, 0)) AS total_active_fundraisers,
       COALESCE(total_books_sold.total_books_sold, 0) AS total_books_sold,
-      COALESCE(total_outstanding_balance.total_outstanding_balance, 0) AS total_outstanding_balance
+      COALESCE(total_outstanding_balance.total_outstanding_balance, 0) AS total_outstanding_balance,
+      COALESCE(total_books_sold.total_books_sold, 0) * COALESCE(o.organization_earnings, 0) AS total_org_earnings
   FROM
       organization o
   LEFT JOIN (
@@ -109,9 +110,10 @@ router.post("/", (req, res) => {
         "primary_contact_last_name",
         "primary_contact_phone",
         "primary_contact_email",
+        "organization_earnings",
         "organization_logo"
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
 
   pool
     .query(queryText, [
@@ -125,7 +127,8 @@ router.post("/", (req, res) => {
       organization.primary_contact_last_name,
       organization.primary_contact_phone,
       organization.primary_contact_email,
-      organization.organization_logo,
+      organization.organization_earnings,
+      organization.organization_logo
     ])
     .then((response) => {
       res.sendStatus(201);
@@ -163,8 +166,9 @@ router.put("/:id", (req, res) => {
       "primary_contact_last_name" = $8,
       "primary_contact_phone" = $9,
       "primary_contact_email" = $10,
-      "organization_logo" = $11
-  WHERE "id" = $12;`;
+      "organization_earnings" = $11,
+      "organization_logo" = $12
+  WHERE "id" = $13;`;
   pool
     .query(queryText, [
       organization.organization_name,
@@ -177,6 +181,7 @@ router.put("/:id", (req, res) => {
       organization.primary_contact_last_name,
       organization.primary_contact_phone,
       organization.primary_contact_email,
+      organization.organization_earnings,
       organization.organization_logo,
       req.params.id,
     ])

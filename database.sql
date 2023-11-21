@@ -21,7 +21,7 @@ CREATE TABLE "organization" (
 	"primary_contact_email" varchar(100),
 	"organization_logo" varchar,
 	"is_deleted" BOOLEAN NOT NULL DEFAULT 'false',
-	"organization_earnings" integer default 10
+	"organization_earnings" DECIMAL default 10
 );
 
 

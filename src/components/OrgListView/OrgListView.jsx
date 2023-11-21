@@ -62,10 +62,10 @@ function OrgListView({ organization }) {
   };
 
   function goToDetails() {
-    history.push(`/orgDetails/${organization.id}`);
+  history.push(`/orgDetails/${organization.id}`);
   }
-  const earnings = organization.total_books_sold * organization.organization_earnings;
-const formattedEarnings = earnings.toLocaleString();
+  const totalOrgEarnings = parseFloat(organization.total_org_earnings);
+  const formattedEarnings = totalOrgEarnings.toLocaleString();
 
 const outstandingBalance = parseFloat(organization.total_outstanding_balance);
 const formattedOutstandingBalance = isNaN(outstandingBalance) ? "N/A" : outstandingBalance.toLocaleString();
@@ -98,7 +98,7 @@ const formattedOutstandingBalance = isNaN(outstandingBalance) ? "N/A" : outstand
             </div>
           </div>
 
-          <div className="organizationActions" style={{ marginTop: organization.total_active_fundraisers <= 1 ? "-128px" : "-95px" }}>
+          <div className="organizationActions" style={{ marginTop: organization.total_active_fundraisers <= 1 ? "-132px" : "-102px" }}>
             <Button
               style={{ marginRight: "14px" }}
               onClick={(e) => {

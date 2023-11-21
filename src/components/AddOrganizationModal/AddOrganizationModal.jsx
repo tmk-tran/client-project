@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Button, Modal, TextField, Typography, Grid } from "@mui/material";
 import Swal from "sweetalert2";
+import InputAdornment from "@mui/material/InputAdornment";
 
 export default function AddOrganizationModal({ open, handleModalClose }) {
   const dispatch = useDispatch();
@@ -16,22 +17,9 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
   const [contactPhone, setContactPhone] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
+  const [orgEarnings, setOrgEarnings] = useState(10);
 
   const handleSave = () => {
-    if (
-      !organizationName ||
-      !organizationType ||
-      !address ||
-      !city ||
-      !state ||
-      !zip ||
-      !contactFirstName ||
-      !contactLastName ||
-      !contactPhone
-    ) {
-      alert("please fill out all input fields");
-      return;
-    } else {
       dispatch({
         type: "ADD_ORGANIZATION",
         payload: {
@@ -46,12 +34,17 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
           primary_contact_phone: contactPhone,
           primary_contact_email: contactEmail,
           organization_logo: logoUrl,
+          organization_earnings: orgEarnings
         },
       });
-    }
-
     clearFields();
     handleModalClose();
+    Swal.fire({
+      icon: "success",
+      title: "Organization Successfully Added!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   const clearFields = () => {
@@ -66,6 +59,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
     setContactPhone("");
     setContactEmail("");
     setLogoUrl("");
+    setOrgEarnings(10);
   };
 
   const cancelAdd = () => {
@@ -101,6 +95,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField
+              required
                 label="Organization Name"
                 fullWidth
                 value={organizationName}
@@ -109,6 +104,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
             </Grid>
             <Grid item xs={6}>
               <TextField
+                required
                 label="Organization Type"
                 fullWidth
                 value={organizationType}
@@ -117,6 +113,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                required
                 label="Address"
                 fullWidth
                 value={address}
@@ -125,6 +122,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
             </Grid>
             <Grid item xs={4}>
               <TextField
+                required
                 label="City"
                 fullWidth
                 value={city}
@@ -133,6 +131,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
             </Grid>
             <Grid item xs={4}>
               <TextField
+                required
                 label="State"
                 fullWidth
                 value={state}
@@ -141,6 +140,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
             </Grid>
             <Grid item xs={4}>
               <TextField
+                required
                 label="Zip Code"
                 fullWidth
                 value={zip}
@@ -158,6 +158,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
             </Grid>
             <Grid item xs={6}>
               <TextField
+                required
                 label="Contact Last Name"
                 fullWidth
                 value={contactLastName}
@@ -166,6 +167,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
             </Grid>
             <Grid item xs={6}>
               <TextField
+                required
                 label="Contact Phone"
                 fullWidth
                 value={contactPhone}
@@ -181,12 +183,25 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
                 onChange={(e) => setContactEmail(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={8}>
               <TextField
                 label="Logo URL (optional)"
                 fullWidth
                 value={logoUrl}
                 onChange={(e) => setLogoUrl(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                label="Organization Earnings"
+                fullWidth
+                value={orgEarnings}
+                onChange={(e) => setOrgEarnings(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
               />
             </Grid>
           </Grid>

@@ -24,6 +24,7 @@ router.get("/:id", (req, res) => {
   o.primary_contact_phone,
   o.primary_contact_email,
   o.organization_logo,
+  o.organization_earnings,
   g.id AS group_id,
   g.department,
   g.sub_department,
