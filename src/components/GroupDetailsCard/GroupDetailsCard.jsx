@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Box, Button, Card, CardMedia, Modal, Typography, InputLabel, TextField, Select, MenuItem, Grid } from "@mui/material";
-import  {modalBtnStyle} from "../Utils/helpers"
+import { modalBtnStyle } from "../Utils/helpers"
 
 
 //Function for the component, takes in the group prop for use
@@ -39,7 +39,7 @@ export default function GroupDetailsCard({ group }) {
          'Game Created!',
          'Your game has been created!',
          'success'
-     )
+      )
       dispatch({ type: "ADD_FUNDRAISER", payload: newFundraiser })
       setTitle("");
       setDescription("");
@@ -72,7 +72,7 @@ export default function GroupDetailsCard({ group }) {
    //Elements and data used in the component. Displays the group card and the add fundraiser modal 
    return (
       <>
-         <Card elevation={6} style={{ display: "flex", flexDirection: "column", padding: "10px", paddingTop:"30px", paddingBottom: "30px", width: "500px", margin: "auto" }}>
+         <Card elevation={6} style={{ display: "flex", flexDirection: "column", padding: "10px", paddingTop: "30px", paddingBottom: "30px", width: "500px", margin: "auto" }}>
             <CardMedia style={{ objectFit: "cover", margin: "auto" }}
                className="cardMedia"
                component="img"
@@ -82,7 +82,7 @@ export default function GroupDetailsCard({ group }) {
                <Typography>{group.group_description}</Typography>
             </div>
             <div style={modalBtnStyle} >
-               <Button   variant="outlined" onClick={() => history.goBack()}><Typography style={{ fontSize: "15px" }}>Back</Typography></Button> <Button variant="outlined" onClick={handleOpen}><Typography style={{ fontSize: "15px" }}>Add Fundraiser</Typography></Button>
+               <Button variant="outlined" onClick={() => history.goBack()}><Typography style={{ fontSize: "15px" }}>Back</Typography></Button> <Button variant="outlined" onClick={handleOpen}><Typography style={{ fontSize: "15px" }}>Add Fundraiser</Typography></Button>
             </div>
          </Card>
          <Modal open={open} onClose={handleClose} aria-labelledby="title"
@@ -127,32 +127,32 @@ export default function GroupDetailsCard({ group }) {
                      <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={6}>
                            <TextField fullWidth style={{ margin: "5px" }} label="Books Sold" type="number" placeholder="Books Sold" value={booksSold} onChange={(e) => setBooksSold(e.target.value)}></TextField>
-                           </Grid>
+                        </Grid>
                         <Grid item xs={6}>
                            <TextField fullWidth style={{ margin: "5px" }} label="Goal" type="number" placeholder="Goal" value={goal} onChange={(e) => setGoal(e.target.value)}></TextField>
-                           </Grid>
                         </Grid>
+                     </Grid>
                   </div>
                   <div>
-                  <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                  <Grid item xs={6}>
+                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                        <Grid item xs={6}>
                            <InputLabel >Coupon Book Year</InputLabel>
-                           <Select fullWidth style={{ margin: "5px" }}  value={couponBookId} onChange={(e) => setCouponBookId(e.target.value)}>
+                           <Select fullWidth style={{ margin: "5px" }} value={couponBookId} onChange={(e) => setCouponBookId(e.target.value)}>
                               <MenuItem value="" disabled>Please Select A Coupon Book Year</MenuItem>
                               {couponBooks.map(couponBook => {
                                  return (<MenuItem value={couponBook.id} key={couponBook.id}>{couponBook.year}</MenuItem>)
                               })}
                            </Select>
                         </Grid>
-                  <Grid item xs={6}>
+                        <Grid item xs={6}>
                            <InputLabel>Money Received</InputLabel>
                            <TextField fullWidth style={{ margin: "5px", marginRight: "0" }} type="number" placeholder="Money Received" value={moneyReceived} onChange={(e) => setMoneyRecieved(e.target.value)}></TextField>
                         </Grid>
-                        </Grid>
+                     </Grid>
                   </div>
                   <div>
-                  <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                       
+                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+
                         <Grid item xs={6}>
                            <InputLabel>Start Date</InputLabel>
                            <TextField fullWidth style={{ margin: "5px", marginLeft: "0" }} type="date" value={startDtate} onChange={(e) => setStartDate(e.target.value)}></TextField>
@@ -160,10 +160,10 @@ export default function GroupDetailsCard({ group }) {
                         <Grid item xs={6}>
                            <InputLabel>End Date</InputLabel>
                            <TextField fullWidth style={{ margin: "5px" }} type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)}></TextField>
-                           </Grid>
-                           
                         </Grid>
-                    
+
+                     </Grid>
+
                   </div>
                   <Button type="submit" variant="contained" style={{ margin: "5px" }}>Submit</Button>
                </form>
