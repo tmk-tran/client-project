@@ -6,6 +6,7 @@
 .OrgDetails-card {
   width: 88%;
   margin: 20px auto 0 auto;
+  position: relative;
 }
 
 .OrgGroupInfo-container {
@@ -26,7 +27,6 @@
   right: 0; */
   display: flex;
   justify-content: flex-end;
-
 }
 
 .add-group-fields {
@@ -38,6 +38,28 @@
 
 .popover-container {
   margin-right: 3%;
+}
+
+.notes-card-container {
+  position: relative;
+}
+
+.notes-card {
+  position: absolute;
+  width: 20%;
+  /* left: 20px; */
+  top: 20px;
+}
+
+.notes-container {
+  max-height: 300px;
+}
+
+.orgNotes-container {
+  overflow-wrap: break-word;
+  overflow-y: auto;
+  border: 1px solid black;
+  max-height: 300px;
 }
 
 @media (max-width: 400px) {

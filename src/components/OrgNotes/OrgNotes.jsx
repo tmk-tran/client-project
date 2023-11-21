@@ -11,7 +11,8 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material/";
-import CloseIcon from "@mui/icons-material/Close";
+// Icons
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import "./OrgNotes.css";
 // Utils
 import { modalBtnStyle, showToast } from "../Utils/helpers";
@@ -77,9 +78,9 @@ export default function NotesPopover({ info, onNoteAdded }) {
   };
 
   return (
-    <div className="popover-container">
+    <div className="popover-notes-container">
       <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        Notes
+        <EditNoteIcon />
       </Button>
       <Popover
         id={id}
@@ -88,12 +89,12 @@ export default function NotesPopover({ info, onNoteAdded }) {
         // onClose={handleClose}
         onClose={() => {}}
         anchorOrigin={{
-          vertical: isMobile ? "top" : "bottom",
+          vertical: isMobile ? "top" : "top",
           horizontal: isMobile ? "center" : "right",
         }}
         transformOrigin={{
           vertical: isMobile ? "bottom" : "bottom",
-          horizontal: isMobile ? "center" : "left",
+          horizontal: isMobile ? "center" : "right",
         }}
       >
         <Box style={{ padding: "20px" }}>

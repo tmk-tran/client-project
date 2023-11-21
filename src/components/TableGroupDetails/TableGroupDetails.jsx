@@ -1,5 +1,12 @@
 import React from "react";
-import { Table, TableBody, TableRow, TableCell, TableHead, Typography } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableHead,
+  Typography,
+} from "@mui/material";
 import { capitalizeWords, centerStyle } from "../Utils/helpers";
 
 export default function TableGroupDetails({ groupInfo }) {
