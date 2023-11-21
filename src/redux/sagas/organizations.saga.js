@@ -44,6 +44,7 @@ function* editOrganizationSaga(action) {
       primary_contact_last_name: action.payload.primary_contact_last_name,
       primary_contact_phone: action.payload.primary_contact_phone,
       primary_contact_email: action.payload.primary_contact_email,
+      organization_earnings: action.payload.organization_earnings,
       organization_logo: action.payload.organization_logo,
 
     });

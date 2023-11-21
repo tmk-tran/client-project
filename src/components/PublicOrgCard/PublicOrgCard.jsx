@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button, Card, CardContent } from "@mui/material";
 import './PublicOrdCard.css'
 
 function PublicOrgCard({ organization }) {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
-  const [isHovered, setIsHovered] = useState(false);
-  // const organizationsList = useSelector((store) => store.organizations);
   function goToDetails() {
-    history.push(`/orgDetails/${organization.id}`);
+    history.push(`/publicOrgDetails/${organization.id}`);
   }
 
   const renderLogoOrInitials = () => {

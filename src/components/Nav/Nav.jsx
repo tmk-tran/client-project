@@ -12,13 +12,11 @@ function Nav() {
   return (
     <>
       <div className="nav">
-        {user.id && (
           <div className="logoPSG-container">
             <Link to="/home" className="logo-psg">
               <LogoPSG />
             </Link>
           </div>
-        )}
         <div>
           {/* If a user is logged in, show these links */}
           {user.id && (
@@ -29,9 +27,10 @@ function Nav() {
         </div>
       </div>
       <br />
+      <>
       <div className="NavLinks-container">
         <NavLinks />
-      </div>
+      </div></>
     </>
   );
 }

@@ -101,56 +101,59 @@ function UserPage() {
 
           {showInput ? (
             <>
-            <br />
-        <TextField
-          style={{
-            marginTop: "10px",
-            marginLeft: '3%',
-            borderRadius: '4px',
-            width: '230px',
-            backgroundColor: 'white',
-          }}
-          variant="outlined"
-          fullWidth
-          size="small"
-          label="Search By Organization"
-          value={query}
-          onChange={(e) => handleOnSearch(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <SearchIcon color="primary" style={{ marginRight: '10px' }} />
-            ),
-          }}
-        /></>
-      ) : (
-        <SearchIcon
-          color="primary"
-          style={{
-            marginLeft: '3%',
-            marginBottom: '-7px',
-            cursor: 'pointer',
-          }}
-          onClick={() => setShowInput(true)}
-        />
-      )}
-      {showInput && (
-        <Button
-          style={{
-            marginTop: '15px',
-            marginLeft: '10px',
-            backgroundColor: '#DAA226',
-            height: '30px',
-            color: 'white',
-            width: '0px',
-            fontSize: '13px',
-          }}
-          variant="contained"
-          onClick={clearInput}
-        >
-          Clear
-        </Button>
-      )}
-
+              <br />
+              <TextField
+                style={{
+                  marginTop: "10px",
+                  marginLeft: "3%",
+                  borderRadius: "4px",
+                  width: "230px",
+                  backgroundColor: "white",
+                }}
+                variant="outlined"
+                fullWidth
+                size="small"
+                label="Search By Organization"
+                value={query}
+                onChange={(e) => handleOnSearch(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <SearchIcon
+                      color="primary"
+                      style={{ marginRight: "10px" }}
+                    />
+                  ),
+                }}
+              />
+            </>
+          ) : (
+            <SearchIcon
+              color="primary"
+              style={{
+                marginLeft: "3%",
+                marginBottom: "-7px",
+                cursor: "pointer",
+              }}
+              onClick={() => setShowInput(true)}
+            />
+          )}
+          {showInput && (
+            <Button
+              style={{
+                marginTop: "15px",
+                marginLeft: "10px",
+                backgroundColor: "#DAA226",
+                height: "30px",
+                color: "white",
+                width: "0px",
+                fontSize: "13px",
+              }}
+              variant="contained"
+              onClick={clearInput}
+            >
+              Clear
+            </Button>
+          )}
         </center>
         <div className="organizationsContainer">
           {currentItems.map((organization, index) => (
