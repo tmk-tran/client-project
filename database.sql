@@ -20,7 +20,8 @@ CREATE TABLE "organization" (
 	"primary_contact_phone" bigint NOT NULL,
 	"primary_contact_email" varchar(100),
 	"organization_logo" varchar,
-	"is_deleted" BOOLEAN NOT NULL DEFAULT 'false'
+	"is_deleted" BOOLEAN NOT NULL DEFAULT 'false',
+	"organization_earnings" integer default 10
 );
 
 
@@ -44,7 +45,7 @@ CREATE TABLE "user-group" (
 
 CREATE TABLE "coupon_book" (
 	"id" serial primary key NOT NULL,
-	"year" integer NOT NULL
+	"year" varchar(20) NOT NULL
 );
 
 CREATE TABLE "fundraiser" (

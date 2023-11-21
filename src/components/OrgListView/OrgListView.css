@@ -6,9 +6,11 @@
     border: 1px solid #9f9e9e;
     border-radius: 3px;
     margin: 5px;
-    height: 140px;
+    height: 148px;
   }
-  
+  .media-header{
+    margin-bottom: -4px
+  }
   .organizationClickable {
     flex-grow: 1;
     cursor: pointer;
@@ -45,7 +47,7 @@
     width: 160px;
     height: 145px;
     object-fit: cover;
-    margin-top: -25px;
+    margin-top: -30px;
   }
   
   .organizationDetails {
@@ -60,7 +62,8 @@
   
   .initialsContainer {
     width: 150px;
-    height: 118px;
+    margin-top: -15px;
+    height: 130px;
     display: flex;
     justify-content: center;
     align-items: center;
