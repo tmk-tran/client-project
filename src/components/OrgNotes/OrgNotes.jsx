@@ -47,7 +47,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
     if (noteAdded) {
       onNoteAdded();
     }
-  }, [noteAdded, onNoteAdded]);
+  }, [onNoteAdded]);
 
   const handleSave = () => {
     // Format the date as "mm/dd/yyyy"

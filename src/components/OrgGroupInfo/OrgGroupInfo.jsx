@@ -76,7 +76,7 @@ export default function OrgGroupInfoCard({ groupInfo, view1, view2, view3 }) {
                 >
                   <Typography sx={{ mt: 2 }}>
                     <span style={{ textDecoration: "underline" }}>
-                      <strong>Department</strong>
+                      <strong>Category</strong>
                     </span>{" "}
                     <br />
                     {capitalizeWords(groupInfo.department)}
@@ -84,7 +84,7 @@ export default function OrgGroupInfoCard({ groupInfo, view1, view2, view3 }) {
 
                   <Typography sx={{ mt: 2 }}>
                     <span style={{ textDecoration: "underline" }}>
-                      <strong>Division</strong>
+                      <strong>Sub-Category</strong>
                     </span>{" "}
                     <br />
                     {groupInfo.sub_department
