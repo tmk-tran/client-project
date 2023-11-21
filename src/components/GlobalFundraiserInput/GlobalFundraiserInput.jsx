@@ -6,6 +6,7 @@ import { InputLabel } from "@mui/material";
 import { MenuItem, Box, Paper, Typography } from "@mui/material";
 import { Button, TextField, CardContent } from "@mui/material";
 import Swal from "sweetalert2";
+import InputAdornment from "@mui/material/InputAdornment";
 
 export default function GlobalFundraiserInput() {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ export default function GlobalFundraiserInput() {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [photoUrl, setPhotoUrl] = useState("");
+  const [goal, setGoal] = useState("");
   const [booksRequested, setBooksRequested] = useState("");
   const [booksCheckedOut, setBooksCheckedOut] = useState("");
   const [booksOutValue, setBooksOutValue] = useState(null);
@@ -70,7 +71,7 @@ export default function GlobalFundraiserInput() {
         group_id: selectedGroup,
         title: title,
         description: description,
-        photo: photoUrl,
+        goal: goal,
         requested_book_quantity: booksRequested,
         book_quantity_checked_out: booksCheckedOut,
         book_checked_out_total_value: booksOutValue,
@@ -91,7 +92,7 @@ export default function GlobalFundraiserInput() {
       });
       setTitle("");
       setDescription("");
-      setPhotoUrl("");
+      setGoal("");
       setBooksRequested("");
       setBooksCheckedOut("");
       setStartDate("");
@@ -245,11 +246,11 @@ export default function GlobalFundraiserInput() {
                 onChange={(e) => setTitle(e.target.value)}
                 fullWidth
               />
-              <TextField
-                type="text"
-                value={photoUrl}
-                onChange={(e) => setPhotoUrl(e.target.value)}
-                label="Photo URL (optional)"
+                  <TextField
+                label="Fundraiser Financial Goal"
+                type="number"
+                value={goal}
+                onChange={(e) => setGoal(e.target.value)}
                 fullWidth
               />
               <TextField
