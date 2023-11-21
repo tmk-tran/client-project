@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 import { Box, Button, Card, CardMedia, Modal, Typography, InputLabel, TextField, Select, MenuItem, Grid } from "@mui/material";
 import  {modalBtnStyle} from "../Utils/helpers"
 
@@ -34,7 +35,12 @@ export default function GroupDetailsCard({ group }) {
       e.preventDefault;
       const newFundraiser = { group_id: group.id, title: title, description: description, photo: photoUrl, requested_book_quantity: booksRequested, book_quantity_checked_out: booksCheckedOut, book_quantity_checked_in: booksCheckedIn, books_sold: booksSold, goal: goal, money_received: moneyReceived, start_date: startDtate, end_date: endDate, coupon_book_id: couponBookId }
       console.log(newFundraiser);
-      dispatch({ type: "ADD_FUNDRAISER", payload: newFundraiser });
+      Swal.fire(
+         'Game Created!',
+         'Your game has been created!',
+         'success'
+     )
+      dispatch({ type: "ADD_FUNDRAISER", payload: newFundraiser })
       setTitle("");
       setDescription("");
       setPhotoUrl("")
