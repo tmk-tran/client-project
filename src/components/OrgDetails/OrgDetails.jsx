@@ -3,18 +3,20 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // Style
 import "./OrgDetails.css";
-import { Typography, Card, CardContent } from "@mui/material";
+import { Button, Typography, Card, CardContent } from "@mui/material";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
-import OrgGroupTabs from "../OrgGroupTabs/OrgGroupTabs";
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
+import OrgNotes from "../OrgNotes/OrgNotes";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// Utils
+import { formatDate } from "../Utils/helpers";
 
 export default function orgDetails() {
   const theme = useTheme();
@@ -24,8 +26,10 @@ export default function orgDetails() {
 
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
   const groups = useSelector((store) => store.orgGroups);
+  const notes = useSelector((store) => store.orgNotes);
+  console.log(notes);
   // State
-  const [tabView, setTabView] = useState(false);
+  const [noteAdded, setNoteAdded] = useState(false);
   const [view1, setView1] = useState(false);
   const [view2, setView2] = useState(false);
   const [view3, setView3] = useState(false);
@@ -39,6 +43,8 @@ export default function orgDetails() {
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
+    // Reset noteAdded after fetching data
+    setNoteAdded(false);
   }, [paramsObject.id, groups]);
 
   // Create a map to store organization details and associated groups
@@ -63,19 +69,28 @@ export default function orgDetails() {
     });
   });
 
+  const handleNoteAdded = () => {
+    setNoteAdded(true);
+  };
+
   return (
     <div
       className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
     >
       <Card className="OrgDetails-card" elevation={3}>
         <CardContent>
-          {/* <center>
-            <div className="org-details-header"> */}
-          {/* <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                Organization Details
-              </Typography> */}
-          {/* </div>
-          </center> */}
+          <div className="orgNotes-container">
+            {notes && notes.length > 0 ? (
+              notes.map((note, i) => (
+                <div key={i}>
+                  <p>{formatDate(note.note_date)}</p>
+                  <p>{note.note_content}</p>
+                </div>
+              ))
+            ) : (
+              <Typography variant="h6">No Notes Available</Typography>
+            )}
+          </div>
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
@@ -84,6 +99,12 @@ export default function orgDetails() {
                 <center>
                   <OrgContactDetails info={orgDetails} />
                 </center>
+
+                {/* Notes Section */}
+                <div>
+                  <OrgNotes info={orgDetails} onNoteAdded={handleNoteAdded} />
+                </div>
+
                 {/* buttons for views demo */}
                 <div style={{ width: "10%", position: "relative" }}>
                   <div
@@ -94,13 +115,6 @@ export default function orgDetails() {
                       top: 150,
                     }}
                   >
-                    <button
-                      onClick={() => {
-                        setTabView(!tabView);
-                      }}
-                    >
-                      Tab View
-                    </button>
                     <br />
                     <button onClick={() => setView1(!view1)}>
                       {view1 ? "Table" : "View Off"}
@@ -134,27 +148,16 @@ export default function orgDetails() {
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
                   {groups && groups.some((group) => group.group_id !== null) ? (
-                    tabView ? (
-                      // If tabView is true, render OrgGroupTabs
-                      <OrgGroupTabs
-                        groups={groups}
+                    groups.map((groupInfo, i) => (
+                      <OrgGroupInfo
+                        key={groupInfo.group_id}
+                        groupInfo={groupInfo}
+                        groupNumber={i + 1}
                         view1={view1}
                         view2={view2}
                         view3={view3}
                       />
-                    ) : (
-                      // If tabView is false, render OrgGroupInfo
-                      groups.map((groupInfo, i) => (
-                        <OrgGroupInfo
-                          key={groupInfo.group_id}
-                          groupInfo={groupInfo}
-                          groupNumber={i + 1}
-                          view1={view1}
-                          view2={view2}
-                          view3={view3}
-                        />
-                      ))
-                    )
+                    ))
                   ) : (
                     <Typography variant="h6">No Groups Assigned</Typography>
                   )}

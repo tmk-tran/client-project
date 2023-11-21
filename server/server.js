@@ -17,6 +17,7 @@ const archivedOrganizationsRouter = require('./routes/archivedOrganizations.rout
 const allGroupsRouter = require('./routes/allGroups.router');
 const couponBookRouter = require('./routes/couponbook.router');
 const groupAdminRouter = require ('./routes/groupAdmin.router');
+const orgNotesRouter = require('./routes/orgNotes.router');
 const allUsersRouter = require('./routes/allUsers.router');
 
 // Body parser middleware
@@ -33,6 +34,7 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/group', groupRouter)
+app.use('/api/orgnotes', orgNotesRouter);
 app.use('/api/orgdetails', orgDetailsRouter);
 app.use('/api/organizations', organizationsRouter);
 app.use('/api/fundraisers', fundraisersRouter)
