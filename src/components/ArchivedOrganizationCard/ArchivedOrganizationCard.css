@@ -1,0 +1,133 @@
+.archivedOrganizationListContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 85%;
+    border: 1px solid #9f9e9e;
+    border-radius: 3px;
+    margin: 5px;
+    height: 148px;
+  }
+  .archivedMedia-header{
+    margin-bottom: -4px
+  }
+  .archivedOrganizationClickable {
+    flex-grow: 1;
+    cursor: pointer;
+    margin-top: -5px;
+    overflow: hidden; /* Ensure that the clickable area doesn't overflow into the actions area */
+  }
+  
+  .archivedOrganizationActions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 10px;
+    margin-bottom: 0px;
+  }
+
+  
+  .archivedOrganizationActions Button {
+    margin-top: 8px; /* Adjust this value as needed for spacing between buttons */
+  }
+  
+  .archivedOrganizationListContainer:hover {
+    background-color: rgba(78, 77, 77, 0.1);
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .archivedOrganizationHeader {
+    display: flex;
+    align-items: center;
+  }
+  
+  .archivedLogoImage {
+    width: 160px;
+    height: 145px;
+    object-fit: cover;
+    margin-top: -20px;
+  }
+  
+  .archivedOrganizationDetails {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    font-family: Telugu Sangam MN;
+    align-items: center;
+    padding-right: 150px;
+  }
+  
+  
+  .initialsContainer {
+    width: 150px;
+    margin-top: -15px;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d6d2d2; /* Optional: Add a background color for better visibility */
+    font-size: 50px;
+    font-weight: bold;
+    color: #000000; /* Optional: Set text color */
+  }
+  
+  @media (max-width: 600px) {
+    .archivedOrganizationListContainer {
+        display: flex;
+        flex-direction: column;
+        width: 80%; /* Full width on small screens */
+        border: 1px solid #9f9e9e;
+        margin: 5px;
+        height: 410px; /* Automatically adjust height */
+      }
+      
+      .archivedOrganizationHeader {
+        display: flex;
+        flex-direction: column; /* Stack items vertically on small screens */
+        align-items: center;
+      }
+      
+      .archivedLogoImage {
+        width: 270px; /* Full width on small screens */
+        height: 202px; /* Maintain aspect ratio */
+        margin-bottom: -10px;
+        margin-top: 10px
+      }
+      
+      .archivedOrganizationDetails {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        font-family: Telugu Sangam MN;
+        align-items: center;
+        padding: 0 15px; /* Adjust padding for small screens */
+      }
+      
+      .archivedOrganizationActions {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center actions on small screens */
+        margin-top: 10px; /* Add some space between details and actions */
+        margin-bottom: 0 !important;
+      }
+      
+      .initialsContainer {
+        width: 100%; /* Full width on small screens */
+        height: 200px; /* Automatically adjust height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #d6d2d2;
+        font-size: 70px; /* Adjust font size for small screens */
+        font-weight: bold;
+        color: #000000;
+      }
+      .archivedMedia-header{
+        margin-top:20px !important;
+      }
+      .archive-button{
+        margin-left: 18px;
+      }
+  }
