@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import LogoPSG from "../LogoPSG/LogoPSG";
+import NavLinks from "../NavLinks/NavLinks";
 
 import {
   Button,
@@ -35,7 +36,6 @@ function LoginForm() {
 
   return (
     <>
-      <LogoPSG />
       <br />
       <form className="formPanel"> {/* <-- this is default template styling, can remove later */}
         <Card>

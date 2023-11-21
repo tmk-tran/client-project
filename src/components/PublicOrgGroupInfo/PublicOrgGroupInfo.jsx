@@ -23,6 +23,14 @@ export default function PublicOrgGroupInfoCard({
       onClick={() => history.push(`/group/${groupInfo.group_id}`)}
     >
       <CardContent>
+        <div>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", marginBottom: "10px" }}
+          >
+            <strong> Goal:</strong>&nbsp;$2,000
+          </Typography>
+        </div>
         <div style={{ position: "relative" }}>
           {/* <div style={{ position: "absolute", top: 0, right: 0 }}>
             <Button>Edit</Button>
@@ -57,9 +65,15 @@ export default function PublicOrgGroupInfoCard({
         <div>
           <hr />
 
-          <div>
-            <TableGroupDetails groupInfo={groupInfo} />
-          </div>
+          <Typography sx={{ mt: 2 }}>
+            <strong>Category:</strong> {capitalizeWords(groupInfo.department)}
+          </Typography>
+          <Typography sx={{ mt: 2 }}>
+            Sub-Category:{" "}
+            {groupInfo.sub_department
+              ? capitalizeWords(groupInfo.sub_department)
+              : "N/A"}
+          </Typography>
 
           {/* Description Section */}
           <Typography sx={{ mt: 2, fontWeight: "bold" }}>

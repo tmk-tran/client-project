@@ -39,18 +39,38 @@ export default function NavLinks() {
       <div className="NavLinks-container">
         {/* If no user is logged in, show these links */}
         {!user.id && (
-          // If there's no user, show login/registration links
-          <div style={{ margin: "0 auto" }}>
-                  <Link className="navLink" to="/publicOrgs">
+          <>
+          <Typography>
+            <MuiLink
+              component={Link}
+              className="main-navlink"
+              to="/publicOrgs"
+              underline="hover"
+            >
               View Organizations
-            </Link>
-            <Link className="navLink" to="/login">
-              Login / Register
-            </Link>
-            <Link className="navLink" to="/about">
+            </MuiLink>
+          </Typography>
+          <Typography>
+            <MuiLink
+              component={Link}
+              className="main-navlink"
+              to="/login"
+              underline="hover"
+            >
+             Login / Register
+            </MuiLink>
+          </Typography>
+          <Typography>
+            <MuiLink
+              component={Link}
+              className="main-navlink"
+              to="/about"
+              underline="hover"
+            >
               About
-            </Link>
-          </div>
+            </MuiLink>
+          </Typography>
+        </>
         )}
 
         {/* If a user is logged in, show these links */}
@@ -67,14 +87,14 @@ export default function NavLinks() {
               </MuiLink>
             </Typography>
             <Typography>
-                  <MuiLink
-                  component={Link}
-                  className="main-navlink"
-                  to="/newFundraiser"
-                  underline="hover"
-                >
-                  New Fundraiser
-                </MuiLink>
+              <MuiLink
+                component={Link}
+                className="main-navlink"
+                to="/newFundraiser"
+                underline="hover"
+              >
+                New Fundraiser
+              </MuiLink>
             </Typography>
             <Typography>
               <MuiLink

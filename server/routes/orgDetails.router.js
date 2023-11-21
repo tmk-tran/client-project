@@ -8,7 +8,7 @@ const {
 /**
  * Get all of the details for an organization
  */
-router.get("/:id", rejectUnauthenticated, (req, res) => {
+router.get("/:id", (req, res) => {
   const orgId = req.params.id;
 
   const queryText = `SELECT

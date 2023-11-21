@@ -11,6 +11,7 @@ function LoginPage() {
 
   return (
     <div>
+      <br />
       <LoginForm />
 
       <center style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

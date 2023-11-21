@@ -18,15 +18,14 @@ function UserProfile() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: "FETCH_GROUP_ADMIN" });
-    dispatch({ type: "FETCH_ORGANIZATIONS" }); 
+    dispatch({ type: "FETCH_ORGANIZATIONS" });
     dispatch({ type: "FETCH_ALL_USERS" });
-
   }, []);
 
   const user = useSelector((store) => store.user);
   const groups = useSelector((store) => store.groupAdmin);
   const organizations = useSelector((store) => store.organizations);
-  console.log(user)
+  console.log(user);
 
   console.log("GROUPS", groups);
 
@@ -43,20 +42,9 @@ function UserProfile() {
 
   return (
     <>
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
       <div style={{ textAlign: "center" }}>
         <br />
+
         <Card
           elevation={2}
           className="headerCard"
@@ -68,13 +56,23 @@ function UserProfile() {
               <Typography variant="h5" style={{ fontWeight: "bold" }}>
                 Welcome, {user.username ? capitalizeWords(user.username) : ""}
               </Typography>
-              <Typography variant="h6">
-                Here are the groups that you are the admin of:
-              </Typography>
+              {user.is_admin ? (
+                <Typography variant="h6">You are a PSG Admin User</Typography>
+              ) : null}
             </center>
           </CardContent>
         </Card>
         <br />
+        <br />
+        {groups.length === 0 ? (
+          <Typography variant="h6">
+            You are not the admin of any groups yet.
+          </Typography>
+        ) : (
+          <Typography variant="h6">
+            Here are the groups that you are the admin of:
+          </Typography>
+        )}
         <br />
         {groups?.map((group, index) => (
           <Card
@@ -84,7 +82,10 @@ function UserProfile() {
           >
             <CardContent>
               <center>
-                <Typography variant="h6" style={{ fontWeight: "bold" }}>
+                <Typography
+                  variant="h6"
+                  style={{ fontWeight: "bold", marginBottom: "10px" }}
+                >
                   Group:{" "}
                   {group.group_nickname
                     ? group.group_nickname
