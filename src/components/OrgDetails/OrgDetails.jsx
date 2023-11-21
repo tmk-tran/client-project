@@ -30,9 +30,6 @@ export default function orgDetails() {
   console.log(notes);
   // State
   const [noteAdded, setNoteAdded] = useState(false);
-  const [view1, setView1] = useState(false);
-  const [view2, setView2] = useState(false);
-  const [view3, setView3] = useState(false);
 
   useEffect(() => {
     dispatch({
@@ -105,32 +102,6 @@ export default function orgDetails() {
                   <OrgNotes info={orgDetails} onNoteAdded={handleNoteAdded} />
                 </div>
 
-                {/* buttons for views demo */}
-                <div style={{ width: "10%", position: "relative" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      position: "absolute",
-                      top: 150,
-                    }}
-                  >
-                    <br />
-                    <button onClick={() => setView1(!view1)}>
-                      {view1 ? "Table" : "View Off"}
-                    </button>
-                    <br />
-                    <button onClick={() => setView2(!view2)}>
-                      {view2 ? "View Off" : "Center"}
-                    </button>
-                    <br />
-                    <button onClick={() => setView3(!view3)}>
-                      {view3 ? "View Off" : "Left"}
-                    </button>
-                  </div>
-                </div>
-                {/* end buttons for demo */}
-
                 {/* Toast */}
                 <ToastContainer
                   style={{
@@ -153,9 +124,6 @@ export default function orgDetails() {
                         key={groupInfo.group_id}
                         groupInfo={groupInfo}
                         groupNumber={i + 1}
-                        view1={view1}
-                        view2={view2}
-                        view3={view3}
                       />
                     ))
                   ) : (
