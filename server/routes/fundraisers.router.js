@@ -5,7 +5,7 @@ const router = express.Router();
 //Get route for fundraisers with a specific group id
 router.get("/groupfundraisers/:id", (req, res) => {
   const groupId = req.params.id
-  const queryText = `SELECT "f".id, "f".group_id, "f".title, "f".description, "f".photo, "f". requested_book_quantity, "f".book_quantity_checked_out, "f".book_checked_out_total_value, "f".book_quantity_checked_in, "f".books_sold, "f".money_received, "f".start_date, "f".end_date, "cb".year, "f".outstanding_balance, "f".closed  FROM "fundraiser" AS "f"
+  const queryText = `SELECT "f".id, "f".group_id, "f".title, "f".description, "f".photo, "f". requested_book_quantity, "f".book_quantity_checked_out, "f".book_checked_out_total_value, "f".book_quantity_checked_in, "f".books_sold, "f".money_received, "f".start_date, "f".end_date, "f".goal, "cb".year, "f".outstanding_balance, "f".closed  FROM "fundraiser" AS "f"
   JOIN "coupon_book" AS "cb" ON "f".coupon_book_id = "cb".id
   WHERE "f".group_id = $1
   ORDER BY "f".id ASC,"f".closed = false;`;
@@ -22,10 +22,10 @@ router.get("/groupfundraisers/:id", (req, res) => {
 //Post route for a new fundraiser, data comes from form inputs
 router.post('/', (req, res) => {
   const newFundraiser = req.body
-  const queryText = `INSERT INTO "fundraiser" ("group_id", "title", "description", "photo", "requested_book_quantity", "book_quantity_checked_out", "book_quantity_checked_in", "books_sold", "money_received", "start_date", "end_date", "coupon_book_id" )
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
+  const queryText = `INSERT INTO "fundraiser" ("group_id", "title", "description", "photo", "requested_book_quantity", "book_quantity_checked_out", "book_quantity_checked_in", "books_sold", "goal", "money_received", "start_date", "end_date", "coupon_book_id" )
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
 
-  pool.query(queryText, [newFundraiser.group_id, newFundraiser.title, newFundraiser.description, newFundraiser.photo, newFundraiser.requested_book_quantity, newFundraiser.book_quantity_checked_out,  newFundraiser.book_quantity_checked_in, newFundraiser.books_sold, newFundraiser.money_received, newFundraiser.start_date, newFundraiser.end_date, newFundraiser.coupon_book_id])
+  pool.query(queryText, [newFundraiser.group_id, newFundraiser.title, newFundraiser.description, newFundraiser.photo, newFundraiser.requested_book_quantity, newFundraiser.book_quantity_checked_out,  newFundraiser.book_quantity_checked_in, newFundraiser.books_sold, newFundraiser.goal, newFundraiser.money_received, newFundraiser.start_date, newFundraiser.end_date, newFundraiser.coupon_book_id])
     .then(() => {
       res.sendStatus(201)
     })
