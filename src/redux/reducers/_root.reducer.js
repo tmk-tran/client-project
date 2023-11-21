@@ -12,6 +12,9 @@ import allGroups from "./allGroups.reducer.js";
 import couponBooks from "./couponBook.reducer";
 import groupAdmin from "./groupAdmin.reducer.js";
 import orgNotes from "./orgNotes.reducer.js";
+import groupAdmin from './groupAdmin.reducer.js';
+import allUsers from './allUsers.reducer.js';
+
 
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
@@ -27,6 +30,7 @@ const rootReducer = combineReducers({
   couponBooks,
   groupAdmin,
   orgNotes,
+  allUsers,
 });
 
 export default rootReducer;
