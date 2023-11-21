@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, TableBody, TableRow, TableCell, TableHead } from "@mui/material";
+import { Table, TableBody, TableRow, TableCell, TableHead, Typography } from "@mui/material";
 import { capitalizeWords, centerStyle } from "../Utils/helpers";
 
 export default function TableGroupDetails({ groupInfo }) {
@@ -8,15 +8,16 @@ export default function TableGroupDetails({ groupInfo }) {
       <TableHead>
         <TableRow>
           <TableCell style={centerStyle}>
-            <strong>Department:</strong>
+            <strong>Category:</strong>
           </TableCell>
           <TableCell>{capitalizeWords(groupInfo.department)}</TableCell>
+          {/* <TableCell><Typography sx={{ fontWeight: "bold" }}>Goals</Typography></TableCell> */}
         </TableRow>
       </TableHead>
       <TableBody>
         <TableRow>
           <TableCell style={centerStyle}>
-            <strong>Division:</strong>
+            <strong>Sub-Category:</strong>
           </TableCell>
           <TableCell>
             {groupInfo.sub_department

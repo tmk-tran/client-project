@@ -8,7 +8,7 @@ import "./OrgGroupInfo.css";
 // Components
 import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 
-export default function OrgGroupInfoCard({ groupInfo, view1, view2, view3 }) {
+export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
 
   return (
@@ -18,6 +18,14 @@ export default function OrgGroupInfoCard({ groupInfo, view1, view2, view3 }) {
       onClick={() => history.push(`/group/${groupInfo.group_id}`)}
     >
       <CardContent>
+        <div>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", marginBottom: "10px" }}
+          >
+            <strong> Goal:</strong>&nbsp;$2,000
+          </Typography>
+        </div>
         <div style={{ position: "relative" }}>
           {/* <div style={{ position: "absolute", top: 0, right: 0 }}>
             <Button>Edit</Button>
@@ -52,69 +60,15 @@ export default function OrgGroupInfoCard({ groupInfo, view1, view2, view3 }) {
         <div>
           <hr />
 
-          <center>
-            {/* Option 1, view details */}
-            {view1 ? (
-              <></>
-            ) : (
-              <>
-                <div>
-                  <TableGroupDetails groupInfo={groupInfo} />
-                </div>
-              </>
-            )}
-
-            {/* Option 2, view details */}
-            {view2 ? (
-              <>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <Typography sx={{ mt: 2 }}>
-                    <span style={{ textDecoration: "underline" }}>
-                      <strong>Category</strong>
-                    </span>{" "}
-                    <br />
-                    {capitalizeWords(groupInfo.department)}
-                  </Typography>
-
-                  <Typography sx={{ mt: 2 }}>
-                    <span style={{ textDecoration: "underline" }}>
-                      <strong>Sub-Category</strong>
-                    </span>{" "}
-                    <br />
-                    {groupInfo.sub_department
-                      ? capitalizeWords(groupInfo.sub_department)
-                      : "N/A"}
-                  </Typography>
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-
-            {/* Option 3, view details */}
-            {view3 ? (
-              <>
-                <Typography sx={{ mt: 2 }}>
-                  <strong>Department:</strong>{" "}
-                  {capitalizeWords(groupInfo.department)}
-                </Typography>
-                <Typography sx={{ mt: 2 }}>
-                  <strong>Division:</strong>{" "}
-                  {groupInfo.sub_department
-                    ? capitalizeWords(groupInfo.sub_department)
-                    : "N/A"}
-                </Typography>
-              </>
-            ) : (
-              <></>
-            )}
-          </center>
+          <Typography sx={{ mt: 2 }}>
+            <strong>Category:</strong> {capitalizeWords(groupInfo.department)}
+          </Typography>
+          <Typography sx={{ mt: 2 }}>
+            Sub-Category:{" "}
+            {groupInfo.sub_department
+              ? capitalizeWords(groupInfo.sub_department)
+              : "N/A"}
+          </Typography>
 
           {/* Description Section */}
           <Typography sx={{ mt: 2, fontWeight: "bold" }}>
