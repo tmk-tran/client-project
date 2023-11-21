@@ -91,7 +91,7 @@ const formattedOutstandingBalance = isNaN(outstandingBalance) ? "N/A" : outstand
                   ${formattedOutstandingBalance}
                 </div>
                 <div>
-                  Total Raised:{" "}
+                  Organization Earnings:{" "}
                   ${formattedEarnings}
                 </div>
               </div>

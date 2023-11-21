@@ -10,6 +10,7 @@ import {
   Button,
 } from "@mui/material";
 import Swal from "sweetalert2";
+import "./ArchivedOrganizationCard.css"
 
 function ArchivedOrganizationCard({ organization }) {
   const history = useHistory();
@@ -40,7 +41,7 @@ function unArchive(organizationId){
     if (organization.organization_logo) {
       return (
         <img
-          className="logoImage"
+          className="archivedLogoImage"
           src={organization.organization_logo}
           alt="Organization Logo"
         />
@@ -59,13 +60,13 @@ function unArchive(organizationId){
 
   return (
     <>
-    <Card className="organizationListContainer">
+    <Card className="archivedOrganizationListContainer">
       <CardContent>
-        <div className="organizationClickable" onClick={goToDetails}>
-          <div className="organizationHeader">
+        <div className="archivedOrganizationClickable" onClick={goToDetails}>
+          <div className="archivedOrganizationHeader">
             {renderLogoOrInitials()}
-            <div className="organizationDetails">
-              <h2 style={{marginTop: "0px"}}className="media-header">
+            <div className="archivedOrganizationDetails">
+              <h2 style={{marginTop: "0px"}}className="archivedMedia-header">
                 {organization.organization_name}
               </h2>
               <div>Total Groups: {organization.total_groups}</div>
@@ -77,7 +78,7 @@ function unArchive(organizationId){
           </div>
         </div>
 
-        <div className="organizationActions" style={{ marginTop:"-88px" }}>
+        <div className="archivedOrganizationActions" style={{ marginTop:"-85px" }}>
           <Button
             style={{ marginRight: "16px" }}
             onClick={(e) => {
@@ -85,7 +86,7 @@ function unArchive(organizationId){
               unArchive(organization.id);
             }}
           >
-            <span className="edit-button">Un-archive</span>
+            <span className="archive-button">Un-archive</span>
           </Button>
         </div>
       </CardContent>

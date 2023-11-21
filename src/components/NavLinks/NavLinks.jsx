@@ -41,6 +41,9 @@ export default function NavLinks() {
         {!user.id && (
           // If there's no user, show login/registration links
           <div style={{ margin: "0 auto" }}>
+                  <Link className="navLink" to="/publicOrgs">
+              View Organizations
+            </Link>
             <Link className="navLink" to="/login">
               Login / Register
             </Link>
