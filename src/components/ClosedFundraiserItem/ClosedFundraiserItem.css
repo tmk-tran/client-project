@@ -1,6 +1,6 @@
 .closed_item_cell{
     border: 2px solid black; 
-    width: 100px ;
+    max-width: 100px ;
     height: 40px;
     padding: 0px;
     text-align: center !important;
