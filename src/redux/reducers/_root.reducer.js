@@ -12,7 +12,6 @@ import allGroups from "./allGroups.reducer.js";
 import couponBooks from "./couponBook.reducer";
 import groupAdmin from "./groupAdmin.reducer.js";
 import orgNotes from "./orgNotes.reducer.js";
-import groupAdmin from './groupAdmin.reducer.js';
 import allUsers from './allUsers.reducer.js';
 
 
