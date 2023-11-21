@@ -12,7 +12,7 @@ import {
   useMediaQuery,
 } from "@mui/material/";
 // Icons
-import "./OrgNotes.css";
+import "./OrgNotesModal.css";
 // Utils
 import { modalBtnStyle, showToast } from "../Utils/helpers";
 
