@@ -12,6 +12,7 @@ import allGroups from "./allGroups.reducer.js";
 import couponBooks from "./couponBook.reducer";
 import orgNotes from "./orgNotes.reducer.js";
 import allUsers from './allUsers.reducer.js';
+import groupAdmin from "./groupAdmin.reducer"
 
 
 // This is what we get when we use 'state' inside of 'mapStateToProps'
