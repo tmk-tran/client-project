@@ -6,7 +6,7 @@ const {
 } = require("../modules/authentication-middleware");
 
 router.get("/:id", rejectUnauthenticated, (req, res) => {
-  const orgId = req.params;
+  const orgId = req.params.id;
   console.log("orgId = ", orgId);
   const queryText = `SELECT * FROM "organization_notes" WHERE organization_id = $1;`;
   pool
