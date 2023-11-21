@@ -16,7 +16,7 @@ import "./OrgNotes.css";
 // Utils
 import { modalBtnStyle, showToast } from "../Utils/helpers";
 
-export default function BasicPopover({ info }) {
+export default function NotesPopover({ info, onNoteAdded }) {
   const dispatch = useDispatch();
   const paramsObject = useParams();
   // state for the popover
@@ -25,37 +25,47 @@ export default function BasicPopover({ info }) {
   const [orgId, setOrgId] = useState(info.organization_id);
   const [newNote, setNewNote] = useState("");
   const [noteDate, setNoteDate] = useState(new Date());
+  const [noteAdded, setNoteAdded] = useState(false);
 
   const isMobile = useMediaQuery(useTheme().breakpoints.down("sm"));
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-//   useEffect(() => {
-//     dispatch({
-//       type: "FETCH_ORG_NOTES",
-//       payload: paramsObject.id,
-//     });
-//   }, []);
+  useEffect(() => {
+    // Fetch org notes whenever noteAdded changes
+    dispatch({
+      type: "FETCH_ORG_NOTES",
+      payload: paramsObject.id,
+    });
+
+    // Reset noteAdded after fetching data
+    setNoteAdded(false);
+  }, [dispatch, paramsObject.id, noteAdded]);
+
+  // Trigger onNoteAdded when a new note is added
+  useEffect(() => {
+    if (noteAdded) {
+      onNoteAdded();
+    }
+  }, [noteAdded, onNoteAdded]);
 
   const handleSave = () => {
-    // Trim the time part of the noteDate
-    const trimmedDate = new Date(noteDate);
-    trimmedDate.setUTCHours(0, 0, 0, 0);
     // Format the date as "mm/dd/yyyy"
-    const formattedDate = trimmedDate.toLocaleDateString("en-US");
+    const formattedDate = noteDate.toLocaleDateString("en-US");
 
     const sendNote = {
       organization_id: orgId,
       note_date: formattedDate,
       note_content: newNote,
     };
-
     // from Utils
     // showToast();
 
     dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
+    setNoteAdded(true);
 
     handleClose();
+    onNoteAdded();
   };
 
   const handleClick = (event) => {

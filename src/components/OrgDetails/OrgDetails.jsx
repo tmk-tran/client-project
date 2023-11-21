@@ -15,6 +15,8 @@ import OrgNotes from "../OrgNotes/OrgNotes";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// Utils
+import { formatDate } from "../Utils/helpers";
 
 export default function orgDetails() {
   const theme = useTheme();
@@ -27,6 +29,7 @@ export default function orgDetails() {
   const notes = useSelector((store) => store.orgNotes);
   console.log(notes);
   // State
+  const [noteAdded, setNoteAdded] = useState(false);
   const [view1, setView1] = useState(false);
   const [view2, setView2] = useState(false);
   const [view3, setView3] = useState(false);
@@ -40,10 +43,8 @@ export default function orgDetails() {
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
-    dispatch({
-      type: "FETCH_ORG_NOTES",
-      payload: paramsObject.id,
-    });
+    // Reset noteAdded after fetching data
+    setNoteAdded(false);
   }, [paramsObject.id, groups]);
 
   // Create a map to store organization details and associated groups
@@ -68,6 +69,10 @@ export default function orgDetails() {
     });
   });
 
+  const handleNoteAdded = () => {
+    setNoteAdded(true);
+  };
+
   return (
     <div
       className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
@@ -78,7 +83,7 @@ export default function orgDetails() {
             {notes && notes.length > 0 ? (
               notes.map((note, i) => (
                 <div key={i}>
-                  <p>{note.note_date}</p>
+                  <p>{formatDate(note.note_date)}</p>
                   <p>{note.note_content}</p>
                 </div>
               ))
@@ -97,7 +102,7 @@ export default function orgDetails() {
 
                 {/* Notes Section */}
                 <div>
-                  <OrgNotes info={orgDetails} />
+                  <OrgNotes info={orgDetails} onNoteAdded={handleNoteAdded} />
                 </div>
 
                 {/* buttons for views demo */}

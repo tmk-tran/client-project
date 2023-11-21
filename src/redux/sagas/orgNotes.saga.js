@@ -15,8 +15,8 @@ function* orgNotes(action) {
 function* addNotes(action) {
   try {
     console.log(action.payload);
-    yield axios.post("/api/orgnotes", action.payload);
-    yield put({ type: "FETCH_ORG_NOTES" });
+    yield axios.post(`/api/orgnotes/`, action.payload);
+    yield put({ type: "FETCH_ORG_NOTES", payload: action.payload });
   } catch (error) {
     console.log("error in addNotes Saga", error);
   }

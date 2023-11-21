@@ -10,6 +10,13 @@ export function formatPhoneNumber(phoneNumber) {
   return "Invalid phone number";
 }
 
+// Format date to MM/DD/YYYY, used in OrgNotes component
+export const formatDate = (dateString) => {
+  const dateWithoutTime = dateString.split("T")[0]; // Extract only the date part
+  const [year, month, day] = dateWithoutTime.split("-");
+  return `${month}/${day}/${year}`;
+};
+
 // Function to capitalize the first letter of each word
 export const capitalizeWords = (sentence) => {
   return sentence
@@ -112,9 +119,11 @@ export const centerDiv = {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const showToast = () => {toast.success("Changes saved successfully!", {
-  position: toast.POSITION.RIGHT_CENTER,
-  autoClose: 2000,
-  closeButton: false,
-  hideProgressBar: true,
-})};
+export const showToast = () => {
+  toast.success("Changes saved successfully!", {
+    position: toast.POSITION.RIGHT_CENTER,
+    autoClose: 2000,
+    closeButton: false,
+    hideProgressBar: true,
+  });
+};
