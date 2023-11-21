@@ -11,6 +11,7 @@ import archivedOrganizations from './archivedOrganizations.reducer.js';
 import allGroups from './allGroups.reducer.js';
 import couponBooks from "./couponBook.reducer";
 import groupAdmin from './groupAdmin.reducer.js';
+import allUsers from './allUsers.reducer.js';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   allGroups,
   couponBooks,
   groupAdmin,
+  allUsers
 
 });
 

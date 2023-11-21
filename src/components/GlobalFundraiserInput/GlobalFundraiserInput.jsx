@@ -43,7 +43,7 @@ export default function GlobalFundraiserInput() {
   const [booksOutValue, setBooksOutValue] = useState(null);
   const [booksCheckedIn, setBooksCheckedIn] = useState(null);
   const [booksSold, setBooksSold] = useState(null);
-  const [moneyReceived, setMoneyRecieved] = useState(null);
+  const [moneyReceived, setMoneyReceived] = useState(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [couponBookId, setCouponBookId] = useState("");
@@ -200,11 +200,13 @@ export default function GlobalFundraiserInput() {
                   value={couponBookId}
                   onChange={(e) => setCouponBookId(e.target.value)}
                 >
-                  {couponBooks.map((couponBook) => (
-                    <MenuItem value={couponBook.id} key={couponBook.id}>
-                      {couponBook.year}
-                    </MenuItem>
-                  ))}
+                  {couponBooks
+                    .sort((a, b) => parseInt(a.year, 10) - parseInt(b.year, 10))
+                    .map((couponBook) => (
+                      <MenuItem value={couponBook.id} key={couponBook.id}>
+                        {couponBook.year}
+                      </MenuItem>
+                    ))}
                 </TextField>
               </Box>
             ) : (
@@ -327,7 +329,6 @@ export default function GlobalFundraiserInput() {
             <Button
               variant="contained"
               style={{
-                backgroundColor: "#DAA226",
                 color: "white",
                 fontSize: "16px",
                 marginTop: "0px",
