@@ -56,6 +56,7 @@ function LoginForm() {
                 required
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
+                style={{marginBottom: "10px"}}
               >
                 Username
               </TextField>
@@ -66,8 +67,9 @@ function LoginForm() {
                 required
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
+     
               >
-                Username
+                Password
               </TextField>
             </div>
             <br />

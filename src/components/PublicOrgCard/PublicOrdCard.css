@@ -1,0 +1,74 @@
+.publicOrganizationListContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 85%;
+    border: 1px solid #9f9e9e;
+    border-radius: 3px;
+    margin: 5px;
+    height: 148px;
+  }
+  .publicMedia-header{
+    margin-bottom: -4px
+  }
+  .publicOrganizationClickable {
+    flex-grow: 1;
+    cursor: pointer;
+    margin-top: -5px;
+    overflow: hidden; /* Ensure that the clickable area doesn't overflow into the actions area */
+  }
+  
+  .publicOrganizationActions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 10px;
+    margin-bottom: 0px;
+  }
+
+  
+  .organizationActions Button {
+    margin-top: 8px; /* Adjust this value as needed for spacing between buttons */
+  }
+  
+  .publicOrganizationListContainer:hover {
+    background-color: rgba(78, 77, 77, 0.1);
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .publicOrganizationHeader {
+    display: flex;
+    align-items: center;
+  }
+  
+  .publicLogoImage {
+    width: 160px;
+    height: 155px;
+    object-fit: cover;
+    margin-top: -30px;
+  }
+  
+  .publicOrganizationDetails {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    font-family: Telugu Sangam MN;
+    align-items: center;
+    padding-right: 150px;
+  }
+  
+  
+  .initialsContainer {
+    width: 150px;
+    margin-top: -15px;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d6d2d2; /* Optional: Add a background color for better visibility */
+    font-size: 50px;
+    font-weight: bold;
+    color: #000000; /* Optional: Set text color */
+  }

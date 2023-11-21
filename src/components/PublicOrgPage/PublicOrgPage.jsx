@@ -10,12 +10,12 @@ import {
 import OrganizationCard from "../OrganizationCard/OrganizationCard";
 import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
-import "./UserPage.css";
+import "./PublicOrgPage.css"
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
-import OrgListView from "../OrgListView/OrgListView.jsx";
+import PublicOrgCard from "../PublicOrgCard/PublicOrgCard.jsx";
 
-function UserPage() {
+function PublicOrgPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: "FETCH_ORGANIZATIONS" });
@@ -91,21 +91,12 @@ function UserPage() {
             Organization List
           </Typography>
           <br />
-          <Button
-            style={{ marginBottom: "5px" }}
-            variant="outlined"
-            onClick={handleAddOrganizationClick}
-          >
-            Add Organization
-          </Button>
-
           {showInput ? (
             <>
             <br />
         <TextField
           style={{
-            marginTop: "10px",
-            marginLeft: '3%',
+            marginTop: "-20px",
             borderRadius: '4px',
             width: '230px',
             backgroundColor: 'white',
@@ -126,8 +117,6 @@ function UserPage() {
         <SearchIcon
           color="primary"
           style={{
-            marginLeft: '3%',
-            marginBottom: '-7px',
             cursor: 'pointer',
           }}
           onClick={() => setShowInput(true)}
@@ -136,7 +125,7 @@ function UserPage() {
       {showInput && (
         <Button
           style={{
-            marginTop: '15px',
+            marginTop: '-17px',
             marginLeft: '10px',
             backgroundColor: '#DAA226',
             height: '30px',
@@ -154,8 +143,7 @@ function UserPage() {
         </center>
         <div className="organizationsContainer">
           {currentItems.map((organization, index) => (
-            <OrgListView key={index} organization={organization} />
-            // <OrganizationCard key={index} organization={organization} />
+            <PublicOrgCard key={index} organization={organization} />
           ))}
         </div>
         <AddOrganizationModal
@@ -178,4 +166,4 @@ function UserPage() {
   );
 }
 
-export default UserPage;
+export default PublicOrgPage;

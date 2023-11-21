@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import LogoPSG from '../LogoPSG/LogoPSG';
+import {
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+} from "@mui/material";
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -20,41 +28,62 @@ function RegisterForm() {
   }; // end registerUser
 
   return (
+    <>
+    <LogoPSG />
+    <br />
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+      <Card>
+        <CardContent>
+          <Typography
+            variant="h5"
+            component="h2"
+            style={{ fontWeight: "bold" }}
+          >
+          Register User
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={username}
-            required
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            required
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
-      </div>
+          </Typography>
+          <br />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <TextField
+              type="text"
+              label="Username"
+              name="username"
+              required
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+              style={{marginBottom: "10px"}}
+            >
+              Username
+            </TextField>
+            <TextField
+              type="password"
+              label="Password"
+              name="password"
+              required
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+   
+            >
+              Password
+            </TextField>
+          </div>
+          <br />
+          <div>
+          <Button variant="contained" onClick={registerUser} fullWidth>
+                Register
+              </Button>
+          </div>
+        </CardContent>
+      </Card>
     </form>
+  </>
+
+
+    
   );
 }
 
