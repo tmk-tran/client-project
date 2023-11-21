@@ -24,12 +24,12 @@ export default function ClosedFundraiserItem({ fundraiser }) {
             'The fundraiser has been reopened.',
             'success'
         )
-        dispatch ({
-            type: "OPEN_FUNDRAISER", 
+        dispatch({
+            type: "OPEN_FUNDRAISER",
             payload: { id: Number(fundraiser.id), group_id: Number(fundraiser.group_id) }
         })
     }
-    
+
     //Elements used in component, conditionally renders data if the fundraiser is set to closed
     return (
         <>
@@ -42,9 +42,9 @@ export default function ClosedFundraiserItem({ fundraiser }) {
                     <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>{formatDate(fundraiser.start_date)}</Typography></TableCell>
                     <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>{formatDate(fundraiser.end_date)}</Typography></TableCell>
                     <TableCell className="closed_item_cell"><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>{fundraiser.year}</Typography></TableCell>
-                    <TableCell className="closed_item_cell" style={{ textAlign: "center"}}><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>${fundraiser.goal}</Typography></TableCell>
-                    <TableCell className="closed_item_cell" style={{ textAlign: "center"}}><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>${fundraiser.outstanding_balance}</Typography></TableCell>
-                    <TableCell className="closed_item_cell" style={{ textAlign: "center"}}><Button style={{ margin: "2px" }} variant="contained" size="small" onClick={handleClick}><Typography style={{ fontSize: "12px" }}>Open</Typography></Button> </TableCell>
+                    <TableCell className="closed_item_cell" style={{ textAlign: "center" }}><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>${fundraiser.goal}</Typography></TableCell>
+                    <TableCell className="closed_item_cell" style={{ textAlign: "center" }}><Typography style={{ fontSize: "15px", width: "100px", textAlign: "center" }}>${fundraiser.outstanding_balance}</Typography></TableCell>
+                    <TableCell className="closed_item_cell" style={{ textAlign: "center" }}><Button style={{ margin: "2px" }} variant="contained" size="small" onClick={handleClick}><Typography style={{ fontSize: "12px" }}>Open</Typography></Button> </TableCell>
                 </TableRow>
             }
         </>
