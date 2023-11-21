@@ -67,6 +67,7 @@ CREATE TABLE "fundraiser" (
 	"is_deleted" BOOLEAN NOT NULL DEFAULT 'false',
 	"closed" BOOLEAN NOT NULL DEFAULT 'false',
 	"goal" integer DEFAULT NULL
+
 );
 
 ----------------------------------------------------------------------------------------------
