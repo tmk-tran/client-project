@@ -247,11 +247,13 @@ export default function GlobalFundraiserInput() {
                 fullWidth
               />
                   <TextField
-                label="Fundraiser Financial Goal"
+                label="$ Fundraiser Financial Goal"
                 type="number"
+
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
                 fullWidth
+
               />
               <TextField
                 multiline
