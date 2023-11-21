@@ -12,7 +12,6 @@ import {
   useMediaQuery,
 } from "@mui/material/";
 // Icons
-import EditNoteIcon from "@mui/icons-material/EditNote";
 import "./OrgNotes.css";
 // Utils
 import { modalBtnStyle, showToast } from "../Utils/helpers";
@@ -80,7 +79,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
   return (
     <div className="popover-notes-container">
       <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        <EditNoteIcon />
+        Notes
       </Button>
       <Popover
         id={id}
@@ -98,11 +97,6 @@ export default function NotesPopover({ info, onNoteAdded }) {
         }}
       >
         <Box style={{ padding: "20px" }}>
-          <div>
-            <Typography sx={{ p: 1, textAlign: "center", fontWeight: "bold" }}>
-              Notes
-            </Typography>
-          </div>
           <div>
             <div className="add-notes">
               <TextField

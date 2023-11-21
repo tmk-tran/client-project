@@ -58,8 +58,9 @@
 .orgNotes-container {
   overflow-wrap: break-word;
   overflow-y: auto;
-  border: 1px solid black;
+  border: 1px solid rgb(218, 218, 218);
   max-height: 300px;
+  padding-left: 25px;
 }
 
 @media (max-width: 400px) {

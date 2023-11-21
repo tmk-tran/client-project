@@ -98,15 +98,20 @@ export default function orgDetails() {
           </div> */}
           <div className="detailsOrg-container">
             <div className="notes-card-container">
-              <Card elevation={3} className="notes-card">
+              <Card elevation={4} className="notes-card">
                 <CardContent>
+                  <Typography variant="h6" sx={{ textAlign: "center", mb: 1 }}>Notes</Typography>
                   <div className="orgNotes-container">
                     {notes && notes.length > 0 ? (
                       <div>
                         {notes.map((note, i) => (
                           <div key={i}>
-                            <p>{formatDate(note.note_date)}</p>
-                            <p>{note.note_content}</p>
+                            {/* <center> */}
+                            <Typography variant="body2">{formatDate(note.note_date)}</Typography>
+                            {/* </center> */}
+                            <li>{note.note_content}</li>
+                            <br />
+                            <hr style={{ width: "80%" }} />
                           </div>
                         ))}
                       </div>
