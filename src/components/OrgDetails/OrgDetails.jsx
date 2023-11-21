@@ -11,12 +11,12 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
-import OrgNotes from "../OrgNotes/OrgNotes";
+import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// Utils
-import { formatDate } from "../Utils/helpers";
+// Icons
+import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 
 export default function orgDetails() {
   const theme = useTheme();
@@ -27,7 +27,6 @@ export default function orgDetails() {
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
   const groups = useSelector((store) => store.orgGroups);
   const notes = useSelector((store) => store.orgNotes);
-  console.log(notes);
   // State
   const [noteAdded, setNoteAdded] = useState(false);
 
@@ -76,52 +75,8 @@ export default function orgDetails() {
     >
       <Card className="OrgDetails-card" elevation={3}>
         <CardContent>
-          {/* <div className="notes-card-container">
-            <Card elevation={3} className="notes-card">
-              <CardContent>
-                <div className="orgNotes-container">
-                  {notes && notes.length > 0 ? (
-                    <div>
-                      {notes.map((note, i) => (
-                        <div key={i}>
-                          <p>{formatDate(note.note_date)}</p>
-                          <p>{note.note_content}</p>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <Typography variant="h6">No Notes Available</Typography>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </div> */}
           <div className="detailsOrg-container">
-            <div className="notes-card-container">
-              <Card elevation={4} className="notes-card">
-                <CardContent>
-                  <Typography variant="h6" sx={{ textAlign: "center", mb: 1 }}>Notes</Typography>
-                  <div className="orgNotes-container">
-                    {notes && notes.length > 0 ? (
-                      <div>
-                        {notes.map((note, i) => (
-                          <div key={i}>
-                            {/* <center> */}
-                            <Typography variant="body2">{formatDate(note.note_date)}</Typography>
-                            {/* </center> */}
-                            <li>{note.note_content}</li>
-                            <br />
-                            <hr style={{ width: "80%" }} />
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <Typography variant="h6">No Notes Available</Typography>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <OrgNotesDisplay notes={notes} />
             {/* Iterate over the unique organizations in the map */}
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
@@ -132,7 +87,10 @@ export default function orgDetails() {
 
                 {/* Notes Section */}
                 <div>
-                  <OrgNotes info={orgDetails} onNoteAdded={handleNoteAdded} />
+                  <OrgNotesModal
+                    info={orgDetails}
+                    onNoteAdded={handleNoteAdded}
+                  />
                 </div>
 
                 {/* Toast */}

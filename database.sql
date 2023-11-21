@@ -66,7 +66,8 @@ CREATE TABLE "fundraiser" (
 	"outstanding_balance" DECIMAL,
 	"is_deleted" BOOLEAN NOT NULL DEFAULT 'false',
 	"closed" BOOLEAN NOT NULL DEFAULT 'false',
-	"goal" int
+	"goal" integer DEFAULT NULL
+
 );
 
 ----------------------------------------------------------------------------------------------
