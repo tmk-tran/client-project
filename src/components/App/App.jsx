@@ -51,7 +51,7 @@ function App() {
 
   useEffect(() =>{
     dispatch({ type: "FETCH_COUPON_BOOKS"})
-  }, [user])
+  }, [user]);
 
   return (
     <Router>

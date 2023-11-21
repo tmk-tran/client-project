@@ -11,6 +11,7 @@ import archivedOrganizationsSaga from './archivedOrganizations.saga';
 import allGroupsSaga from './allGroups.saga';
 import couponBookSaga from './couponBook.saga';
 import groupAdminSaga from './groupAdmin.saga';
+import orgNotesSaga from './orgNotes.saga';
 import allUsersSaga from './allUsers.saga';
 
 // rootSaga is the primary saga.
@@ -33,6 +34,7 @@ export default function* rootSaga() {
     allGroupsSaga(),
     couponBookSaga(),
     groupAdminSaga(),
-    allUsersSaga()
+    orgNotesSaga(),
+    allUsersSaga(),
   ]);
 }

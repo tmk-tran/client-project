@@ -10,35 +10,6 @@ const {
  */
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const orgId = req.params.id;
-  // const queryText = `
-  //     SELECT
-  //         o.id AS organization_id,
-  //         o.organization_name,
-  //         o.type,
-  //         o.address,
-  //         o.city,
-  //         o.state,
-  //         o.zip,
-  //         o.primary_contact_first_name,
-  //         o.primary_contact_last_name,
-  //         o.primary_contact_phone,
-  //         o.primary_contact_email,
-  //         o.organization_logo,
-  //         g.id AS group_id,
-  //         g.department,
-  //         g.sub_department,
-  //         g.group_nickname,
-  //         g.group_photo,
-  //         g.group_description
-  //     FROM
-  //         "organization" o
-  //     JOIN
-  //         "group" g ON o.id = g.organization_id
-  //     WHERE
-  //         o.id = $1 AND
-  //         o.is_deleted = false AND
-  //         g.is_deleted = false;
-  // `;
 
   const queryText = `SELECT
   o.id AS organization_id,
