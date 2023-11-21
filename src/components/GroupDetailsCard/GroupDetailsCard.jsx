@@ -20,7 +20,6 @@ export default function GroupDetailsCard({ group }) {
    //State used for the inputs in the modal add fundraiser form, set by on change eventes
    const [title, setTitle] = useState("")
    const [description, setDescription] = useState("")
-   const [photoUrl, setPhotoUrl] = useState("")
    const [booksRequested, setBooksRequested] = useState("")
    const [booksCheckedOut, setBooksCheckedOut] = useState("")
    const [booksCheckedIn, setBooksCheckedIn] = useState("")
@@ -33,7 +32,7 @@ export default function GroupDetailsCard({ group }) {
    //Function that runs on click of the submit button in add fundraiser form. This creates a new objcet that is sent to the back end to be added to the database and resets the state of the inputs in the form and closes the modal.
    const submitFundraiser = (e) => {
       e.preventDefault;
-      const newFundraiser = { group_id: group.id, title: title, description: description, photo: photoUrl, requested_book_quantity: booksRequested, book_quantity_checked_out: booksCheckedOut, book_quantity_checked_in: booksCheckedIn, books_sold: booksSold, goal: goal, money_received: moneyReceived, start_date: startDtate, end_date: endDate, coupon_book_id: couponBookId }
+      const newFundraiser = { group_id: group.id, title: title, description: description, requested_book_quantity: booksRequested, book_quantity_checked_out: booksCheckedOut, book_quantity_checked_in: booksCheckedIn, books_sold: booksSold, goal: goal, money_received: moneyReceived, start_date: startDtate, end_date: endDate, coupon_book_id: couponBookId }
       console.log(newFundraiser);
       Swal.fire(
          'Game Created!',
@@ -43,7 +42,6 @@ export default function GroupDetailsCard({ group }) {
       dispatch({ type: "ADD_FUNDRAISER", payload: newFundraiser })
       setTitle("");
       setDescription("");
-      setPhotoUrl("")
       setBooksRequested("");
       setBooksCheckedOut("");
       setBooksCheckedIn("");
@@ -106,28 +104,25 @@ export default function GroupDetailsCard({ group }) {
                   <div>
                      <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={6}>
-                           <TextField fullWidth style={{ margin: "5px" }} label="Photo URL" type="text" placeholder="Photo URL" value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)}></TextField>
-                        </Grid>
-                        <Grid item xs={6}>
                            <TextField fullWidth style={{ margin: "5px" }} label="Books Requested" type="text" placeholder="Books Requested" value={booksRequested} onChange={(e) => setBooksRequested(e.target.value)}></TextField>
                         </Grid>
-                     </Grid>
-                  </div>
-                  <div>
-                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={6}>
                            <TextField fullWidth style={{ margin: "5px" }} label="Books Checked Out" type="number" placeholder="Books Checked Out" value={booksCheckedOut} onChange={(e) => setBooksCheckedOut(e.target.value)}></TextField>
                         </Grid>
-                        <Grid item xs={6}>
-                           <TextField fullWidth style={{ margin: "5px" }} label="Books Checked In" type="number" placeholder="Books Checked In" value={booksCheckedIn} onChange={(e) => setBooksCheckedIn(e.target.value)}></TextField>
-                        </Grid>
                      </Grid>
                   </div>
                   <div>
                      <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={6}>
+                           <TextField fullWidth style={{ margin: "5px" }} label="Books Checked In" type="number" placeholder="Books Checked In" value={booksCheckedIn} onChange={(e) => setBooksCheckedIn(e.target.value)}></TextField>
+                           </Grid>
+                           <Grid item xs={6}>
                            <TextField fullWidth style={{ margin: "5px" }} label="Books Sold" type="number" placeholder="Books Sold" value={booksSold} onChange={(e) => setBooksSold(e.target.value)}></TextField>
                         </Grid>
+                     </Grid>
+                  </div>
+                  <div>
+                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item xs={6}>
                            <TextField fullWidth style={{ margin: "5px" }} label="Goal" type="number" placeholder="Goal" value={goal} onChange={(e) => setGoal(e.target.value)}></TextField>
                         </Grid>

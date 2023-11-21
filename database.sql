@@ -65,7 +65,8 @@ CREATE TABLE "fundraiser" (
 	"coupon_book_id" integer REFERENCES "coupon_book"("id") NOT NULL,
 	"outstanding_balance" DECIMAL,
 	"is_deleted" BOOLEAN NOT NULL DEFAULT 'false',
-	"closed" BOOLEAN NOT NULL DEFAULT 'false'
+	"closed" BOOLEAN NOT NULL DEFAULT 'false',
+	"goal" integer DEFAULT NULL
 );
 
 ----------------------------------------------------------------------------------------------
