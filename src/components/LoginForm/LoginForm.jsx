@@ -37,7 +37,9 @@ function LoginForm() {
   return (
     <>
       <br />
-      <form className="formPanel"> {/* <-- this is default template styling, can remove later */}
+      <form className="formPanel">
+        {" "}
+        {/* <-- this is default template styling, can remove later */}
         <Card>
           <CardContent>
             <Typography
@@ -56,7 +58,7 @@ function LoginForm() {
                 required
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
-                style={{marginBottom: "10px"}}
+                style={{ marginBottom: "10px" }}
               >
                 Username
               </TextField>
@@ -67,7 +69,6 @@ function LoginForm() {
                 required
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-     
               >
                 Password
               </TextField>

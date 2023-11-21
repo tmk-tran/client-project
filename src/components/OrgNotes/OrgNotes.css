@@ -4,8 +4,8 @@
   gap: 10px;
 }
 
-.popover-container {
+.popover-notes-container {
   position: absolute;
-  /* margin: 20px; */
-  /* right: 25%; */
+  /* margin-top: 20px; */
+  left: 30%;
 }

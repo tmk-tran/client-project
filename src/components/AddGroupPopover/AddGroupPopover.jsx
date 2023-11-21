@@ -73,11 +73,11 @@ export default function BasicPopover({ info }) {
         onClose={() => {}}
         anchorOrigin={{
           vertical: isMobile ? "top" : "bottom",
-          horizontal: isMobile ? "center" : "left",
+          horizontal: isMobile ? "center" : "right",
         }}
         transformOrigin={{
           vertical: isMobile ? "bottom" : "bottom",
-          horizontal: isMobile ? "center" : "right",
+          horizontal: isMobile ? "center" : "left",
         }}
       >
         <Box style={{ padding: "20px" }}>
