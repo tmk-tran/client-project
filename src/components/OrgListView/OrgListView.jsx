@@ -91,22 +91,22 @@ function OrgListView({ organization }) {
                   {organization.organization_name}
                 </h2>
                 <div style={{ marginTop: "5px" }}>
-                  <Typography variant="caption">
+                  <Typography variant="body2">
                     Total Groups: {organization.total_groups}
                   </Typography>
                 </div>
                 <div>
-                  <Typography variant="caption">
+                  <Typography variant="body2">
                     Total Books Sold: {organization.total_books_sold}
                   </Typography>
                 </div>
                 <div>
-                  <Typography variant="caption">
+                  <Typography variant="body2">
                     Total Outstanding Books: {totalStandingBooks}
                   </Typography>
                 </div>
                 <div>
-                  <Typography variant="caption">
+                  <Typography variant="body2">
                     Outstanding Balance: ${formattedOutstandingBalance}
                   </Typography>
                 </div>
