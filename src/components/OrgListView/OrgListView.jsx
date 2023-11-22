@@ -102,15 +102,13 @@ function OrgListView({ organization }) {
                 </div>
                 <div>
                   <Typography variant="caption">
-                    Total Outstanding Books:{" "}
+                    Total Outstanding Books: {totalStandingBooks}
                   </Typography>
-                  {totalStandingBooks}
                 </div>
                 <div>
                   <Typography variant="caption">
-                    Outstanding Balance:{" "}
+                    Outstanding Balance: ${formattedOutstandingBalance}
                   </Typography>
-                  ${formattedOutstandingBalance}
                 </div>
               </div>
             </div>
