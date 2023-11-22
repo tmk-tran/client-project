@@ -5,8 +5,6 @@ import { Card, CardContent, Typography } from "@mui/material";
 // Utils
 import { capitalizeWords, centerStyle, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
-// Components
-import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
@@ -23,7 +21,16 @@ export default function OrgGroupInfoCard({ groupInfo }) {
             variant="h6"
             sx={{ textAlign: "center", marginBottom: "10px" }}
           >
-            <strong> Goal:</strong>&nbsp;$2,000
+            <div>
+              <strong>Goal:</strong>{" "}
+              {groupInfo.goal !== null
+                ? new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    minimumFractionDigits: 0, // Set this to 2 if you want cents
+                  }).format(groupInfo.goal)
+                : "None Set"}
+            </div>
           </Typography>
         </div>
         <div style={{ position: "relative" }}>
@@ -63,7 +70,7 @@ export default function OrgGroupInfoCard({ groupInfo }) {
           <Typography sx={{ mt: 2 }}>
             <strong>Category:</strong> {capitalizeWords(groupInfo.department)}
           </Typography>
-          <Typography sx={{ mt: 2 }}>
+          <Typography variant="caption" sx={{ mt: 2 }}>
             Sub-Category:{" "}
             {groupInfo.sub_department
               ? capitalizeWords(groupInfo.sub_department)

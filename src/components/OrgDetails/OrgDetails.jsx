@@ -61,6 +61,7 @@ export default function orgDetails() {
       group_nickname: info.group_nickname,
       group_photo: info.group_photo,
       group_description: info.group_description,
+      goal: info.sum,
     });
   });
 

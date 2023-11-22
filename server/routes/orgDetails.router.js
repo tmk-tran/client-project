@@ -12,33 +12,38 @@ router.get("/:id", (req, res) => {
   const orgId = req.params.id;
 
   const queryText = `SELECT
-  o.id AS organization_id,
-  o.organization_name,
-  o.type,
-  o.address,
-  o.city,
-  o.state,
-  o.zip,
-  o.primary_contact_first_name,
-  o.primary_contact_last_name,
-  o.primary_contact_phone,
-  o.primary_contact_email,
-  o.organization_logo,
-  o.organization_earnings,
-  g.id AS group_id,
-  g.department,
-  g.sub_department,
-  g.group_nickname,
-  g.group_photo,
-  g.group_description
+o.id AS organization_id,
+o.organization_name,
+o.type,
+o.address,
+o.city,
+o.state,
+o.zip,
+o.primary_contact_first_name,
+o.primary_contact_last_name,
+o.primary_contact_phone,
+o.primary_contact_email,
+o.organization_logo,
+o.organization_earnings,
+g.id AS group_id,
+g.department,
+g.sub_department,
+g.group_nickname,
+g.group_photo,
+g.group_description,
+SUM(f.goal)
 FROM
-  "organization" o
+"organization" o
 LEFT JOIN
-  "group" g ON o.id = g.organization_id
+"group" g ON o.id = g.organization_id
+LEFT JOIN
+"fundraiser" AS f ON f.group_id = g.id
 WHERE
-  o.id = $1 AND
-  o.is_deleted = false AND
-  (g.is_deleted = false OR g.is_deleted IS NULL)
+o.id = $1 AND
+o.is_deleted = false AND
+(g.is_deleted = false OR g.is_deleted IS NULL)
+GROUP BY
+o.id, g.id, f.group_id
 ORDER BY LOWER (g.group_nickname) ASC;`;
   pool
     .query(queryText, [orgId])

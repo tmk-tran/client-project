@@ -24,7 +24,7 @@ export default function TableGroupDetails({ groupInfo }) {
       <TableBody>
         <TableRow>
           <TableCell style={centerStyle}>
-            <strong>Sub-Category:</strong>
+            <Typography variant="caption">Sub-Category:</Typography>
           </TableCell>
           <TableCell>
             {groupInfo.sub_department

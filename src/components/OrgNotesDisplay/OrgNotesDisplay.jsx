@@ -9,7 +9,6 @@ import { formatDate } from "../Utils/helpers";
 
 export default function OrgNotesDisplay({ notes }) {
   const dispatch = useDispatch();
-  console.log(notes);
 
   // State for showing notes
   const [noteDelete, setNoteDelete] = useState(false);
