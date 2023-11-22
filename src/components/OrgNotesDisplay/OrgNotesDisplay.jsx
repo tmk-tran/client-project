@@ -6,7 +6,10 @@ import "./OrgNotesDisplay.css";
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
 // Utils
-import { formatDate } from "../Utils/helpers";
+import { formatDate, showToastDelete } from "../Utils/helpers";
+// Toast
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function OrgNotesDisplay({ notes }) {
   const dispatch = useDispatch();
@@ -17,6 +20,8 @@ export default function OrgNotesDisplay({ notes }) {
   const handleDelete = (id, organization_id) => {
     dispatch({ type: "DELETE_ORG_NOTE", payload: { id, organization_id } });
     setNoteDelete(true);
+    // from Utils
+    showToastDelete();
   };
 
   return (
@@ -68,6 +73,14 @@ export default function OrgNotesDisplay({ notes }) {
           </div>
         </CardContent>
       </Card>
+      {/* Toast */}
+      {/* <ToastContainer
+                  style={{
+                    top: "45%",
+                    right: "68%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                /> */}
     </div>
   );
 }

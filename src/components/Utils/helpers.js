@@ -29,6 +29,9 @@ export const capitalizeWords = (sentence) => {
     : "";
 };
 
+// In progress, trying to account for acronyms in a sentence
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 // export const capitalizeWords = (sentence) => {
 //   return sentence
 //     ? sentence
@@ -45,6 +48,8 @@ export const capitalizeWords = (sentence) => {
 //         .join(" ")
 //     : "";
 // };
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // Style for Modal in OrgGroupInfo
 export const style = {
@@ -120,8 +125,17 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const showToast = () => {
-  toast.success("Changes saved successfully!", {
+  toast.success("Changes saved!", {
     position: toast.POSITION.RIGHT_CENTER,
+    autoClose: 2000,
+    closeButton: false,
+    hideProgressBar: true,
+  });
+};
+
+export const showToastDelete = () => {
+  toast.error("Deleted!", {
+    position: toast.POSITION.LEFT_CENTER,
     autoClose: 2000,
     closeButton: false,
     hideProgressBar: true,
