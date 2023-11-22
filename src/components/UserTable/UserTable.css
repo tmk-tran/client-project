@@ -1,0 +1,19 @@
+.user_header_cell{
+  border: 2px solid black;
+  height: 50px; 
+  padding: 10px;
+  background-color: rgb(192, 190, 190);
+}
+.user_header_text{
+  width: 100%; 
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto
+
+}
+
+.user_header_text{
+  text-align: center
+}
+
+

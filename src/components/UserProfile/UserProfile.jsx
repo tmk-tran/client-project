@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, Card, CardContent } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
 import { capitalizeWords } from "../Utils/helpers.js";
+import UserTable from "../UserTable/UserTable.jsx";
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -58,10 +58,9 @@ function UserProfile() {
   let totalOrgEarnings = 0;
   for (let i = 0; i < organizations.length; i++) {
     const organization = organizations[i];
-    totalOrgEarnings +=
-      parseInt(organization.total_org_earnings, 10) || 0;
+    totalOrgEarnings += parseInt(organization.total_org_earnings, 10) || 0;
   }
-  
+
   const totalMinusOrgCut = totalMoneyRaised - totalOrgEarnings;
   const formattedTotalMinusOrg = totalMinusOrgCut.toLocaleString();
 
@@ -106,17 +105,21 @@ function UserProfile() {
                             Total Active Fundraisers: {totalActiveFundraisers}
                           </Typography>
                           <Typography variant="body2">
-                          Total Books Sold: {totalBooksSold}
-                            </Typography>
-                          <Typography variant="body2">
-                          Total Money Rasied: ${formattedTotalMoneyRaised}
+                            Total Books Sold: {totalBooksSold}
                           </Typography>
                           <Typography variant="body2">
-                          PSG Earnings after Organization Fees: ${formattedTotalMinusOrg}
+                            Total Money Rasied: ${formattedTotalMoneyRaised}
+                          </Typography>
+                          <Typography variant="body2">
+                            PSG Earnings after Organization Fees: $
+                            {formattedTotalMinusOrg}
                           </Typography>
                         </CardContent>
                       </Card>
+                      <br />
+                      <br />
                     </center>
+                    <UserTable />
                   </div>
                 </>
               ) : (
@@ -166,25 +169,35 @@ function UserProfile() {
                       style={{ width: "70%", marginBottom: "10px" }}
                     >
                       <CardContent>
-                        {/* Render details of each fundraiser */}
-                        <Typography variant="subtitle1">
-                          Fundraiser: {fundraiser.title}
-                        </Typography>
-                        <Typography variant="body2">
-                          Books Requested: {fundraiser.books_requested}
-                        </Typography>
-                        <Typography variant="body2">
-                          Books Sold: {fundraiser.books_sold}
-                        </Typography>
-                        <Typography variant="body2">
-                          Start Date: {formatDate(fundraiser.start_date)}
-                        </Typography>
-                        <Typography variant="body2">
-                          End Date: {formatDate(fundraiser.end_date)}
-                        </Typography>
-                        <Typography variant="body2">
-                          Coupon book Year: {fundraiser.coupon_book_year}
-                        </Typography>
+                        {fundraiser.title ? (
+                          <>
+                            <Typography variant="subtitle1">
+                              Fundraiser: {fundraiser.title}
+                            </Typography>
+                            <Typography variant="body2">
+                              Books Requested: {fundraiser.books_requested}
+                            </Typography>
+                            <Typography variant="body2">
+                              Books Sold: {fundraiser.books_sold}
+                            </Typography>
+                            <Typography variant="body2">
+                              Start Date: {formatDate(fundraiser.start_date)}
+                            </Typography>
+                            <Typography variant="body2">
+                              End Date: {formatDate(fundraiser.end_date)}
+                            </Typography>
+                            <Typography variant="body2">
+                              Coupon book Year: {fundraiser.coupon_book_year}
+                            </Typography>
+                            <Typography variant="body2">
+                              Status: {fundraiser.closed ? "Closed" : "Active"}
+                            </Typography>
+                          </>
+                        ) : (
+                          <Typography variant="subtitle1">
+                            No Fundraisers Entered
+                          </Typography>
+                        )}
                       </CardContent>
                     </Card>
                   </center>

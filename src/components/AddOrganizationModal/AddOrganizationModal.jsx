@@ -218,19 +218,4 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
   );
 }
 
-/* <FormControl fullWidth margin="normal">
-<InputLabel htmlFor="logo-input">Organization Logo</InputLabel>
-<Input
-  id="logo-input"
-  type="file"
-  onChange={(e) => setLogo(e.target.files[0])}
-  endAdornment={
-    <InputAdornment position="end">
-      <Button component="label" color="primary">
-        Upload
-        <input type="file" style={{ display: "none" }} />
-      </Button>
-    </InputAdornment>
-  }
-/>
-</FormControl> */
+

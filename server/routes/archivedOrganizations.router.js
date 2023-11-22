@@ -59,7 +59,7 @@ router.get("/", (req, res) => {
       res.send(response.rows).status(200);
     })
     .catch((error) => {
-      console.log("Error in organizations GET route", error);
+      console.log("Error in archived Organizations GET route", error);
       res.sendStatus(500);
     });
 });
