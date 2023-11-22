@@ -103,6 +103,10 @@ export default function GlobalFundraiserInput() {
     }
   };
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -188,8 +192,9 @@ export default function GlobalFundraiserInput() {
                 >
                   {filteredGroups?.map((group, index) => (
                     <MenuItem key={group.id} value={group.id}>
-                      {group.department} -{" "}
-                      {group.sub_department || "No Sub Group"}
+                      {capitalizeFirstLetter(group.department)} -{" "}
+                      {capitalizeFirstLetter(group.sub_department) ||
+                        "No Sub Group"}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -246,14 +251,12 @@ export default function GlobalFundraiserInput() {
                 onChange={(e) => setTitle(e.target.value)}
                 fullWidth
               />
-                  <TextField
+              <TextField
                 label="$ Fundraiser Financial Goal"
                 type="number"
-
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
                 fullWidth
-
               />
               <TextField
                 multiline

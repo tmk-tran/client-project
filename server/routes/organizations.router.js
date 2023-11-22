@@ -5,7 +5,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
   pool
     .query(
-      `SELECT
+      `  SELECT
       o.*,
       COALESCE(group_count.total_groups, 0) AS total_groups,
       COALESCE(fundraiser_count.total_fundraisers, 0) AS total_fundraisers,
@@ -13,7 +13,9 @@ router.get("/", (req, res) => {
       (COALESCE(fundraiser_count.total_fundraisers, 0) - COALESCE(closed_fundraiser_count.total_closed_fundraisers, 0)) AS total_active_fundraisers,
       COALESCE(total_books_sold.total_books_sold, 0) AS total_books_sold,
       COALESCE(total_outstanding_balance.total_outstanding_balance, 0) AS total_outstanding_balance,
-      COALESCE(total_books_sold.total_books_sold, 0) * COALESCE(o.organization_earnings, 0) AS total_org_earnings
+      COALESCE(total_books_sold.total_books_sold, 0) * COALESCE(o.organization_earnings, 0) AS total_org_earnings,
+      COALESCE(total_checked_out_books.total_checked_out_books, 0) AS total_checked_out_books,
+      COALESCE(total_checked_in_books.total_checked_in_books, 0) AS total_checked_in_books
   FROM
       organization o
   LEFT JOIN (
@@ -79,6 +81,32 @@ router.get("/", (req, res) => {
       GROUP BY
           g.organization_id
   ) AS total_outstanding_balance ON o.id = total_outstanding_balance.organization_id
+  LEFT JOIN (
+      SELECT
+          g.organization_id,
+          SUM(f.book_quantity_checked_out) AS total_checked_out_books
+      FROM
+          "group" g
+      LEFT JOIN
+          fundraiser f ON g.id = f.group_id
+      WHERE
+          g.is_deleted = false AND f.is_deleted = false
+      GROUP BY
+          g.organization_id
+  ) AS total_checked_out_books ON o.id = total_checked_out_books.organization_id
+  LEFT JOIN (
+      SELECT
+          g.organization_id,
+          COALESCE(SUM(f.book_quantity_checked_in), 0) AS total_checked_in_books
+      FROM
+          "group" g
+      LEFT JOIN
+          fundraiser f ON g.id = f.group_id
+      WHERE
+          g.is_deleted = false AND f.is_deleted = false
+      GROUP BY
+          g.organization_id
+  ) AS total_checked_in_books ON o.id = total_checked_in_books.organization_id
   WHERE
       o.is_deleted = false
   ORDER BY
