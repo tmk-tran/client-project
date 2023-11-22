@@ -12,6 +12,8 @@ import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
+// Sweet Alert
+import Swal from "sweetalert2";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
