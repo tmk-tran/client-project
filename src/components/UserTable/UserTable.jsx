@@ -43,25 +43,12 @@ function UserTable() {
 
   return (
     <>
-      <Table >
+      <Table   style={{ width: "90%" }}>
         <TableHead>
           <TableRow
             className="active_row"
             style={{ border: "2px solid black" }}
           >
-            {/* <TableCell className="user_header_cell">
-              <Typography
-                className="user_header_text"
-                style={{
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }}
-              >
-                ID
-              </Typography>
-            </TableCell> */}
             <TableCell className="user_header_cell">
               <Typography
                 className="user_header_text"

@@ -67,23 +67,16 @@ function UserTableRow({ user }) {
   return (
     <>
       <TableRow className="active_row" style={{ border: "2px solid black" }}>
-        {/* <TableCell className="active_table_cell">
-          <Typography
-            style={{ fontSize: "17px", width: "88px", marginLeft: "auto", marginRight: 'auto' }}
-          >
-            {user.user_id}
-          </Typography>
-        </TableCell> */}
         <TableCell className="active_table_cell">
           <Typography
-            style={{ fontSize: "19px", width: "88px", marginLeft: "auto", marginRight: 'auto' }}
+            style={{ fontSize: "18px", width: "88px", marginLeft: "auto", marginRight: 'auto' }}
           >
             {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
           </Typography>
         </TableCell>
         <TableCell className="active_table_cell">
           <Typography
-            style={{ fontSize: "19px", width: "520px", marginLeft: "auto", marginRight: 'auto' }}
+            style={{ fontSize: "18px", width: "520px", marginLeft: "auto", marginRight: 'auto' }}
           >
             {user.groups[0].group_id !== null ? (
               <ul>
@@ -144,7 +137,7 @@ function UserTableRow({ user }) {
         </TableCell>
         <TableCell className="active_table_cell">
           <Typography
-            style={{ fontSize: "19px", width: "180px", marginLeft: "auto", marginRight: 'auto' }}
+            style={{ fontSize: "18px", width: "180px", marginLeft: "auto", marginRight: 'auto' }}
           >
             {user.groups[0].group_id !== null ? (
               editMode ? (
@@ -153,8 +146,6 @@ function UserTableRow({ user }) {
                     style={{
                       fontSize: "15px",
                       padding: "2px 8px",
-                      fontWeight: "bold",
-                      border: "1px solid black",
                       transition: "background-color 0.3s",
                     }}
                     variant="outlined"
@@ -168,8 +159,6 @@ function UserTableRow({ user }) {
                     style={{
                       fontSize: "15px",
                       padding: "2px 8px",
-                      fontWeight: "bold",
-                      border: "1px solid black",
                       transition: "background-color 0.3s",
                     }}
                     variant="outlined"
@@ -191,8 +180,6 @@ function UserTableRow({ user }) {
                   style={{
                     fontSize: "15px",
                     padding: "2px 8px",
-                    fontWeight: "bold",
-                    border: "1px solid black",
                     transition: "background-color 0.3s",
                   }}
                   variant="outlined"
