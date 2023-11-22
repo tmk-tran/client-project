@@ -9,15 +9,13 @@ import { formatDate } from "../Utils/helpers";
 
 export default function OrgNotesDisplay({ notes }) {
   const dispatch = useDispatch();
-  console.log("IN NOTES DISPLAY: ", notes);
+  console.log(notes);
 
   // State for showing notes
   const [noteDelete, setNoteDelete] = useState(false);
 
   const handleDelete = (id, organization_id) => {
-      console.log(`Deleting: ${id}, ${organization_id}`);
-      console.log(id, organization_id);
-    dispatch({ type: "DELETE_ORG_NOTE", payload: {id, organization_id} });
+    dispatch({ type: "DELETE_ORG_NOTE", payload: { id, organization_id } });
     setNoteDelete(true);
   };
 
@@ -31,7 +29,9 @@ export default function OrgNotesDisplay({ notes }) {
           <div className="orgNotes-container">
             {notes && notes.length > 0 ? (
               <div>
-                {notes.map((note, i) => (
+                {notes
+                .filter((note) => !note.is_deleted) // Filter out deleted notes
+                .map((note, i) => (
                   <div key={i}>
                     <Typography sx={{ mt: 1 }} variant="caption">
                       {formatDate(note.note_date)}
@@ -45,7 +45,9 @@ export default function OrgNotesDisplay({ notes }) {
                       <li>{note.note_content}</li>
                       <Button
                         className="notes-delete-btn"
-                        onClick={() => handleDelete(note.id, note.organization_id)}
+                        onClick={() =>
+                          handleDelete(note.id, note.organization_id)
+                        }
                       >
                         <DeleteIcon />
                       </Button>

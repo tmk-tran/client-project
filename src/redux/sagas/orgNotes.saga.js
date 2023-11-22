@@ -47,17 +47,11 @@ function* deleteOrgNote(action) {
   const noteId = action.payload.id;
   const orgId = action.payload.organization_id;
   try {
-    console.log("ORG NOTES = ", action.payload);
-    console.log(noteId, orgId);
-    const response = yield axios.delete(
-      `/api/orgnotes/${noteId}`,);
+    const response = yield axios.delete(`/api/orgnotes/${noteId}`);
     console.log(
       "DELETE request from orgNotes.saga, response FOR editContact = ",
-      response.data
+      response
     );
-    console.log("DELETE action.payload = ", action.payload);
-
-    // yield axios.delete(`/api/orgnotes/${action.payload}`);
     yield put({ type: "FETCH_ORG_NOTES", payload: orgId });
   } catch (error) {
     console.log("error with deleteOrgNotes request", error);
