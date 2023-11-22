@@ -70,6 +70,13 @@ function OrgListView({ organization }) {
 const outstandingBalance = parseFloat(organization.total_outstanding_balance);
 const formattedOutstandingBalance = isNaN(outstandingBalance) ? "N/A" : outstandingBalance.toLocaleString();
 
+const totalCheckedOutBooks = organization.total_checked_out_books;
+  const totalCheckedInBooks = organization.total_checked_in_books;
+  const totalBooksSold = organization.total_books_sold;
+
+  const totalStandingBooks = totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
+
+
   return (
     <>
       <Card className="organizationListContainer">
@@ -87,12 +94,12 @@ const formattedOutstandingBalance = isNaN(outstandingBalance) ? "N/A" : outstand
                   {organization.total_books_sold}
                 </div>
                 <div>
-                  Outstanding Balance:{" "}
-                  ${formattedOutstandingBalance}
+                  Total Outstanding Books:{" "}
+                  {totalStandingBooks}
                 </div>
                 <div>
-                  Organization Earnings:{" "}
-                  ${formattedEarnings}
+                  Outstanding Balance:{" "}
+                  ${formattedOutstandingBalance}
                 </div>
               </div>
             </div>
