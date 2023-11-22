@@ -89,8 +89,8 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}>{fundraiser.year}</Typography></TableCell>
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}><OutlinedInput style={{ fontSize: "15px", width: "100px", height: "30px" }} startAdornment={<InputAdornment position="start">$</InputAdornment>} value={goal} onChange={(e) => setGoal(e.target.value)}>{fundraiser.goal}</OutlinedInput></Typography></TableCell>
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}>${fundraiser.outstanding_balance}</Typography></TableCell>
-                            <TableCell className="active_table_cell" style={{ textAlign: "center", minWidth: "210px" }} >
-                                <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={() => setEditMode(true)}><Typography style={{ fontSize: "12px" }}>Edit</Typography></Button>
+                            <TableCell className="active_table_cell" style={{ textAlign: "center", width: "50px" }} >
+                                {/* <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={() => setEditMode(true)}><Typography style={{ fontSize: "12px" }}>Edit</Typography></Button> */}
                                 <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={updateAmount}><Typography style={{ fontSize: "12px" }}>Update</Typography></Button>
                                 <Button style={{ margin: "2px", backgroundColor: "red" }} variant="contained" size="small" onClick={handleCloseFundraiser}><Typography style={{ fontSize: "12px" }}>Close</Typography></Button> </TableCell>
                         </TableRow>

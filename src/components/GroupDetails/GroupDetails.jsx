@@ -46,14 +46,14 @@ export default function GroupDetails() {
             </Container>
             <br />
             <br />
-            <Paper elevation={6} style={{ margin: "10px", padding: "10px", paddingBottom: "40px", height: "80%" }}>
-                <TableContainer style={{ width: "95%", margin: "auto" }} >
+            <Paper elevation={6} style={{ margin: "10px", padding: "5px", paddingBottom: "40px", height: "80%" }}>
+                <TableContainer style={{ width: "95%", margin: "auto" }} size="small">
                     <Typography variant="h6">Active Campaigns</Typography>
                     <Table size="small" className="active-table">
                         <TableHead>
-                            <TableRow style={{ border: "2px solid black" }}>
-                                <TableCell className="active_header_cell" ><Typography className="active_header_text" style={{ fontSize: "16px", fontWeight: "bold" }}>Title</Typography></TableCell>
-                                <TableCell className="active_header_cell"><Typography className="active_header_text" style={{ fontSize: "16px", fontWeight: "bold" }}  >Books Requested</Typography></TableCell>
+                            <TableRow style={{ border: "2px solid black", padding: "0px" }}>
+                                <TableCell className="active_header_cell" ><Typography className="active_header_text" style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}>Title</Typography></TableCell>
+                                <TableCell className="active_header_cell"><Typography className="active_header_text" style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}  >Books Requested</Typography></TableCell>
                                 <TableCell className="active_header_cell"><Typography className="active_header_text" style={{ fontSize: "16px", fontWeight: "bold" }}>Books Checked Out</Typography></TableCell>
                                 <TableCell className="active_header_cell"><Typography className="active_header_text" style={{ fontSize: "16px", fontWeight: "bold" }}>Books Out Value</Typography></TableCell>
                                 <TableCell className="active_header_cell"><Typography className="active_header_text" style={{ fontSize: "16px", fontWeight: "bold" }}>Books Checked In</Typography></TableCell>

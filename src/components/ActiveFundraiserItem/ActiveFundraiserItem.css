@@ -1,6 +1,6 @@
 .active_table_cell{
     border: 2px solid black; 
-    min-width: 100px; 
+    width: 100px; 
     height: 30px; 
     padding: 0px;
     text-align: center !important;
