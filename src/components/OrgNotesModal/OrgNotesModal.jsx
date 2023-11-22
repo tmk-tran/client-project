@@ -72,6 +72,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
     // Sweet Alert
     showSaveSweetAlert(saveCall);
 
+    setNewNote("");
     handleClose();
     onNoteAdded();
   };
