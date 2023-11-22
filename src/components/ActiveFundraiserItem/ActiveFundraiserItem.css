@@ -6,6 +6,6 @@
     text-align: center !important;
 }
 
-.active_row:nth-child(even){
-    background-color: lightgray;
+.active_row:nth-child(even) {
+    background-color: rgb(232, 232, 232);
 }
