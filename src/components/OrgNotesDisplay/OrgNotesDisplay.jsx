@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Typography, Card, CardContent } from "@mui/material";
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -7,6 +8,16 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import { formatDate } from "../Utils/helpers";
 
 export default function OrgNotesDisplay({ notes }) {
+  const dispatch = useDispatch();
+
+  // State for showing notes
+  const [noteDelete, setNoteDelete] = useState(false);
+
+  const handleDelete = () => {
+    dispatch({ type: "DELETE_ORG_NOTES", payload: notes.organization_id });
+    setNoteDelete(true);
+  };
+
   return (
     <div className="notes-card-container">
       <Card elevation={4} className="notes-card">
@@ -29,7 +40,10 @@ export default function OrgNotesDisplay({ notes }) {
                       }}
                     >
                       <li>{note.note_content}</li>
-                      <Button className="notes-delete-btn">
+                      <Button
+                        className="notes-delete-btn"
+                        onClick={handleDelete}
+                      >
                         <DeleteIcon />
                       </Button>
                     </div>
