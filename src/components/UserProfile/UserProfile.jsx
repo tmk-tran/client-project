@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography, Card, CardContent } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
 import { capitalizeWords } from "../Utils/helpers.js";
+import UserTable from "../UserTable/UserTable.jsx";
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ function UserProfile() {
       <div style={{ textAlign: "center" }}>
         <br />
 
-        <Card
+        {/* <Card
           elevation={2}
           className="headerCard"
           style={{ width: "90%", margin: "auto", marginBotton: "20px" }}
@@ -166,7 +166,6 @@ function UserProfile() {
                       style={{ width: "70%", marginBottom: "10px" }}
                     >
                       <CardContent>
-                        {/* Render details of each fundraiser */}
                         <Typography variant="subtitle1">
                           Fundraiser: {fundraiser.title}
                         </Typography>
@@ -192,7 +191,8 @@ function UserProfile() {
               </div>
             </CardContent>
           </Card>
-        ))}
+        ))} */}
+        <UserTable />
       </div>
     </>
   );

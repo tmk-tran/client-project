@@ -5,6 +5,7 @@ import './PublicOrdCard.css'
 
 function PublicOrgCard({ organization }) {
   const history = useHistory();
+  
   function goToDetails() {
     history.push(`/publicOrgDetails/${organization.id}`);
   }
