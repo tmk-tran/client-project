@@ -14,7 +14,9 @@ import {
 // Icons
 import "./OrgNotesModal.css";
 // Utils
-import { modalBtnStyle, showToast } from "../Utils/helpers";
+import { modalBtnStyle } from "../Utils/helpers";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
+import { showToast } from "../Utils/toasts";
 
 export default function NotesPopover({ info, onNoteAdded }) {
   const dispatch = useDispatch();
@@ -60,6 +62,9 @@ export default function NotesPopover({ info, onNoteAdded }) {
     };
     // from Utils
     // showToast();
+
+    // Sweet Alert
+    showSaveSweetAlert();
 
     dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
     setNoteAdded(true);

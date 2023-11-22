@@ -78,23 +78,23 @@ export default function orgDetails() {
       <Card className="OrgDetails-card" elevation={3}>
         <CardContent>
           <div className="detailsOrg-container">
-            <OrgNotesDisplay notes={notes} />
             {/* Iterate over the unique organizations in the map */}
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
+                <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
                 {/* Display organization details once */}
                 <center>
                   <OrgContactDetails info={orgDetails} />
                 </center>
 
                 {/* Toast */}
-                <ToastContainer
+                {/* <ToastContainer
                   style={{
                     top: "45%",
                     left: "68%",
                     transform: "translate(-50%, -50%)",
                   }}
-                />
+                /> */}
 
                 {/* Add Buttons */}
                 <div>
