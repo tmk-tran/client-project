@@ -12,16 +12,18 @@
 
 .closed_header_cell{
     border: 2px solid black;
+
     height: 50px;
     padding: 0;
+
     background-color: rgb(192, 190, 190);
   }
 
 
-.closed_header_text{
+/* .closed_header_text{
     width: 100px; 
     text-align: center !important;
     padding: 0;
     margin: auto
-}
+} */
 

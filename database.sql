@@ -119,9 +119,9 @@ VALUES
 (16,22,E'Football',E'',E'Coaches',E'images/ndsu2.png',E'we love giving back to our community!',FALSE),
 (17,22,E'administration',E'fraternity ',E'Sigma Phi Epsilon',NULL,E'SAE raising money for campus',FALSE),
 (18,22,E'test',E'test1',NULL,NULL,E'test',FALSE),
-(19,22,E'test2',E'test2',E'test group 2',NULL,E'test description',FALSE),
 (20,4,E'puppy funds',E'',E'Pups 4 psg',E'images/dawgs.jpg',E'woof woof',FALSE),
-(21,17,E'Sunday school',E'middle school age',E'Group 1',E'images/oakgrove.jpeg',E'',FALSE);
+(21,17,E'Sunday school',E'middle school age',E'Group 1',E'images/oakgrove.jpeg',E'',FALSE),
+(22,22,E'orchestra',E'strings',E'new group',NULL,E'raising money for the auditorium',FALSE);
 
 INSERT INTO "public"."coupon_book"("year")
 VALUES

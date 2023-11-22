@@ -72,7 +72,7 @@ function UserProfile() {
         <Card
           elevation={2}
           className="headerCard"
-          style={{ width: "90%", margin: "auto", marginBotton: "20px" }}
+          style={{ width: "95%", margin: "auto", marginBotton: "20px" }}
         >
           <CardContent>
             <center>
