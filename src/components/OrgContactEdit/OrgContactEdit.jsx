@@ -10,7 +10,9 @@ import {
 } from "@mui/material";
 import "./OrgContactEdit.css";
 // Utils
-import { modalBtnStyle, showToast } from "../Utils/helpers";
+import { modalBtnStyle } from "../Utils/helpers";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
+import { showToast } from "../Utils/toasts";
 
 export default function OrgContactEdit({
   isOpen,
@@ -92,7 +94,10 @@ export default function OrgContactEdit({
     };
 
     // from Utils
-    showToast();
+    // showToast();
+
+    // Sweet Alert
+    showSaveSweetAlert();
 
     // Clear email error if it was previously set
     setEmailError(false);

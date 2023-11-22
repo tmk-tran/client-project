@@ -1,17 +1,27 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 // Style
-import { Button, Typography, Card, CardContent } from "@mui/material";
+import {
+  Button,
+  Typography,
+  Card,
+  CardContent,
+  TextField,
+} from "@mui/material";
 import "./OrgNotesDisplay.css";
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
 // Utils
-import { formatDate, showToastDelete } from "../Utils/helpers";
-// Toast
+import { formatDate, modalBtnStyle } from "../Utils/helpers";
+import { showDeleteSweetAlert } from "../Utils/sweetAlerts";
+// Components
+import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
+// Toasts
+import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function OrgNotesDisplay({ notes }) {
+export default function OrgNotesDisplay({ notes, orgDetails }) {
   const dispatch = useDispatch();
 
   // State for showing notes
@@ -21,7 +31,7 @@ export default function OrgNotesDisplay({ notes }) {
     dispatch({ type: "DELETE_ORG_NOTE", payload: { id, organization_id } });
     setNoteDelete(true);
     // from Utils
-    showToastDelete();
+    showDeleteSweetAlert();
   };
 
   return (
@@ -71,16 +81,26 @@ export default function OrgNotesDisplay({ notes }) {
               <Typography variant="h6">No Notes Available</Typography>
             )}
           </div>
+          {/* <div>
+            <div className="add-notes">
+              <TextField
+                fullWidth
+                label="Note"
+                multiline
+                rows={3}
+                // value={newNote}
+                // onChange={(e) => setNewNote(e.target.value)}
+              ></TextField>
+            </div>
+            <div style={modalBtnStyle}>
+              <Button className="modal-cancel-btn">Cancel</Button>
+              <Button>Save</Button>
+            </div>
+          </div> */}
+        {/* <OrgNotesModal info={orgDetails}/> */}
+        {/* <Button fullWidth>Add Note</Button> */}
         </CardContent>
       </Card>
-      {/* Toast */}
-      {/* <ToastContainer
-                  style={{
-                    top: "45%",
-                    right: "68%",
-                    transform: "translate(-50%, -50%)",
-                  }}
-                /> */}
     </div>
   );
 }
