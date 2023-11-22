@@ -9,7 +9,8 @@ import {
   Button,
 } from "@mui/material";
 // Utils
-import { showToast } from "../Utils/helpers";
+import { showToast } from "../Utils/toasts";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 export default function OrgContactEdit({
   isOpen,
@@ -78,7 +79,10 @@ export default function OrgContactEdit({
     };
 
     // from Utils
-    showToast();
+    // showToast();
+
+    // Sweet Alert
+    showSaveSweetAlert();
 
     setZipError(false);
 

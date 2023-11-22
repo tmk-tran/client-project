@@ -6,8 +6,10 @@ import "./OrgNotesDisplay.css";
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
 // Utils
-import { formatDate, showDeleteSweetAlert, showToastDelete } from "../Utils/helpers";
-// Toast
+import { formatDate } from "../Utils/helpers";
+import { showDeleteSweetAlert } from "../Utils/sweetAlerts";
+// Toasts
+import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
