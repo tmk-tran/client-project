@@ -29,7 +29,7 @@ function* editNotes(action) {
       action.payload
     );
     console.log(
-      "FETCH request from orgDetails.saga, ITEMS FOR editContact = ",
+      "FETCH request from orgNotes.saga, ITEMS FOR editContact = ",
       items
     );
     console.log("EDIT_CONTACT_INFO action.payload = ", action.payload);
@@ -43,10 +43,16 @@ function* editNotes(action) {
   }
 }
 
-function* deleteOrgNotes(action) {
+function* deleteOrgNote(action) {
+  const noteId = action.payload.id;
+  const orgId = action.payload.organization_id;
   try {
-    yield axios.delete(`/api/orgnotes/${action.payload}`);
-    yield put({ type: "FETCH_ORG_NOTES" });
+    const response = yield axios.delete(`/api/orgnotes/${noteId}`);
+    console.log(
+      "DELETE request from orgNotes.saga, response FOR editContact = ",
+      response
+    );
+    yield put({ type: "FETCH_ORG_NOTES", payload: orgId });
   } catch (error) {
     console.log("error with deleteOrgNotes request", error);
   }
@@ -56,5 +62,5 @@ export default function* orgDetailsSaga() {
   yield takeEvery("FETCH_ORG_NOTES", orgNotes);
   yield takeEvery("ADD_ORG_NOTES", addNotes);
   yield takeEvery("EDIT_ORG_NOTES", editNotes);
-  yield takeEvery("DELETE_ORG_NOTES", deleteOrgNotes);
+  yield takeEvery("DELETE_ORG_NOTE", deleteOrgNote);
 }

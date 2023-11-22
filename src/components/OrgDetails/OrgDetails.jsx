@@ -3,27 +3,26 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // Style
 import "./OrgDetails.css";
-import { Button, Typography, Card, CardContent } from "@mui/material";
-
+import { Typography, Card, CardContent } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
+import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // Icons
-import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 
 export default function orgDetails() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
   const dispatch = useDispatch();
-
+  // Store
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
   const groups = useSelector((store) => store.orgGroups);
   const notes = useSelector((store) => store.orgNotes);
@@ -62,6 +61,7 @@ export default function orgDetails() {
       group_nickname: info.group_nickname,
       group_photo: info.group_photo,
       group_description: info.group_description,
+      goal: info.sum,
     });
   });
 
@@ -85,14 +85,6 @@ export default function orgDetails() {
                   <OrgContactDetails info={orgDetails} />
                 </center>
 
-                {/* Notes Section */}
-                <div>
-                  <OrgNotesModal
-                    info={orgDetails}
-                    onNoteAdded={handleNoteAdded}
-                  />
-                </div>
-
                 {/* Toast */}
                 <ToastContainer
                   style={{
@@ -102,8 +94,14 @@ export default function orgDetails() {
                   }}
                 />
 
-                {/* Add Group Button */}
-                <div className="add-group-btn">
+                {/* Add Buttons */}
+                <div>
+                  {/* Notes Section */}
+                  <OrgNotesModal
+                    info={orgDetails}
+                    onNoteAdded={handleNoteAdded}
+                  />
+                  {/* Add Groups */}
                   <AddGroupPopover info={orgDetails} />
                 </div>
 
@@ -118,7 +116,9 @@ export default function orgDetails() {
                       />
                     ))
                   ) : (
-                    <Typography variant="h6">No Groups Assigned</Typography>
+                    <div style={{ height: "200px" }}>
+                      <Typography variant="h6">No Groups Assigned</Typography>
+                    </div>
                   )}
                 </div>
               </React.Fragment>

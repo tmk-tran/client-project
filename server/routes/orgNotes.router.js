@@ -43,10 +43,14 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
+  const noteId = req.params.id;
+  console.log("noteId = ", noteId);
   pool
     .query(
-      `UPDATE "organization_notes" SET is_deleted = true WHERE organization_id = $1;`,
-      [req.params.id]
+      `UPDATE "organization_notes"
+      SET is_deleted = true
+      WHERE id = $1;`,
+      [noteId]
     )
     .then((response) => {
       res.sendStatus(200);

@@ -62,7 +62,7 @@ export default function BasicPopover({ info }) {
 
   return (
     <div className="popover-container">
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+      <Button id="add-group-button" variant="contained" onClick={handleClick}>
         Add Group
       </Button>
       <Popover

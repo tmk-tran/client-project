@@ -1,11 +1,18 @@
 .add-group-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .popover-container {
-    position: absolute;
-    /* margin: 20px; */
-    right: 25%;
+  position: absolute;
+  /* margin: 20px; */
+  right: 30vh;
+}
+
+@media (max-width: 400px) {
+  #add-group-button {
+    font-size: 10px;
+    margin-top: 20px;
+  }
 }

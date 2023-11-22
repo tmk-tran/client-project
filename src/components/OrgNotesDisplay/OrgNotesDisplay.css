@@ -1,0 +1,32 @@
+.notes-card-container {
+  position: relative;
+}
+
+.notes-card {
+  position: absolute;
+  width: 20%;
+  /* left: 20px; */
+  top: 20px;
+}
+
+.notes-container {
+  max-height: 300px;
+}
+
+.orgNotes-container {
+  overflow-wrap: break-word;
+  overflow-y: auto;
+  border: 1px solid rgb(218, 218, 218);
+  max-height: 300px;
+  padding-left: 25px;
+}
+
+.notes-delete-btn:hover {
+  color: red;
+}
+
+@media (max-width: 400px) {
+  .notes-card-container {
+    display: none;
+  }
+}
