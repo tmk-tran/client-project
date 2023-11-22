@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+// Style
 import { Button, Typography, Card, CardContent } from "@mui/material";
+import "./OrgNotesDisplay.css";
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
-import DescriptionIcon from "@mui/icons-material/Description";
 // Utils
 import { formatDate } from "../Utils/helpers";
 
