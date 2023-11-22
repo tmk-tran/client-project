@@ -14,4 +14,9 @@
   .popover-notes-container {
     margin-top: 0;
   }
+
+  #add-note-button {
+    font-size: 10px;
+    margin-top: 20px;
+  }
 }

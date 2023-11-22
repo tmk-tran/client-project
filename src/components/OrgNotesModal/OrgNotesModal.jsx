@@ -78,7 +78,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
 
   return (
     <div className="popover-notes-container">
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+      <Button id="add-note-button" aria-describedby={id} variant="contained" onClick={handleClick}>
         Add Note
       </Button>
       <Popover
