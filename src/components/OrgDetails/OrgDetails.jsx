@@ -85,14 +85,6 @@ export default function orgDetails() {
                   <OrgContactDetails info={orgDetails} />
                 </center>
 
-                {/* Notes Section */}
-                <div>
-                  <OrgNotesModal
-                    info={orgDetails}
-                    onNoteAdded={handleNoteAdded}
-                  />
-                </div>
-
                 {/* Toast */}
                 <ToastContainer
                   style={{
@@ -102,8 +94,14 @@ export default function orgDetails() {
                   }}
                 />
 
-                {/* Add Group Button */}
-                <div className="add-group-btn">
+                {/* Add Buttons */}
+                <div>
+                  {/* Notes Section */}
+                  <OrgNotesModal
+                    info={orgDetails}
+                    onNoteAdded={handleNoteAdded}
+                  />
+                  {/* Add Groups */}
                   <AddGroupPopover info={orgDetails} />
                 </div>
 

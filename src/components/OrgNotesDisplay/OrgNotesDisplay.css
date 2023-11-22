@@ -24,3 +24,9 @@
 .notes-delete-btn:hover {
   color: red;
 }
+
+@media (max-width: 400px) {
+  .notes-card-container {
+    display: none;
+  }
+}

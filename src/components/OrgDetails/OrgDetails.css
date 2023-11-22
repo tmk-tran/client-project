@@ -19,16 +19,6 @@
   margin-top: 50px;
 }
 
-.add-group-btn {
-  /* display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  top: 0;
-  right: 0; */
-  display: flex;
-  justify-content: flex-end;
-}
-
 .add-group-fields {
   display: flex;
   flex-direction: column;
