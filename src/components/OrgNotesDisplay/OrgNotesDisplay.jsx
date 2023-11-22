@@ -23,38 +23,43 @@ export default function OrgNotesDisplay({ notes }) {
       <Card elevation={4} className="notes-card">
         <CardContent>
           <Typography variant="h6" sx={{ textAlign: "center", mb: 1 }}>
-            <DescriptionIcon />
+            Notes
           </Typography>
           <div className="orgNotes-container">
             {notes && notes.length > 0 ? (
               <div>
                 {notes
-                .filter((note) => !note.is_deleted) // Filter out deleted notes
-                .map((note, i) => (
-                  <div key={i}>
-                    <Typography sx={{ mt: 1 }} variant="caption">
-                      {formatDate(note.note_date)}
-                    </Typography>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <li>{note.note_content}</li>
-                      <Button
-                        className="notes-delete-btn"
-                        onClick={() =>
-                          handleDelete(note.id, note.organization_id)
-                        }
+                  .filter((note) => !note.is_deleted) // Filter out deleted notes
+                  .map((note, i) => (
+                    <div key={i}>
+                      <Typography sx={{ mt: 1 }} variant="caption">
+                        {formatDate(note.note_date)}
+                      </Typography>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
                       >
-                        <DeleteIcon />
-                      </Button>
+                        <li>
+                          {note.note_content.charAt(0).toUpperCase() +
+                            note.note_content.slice(1).toLowerCase()}
+                        </li>
+                        <Button
+                          className="notes-delete-btn"
+                          onClick={() =>
+                            handleDelete(note.id, note.organization_id)
+                          }
+                        >
+                          <DeleteIcon style={{ fontSize: "20px" }} />
+                        </Button>
+                      </div>
+                      <br />
+                      <hr
+                        style={{ width: "80%", border: "1px solid #273b91" }}
+                      />
                     </div>
-                    <br />
-                    <hr style={{ width: "80%", border: "1px solid #273b91" }} />
-                  </div>
-                ))}
+                  ))}
               </div>
             ) : (
               <Typography variant="h6">No Notes Available</Typography>

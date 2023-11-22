@@ -79,7 +79,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
   return (
     <div className="popover-notes-container">
       <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        Add Notes
+        Add Note
       </Button>
       <Popover
         id={id}
@@ -101,7 +101,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
             <div className="add-notes">
               <TextField
                 fullWidth
-                label="Notes"
+                label="Note"
                 multiline
                 rows={4}
                 value={newNote}
