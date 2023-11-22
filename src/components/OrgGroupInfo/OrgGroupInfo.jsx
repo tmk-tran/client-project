@@ -5,6 +5,7 @@ import { Card, CardContent, Typography } from "@mui/material";
 // Utils
 import { capitalizeWords, centerStyle, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
+import { SpaRounded } from "@mui/icons-material";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
@@ -23,13 +24,17 @@ export default function OrgGroupInfoCard({ groupInfo }) {
           >
             <div>
               <strong>Goal:</strong>{" "}
-              {groupInfo.goal !== null
-                ? new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                    minimumFractionDigits: 0, // Set this to 2 if you want cents
-                  }).format(groupInfo.goal)
-                : "None Set"}
+              {groupInfo.goal !== null ? (
+                new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                  minimumFractionDigits: 0, // Set this to 2 if you want cents
+                }).format(groupInfo.goal)
+              ) : (
+                <span style={{ fontSize: "22px", fontWeight: 400 }}>
+                  None Set
+                </span>
+              )}
             </div>
           </Typography>
         </div>
