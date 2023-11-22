@@ -9,7 +9,7 @@
     height: 148px;
   }
   .archivedMedia-header{
-    margin-bottom: -4px
+    margin-bottom: 4px;
   }
   .archivedOrganizationClickable {
     flex-grow: 1;
