@@ -6,7 +6,7 @@ import "./OrgNotesDisplay.css";
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
 // Utils
-import { formatDate, showToastDelete } from "../Utils/helpers";
+import { formatDate, showDeleteSweetAlert, showToastDelete } from "../Utils/helpers";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,7 +21,7 @@ export default function OrgNotesDisplay({ notes }) {
     dispatch({ type: "DELETE_ORG_NOTE", payload: { id, organization_id } });
     setNoteDelete(true);
     // from Utils
-    showToastDelete();
+    showDeleteSweetAlert();
   };
 
   return (
