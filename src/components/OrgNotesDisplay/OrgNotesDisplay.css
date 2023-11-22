@@ -4,8 +4,9 @@
 
 .notes-card {
   position: absolute;
-  width: 20%;
-  /* left: 20px; */
+  margin-left: 10vh;
+  width: 40vh;
+  left: 30px;
   top: 20px;
 }
 
