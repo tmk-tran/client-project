@@ -118,7 +118,9 @@ export default function orgDetails() {
                       />
                     ))
                   ) : (
-                    <Typography variant="h6">No Groups Assigned</Typography>
+                    <div style={{ height: "200px" }}>
+                      <Typography variant="h6">No Groups Assigned</Typography>
+                    </div>
                   )}
                 </div>
               </React.Fragment>

@@ -43,7 +43,7 @@ function* editNotes(action) {
   }
 }
 
-function* deleteOrgNotes(action) {
+function* deleteOrgNote(action) {
   try {
     yield axios.delete(`/api/orgnotes/${action.payload}`);
     yield put({ type: "FETCH_ORG_NOTES" });
@@ -56,5 +56,5 @@ export default function* orgDetailsSaga() {
   yield takeEvery("FETCH_ORG_NOTES", orgNotes);
   yield takeEvery("ADD_ORG_NOTES", addNotes);
   yield takeEvery("EDIT_ORG_NOTES", editNotes);
-  yield takeEvery("DELETE_ORG_NOTES", deleteOrgNotes);
+  yield takeEvery("DELETE_ORG_NOTE", deleteOrgNote);
 }
