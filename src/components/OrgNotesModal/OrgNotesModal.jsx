@@ -60,14 +60,17 @@ export default function NotesPopover({ info, onNoteAdded }) {
       note_date: formattedDate,
       note_content: newNote,
     };
+
+    const saveCall = () => {
+      dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
+      setNoteAdded(true);
+    };
+
     // from Utils
     // showToast();
 
     // Sweet Alert
-    showSaveSweetAlert();
-
-    dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
-    setNoteAdded(true);
+    showSaveSweetAlert(saveCall);
 
     handleClose();
     onNoteAdded();
@@ -83,7 +86,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
 
   return (
     <div className="popover-notes-container">
-      <Button id="add-note-button" aria-describedby={id} variant="contained" onClick={handleClick}>
+      <Button id="add-note-button" variant="contained" onClick={handleClick}>
         Add Note
       </Button>
       <Popover

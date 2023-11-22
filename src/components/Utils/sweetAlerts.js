@@ -1,10 +1,9 @@
 import Swal from "sweetalert2";
 
 // Sweet Alert in OrgDetails
-export const showDeleteSweetAlert = (message) => {
+export const showDeleteSweetAlert = (deleteCall) => {
   Swal.fire({
     title: "Are you sure?",
-    text: message,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -12,16 +11,17 @@ export const showDeleteSweetAlert = (message) => {
     confirmButtonText: "Yes, delete it!",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire("Deleted!", message, "success");
+      // Execute the callback if the user confirms
+      deleteCall && deleteCall();
+      Swal.fire("Deleted!");
     }
   });
 };
 
 // Sweet Alert in OrgContactDetailsEdit
-export const showSaveSweetAlert = (message) => {
+export const showSaveSweetAlert = (saveCall) => {
   Swal.fire({
     title: "Are you sure?",
-    text: message,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -29,7 +29,9 @@ export const showSaveSweetAlert = (message) => {
     confirmButtonText: "Yes, save it!",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire("Saved!", message, "success");
+      // Execute the callback if the user confirms
+      saveCall && saveCall();
+      Swal.fire("Saved!");
     }
   });
 };

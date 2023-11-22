@@ -7,7 +7,7 @@
 .popover-notes-container {
   position: absolute;
   /* margin-top: 20px; */
-  left: 34vh;
+  left: 45vh;
 }
 
 @media (max-width: 400px) {

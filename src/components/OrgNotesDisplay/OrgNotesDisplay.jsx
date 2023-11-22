@@ -28,10 +28,12 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
   const [noteDelete, setNoteDelete] = useState(false);
 
   const handleDelete = (id, organization_id) => {
-    dispatch({ type: "DELETE_ORG_NOTE", payload: { id, organization_id } });
-    setNoteDelete(true);
+    const deleteCall = () => {
+      dispatch({ type: "DELETE_ORG_NOTE", payload: { id, organization_id } });
+      setNoteDelete(true);
+    };
     // from Utils
-    showDeleteSweetAlert();
+    showDeleteSweetAlert(deleteCall);
   };
 
   return (
@@ -97,9 +99,9 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
               <Button>Save</Button>
             </div>
           </div> */}
-        {/* <OrgNotesModal info={orgDetails}/> */}
-        {/* <Button fullWidth>Add Note</Button> */}
+          {/* <Button fullWidth>Add Note</Button> */}
         </CardContent>
+        {/* <OrgNotesModal info={orgDetails}/> */}
       </Card>
     </div>
   );

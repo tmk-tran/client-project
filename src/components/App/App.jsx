@@ -31,7 +31,6 @@ import GlobalFundraiserInput
 const theme = createTheme({
   typography: {
     fontSize: 18,
-    // fontFamily: "Telugu Sangam MN",
     fontFamily: 'Lato, "Helvetica Neue", Arial, sans-serif',
   },
   palette: {

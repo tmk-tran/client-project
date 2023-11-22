@@ -107,6 +107,14 @@ export default function orgDetails() {
                   <AddGroupPopover info={orgDetails} />
                 </div>
 
+                <Card elevation={3} className="goals-display-card">
+                  <CardContent>
+                    <div className="org-detail-goal-container">
+                    Goal for Org
+                    </div>
+                  </CardContent>
+                </Card>
+
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
                   {groups && groups.some((group) => group.group_id !== null) ? (

@@ -30,6 +30,19 @@
   margin-right: 3%;
 }
 
+.goals-display-card {
+  position: absolute;
+  /* margin-right: 10vh; */
+  width: 40vh;
+  right: 80px;
+  top: 0;
+}
+
+.org-detail-goal-container {
+  height: 29vh;
+  border: 1px solid black;
+}
+
 @media (max-width: 400px) {
   .OrgDetails-container,
   .detailsOrg-container,
