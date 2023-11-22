@@ -54,9 +54,9 @@ router.put("/money/:id", (req, res) => {
   const id = req.params.id;
   const updatedAmount = req.body;
   console.log(updatedAmount)
-  const queryText = `UPDATE "fundraiser" SET "book_quantity_checked_out" = $1, "book_quantity_checked_in" = $2, "books_sold" = $3, "money_received" = $4 WHERE "id" = $5;`;
+  const queryText = `UPDATE "fundraiser" SET "book_quantity_checked_out" = $1, "book_quantity_checked_in" = $2, "books_sold" = $3, "money_received" = $4, "goal" = $5 WHERE "id" = $6;`;
 
-  pool.query(queryText, [updatedAmount.newBooksCheckedOut, updatedAmount.newBooksCheckedIn, updatedAmount.newBooksSold, updatedAmount.newMoneyReceived, id])
+  pool.query(queryText, [updatedAmount.newBooksCheckedOut, updatedAmount.newBooksCheckedIn, updatedAmount.newBooksSold, updatedAmount.newMoneyReceived, updatedAmount.newGoal,  id])
     .then(() => {
       res.sendStatus(200)
     })

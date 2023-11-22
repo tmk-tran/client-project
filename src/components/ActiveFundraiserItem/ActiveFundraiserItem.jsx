@@ -1,6 +1,6 @@
 //Imports used in the component
 import React, { useState } from "react";
-import { Button, OutlinedInput, TableCell, TableRow, Typography } from "@mui/material";
+import { Button, OutlinedInput, TableCell, TableRow, Typography, InputAdornment } from "@mui/material";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import "./ActiveFundraiserItem.css"
@@ -13,6 +13,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     let [booksCheckedOut, setBooksCheckedOut] = useState(fundraiser.book_quantity_checked_out)
     let [booksCheckedIn, setBooksCheckedIn] = useState(fundraiser.book_quantity_checked_in)
     let [moneyReceived, setMoneyRecieved] = useState(fundraiser.money_received)
+    let [goal, setGoal] = useState(fundraiser.goal)
     let [editMode, setEditMode] = useState(false)
     let [editTitle, setEditTitle] = useState(fundraiser.title)
     //Function that formates the date and removes the timestamp
@@ -38,7 +39,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     //Function that runs when the update button is clicked. Builds a new object with the updated data and sends it to the back end to be updated in the database
     const updateAmount = () => {
 
-        const updatedAmount = { id: Number(fundraiser.id), newBooksSold: Number(booksSold), newBooksCheckedOut: Number(booksCheckedOut), newBooksCheckedIn: Number(booksCheckedIn), newMoneyReceived: Number(moneyReceived), group_id: Number(fundraiser.group_id) }
+        const updatedAmount = { id: Number(fundraiser.id), newBooksSold: Number(booksSold), newBooksCheckedOut: Number(booksCheckedOut), newBooksCheckedIn: Number(booksCheckedIn), newMoneyReceived: Number(moneyReceived), newGoal: Number(goal), group_id: Number(fundraiser.group_id) }
         Swal.fire(
             'Updated!',
             'The fundraiser amounts have been updated.',
@@ -82,11 +83,11 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}>${fundraiser.book_checked_out_total_value}</Typography></TableCell>
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", textAlign: "center" }}><OutlinedInput style={{ fontSize: "15px", width: "100px", height: "30px" }} value={booksCheckedIn} onChange={(e) => setBooksCheckedIn(e.target.value)}>{fundraiser.book_quantity_checked_in}</OutlinedInput></Typography></TableCell>
                             <TableCell className="active_table_cell" > <Typography style={{ fontSize: "15px", textAlign: "center" }}><OutlinedInput style={{ fontSize: "15px", width: "100px", height: "30px" }} value={booksSold} onChange={(e) => setBooksSold(e.target.value)}>{fundraiser.books_sold}</OutlinedInput></Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", textAlign: "center" }}><OutlinedInput style={{ fontSize: "15px", width: "100px", height: "30px" }} value={moneyReceived} onChange={(e) => setMoneyRecieved(e.target.value)}>{fundraiser.money_received}</OutlinedInput></Typography></TableCell>
+                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", textAlign: "center" }}><OutlinedInput style={{ fontSize: "15px", width: "100px", height: "30px" }} startAdornment={<InputAdornment position="start">$</InputAdornment>} value={moneyReceived} onChange={(e) => setMoneyRecieved(e.target.value)}>{fundraiser.money_received}</OutlinedInput></Typography></TableCell>
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}>{formatDate(fundraiser.start_date)}</Typography></TableCell>
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}>{formatDate(fundraiser.end_date)}</Typography></TableCell>
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}>{fundraiser.year}</Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}>${fundraiser.goal}</Typography></TableCell>
+                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}><OutlinedInput style={{ fontSize: "15px", width: "100px", height: "30px" }} startAdornment={<InputAdornment position="start">$</InputAdornment>} value={goal} onChange={(e) => setGoal(e.target.value)}>{fundraiser.goal}</OutlinedInput></Typography></TableCell>
                             <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}>${fundraiser.outstanding_balance}</Typography></TableCell>
                             <TableCell className="active_table_cell" style={{ textAlign: "center", minWidth: "210px" }} >
                                 <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={() => setEditMode(true)}><Typography style={{ fontSize: "12px" }}>Edit</Typography></Button>
