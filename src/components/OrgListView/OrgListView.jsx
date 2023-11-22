@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Button, Card, CardContent } from "@mui/material";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./OrgListView.css";
 import Swal from "sweetalert2";
 import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
@@ -62,20 +62,22 @@ function OrgListView({ organization }) {
   };
 
   function goToDetails() {
-  history.push(`/orgDetails/${organization.id}`);
+    history.push(`/orgDetails/${organization.id}`);
   }
   const totalOrgEarnings = parseFloat(organization.total_org_earnings);
   const formattedEarnings = totalOrgEarnings.toLocaleString();
 
-const outstandingBalance = parseFloat(organization.total_outstanding_balance);
-const formattedOutstandingBalance = isNaN(outstandingBalance) ? "N/A" : outstandingBalance.toLocaleString();
+  const outstandingBalance = parseFloat(organization.total_outstanding_balance);
+  const formattedOutstandingBalance = isNaN(outstandingBalance)
+    ? "N/A"
+    : outstandingBalance.toLocaleString();
 
-const totalCheckedOutBooks = organization.total_checked_out_books;
+  const totalCheckedOutBooks = organization.total_checked_out_books;
   const totalCheckedInBooks = organization.total_checked_in_books;
   const totalBooksSold = organization.total_books_sold;
 
-  const totalStandingBooks = totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
-
+  const totalStandingBooks =
+    totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
 
   return (
     <>
@@ -85,27 +87,44 @@ const totalCheckedOutBooks = organization.total_checked_out_books;
             <div className="organizationHeader">
               {renderLogoOrInitials()}
               <div className="organizationDetails">
-                <h2 style={{marginTop: "0px"}}className="media-header">
+                <h2 style={{ marginTop: "0px" }} className="media-header">
                   {organization.organization_name}
                 </h2>
-                <div>Total Groups: {organization.total_groups}</div>
-                <div>
-                  Total Books Sold:{" "}
-                  {organization.total_books_sold}
+                <div style={{ marginTop: "5px" }}>
+                  <Typography variant="caption">
+                    Total Groups: {organization.total_groups}
+                  </Typography>
                 </div>
                 <div>
-                  Total Outstanding Books:{" "}
+                  <Typography variant="caption">
+                    Total Books Sold: {organization.total_books_sold}
+                  </Typography>
+                </div>
+                <div>
+                  <Typography variant="caption">
+                    Total Outstanding Books:{" "}
+                  </Typography>
                   {totalStandingBooks}
                 </div>
                 <div>
-                  Outstanding Balance:{" "}
+                  <Typography variant="caption">
+                    Outstanding Balance:{" "}
+                  </Typography>
                   ${formattedOutstandingBalance}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="organizationActions" style={{ marginTop: organization.total_active_fundraisers <= 1 ? "-132px" : "-102px" }}>
+          <div
+            className="organizationActions"
+            style={{
+              marginTop:
+                organization.total_active_fundraisers <= 1
+                  ? "-132px"
+                  : "-102px",
+            }}
+          >
             <Button
               style={{ marginRight: "14px" }}
               onClick={(e) => {
