@@ -49,7 +49,7 @@ function UserTable() {
             className="active_row"
             style={{ border: "2px solid black" }}
           >
-            <TableCell className="user_header_cell">
+            {/* <TableCell className="user_header_cell">
               <Typography
                 className="user_header_text"
                 style={{
@@ -61,7 +61,7 @@ function UserTable() {
               >
                 ID
               </Typography>
-            </TableCell>
+            </TableCell> */}
             <TableCell className="user_header_cell">
               <Typography
                 className="user_header_text"
