@@ -88,7 +88,7 @@ export default function orgDetails() {
                   <OrgContactDetails info={orgDetails} />
                 </center>
 
-                {/* Toast */}
+                {/* Toast (INACTIVE, MAY USE LATER) */}
                 {/* <ToastContainer
                   style={{
                     top: "45%",

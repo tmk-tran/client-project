@@ -8,7 +8,7 @@ const {
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const orgId = req.params.id;
   console.log("orgId = ", orgId);
-  const queryText = `SELECT * FROM "organization_notes" WHERE organization_id = $1;`;
+  const queryText = `SELECT * FROM "organization_notes" WHERE organization_id = $1 ORDER by "id" DESC;`;
   pool
     .query(queryText, [orgId])
     .then((result) => {

@@ -13,7 +13,7 @@ export default function OrgDetailsGoalView() {
           Goal for Org
         </Typography>
         <div className="org-detail-goal-container">
-          <center>Goal for Org Here</center>
+          <center><Typography variant="h6">Goal for Org Here:<strong>&nbsp;$2000</strong></Typography></center>
         </div>
       </CardContent>
     </Card>
