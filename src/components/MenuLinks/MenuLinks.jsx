@@ -99,7 +99,7 @@ export default function BasicMenu() {
       >
         <MenuItem onClick={goHome}>Home</MenuItem>
         {/* <MenuItem onClick={goToProfile}>Profile</MenuItem> */}
-        <hr />
+        <hr style={{ width: "90%" }} />
         <MenuItem onClick={newFundraiserForm}>New Fundraiser</MenuItem>
         <MenuItem onClick={archivedOrganizations}>
           Archived Organizations
