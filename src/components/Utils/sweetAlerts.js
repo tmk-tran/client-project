@@ -20,6 +20,6 @@ export const showDeleteSweetAlert = (deleteCall) => {
 
 // Sweet Alert in OrgContactDetailsEdit
 export const showSaveSweetAlert = (saveCall) => {
-      saveCall && saveCall();
-      Swal.fire("Saved!");
+  saveCall && saveCall();
+  Swal.fire("Saved!");
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 // Style
 import {
@@ -11,8 +11,9 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material/";
-// Icons
 import "./OrgNotesModal.css";
+// Icons
+import EditIcon from '@mui/icons-material/Edit';
 // Utils
 import { modalBtnStyle } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
@@ -88,7 +89,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
   return (
     <div className="popover-notes-container">
       <Button id="add-note-button" variant="contained" onClick={handleClick}>
-        Add Note
+        <EditIcon />{/* &nbsp;Note */}
       </Button>
       <Popover
         id={id}

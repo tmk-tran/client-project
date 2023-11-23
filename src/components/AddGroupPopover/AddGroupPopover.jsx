@@ -10,7 +10,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material/";
-import CloseIcon from "@mui/icons-material/Close";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import "./AddGroupPopover.css";
 // Utils
 import {
@@ -67,7 +67,8 @@ export default function BasicPopover({ info }) {
   return (
     <div className="popover-container">
       <Button id="add-group-button" variant="contained" onClick={handleClick}>
-        Add Group
+        <AddBoxIcon />&nbsp;Group
+        {/* Add Group */}
       </Button>
       <Popover
         id={id}
