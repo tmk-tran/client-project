@@ -3,13 +3,9 @@
   height: 50px;
   padding: 0;
   background-color: rgb(192, 190, 190);
+  min-width: 65px;
 }
 
-.active_header_text{
-    width: 100px; 
-    padding: 0;
-    text-align: center
-}
 
 .closed_header_cell{
     border: 2px solid black;

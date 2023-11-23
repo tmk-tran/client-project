@@ -1,10 +1,10 @@
-.active_table_cell{
+/* .active_table_cell{
     border: 2px solid black; 
-    min-width: 100px; 
+    min-width: 80px; 
     height: 30px; 
     padding: 0;
     text-align: center !important;
-}
+} */
 
 .active_row:nth-child(even){
     background-color: lightgray;
