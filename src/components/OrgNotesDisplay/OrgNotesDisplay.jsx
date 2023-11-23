@@ -40,7 +40,10 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
     <div className="notes-card-container">
       <Card elevation={4} className="notes-card">
         <CardContent>
-          <Typography variant="h6" sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}
+          >
             Notes
           </Typography>
           <div className="orgNotes-container">
@@ -59,7 +62,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                           justifyContent: "space-between",
                         }}
                       >
-                        <li>
+                        <li style={{ marginLeft: "10%" }}>
                           {note.note_content.charAt(0).toUpperCase() +
                             note.note_content.slice(1).toLowerCase()}
                         </li>

@@ -109,8 +109,14 @@ export default function orgDetails() {
 
                 <Card elevation={3} className="goals-display-card">
                   <CardContent>
+                    <Typography
+                      variant="h6"
+                      sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}
+                    >
+                      Goal for Org
+                    </Typography>
                     <div className="org-detail-goal-container">
-                    Goal for Org
+                      <center>Goal for Org Here</center>
                     </div>
                   </CardContent>
                 </Card>

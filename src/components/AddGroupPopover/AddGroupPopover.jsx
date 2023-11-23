@@ -13,7 +13,11 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import "./AddGroupPopover.css";
 // Utils
-import { modalBtnStyle, showDeleteSweetAlert, showToast } from "../Utils/helpers";
+import {
+  modalBtnStyle,
+  showDeleteSweetAlert,
+  showToast,
+} from "../Utils/helpers";
 
 export default function BasicPopover({ info }) {
   const dispatch = useDispatch();

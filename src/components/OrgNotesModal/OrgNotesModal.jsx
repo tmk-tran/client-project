@@ -110,7 +110,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
             <div className="add-notes">
               <TextField
                 fullWidth
-                label="Note"
+                label="New Note"
                 multiline
                 rows={4}
                 value={newNote}
