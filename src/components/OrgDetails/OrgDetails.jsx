@@ -12,6 +12,7 @@ import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
+import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
 // Sweet Alert
 import Swal from "sweetalert2";
 // Toast
@@ -107,19 +108,7 @@ export default function orgDetails() {
                   <AddGroupPopover info={orgDetails} />
                 </div>
 
-                <Card elevation={3} className="goals-display-card">
-                  <CardContent>
-                    <Typography
-                      variant="h6"
-                      sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}
-                    >
-                      Goal for Org
-                    </Typography>
-                    <div className="org-detail-goal-container">
-                      <center>Goal for Org Here</center>
-                    </div>
-                  </CardContent>
-                </Card>
+                <OrgDetailsGoalView />
 
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
