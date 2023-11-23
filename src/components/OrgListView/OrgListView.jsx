@@ -87,10 +87,15 @@ function OrgListView({ organization }) {
             <div className="organizationHeader">
               {renderLogoOrInitials()}
               <div className="organizationDetails">
-                <Typography className="media-header" variant="h6" sx={{ mt: 0, fontWeight: "bold" }}>{organization.organization_name}</Typography>
+                <Typography
+                  className="media-header"
+                  variant="h6"
+                  sx={{ mt: 0, fontWeight: "bold" }}
+                >
+                  {organization.organization_name}
+                </Typography>
                 <div className="detailsContainer">
                   <div className="column">
-            
                     <Typography variant="body2">
                       Organization Fee: ${organization.organization_earnings}
                     </Typography>
@@ -102,7 +107,7 @@ function OrgListView({ organization }) {
                     </Typography>
                   </div>
                   <div className="column">
-                  <Typography variant="body2">
+                    <Typography variant="body2">
                       Total Groups: {organization.total_groups}
                     </Typography>
                     <Typography variant="body2">
@@ -121,9 +126,7 @@ function OrgListView({ organization }) {
             className="organizationActions"
             style={{
               marginTop:
-                organization.total_active_fundraisers <= 1
-                  ? "-115px"
-                  : "-85px",
+                organization.total_active_fundraisers <= 1 ? "-115px" : "-85px",
             }}
           >
             <Button
