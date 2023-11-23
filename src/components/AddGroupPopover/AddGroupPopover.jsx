@@ -10,10 +10,14 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material/";
-import CloseIcon from "@mui/icons-material/Close";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import "./AddGroupPopover.css";
 // Utils
-import { modalBtnStyle, showDeleteSweetAlert, showToast } from "../Utils/helpers";
+import {
+  modalBtnStyle,
+  showDeleteSweetAlert,
+  showToast,
+} from "../Utils/helpers";
 
 export default function BasicPopover({ info }) {
   const dispatch = useDispatch();
@@ -63,7 +67,8 @@ export default function BasicPopover({ info }) {
   return (
     <div className="popover-container">
       <Button id="add-group-button" variant="contained" onClick={handleClick}>
-        Add Group
+        <AddBoxIcon />&nbsp;Group
+        {/* Add Group */}
       </Button>
       <Popover
         id={id}
@@ -90,19 +95,19 @@ export default function BasicPopover({ info }) {
             <div className="add-group-fields">
               <TextField
                 fullWidth
-                label="Name"
+                label="Group Name"
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
               ></TextField>
               <TextField
                 fullWidth
-                label="Department"
+                label="Category"
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
               ></TextField>
               <TextField
                 fullWidth
-                label="Division"
+                label="Sub-Category"
                 value={subDepartment}
                 onChange={(e) => setSubDepartment(e.target.value)}
               ></TextField>

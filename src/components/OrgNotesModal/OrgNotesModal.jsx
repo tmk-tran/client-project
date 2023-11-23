@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 // Style
 import {
@@ -11,8 +11,9 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material/";
-// Icons
 import "./OrgNotesModal.css";
+// Icons
+import EditIcon from '@mui/icons-material/Edit';
 // Utils
 import { modalBtnStyle } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
@@ -60,15 +61,19 @@ export default function NotesPopover({ info, onNoteAdded }) {
       note_date: formattedDate,
       note_content: newNote,
     };
+
+    const saveCall = () => {
+      dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
+      setNoteAdded(true);
+    };
+
     // from Utils
     // showToast();
 
     // Sweet Alert
-    showSaveSweetAlert();
+    showSaveSweetAlert(saveCall);
 
-    dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
-    setNoteAdded(true);
-
+    setNewNote("");
     handleClose();
     onNoteAdded();
   };
@@ -83,8 +88,8 @@ export default function NotesPopover({ info, onNoteAdded }) {
 
   return (
     <div className="popover-notes-container">
-      <Button id="add-note-button" aria-describedby={id} variant="contained" onClick={handleClick}>
-        Add Note
+      <Button id="add-note-button" variant="contained" onClick={handleClick}>
+        <EditIcon />{/* &nbsp;Note */}
       </Button>
       <Popover
         id={id}
@@ -106,7 +111,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
             <div className="add-notes">
               <TextField
                 fullWidth
-                label="Note"
+                label="New Note"
                 multiline
                 rows={4}
                 value={newNote}

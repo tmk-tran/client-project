@@ -28,17 +28,22 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
   const [noteDelete, setNoteDelete] = useState(false);
 
   const handleDelete = (id, organization_id) => {
-    dispatch({ type: "DELETE_ORG_NOTE", payload: { id, organization_id } });
-    setNoteDelete(true);
+    const deleteCall = () => {
+      dispatch({ type: "DELETE_ORG_NOTE", payload: { id, organization_id } });
+      setNoteDelete(true);
+    };
     // from Utils
-    showDeleteSweetAlert();
+    showDeleteSweetAlert(deleteCall);
   };
 
   return (
     <div className="notes-card-container">
       <Card elevation={4} className="notes-card">
         <CardContent>
-          <Typography variant="h6" sx={{ textAlign: "center", mb: 1 }}>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}
+          >
             Notes
           </Typography>
           <div className="orgNotes-container">
@@ -57,7 +62,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                           justifyContent: "space-between",
                         }}
                       >
-                        <li>
+                        <li style={{ marginLeft: "10%" }}>
                           {note.note_content.charAt(0).toUpperCase() +
                             note.note_content.slice(1).toLowerCase()}
                         </li>
@@ -97,9 +102,9 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
               <Button>Save</Button>
             </div>
           </div> */}
-        {/* <OrgNotesModal info={orgDetails}/> */}
-        {/* <Button fullWidth>Add Note</Button> */}
+          {/* <Button fullWidth>Add Note</Button> */}
         </CardContent>
+        {/* <OrgNotesModal info={orgDetails}/> */}
       </Card>
     </div>
   );

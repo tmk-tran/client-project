@@ -4,10 +4,11 @@
 
 .notes-card {
   position: absolute;
-  margin-left: 10vh;
+  /* margin-left: 10vh; */
   width: 40vh;
-  left: 30px;
-  top: 20px;
+  left: 60px;
+  top: 0;
+  /* border: 1px solid #273b91; */
 }
 
 .notes-container {
@@ -17,7 +18,9 @@
 .orgNotes-container {
   overflow-wrap: break-word;
   overflow-y: auto;
-  border: 1px solid rgb(218, 218, 218);
+  /* border: 1px solid rgb(218, 218, 218); */
+  border: 1px solid #273a9158;
+  border-radius: 4px;
   max-height: 25vh;
   padding-left: 25px;
 }

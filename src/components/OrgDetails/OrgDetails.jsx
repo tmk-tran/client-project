@@ -12,6 +12,7 @@ import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
+import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
 // Sweet Alert
 import Swal from "sweetalert2";
 // Toast
@@ -87,7 +88,7 @@ export default function orgDetails() {
                   <OrgContactDetails info={orgDetails} />
                 </center>
 
-                {/* Toast */}
+                {/* Toast (INACTIVE, MAY USE LATER) */}
                 {/* <ToastContainer
                   style={{
                     top: "45%",
@@ -106,6 +107,8 @@ export default function orgDetails() {
                   {/* Add Groups */}
                   <AddGroupPopover info={orgDetails} />
                 </div>
+
+                <OrgDetailsGoalView />
 
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
