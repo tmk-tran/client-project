@@ -36,6 +36,7 @@ export default function OrgGroupInfoCard({ groupInfo }) {
                 </span>
               )}
             </div>
+            <hr />
           </Typography>
         </div>
         <div style={{ position: "relative" }}>

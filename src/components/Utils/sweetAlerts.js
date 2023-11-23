@@ -20,18 +20,6 @@ export const showDeleteSweetAlert = (deleteCall) => {
 
 // Sweet Alert in OrgContactDetailsEdit
 export const showSaveSweetAlert = (saveCall) => {
-  Swal.fire({
-    title: "Are you sure?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, save it!",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Execute the callback if the user confirms
       saveCall && saveCall();
       Swal.fire("Saved!");
-    }
-  });
 };

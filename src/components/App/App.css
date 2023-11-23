@@ -9,6 +9,10 @@ body {
   margin: 0px;
 }
 
+hr {
+  border: 1px solid #273b91;
+}
+
 img {
   display: inline-block;
   max-width: 100%;
