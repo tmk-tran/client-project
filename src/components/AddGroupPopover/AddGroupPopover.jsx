@@ -90,19 +90,19 @@ export default function BasicPopover({ info }) {
             <div className="add-group-fields">
               <TextField
                 fullWidth
-                label="Name"
+                label="Group Name"
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
               ></TextField>
               <TextField
                 fullWidth
-                label="Department"
+                label="Category"
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
               ></TextField>
               <TextField
                 fullWidth
-                label="Division"
+                label="Sub-Category"
                 value={subDepartment}
                 onChange={(e) => setSubDepartment(e.target.value)}
               ></TextField>

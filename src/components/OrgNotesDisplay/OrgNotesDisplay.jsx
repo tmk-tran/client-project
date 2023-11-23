@@ -40,7 +40,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
     <div className="notes-card-container">
       <Card elevation={4} className="notes-card">
         <CardContent>
-          <Typography variant="h6" sx={{ textAlign: "center", mb: 1 }}>
+          <Typography variant="h6" sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}>
             Notes
           </Typography>
           <div className="orgNotes-container">
