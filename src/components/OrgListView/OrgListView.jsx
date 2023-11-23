@@ -87,9 +87,7 @@ function OrgListView({ organization }) {
             <div className="organizationHeader">
               {renderLogoOrInitials()}
               <div className="organizationDetails">
-                <h2 style={{ marginTop: "0px", fontWeight: "bold" }} className="media-header">
-                  {organization.organization_name}
-                </h2>
+                <Typography className="media-header" variant="h6" sx={{ mt: 0, fontWeight: "bold" }}>{organization.organization_name}</Typography>
                 <div className="detailsContainer">
                   <div className="column">
             
