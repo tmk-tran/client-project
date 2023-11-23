@@ -87,7 +87,7 @@ function OrgListView({ organization }) {
             <div className="organizationHeader">
               {renderLogoOrInitials()}
               <div className="organizationDetails">
-                <h2 style={{ marginTop: "0px", fontFamily: "Telugu Sangam MN", fontWeight: "bold" }} className="media-header">
+                <h2 style={{ marginTop: "0px", fontWeight: "bold" }} className="media-header">
                   {organization.organization_name}
                 </h2>
                 <div className="detailsContainer">
