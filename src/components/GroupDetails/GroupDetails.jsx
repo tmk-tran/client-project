@@ -64,54 +64,54 @@ export default function GroupDetails() {
         }}
       >
         <TableContainer style={{ width: "95%", margin: "auto" }}>
-          <Typography variant="h6">Active Campaigns</Typography>
+          <Typography variant="h6">Active Campaigns: </Typography>
           <Table size="small" className="active-table">
             <TableHead>
               <TableRow style={{ border: "2px solid black" }}>
-                <TableCell className="active_header_cell">
+                <TableCell style={{width: "0px", padding: "5px"}} className="active_header_cell">
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0", textAlign: "center" }}
                   >
                     Title
                   </Typography>
                 </TableCell>
-                <TableCell className="active_header_cell">
+                <TableCell  style={{width: "0px", padding: "5px"}} className="active_header_cell">
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0", textAlign: "center" }}
                   >
                     Books Requested
                   </Typography>
                 </TableCell>
-                <TableCell className="active_header_cell">
+                <TableCell style={{width: "0px", padding: "5px"}} className="active_header_cell">
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0", textAlign: "center" }}
                   >
                     Books Checked Out
                   </Typography>
                 </TableCell>
-                <TableCell className="active_header_cell">
+                <TableCell style={{width: "0px", padding: "5px"}} className="active_header_cell">
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0", textAlign: "center" }}
                   >
                     Books Out Value
                   </Typography>
                 </TableCell>
-                <TableCell className="active_header_cell">
+                <TableCell style={{width: "0px", padding: "5px"}} className="active_header_cell">
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0", textAlign: "center" }}
                   >
                     Books Checked In
                   </Typography>
                 </TableCell>
-                <TableCell className="active_header_cell">
+                <TableCell style={{width: "0px", padding: "5px"}} className="active_header_cell">
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0", textAlign: "center" }}
                   >
                     Books Sold
                   </Typography>
@@ -119,7 +119,7 @@ export default function GroupDetails() {
                 <TableCell className="active_header_cell">
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0", textAlign: "center" }}
                   >
                     Money Received
                   </Typography>
@@ -127,39 +127,31 @@ export default function GroupDetails() {
                 <TableCell className="active_header_cell">
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0", textAlign: "center" }}
                   >
-                    Start Date
+                    Start and End Date
                   </Typography>
                 </TableCell>
-                <TableCell className="active_header_cell">
+                <TableCell style={{width: "0px", padding: "2px"}} className="active_header_cell">
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
-                  >
-                    End Date
-                  </Typography>
-                </TableCell>
-                <TableCell className="active_header_cell">
-                  <Typography
-                    className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0", textAlign: "center" }}
                   >
                     Year
                   </Typography>
                 </TableCell>
-                <TableCell className="active_header_cell">
+                <TableCell style={{width: "0px", padding: "2px"}} className="active_header_cell">
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0", textAlign: "center" }}
                   >
                     Goal
                   </Typography>
                 </TableCell>
-                <TableCell className="active_header_cell">
+                <TableCell style={{width: "0px", padding: "5px"}} className="active_header_cell">
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", padding: "0", textAlign: "center" }}
                   >
                     Outstanding Balance
                   </Typography>
@@ -171,7 +163,7 @@ export default function GroupDetails() {
                       fontSize: "16px",
                       fontWeight: "bold",
                       textAlign: "center",
-                      padding: "0"
+                      padding: "0",
                     }}
                   >
                     Actions

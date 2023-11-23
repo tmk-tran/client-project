@@ -18,11 +18,17 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     let [editTitle, setEditTitle] = useState(fundraiser.title)
     //Function that formates the date and removes the timestamp
     const formatDate = (dateString) => {
+        // if (!dateString) {
+        //     return " ";
+        // }
+        // const date = new Date(dateString); // Assuming the date string is in 'YYYY-MM-DD' format
+        // const options = { year: "numeric", month: "long", day: "numeric" };
+        // return date.toLocaleDateString(undefined, options);
         if (!dateString) {
             return " ";
         }
         const date = new Date(dateString); // Assuming the date string is in 'YYYY-MM-DD' format
-        const options = { year: "numeric", month: "long", day: "numeric" };
+        const options = { day: "2-digit", month: "2-digit", year: "2-digit" };
         return date.toLocaleDateString(undefined, options);
     };
     //Funstion rins on click of the submit button when title and description are updated. Builds a new object with that data and sends it to the back end.
@@ -77,22 +83,21 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                 <>
                     {fundraiser.closed != true &&
                         <TableRow className="active_row" style={{ border: "2px solid black" }}>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center", padding: "0" }}>{fundraiser.title}</Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center", padding: "0" }}>{fundraiser.requested_book_quantity}</Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "100px", height: "30px" }} value={booksCheckedOut} onChange={(e) => setBooksCheckedOut(e.target.value)}>{fundraiser.book_quantity_checked_out}</OutlinedInput></Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center", padding: "0" }}>${fundraiser.book_checked_out_total_value}</Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "100px", height: "30px" }} value={booksCheckedIn} onChange={(e) => setBooksCheckedIn(e.target.value)}>{fundraiser.book_quantity_checked_in}</OutlinedInput></Typography></TableCell>
-                            <TableCell className="active_table_cell" > <Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "100px", height: "30px" }} value={booksSold} onChange={(e) => setBooksSold(e.target.value)}>{fundraiser.books_sold}</OutlinedInput></Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "100px", height: "30px" }} startAdornment={<InputAdornment position="start">$</InputAdornment>} value={moneyReceived} onChange={(e) => setMoneyRecieved(e.target.value)}>{fundraiser.money_received}</OutlinedInput></Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center", padding: "0" }}>{formatDate(fundraiser.start_date)}</Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center", padding: "0" }}>{formatDate(fundraiser.end_date)}</Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center", padding: "0" }}>{fundraiser.year}</Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "100px", height: "30px" }} startAdornment={<InputAdornment position="start">$</InputAdornment>} value={goal} onChange={(e) => setGoal(e.target.value)}>{fundraiser.goal}</OutlinedInput></Typography></TableCell>
-                            <TableCell className="active_table_cell" ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center", padding: "0" }}>${fundraiser.outstanding_balance}</Typography></TableCell>
-                            <TableCell className="active_table_cell" style={{ textAlign: "center", width: "100px", padding: "0" }} >
+                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}>{fundraiser.title}</Typography></TableCell>
+                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}>{fundraiser.requested_book_quantity}</Typography></TableCell>
+                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "60px", height: "30px" }} value={booksCheckedOut} onChange={(e) => setBooksCheckedOut(e.target.value)}>{fundraiser.book_quantity_checked_out}</OutlinedInput></Typography></TableCell>
+                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}>${fundraiser.book_checked_out_total_value}</Typography></TableCell>
+                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "60px", height: "30px" }} value={booksCheckedIn} onChange={(e) => setBooksCheckedIn(e.target.value)}>{fundraiser.book_quantity_checked_in}</OutlinedInput></Typography></TableCell>
+                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "60px", height: "30px" }} value={booksSold} onChange={(e) => setBooksSold(e.target.value)}>{fundraiser.books_sold}</OutlinedInput></Typography></TableCell>
+                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "80px", height: "30px" }} startAdornment={<InputAdornment position="start">$</InputAdornment>} value={moneyReceived} onChange={(e) => setMoneyRecieved(e.target.value)}>{fundraiser.money_received}</OutlinedInput></Typography></TableCell>
+                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}>{formatDate(fundraiser.start_date)} to {formatDate(fundraiser.end_date)}</Typography></TableCell>
+                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}>{fundraiser.year}</Typography></TableCell>
+                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "80px", height: "30px" }} startAdornment={<InputAdornment position="start">$</InputAdornment>} value={goal} onChange={(e) => setGoal(e.target.value)}>{fundraiser.goal}</OutlinedInput></Typography></TableCell>
+                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}>${fundraiser.outstanding_balance}</Typography></TableCell>
+                            <TableCell style={{ width: "120px", border: "2px solid black", textAlign: "center" }}>
                                 {/* <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={() => setEditMode(true)}><Typography style={{ fontSize: "12px" }}>Edit</Typography></Button> */}
-                                <Button style={{ margin: "2px" }} variant="contained" size="small" onClick={updateAmount}><Typography style={{ fontSize: "12px" }}>Update</Typography></Button>
-                                <Button style={{ margin: "2px", backgroundColor: "red" }} variant="contained" size="small" onClick={handleCloseFundraiser}><Typography style={{ fontSize: "12px" }}>Close</Typography></Button> </TableCell>
+                                <Button style={{ margin: "0px", backgroundColor: "red", fontSize: "11px"  }} variant="contained" size="small" onClick={handleCloseFundraiser}>Close</Button> 
+                                <Button style={{ marginLeft: "3px", fontSize: "11px" }} variant="contained" size="small" onClick={updateAmount}>Update</Button></TableCell>
                         </TableRow>
 
                     }

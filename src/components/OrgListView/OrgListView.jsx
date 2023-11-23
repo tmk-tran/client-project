@@ -87,28 +87,33 @@ function OrgListView({ organization }) {
             <div className="organizationHeader">
               {renderLogoOrInitials()}
               <div className="organizationDetails">
-                <h2 style={{ marginTop: "0px" }} className="media-header">
+                <h2 style={{ marginTop: "0px", fontFamily: "Telugu Sangam MN", fontWeight: "bold" }} className="media-header">
                   {organization.organization_name}
                 </h2>
-                <div style={{ marginTop: "5px" }}>
+                <div className="detailsContainer">
+                  <div className="column">
+            
+                    <Typography variant="body2">
+                      Organization Fee: ${organization.organization_earnings}
+                    </Typography>
+                    <Typography variant="body2">
+                      Total Books Sold: {organization.total_books_sold}
+                    </Typography>
+                    <Typography variant="body2">
+                      Organization Earnings: ${formattedEarnings}
+                    </Typography>
+                  </div>
+                  <div className="column">
                   <Typography variant="body2">
-                    Total Groups: {organization.total_groups}
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="body2">
-                    Total Books Sold: {organization.total_books_sold}
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="body2">
-                    Total Outstanding Books: {totalStandingBooks}
-                  </Typography>
-                </div>
-                <div>
-                  <Typography variant="body2">
-                    Outstanding Balance: ${formattedOutstandingBalance}
-                  </Typography>
+                      Total Groups: {organization.total_groups}
+                    </Typography>
+                    <Typography variant="body2">
+                      Total Outstanding Books: {totalStandingBooks}
+                    </Typography>
+                    <Typography variant="body2">
+                      Outstanding Balance: ${formattedOutstandingBalance}
+                    </Typography>
+                  </div>
                 </div>
               </div>
             </div>
@@ -119,8 +124,8 @@ function OrgListView({ organization }) {
             style={{
               marginTop:
                 organization.total_active_fundraisers <= 1
-                  ? "-132px"
-                  : "-102px",
+                  ? "-115px"
+                  : "-85px",
             }}
           >
             <Button
