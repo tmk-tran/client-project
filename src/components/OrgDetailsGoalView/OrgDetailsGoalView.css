@@ -12,3 +12,10 @@
   border: 1px solid #273a9158;
   border-radius: 4px;
 }
+
+
+@media (max-width: 1000px) {
+  .goals-display-card {
+    display: none;
+  }
+}

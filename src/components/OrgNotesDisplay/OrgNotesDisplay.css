@@ -29,6 +29,12 @@
   color: red;
 }
 
+@media (max-width: 1000px) {
+  .notes-card-container {
+    display: none;
+  }
+}
+
 @media (max-width: 400px) {
   .notes-card-container {
     display: none;
