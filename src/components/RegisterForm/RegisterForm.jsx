@@ -29,7 +29,7 @@ function RegisterForm() {
 
   return (
     <>
-    <LogoPSG />
+<br />
     <br />
     <form className="formPanel" onSubmit={registerUser}>
       <Card>
