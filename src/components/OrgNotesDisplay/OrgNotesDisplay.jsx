@@ -132,7 +132,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
               <Typography variant="h6">None Available</Typography>
             )}
           </div>
-          <div >
+          <div>
             <TextField
               label="Add a note..."
               value={inputValue}
@@ -140,14 +140,6 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
               onChange={(e) => setInputValue(e.target.value)}
               multiline
               fullWidth
-              // sx={{ width: "80%" }}
-              // InputProps={{
-              //   startAdornment: (
-              //     <InputAdornment position="start">
-              //       <EditIcon />
-              //     </InputAdornment>
-              //   ),
-              // }}
             />
             {inputValue && (
               <Button
