@@ -259,7 +259,7 @@ export default function GroupDetails() {
                       fontWeight: "bold",
                       textAlign: "center",
                       padding: "0",
-                      width: "132px",
+                      width: "137px",
                     }}
                   >
                     Actions

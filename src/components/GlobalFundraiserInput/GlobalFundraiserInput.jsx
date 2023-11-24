@@ -50,6 +50,19 @@ export default function GlobalFundraiserInput() {
   const [couponBookId, setCouponBookId] = useState("");
   // const [outstandingBalance, setOutstandingBalance] = useState(0);
 
+  function clearFields(){
+    setTitle("");
+    setDescription("");
+    setGoal("");
+    setBooksRequested("");
+    setBooksCheckedOut("");
+    setStartDate("");
+    setEndDate("");
+    setCouponBookId("");
+    setSelectedOrganizationId("");
+    setSelectedGroup("");
+  }
+
   const submitFundraiser = (selectedGroup) => {
     if (
       !title ||
@@ -85,18 +98,10 @@ export default function GlobalFundraiserInput() {
         icon: "success",
         confirmButtonText: "OK",
       });
-      setTitle("");
-      setDescription("");
-      setGoal("");
-      setBooksRequested("");
-      setBooksCheckedOut("");
-      setStartDate("");
-      setEndDate("");
-      setCouponBookId("");
-      setSelectedOrganizationId("");
-      setSelectedGroup("");
+clearFields()
     }
   };
+
 
   return (
     <div>
@@ -327,6 +332,18 @@ export default function GlobalFundraiserInput() {
             </Box>
             <br />
             <br />
+            <Button
+              variant="outlined"
+              style={{
+                fontSize: "16px",
+                marginTop: "0px",
+                marginRight: "10px"
+              }}
+              sx={{ padding: "10px 28px" }}
+              onClick={() => clearFields()}
+            >
+              Cancel
+            </Button>
             <Button
               variant="contained"
               style={{
