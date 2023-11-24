@@ -19,7 +19,7 @@ import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 // For Toast (INACTIVE)
 import { showToast } from "../Utils/toasts";
 
-export default function NotesPopover({ info, onNoteAdded }) {
+export default function NotesPopover({ info }) {
   const dispatch = useDispatch();
   const paramsObject = useParams();
   // state for the popover
@@ -45,13 +45,6 @@ export default function NotesPopover({ info, onNoteAdded }) {
     setNoteAdded(false);
   }, [dispatch, paramsObject.id, noteAdded]);
 
-  // Trigger onNoteAdded when a new note is added
-  useEffect(() => {
-    if (noteAdded) {
-      onNoteAdded();
-    }
-  }, []);
-
   const handleSave = () => {
     // Format the date as "mm/dd/yyyy"
     const formattedDate = noteDate.toLocaleDateString("en-US");
@@ -75,7 +68,6 @@ export default function NotesPopover({ info, onNoteAdded }) {
 
     setNewNote("");
     handleClose();
-    onNoteAdded();
   };
 
   const handleClick = (event) => {
@@ -88,9 +80,13 @@ export default function NotesPopover({ info, onNoteAdded }) {
 
   return (
     <div className="popover-notes-container">
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <div style={{ flexGrow: 1 }}></div>
+      {/* <TextField style={{ height: "5px" }}></TextField> */}
       <Button id="add-note-button" variant="contained" onClick={handleClick}>
-        <EditIcon />&nbsp;Note
+        <EditIcon />{/*&nbsp;Note*/}
       </Button>
+      </div>
       <Popover
         id={id}
         open={open}
@@ -105,6 +101,14 @@ export default function NotesPopover({ info, onNoteAdded }) {
           vertical: isMobile ? "bottom" : "bottom",
           horizontal: isMobile ? "center" : "center",
         }}
+        // anchorOrigin={{
+        //   vertical: isMobile ? "top" : "top",
+        //   horizontal: isMobile ? "center" : "left",
+        // }}
+        // transformOrigin={{
+        //   vertical: isMobile ? "bottom" : "top",
+        //   horizontal: isMobile ? "center" : "right",
+        // }}
       >
         <Box style={{ padding: "20px" }}>
           <div>
