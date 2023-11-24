@@ -4,7 +4,6 @@ import { takeEvery, put } from "redux-saga/effects";
 //Fetches fundraiser data based on the group id
 function* fetchFundraisersSaga(action) {
     try {
-        console.log(action.payload)
         const response = yield axios.get(`/api/fundraisers/groupfundraisers/${action.payload}`)
         yield put({ type: "SET_FUNDRAISERS", payload: response.data })
     } catch (err) {

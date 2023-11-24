@@ -82,7 +82,7 @@ function UserProfile() {
               </Typography>
               {user.is_admin ? (
                 <>
-                  <Typography variant="h6">You are a PSG Admin User</Typography>
+                  <Typography variant="h6">You are an Admin User</Typography>
                   <br />
                   <div className="fundraisersContainer">
                     <center>

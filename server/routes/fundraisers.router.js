@@ -44,10 +44,10 @@ ORDER BY "f".id ASC, "f".closed = false;`;
 router.post('/', (req, res) => {
   const newFundraiser = req.body;
   console.log(req.body);
-  const queryText = `INSERT INTO "fundraiser" ("group_id", "title", "description", "requested_book_quantity", "book_quantity_checked_out", "goal", "start_date", "end_date", "coupon_book_id" )
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
+  const queryText = `INSERT INTO "fundraiser" ("group_id", "title", "description", "requested_book_quantity", "book_quantity_checked_out", "goal", "start_date", "end_date", "coupon_book_id", "books_sold", "book_quantity_checked_in", "money_received")
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
 
-  pool.query(queryText, [newFundraiser.group_id, newFundraiser.title, newFundraiser.description, newFundraiser.requested_book_quantity, newFundraiser.book_quantity_checked_out, newFundraiser.goal, newFundraiser.start_date, newFundraiser.end_date, newFundraiser.coupon_book_id])
+  pool.query(queryText, [newFundraiser.group_id, newFundraiser.title, newFundraiser.description, newFundraiser.requested_book_quantity, newFundraiser.book_quantity_checked_out, newFundraiser.goal, newFundraiser.start_date, newFundraiser.end_date, newFundraiser.coupon_book_id, newFundraiser.books_sold, newFundraiser.book_quantity_checked_in, newFundraiser.money_received])
     .then(() => {
       res.sendStatus(201)
     })
