@@ -5,10 +5,31 @@ const router = express.Router();
 //Get route for fundraisers with a specific group id
 router.get("/groupfundraisers/:id", (req, res) => {
   const groupId = req.params.id
-  const queryText = `SELECT "f".id, "f".group_id, "f".title, "f".description, "f".photo, "f". requested_book_quantity, "f".book_quantity_checked_out, "f".book_checked_out_total_value, "f".book_quantity_checked_in, "f".books_sold, "f".money_received, "f".start_date, "f".end_date, "f".goal, "cb".year, "f".outstanding_balance, "f".closed  FROM "fundraiser" AS "f"
-  JOIN "coupon_book" AS "cb" ON "f".coupon_book_id = "cb".id
-  WHERE "f".group_id = $1
-  ORDER BY "f".id ASC,"f".closed = false;`;
+  const queryText = `SELECT 
+  "f".id, 
+  "f".group_id, 
+  "f".title, 
+  "f".description, 
+  "f".photo, 
+  "f".requested_book_quantity, 
+  "f".book_quantity_checked_out, 
+  "f".book_checked_out_total_value, 
+  "f".book_quantity_checked_in, 
+  "f".books_sold, 
+  "f".money_received, 
+  "f".start_date, 
+  "f".end_date, 
+  "f".goal, 
+  "cb".year, 
+  "f".outstanding_balance, 
+  "f".closed,
+  "o".organization_earnings
+FROM "fundraiser" AS "f"
+JOIN "group" AS "g" ON "f".group_id = "g".id
+JOIN "organization" AS "o" ON "g".organization_id = "o".id
+JOIN "coupon_book" AS "cb" ON "f".coupon_book_id = "cb".id
+WHERE "f".group_id = $1
+ORDER BY "f".id ASC, "f".closed = false;`;
   pool.query(queryText, [groupId])
     .then(result => {
       res.send(result.rows);

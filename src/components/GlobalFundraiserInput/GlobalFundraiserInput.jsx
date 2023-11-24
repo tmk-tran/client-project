@@ -98,7 +98,6 @@ export default function GlobalFundraiserInput() {
     }
   };
 
-
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -184,9 +183,13 @@ export default function GlobalFundraiserInput() {
                 >
                   {filteredGroups?.map((group, index) => (
                     <MenuItem key={group.id} value={group.id}>
-                      {group.department} -{" "}
-                      {group.sub_department ||
-                        "No Sub Group"}
+                      {group.department.charAt(0).toUpperCase() +
+                        group.department.slice(1)}{" "}
+                      -{" "}
+                      {group.sub_department
+                        ? group.sub_department.charAt(0).toUpperCase() +
+                          group.sub_department.slice(1)
+                        : "No Sub Group"}
                     </MenuItem>
                   ))}
                 </TextField>

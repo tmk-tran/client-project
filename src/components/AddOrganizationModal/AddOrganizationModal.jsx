@@ -20,23 +20,23 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
   const [orgEarnings, setOrgEarnings] = useState(10);
 
   const handleSave = () => {
-      dispatch({
-        type: "ADD_ORGANIZATION",
-        payload: {
-          organization_name: organizationName,
-          type: organizationType,
-          address,
-          city,
-          state,
-          zip,
-          primary_contact_first_name: contactFirstName,
-          primary_contact_last_name: contactLastName,
-          primary_contact_phone: contactPhone,
-          primary_contact_email: contactEmail,
-          organization_logo: logoUrl,
-          organization_earnings: orgEarnings
-        },
-      });
+    dispatch({
+      type: "ADD_ORGANIZATION",
+      payload: {
+        organization_name: organizationName,
+        type: organizationType,
+        address,
+        city,
+        state,
+        zip,
+        primary_contact_first_name: contactFirstName,
+        primary_contact_last_name: contactLastName,
+        primary_contact_phone: contactPhone,
+        primary_contact_email: contactEmail,
+        organization_logo: logoUrl,
+        organization_earnings: orgEarnings,
+      },
+    });
     clearFields();
     handleModalClose();
     Swal.fire({
@@ -95,7 +95,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField
-              required
+                required
                 label="Organization Name"
                 fullWidth
                 value={organizationName}
@@ -206,7 +206,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
             </Grid>
           </Grid>
           <br />
-          <Button onClick={cancelAdd} variant="contained" color="primary">
+          <Button onClick={cancelAdd} variant="outlined" color="primary">
             Cancel
           </Button>{" "}
           <Button onClick={handleSave} variant="contained" color="primary">
@@ -217,5 +217,3 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
     </div>
   );
 }
-
-

@@ -117,11 +117,11 @@ function OrgListView({ organization }) {
                       Outstanding Balance: ${formattedOutstandingBalance}
                     </Typography> */}
                     <Typography variant="body2">
-                      Outstanding Balance:$
+                      PSG Earnings: $
                       {(
-                        organization.total_outstanding_balance -
+                        organization.total_books_sold * 25 -
                         organization.total_org_earnings
-                      ).toLocaleString()}(tb-oe ask)
+                      ).toLocaleString()}
                     </Typography>
                   </div>
                 </div>
@@ -133,7 +133,7 @@ function OrgListView({ organization }) {
             className="organizationActions"
             style={{
               marginTop:
-                organization.total_active_fundraisers <= 1 ? "-115px" : "-85px",
+                organization.total_active_fundraisers <= 0 ? "-115px" : "-85px",
             }}
           >
             <Button
@@ -145,7 +145,7 @@ function OrgListView({ organization }) {
             >
               <span className="edit-button">Edit</span>
             </Button>
-            {organization.total_active_fundraisers <= 1 && (
+            {organization.total_active_fundraisers <= 0 && (
               <Button
                 onClick={(e) => {
                   e.stopPropagation();
