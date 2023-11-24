@@ -5,7 +5,7 @@ function* orgNotes(action) {
   console.log(action.payload);
   try {
     const items = yield axios.get(`/api/orgnotes/${action.payload}`);
-    console.log("FETCH request from orgNotes.saga, ITEMS = ", items);
+    console.log("FETCH request from orgNotes.saga, ITEMS = ", items.data);
     yield put({ type: "SET_ORG_NOTES", payload: items.data });
   } catch {
     console.log("error in orgNotes Saga");

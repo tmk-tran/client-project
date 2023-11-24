@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 // Style
 import {
   Button,
@@ -9,10 +10,13 @@ import {
   TextField,
 } from "@mui/material";
 import "./OrgNotesDisplay.css";
+import InputAdornment from '@mui/material/InputAdornment';
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 // Utils
 import { formatDate, modalBtnStyle } from "../Utils/helpers";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import { showDeleteSweetAlert } from "../Utils/sweetAlerts";
 // Components
 import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
@@ -23,9 +27,47 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function OrgNotesDisplay({ notes, orgDetails }) {
   const dispatch = useDispatch();
+  const paramsObject = useParams();
 
   // State for showing notes
   const [noteDelete, setNoteDelete] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  // State from popover
+  const [orgId, setOrgId] = useState(orgDetails.organization_id);
+  const [noteDate, setNoteDate] = useState(new Date());
+  const [noteAdded, setNoteAdded] = useState(false);
+
+  useEffect(() => {
+    // Fetch org notes whenever noteAdded changes
+    dispatch({
+      type: "FETCH_ORG_NOTES",
+      payload: paramsObject.id,
+    });
+
+    // Reset noteAdded after fetching data
+    setNoteAdded(false);
+  }, [dispatch, paramsObject.id, noteAdded]);
+
+  const handleSave = () => {
+    // Format the date as "mm/dd/yyyy"
+    const formattedDate = noteDate.toLocaleDateString("en-US");
+
+    const sendNote = {
+      organization_id: orgId,
+      note_date: formattedDate,
+      note_content: inputValue,
+    };
+
+    const saveCall = () => {
+      dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
+      setNoteAdded(true);
+    };
+
+    // Sweet Alert
+    showSaveSweetAlert(saveCall);
+
+    setInputValue("");
+  };
 
   const handleDelete = (id, organization_id) => {
     const deleteCall = () => {
@@ -38,7 +80,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
 
   return (
     <div className="notes-card-container">
-      <Card elevation={4} className="notes-card">
+      <Card elevation={3} className="notes-card">
         <CardContent>
           <Typography
             variant="h6"
@@ -62,6 +104,14 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                           justifyContent: "space-between",
                         }}
                       >
+                        {/* <Button
+                          className="notes-delete-btn"
+                          onClick={() =>
+                            handleDelete(note.id, note.organization_id)
+                          }
+                        >
+                          <DeleteIcon style={{ fontSize: "20px" }} />
+                        </Button> */}
                         <li style={{ marginLeft: "10%" }}>
                           {note.note_content.charAt(0).toUpperCase() +
                             note.note_content.slice(1).toLowerCase()}
@@ -77,34 +127,46 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                       </div>
                       <br />
                       <hr
-                        style={{ width: "80%", border: "1px solid #273b91" }}
+                        style={{ width: "85%", border: "1px solid #273b91" }}
                       />
                     </div>
                   ))}
               </div>
             ) : (
-              <Typography variant="h6">No Notes Available</Typography>
+              <Typography variant="h6">None Available</Typography>
             )}
           </div>
-          {/* <div>
-            <div className="add-notes">
-              <TextField
+          <div >
+            <TextField
+              label="Add a note..."
+              value={inputValue}
+              variant="standard"
+              onChange={(e) => setInputValue(e.target.value)}
+              multiline
+              fullWidth
+              // sx={{ width: "80%" }}
+              // InputProps={{
+              //   startAdornment: (
+              //     <InputAdornment position="start">
+              //       <EditIcon />
+              //     </InputAdornment>
+              //   ),
+              // }}
+            />
+            {inputValue && (
+              <Button
+                // variant="contained"
+                color="primary"
+                onClick={handleSave}
+                // style={{ flexGrow: 1 }}
+                style={{ marginTop: "10px" }}
                 fullWidth
-                label="Note"
-                multiline
-                rows={3}
-                // value={newNote}
-                // onChange={(e) => setNewNote(e.target.value)}
-              ></TextField>
-            </div>
-            <div style={modalBtnStyle}>
-              <Button className="modal-cancel-btn">Cancel</Button>
-              <Button>Save</Button>
-            </div>
-          </div> */}
-          {/* <Button fullWidth>Add Note</Button> */}
+              >
+                Add
+              </Button>
+            )}
+          </div>
         </CardContent>
-        {/* <OrgNotesModal info={orgDetails}/> */}
       </Card>
     </div>
   );
