@@ -12,7 +12,7 @@ import {
 } from "@mui/material/";
 import "./OrgNotesModal.css";
 // Icons
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 // Utils
 import { modalBtnStyle } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
@@ -82,10 +82,11 @@ export default function NotesPopover({ info }) {
     <div className="popover-notes-container">
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div style={{ flexGrow: 1 }}></div>
-      {/* <TextField style={{ height: "5px" }}></TextField> */}
-      <Button id="add-note-button" variant="contained" onClick={handleClick}>
-        <EditIcon />{/*&nbsp;Note*/}
-      </Button>
+        {/* <TextField style={{ height: "5px" }}></TextField> */}
+        <Button id="add-note-button" variant="contained" onClick={handleClick}>
+          <EditIcon />
+          {/*&nbsp;Note*/}
+        </Button>
       </div>
       <Popover
         id={id}
@@ -101,14 +102,6 @@ export default function NotesPopover({ info }) {
           vertical: isMobile ? "bottom" : "bottom",
           horizontal: isMobile ? "center" : "center",
         }}
-        // anchorOrigin={{
-        //   vertical: isMobile ? "top" : "top",
-        //   horizontal: isMobile ? "center" : "left",
-        // }}
-        // transformOrigin={{
-        //   vertical: isMobile ? "bottom" : "top",
-        //   horizontal: isMobile ? "center" : "right",
-        // }}
       >
         <Box style={{ padding: "20px" }}>
           <div>

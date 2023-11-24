@@ -10,8 +10,10 @@ import {
   TextField,
 } from "@mui/material";
 import "./OrgNotesDisplay.css";
+import InputAdornment from '@mui/material/InputAdornment';
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 // Utils
 import { formatDate, modalBtnStyle } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
@@ -102,6 +104,14 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                           justifyContent: "space-between",
                         }}
                       >
+                        {/* <Button
+                          className="notes-delete-btn"
+                          onClick={() =>
+                            handleDelete(note.id, note.organization_id)
+                          }
+                        >
+                          <DeleteIcon style={{ fontSize: "20px" }} />
+                        </Button> */}
                         <li style={{ marginLeft: "10%" }}>
                           {note.note_content.charAt(0).toUpperCase() +
                             note.note_content.slice(1).toLowerCase()}
@@ -117,32 +127,40 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                       </div>
                       <br />
                       <hr
-                        style={{ width: "80%", border: "1px solid #273b91" }}
+                        style={{ width: "85%", border: "1px solid #273b91" }}
                       />
                     </div>
                   ))}
               </div>
             ) : (
-              <Typography variant="h6">No Notes Available</Typography>
+              <Typography variant="h6">None Available</Typography>
             )}
           </div>
-          {/* <Button fullWidth>Add Note</Button> */}
-          {/* <OrgNotesModal info={orgDetails}/> */}
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <div >
             <TextField
               label="Add a note..."
               value={inputValue}
               variant="standard"
               onChange={(e) => setInputValue(e.target.value)}
               multiline
-              sx={{ width: "80%" }}
+              fullWidth
+              // sx={{ width: "80%" }}
+              // InputProps={{
+              //   startAdornment: (
+              //     <InputAdornment position="start">
+              //       <EditIcon />
+              //     </InputAdornment>
+              //   ),
+              // }}
             />
             {inputValue && (
               <Button
                 // variant="contained"
                 color="primary"
                 onClick={handleSave}
-                style={{ flexGrow: 1 }}
+                // style={{ flexGrow: 1 }}
+                style={{ marginTop: "10px" }}
+                fullWidth
               >
                 Add
               </Button>

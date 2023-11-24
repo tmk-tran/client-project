@@ -4,10 +4,10 @@
 
 .notes-card {
   position: absolute;
-  /* margin-left: 10vh; */
-  width: 40vh;
-  left: 60px;
-  top: 0;
+  margin-left: 3vh;
+  /* height: 38vh; */
+  width: 50vh;
+  /* left: 50px; */
   /* border: 1px solid #273b91; */
 }
 
