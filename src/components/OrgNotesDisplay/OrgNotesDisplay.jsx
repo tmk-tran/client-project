@@ -10,16 +10,12 @@ import {
   TextField,
 } from "@mui/material";
 import "./OrgNotesDisplay.css";
-import InputAdornment from '@mui/material/InputAdornment';
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 // Utils
 import { formatDate, modalBtnStyle } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import { showDeleteSweetAlert } from "../Utils/sweetAlerts";
-// Components
-import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
 // Toasts
 import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
