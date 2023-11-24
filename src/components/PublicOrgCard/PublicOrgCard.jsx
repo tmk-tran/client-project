@@ -55,7 +55,7 @@ const formattedEarnings = earnings.toLocaleString();
                   {organization.total_books_sold}
                 </div>
                 <div>
-                  Total Raised:{" "}
+                  Organization Earnings:{" "}
                   ${formattedEarnings}
                 </div>
               </div>

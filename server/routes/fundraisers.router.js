@@ -21,11 +21,12 @@ router.get("/groupfundraisers/:id", (req, res) => {
 
 //Post route for a new fundraiser, data comes from form inputs
 router.post('/', (req, res) => {
-  const newFundraiser = req.body
-  const queryText = `INSERT INTO "fundraiser" ("group_id", "title", "description", "requested_book_quantity", "book_quantity_checked_out", "book_quantity_checked_in", "books_sold", "goal", "money_received", "start_date", "end_date", "coupon_book_id" )
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
+  const newFundraiser = req.body;
+  console.log(req.body);
+  const queryText = `INSERT INTO "fundraiser" ("group_id", "title", "description", "requested_book_quantity", "book_quantity_checked_out", "goal", "start_date", "end_date", "coupon_book_id" )
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
 
-  pool.query(queryText, [newFundraiser.group_id, newFundraiser.title, newFundraiser.description, newFundraiser.requested_book_quantity, newFundraiser.book_quantity_checked_out,  newFundraiser.book_quantity_checked_in, newFundraiser.books_sold, newFundraiser.goal, newFundraiser.money_received, newFundraiser.start_date, newFundraiser.end_date, newFundraiser.coupon_book_id])
+  pool.query(queryText, [newFundraiser.group_id, newFundraiser.title, newFundraiser.description, newFundraiser.requested_book_quantity, newFundraiser.book_quantity_checked_out, newFundraiser.goal, newFundraiser.start_date, newFundraiser.end_date, newFundraiser.coupon_book_id])
     .then(() => {
       res.sendStatus(201)
     })
