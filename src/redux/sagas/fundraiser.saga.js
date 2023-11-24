@@ -21,21 +21,12 @@ function* addFundraiserSaga(action) {
         console.log("Unable to add fundraiser", err)
     }
 }
-//Saga used to update details in a fundraiser, will then fetch the updated fundraiser list
-function* updatedFundraiserSaga(action) {
-    try {
-        console.log(action.payload)
-        yield axios.put(`/api/fundraisers/${action.payload.id}`, action.payload)
-        yield put({ type: "FETCH_FUNDRAISERS", payload: Number(action.payload.group_id) })
-    } catch (err) {
-        console.log("Unable to update fundraiser", err)
-    }
-}
+
 //Saga used to update the amounts in a fundraiser, will then fetch the updated fundraiser data
 function* updatedFundraiserAmountsSaga(action) {
     try {
         console.log(action.payload)
-        yield axios.put(`/api/fundraisers/money/${action.payload.id}`, action.payload)
+        yield axios.put(`/api/fundraisers/${action.payload.id}`, action.payload)
         yield put({ type: "FETCH_FUNDRAISERS", payload: Number(action.payload.group_id) })
     } catch (err) {
         console.log("Unable to update amounts for fundraisers", err)
@@ -66,7 +57,6 @@ function* openFundraiserSaga(action) {
 export default function* fundraiserSaga() {
     yield takeEvery("FETCH_FUNDRAISERS", fetchFundraisersSaga);
     yield takeEvery("ADD_FUNDRAISER", addFundraiserSaga);
-    yield takeEvery("UPDATE_FUNDRAISER", updatedFundraiserSaga);
     yield takeEvery("CLOSE_FUNDRAISER", closeFundraiserSaga);
     yield takeEvery("OPEN_FUNDRAISER", openFundraiserSaga);
     yield takeEvery("UPDATE_FUNDRAISER_AMOUNTS", updatedFundraiserAmountsSaga)
