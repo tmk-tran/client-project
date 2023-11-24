@@ -6,7 +6,6 @@ import {
   Box,
   Button,
   TextField,
-  Typography,
   Popover,
   useTheme,
   useMediaQuery,
@@ -17,6 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 // Utils
 import { modalBtnStyle } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
+// For Toast (INACTIVE)
 import { showToast } from "../Utils/toasts";
 
 export default function NotesPopover({ info, onNoteAdded }) {
@@ -67,7 +67,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
       setNoteAdded(true);
     };
 
-    // from Utils
+    // Toast
     // showToast();
 
     // Sweet Alert
@@ -89,7 +89,7 @@ export default function NotesPopover({ info, onNoteAdded }) {
   return (
     <div className="popover-notes-container">
       <Button id="add-note-button" variant="contained" onClick={handleClick}>
-        <EditIcon />{/* &nbsp;Note */}
+        <EditIcon />&nbsp;Note
       </Button>
       <Popover
         id={id}
