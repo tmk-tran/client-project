@@ -11,6 +11,7 @@ function RegisterPage() {
 
   return (
     <div>
+      <br />
       <RegisterForm />
 
       <center>

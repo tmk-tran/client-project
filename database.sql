@@ -64,7 +64,7 @@ CREATE TABLE "fundraiser" (
 	"photo" varchar,
 	"requested_book_quantity" integer NOT NULL,
 	"book_quantity_checked_out" integer NOT NULL,
-	"book_checked_out_total_value" DECIMAL NOT NULL,
+	"book_checked_out_total_value" DECIMAL,
 	"book_quantity_checked_in" integer,
 	"books_sold" DECIMAL,
 	"money_received" DECIMAL,
