@@ -18,12 +18,6 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     let [editTitle, setEditTitle] = useState(fundraiser.title)
     //Function that formates the date and removes the timestamp
     const formatDate = (dateString) => {
-        // if (!dateString) {
-        //     return " ";
-        // }
-        // const date = new Date(dateString); // Assuming the date string is in 'YYYY-MM-DD' format
-        // const options = { year: "numeric", month: "long", day: "numeric" };
-        // return date.toLocaleDateString(undefined, options);
         if (!dateString) {
             return " ";
         }
@@ -73,7 +67,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
             {editMode === true ? (
                 <>
                     {fundraiser.closed != true &&
-                        <TableRow className="active_row" style={{ border: "2px solid black" }}>
+                        <TableRow className="active_row" style={{ border: "2px solid black", height: "80px" }}>
                              <TableCell TableCell style={{ width: "50px", border: "2px solid black", padding: "0"}} ><Typography style={{ fontSize: "15px", width: "88px", textAlign: "center" }}><OutlinedInput style={{ fontSize: "15px", width: "80px", height: "25px" }} value={editTitle} onChange={(e) => setEditTitle(e.target.value)}>{fundraiser.title}</OutlinedInput></Typography></TableCell>
                             <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}>{fundraiser.requested_book_quantity}</Typography></TableCell>
                             <TableCell style={{ width: "50px", border: "2px solid black", padding: "0"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "60px", height: "25px" }} value={booksCheckedOut} onChange={(e) => setBooksCheckedOut(e.target.value)}>{fundraiser.book_quantity_checked_out}</OutlinedInput></Typography></TableCell>
@@ -86,15 +80,15 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                             <TableCell style={{ width: "50px", border: "2px solid black", padding: "0"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}><OutlinedInput style={{ fontSize: "15px", width: "62px", height: "25px" }}  value={goal} onChange={(e) => setGoal(e.target.value)}>{fundraiser.goal}</OutlinedInput></Typography></TableCell>
                             <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}>${fundraiser.outstanding_balance}</Typography></TableCell>
                             <TableCell style={{ width: "120px", border: "2px solid black", textAlign: "center" }}>
-                                <Button style={{ marginRight: "7px", backgroundColor: "red", fontSize: "11px"  }} variant="contained" size="small" onClick={handleCloseFundraiser}>Close</Button> 
-                                <Button style={{ marginLeft: "7px", fontSize: "11px" }} variant="contained" size="small" onClick={updateAmount}>Update</Button></TableCell>
+                            <Button style={{ marginRight: "7px", backgroundColor: "red", fontSize: "11px"  }} variant="contained" size="small" onClick={() => setEditMode(false)}>Cancel</Button> 
+                            <Button style={{ marginLeft: "7px", fontSize: "11px" }} variant="contained" size="small" onClick={updateAmount}>Save</Button></TableCell>
                         </TableRow>
 
                     }
                 </>) : (
                 <>
                     {fundraiser.closed != true &&
-                        <TableRow className="active_row" style={{ border: "2px solid black" }}>
+                        <TableRow className="active_row" style={{ border: "2px solid black", height: "80px" }}>
                            <TableCell style={{ width: "50px", border: "2px solid black"}} ><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}>{fundraiser.title}</Typography></TableCell>
                             <TableCell TableCell style={{ width: "50px", border: "2px solid black"}}><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}>{fundraiser.requested_book_quantity}</Typography></TableCell>
                             <TableCell TableCell style={{ width: "50px", border: "2px solid black"}}><Typography style={{ fontSize: "15px", textAlign: "center", padding: "0" }}>{fundraiser.book_quantity_checked_out}</Typography></TableCell>

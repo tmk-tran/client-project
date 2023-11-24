@@ -14,7 +14,7 @@ export default function ClosedFundraiserItem({ fundraiser }) {
             return " ";
         }
         const date = new Date(dateString); // Assuming the date string is in 'YYYY-MM-DD' format
-        const options = { year: "numeric", month: "long", day: "numeric" };
+        const options = { day: "2-digit", month: "2-digit", year: "2-digit" };
         return date.toLocaleDateString(undefined, options);
     };
     //Runs on click of the open button. Sends dispatch to reopen a fundraiser and notifies the user of the update

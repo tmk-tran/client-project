@@ -70,99 +70,283 @@ export default function GroupDetailsCard({ group }) {
    //Elements and data used in the component. Displays the group card and the add fundraiser modal 
    return (
       <>
-         <Card elevation={6} style={{ display: "flex", flexDirection: "column", padding: "10px", paddingTop: "30px", paddingBottom: "30px", width: "500px", margin: "auto" }}>
-            <CardMedia style={{ objectFit: "cover", margin: "auto" }}
-               className="cardMedia"
-               component="img"
-               image={group.group_photo} />
-            <div style={{ margin: "auto" }}>
-               <Typography variant="h5">{group.department} {group.sub_department}</Typography>
-               <Typography>{group.group_description}</Typography>
-            </div>
-            <div style={modalBtnStyle} >
-               <Button variant="outlined" onClick={() => history.goBack()}><Typography style={{ fontSize: "15px" }}>Back</Typography></Button> <Button variant="outlined" onClick={handleOpen}><Typography style={{ fontSize: "15px" }}>Add Fundraiser</Typography></Button>
-            </div>
-         </Card>
-         <Modal open={open} onClose={handleClose} aria-labelledby="title"
-            aria-describedby="form">
-            <Box sx={style} >
-               <Typography style={{ textAlign: "center" }} variant="h5">Add A Fundraiser</Typography>
-
-               <form onSubmit={submitFundraiser}>
-
-                  <div>
-                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                        <Grid item xs={6}>
-                           <TextField required style={{ margin: "5px" }} fullWidth label="Title" type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)}></TextField>
-                        </Grid>
-                        <Grid item xs={6}>
-                           <TextField required style={{ margin: "5px" }} fullWidth label="Description" type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)}>
-                           </TextField>
-                        </Grid>
-                     </Grid>
-                  </div>
-                  <div>
-                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                        <Grid item xs={6}>
-                           <TextField required fullWidth style={{ margin: "5px" }} label="Books Requested" type="text" placeholder="Books Requested" value={booksRequested} onChange={(e) => setBooksRequested(e.target.value)}></TextField>
-                        </Grid>
-                        <Grid item xs={6}>
-                           <TextField required fullWidth style={{ margin: "5px" }} label="Books Checked Out" type="number" placeholder="Books Checked Out" value={booksCheckedOut} onChange={(e) => setBooksCheckedOut(e.target.value)}></TextField>
-                        </Grid>
-                     </Grid>
-                  </div>
-                  <div>
-                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                        <Grid item xs={6}>
-                           <TextField required fullWidth style={{ margin: "5px" }} label="Books Checked In" type="number" placeholder="Books Checked In" value={booksCheckedIn} onChange={(e) => setBooksCheckedIn(e.target.value)}></TextField>
-                           </Grid>
-                           <Grid item xs={6}>
-                           <TextField required fullWidth style={{ margin: "5px" }} label="Books Sold" type="number" placeholder="Books Sold" value={booksSold} onChange={(e) => setBooksSold(e.target.value)}></TextField>
-                        </Grid>
-                     </Grid>
-                  </div>
-                  <div>
-                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                        <Grid item xs={6}>
-                           <TextField  fullWidth style={{ margin: "5px" }} label="Goal" type="number" placeholder="Goal" value={goal} onChange={(e) => setGoal(e.target.value)}></TextField>
-                        </Grid>
-                     </Grid>
-                  </div>
-                  <div>
-                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                        <Grid item xs={6}>
-                           <InputLabel >Coupon Book Year</InputLabel>
-                           <Select required fullWidth style={{ margin: "5px" }} value={couponBookId} onChange={(e) => setCouponBookId(e.target.value)}>
-                              <MenuItem value="" disabled>Please Select A Coupon Book Year</MenuItem>
-                              {couponBooks.map(couponBook => {
-                                 return (<MenuItem value={couponBook.id} key={couponBook.id}>{couponBook.year}</MenuItem>)
-                              })}
-                           </Select>
-                        </Grid>
-                        <Grid item xs={6}>
-                           <InputLabel>Money Received</InputLabel>
-                           <TextField required fullWidth style={{ margin: "5px", marginRight: "0" }} type="number" placeholder="Money Received" value={moneyReceived} onChange={(e) => setMoneyRecieved(e.target.value)}></TextField>
-                        </Grid>
-                     </Grid>
-                  </div>
-                  <div>
-                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                        <Grid item xs={6}>
-                           <InputLabel>Start Date</InputLabel>
-                           <TextField required fullWidth style={{ margin: "5px", marginLeft: "0" }} type="date" value={startDtate} onChange={(e) => setStartDate(e.target.value)}></TextField>
-                        </Grid>
-                        <Grid item xs={6}>
-                           <InputLabel>End Date</InputLabel>
-                           <TextField required fullWidth style={{ margin: "5px" }} type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)}></TextField>
-                        </Grid>
-
-                     </Grid>
-
-                  </div>
-                  <Button type="submit" variant="contained" style={{ margin: "5px" }}>Submit</Button>
-               </form>
-            </Box>
-         </Modal>
+        <Card
+          elevation={6}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "10px",
+            paddingTop: "30px",
+            paddingBottom: "30px",
+            width: "500px",
+            margin: "auto",
+          }}
+        >
+          <CardMedia
+            style={{ objectFit: "cover", margin: "auto" }}
+            className="cardMedia"
+            component="img"
+            image={group.group_photo}
+          />
+          <div style={{ margin: "auto", textAlign: "center", marginBottom: "10px" }}>
+            <Typography variant="h5">
+              {group.department} {group.sub_department}
+            </Typography>
+            <Typography>{group.group_description}</Typography>
+          </div>
+          <div style={modalBtnStyle}>
+            <Button variant="outlined" onClick={() => history.goBack()}>
+              <Typography style={{ fontSize: "15px" }}>Back</Typography>
+            </Button>{" "}
+            <Button variant="outlined" onClick={handleOpen}>
+              <Typography style={{ fontSize: "15px" }}>Add Fundraiser</Typography>
+            </Button>
+          </div>
+        </Card>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="title"
+          aria-describedby="form"
+        >
+          <Box sx={style}>
+            <Typography style={{ textAlign: "center", fontFamily: "Telugu Sangam MN", fontWeight: "bold" }} variant="h5">
+              Add A Fundraiser
+            </Typography>
+  
+            <form onSubmit={submitFundraiser}>
+              <div>
+                <Grid
+                  container
+                  rowSpacing={2}
+                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                >
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      style={{ margin: "5px" }}
+                      fullWidth
+                      label="Title"
+                      type="text"
+                      placeholder="Title"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </div>
+              <div>
+                <Grid
+                  container
+                  rowSpacing={2}
+                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                >
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      style={{ margin: "5px" }}
+                      fullWidth
+                      label="Description"
+                      type="text"
+                      placeholder="Description"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </div>
+              <div>
+                <Grid
+                  container
+                  rowSpacing={2}
+                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                >
+                  <Grid item xs={6}>
+                    <TextField
+                      required
+                      fullWidth
+                      style={{ margin: "5px" }}
+                      label="Books Requested"
+                      type="text"
+                      placeholder="Books Requested"
+                      value={booksRequested}
+                      onChange={(e) => setBooksRequested(e.target.value)}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      required
+                      fullWidth
+                      style={{ margin: "5px" }}
+                      label="Books Checked Out"
+                      type="number"
+                      placeholder="Books Checked Out"
+                      value={booksCheckedOut}
+                      onChange={(e) => setBooksCheckedOut(e.target.value)}
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </div>
+              <div>
+                <Grid
+                  container
+                  rowSpacing={2}
+                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                >
+                  <Grid item xs={6}>
+                    <TextField
+                      fullWidth
+                      style={{ margin: "5px" }}
+                      label="Books Checked In"
+                      type="number"
+                      placeholder="Books Checked In"
+                      value={booksCheckedIn}
+                      onChange={(e) => setBooksCheckedIn(e.target.value)}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      fullWidth
+                      style={{ margin: "5px" }}
+                      label="Books Sold"
+                      type="number"
+                      placeholder="Books Sold"
+                      value={booksSold}
+                      onChange={(e) => setBooksSold(e.target.value)}
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </div>
+              <div>
+                <Grid
+                  container
+                  rowSpacing={2}
+                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                >
+                  <Grid item xs={6}>
+                    <TextField
+                      fullWidth
+                      style={{ margin: "5px" }}
+                      label="Goal"
+                      type="number"
+                      placeholder="Goal"
+                      value={goal}
+                      onChange={(e) => setGoal(e.target.value)}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      fullWidth
+                      style={{ margin: "5px", marginRight: "0" }}
+                      type="number"
+                      label="Money Received"
+                      value={moneyReceived}
+                      onChange={(e) => setMoneyRecieved(e.target.value)}
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </div>
+  
+              <div>
+                <Grid
+                  container
+                  justifyContent="center"
+                  rowSpacing={2}
+                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                >
+                  <Grid item xs={12} style={{ textAlign: "center" }}>
+                    <InputLabel
+                      style={{
+                        fontSize: "20px",
+                        color: "black",
+                        fontWeight: "bold",
+                        fontFamily: "Telugu Sangam MN",
+                        marginTop: "10px",
+                        marginBottom: "-18px",
+                      }}
+                    >
+                      Start and End Date:
+                    </InputLabel>
+                  </Grid>
+                  <Grid item xs={5.8}>
+                    <TextField
+                      required
+                      fullWidth
+                      style={{ margin: "5px", marginLeft: "0" }}
+                      type="date"
+                      value={startDtate}
+                      onChange={(e) => setStartDate(e.target.value)}
+                    ></TextField>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={1}
+                    style={{
+                      textAlign: "center",
+                      marginTop: "30px",
+                      marginLeft: "-20px",
+                      marginRight: "-20px",
+                    }}
+                  >
+                    to
+                  </Grid>
+                  <Grid item xs={5.8}>
+                    <TextField
+                      required
+                      fullWidth
+                      style={{ margin: "6px" }}
+                      type="date"
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
+                    ></TextField>
+                  </Grid>
+                </Grid>
+              </div>
+              <div>
+                <Grid
+                  container
+                  justifyContent="center"
+                  rowSpacing={2}
+                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                >
+                  <Grid item xs={6} style={{ textAlign: "center" }}>
+                  <InputLabel
+                      style={{
+                        fontSize: "20px",
+                        color: "black",
+                        fontWeight: "bold",
+                        fontFamily: "Telugu Sangam MN",
+                        marginTop: "10px",
+                      }}
+                    >
+                      Coupon Book Year:
+                    </InputLabel>
+                    <Select
+                      required
+                      fullWidth
+                      style={{ margin: "5px" }}
+                      value={couponBookId}
+                      onChange={(e) => setCouponBookId(e.target.value)}
+                    >
+                      <MenuItem value="" disabled>
+                        Please Select A Coupon Book Year
+                      </MenuItem>
+                      {couponBooks.map((couponBook) => (
+                        <MenuItem value={couponBook.id} key={couponBook.id}>
+                          {couponBook.year}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </Grid>
+                </Grid>
+              </div>
+  
+              <Button type="submit" variant="contained" style={{ margin: "5px" }}>
+                Submit
+              </Button>
+            </form>
+          </Box>
+        </Modal>
       </>
    )
 }
