@@ -5,7 +5,6 @@ import { Card, CardContent, Typography } from "@mui/material";
 // Utils
 import { capitalizeWords, centerStyle, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
-import { SpaRounded } from "@mui/icons-material";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
