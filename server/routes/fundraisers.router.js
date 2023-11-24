@@ -34,29 +34,15 @@ router.post('/', (req, res) => {
       res.sendStatus(500)
     })
 });
-//Updates a fundraisers tite and description
-router.put("/:id", (req, res) => {
-  const id = req.params.id;
-  const updatedFundraiser = req.body;
-  const queryText = `UPDATE "fundraiser" SET "title" = $1 WHERE "id" = $2;`;
 
-  pool.query(queryText, [updatedFundraiser.title, id])
-    .then(() => {
-      res.sendStatus(200)
-    })
-    .catch((err) => {
-      console.log("Error in updating fundraiser", err);
-      res.sendStatus(500)
-    })
-})
 //Put route for updating amounts of books and money in a fundraiser
-router.put("/money/:id", (req, res) => {
+router.put("/:id", (req, res) => {
   const id = req.params.id;
   const updatedAmount = req.body;
   console.log(updatedAmount)
-  const queryText = `UPDATE "fundraiser" SET "book_quantity_checked_out" = $1, "book_quantity_checked_in" = $2, "books_sold" = $3, "money_received" = $4, "goal" = $5 WHERE "id" = $6;`;
+  const queryText = `UPDATE "fundraiser" SET "title" = $1, "book_quantity_checked_out" = $2, "book_quantity_checked_in" = $3, "books_sold" = $4, "money_received" = $5, "goal" = $6 WHERE "id" = $7;`;
 
-  pool.query(queryText, [updatedAmount.newBooksCheckedOut, updatedAmount.newBooksCheckedIn, updatedAmount.newBooksSold, updatedAmount.newMoneyReceived, updatedAmount.newGoal,  id])
+  pool.query(queryText, [updatedAmount.title, updatedAmount.newBooksCheckedOut, updatedAmount.newBooksCheckedIn, updatedAmount.newBooksSold, updatedAmount.newMoneyReceived, updatedAmount.newGoal,  id])
     .then(() => {
       res.sendStatus(200)
     })
