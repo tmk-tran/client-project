@@ -30,7 +30,6 @@ export default function orgDetails() {
   const groups = useSelector((store) => store.orgGroups);
   const notes = useSelector((store) => store.orgNotes);
   // State
-  const [noteAdded, setNoteAdded] = useState(false);
 
   useEffect(() => {
     dispatch({
@@ -41,9 +40,11 @@ export default function orgDetails() {
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
-    // Reset noteAdded after fetching data
-    setNoteAdded(false);
-  }, [paramsObject.id, groups]);
+    // dispatch({
+    //   type: "FETCH_ORG_NOTES",
+    //   payload: paramsObject.id,
+    // });
+  }, [groups]);
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();
@@ -67,10 +68,6 @@ export default function orgDetails() {
       goal: info.sum,
     });
   });
-
-  const handleNoteAdded = () => {
-    setNoteAdded(true);
-  };
 
   return (
     <div
@@ -100,10 +97,9 @@ export default function orgDetails() {
                 {/* Add Buttons */}
                 <div>
                   {/* Notes Section */}
-                  <OrgNotesModal
+                  {/* <OrgNotesModal
                     info={orgDetails}
-                    onNoteAdded={handleNoteAdded}
-                  />
+                  /> */}
                   {/* Add Groups */}
                   <AddGroupPopover info={orgDetails} />
                 </div>

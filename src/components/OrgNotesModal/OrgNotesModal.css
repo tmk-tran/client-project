@@ -5,7 +5,7 @@
 }
 
 .popover-notes-container {
-  position: absolute;
+  /* position: absolute; */
   /* margin-top: 20px; */
   left: 45vh;
 }

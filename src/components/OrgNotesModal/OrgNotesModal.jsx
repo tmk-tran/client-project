@@ -12,14 +12,14 @@ import {
 } from "@mui/material/";
 import "./OrgNotesModal.css";
 // Icons
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 // Utils
 import { modalBtnStyle } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 // For Toast (INACTIVE)
 import { showToast } from "../Utils/toasts";
 
-export default function NotesPopover({ info, onNoteAdded }) {
+export default function NotesPopover({ info }) {
   const dispatch = useDispatch();
   const paramsObject = useParams();
   // state for the popover
@@ -45,13 +45,6 @@ export default function NotesPopover({ info, onNoteAdded }) {
     setNoteAdded(false);
   }, [dispatch, paramsObject.id, noteAdded]);
 
-  // Trigger onNoteAdded when a new note is added
-  useEffect(() => {
-    if (noteAdded) {
-      onNoteAdded();
-    }
-  }, []);
-
   const handleSave = () => {
     // Format the date as "mm/dd/yyyy"
     const formattedDate = noteDate.toLocaleDateString("en-US");
@@ -75,7 +68,6 @@ export default function NotesPopover({ info, onNoteAdded }) {
 
     setNewNote("");
     handleClose();
-    onNoteAdded();
   };
 
   const handleClick = (event) => {
@@ -88,9 +80,14 @@ export default function NotesPopover({ info, onNoteAdded }) {
 
   return (
     <div className="popover-notes-container">
-      <Button id="add-note-button" variant="contained" onClick={handleClick}>
-        <EditIcon />&nbsp;Note
-      </Button>
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <div style={{ flexGrow: 1 }}></div>
+        {/* <TextField style={{ height: "5px" }}></TextField> */}
+        <Button id="add-note-button" variant="contained" onClick={handleClick}>
+          <EditIcon />
+          {/*&nbsp;Note*/}
+        </Button>
+      </div>
       <Popover
         id={id}
         open={open}
