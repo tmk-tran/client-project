@@ -41,14 +41,14 @@ export default function GlobalFundraiserInput() {
   const [goal, setGoal] = useState("");
   const [booksRequested, setBooksRequested] = useState("");
   const [booksCheckedOut, setBooksCheckedOut] = useState("");
-  const [booksOutValue, setBooksOutValue] = useState(null);
-  const [booksCheckedIn, setBooksCheckedIn] = useState(null);
-  const [booksSold, setBooksSold] = useState(null);
-  const [moneyReceived, setMoneyReceived] = useState(null);
+  // const [booksOutValue, setBooksOutValue] = useState(null);
+  // const [booksCheckedIn, setBooksCheckedIn] = useState(null);
+  // const [booksSold, setBooksSold] = useState(null);
+  // const [moneyReceived, setMoneyReceived] = useState(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [couponBookId, setCouponBookId] = useState("");
-  const [outstandingBalance, setOutstandingBalance] = useState(0);
+  // const [outstandingBalance, setOutstandingBalance] = useState(0);
 
   const submitFundraiser = (selectedGroup) => {
     if (
@@ -74,14 +74,9 @@ export default function GlobalFundraiserInput() {
         goal: goal,
         requested_book_quantity: booksRequested,
         book_quantity_checked_out: booksCheckedOut,
-        book_checked_out_total_value: booksOutValue,
-        book_quantity_checked_in: booksCheckedIn,
-        books_sold: booksSold,
-        money_received: moneyReceived,
         start_date: startDate,
         end_date: endDate,
         coupon_book_id: couponBookId,
-        outstanding_balance: outstandingBalance,
       };
       dispatch({ type: "ADD_FUNDRAISER", payload: newFundraiser });
       Swal.fire({
@@ -103,9 +98,6 @@ export default function GlobalFundraiserInput() {
     }
   };
 
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  }
 
   return (
     <div>
@@ -192,8 +184,8 @@ export default function GlobalFundraiserInput() {
                 >
                   {filteredGroups?.map((group, index) => (
                     <MenuItem key={group.id} value={group.id}>
-                      {capitalizeFirstLetter(group.department)} -{" "}
-                      {capitalizeFirstLetter(group.sub_department) ||
+                      {group.department} -{" "}
+                      {group.sub_department ||
                         "No Sub Group"}
                     </MenuItem>
                   ))}

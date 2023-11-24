@@ -113,8 +113,15 @@ function OrgListView({ organization }) {
                     <Typography variant="body2">
                       Total Outstanding Books: {totalStandingBooks}
                     </Typography>
-                    <Typography variant="body2">
+                    {/* <Typography variant="body2">
                       Outstanding Balance: ${formattedOutstandingBalance}
+                    </Typography> */}
+                    <Typography variant="body2">
+                      Outstanding Balance:$
+                      {(
+                        organization.total_outstanding_balance -
+                        organization.total_org_earnings
+                      ).toLocaleString()}(tb-oe ask)
                     </Typography>
                   </div>
                 </div>
