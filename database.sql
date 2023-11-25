@@ -140,17 +140,18 @@ VALUES
 (2025-2026);
 
 
-INSERT INTO "public"."fundraiser"("group_id","title","description","photo","requested_book_quantity","book_quantity_checked_out","book_checked_out_total_value","book_quantity_checked_in","books_sold","money_received","start_date","end_date","coupon_book_id","outstanding_balance","is_deleted","closed")
+INSERT INTO "public"."fundraiser"("id","group_id","title","description","photo","requested_book_quantity","book_quantity_checked_out","book_checked_out_total_value","book_quantity_checked_in","books_sold","money_received","start_date","end_date","coupon_book_id","outstanding_balance","is_deleted","closed","goal")
 VALUES
-(1,E'Bark the halls ',E' A holiday funsraiser for 4 Luv of Dogs Staff',NULL,100,100,2500,50,50,1250,E'2023-01-01',E'2023-12-31',1,0,FALSE,FALSE),
-(2,E'Howlin\'-ween',E'Halloween fundraiser',NULL,100,100,2500,25,75,1875,E'2023-10-01',E'2023-10-31',1,0,FALSE,TRUE),
-(7,E'Blue-bookin',E'EDA students competing to sell blue books',NULL,60,60,1500,0,60,1500,E'2023-07-17',E'2023-11-30',1,0,FALSE,FALSE),
-(4,E'asdf',E'asdf',E'',10,10,250,0,10,250,E'2023-11-07',E'2023-11-21',2,0,FALSE,FALSE),
-(6,E'Tennis yo',E'We love tennis',NULL,10,10,250,5,5,100,E'2023-11-07',E'2023-11-29',2,25,FALSE,FALSE),
-(1,E'Who let the dogs out',E'WOOF',E'',100,80,2000,0,0,0,E'2023-11-01',E'2023-11-30',2,2000,FALSE,TRUE),
-(2,E'We let the dogs out',E'woof woof',E'',100,50,1250,NULL,NULL,NULL,E'2023-11-07',E'2023-11-29',2,1250,FALSE,FALSE),
-(7,E'Devs for dollars',E'EDA students rock',E'',10,10,250,NULL,NULL,NULL,E'2023-11-01',E'2023-11-30',2,250,FALSE,FALSE),
-(7,E'Said, David, Kenny',E'The three muskateers',E'',20,20,500,NULL,NULL,NULL,E'2023-11-28',E'2023-11-30',1,500,FALSE,FALSE);
+(1,1,E'Bark the halls ',E' A holiday funsraiser for 4 Luv of Dogs Staff',NULL,100,100,2500,50,50,1250,E'2023-01-01',E'2023-12-31',1,0,FALSE,FALSE,2000),
+(2,2,E'Howlin\'-ween',E'Halloween fundraiser',NULL,100,100,2500,25,75,1875,E'2023-10-01',E'2023-10-31',1,0,FALSE,TRUE,1500),
+(3,3,E'Blue-bookin',E'Tennis students competing to sell blue books',NULL,60,60,1500,0,60,1500,E'2023-07-17',E'2023-11-30',1,0,FALSE,FALSE,500),
+(4,4,E'9th grade',E'9th Grade Tennis',E'',10,10,250,0,10,250,E'2023-11-07',E'2023-11-21',2,0,FALSE,FALSE,1800),
+(5,5,E'Tennis',E'We love tennis',NULL,10,10,250,5,5,100,E'2023-11-07',E'2023-11-29',2,25,FALSE,FALSE,2200),
+(6,6,E'12th grade',E'tennis',E'',100,80,2000,0,0,0,E'2023-11-01',E'2023-11-30',2,2000,FALSE,TRUE,1300),
+(7,7,E'Winter Group',E'acapella',E'',100,50,1250,NULL,NULL,NULL,E'2023-11-07',E'2023-11-29',2,1250,FALSE,FALSE,600),
+(8,8,E'Vets FM',E'VFW',E'',100,50,1250,NULL,NULL,NULL,E'2023-11-07',E'2023-11-29',2,1250,FALSE,FALSE,750),
+(9,9,E'Devs for dollars',E'EDA students rock',E'',10,10,250,NULL,NULL,NULL,E'2023-11-01',E'2023-11-30',2,250,FALSE,FALSE,500),
+(10,10,E'cupcakes',E'Staff',E'',20,20,500,NULL,NULL,NULL,E'2023-11-28',E'2023-11-30',1,500,FALSE,FALSE,800);
 
 INSERT INTO "public"."user-group"("group_id","user_id","group_admin")
 VALUES
