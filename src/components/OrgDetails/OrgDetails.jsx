@@ -115,7 +115,6 @@ export default function orgDetails() {
                 {/* <OrgDetailsGoalView /> */}
                 <OrgDetailsGoalView info={orgDetails} />
 
-                {console.log(groups)}
                 {groups.map((group) => (<div key={group.group_id}>{group.goal}</div>))}
 
                 {/* Display associated groups or "No groups assigned" message */}

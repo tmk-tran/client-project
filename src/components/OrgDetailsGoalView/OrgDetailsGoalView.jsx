@@ -6,7 +6,7 @@ import "./OrgDetailsGoalView.css";
 // Component
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 
-export default function OrgDetailsGoalView({ info, group }) {
+export default function OrgDetailsGoalView({ info }) {
   const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -14,7 +14,7 @@ export default function OrgDetailsGoalView({ info, group }) {
   // }, [dispatch]);
   // Store
   // const fundraiserGoalInfo = useSelector((store) => store.fundraisers);
-  // console.log("PROPS = ", group);
+  console.log("PROPS = ", info);
   return (
     <Card elevation={3} className="goals-display-card">
       <CardContent>
