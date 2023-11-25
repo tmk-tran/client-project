@@ -69,6 +69,12 @@ export default function orgDetails() {
     });
   });
 
+  const totalGoals = groups.reduce((total, group) => {
+    // Convert the goal to a number if it's not null
+    const goal = group.goal ? parseInt(group.goal, 10) : 0;
+    return total + goal;
+  }, 0);
+
   return (
     <div
       className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
@@ -113,9 +119,9 @@ export default function orgDetails() {
                 </div>
 
                 {/* <OrgDetailsGoalView /> */}
-                <OrgDetailsGoalView info={orgDetails} />
+                <OrgDetailsGoalView info={orgDetails} groups={groups} />
 
-                {groups.map((group) => (<div key={group.group_id}>{group.goal}</div>))}
+                {/* {groups.map((group) => (<div><OrgDetailsGoalView info={orgDetails} groupId={group.group_id} groupGoal={group.goal}/></div>))} */}
 
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
