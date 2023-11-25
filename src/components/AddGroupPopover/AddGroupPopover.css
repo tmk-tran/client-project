@@ -5,9 +5,9 @@
 }
 
 .popover-container {
-  position: absolute;
-  /* margin: 20px; */
-  right: 35%;
+  /* position: absolute; */
+  margin: 20px;
+  /* right: 35%; */
   /* right: 0; */
 }
 

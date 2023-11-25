@@ -13,6 +13,8 @@ import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
+// Sweet Alert
+import Swal from "sweetalert2";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -81,6 +83,14 @@ export default function orgDetails() {
                 {/* Display organization details once */}
                 <center>
                   <OrgContactDetails info={orgDetails} />
+                  <div>
+                    {/* Notes Section */}
+                    {/* <OrgNotesModal
+                    info={orgDetails}
+                  /> */}
+                    {/* Add Groups */}
+                    <AddGroupPopover info={orgDetails} />
+                  </div>
                 </center>
 
                 {/* Toast (INACTIVE, MAY USE LATER) */}
@@ -99,10 +109,14 @@ export default function orgDetails() {
                     info={orgDetails}
                   /> */}
                   {/* Add Groups */}
-                  <AddGroupPopover info={orgDetails} />
+                  {/* <AddGroupPopover info={orgDetails} /> */}
                 </div>
 
-                <OrgDetailsGoalView />
+                {/* <OrgDetailsGoalView /> */}
+                <OrgDetailsGoalView info={orgDetails} />
+
+                {console.log(groups)}
+                {groups.map((group) => (<div key={group.group_id}>{group.goal}</div>))}
 
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
