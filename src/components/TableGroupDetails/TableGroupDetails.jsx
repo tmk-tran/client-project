@@ -7,29 +7,27 @@ import {
   TableHead,
   Typography,
 } from "@mui/material";
-import { capitalizeWords, centerStyle } from "../Utils/helpers";
+import { capitalizeWords, centerStyle, formatDate } from "../Utils/helpers";
 
-export default function TableGroupDetails({ groupInfo }) {
+export default function TableGroupDetails({ fundraiser }) {
   return (
     <Table>
       <TableHead>
         <TableRow>
           <TableCell style={centerStyle}>
-            <strong>Category:</strong>
+            <strong>Fundraiser End Date:</strong>
           </TableCell>
-          <TableCell>{capitalizeWords(groupInfo.department)}</TableCell>
+          <TableCell>{formatDate(fundraiser.end_date)}</TableCell>
           {/* <TableCell><Typography sx={{ fontWeight: "bold" }}>Goals</Typography></TableCell> */}
         </TableRow>
       </TableHead>
       <TableBody>
         <TableRow>
           <TableCell style={centerStyle}>
-            <Typography variant="caption">Sub-Category:</Typography>
+            <Typography variant="caption">Money Received:</Typography>
           </TableCell>
           <TableCell>
-            {groupInfo.sub_department
-              ? capitalizeWords(groupInfo.sub_department)
-              : "N/A"}
+            {fundraiser.money_received}
           </TableCell>
         </TableRow>
       </TableBody>

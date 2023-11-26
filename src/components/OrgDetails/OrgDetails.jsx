@@ -40,10 +40,10 @@ export default function orgDetails() {
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
-    // dispatch({
-    //   type: "FETCH_ORG_NOTES",
-    //   payload: paramsObject.id,
-    // });
+    dispatch({
+      type: "FETCH_FUNDRAISERS",
+      payload: paramsObject.id,
+    });
   }, [groups]);
 
   // Create a map to store organization details and associated groups
@@ -68,12 +68,6 @@ export default function orgDetails() {
       goal: info.sum,
     });
   });
-
-  const totalGoals = groups.reduce((total, group) => {
-    // Convert the goal to a number if it's not null
-    const goal = group.goal ? parseInt(group.goal, 10) : 0;
-    return total + goal;
-  }, 0);
 
   return (
     <div

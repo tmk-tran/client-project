@@ -1,8 +1,9 @@
 .goals-display-card {
   position: absolute;
   /* margin-right: 10vh; */
-  width: 40vh;
-  right: 80px;
+  width: 52vh;
+  /* right: 80px; */
+  right: 1vh;
   top: 0;
 }
 

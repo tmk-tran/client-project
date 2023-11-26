@@ -22,7 +22,19 @@
   border: 1px solid #273a9158;
   border-radius: 4px;
   max-height: 25vh;
+}
+
+.note-main-container {
   padding-left: 25px;
+}
+
+/* For color of every other <li> */
+.note-main-container:nth-child(odd) {
+  background-color: rgb(243, 243, 243);
+}
+
+.note-main-container:nth-child(even) {
+  background-color: rgb(254, 254, 254);
 }
 
 .notes-delete-btn:hover {

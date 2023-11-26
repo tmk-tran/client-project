@@ -16,7 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { formatDate, modalBtnStyle } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import { showDeleteSweetAlert } from "../Utils/sweetAlerts";
-// Toasts
+// Toasts (INACTIVE, MAY USE LATER)
 import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -90,7 +90,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                 {notes
                   .filter((note) => !note.is_deleted) // Filter out deleted notes
                   .map((note, i) => (
-                    <div key={i}>
+                    <div className="note-main-container" key={i}>
                       <Typography sx={{ mt: 1 }} variant="caption">
                         {formatDate(note.note_date)}
                       </Typography>
@@ -100,14 +100,6 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                           justifyContent: "space-between",
                         }}
                       >
-                        {/* <Button
-                          className="notes-delete-btn"
-                          onClick={() =>
-                            handleDelete(note.id, note.organization_id)
-                          }
-                        >
-                          <DeleteIcon style={{ fontSize: "20px" }} />
-                        </Button> */}
                         <li style={{ marginLeft: "10%" }}>
                           {note.note_content.charAt(0).toUpperCase() +
                             note.note_content.slice(1).toLowerCase()}
