@@ -6,9 +6,10 @@
 
 .popover-container {
   /* position: absolute; */
-  margin-top: 20px;
+  /* margin-top: 20px; */
   /* right: 35%; */
   /* right: 0; */
+  width: 100%;
 }
 
 @media (max-width: 400px) {

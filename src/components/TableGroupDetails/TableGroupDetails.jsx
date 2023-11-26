@@ -8,10 +8,11 @@ import {
   Typography,
 } from "@mui/material";
 import { centerStyle, formatDate } from "../Utils/helpers";
+import "./TableGroupDetails.css";
 
 export default function TableGroupDetails({ fundraiser, totalGoals }) {
   return (
-    <Table>
+    <Table className="custom-table">
       <TableHead>
         <TableRow>
           <TableCell>

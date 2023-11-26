@@ -66,7 +66,7 @@ export default function BasicPopover({ info }) {
 
   return (
     <div className="popover-container">
-      <Button id="add-group-button" onClick={handleClick} fullWidth>
+      <Button variant="outlined" id="add-group-button" onClick={handleClick} fullWidth>
         <AddBoxIcon />&nbsp;Group
         {/* Add Group */}
       </Button>
@@ -74,7 +74,6 @@ export default function BasicPopover({ info }) {
         id={id}
         open={open}
         anchorEl={anchorEl}
-        // onClose={handleClose}
         onClose={() => {}}
         // anchorOrigin={{
         //   vertical: isMobile ? "top" : "bottom",
@@ -86,14 +85,14 @@ export default function BasicPopover({ info }) {
         // }}
         anchorOrigin={{
           vertical: isMobile ? "top" : "top",
-          horizontal: isMobile ? "center" : "left",
+          horizontal: isMobile ? "center" : "center",
         }}
         transformOrigin={{
           vertical: isMobile ? "bottom" : "top",
-          horizontal: isMobile ? "center" : "left",
+          horizontal: isMobile ? "center" : "center",
         }}
       >
-        <Box style={{ padding: "20px" }}>
+        <Box style={{ padding: "20px", width: "48vh" }}>
           <div>
             <Typography sx={{ p: 1, textAlign: "center", fontWeight: "bold" }}>
               Add New Group

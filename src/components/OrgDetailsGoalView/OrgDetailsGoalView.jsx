@@ -23,6 +23,9 @@ export default function OrgDetailsGoalView({ info, groups }) {
     <>
       <Card elevation={3} className="goals-display-card">
         <CardContent>
+          <div>
+            <AddGroupPopover info={info} />
+          </div>
           {/* <Typography variant="h6" sx={{ textAlign: "center", mb: 1 }}>
             Total Goal:
             <strong>
@@ -62,9 +65,9 @@ export default function OrgDetailsGoalView({ info, groups }) {
               )}
             </center>
           </div>
-          <div>
+          {/* <div>
             <AddGroupPopover info={info} />
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </>
