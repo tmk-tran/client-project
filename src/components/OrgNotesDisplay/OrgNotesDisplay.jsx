@@ -132,6 +132,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
               onChange={(e) => setInputValue(e.target.value)}
               multiline
               fullWidth
+              sx={{ mt: 1 }}
             />
             {inputValue && (
               <Button

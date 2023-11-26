@@ -111,8 +111,8 @@ VALUES
 
 INSERT INTO "public"."group"("id","organization_id","department","sub_department","group_nickname","group_photo","group_description","is_deleted")
 VALUES
-(1,1,E'Staff',NULL,E'waggin Tails',E'images/dawgs2.jpeg',E'Staff is raising money by selling the PSG books.',FALSE),
-(2,1,E'Volunteers',NULL,'volunteers',E'images/dog1.jpeg',E'Volunteers are selling blue books',FALSE),
+(1,1,E'Staff',NULL,E'waggin Tails',E'images/dog1.jpeg',E'Staff is raising money by selling the PSG books.',FALSE),
+(2,1,E'Volunteers',NULL,'volunteers',E'images/dawgs2.jpeg',E'Volunteers are selling blue books',FALSE),
 (3,2,E'10th Grade',E'Tennis','10th Grade Tennis',E'images/tennis1.jpeg',E'Sophomore tennis team',FALSE),
 (4,2,E'9th Grade',E'Tennis','9th Grade Tennis',E'images/tennis2.jpeg',E'Freshman tennis team',FALSE),
 (5,2,E'11th Grade',E'Tennis','11th Grade Tennis',E'images/tennis3.jpeg',E'Junior tennis team',FALSE),
@@ -142,7 +142,7 @@ VALUES
 
 INSERT INTO "public"."fundraiser"("id","group_id","title","description","photo","requested_book_quantity","book_quantity_checked_out","book_checked_out_total_value","book_quantity_checked_in","books_sold","money_received","start_date","end_date","coupon_book_id","outstanding_balance","is_deleted","closed","goal")
 VALUES
-(1,1,E'Bark the halls ',E' A holiday funsraiser for 4 Luv of Dogs Staff',NULL,100,100,2500,50,50,1250,E'2023-01-01',E'2023-12-31',1,0,FALSE,FALSE,2000),
+(1,1,E'Bark the halls ',E' A holiday fundraiser for 4 Luv of Dogs Staff',NULL,100,100,2500,50,50,1250,E'2023-01-01',E'2023-12-31',1,0,FALSE,FALSE,2000),
 (2,2,E'Howlin\'-ween',E'Halloween fundraiser',NULL,100,100,2500,25,75,1875,E'2023-10-01',E'2023-10-31',1,0,FALSE,TRUE,1500),
 (3,3,E'Blue-bookin',E'Tennis students competing to sell blue books',NULL,60,60,1500,0,60,1500,E'2023-07-17',E'2023-11-30',1,0,FALSE,FALSE,500),
 (4,4,E'9th grade',E'9th Grade Tennis',E'',10,10,250,0,10,250,E'2023-11-07',E'2023-11-21',2,0,FALSE,FALSE,1800),

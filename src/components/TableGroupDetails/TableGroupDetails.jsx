@@ -7,27 +7,56 @@ import {
   TableHead,
   Typography,
 } from "@mui/material";
-import { capitalizeWords, centerStyle, formatDate } from "../Utils/helpers";
+import { centerStyle, formatDate } from "../Utils/helpers";
 
-export default function TableGroupDetails({ fundraiser }) {
+export default function TableGroupDetails({ fundraiser, totalGoals }) {
   return (
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell style={centerStyle}>
-            <strong>Fundraiser End Date:</strong>
+          <TableCell>
+            <Typography variant="h6" sx={{ textAlign: "center", mb: 1, mt: 1 }}>
+              Total Goal:
+            </Typography>
           </TableCell>
-          <TableCell>{formatDate(fundraiser.end_date)}</TableCell>
-          {/* <TableCell><Typography sx={{ fontWeight: "bold" }}>Goals</Typography></TableCell> */}
+          <TableCell>
+            <Typography variant="h6">
+              {totalGoals > 0 ? (
+                new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                  minimumFractionDigits: 0, // Set this to 2 if you want cents
+                }).format(totalGoals)
+              ) : (
+                <span>No Active Fundraiser</span>
+              )}
+            </Typography>
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         <TableRow>
-          <TableCell style={centerStyle}>
-            <Typography variant="caption">Money Received:</Typography>
+          <TableCell>
+            <Typography variant="body2">Money Received:</Typography>
           </TableCell>
           <TableCell>
-            {fundraiser.money_received}
+            <Typography>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                minimumFractionDigits: 0, // Set this to 2 if you want cents
+              }).format(fundraiser.money_received)}
+            </Typography>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>
+            <Typography>Fundraiser End Date:</Typography>
+          </TableCell>
+          <TableCell>
+            <Typography sx={{ fontWeight: "bold" }}>
+              {formatDate(fundraiser.end_date)}
+            </Typography>
           </TableCell>
         </TableRow>
       </TableBody>

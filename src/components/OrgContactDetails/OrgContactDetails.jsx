@@ -107,7 +107,7 @@ export default function OrgContactDetails({ info }) {
               </Button>
             </div>
           </div>
-          <hr style={{ width: "50%" }} />
+          <hr style={{ width: "80%" }} />
 
           <ContactDetailsList info={info} contactPhone={contactPhone} />
 

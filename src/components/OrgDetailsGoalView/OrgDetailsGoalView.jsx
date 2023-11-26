@@ -23,7 +23,7 @@ export default function OrgDetailsGoalView({ info, groups }) {
     <>
       <Card elevation={3} className="goals-display-card">
         <CardContent>
-          <Typography variant="h6" sx={{ textAlign: "center", mb: 1 }}>
+          {/* <Typography variant="h6" sx={{ textAlign: "center", mb: 1 }}>
             Total Goal:
             <strong>
               &nbsp;
@@ -34,28 +34,13 @@ export default function OrgDetailsGoalView({ info, groups }) {
                   minimumFractionDigits: 0, // Set this to 2 if you want cents
                 }).format(totalGoals)
               ) : (
-                <span>None Set</span>
+                <span>No Active Fundraiser</span>
               )}
             </strong>
-          </Typography>
+          </Typography> */}
           <div className="org-detail-goal-container">
             <center>
-              {/* <Typography variant="h6">
-                Total Goal:
-                <strong>
-                  &nbsp;
-                  {totalGoals > 0 ? (
-                    new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                      minimumFractionDigits: 0, // Set this to 2 if you want cents
-                    }).format(totalGoals)
-                  ) : (
-                    <span>None Set</span>
-                  )}
-                </strong>
-              </Typography> */}
-              <br />
+              {/* <br /> */}
               {fundraiserInfo && fundraiserInfo.length > 0 ? (
                 fundraiserInfo.map((fundraiser) => (
                   // <div key={fundraiser.id}>
@@ -66,6 +51,8 @@ export default function OrgDetailsGoalView({ info, groups }) {
                   <TableGroupDetails
                     key={fundraiser.id}
                     fundraiser={fundraiser}
+                    totalGoals={totalGoals}
+                    groups={groups}
                   />
                 ))
               ) : (
@@ -80,50 +67,6 @@ export default function OrgDetailsGoalView({ info, groups }) {
           </div>
         </CardContent>
       </Card>
-      {/* <Paper elevation={3} className="goals-display-card">
-        <Typography
-          variant="h6"
-          sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}
-        >
-          Goal for Org
-        </Typography>
-        <div className="org-detail-goal-container">
-          <center>
-            <Typography variant="h6">
-              Total Goal:
-              <strong>
-                &nbsp;
-                {totalGoals > 0 ? (
-                  new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                    minimumFractionDigits: 0, // Set this to 2 if you want cents
-                  }).format(totalGoals)
-                ) : (
-                  <span>None Set</span>
-                )}
-              </strong>
-            </Typography>
-            <br />
-            {fundraiserInfo && fundraiserInfo.length > 0 ? (
-              fundraiserInfo.map((fundraiser) => (
-                <div key={fundraiser.id}>
-                  <Typography>
-                    Fundraiser End Date: {formatDate(fundraiser.end_date)}
-                  </Typography>
-                </div>
-              ))
-            ) : (
-              <div>
-                <Typography>No Fundraisers Available</Typography>
-              </div>
-            )}
-          </center>
-        </div>
-        <div>
-          <AddGroupPopover info={info} />
-        </div>
-      </Paper> */}
     </>
   );
 }

@@ -29,6 +29,8 @@ export default function orgDetails() {
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
   const groups = useSelector((store) => store.orgGroups);
   const notes = useSelector((store) => store.orgNotes);
+  const fundraiserInfo = useSelector((store) => store.fundraisers);
+  console.log(fundraiserInfo);
   // State
 
   useEffect(() => {
@@ -89,8 +91,9 @@ export default function orgDetails() {
                     info={orgDetails}
                   /> */}
                     {/* Add Groups */}
-                    <AddGroupPopover info={orgDetails} />
+                    {/* <AddGroupPopover info={orgDetails} /> */}
                   </div>
+                  <br />
                 </center>
 
                 {/* Toast (INACTIVE, MAY USE LATER) */}
