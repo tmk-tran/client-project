@@ -29,8 +29,6 @@ export default function orgDetails() {
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
   const groups = useSelector((store) => store.orgGroups);
   const notes = useSelector((store) => store.orgNotes);
-  const fundraiserInfo = useSelector((store) => store.fundraisers);
-  console.log(fundraiserInfo);
   // State
 
   useEffect(() => {
@@ -43,7 +41,7 @@ export default function orgDetails() {
       payload: paramsObject.id,
     });
     dispatch({
-      type: "FETCH_FUNDRAISERS",
+      type: "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
     });
   }, [groups]);

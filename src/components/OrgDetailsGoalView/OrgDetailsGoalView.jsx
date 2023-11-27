@@ -11,6 +11,7 @@ import { formatDate } from "../Utils/helpers";
 
 export default function OrgDetailsGoalView({ info, groups }) {
   const fundraiserInfo = useSelector((store) => store.fundraisers);
+  console.log(fundraiserInfo.length);
 
   // Total number of goals for groups
   const totalGoals = groups.reduce((total, group) => {
@@ -19,6 +20,26 @@ export default function OrgDetailsGoalView({ info, groups }) {
     return total + goal;
   }, 0);
 
+  const totalReceived = fundraiserInfo.reduce((total, fundraiser) => {
+    const moneyIn = fundraiser.money_received
+      ? parseInt(fundraiser.money_received, 10)
+      : 0;
+    return total + moneyIn;
+  }, 0);
+
+  const goalData = {
+    totalGoals: totalGoals,
+    totalReceived: totalReceived,
+    groups: fundraiserInfo.reduce(
+      (acc, fundraiser) => acc.concat(fundraiser.groups),
+      []
+    ),
+    fundraiserInfo: fundraiserInfo.reduce(
+      (acc, fundraiser) => acc.concat(fundraiser),
+      []
+    ),
+  };
+
   return (
     <>
       <Card elevation={3} className="goals-display-card">
@@ -26,48 +47,33 @@ export default function OrgDetailsGoalView({ info, groups }) {
           <div>
             <AddGroupPopover info={info} />
           </div>
-          {/* <Typography variant="h6" sx={{ textAlign: "center", mb: 1 }}>
-            Total Goal:
-            <strong>
-              &nbsp;
-              {totalGoals > 0 ? (
-                new Intl.NumberFormat("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                  minimumFractionDigits: 0, // Set this to 2 if you want cents
-                }).format(totalGoals)
-              ) : (
-                <span>No Active Fundraiser</span>
-              )}
-            </strong>
-          </Typography> */}
           <div className="org-detail-goal-container">
             <center>
               {/* <br /> */}
               {fundraiserInfo && fundraiserInfo.length > 0 ? (
-                fundraiserInfo.map((fundraiser) => (
-                  // <div key={fundraiser.id}>
-                  //   <Typography>
-                  //     Fundraiser End Date: {formatDate(fundraiser.end_date)}
-                  //   </Typography>
-                  // </div>
-                  <TableGroupDetails
-                    key={fundraiser.id}
-                    fundraiser={fundraiser}
-                    totalGoals={totalGoals}
-                    groups={groups}
-                  />
-                ))
+                // fundraiserInfo.map((fundraiser) => (
+                //   <TableGroupDetails
+                //     key={fundraiser.fundraiser_id}
+                //     totalGoals={totalGoals}
+                //     totalReceived={totalReceived}
+                //     groups={groups}
+                //     fundraiserInfo={fundraiserInfo}
+                //   />
+                // ))
+                <TableGroupDetails
+                  key="goalData" // Set a key to force re-render when data changes
+                  totalGoals={goalData.totalGoals}
+                  totalReceived={goalData.totalReceived}
+                  groups={goalData.groups}
+                  fundraiserInfo={goalData.fundraiserInfo}
+                />
               ) : (
-                <div>
-                  <Typography>No Fundraisers Available</Typography>
+                <div className="no-fundraisers-container">
+                  <Typography variant="h6">No Fundraisers Available</Typography>
                 </div>
               )}
             </center>
           </div>
-          {/* <div>
-            <AddGroupPopover info={info} />
-          </div> */}
         </CardContent>
       </Card>
     </>

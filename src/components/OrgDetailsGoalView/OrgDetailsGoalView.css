@@ -9,8 +9,14 @@
 
 .org-detail-goal-container {
   height: 32vh;
+  max-height: 32vh;
+  overflow-y: auto;
   border: 1px solid #273a9158;
   border-radius: 4px;
+}
+
+.no-fundraisers-container {
+  padding: 20%;
 }
 
 @media (max-width: 1000px) {

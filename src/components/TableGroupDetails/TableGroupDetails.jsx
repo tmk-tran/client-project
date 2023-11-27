@@ -10,18 +10,22 @@ import {
 import { centerStyle, formatDate } from "../Utils/helpers";
 import "./TableGroupDetails.css";
 
-export default function TableGroupDetails({ fundraiser, totalGoals }) {
+export default function TableGroupDetails({
+  totalGoals,
+  totalReceived,
+  fundraiserInfo,
+}) {
   return (
     <Table className="custom-table">
       <TableHead>
         <TableRow>
           <TableCell>
-            <Typography variant="h6" style={centerStyle} sx={{ mb: 1, mt: 6 }}>
+            <Typography variant="h6" style={centerStyle} sx={{ mb: 1, mt: 2 }}>
               Total Goal:
             </Typography>
           </TableCell>
           <TableCell>
-            <Typography variant="h6" sx={{ mb: 1, mt: 6 }}>
+            <Typography variant="h6" sx={{ mb: 1, mt: 2 }}>
               {totalGoals > 0 ? (
                 new Intl.NumberFormat("en-US", {
                   style: "currency",
@@ -46,18 +50,23 @@ export default function TableGroupDetails({ fundraiser, totalGoals }) {
                 style: "currency",
                 currency: "USD",
                 minimumFractionDigits: 0, // Set this to 2 if you want cents
-              }).format(fundraiser.money_received)}
+              }).format(totalReceived)}
             </Typography>
           </TableCell>
         </TableRow>
         <TableRow>
           <TableCell>
-            <Typography sx={centerStyle}>Fundraiser End Date:</Typography>
+            <Typography sx={centerStyle}>Fundraiser End Date(s):</Typography>
           </TableCell>
           <TableCell>
-            <Typography sx={{ fontWeight: "bold" }}>
-              {formatDate(fundraiser.end_date)}
-            </Typography>
+            {fundraiserInfo.map((fundraiser) => (
+              <Typography
+                key={fundraiser.fundraiser_id}
+                sx={{ fontWeight: "bold" }}
+              >
+                {formatDate(fundraiser.fundraiser_end_date)}
+              </Typography>
+            ))}
           </TableCell>
         </TableRow>
       </TableBody>
