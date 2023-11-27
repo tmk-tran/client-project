@@ -83,14 +83,6 @@ export default function orgDetails() {
                 {/* Display organization details once */}
                 <center>
                   <OrgContactDetails info={orgDetails} />
-                  <div>
-                    {/* Notes Section */}
-                    {/* <OrgNotesModal
-                    info={orgDetails}
-                  /> */}
-                    {/* Add Groups */}
-                    {/* <AddGroupPopover info={orgDetails} /> */}
-                  </div>
                   <br />
                 </center>
 

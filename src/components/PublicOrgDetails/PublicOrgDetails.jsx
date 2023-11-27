@@ -2,16 +2,13 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // Style
-import { Button, Typography, Card, CardContent } from "@mui/material";
+import { Typography, Card, CardContent } from "@mui/material";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
 import PublicOrgContactDetails from "../PublicOrgContactDetails/PublicOrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
-
-// Utils
-import { formatDate } from "../Utils/helpers";
 
 export default function PublicOrgDetails() {
   const theme = useTheme();
