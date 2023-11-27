@@ -99,6 +99,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                           justifyContent: "space-between",
                         }}
                       >
+                        
                         {/* <li style={{ marginLeft: "10%" }}>
                           {note.note_content.charAt(0).toUpperCase() +
                             note.note_content.slice(1).toLowerCase()}
@@ -113,6 +114,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                               )
                               .join(" ")}
                         </li>
+
                         <Button
                           className="notes-delete-btn"
                           onClick={() =>
