@@ -49,7 +49,7 @@ export default function GlobalFundraiserInput() {
   const [couponBookId, setCouponBookId] = useState("");
   // const [outstandingBalance, setOutstandingBalance] = useState(0);
 
-  function clearFields(){
+  function clearFields() {
     setTitle("");
     setDescription("");
     setGoal("");
@@ -97,10 +97,9 @@ export default function GlobalFundraiserInput() {
         icon: "success",
         confirmButtonText: "OK",
       });
-clearFields()
+      clearFields();
     }
   };
-
 
   return (
     <div>
@@ -174,14 +173,13 @@ clearFields()
                 >
                   {filteredGroups?.map((group, index) => (
                     <MenuItem key={group.id} value={group.id}>
-                      {group.department.charAt(0).toUpperCase() +
-                        group.department.slice(1)}{" "}
-                      -{" "}
-                      {group.sub_department
-                        ? group.sub_department.charAt(0).toUpperCase() +
-                          group.sub_department.slice(1)
-                        : "No Sub Group"}
-                    </MenuItem>
+  {group.group_nickname
+    ? `${group.group_nickname.charAt(0).toUpperCase()}${group.group_nickname.slice(1)} - ${group.department.charAt(0).toUpperCase()}${group.department.slice(1).toLowerCase()}`
+    : group.sub_department
+    ? `${group.department.charAt(0).toUpperCase()}${group.department.slice(1).toLowerCase()} - ${group.sub_department.charAt(0).toUpperCase()}${group.sub_department.slice(1)}`
+    : group.department.charAt(0).toUpperCase() + group.department.slice(1).toLowerCase()}
+</MenuItem>
+
                   ))}
                 </TextField>
 
@@ -319,7 +317,7 @@ clearFields()
               style={{
                 fontSize: "16px",
                 marginTop: "0px",
-                marginRight: "10px"
+                marginRight: "10px",
               }}
               sx={{ padding: "10px 28px" }}
               onClick={() => clearFields()}

@@ -84,7 +84,7 @@ function UserTableRow({ user }) {
                   <li key={group.id}>
                     {group.group_nickname ? (
                       <>
-                        {group.group_nickname} in {group.organization_name} |{" "}
+                        {group.group_nickname} in {group.organization_name}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                         {editMode ? (
                           <select
                             value={adminStatus[group.group_id]}
@@ -106,7 +106,7 @@ function UserTableRow({ user }) {
                       </>
                     ) : (
                       <>
-                        {group.group_department} in {group.organization_name} |{" "}
+                        {group.group_department} in {group.organization_name}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                         {editMode ? (
                           <select
                             value={adminStatus[group.group_id]}

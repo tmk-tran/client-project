@@ -476,8 +476,14 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                 </Typography>
               </TableCell>
               <TableCell
-                TableCell
-                style={{ width: "50px", border: "2px solid black" }}
+                style={{
+                  width: "50px",
+                  border: "2px solid black",
+                  backgroundColor:
+                    fundraiser.money_received >= fundraiser.goal
+                      ? "#b4e2b4"
+                      : "transparent",
+                }}
               >
                 <Typography
                   style={{
@@ -489,7 +495,11 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   ${fundraiser.goal}
                 </Typography>
               </TableCell>
-              <TableCell style={{ width: "50px", border: "2px solid black" }}>
+
+              <TableCell style={{ width: "50px", border: "2px solid black", backgroundColor:
+                    fundraiser.outstanding_balance > 0
+                      ? "#E3A29B"
+                      : "transparent", }}>
                 <Typography
                   style={{
                     fontSize: "15px",

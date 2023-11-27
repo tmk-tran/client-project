@@ -29,7 +29,7 @@ function UserPage() {
   const [showInput, setShowInput] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 15;
+  const itemsPerPage = 12;
 
   const fuse = new Fuse(organizationsList, {
     keys: ["organization_name"],
@@ -166,7 +166,7 @@ function UserPage() {
           handleModalClose={handleModalClose}
         />
         <br />
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <Pagination
             count={pageCount}
             shape="rounded"

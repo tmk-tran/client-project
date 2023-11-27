@@ -30,7 +30,6 @@ function RegisterForm() {
   return (
     <>
       <br />
-      <br />
       <form className="formPanel" onSubmit={registerUser}>
         <Card>
           <CardContent>
