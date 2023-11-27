@@ -66,7 +66,7 @@ export default function BasicPopover({ info }) {
 
   return (
     <div className="popover-container">
-      <Button variant="outlined" id="add-group-button" onClick={handleClick} fullWidth>
+      <Button id="add-group-button" onClick={handleClick} fullWidth>
         <AddBoxIcon />&nbsp;Group
         {/* Add Group */}
       </Button>
@@ -94,7 +94,7 @@ export default function BasicPopover({ info }) {
       >
         <Box style={{ padding: "20px", width: "48vh" }}>
           <div>
-            <Typography sx={{ p: 1, textAlign: "center", fontWeight: "bold" }}>
+            <Typography variant="h6" sx={{ p: 1, textAlign: "center", fontWeight: "bold" }}>
               Add New Group
             </Typography>
           </div>

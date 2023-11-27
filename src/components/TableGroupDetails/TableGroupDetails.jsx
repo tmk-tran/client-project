@@ -16,12 +16,12 @@ export default function TableGroupDetails({ fundraiser, totalGoals }) {
       <TableHead>
         <TableRow>
           <TableCell>
-            <Typography variant="h6" sx={{ textAlign: "center", mb: 1, mt: 1 }}>
+            <Typography variant="h6" sx={{ mb: 1, mt: 6, textAlign: "center"  }}>
               Total Goal:
             </Typography>
           </TableCell>
           <TableCell>
-            <Typography variant="h6">
+            <Typography variant="h6" sx={{ mb: 1, mt: 6 }}>
               {totalGoals > 0 ? (
                 new Intl.NumberFormat("en-US", {
                   style: "currency",
@@ -38,10 +38,10 @@ export default function TableGroupDetails({ fundraiser, totalGoals }) {
       <TableBody>
         <TableRow>
           <TableCell>
-            <Typography variant="body2">Money Received:</Typography>
+            <Typography sx={{ textAlign: "center" }}>Received:</Typography>
           </TableCell>
           <TableCell>
-            <Typography>
+            <Typography variant="h6">
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -52,7 +52,7 @@ export default function TableGroupDetails({ fundraiser, totalGoals }) {
         </TableRow>
         <TableRow>
           <TableCell>
-            <Typography>Fundraiser End Date:</Typography>
+            <Typography sx={{ textAlign: "center"  }}>Fundraiser End Date:</Typography>
           </TableCell>
           <TableCell>
             <Typography sx={{ fontWeight: "bold" }}>
