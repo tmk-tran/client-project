@@ -15,9 +15,16 @@
   border-radius: 4px;
 }
 
+/* Container for when there are no active fundraisers */
+.no-fundraisers-bg {
+  background-color: rgb(243, 243, 243);
+}
+
 .no-fundraisers-container {
   padding: 20%;
+  background-color: rgb(243, 243, 243);
 }
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 @media (max-width: 1000px) {
   .goals-display-card {

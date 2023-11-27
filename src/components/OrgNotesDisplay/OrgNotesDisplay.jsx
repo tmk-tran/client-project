@@ -120,7 +120,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                   ))}
               </div>
             ) : (
-              <Typography variant="h6">None Available</Typography>
+              <Typography variant="body1" sx={{ textAlign: "center", backgroundColor: "rgb(243, 243, 243)" }}>None Available</Typography>
             )}
           </div>
           <div>

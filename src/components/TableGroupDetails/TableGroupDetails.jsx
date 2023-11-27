@@ -25,7 +25,7 @@ export default function TableGroupDetails({
             </Typography>
           </TableCell>
           <TableCell>
-            <Typography variant="h6" sx={{ mb: 1, mt: 2 }}>
+            <Typography variant="h6" sx={{ mb: 1, mt: 2, fontSize: "28px" }}>
               {totalGoals > 0 ? (
                 new Intl.NumberFormat("en-US", {
                   style: "currency",

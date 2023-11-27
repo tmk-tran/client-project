@@ -1,17 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
 // Style
-import { Typography, Card, CardContent, Paper } from "@mui/material";
+import { Typography, Card, CardContent } from "@mui/material";
 import "./OrgDetailsGoalView.css";
 // Component
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
-// Utils
-import { formatDate } from "../Utils/helpers";
 
 export default function OrgDetailsGoalView({ info, groups }) {
   const fundraiserInfo = useSelector((store) => store.fundraisers);
-  console.log(fundraiserInfo.length);
 
   // Total number of goals for groups
   const totalGoals = groups.reduce((total, group) => {
@@ -20,6 +17,7 @@ export default function OrgDetailsGoalView({ info, groups }) {
     return total + goal;
   }, 0);
 
+  // Money received
   const totalReceived = fundraiserInfo.reduce((total, fundraiser) => {
     const moneyIn = fundraiser.money_received
       ? parseInt(fundraiser.money_received, 10)
@@ -27,6 +25,7 @@ export default function OrgDetailsGoalView({ info, groups }) {
     return total + moneyIn;
   }, 0);
 
+  // To prevent rendering multiple times
   const goalData = {
     totalGoals: totalGoals,
     totalReceived: totalReceived,
@@ -47,7 +46,13 @@ export default function OrgDetailsGoalView({ info, groups }) {
           <div>
             <AddGroupPopover info={info} />
           </div>
-          <div className="org-detail-goal-container">
+          <div
+            className={`org-detail-goal-container ${
+              fundraiserInfo && fundraiserInfo.length > 0
+                ? ""
+                : "no-fundraisers-bg"
+            }`}
+          >
             <center>
               {/* <br /> */}
               {fundraiserInfo && fundraiserInfo.length > 0 ? (
