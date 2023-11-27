@@ -142,27 +142,26 @@ VALUES
 -- Group Table
 INSERT INTO "public"."group"("id","organization_id","department","sub_department","group_nickname","group_photo","group_description","is_deleted")
 VALUES
-(1,1,E'Staff',NULL,E'waggin Tails',E'images/dog1.jpeg',E'Staff is raising money by selling the PSG books.',FALSE),
-(2,1,E'Volunteers',NULL,NULL,E'images/dawgs2.jpeg',E'Volunteers are selling blue books',FALSE),
-(3,2,E'10th Grade',E'Tennis',NULL,E'images/tennis1.jpeg',E'Sophomore tennis team',FALSE),
-(4,2,E'9th Grade',E'Tennis',NULL,E'images/tennis2.jpeg',E'Freshman tennis team',FALSE),
-(5,2,E'11th Grade',E'Tennis',NULL,E'images/tennis3.jpeg',E'Junior tennis team',FALSE),
-(6,2,E'12th Grade',E'Tennis',NULL,E'images/tennis4.jpeg',E'Senior tennis team',FALSE),
-(7,12,E'Group 1',E'Singers',E'Winter group 1',E'images/acapella.jpeg',E'harmony is our jam!',FALSE),
+(1,1,E'Staff',E'Full-time',E'waggin Tails',E'images/dawgs2.jpeg',E'Staff is raising money by selling the PSG books.',FALSE),
+(2,1,E'Volunteers',E'Part-time',E'Volunteers',E'images/dog1.jpeg',E'Volunteers are selling blue books',FALSE),
+(3,2,E'10th Grade',E'Tennis',E'10th Grade Tennis',E'images/tennis1.jpeg',E'Sophomore tennis team',FALSE),
+(4,2,E'9th Grade',E'Tennis',E'9th Grade Tennis',E'images/tennis2.jpeg',E'Freshman tennis team',FALSE),
+(5,2,E'11th Grade',E'Tennis',E'11th Grade Tennis',E'images/tennis3.jpeg',E'Junior tennis team',FALSE),
+(6,2,E'12th Grade',E'Tennis',E'12th Grade Tennis',E'images/tennis4.jpeg',E'Senior tennis team',FALSE),
+(7,12,E'Acapella',E'Singers',E'Winter group 1',E'images/acapella.jpeg',E'harmony is our jam!',FALSE),
 (8,7,E'volunteers',NULL,E'Vets FM',E'images/amlegion.jpeg',E'Support our troops!',FALSE),
-(9,20,E'students',E'Koss',NULL,E'images/koss.jpeg',E'Our Full Stack Engineering course teaches students how to build modern web applications from the ground up. Our students learn how to research and solve technical challenges so that they can continue upgrading their skills to stay relevant in an ever changing technology landscape.',FALSE),
+(9,20,E'students',E'Koss',E'Koss Cohort',E'images/koss.jpeg',E'Our Full Stack Engineering course teaches students how to build modern web applications from the ground up.',FALSE),
 (10,6,E'Staff',NULL,E'Cupcakes4All',E'images/addies.jpeg',E'always baking up smiles!',FALSE),
-(11,20,E'Sourdough',E'bread',E'Blaine\'s Bread bakery',NULL,E'sourdough rules!',FALSE),
-(12,14,E'Group 1',NULL,E'troop 341',E'images/cubscouts.png',NULL,FALSE),
+(11,20,E'Sourdough',E'bread',E'Blaine\'s Bread bakery',E'images/sourdough.jpeg',E'sourdough rules! Donating for every loaf sold',FALSE),
+(12,14,E'Eagle Scouts',NULL,E'troop 341',E'images/cubscouts.png',NULL,FALSE),
 (13,21,E'Pre-school',E'group 1',E'Eagle Room',E'images/kiddi.jpeg',E'raising money for a new swingset!',FALSE),
-(14,22,E'Faculty',E'Biology',E'Professors',E'images/professor.png',E'',FALSE),
-(15,22,E'Volunteers',E'',E'Students',E'images/ndsu2.png',E'',FALSE),
-(16,22,E'Football',E'',E'Coaches',E'images/ndsu2.png',E'we love giving back to our community!',FALSE),
-(17,22,E'administration',E'fraternity ',E'Sigma Phi Epsilon',NULL,E'SAE raising money for campus',FALSE),
-(18,22,E'test',E'test1',NULL,NULL,E'test',FALSE),
-(20,4,E'puppy funds',E'',E'Pups 4 psg',E'images/dawgs.jpg',E'woof woof',FALSE),
+(14,22,E'Faculty',E'Biology',E'Professors',E'images/professor.png',E'We want to see which professor can raise the most money',FALSE),
+(15,22,E'Incoming Freshmen',E'',E'Students',E'images/ndsu-students.jpeg',E'Ndsu is the best college',FALSE),
+(16,22,E'Womens Sports',E'',E'Coaches',E'images/ndsu.jpeg',E'we love giving back to our community',FALSE),
+(17,22,E'Administration',E'fraternity ',E'Sigma Phi Epsilon',E'images/sae.jpeg',E'SAE raising money for sand volleyball court upkeep',FALSE),
+(20,4,E'Puppy funds',E'',E'Pups 4 psg',E'images/dawgs.jpg',E'woof woof',FALSE),
 (21,17,E'Sunday school',E'middle school age',E'Group 1',E'images/oakgrove.jpeg',E'',FALSE),
-(22,22,E'orchestra',E'strings',E'new group',NULL,E'raising money for the auditorium',FALSE);
+(22,22,E'Orchestra',E'strings',E'Music',E'images/ndsuStrings.jpeg',E'raising money for the auditorium',FALSE);
 
 
 INSERT INTO "public"."coupon_book"("year")
@@ -183,14 +182,38 @@ VALUES
 (7,7,E'Winter Group',E'acapella',E'',100,50,1250,NULL,NULL,NULL,E'2023-11-07',E'2023-11-29',2,1250,FALSE,FALSE,600),
 (8,8,E'Vets FM',E'VFW',E'',100,50,1250,NULL,NULL,NULL,E'2023-11-07',E'2023-11-29',2,1250,FALSE,FALSE,750),
 (9,9,E'Devs for dollars',E'EDA students rock',E'',10,10,250,NULL,NULL,NULL,E'2023-11-01',E'2023-11-30',2,250,FALSE,FALSE,500),
-(10,10,E'cupcakes',E'Staff',E'',20,20,500,NULL,NULL,NULL,E'2023-11-28',E'2023-11-30',1,500,FALSE,FALSE,800);
+(10,10,E'cupcakes',E'Staff',E'',20,20,500,NULL,NULL,NULL,E'2023-11-28',E'2023-11-30',1,500,FALSE,FALSE,800),(30,14,E'Dr. Johnson',E'competition',NULL,25,25,625,5,20,500,E'2023-11-01',E'2023-11-30',1,0,FALSE,TRUE,500),
+(31,14,E'Mrs. Peterson',E'Competition',NULL,25,25,625,0,25,625,E'2023-11-01',E'2023-11-30',1,0,FALSE,FALSE,500),
+(32,14,E'Dr. Simpson',E'competition',NULL,25,25,625,10,15,375,E'2023-11-01',E'2023-11-30',1,0,FALSE,TRUE,500),
+(33,14,E'Mrs. Bayman',E'Competition',NULL,25,25,625,2,23,575,E'2023-11-01',E'2023-11-30',1,0,FALSE,TRUE,600),
+(37,15,E'Students for PSG',E'Students raising money',NULL,100,100,2500,NULL,NULL,NULL,E'2023-10-31',E'2023-12-01',1,2500,FALSE,TRUE,1500),
+(22,16,E'Track is the best',E'track coaches trying to win the competition',NULL,100,100,2500,20,80,2000,E'2022-09-01',E'2023-08-30',1,0,FALSE,TRUE,1000),
+(23,16,E'Volleyball',E'Volleyball wil spike the competition',NULL,200,150,3750,60,90,2250,E'2023-09-01',E'2023-11-30',2,0,FALSE,FALSE,3000),
+(24,16,E'Slam Dunkin- Basketball',E'Bball will crush the competition',NULL,200,120,3000,35,65,2125,E'2023-09-01',E'2023-11-30',2,0,FALSE,TRUE,2000),
+(25,16,E'Tennis',E'Tennis is the best',NULL,150,120,3000,0,120,2500,E'2023-09-01',E'2023-11-30',2,500,FALSE,FALSE,2750),
+(26,16,E'Soccer',E'soccer players to raise money',NULL,150,150,3750,50,100,2500,E'2023-09-01',E'2023-11-30',2,0,FALSE,FALSE,2500),
+(36,16,E'Lacrosse',E'we love psg',NULL,100,100,2500,0,0,0,E'2023-10-31',E'2023-11-30',1,2500,FALSE,TRUE,1000),
+(34,17,E'Frat Volleyball Court',E'Need money for sand volleyball',NULL,100,50,1250,0,50,1000,E'2023-11-01',E'2023-11-30',1,250,FALSE,TRUE,1200),
+(27,22,E'Violin Section',E'Violins rock',NULL,100,100,2500,30,70,1750,E'2023-10-01',E'2023-11-30',2,0,FALSE,TRUE,1500),
+(28,22,E'Chello',E'hello chello',NULL,200,175,4375,25,150,2500,E'2023-10-01',E'2023-11-30',2,1250,FALSE,TRUE,3500),
+(29,22,E'Bass is best',E'Bass is the best',NULL,200,200,5000,0,200,5000,E'2023-10-01',E'2023-11-30',2,0,FALSE,TRUE,5500);
 
 
 -- User-group table
 INSERT INTO "public"."user-group"("group_id","user_id","group_admin")
 VALUES
-(1,2,TRUE),
-(7,2,TRUE);
+(4,4,TRUE),
+(3,4,TRUE),
+(5,4,TRUE),
+(6,4,TRUE),
+(10,1,TRUE),
+(2,2,FALSE),
+(1,2,FALSE),
+(14,5,FALSE),
+(15,5,FALSE),
+(16,5,TRUE),
+(17,5,FALSE),
+(22,5,FALSE);
 
 -- Notes
 INSERT INTO "public"."organization_notes"("id","organization_id","note_date","note_content","is_deleted")
