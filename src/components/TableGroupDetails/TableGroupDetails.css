@@ -1,0 +1,9 @@
+.custom-table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.custom-table th,
+.custom-table td {
+  border: none;
+}

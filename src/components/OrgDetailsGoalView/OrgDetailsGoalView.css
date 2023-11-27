@@ -1,18 +1,30 @@
 .goals-display-card {
   position: absolute;
-  /* margin-right: 10vh; */
-  width: 40vh;
-  right: 80px;
+  margin-right: 2vh;
+  width: 50vh;
+  /* right: 80px; */
+  right: 1vh;
   top: 0;
 }
 
 .org-detail-goal-container {
-  height: 25vh;
-  max-height: 25vh;
+  height: 32vh;
+  max-height: 32vh;
+  overflow-y: auto;
   border: 1px solid #273a9158;
   border-radius: 4px;
 }
 
+/* Container for when there are no active fundraisers */
+.no-fundraisers-bg {
+  background-color: rgb(243, 243, 243);
+}
+
+.no-fundraisers-container {
+  padding: 20%;
+  background-color: rgb(243, 243, 243);
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 @media (max-width: 1000px) {
   .goals-display-card {

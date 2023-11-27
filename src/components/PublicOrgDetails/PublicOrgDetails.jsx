@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // Style
-import { Button, Typography, Card, CardContent } from "@mui/material";
+import { Typography, Card, CardContent } from "@mui/material";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // Components
 import PublicOrgContactDetails from "../PublicOrgContactDetails/PublicOrgContactDetails";
-import PublicOrgGroupInfo from "../PublicOrgGroupInfo/PublicOrgGroupInfo";
-// Toast
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-// Utils
-import { formatDate } from "../Utils/helpers";
+import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 
 export default function PublicOrgDetails() {
   const theme = useTheme();
@@ -23,13 +18,6 @@ export default function PublicOrgDetails() {
 
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
   const groups = useSelector((store) => store.orgGroups);
-  const notes = useSelector((store) => store.orgNotes);
-  console.log(notes);
-  // State
-  const [noteAdded, setNoteAdded] = useState(false);
-  const [view1, setView1] = useState(false);
-  const [view2, setView2] = useState(false);
-  const [view3, setView3] = useState(false);
 
   useEffect(() => {
     dispatch({
@@ -40,8 +28,6 @@ export default function PublicOrgDetails() {
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
-    // Reset noteAdded after fetching data
-    setNoteAdded(false);
   }, [paramsObject.id, groups]);
 
   // Create a map to store organization details and associated groups
@@ -66,10 +52,6 @@ export default function PublicOrgDetails() {
     });
   });
 
-  const handleNoteAdded = () => {
-    setNoteAdded(true);
-  };
-
   return (
     <div
       className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
@@ -89,11 +71,9 @@ export default function PublicOrgDetails() {
                 <div className="OrgGroupInfo-container">
                   {groups && groups.some((group) => group.group_id !== null) ? (
                     groups.map((groupInfo, i) => (
-                      <PublicOrgGroupInfo
+                      <OrgGroupInfo
                         key={groupInfo.group_id}
                         groupInfo={groupInfo}
-                        groupNumber={i + 1}
-                        view1={view1}
                       />
                     ))
                   ) : (
