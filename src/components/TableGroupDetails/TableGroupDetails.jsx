@@ -15,7 +15,6 @@ export default function TableGroupDetails({
   totalReceived,
   fundraiserInfo,
 }) {
-  console.log(fundraiserInfo);
   return (
     <Table className="custom-table">
       <TableHead>
