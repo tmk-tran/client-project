@@ -97,24 +97,25 @@ function UserProfile() {
                         <CardContent>
                           <Typography
                             variant="subtitle1"
-                            style={{ fontWeight: "bold" }}
+                            style={{ fontWeight: "bold", textDecoration: "underline", fontSize: "22px" }}
                           >
-                            PSG Details:
+                            <b>PSG Details:</b>
                           </Typography>
                           <Typography variant="body2">
-                            Total Active Organizations: {totalOrganizations}
+                            <b>Total Active Organizations:</b> {totalOrganizations}
                           </Typography>
                           <Typography variant="body2">
-                            Total Active Fundraisers: {totalActiveFundraisers}
+                            <b>Total Active Fundraisers:</b> {totalActiveFundraisers}
                           </Typography>
                           <Typography variant="body2">
-                            Total Books Sold: {totalBooksSold}
+                          <b>Total Books Sold:</b> {totalBooksSold.toLocaleString()} {totalBooksSold > 1000}
+
                           </Typography>
                           <Typography variant="body2">
-                            Total Money Rasied: ${formattedTotalMoneyRaised}
+                            <b>Total Money Rasied:</b> ${formattedTotalMoneyRaised}
                           </Typography>
                           <Typography variant="body2">
-                            PSG Earnings after Organization Fees: $
+                            <b>PSG Earnings after Organization Fees:</b> $
                             {formattedTotalMinusOrg}
                           </Typography>
                         </CardContent>
