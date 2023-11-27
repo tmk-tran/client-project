@@ -134,7 +134,7 @@ export default function OrgContactEdit({
           variant="h5"
           sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
         >
-          Edit Details
+          Edit Organization Details
         </Typography>
         {/* <Typography variant="h6">Edit Organization Details</Typography> */}
         {/* </center> */}

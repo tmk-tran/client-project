@@ -13,7 +13,7 @@ import "./OrgNotesDisplay.css";
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
 // Utils
-import { formatDate, modalBtnStyle } from "../Utils/helpers";
+import { formatDate } from "../Utils/helpers";
 import { showSaveSweetAlert, showDeleteSweetAlert } from "../Utils/sweetAlerts";
 // Toasts (INACTIVE, MAY USE LATER)
 import { showToast } from "../Utils/toasts";
