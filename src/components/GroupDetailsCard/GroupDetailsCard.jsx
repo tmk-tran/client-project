@@ -33,10 +33,10 @@ export default function GroupDetailsCard({ group }) {
   const [description, setDescription] = useState("");
   const [booksRequested, setBooksRequested] = useState("");
   const [booksCheckedOut, setBooksCheckedOut] = useState("");
-  const [booksCheckedIn, setBooksCheckedIn] = useState("");
-  const [booksSold, setBooksSold] = useState("");
+  const [booksCheckedIn, setBooksCheckedIn] = useState(0);
+  const [booksSold, setBooksSold] = useState(0);
   const [goal, setGoal] = useState("");
-  const [moneyReceived, setMoneyRecieved] = useState("");
+  const [moneyReceived, setMoneyRecieved] = useState(0);
   const [startDtate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [couponBookId, setCouponBookId] = useState("");
@@ -68,10 +68,10 @@ export default function GroupDetailsCard({ group }) {
     setDescription("");
     setBooksRequested("");
     setBooksCheckedOut("");
-    setBooksCheckedIn("");
-    setBooksSold("");
+    setBooksCheckedIn(0);
+    setBooksSold(0);
     setGoal("");
-    setMoneyRecieved("");
+    setMoneyRecieved(0);
     setStartDate("");
     setEndDate("");
     setCouponBookId("");
@@ -228,6 +228,7 @@ export default function GroupDetailsCard({ group }) {
               >
                 <Grid item xs={6}>
                   <TextField
+                   required
                     fullWidth
                     style={{ margin: "5px" }}
                     label="Books Checked In"
@@ -239,6 +240,7 @@ export default function GroupDetailsCard({ group }) {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
+                   required
                     fullWidth
                     style={{ margin: "5px" }}
                     label="Books Sold"
@@ -259,6 +261,7 @@ export default function GroupDetailsCard({ group }) {
                 <Grid item xs={6}>
                   <TextField
                     fullWidth
+                    required
                     style={{ margin: "5px" }}
                     label="Goal"
                     type="number"
@@ -269,6 +272,7 @@ export default function GroupDetailsCard({ group }) {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
+                   required
                     fullWidth
                     style={{ margin: "5px", marginRight: "0" }}
                     type="number"
