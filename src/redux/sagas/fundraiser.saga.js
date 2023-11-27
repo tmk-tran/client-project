@@ -17,7 +17,7 @@ function* fetchFundraisersSaga(action) {
 function* fetchOrgFundraisersSaga(action) {
     try {
         const response = yield axios.get(`/api/fundraisers/${action.payload}`)
-        yield put({ type: "SET_FUNDRAISERS", payload: response.data })
+        yield put({ type: "SET_ORG_FUNDRAISERS", payload: response.data })
     } catch (err) {
         console.log("Error fetching ORG fundraisers ", err)
     }

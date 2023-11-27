@@ -8,7 +8,7 @@ import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 
 export default function OrgDetailsGoalView({ info, groups }) {
-  const fundraiserInfo = useSelector((store) => store.fundraisers);
+  const fundraiserInfo = useSelector((store) => store.orgFundraisers);
 
   // Total number of goals for groups
   const totalGoals = groups.reduce((total, group) => {
