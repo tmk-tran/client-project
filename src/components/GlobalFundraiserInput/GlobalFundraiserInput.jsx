@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
 import { InputLabel } from "@mui/material";
 import { MenuItem, Box, Paper, Typography } from "@mui/material";
 import { Button, TextField, CardContent } from "@mui/material";
@@ -112,23 +111,10 @@ export default function GlobalFundraiserInput() {
           <center>
             <br />
             <CardContent>
-              <Typography
-                variant="h5"
-                className="organization-header"
-                style={{ fontWeight: "bold" }}
-              >
+              <Typography variant="h5" style={{ fontWeight: "bold" }}>
                 New Fundraiser Form
               </Typography>
-              <Typography
-                sx={{
-                  fontWeight: "normal",
-                  fontSize: "18px",
-                  color: "black",
-                  marginBottom: "0px",
-                  marginTop: "-25px",
-                  fontFamily: "Telugu Sangam MN",
-                }}
-              >
+              <Typography variant="body2">
                 <br /> Step 1: Select Organization, Group, and Book Year <br />{" "}
                 Step 2: Fill out Fundraiser Details and Submit <br />{" "}
                 <strong>
@@ -229,16 +215,14 @@ export default function GlobalFundraiserInput() {
                 "& .MuiTextField-root": { m: 0.4, width: "80%" },
               }}
             >
-              <InputLabel
+              <Typography
                 sx={{
                   fontSize: "22px",
-                  color: "black",
                   fontWeight: "bold",
-                  fontFamily: "Telugu Sangam MN",
                 }}
               >
                 Fundraiser Details:
-              </InputLabel>
+              </Typography>
               <TextField
                 type="text"
                 label="Fundraiser Name"
@@ -289,17 +273,15 @@ export default function GlobalFundraiserInput() {
                 style={{ marginRight: "10.5%" }}
               />
             </Box>
-            <InputLabel
+            <Typography
               sx={{
                 fontSize: "22px",
-                color: "black",
                 fontWeight: "bold",
-                fontFamily: "Telugu Sangam MN",
                 marginTop: "10px",
               }}
             >
               Start and End Date:
-            </InputLabel>
+            </Typography>
             <Box
               sx={{
                 display: "flex",
@@ -329,11 +311,6 @@ export default function GlobalFundraiserInput() {
             <br />
             <Button
               variant="contained"
-              style={{
-                color: "white",
-                fontSize: "16px",
-                marginTop: "0px",
-              }}
               sx={{ padding: "10px 28px" }}
               onClick={() => submitFundraiser(selectedGroup)}
             >
