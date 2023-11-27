@@ -78,6 +78,35 @@ CREATE TABLE "fundraiser" (
 
 );
 
+------------------------------------------------------------------
+-- Trigger/ functions
+----------------------------------------------------------------
+CREATE OR REPLACE FUNCTION update_checked_out_total_value()
+RETURNS TRIGGER AS $$
+BEGIN
+ NEW.book_checked_out_total_value = NEW.book_quantity_checked_out * 25;
+ RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+-- Create a trigger on your_table
+CREATE TRIGGER update_checked_out_total_value_trigger
+BEFORE INSERT OR UPDATE ON fundraiser
+FOR EACH ROW EXECUTE FUNCTION update_checked_out_total_value();
+-- Create a function to calculate the outstanding_balance
+CREATE OR REPLACE FUNCTION calculate_outstanding_balance()
+RETURNS TRIGGER AS $$
+BEGIN
+ NEW.outstanding_balance = NEW.book_checked_out_total_value
+        - COALESCE(NEW.money_received, 0)
+        - COALESCE(NEW.book_quantity_checked_in * 25, 0);
+ RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+-- Create a trigger to update outstanding_balance before insert or update
+CREATE TRIGGER update_outstanding_balance
+BEFORE INSERT OR UPDATE ON fundraiser
+FOR EACH ROW
+EXECUTE FUNCTION calculate_outstanding_balance();
 
 
 ----------------------------------------------------------------------------------------------
@@ -124,7 +153,7 @@ VALUES
 (9,20,E'students',E'Koss',NULL,E'images/koss.jpeg',E'Our Full Stack Engineering course teaches students how to build modern web applications from the ground up. Our students learn how to research and solve technical challenges so that they can continue upgrading their skills to stay relevant in an ever changing technology landscape.',FALSE),
 (10,6,E'Staff',NULL,E'Cupcakes4All',E'images/addies.jpeg',E'always baking up smiles!',FALSE),
 (11,20,E'Sourdough',E'bread',E'Blaine\'s Bread bakery',NULL,E'sourdough rules!',FALSE),
-(12,14,E'group 1',NULL,E'troop 341',E'images/cubscouts.png',NULL,FALSE),
+(12,14,E'Group 1',NULL,E'troop 341',E'images/cubscouts.png',NULL,FALSE),
 (13,21,E'Pre-school',E'group 1',E'Eagle Room',E'images/kiddi.jpeg',E'raising money for a new swingset!',FALSE),
 (14,22,E'Faculty',E'Biology',E'Professors',E'images/professor.png',E'',FALSE),
 (15,22,E'Volunteers',E'',E'Students',E'images/ndsu2.png',E'',FALSE),
@@ -204,3 +233,4 @@ CREATE TRIGGER update_outstanding_balance
 BEFORE INSERT OR UPDATE ON fundraiser
 FOR EACH ROW
 EXECUTE FUNCTION calculate_outstanding_balance();
+
