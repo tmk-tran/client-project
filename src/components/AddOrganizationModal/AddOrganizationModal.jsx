@@ -79,6 +79,9 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
     boxShadow: 24,
     p: 4,
   };
+  const capitalizeFirstLetter = (value) => {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  };
 
   return (
     <div>
@@ -99,7 +102,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
                 label="Organization Name"
                 fullWidth
                 value={organizationName}
-                onChange={(e) => setOrganizationName(e.target.value)}
+                onChange={(e) => setOrganizationName(capitalizeFirstLetter(e.target.value))}
               />
             </Grid>
             <Grid item xs={6}>
