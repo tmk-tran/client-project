@@ -44,9 +44,12 @@ export default function OrgDetailsGoalView({ info, groups }) {
     <>
       <Card elevation={3} className="goals-display-card">
         <CardContent>
-          <div>
-            <AddGroupPopover info={info} />
-          </div>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", fontWeight: "bold" }}
+          >
+            Details
+          </Typography>
           <div
             className={`org-detail-goal-container ${
               fundraiserInfo && fundraiserInfo.length > 0
@@ -54,6 +57,9 @@ export default function OrgDetailsGoalView({ info, groups }) {
                 : "no-fundraisers-bg"
             }`}
           >
+            {/* <div>
+            <AddGroupPopover info={info} />
+          </div> */}
             <center>
               {/* <br /> */}
               {fundraiserInfo && fundraiserInfo.length > 0 ? (
@@ -71,10 +77,10 @@ export default function OrgDetailsGoalView({ info, groups }) {
               )}
             </center>
           </div>
+          <div>
+            <AddGroupPopover info={info} />
+          </div>
         </CardContent>
-        {/* <div>
-          <AddGroupPopover info={info} />
-        </div> */}
       </Card>
     </>
   );

@@ -15,7 +15,6 @@ import "./AddGroupPopover.css";
 // Utils
 import {
   modalBtnStyle,
-  showDeleteSweetAlert,
   showToast,
 } from "../Utils/helpers";
 
@@ -76,22 +75,22 @@ export default function BasicPopover({ info }) {
         open={open}
         anchorEl={anchorEl}
         onClose={() => {}}
-        // anchorOrigin={{
-        //   vertical: isMobile ? "top" : "bottom",
-        //   horizontal: isMobile ? "center" : "center",
-        // }}
-        // transformOrigin={{
-        //   vertical: isMobile ? "bottom" : "bottom",
-        //   horizontal: isMobile ? "center" : "center",
-        // }}
         anchorOrigin={{
-          vertical: isMobile ? "top" : "top",
+          vertical: isMobile ? "top" : "bottom",
           horizontal: isMobile ? "center" : "center",
         }}
         transformOrigin={{
-          vertical: isMobile ? "bottom" : "top",
+          vertical: isMobile ? "bottom" : "bottom",
           horizontal: isMobile ? "center" : "center",
         }}
+        // anchorOrigin={{
+        //   vertical: isMobile ? "top" : "top",
+        //   horizontal: isMobile ? "center" : "center",
+        // }}
+        // transformOrigin={{
+        //   vertical: isMobile ? "bottom" : "top",
+        //   horizontal: isMobile ? "center" : "center",
+        // }}
       >
         <Box style={{ padding: "20px", width: "48vh" }}>
           <div>
