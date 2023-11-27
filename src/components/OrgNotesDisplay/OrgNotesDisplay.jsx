@@ -13,10 +13,9 @@ import "./OrgNotesDisplay.css";
 // Icons
 import DeleteIcon from "@mui/icons-material/Delete";
 // Utils
-import { formatDate, modalBtnStyle } from "../Utils/helpers";
-import { showSaveSweetAlert } from "../Utils/sweetAlerts";
-import { showDeleteSweetAlert } from "../Utils/sweetAlerts";
-// Toasts
+import { formatDate } from "../Utils/helpers";
+import { showSaveSweetAlert, showDeleteSweetAlert } from "../Utils/sweetAlerts";
+// Toasts (INACTIVE, MAY USE LATER)
 import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -90,7 +89,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                 {notes
                   .filter((note) => !note.is_deleted) // Filter out deleted notes
                   .map((note, i) => (
-                    <div key={i}>
+                    <div className="note-main-container" key={i}>
                       <Typography sx={{ mt: 1 }} variant="caption">
                         {formatDate(note.note_date)}
                       </Typography>
@@ -100,18 +99,22 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                           justifyContent: "space-between",
                         }}
                       >
-                        {/* <Button
-                          className="notes-delete-btn"
-                          onClick={() =>
-                            handleDelete(note.id, note.organization_id)
-                          }
-                        >
-                          <DeleteIcon style={{ fontSize: "20px" }} />
-                        </Button> */}
-                        <li style={{ marginLeft: "10%" }}>
+                        
+                        {/* <li style={{ marginLeft: "10%" }}>
                           {note.note_content.charAt(0).toUpperCase() +
                             note.note_content.slice(1).toLowerCase()}
+                        </li> */}
+                        <li style={{ marginLeft: "10%" }}>
+                          {note.note_content &&
+                            note.note_content
+                              .split(" ")
+                              .map(
+                                (word) =>
+                                  word.charAt(0).toUpperCase() + word.slice(1)
+                              )
+                              .join(" ")}
                         </li>
+
                         <Button
                           className="notes-delete-btn"
                           onClick={() =>
@@ -129,7 +132,15 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                   ))}
               </div>
             ) : (
-              <Typography variant="h6">None Available</Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "rgb(243, 243, 243)",
+                }}
+              >
+                None Available
+              </Typography>
             )}
           </div>
           <div>
@@ -140,6 +151,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
               onChange={(e) => setInputValue(e.target.value)}
               multiline
               fullWidth
+              sx={{ mt: 1 }}
             />
             {inputValue && (
               <Button

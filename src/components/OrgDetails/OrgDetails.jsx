@@ -13,6 +13,8 @@ import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
+// Sweet Alert
+import Swal from "sweetalert2";
 // Toast
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,10 +40,10 @@ export default function orgDetails() {
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
-    // dispatch({
-    //   type: "FETCH_ORG_NOTES",
-    //   payload: paramsObject.id,
-    // });
+    dispatch({
+      type: "FETCH_ORG_FUNDRAISERS",
+      payload: paramsObject.id,
+    });
   }, [groups]);
 
   // Create a map to store organization details and associated groups
@@ -81,6 +83,7 @@ export default function orgDetails() {
                 {/* Display organization details once */}
                 <center>
                   <OrgContactDetails info={orgDetails} />
+                  <br />
                 </center>
 
                 {/* Toast (INACTIVE, MAY USE LATER) */}
@@ -99,10 +102,11 @@ export default function orgDetails() {
                     info={orgDetails}
                   /> */}
                   {/* Add Groups */}
-                  <AddGroupPopover info={orgDetails} />
+                  {/* <AddGroupPopover info={orgDetails} /> */}
                 </div>
 
-                <OrgDetailsGoalView />
+                {/* <OrgDetailsGoalView /> */}
+                <OrgDetailsGoalView info={orgDetails} groups={groups} />
 
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">

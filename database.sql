@@ -113,6 +113,7 @@ EXECUTE FUNCTION calculate_outstanding_balance();
 --INSERTS
 ----------------------------------------------------------------------------------------------
 
+-- Organization Table
 INSERT INTO "public"."organization"("organization_name","type","address","city","state","zip","primary_contact_first_name","primary_contact_last_name","primary_contact_phone","primary_contact_email","organization_logo","is_deleted")
 VALUES
 (E'4 Luv of Dog Rescue',E'Shelter',E'1234 Bark Street',E'Fargo',E'ND',58102,E'Jane',E'Doe',7015552121,E'barks@email.com',E'images/4luv.jpeg',FALSE),
@@ -138,17 +139,18 @@ VALUES
 (E'Kiddiland Daycare',E'Daycare',E'1234 Kids Street',E'Fargo',E'ND',58103,E'Johnny',E'Doe',7015551234,E'',E'images/kiddiland.png',FALSE), 
 (E'NDSU',E'College',E'1234 College Street',E'Fargo',E'ND',58103,E'Bison',E'Doe',7015551234,E'',E'images/ndsu1.png',FALSE);
 
+-- Group Table
 INSERT INTO "public"."group"("id","organization_id","department","sub_department","group_nickname","group_photo","group_description","is_deleted")
 VALUES
-(1,1,E'Staff',NULL,E'waggin Tails',E'images/dawgs2.jpeg',E'Staff is raising money by selling the PSG books.',FALSE),
-(2,1,E'Volunteers',NULL,'volunteers',E'images/dog1.jpeg',E'Volunteers are selling blue books',FALSE),
-(3,2,E'10th Grade',E'Tennis','10th Grade Tennis',E'images/tennis1.jpeg',E'Sophomore tennis team',FALSE),
-(4,2,E'9th Grade',E'Tennis','9th Grade Tennis',E'images/tennis2.jpeg',E'Freshman tennis team',FALSE),
-(5,2,E'11th Grade',E'Tennis','11th Grade Tennis',E'images/tennis3.jpeg',E'Junior tennis team',FALSE),
-(6,2,E'12th Grade',E'Tennis','12th Grade Tennis',E'images/tennis4.jpeg',E'Senior tennis team',FALSE),
+(1,1,E'Staff',NULL,E'waggin Tails',E'images/dog1.jpeg',E'Staff is raising money by selling the PSG books.',FALSE),
+(2,1,E'Volunteers',NULL,NULL,E'images/dawgs2.jpeg',E'Volunteers are selling blue books',FALSE),
+(3,2,E'10th Grade',E'Tennis',NULL,E'images/tennis1.jpeg',E'Sophomore tennis team',FALSE),
+(4,2,E'9th Grade',E'Tennis',NULL,E'images/tennis2.jpeg',E'Freshman tennis team',FALSE),
+(5,2,E'11th Grade',E'Tennis',NULL,E'images/tennis3.jpeg',E'Junior tennis team',FALSE),
+(6,2,E'12th Grade',E'Tennis',NULL,E'images/tennis4.jpeg',E'Senior tennis team',FALSE),
 (7,12,E'Group 1',E'Singers',E'Winter group 1',E'images/acapella.jpeg',E'harmony is our jam!',FALSE),
 (8,7,E'volunteers',NULL,E'Vets FM',E'images/amlegion.jpeg',E'Support our troops!',FALSE),
-(9,20,E'students',E'Koss','Koss Cohort',E'images/koss.jpeg',E'Our Full Stack Engineering course teaches students how to build modern web applications from the ground up. Our students learn how to research and solve technical challenges so that they can continue upgrading their skills to stay relevant in an ever changing technology landscape.',FALSE),
+(9,20,E'students',E'Koss',NULL,E'images/koss.jpeg',E'Our Full Stack Engineering course teaches students how to build modern web applications from the ground up. Our students learn how to research and solve technical challenges so that they can continue upgrading their skills to stay relevant in an ever changing technology landscape.',FALSE),
 (10,6,E'Staff',NULL,E'Cupcakes4All',E'images/addies.jpeg',E'always baking up smiles!',FALSE),
 (11,20,E'Sourdough',E'bread',E'Blaine\'s Bread bakery',NULL,E'sourdough rules!',FALSE),
 (12,14,E'Group 1',NULL,E'troop 341',E'images/cubscouts.png',NULL,FALSE),
@@ -162,6 +164,7 @@ VALUES
 (21,17,E'Sunday school',E'middle school age',E'Group 1',E'images/oakgrove.jpeg',E'',FALSE),
 (22,22,E'orchestra',E'strings',E'new group',NULL,E'raising money for the auditorium',FALSE);
 
+
 INSERT INTO "public"."coupon_book"("year")
 VALUES
 (2023-2024),
@@ -169,19 +172,65 @@ VALUES
 (2025-2026);
 
 
-INSERT INTO "public"."fundraiser"("group_id","title","description","photo","requested_book_quantity","book_quantity_checked_out","book_checked_out_total_value","book_quantity_checked_in","books_sold","money_received","start_date","end_date","coupon_book_id","outstanding_balance","is_deleted","closed")
+INSERT INTO "public"."fundraiser"("id","group_id","title","description","photo","requested_book_quantity","book_quantity_checked_out","book_checked_out_total_value","book_quantity_checked_in","books_sold","money_received","start_date","end_date","coupon_book_id","outstanding_balance","is_deleted","closed","goal")
 VALUES
-(1,E'Bark the halls ',E' A holiday funsraiser for 4 Luv of Dogs Staff',NULL,100,100,2500,50,50,1250,E'2023-01-01',E'2023-12-31',1,0,FALSE,FALSE),
-(2,E'Howlin\'-ween',E'Halloween fundraiser',NULL,100,100,2500,25,75,1875,E'2023-10-01',E'2023-10-31',1,0,FALSE,TRUE),
-(7,E'Blue-bookin',E'EDA students competing to sell blue books',NULL,60,60,1500,0,60,1500,E'2023-07-17',E'2023-11-30',1,0,FALSE,FALSE),
-(4,E'asdf',E'asdf',E'',10,10,250,0,10,250,E'2023-11-07',E'2023-11-21',2,0,FALSE,FALSE),
-(6,E'Tennis yo',E'We love tennis',NULL,10,10,250,5,5,100,E'2023-11-07',E'2023-11-29',2,25,FALSE,FALSE),
-(1,E'Who let the dogs out',E'WOOF',E'',100,80,2000,0,0,0,E'2023-11-01',E'2023-11-30',2,2000,FALSE,TRUE),
-(2,E'We let the dogs out',E'woof woof',E'',100,50,1250,NULL,NULL,NULL,E'2023-11-07',E'2023-11-29',2,1250,FALSE,FALSE),
-(7,E'Devs for dollars',E'EDA students rock',E'',10,10,250,NULL,NULL,NULL,E'2023-11-01',E'2023-11-30',2,250,FALSE,FALSE),
-(7,E'Said, David, Kenny',E'The three muskateers',E'',20,20,500,NULL,NULL,NULL,E'2023-11-28',E'2023-11-30',1,500,FALSE,FALSE);
+(1,1,E'Bark the halls ',E' A holiday fundraiser for 4 Luv of Dogs Staff',NULL,100,100,2500,50,50,1250,E'2023-01-01',E'2023-12-31',1,0,FALSE,FALSE,2000),
+(2,2,E'Howlin\'-ween',E'Halloween fundraiser',NULL,100,100,2500,25,75,1875,E'2023-10-01',E'2023-10-31',1,0,FALSE,TRUE,1500),
+(3,3,E'Blue-bookin',E'Tennis students competing to sell blue books',NULL,60,60,1500,0,60,1500,E'2023-07-17',E'2023-11-30',1,0,FALSE,FALSE,500),
+(4,4,E'9th grade',E'9th Grade Tennis',E'',10,10,250,0,10,250,E'2023-11-07',E'2023-11-21',2,0,FALSE,FALSE,1800),
+(5,5,E'Tennis',E'We love tennis',NULL,10,10,250,5,5,100,E'2023-11-07',E'2023-11-29',2,25,FALSE,FALSE,2200),
+(6,6,E'12th grade',E'tennis',E'',100,80,2000,0,0,0,E'2023-11-01',E'2023-11-30',2,2000,FALSE,TRUE,1300),
+(7,7,E'Winter Group',E'acapella',E'',100,50,1250,NULL,NULL,NULL,E'2023-11-07',E'2023-11-29',2,1250,FALSE,FALSE,600),
+(8,8,E'Vets FM',E'VFW',E'',100,50,1250,NULL,NULL,NULL,E'2023-11-07',E'2023-11-29',2,1250,FALSE,FALSE,750),
+(9,9,E'Devs for dollars',E'EDA students rock',E'',10,10,250,NULL,NULL,NULL,E'2023-11-01',E'2023-11-30',2,250,FALSE,FALSE,500),
+(10,10,E'cupcakes',E'Staff',E'',20,20,500,NULL,NULL,NULL,E'2023-11-28',E'2023-11-30',1,500,FALSE,FALSE,800);
 
+
+-- User-group table
 INSERT INTO "public"."user-group"("group_id","user_id","group_admin")
 VALUES
 (1,2,TRUE),
 (7,2,TRUE);
+
+-- Notes
+INSERT INTO "public"."organization_notes"("id","organization_id","note_date","note_content","is_deleted")
+VALUES
+(1,1,E'2023-11-21',E'update contact info',FALSE),
+(2,12,E'2023-11-21',E'call Jenny to confirm number of books needed for next year\n',FALSE),
+(3,6,E'2023-11-21',E'call next week',FALSE),
+(4,7,E'2023-11-21',E'needs 100 more books',FALSE),
+(5,14,E'2023-11-21',E'need to update email for Jarrod',FALSE),
+(6,20,E'2023-11-21',E'Koss Cohort client presentations are 11/28!',FALSE),
+(7,22,E'2023-11-21',E'are coaches participating next year?',FALSE),
+(8,22,E'2023-11-21',E'check with professors if they need additional books next month',FALSE);
+
+------------------------------------------------------------------
+-- Trigger/ functions
+----------------------------------------------------------------
+CREATE OR REPLACE FUNCTION update_checked_out_total_value()
+RETURNS TRIGGER AS $$
+BEGIN
+ NEW.book_checked_out_total_value = NEW.book_quantity_checked_out * 25;
+ RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+-- Create a trigger on your_table
+CREATE TRIGGER update_checked_out_total_value_trigger
+BEFORE INSERT OR UPDATE ON fundraiser
+FOR EACH ROW EXECUTE FUNCTION update_checked_out_total_value();
+-- Create a function to calculate the outstanding_balance
+CREATE OR REPLACE FUNCTION calculate_outstanding_balance()
+RETURNS TRIGGER AS $$
+BEGIN
+ NEW.outstanding_balance = NEW.book_checked_out_total_value
+        - COALESCE(NEW.money_received, 0)
+        - COALESCE(NEW.book_quantity_checked_in * 25, 0);
+ RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+-- Create a trigger to update outstanding_balance before insert or update
+CREATE TRIGGER update_outstanding_balance
+BEFORE INSERT OR UPDATE ON fundraiser
+FOR EACH ROW
+EXECUTE FUNCTION calculate_outstanding_balance();
+

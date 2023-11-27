@@ -1,16 +1,29 @@
 //Imports used for this saga
 import axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
+
 //Fetches fundraiser data based on the group id
 function* fetchFundraisersSaga(action) {
     try {
         console.log(action.payload)
         const response = yield axios.get(`/api/fundraisers/groupfundraisers/${action.payload}`)
         yield put({ type: "SET_FUNDRAISERS", payload: response.data })
+        console.log(response.data);
     } catch (err) {
         console.log("Error fetching fundraisers ", err)
     }
 }
+
+// Fetches fundraiser data based on organization id
+function* fetchOrgFundraisersSaga(action) {
+    try {
+        const response = yield axios.get(`/api/fundraisers/${action.payload}`)
+        yield put({ type: "SET_FUNDRAISERS", payload: response.data })
+    } catch (err) {
+        console.log("Error fetching ORG fundraisers ", err)
+    }
+}
+
 //Saga used to add a fundraiser, will then fetch the updated list of fundraisers
 function* addFundraiserSaga(action) {
     try {
@@ -56,8 +69,9 @@ function* openFundraiserSaga(action) {
 //Watcher saga that exports all sagas to for use in the root saga
 export default function* fundraiserSaga() {
     yield takeEvery("FETCH_FUNDRAISERS", fetchFundraisersSaga);
+    yield takeEvery("FETCH_ORG_FUNDRAISERS", fetchOrgFundraisersSaga);
     yield takeEvery("ADD_FUNDRAISER", addFundraiserSaga);
     yield takeEvery("CLOSE_FUNDRAISER", closeFundraiserSaga);
     yield takeEvery("OPEN_FUNDRAISER", openFundraiserSaga);
-    yield takeEvery("UPDATE_FUNDRAISER_AMOUNTS", updatedFundraiserAmountsSaga)
+    yield takeEvery("UPDATE_FUNDRAISER_AMOUNTS", updatedFundraiserAmountsSaga);
 }

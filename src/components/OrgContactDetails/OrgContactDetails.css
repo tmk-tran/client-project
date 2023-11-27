@@ -13,6 +13,7 @@
 
 .org-name-container {
   width: 17%;
+  /* border: 1px solid black; */
 }
 
 .edit-icon-btn {
@@ -20,11 +21,6 @@
   top: 0;
   right: 38%;
 }
-
-/* .edit-note-icon:hover {
-  color: #dd9f2f;
-} */
-
 /* Push edit icon far right corner of Card */
 
 /* .edit-icon-btn {

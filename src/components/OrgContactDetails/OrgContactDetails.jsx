@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-// Icons
-import EditNoteIcon from "@mui/icons-material/EditNote";
-// Helpers
-import { formatPhoneNumber } from "../Utils/helpers";
 // Styles
 import {
   Box,
@@ -15,10 +11,14 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import "./OrgContactDetails.css";
-// Component
+// Icons
+import EditNoteIcon from "@mui/icons-material/EditNote";
+// Components
 import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
 import OrgDetailsEdit from "../OrgDetailsEdit/OrgDetailsEdit";
 import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
+// Utils
+import { formatPhoneNumber } from "../Utils/helpers";
 
 export default function OrgContactDetails({ info }) {
   const dispatch = useDispatch();
@@ -37,21 +37,18 @@ export default function OrgContactDetails({ info }) {
   };
 
   const handleSaveContact = (editedItem) => {
-    // Dispatch action to update the state or save data
     console.log("New Contact Info:", editedItem);
     dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
     setIsEditing(false);
   };
 
   const handleSaveOrgDetails = (editedOrg) => {
-    // Dispatch action to update the state or save data
     console.log("New Org Details:", editedOrg);
     dispatch({ type: "EDIT_ORG_DETAILS", payload: editedOrg });
   };
 
   return (
     <>
-      {/* Organization Details */}
       <div className="org-details">
         <div className="org-address-container">
           <div>
@@ -107,7 +104,7 @@ export default function OrgContactDetails({ info }) {
               </Button>
             </div>
           </div>
-          <hr style={{ width: "50%" }} />
+          <hr style={{ width: "80%" }} />
 
           <ContactDetailsList info={info} contactPhone={contactPhone} />
 

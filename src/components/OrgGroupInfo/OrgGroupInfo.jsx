@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 // Style
 import { Card, CardContent, Typography } from "@mui/material";
 // Utils
@@ -8,6 +9,8 @@ import "./OrgGroupInfo.css";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
+  const user = useSelector((store) => store.user);
+  console.log(user);
 
   return (
     <Card
@@ -21,20 +24,26 @@ export default function OrgGroupInfoCard({ groupInfo }) {
             variant="h6"
             sx={{ textAlign: "center", marginBottom: "10px" }}
           >
-            <div>
-              <strong>Goal:</strong>{" "}
-              {groupInfo.goal !== null ? (
-                new Intl.NumberFormat("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                  minimumFractionDigits: 0, // Set this to 2 if you want cents
-                }).format(groupInfo.goal)
-              ) : (
-                <span style={{ fontSize: "22px", fontWeight: 400 }}>
-                  None Set
-                </span>
-              )}
-            </div>
+            {user.id ? (
+              <div>
+                <strong>Goal:</strong>{" "}
+                {groupInfo.goal !== null ? (
+                  new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    minimumFractionDigits: 0, // Set this to 2 if you want cents
+                  }).format(groupInfo.goal)
+                ) : (
+                  <span style={{ fontSize: "22px", fontWeight: 400 }}>
+                    None Set
+                  </span>
+                )}
+              </div>
+            ) : (
+              <Typography sx={{ fontWeight: "bold" }}>
+                *Please login to view goals*
+              </Typography>
+            )}
             <hr />
           </Typography>
         </div>
