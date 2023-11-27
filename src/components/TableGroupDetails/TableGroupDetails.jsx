@@ -15,6 +15,7 @@ export default function TableGroupDetails({
   totalReceived,
   fundraiserInfo,
 }) {
+  console.log(fundraiserInfo);
   return (
     <Table className="custom-table">
       <TableHead>
@@ -59,14 +60,16 @@ export default function TableGroupDetails({
             <Typography sx={centerStyle}>Fundraiser End Date(s):</Typography>
           </TableCell>
           <TableCell>
-            {fundraiserInfo.map((fundraiser) => (
-              <Typography
-                key={fundraiser.fundraiser_id}
-                sx={{ fontWeight: "bold" }}
-              >
-                {formatDate(fundraiser.fundraiser_end_date)}
-              </Typography>
-            ))}
+            {fundraiserInfo.map((fundraiser) =>
+              !fundraiser.fundraiser_closed ? (
+                <Typography
+                  key={fundraiser.fundraiser_id}
+                  sx={{ fontWeight: "bold" }}
+                >
+                  {formatDate(fundraiser.fundraiser_end_date)}
+                </Typography>
+              ) : null
+            )}
           </TableCell>
         </TableRow>
       </TableBody>
