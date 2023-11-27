@@ -18,16 +18,18 @@ export default function ArchivedOrganizations() {
   useEffect(() => {
     dispatch({ type: "FETCH_ARCHIVED_ORGANIZATIONS" });
   }, []);
-  const itemsPerPage = 4;
+  // how many items you want to see each page
+  const itemsPerPage = 12;
+
   const history = useHistory();
   const [query, setQuery] = useState(" ");
   const [showInput, setShowInput] = useState(false);
   const user = useSelector((store) => store.user);
   const archivedList = useSelector((store) => store.archivedOrganizations);
-  console.log("ARCHIVED", archivedList);
 
   const [currentPage, setCurrentPage] = useState(1);
 
+  // fuse information for fuzzy search
   const fuse = new Fuse(archivedList, {
     keys: ["organization_name"],
     includeScore: true,
@@ -36,7 +38,7 @@ export default function ArchivedOrganizations() {
   });
   const results = fuse.search(query);
   const searchResult = results.map((result) => result.item);
-
+  // search function to set query
   const handleOnSearch = (value) => {
     setQuery(value);
     if (!showInput) {
@@ -45,11 +47,13 @@ export default function ArchivedOrganizations() {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
+  // clears out the input fields and resets the current page to 1
   const clearInput = () => {
     setQuery(" ");
     setShowInput(false);
     setCurrentPage(1); // Reset to the first page when clearing the search
   };
+  // find index of item for the pagination stuff
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems =
@@ -61,13 +65,10 @@ export default function ArchivedOrganizations() {
     searchResult.length > 0 ? searchResult.length : archivedList.length;
   const pageCount = Math.ceil(totalItems / itemsPerPage);
 
+  // on page change it sets the current page
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
-
-  function backToHome() {
-    history.push("/user");
-  }
 
   return (
     <div className="organizationsContainer">

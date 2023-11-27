@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Box, Button, Modal, TextField, Typography, Grid } from "@mui/material";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 
 export default function AddOrganizationModal({ open, handleModalClose }) {
   const dispatch = useDispatch();
+
+  // Set state for the add organization form
   const [organizationName, setOrganizationName] = useState("");
   const [organizationType, setOrganizationType] = useState("");
   const [address, setAddress] = useState("");
@@ -19,6 +21,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
   const [logoUrl, setLogoUrl] = useState("");
   const [orgEarnings, setOrgEarnings] = useState(10);
 
+  // Save function to dispatch data for new organization
   const handleSave = () => {
     dispatch({
       type: "ADD_ORGANIZATION",
@@ -37,8 +40,11 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
         organization_earnings: orgEarnings,
       },
     });
+    // clear input fields
     clearFields();
+    // close modal
     handleModalClose();
+    // sweet alerts to confirm addition of organization
     Swal.fire({
       icon: "success",
       title: "Organization Successfully Added!",
@@ -47,6 +53,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
     });
   };
 
+  // clear input fields function
   const clearFields = () => {
     setOrganizationName("");
     setOrganizationType("");
@@ -62,11 +69,13 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
     setOrgEarnings(10);
   };
 
+  // cancel adding organization which clears the input fields and closes the modal
   const cancelAdd = () => {
     clearFields();
     handleModalClose();
   };
 
+  // modal style, styled here not in the css file
   const style = {
     position: "absolute",
     top: "50%",
@@ -79,6 +88,8 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
     boxShadow: 24,
     p: 4,
   };
+
+  // function to capitalize the first letter of whatever you wrap in this
   const capitalizeFirstLetter = (value) => {
     return value.charAt(0).toUpperCase() + value.slice(1);
   };
@@ -102,7 +113,9 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
                 label="Organization Name"
                 fullWidth
                 value={organizationName}
-                onChange={(e) => setOrganizationName(capitalizeFirstLetter(e.target.value))}
+                onChange={(e) =>
+                  setOrganizationName(capitalizeFirstLetter(e.target.value))
+                }
               />
             </Grid>
             <Grid item xs={6}>

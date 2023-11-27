@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-  Card,
-  CardContent,
-  Typography,
-  CardMedia,
-  CardActionArea,
-  Button,
-} from "@mui/material";
+import { Card, CardContent, Typography, Button } from "@mui/material";
 import Swal from "sweetalert2";
 import "./ArchivedOrganizationCard.css";
 
@@ -17,6 +10,8 @@ function ArchivedOrganizationCard({ organization }) {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
+  // function to re activate organization and dispatch the data
+  // sweet alert to confirm
   function unArchive(organizationId) {
     Swal.fire({
       title: "Are you sure you want to Un-Archive this Organization?",
@@ -34,9 +29,7 @@ function ArchivedOrganizationCard({ organization }) {
       }
     });
   }
-  function goToDetails() {
-    history.push(`/orgDetails/${organization.id}`);
-  }
+  // if no picture this function will render intials of the organization
   const renderLogoOrInitials = () => {
     if (organization.organization_logo) {
       return (
@@ -53,22 +46,16 @@ function ArchivedOrganizationCard({ organization }) {
         .map((word) => word[0])
         .join("")
         .toUpperCase();
-
       return <div className="initialsContainer">{initials}</div>;
     }
   };
+
+  // formatting some of the data to render on the card
   const totalOrgEarnings = parseFloat(organization.total_org_earnings);
   const formattedEarnings = totalOrgEarnings.toLocaleString();
-
-  const outstandingBalance = parseFloat(organization.total_outstanding_balance);
-  const formattedOutstandingBalance = isNaN(outstandingBalance)
-    ? "N/A"
-    : outstandingBalance.toLocaleString();
-
   const totalCheckedOutBooks = organization.total_checked_out_books;
   const totalCheckedInBooks = organization.total_checked_in_books;
   const totalBooksSold = organization.total_books_sold;
-
   const totalStandingBooks =
     totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
 
@@ -106,9 +93,6 @@ function ArchivedOrganizationCard({ organization }) {
                     <Typography variant="body2">
                       Total Outstanding Books: {totalStandingBooks}
                     </Typography>
-                    {/* <Typography variant="body2">
-                      Outstanding Balance: ${formattedOutstandingBalance}
-                    </Typography> */}
                     <Typography variant="body2">
                       PSG Earnings: $
                       {(

@@ -12,17 +12,19 @@ function OrgListView({ organization }) {
   const user = useSelector((store) => store.user);
   const [isHovered, setIsHovered] = useState(false);
   // const organizationsList = useSelector((store) => store.organizations);
-
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
+  // sets edit to true to open the modal
   const handleEdit = () => {
     setEditModalOpen(true);
   };
 
+  // closes the edit modal
   const handleEditClose = () => {
     setEditModalOpen(false);
   };
 
+  // renders either the logo or initials of organization depending if a photo is available, same as archived page
   const renderLogoOrInitials = () => {
     if (organization.organization_logo) {
       return (
@@ -44,6 +46,7 @@ function OrgListView({ organization }) {
     }
   };
 
+  // archives the organization- "soft delete"
   const handleArchive = (organizationId) => {
     Swal.fire({
       title: "Are you sure you want to Archive this Organization?",
@@ -60,22 +63,21 @@ function OrgListView({ organization }) {
       }
     });
   };
-
+  // history.push to org details page
   function goToDetails() {
     history.push(`/orgDetails/${organization.id}`);
   }
+  // formats the money amount to have a comma over $1000
   const totalOrgEarnings = parseFloat(organization.total_org_earnings);
   const formattedEarnings = totalOrgEarnings.toLocaleString();
-
   const outstandingBalance = parseFloat(organization.total_outstanding_balance);
   const formattedOutstandingBalance = isNaN(outstandingBalance)
     ? "N/A"
     : outstandingBalance.toLocaleString();
-
+  // variables for the book amounts to be able to do the quick math here
   const totalCheckedOutBooks = organization.total_checked_out_books;
   const totalCheckedInBooks = organization.total_checked_in_books;
   const totalBooksSold = organization.total_books_sold;
-
   const totalStandingBooks =
     totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
 

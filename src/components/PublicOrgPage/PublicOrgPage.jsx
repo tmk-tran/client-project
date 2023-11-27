@@ -7,10 +7,9 @@ import {
   Pagination,
   Typography,
 } from "@mui/material";
-import OrganizationCard from "../OrganizationCard/OrganizationCard";
 import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
-import "./PublicOrgPage.css"
+import "./PublicOrgPage.css";
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
 import PublicOrgCard from "../PublicOrgCard/PublicOrgCard.jsx";
@@ -29,8 +28,10 @@ function PublicOrgPage() {
   const [showInput, setShowInput] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 15;
+// items per page
+  const itemsPerPage = 12;
 
+  // search functions and variables
   const fuse = new Fuse(organizationsList, {
     keys: ["organization_name"],
     includeScore: true,
@@ -40,6 +41,7 @@ function PublicOrgPage() {
   const results = fuse.search(query);
   const searchResult = results.map((result) => result.item);
 
+  // on search set current page and show the input
   const handleOnSearch = (value) => {
     setQuery(value);
     if (!showInput) {
@@ -48,15 +50,13 @@ function PublicOrgPage() {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
+  // clear the search query, close showing the input, and set current page to 1
   const clearInput = () => {
     setQuery(" ");
     setShowInput(false);
     setCurrentPage(1); // Reset to the first page when clearing the search
   };
 
-  const handleAddOrganizationClick = () => {
-    setModalOpen(true);
-  };
 
   const handleModalClose = () => {
     setModalOpen(false);
@@ -93,63 +93,62 @@ function PublicOrgPage() {
           <br />
           {showInput ? (
             <>
-            <br />
-        <TextField
-          style={{
-            marginTop: "-20px",
-            borderRadius: '4px',
-            width: '230px',
-            backgroundColor: 'white',
-          }}
-          variant="outlined"
-          fullWidth
-          size="small"
-          label="Search By Organization"
-          value={query}
-          onChange={(e) => handleOnSearch(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <SearchIcon color="primary" style={{ marginRight: '10px' }} />
-            ),
-          }}
-        /></>
-      ) : (
-        <SearchIcon
-          color="primary"
-          style={{
-            cursor: 'pointer',
-          }}
-          onClick={() => setShowInput(true)}
-        />
-      )}
-      {showInput && (
-        <Button
-          style={{
-            marginTop: '-17px',
-            marginLeft: '10px',
-            backgroundColor: '#DAA226',
-            height: '30px',
-            color: 'white',
-            width: '0px',
-            fontSize: '13px',
-          }}
-          variant="contained"
-          onClick={clearInput}
-        >
-          Clear
-        </Button>
-      )}
-
+              <br />
+              <TextField
+                style={{
+                  marginTop: "-20px",
+                  borderRadius: "4px",
+                  width: "230px",
+                  backgroundColor: "white",
+                }}
+                variant="outlined"
+                fullWidth
+                size="small"
+                label="Search By Organization"
+                value={query}
+                onChange={(e) => handleOnSearch(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <SearchIcon
+                      color="primary"
+                      style={{ marginRight: "10px" }}
+                    />
+                  ),
+                }}
+              />
+            </>
+          ) : (
+            <SearchIcon
+              color="primary"
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => setShowInput(true)}
+            />
+          )}
+          {showInput && (
+            <Button
+              style={{
+                marginTop: "-17px",
+                marginLeft: "10px",
+                backgroundColor: "#DAA226",
+                height: "30px",
+                color: "white",
+                width: "0px",
+                fontSize: "13px",
+              }}
+              variant="contained"
+              onClick={clearInput}
+            >
+              Clear
+            </Button>
+          )}
         </center>
         <div className="organizationsContainer">
           {currentItems.map((organization, index) => (
             <PublicOrgCard key={index} organization={organization} />
           ))}
         </div>
-        <AddOrganizationModal
-          open={isModalOpen}
-          handleModalClose={handleModalClose}
-        />
         <br />
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Pagination

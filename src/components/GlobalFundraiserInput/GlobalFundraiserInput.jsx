@@ -5,7 +5,6 @@ import { InputLabel } from "@mui/material";
 import { MenuItem, Box, Paper, Typography } from "@mui/material";
 import { Button, TextField, CardContent } from "@mui/material";
 import Swal from "sweetalert2";
-import InputAdornment from "@mui/material/InputAdornment";
 
 export default function GlobalFundraiserInput() {
   const dispatch = useDispatch();
@@ -20,7 +19,7 @@ export default function GlobalFundraiserInput() {
       type: "FETCH_ALL_GROUPS",
     });
   }, []);
-
+  // set state for organization id and group id
   const [selectedOrganizationId, setSelectedOrganizationId] = useState("");
   const [selectedGroup, setSelectedGroup] = useState("");
 
@@ -31,10 +30,11 @@ export default function GlobalFundraiserInput() {
   const handleGroupChange = (event) => {
     setSelectedGroup(event.target.value);
   };
+  // filter groups based off of organization id
   const filteredGroups = groupList.filter(
     (group) => group.organization_id === selectedOrganizationId
   );
-
+  // state to create a new fundraiser- some state isnt used to its commented out
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [goal, setGoal] = useState("");
@@ -49,6 +49,7 @@ export default function GlobalFundraiserInput() {
   const [couponBookId, setCouponBookId] = useState("");
   // const [outstandingBalance, setOutstandingBalance] = useState(0);
 
+  // clears the input fields
   function clearFields() {
     setTitle("");
     setDescription("");
@@ -62,6 +63,7 @@ export default function GlobalFundraiserInput() {
     setSelectedGroup("");
   }
 
+  // submit fundraiser, sweet alert, then clears inputs
   const submitFundraiser = (selectedGroup) => {
     if (
       !title ||
@@ -173,13 +175,27 @@ export default function GlobalFundraiserInput() {
                 >
                   {filteredGroups?.map((group, index) => (
                     <MenuItem key={group.id} value={group.id}>
-  {group.group_nickname
-    ? `${group.group_nickname.charAt(0).toUpperCase()}${group.group_nickname.slice(1)} - ${group.department.charAt(0).toUpperCase()}${group.department.slice(1).toLowerCase()}`
-    : group.sub_department
-    ? `${group.department.charAt(0).toUpperCase()}${group.department.slice(1).toLowerCase()} - ${group.sub_department.charAt(0).toUpperCase()}${group.sub_department.slice(1)}`
-    : group.department.charAt(0).toUpperCase() + group.department.slice(1).toLowerCase()}
-</MenuItem>
-
+                      {group.group_nickname
+                        ? `${group.group_nickname
+                            .charAt(0)
+                            .toUpperCase()}${group.group_nickname.slice(
+                            1
+                          )} - ${group.department
+                            .charAt(0)
+                            .toUpperCase()}${group.department
+                            .slice(1)
+                            .toLowerCase()}`
+                        : group.sub_department
+                        ? `${group.department
+                            .charAt(0)
+                            .toUpperCase()}${group.department
+                            .slice(1)
+                            .toLowerCase()} - ${group.sub_department
+                            .charAt(0)
+                            .toUpperCase()}${group.sub_department.slice(1)}`
+                        : group.department.charAt(0).toUpperCase() +
+                          group.department.slice(1).toLowerCase()}
+                    </MenuItem>
                   ))}
                 </TextField>
 
