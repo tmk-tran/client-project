@@ -99,9 +99,19 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                           justifyContent: "space-between",
                         }}
                       >
-                        <li style={{ marginLeft: "10%" }}>
+                        {/* <li style={{ marginLeft: "10%" }}>
                           {note.note_content.charAt(0).toUpperCase() +
                             note.note_content.slice(1).toLowerCase()}
+                        </li> */}
+                        <li style={{ marginLeft: "10%" }}>
+                          {note.note_content &&
+                            note.note_content
+                              .split(" ")
+                              .map(
+                                (word) =>
+                                  word.charAt(0).toUpperCase() + word.slice(1)
+                              )
+                              .join(" ")}
                         </li>
                         <Button
                           className="notes-delete-btn"
@@ -120,7 +130,15 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                   ))}
               </div>
             ) : (
-              <Typography variant="body1" sx={{ textAlign: "center", backgroundColor: "rgb(243, 243, 243)" }}>None Available</Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "rgb(243, 243, 243)",
+                }}
+              >
+                None Available
+              </Typography>
             )}
           </div>
           <div>
