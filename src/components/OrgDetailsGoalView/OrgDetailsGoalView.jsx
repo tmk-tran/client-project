@@ -59,7 +59,7 @@ export default function OrgDetailsGoalView({ info, groups }) {
           >
             {/* <div>
             <AddGroupPopover info={info} />
-          </div> */}
+            </div> */}
             <center>
               {/* <br /> */}
               {fundraiserInfo && fundraiserInfo.length > 0 ? (
