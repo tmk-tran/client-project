@@ -241,6 +241,8 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER update_checked_out_total_value_trigger
 BEFORE INSERT OR UPDATE ON fundraiser
 FOR EACH ROW EXECUTE FUNCTION update_checked_out_total_value();
+
+
 -- Create a function to calculate the outstanding_balance
 CREATE OR REPLACE FUNCTION calculate_outstanding_balance()
 RETURNS TRIGGER AS $$

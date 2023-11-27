@@ -1,10 +1,7 @@
-# Project Title
+# Preferred Savings Guide Admin Dashboard
 
-One Paragraph of project description goes here
-
-### Authors
-
-## Joe Colago, Alyssa Nichols, and T Mark Schisel ##
+## Authors
+Joe Colago, Alyssa Nichols, and T Mark Schisel ##
 
 ## Table of Contents
 - [About](#description)
@@ -15,7 +12,7 @@ One Paragraph of project description goes here
 - [Dependencies](#dependencies)
 
 ## Description
-This project (description here)
+This project is an admin dashboard for the local Preferred Savings Guide and is the first step in a digitization of their coupon book. This page shows all of the organizations that are working with PSG and shows the breakdown of each group within each organization, as well as each fundraiser within each group. This is a fully functional CRUD application with the ability to add, edit, and delete Organizations, Groups, Fundraisers. All deletes are soft deletes for the purpose of keeping historical data.
 
 ## Getting Started
 
@@ -47,9 +44,6 @@ Before you get started, make sure you have the following software installed on y
 - For this project, we created a database using Postico 2
 - If you would like to create a database using mock data, please review the database.sql file
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
@@ -77,7 +71,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Thanks to Ann, for guiding us through to project completion
 
 ## Dependencies
-
+- Fuse JS
 - Material UI
 - React.toastify
 - Sweet Alerts
