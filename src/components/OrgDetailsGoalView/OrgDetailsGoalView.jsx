@@ -51,15 +51,6 @@ export default function OrgDetailsGoalView({ info, groups }) {
             <center>
               {/* <br /> */}
               {fundraiserInfo && fundraiserInfo.length > 0 ? (
-                // fundraiserInfo.map((fundraiser) => (
-                //   <TableGroupDetails
-                //     key={fundraiser.fundraiser_id}
-                //     totalGoals={totalGoals}
-                //     totalReceived={totalReceived}
-                //     groups={groups}
-                //     fundraiserInfo={fundraiserInfo}
-                //   />
-                // ))
                 <TableGroupDetails
                   key="goalData" // Set a key to force re-render when data changes
                   totalGoals={goalData.totalGoals}
@@ -75,6 +66,9 @@ export default function OrgDetailsGoalView({ info, groups }) {
             </center>
           </div>
         </CardContent>
+        {/* <div>
+          <AddGroupPopover info={info} />
+        </div> */}
       </Card>
     </>
   );

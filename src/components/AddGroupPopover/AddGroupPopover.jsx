@@ -10,7 +10,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material/";
-import AddBoxIcon from '@mui/icons-material/AddBox';
+import AddBoxIcon from "@mui/icons-material/AddBox";
 import "./AddGroupPopover.css";
 // Utils
 import {
@@ -67,7 +67,8 @@ export default function BasicPopover({ info }) {
   return (
     <div className="popover-container">
       <Button id="add-group-button" onClick={handleClick} fullWidth>
-        <AddBoxIcon />&nbsp;Group
+        <AddBoxIcon />
+        &nbsp;Group
         {/* Add Group */}
       </Button>
       <Popover
@@ -77,11 +78,11 @@ export default function BasicPopover({ info }) {
         onClose={() => {}}
         // anchorOrigin={{
         //   vertical: isMobile ? "top" : "bottom",
-        //   horizontal: isMobile ? "center" : "right",
+        //   horizontal: isMobile ? "center" : "center",
         // }}
         // transformOrigin={{
         //   vertical: isMobile ? "bottom" : "bottom",
-        //   horizontal: isMobile ? "center" : "left",
+        //   horizontal: isMobile ? "center" : "center",
         // }}
         anchorOrigin={{
           vertical: isMobile ? "top" : "top",
@@ -94,7 +95,10 @@ export default function BasicPopover({ info }) {
       >
         <Box style={{ padding: "20px", width: "48vh" }}>
           <div>
-            <Typography variant="h6" sx={{ p: 1, textAlign: "center", fontWeight: "bold" }}>
+            <Typography
+              variant="h6"
+              sx={{ p: 1, textAlign: "center", fontWeight: "bold" }}
+            >
               Add New Group
             </Typography>
           </div>
