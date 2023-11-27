@@ -5,12 +5,8 @@ import { Card, CardContent, Typography } from "@mui/material";
 // Utils
 import { capitalizeWords, centerStyle, styleImage } from "../Utils/helpers";
 import "./PublicOrgGroupInfo.css";
-// Components
-import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 
-export default function PublicOrgGroupInfoCard({
-  groupInfo
-}) {
+export default function PublicOrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
 
   return (
@@ -29,9 +25,6 @@ export default function PublicOrgGroupInfoCard({
           </Typography>
         </div>
         <div style={{ position: "relative" }}>
-          {/* <div style={{ position: "absolute", top: 0, right: 0 }}>
-            <Button>Edit</Button>
-          </div> */}
           {groupInfo.group_photo ? (
             <center>
               <img
