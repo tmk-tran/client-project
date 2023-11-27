@@ -27,7 +27,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
   let [goal, setGoal] = useState(fundraiser.goal);
   let [editMode, setEditMode] = useState(false);
   let [editTitle, setEditTitle] = useState(fundraiser.title);
-  //Function that formates the date and removes the timestamp
+  //Function that formats the date and removes the timestamp
   const formatDate = (dateString) => {
     if (!dateString) {
       return " ";
@@ -37,7 +37,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     return date.toLocaleDateString(undefined, options);
   };
 
-  //Function that runs when the update button is clicked. Builds a new object with the updated data and sends it to the back end to be updated in the database
+  //Function that runs when the update button is clicked. Builds a new object with the updated data and sends it to the back end to be updated in the database. Also fires off a sweetalert to let user know that the fundraiser has been updated.
   const updateAmount = () => {
     const updatedAmount = {
       id: Number(fundraiser.id),
@@ -57,7 +57,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     dispatch({ type: "UPDATE_FUNDRAISER_AMOUNTS", payload: updatedAmount });
     setEditMode(false);
   };
-
+//Function that runs on click of close button. A sweetalert will pop up prompting the user to confirm that the fundraiser is to be closed. Will then send the dispatch and payload to update a fundraiser to closed.
   const handleCloseFundraiser = () => {
     Swal.fire({
       title: "Are you sure?",
