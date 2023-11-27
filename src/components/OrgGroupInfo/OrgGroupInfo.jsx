@@ -39,7 +39,11 @@ export default function OrgGroupInfoCard({ groupInfo }) {
                   </span>
                 )}
               </div>
-            ) : (<Typography>Please login to view goals</Typography>)}
+            ) : (
+              <Typography sx={{ fontWeight: "bold" }}>
+                *Please login to view goals*
+              </Typography>
+            )}
             <hr />
           </Typography>
         </div>
