@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Card, CardContent } from "@mui/material";
-import './PublicOrdCard.css'
+import { Button, Card, CardContent, Typography } from "@mui/material";
+import "./PublicOrdCard.css";
 
 function PublicOrgCard({ organization }) {
   const history = useHistory();
-  
+
   function goToDetails() {
     history.push(`/publicOrgDetails/${organization.id}`);
   }
@@ -31,12 +31,12 @@ function PublicOrgCard({ organization }) {
     }
   };
 
-
   function goToDetails() {
     history.push(`/publicOrgDetails/${organization.id}`);
   }
-const earnings = organization.total_books_sold * organization.organization_earnings;
-const formattedEarnings = earnings.toLocaleString();
+  const earnings =
+    organization.total_books_sold * organization.organization_earnings;
+  const formattedEarnings = earnings.toLocaleString();
 
   return (
     <>
@@ -46,18 +46,22 @@ const formattedEarnings = earnings.toLocaleString();
             <div className="publicOrganizationHeader">
               {renderLogoOrInitials()}
               <div className="publicOrganizationDetails">
-                <h2 style={{marginTop: "0px"}}className="publicMedia-header">
+                <Typography
+                  variant="h6"
+                  style={{ marginTop: "0px" }}
+                  className="publicMedia-header"
+                >
                   {organization.organization_name}
-                </h2>
-                <div>Total Groups: {organization.total_groups}</div>
-                <div>
-                  Total Books Sold:{" "}
-                  {organization.total_books_sold}
-                </div>
-                <div>
-                  Organization Earnings:{" "}
-                  ${formattedEarnings}
-                </div>
+                </Typography>
+                <Typography variant="body2">
+                  Total Groups: {organization.total_groups}
+                </Typography>
+                <Typography variant="body2">
+                  Total Books Sold: {organization.total_books_sold}
+                </Typography>
+                <Typography variant="body2">
+                  Organization Earnings: ${formattedEarnings}
+                </Typography>
               </div>
             </div>
           </div>
@@ -71,7 +75,7 @@ const formattedEarnings = earnings.toLocaleString();
             >
               <span className="edit-button">See Groups</span>
             </Button>
-            </div>
+          </div>
         </CardContent>
       </Card>
       <br />

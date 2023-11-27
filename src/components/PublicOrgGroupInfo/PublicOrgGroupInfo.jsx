@@ -9,10 +9,7 @@ import "./PublicOrgGroupInfo.css";
 import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 
 export default function PublicOrgGroupInfoCard({
-  groupInfo,
-  view1,
-  view2,
-  view3,
+  groupInfo
 }) {
   const history = useHistory();
 

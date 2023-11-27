@@ -16,7 +16,7 @@ export default function TableGroupDetails({ fundraiser, totalGoals }) {
       <TableHead>
         <TableRow>
           <TableCell>
-            <Typography variant="h6" sx={{ mb: 1, mt: 6, textAlign: "center"  }}>
+            <Typography variant="h6" style={centerStyle} sx={{ mb: 1, mt: 6 }}>
               Total Goal:
             </Typography>
           </TableCell>
@@ -38,7 +38,7 @@ export default function TableGroupDetails({ fundraiser, totalGoals }) {
       <TableBody>
         <TableRow>
           <TableCell>
-            <Typography sx={{ textAlign: "center" }}>Received:</Typography>
+            <Typography sx={centerStyle}>Received:</Typography>
           </TableCell>
           <TableCell>
             <Typography variant="h6">
@@ -52,7 +52,7 @@ export default function TableGroupDetails({ fundraiser, totalGoals }) {
         </TableRow>
         <TableRow>
           <TableCell>
-            <Typography sx={{ textAlign: "center"  }}>Fundraiser End Date:</Typography>
+            <Typography sx={centerStyle}>Fundraiser End Date:</Typography>
           </TableCell>
           <TableCell>
             <Typography sx={{ fontWeight: "bold" }}>

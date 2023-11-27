@@ -51,7 +51,6 @@ export default function OrgContactDetails({ info }) {
 
   return (
     <>
-      {/* Organization Details */}
       <div className="org-details">
         <div className="org-address-container">
           <div>
