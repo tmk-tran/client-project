@@ -7,7 +7,6 @@ import {
   Pagination,
   Typography,
 } from "@mui/material";
-import OrganizationCard from "../OrganizationCard/OrganizationCard";
 import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
 import "./UserPage.css";
@@ -20,17 +19,18 @@ function UserPage() {
   useEffect(() => {
     dispatch({ type: "FETCH_ORGANIZATIONS" });
   }, []);
-
+  const history = useHistory();
   const user = useSelector((store) => store.user);
   const organizationsList = useSelector((store) => store.organizations);
 
-  const history = useHistory();
+  // state for the search and modal and pagination
   const [query, setQuery] = useState(" ");
   const [showInput, setShowInput] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
+  // fuzzy search information
   const fuse = new Fuse(organizationsList, {
     keys: ["organization_name"],
     includeScore: true,
@@ -48,20 +48,23 @@ function UserPage() {
     setCurrentPage(1); // Reset to the first page when searching
   };
 
+  // clears out the input field
   const clearInput = () => {
     setQuery(" ");
     setShowInput(false);
     setCurrentPage(1); // Reset to the first page when clearing the search
   };
 
+  // opens the add org modal
   const handleAddOrganizationClick = () => {
     setModalOpen(true);
   };
-
+  // closes the modal
   const handleModalClose = () => {
     setModalOpen(false);
   };
 
+  // index of org for pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems =

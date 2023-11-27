@@ -3,6 +3,8 @@ import React from "react";
 // Styles
 import { Typography, useMediaQuery } from "@mui/material";
 import "./PublicOrgContactDetails.css";
+// card that has org contact details
+
 
 export default function PublicOrgContactDetails({ info }) {
 

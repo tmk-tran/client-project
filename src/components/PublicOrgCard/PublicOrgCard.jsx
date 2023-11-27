@@ -1,15 +1,15 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Card, CardContent, Typography } from "@mui/material";
-import "./PublicOrdCard.css";
+import "./PublicOrgCard.css";
 
 function PublicOrgCard({ organization }) {
   const history = useHistory();
-
+  // pushes to public org details page
   function goToDetails() {
     history.push(`/publicOrgDetails/${organization.id}`);
   }
-
+  // renders either the logo or initals depending if photo is available
   const renderLogoOrInitials = () => {
     if (organization.organization_logo) {
       return (
@@ -31,9 +31,7 @@ function PublicOrgCard({ organization }) {
     }
   };
 
-  function goToDetails() {
-    history.push(`/publicOrgDetails/${organization.id}`);
-  }
+  // format earnings to have comma
   const earnings =
     organization.total_books_sold * organization.organization_earnings;
   const formattedEarnings = earnings.toLocaleString();

@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SearchIcon from "@mui/icons-material/Search";
-import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
-import { capitalizeWords } from "../Utils/helpers.js";
+
 import "./UserTable.css";
 import UserTableRow from "../UserTableRow/UserTableRow.jsx";
 import {
-  Button,
-  OutlinedInput,
   TableCell,
   TableRow,
   Typography,
@@ -29,21 +25,11 @@ function UserTable() {
   const users = useSelector((store) => store.allUsers);
   const groups = useSelector((store) => store.groupAdmin);
   const organizations = useSelector((store) => store.organizations);
-  const totalOrganizations = organizations.length;
-  const history = useHistory();
 
-  const [editMode, setEditMode] = useState(false);
-  const [editedAdminStatus, setEditedAdminStatus] = useState("");
-
-  //   const handleGroupAdminChange = (index, value) => {
-  //     const updatedGroups = [...editedAdminStatus];
-  //     updatedGroups[index].group_admin = value;
-  //     setEditedAdminStatus(updatedGroups);
-  //   };
-
+  // table for admin user page
   return (
     <>
-      <Table   style={{ width: "90%" }}>
+      <Table style={{ width: "90%" }}>
         <TableHead>
           <TableRow
             className="active_row"
@@ -68,7 +54,6 @@ function UserTable() {
                 whiteSpace: "nowrap", // Center align the content horizontally
                 fontSize: "20px",
                 fontWeight: "bold",
-             
               }}
             >
               <Typography

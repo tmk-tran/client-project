@@ -20,6 +20,7 @@ function UserProfile() {
   const totalOrganizations = organizations.length;
   const history = useHistory();
 
+  // format date to mm/dd/yy
   const formatDate = (dateString) => {
     if (!dateString) {
       return " ";
@@ -29,38 +30,40 @@ function UserProfile() {
     return date.toLocaleDateString(undefined, options);
   };
 
+  // data to show the total groups for each organization
   let totalGroups = 0;
   for (let i = 0; i < organizations.length; i++) {
     const organization = organizations[i];
     totalGroups += parseInt(organization.total_groups, 10) || 0;
   }
-  console.log("GROUPS", totalGroups);
 
+  // total active fundraisers for each organization
   let totalActiveFundraisers = 0;
   for (let i = 0; i < organizations.length; i++) {
     const organization = organizations[i];
     totalActiveFundraisers +=
       parseInt(organization.total_active_fundraisers, 10) || 0;
   }
-  console.log("Active Funds", totalActiveFundraisers);
 
+  // books sold for each organization
   let totalBooksSold = 0;
   for (let i = 0; i < organizations.length; i++) {
     const organization = organizations[i];
     totalBooksSold += parseInt(organization.total_books_sold, 10) || 0;
   }
-  console.log("Books Sold", totalBooksSold);
+
+  // price per book and money raised information
   const pricePerBook = 25;
-  const orgCut = 10;
   const totalMoneyRaised = totalBooksSold * pricePerBook;
   const formattedTotalMoneyRaised = totalMoneyRaised.toLocaleString();
 
+  // total org earnings
   let totalOrgEarnings = 0;
   for (let i = 0; i < organizations.length; i++) {
     const organization = organizations[i];
     totalOrgEarnings += parseInt(organization.total_org_earnings, 10) || 0;
   }
-
+  // math for organization cut and the total made minus the org cut
   const totalMinusOrgCut = totalMoneyRaised - totalOrgEarnings;
   const formattedTotalMinusOrg = totalMinusOrgCut.toLocaleString();
 
@@ -171,26 +174,29 @@ function UserProfile() {
                       <CardContent>
                         {fundraiser.title ? (
                           <>
-                            <Typography variant="subtitle1">
-                              Fundraiser: {fundraiser.title}
+                            <Typography
+                              variant="subtitle1"
+                              style={{ fontSize: "22px" }}
+                            >
+                              <b>Fundraiser Name:</b> {fundraiser.title}
                             </Typography>
                             <Typography variant="body2">
-                              Books Requested: {fundraiser.books_requested}
+                              <b>Books Sold:</b> {fundraiser.books_sold}
                             </Typography>
                             <Typography variant="body2">
-                              Books Sold: {fundraiser.books_sold}
+                              <b>Start Date:</b>{" "}
+                              {formatDate(fundraiser.start_date)}
                             </Typography>
                             <Typography variant="body2">
-                              Start Date: {formatDate(fundraiser.start_date)}
+                              <b>End Date:</b> {formatDate(fundraiser.end_date)}
                             </Typography>
                             <Typography variant="body2">
-                              End Date: {formatDate(fundraiser.end_date)}
+                              <b>Coupon book Year:</b>{" "}
+                              {fundraiser.coupon_book_year}
                             </Typography>
                             <Typography variant="body2">
-                              Coupon book Year: {fundraiser.coupon_book_year}
-                            </Typography>
-                            <Typography variant="body2">
-                              Status: {fundraiser.closed ? "Closed" : "Active"}
+                              <b>Status:</b>{" "}
+                              {fundraiser.closed ? "Closed" : "Active"}
                             </Typography>
                           </>
                         ) : (
