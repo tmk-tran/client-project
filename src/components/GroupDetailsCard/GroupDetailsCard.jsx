@@ -38,7 +38,7 @@ export default function GroupDetailsCard({ group }) {
   const [booksSold, setBooksSold] = useState(0);
   const [goal, setGoal] = useState("");
   const [moneyReceived, setMoneyRecieved] = useState(0);
-  const [startDtate, setStartDate] = useState("");
+  const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [couponBookId, setCouponBookId] = useState("");
   //Function that runs on click of the submit button in add fundraiser form. This creates a new objcet that is sent to the back end to be added to the database and resets the state of the inputs in the form and closes the modal. Also fires sweetalert to let user know that the fundraiser has been added.
@@ -54,7 +54,7 @@ export default function GroupDetailsCard({ group }) {
       books_sold: booksSold,
       goal: goal,
       money_received: moneyReceived,
-      start_date: startDtate,
+      start_date: startDate,
       end_date: endDate,
       coupon_book_id: couponBookId,
     };
@@ -312,7 +312,7 @@ export default function GroupDetailsCard({ group }) {
                     fullWidth
                     style={{ margin: "5px", marginLeft: "0" }}
                     type="date"
-                    value={startDtate}
+                    value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                   ></TextField>
                 </Grid>
