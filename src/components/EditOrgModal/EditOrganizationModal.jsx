@@ -118,7 +118,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
             <Grid item xs={4}>
               <TextField
                 type="number"
-                label="Organization Earnings"
+                label="Organization Fee"
                 fullWidth
                 value={editedOrganization.organization_earnings}
                 onChange={(e) =>

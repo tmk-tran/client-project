@@ -209,7 +209,7 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
             </Grid>
             <Grid item xs={4}>
               <TextField
-                label="Organization Earnings"
+                label="Organization Fee"
                 fullWidth
                 value={orgEarnings}
                 onChange={(e) => setOrgEarnings(e.target.value)}

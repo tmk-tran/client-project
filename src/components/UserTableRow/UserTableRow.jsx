@@ -53,7 +53,7 @@ function UserTableRow({ user }) {
           <Typography
             style={{
               fontSize: "18px",
-              width: "520px",
+              width: "540px",
               marginLeft: "auto",
               marginRight: "auto",
             }}
