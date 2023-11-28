@@ -64,7 +64,7 @@ export default function GroupDetails() {
         }}
       >
         <TableContainer style={{ width: "95%", margin: "auto" }}>
-          <Typography variant="h6">Active Campaigns: </Typography>
+          <Typography variant="h6">Active Campaigns </Typography>
           <Table size="small" className="active-table">
             <TableHead>
               <TableRow style={{ border: "2px solid black" }}>
