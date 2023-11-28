@@ -72,7 +72,7 @@ export default function ClosedFundraiserItem({ fundraiser }) {
           </TableCell>
           <TableCell
             TableCell
-            style={{ width: "50px", border: "2px solid black" }}
+            style={{ width: "50px", border: "2px solid black", textAlign: "center" }}
           >
             <Typography
               style={{
@@ -84,21 +84,30 @@ export default function ClosedFundraiserItem({ fundraiser }) {
               ${fundraiser.books_sold * fundraiser.organization_earnings}
             </Typography>
           </TableCell>
-          <TableCell className="closed_item_cell">
+          <TableCell
+            TableCell
+            style={{ width: "60px", border: "2px solid black", textAlign: "center" }}
+          >
             <Typography
               style={{ fontSize: "15px", width: "80px", textAlign: "center" }}
             >
               {formatDate(fundraiser.start_date)}
             </Typography>
           </TableCell>
-          <TableCell className="closed_item_cell">
+          <TableCell
+            TableCell
+            style={{ width: "60px", border: "2px solid black", textAlign: "center" }}
+          >
             <Typography
               style={{ fontSize: "15px", width: "80px", textAlign: "center" }}
             >
               {formatDate(fundraiser.end_date)}
             </Typography>
           </TableCell>
-          <TableCell className="closed_item_cell">
+          <TableCell
+            TableCell
+            style={{ width: "60px", border: "2px solid black", textAlign: "center" }}
+          >
             <Typography
               style={{ fontSize: "15px", width: "80px", textAlign: "center" }}
             >

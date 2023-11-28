@@ -292,7 +292,7 @@ export default function GroupDetails() {
                 >
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", textAlign: "center" }}
                     variant="body2"
                   >
                     Title
@@ -304,7 +304,7 @@ export default function GroupDetails() {
                 >
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", textAlign: "center" }}
                     variant="body2"
                   >
                     Books Requested
@@ -316,7 +316,7 @@ export default function GroupDetails() {
                 >
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", textAlign: "center" }}
                     variant="body2"
                   >
                     Books Sold
@@ -328,7 +328,7 @@ export default function GroupDetails() {
                 >
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", textAlign: "center" }}
                     variant="body2"
                   >
                     Money Received
@@ -353,7 +353,7 @@ export default function GroupDetails() {
                 >
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", textAlign: "center" }}
                     variant="body2"
                   >
                     Start Date
@@ -365,7 +365,7 @@ export default function GroupDetails() {
                 >
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", textAlign: "center" }}
                     variant="body2"
                   >
                     End Date
@@ -377,7 +377,7 @@ export default function GroupDetails() {
                 >
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", textAlign: "center" }}
                     variant="body2"
                   >
                     Year
@@ -389,7 +389,7 @@ export default function GroupDetails() {
                 >
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", textAlign: "center" }}
                   >
                     Goal
                   </Typography>
@@ -400,7 +400,7 @@ export default function GroupDetails() {
                 >
                   <Typography
                     className="active_header_text"
-                    style={{ fontSize: "16px", fontWeight: "bold" }}
+                    style={{ fontSize: "16px", fontWeight: "bold", textAlign: "center" }}
                     variant="body2"
                   >
                     Outstanding Balance
