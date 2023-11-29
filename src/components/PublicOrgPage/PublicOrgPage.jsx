@@ -10,7 +10,6 @@ import {
 import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
 import "./PublicOrgPage.css";
-import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
 import PublicOrgCard from "../PublicOrgCard/PublicOrgCard.jsx";
 
@@ -57,11 +56,7 @@ function PublicOrgPage() {
     setCurrentPage(1); // Reset to the first page when clearing the search
   };
 
-
-  const handleModalClose = () => {
-    setModalOpen(false);
-  };
-
+  // pagination details, setting the current page based off the index of the organizations
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems =
@@ -73,6 +68,7 @@ function PublicOrgPage() {
     searchResult.length > 0 ? searchResult.length : organizationsList.length;
   const pageCount = Math.ceil(totalItems / itemsPerPage);
 
+  // page change functions
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
