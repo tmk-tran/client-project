@@ -72,7 +72,7 @@ function App() {
             >
               <AboutPage />
             </Route>
-            <Route
+            {/* <Route
               // shows AboutPage at all times (logged in or not)
               exact
               path="/publicOrgs"
@@ -85,7 +85,7 @@ function App() {
               path="/publicOrgDetails/:id"
             >
               <PublicOrgDetails/>
-            </Route>
+            </Route> */}
           
             <ProtectedRoute
               // logged in shows UserPage else shows LoginPage

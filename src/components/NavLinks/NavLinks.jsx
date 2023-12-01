@@ -40,7 +40,7 @@ export default function NavLinks() {
         {/* If no user is logged in, show these links */}
         {!user.id && (
           <>
-          <Typography>
+          {/* <Typography>
             <MuiLink
               component={Link}
               className="main-navlink"
@@ -49,7 +49,7 @@ export default function NavLinks() {
             >
               View Organizations
             </MuiLink>
-          </Typography>
+          </Typography> */}
           <Typography>
             <MuiLink
               component={Link}
