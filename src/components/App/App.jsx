@@ -23,6 +23,7 @@ import GroupDetails from "../GroupDetails/GroupDetails";
 import MenuLinks from "../MenuLinks/MenuLinks";
 import ArchivedOrganizations from "../ArchivedOrganizations/ArchivedOrganizations";
 import GlobalFundraiserInput from "../GlobalFundraiserInput/GlobalFundraiserInput";
+import Merchant from "../Merchant/Merchant";
 import "./App.css";
 // Theme establishing global color for MUI
 const theme = createTheme({
@@ -95,7 +96,7 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/merchant">
-              {/* <Merchant /> */}
+              <Merchant />
             </ProtectedRoute>
 
             <Route exact path="/login">
@@ -126,7 +127,7 @@ function App() {
                 // redirect them to the /user page
                 <Redirect to="/user" />
               ) : (
-                // Otherwise, show the Landing page
+                // Otherwise, show the Login page
                 <LoginPage />
               )}
             </Route>

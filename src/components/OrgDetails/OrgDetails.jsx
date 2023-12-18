@@ -71,9 +71,9 @@ export default function orgDetails() {
 
   return (
     <div
-      className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
+      className={`details-container ${isSmallScreen ? "small-screen" : ""}`}
     >
-      <Card className="OrgDetails-card" elevation={3}>
+      <Card className="details-card" elevation={3}>
         <CardContent>
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}

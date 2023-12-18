@@ -3,7 +3,7 @@
   position: relative;
 }
 
-.OrgDetails-card {
+.details-card {
   width: 88%;
   margin: 20px auto 0 auto;
   position: relative;
@@ -31,9 +31,9 @@
 }
 
 @media (max-width: 400px) {
-  .OrgDetails-container,
+  .details-container,
   .detailsOrg-container,
-  .OrgDetails-card {
+  .details-card {
     width: 100%;
   }
 
