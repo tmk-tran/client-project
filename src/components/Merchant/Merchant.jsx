@@ -10,8 +10,8 @@ export default function Merchant() {
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
       <Card className="details-card" elevation={3}>
         <CardContent>
-            <Typography variant="h5">Merchant</Typography>
-            <div>
+            <Typography variant="h5" sx={{ textAlign: "center" }}>Merchant</Typography>
+            <div style={{ display: "flex", justifyContent: "center" }}>
                 upload PDFs here
             </div>
         </CardContent>

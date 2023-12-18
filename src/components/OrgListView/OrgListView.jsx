@@ -81,7 +81,7 @@ function OrgListView({ organization }) {
       <Card className="organizationListContainer">
         <CardContent>
           <div className="organizationClickable" onClick={goToDetails}>
-            <div className="comp-Header">
+            <div className="organizationHeader">
               {renderLogoOrInitials()}
               <div className="organizationDetails">
                 <Typography variant="h6" sx={{ fontWeight: "bold" }}>
