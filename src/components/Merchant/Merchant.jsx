@@ -11,6 +11,9 @@ export default function Merchant() {
       <Card className="details-card" elevation={3}>
         <CardContent>
             <Typography variant="h5">Merchant</Typography>
+            <div>
+                upload PDFs here
+            </div>
         </CardContent>
       </Card>
     </div>

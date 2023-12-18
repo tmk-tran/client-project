@@ -86,11 +86,7 @@ function UserPage() {
         <br />
         <br />
         <center>
-          <Typography
-            variant="h5"
-            className="organization-header"
-            style={{ fontWeight: "bold" }}
-          >
+          <Typography variant="h5" style={{ fontWeight: "bold" }}>
             Organization List
           </Typography>
           <br />

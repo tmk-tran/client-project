@@ -81,10 +81,10 @@ function OrgListView({ organization }) {
       <Card className="organizationListContainer">
         <CardContent>
           <div className="organizationClickable" onClick={goToDetails}>
-            <div className="organizationHeader">
+            <div className="comp-Header">
               {renderLogoOrInitials()}
               <div className="organizationDetails">
-                <Typography variant="h6" sx={{ mt: 0, fontWeight: "bold" }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                   {organization.organization_name}
                 </Typography>
                 <div className="detailsContainer">

@@ -45,7 +45,7 @@
   transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
-.organizationHeader {
+.comp-Header {
   display: flex;
   align-items: center;
 }
