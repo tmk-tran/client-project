@@ -13,6 +13,8 @@ import couponBookSaga from './couponBook.saga';
 import groupAdminSaga from './groupAdmin.saga';
 import orgNotesSaga from './orgNotes.saga';
 import allUsersSaga from './allUsers.saga';
+import merchantSaga from './merchant.saga';
+
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -36,5 +38,7 @@ export default function* rootSaga() {
     groupAdminSaga(),
     orgNotesSaga(),
     allUsersSaga(),
+    merchantSaga(),
+    
   ]);
 }
