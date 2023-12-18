@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./OrgListView.css";
@@ -9,8 +9,6 @@ import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
 function OrgListView({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
-  const [isHovered, setIsHovered] = useState(false);
   // const organizationsList = useSelector((store) => store.organizations);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
@@ -70,10 +68,7 @@ function OrgListView({ organization }) {
   // formats the money amount to have a comma over $1000
   const totalOrgEarnings = parseFloat(organization.total_org_earnings);
   const formattedEarnings = totalOrgEarnings.toLocaleString();
-  const outstandingBalance = parseFloat(organization.total_outstanding_balance);
-  const formattedOutstandingBalance = isNaN(outstandingBalance)
-    ? "N/A"
-    : outstandingBalance.toLocaleString();
+
   // variables for the book amounts to be able to do the quick math here
   const totalCheckedOutBooks = organization.total_checked_out_books;
   const totalCheckedInBooks = organization.total_checked_in_books;
@@ -89,11 +84,7 @@ function OrgListView({ organization }) {
             <div className="organizationHeader">
               {renderLogoOrInitials()}
               <div className="organizationDetails">
-                <Typography
-                  className="media-header"
-                  variant="h6"
-                  sx={{ mt: 0, fontWeight: "bold" }}
-                >
+                <Typography variant="h6" sx={{ mt: 0, fontWeight: "bold" }}>
                   {organization.organization_name}
                 </Typography>
                 <div className="detailsContainer">
@@ -115,9 +106,6 @@ function OrgListView({ organization }) {
                     <Typography variant="body2">
                       Total Outstanding Books: {totalStandingBooks}
                     </Typography>
-                    {/* <Typography variant="body2">
-                      Outstanding Balance: ${formattedOutstandingBalance}
-                    </Typography> */}
                     <Typography variant="body2">
                       PSG Earnings: $
                       {(
