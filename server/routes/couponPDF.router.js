@@ -6,24 +6,24 @@ const {
 } = require("../modules/authentication-middleware");
 const { upload } = require("../modules/upload");
 
-// router.get("/", (req, res) => {
-//   const filename = req.params.filename;
-//   console.log("filename = ", filename);
-//   // Assuming you have the PDF data stored in some way
-//   const pdfData = req.params.pdf_data;
-//   console.log("pdfData = ", pdfData);
-//   const queryText = "SELECT * FROM coupon";
+router.get("/", (req, res) => {
+  const filename = req.params.filename;
+  console.log("filename = ", filename);
+  // Assuming you have the PDF data stored in some way
+  const pdfData = req.params.pdf_data;
+  console.log("pdfData = ", pdfData);
+  const queryText = "SELECT * FROM coupon";
 
-//   pool
-//     .query(queryText)
-//     .then((result) => {
-//       res.status(200).send(result.rows);
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       res.status(500).send("Error fetching data from the 'coupon' table");
-//     });
-// });
+  pool
+    .query(queryText)
+    .then((result) => {
+      res.status(200).send(result.rows);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error fetching data from the 'coupon' table");
+    });
+});
 
 // Assume you have a route to retrieve PDF data by ID
 router.get("/:id", (req, res) => {

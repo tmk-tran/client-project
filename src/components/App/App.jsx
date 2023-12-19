@@ -95,7 +95,7 @@ function App() {
               <GlobalFundraiserInput />
             </ProtectedRoute>
 
-            <ProtectedRoute exact path="/merchant">
+            <ProtectedRoute exact path="/coupon">
               <Merchant />
             </ProtectedRoute>
 
