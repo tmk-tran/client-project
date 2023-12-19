@@ -111,10 +111,10 @@ export default function NavLinks() {
               <MuiLink
                 component={Link}
                 className="main-navlink"
-                to="/merchant"
+                to="/coupon"
                 underline="hover"
               >
-                Merchant
+                Coupon
               </MuiLink>
             </Typography>
 
