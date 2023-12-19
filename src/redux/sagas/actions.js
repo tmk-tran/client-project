@@ -1,9 +1,9 @@
-export const setMerchantFiles = (files) => ({
-  type: "SET_MERCHANT_FILES",
+export const setCouponFiles = (files) => ({
+  type: "SET_COUPON_FILES",
   payload: files,
 });
 
-export const fetchMerchantFilesFailure = (error) => ({
-  type: "FETCH_MERCHANT_FILES_FAILURE",
+export const fetchCouponFilesFailure = (error) => ({
+  type: "FETCH_COUPON_FILES_FAILURE",
   payload: error,
 });

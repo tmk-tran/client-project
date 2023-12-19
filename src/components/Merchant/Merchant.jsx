@@ -9,12 +9,13 @@ export default function Merchant() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   // Store
-  const merchantFiles = useSelector((store) => Array.from(store.merchant)); // Convert generators to arrays
-  console.log(merchantFiles);
+//   const merchantFiles = useSelector((store) => Array.from(store.merchant)); // Convert generators to arrays
+  const couponFiles = useSelector((store) => store.coupon);
+  console.log(couponFiles);
 
   useEffect(() => {
     dispatch({
-      type: "FETCH_MERCHANT_FILES",
+      type: "FETCH_COUPON_FILES",
     });
   }, [dispatch]);
 
@@ -39,12 +40,12 @@ export default function Merchant() {
       <Card className="details-card" elevation={3}>
         <CardContent>
           <Typography variant="h5" sx={{ textAlign: "center" }}>
-            Merchant
+            Coupon
           </Typography>
           <div style={{ display: "flex", justifyContent: "center" }}>
             upload PDFs here
           </div>
-          {merchantFiles.map((file, i) => (
+          {couponFiles.map((file, i) => (
             <div key={i}>
               <a href="#" onClick={() => downloadPdf(file.pdf_data, file.filename)}>
                 {file.filename}

@@ -1,11 +1,11 @@
 import axios from "axios";
 import { put, takeEvery, call } from "redux-saga/effects";
-import { setMerchantFiles, fetchMerchantFilesFailure } from "./actions";
+import { setCouponFiles, fetchCouponFilesFailure } from "./actions";
 
-function* merchantFiles(action) {
+function* couponFiles(action) {
   try {
-    const response = yield axios.get(`/api/merchant`);
-    console.log("FETCH request from merchant.saga, RESPONSE = ", response.data);
+    const response = yield axios.get(`/api/coupon`);
+    console.log("FETCH request from coupon.saga, RESPONSE = ", response.data);
 
     // const filesWithPdfData = yield Promise.all(
     //   response.data.map(function* (file) {
@@ -22,10 +22,10 @@ function* merchantFiles(action) {
     // console.log("successfulFilesWithPdfData = ", successfulFilesWithPdfData);
     // Dispatch the successful results to the Redux store
     const successfulFilesWithPdfData = response.data;
-    yield put(setMerchantFiles(successfulFilesWithPdfData));    
+    yield put(setCouponFiles(successfulFilesWithPdfData));    
   } catch (error) {
     console.log(error);
-    yield put(fetchMerchantFilesFailure(error.message));
+    yield put(fetchCouponFilesFailure(error.message));
   }
 }
 
@@ -36,7 +36,7 @@ function* pdfUpload(action) {
     const formData = new FormData();
     formData.append("pdf", pdfFile);
 
-    const response = yield axios.post(`/api/merchant/`, formData);
+    const response = yield axios.post(`/api/coupon/`, formData);
     console.log("RESPONSE from uploadPdf = ", response.data);
 
     const uploadedPdfInfo = response.data;
@@ -51,6 +51,6 @@ function* pdfUpload(action) {
 }
 
 export default function* filesSaga() {
-  yield takeEvery("FETCH_MERCHANT_FILES", merchantFiles);
+  yield takeEvery("FETCH_COUPON_FILES", couponFiles);
   yield takeEvery("UPLOAD_PDF_REQUEST", pdfUpload);
 }

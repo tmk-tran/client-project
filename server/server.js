@@ -19,7 +19,7 @@ const couponBookRouter = require('./routes/couponbook.router');
 const groupAdminRouter = require ('./routes/groupAdmin.router');
 const orgNotesRouter = require('./routes/orgNotes.router');
 const allUsersRouter = require('./routes/allUsers.router');
-const merchantRouter = require('./routes/merchantPDF.router');
+const couponRouter = require('./routes/couponPDF.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -45,7 +45,7 @@ app.use('/api/archivedOrganizations', archivedOrganizationsRouter);
 app.use('/api/couponbook', couponBookRouter);
 app.use('/api/groupAdmin', groupAdminRouter);
 app.use('/api/allUsers', allUsersRouter);
-app.use('/api/merchant', merchantRouter);
+app.use('/api/coupon', couponRouter);
 
 // Serve static files
 app.use(express.static('build'));
