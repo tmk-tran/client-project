@@ -26,11 +26,13 @@ router.post("/", upload.single("pdf"), (req, res) => {
   const { business_name } = "test";
 
   // Ensure business_name is defined
-//   if (!business_name) {
-//     return res.status(400).send("business_name is required");
-//   }
+  //   if (!business_name) {
+  //     return res.status(400).send("business_name is required");
+  //   }
   const pdfData = req.file.buffer;
   const filename = req.file.originalname;
+  // After successful upload
+  const fileUrl = `/api/merchant/pdf/${filename}`;
 
   // Handle PDF data as needed (e.g., store in the database)
   pool
@@ -39,7 +41,7 @@ router.post("/", upload.single("pdf"), (req, res) => {
       [business_name, pdfData, filename]
     )
     .then(() => {
-      res.status(200).send("PDF uploaded successfully!");
+      res.status(200).send("PDF uploaded successfully!", fileUrl);
     })
     .catch((error) => {
       console.error(error);
