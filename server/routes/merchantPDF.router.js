@@ -7,12 +7,17 @@ const {
 const { upload } = require("../modules/upload");
 
 router.get("/", (req, res) => {
+  const filename = req.params.filename;
+  console.log("filename = ", filename);
+  // Assuming you have the PDF data stored in some way
+  const pdfData = req.params.pdf_data;
+  console.log("pdfData = ", pdfData);
   const queryText = "SELECT * FROM merchant";
 
   pool
     .query(queryText)
     .then((result) => {
-      res.status(200).json(result.rows);
+      res.status(200).send(result.rows);
     })
     .catch((error) => {
       console.error(error);

@@ -1,20 +1,28 @@
 import axios from "axios";
-import { put, takeEvery, all, call } from "redux-saga/effects";
+import { put, takeEvery, call } from "redux-saga/effects";
 import { setMerchantFiles, fetchMerchantFilesFailure } from "./actions";
 
 function* merchantFiles(action) {
-  console.log(action.payload);
   try {
     const response = yield axios.get(`/api/merchant`);
     console.log("FETCH request from merchant.saga, RESPONSE = ", response.data);
-    const filesWithPdfData = yield response.data.map(function* (file) {
-      const pdfResponse = yield call(axios.get, file.fileUrl, { responseType: "arraybuffer" });
-      return {
-        ...file,
-        pdfData: pdfResponse.data,
-      };
-    });
-    yield put(setMerchantFiles(filesWithPdfData));
+
+    // const filesWithPdfData = yield Promise.all(
+    //   response.data.map(function* (file) {
+    //     const pdfResponse = yield call(axios.get, file.fileUrl, { responseType: "arraybuffer" });
+    //       // Return an object with metadata and PDF data
+    //       return {
+    //         pdf_Data: pdfResponse.data,
+    //         filename: file,
+    //       };
+    //   })
+    // );
+    // Filter out any failed PDF fetches
+    // const successfulFilesWithPdfData = filesWithPdfData.filter(fileData => fileData !== null);
+    // console.log("successfulFilesWithPdfData = ", successfulFilesWithPdfData);
+    // Dispatch the successful results to the Redux store
+    const successfulFilesWithPdfData = response.data;
+    yield put(setMerchantFiles(successfulFilesWithPdfData));    
   } catch (error) {
     console.log(error);
     yield put(fetchMerchantFilesFailure(error.message));

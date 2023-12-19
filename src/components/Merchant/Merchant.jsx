@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Typography, Card, CardContent } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -8,12 +8,31 @@ export default function Merchant() {
   const dispatch = useDispatch();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  // Store
+  const merchantFiles = useSelector((store) => Array.from(store.merchant)); // Convert generators to arrays
+  console.log(merchantFiles);
 
   useEffect(() => {
     dispatch({
       type: "FETCH_MERCHANT_FILES",
     });
-  }, []);
+  }, [dispatch]);
+
+  const downloadPdf = (pdfData, fileName) => {
+    const blob = new Blob([pdfData], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+
+    // Create a link element and simulate a click to trigger download
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+
+    // Cleanup: remove the link and revoke the URL
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
@@ -25,6 +44,13 @@ export default function Merchant() {
           <div style={{ display: "flex", justifyContent: "center" }}>
             upload PDFs here
           </div>
+          {merchantFiles.map((file, i) => (
+            <div key={i}>
+              <a href="#" onClick={() => downloadPdf(file.pdf_data, file.filename)}>
+                {file.filename}
+              </a>
+            </div>
+          ))}
         </CardContent>
       </Card>
     </div>
