@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import errors from "./errors.reducer";
 import user from "./user.reducer";
 
-import orgDetailsReducer from "./orgDetails.reducer";
+import orgDetails from "./orgDetails.reducer";
 import organizations from "./organizations.reducer.js";
 import group from "./group.reducer";
 import fundraisers from "./fundraisers.reducer";
@@ -21,7 +21,7 @@ import pdf from "./pdf.reducer";
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  orgDetailsReducer,
+  orgDetails,
   organizations,
   group,
   fundraisers,

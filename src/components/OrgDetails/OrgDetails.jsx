@@ -26,7 +26,7 @@ export default function orgDetails() {
   const paramsObject = useParams();
   const dispatch = useDispatch();
   // Store
-  const detailsOrg = useSelector((store) => store.orgDetailsReducer);
+  const detailsOrg = useSelector((store) => store.orgDetails);
   const groups = useSelector((store) => store.orgGroups);
   const notes = useSelector((store) => store.orgNotes);
   // State
