@@ -26,9 +26,9 @@ router.post("/", upload.single("pdf"), (req, res) => {
   const { business_name } = "test";
 
   // Ensure business_name is defined
-  if (!business_name) {
-    return res.status(400).send("business_name is required");
-  }
+//   if (!business_name) {
+//     return res.status(400).send("business_name is required");
+//   }
   const pdfData = req.file.buffer;
   const filename = req.file.originalname;
 
