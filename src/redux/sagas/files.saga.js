@@ -2,6 +2,11 @@ import axios from "axios";
 import { put, takeEvery, call } from "redux-saga/effects";
 import { setCouponFiles, fetchCouponFilesFailure } from "./actions";
 
+const fetchPdfRequest = (couponId) => ({
+  type: "FETCH_PDF_FILE",
+  payload: couponId,
+});
+
 const fetchPdfSuccess = (pdfBlob) => ({
   type: "FETCH_PDF_SUCCESS",
   payload: pdfBlob,
@@ -37,7 +42,7 @@ function* couponFiles(action) {
 }
 
 function* pdfFile(action) {
-  const couponId = action.payload; // added
+  const couponId = action.payload; // added... needs to be req.params, and/or the coupon id
 
   try {
     const response = yield axios.get(`/api/coupon/${couponId}`, {
@@ -62,7 +67,7 @@ function* pdfUpload(action) {
     const formData = new FormData();
     formData.append("pdf", pdfFile);
 
-    const response = yield axios.post(`/api/coupon/`, formData);
+    const response = yield axios.post(`/api/coupon`, formData);
     console.log("RESPONSE from uploadPdf = ", response.data);
 
     const uploadedPdfInfo = response.data;
@@ -78,5 +83,8 @@ function* pdfUpload(action) {
 
 export default function* filesSaga() {
   yield takeEvery("FETCH_COUPON_FILES", couponFiles);
+  yield takeEvery("FETCH_PDF_FILE", pdfFile);
   yield takeEvery("UPLOAD_PDF_REQUEST", pdfUpload);
 }
+
+export { fetchPdfRequest };

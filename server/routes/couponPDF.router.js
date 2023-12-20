@@ -51,13 +51,7 @@ router.get("/:id", (req, res) => {
 
 router.post("/", upload.single("pdf"), (req, res) => {
   console.log(req.body);
-  // Extract business_name from the request body
-  // const { business_name } = "test";
 
-  // Ensure business_name is defined
-  //   if (!business_name) {
-  //     return res.status(400).send("business_name is required");
-  //   }
   const pdfData = req.file.buffer;
   const filename = req.file.originalname;
   // After successful upload

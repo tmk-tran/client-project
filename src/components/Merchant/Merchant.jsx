@@ -19,8 +19,11 @@ export default function Merchant() {
     });
   }, [dispatch]);
 
-  const downloadPdf = (pdfData, fileName) => {
-    const blob = new Blob([pdfData], { type: "application/pdf" });
+  const downloadPdf = (pdf_Data, fileName) => {
+    console.log(pdf_Data);
+    console.log(fileName);
+    const blob = new Blob([pdf_Data], { type: "application/pdf" });
+    console.log(blob);
     const url = URL.createObjectURL(blob);
 
     // Create a link element and simulate a click to trigger download

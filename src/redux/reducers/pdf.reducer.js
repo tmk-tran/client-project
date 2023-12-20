@@ -28,4 +28,13 @@ const pdfReducer = (state = initialState, action) => {
   }
 };
 
+// const pdfReducer = (state = [], action) => {
+//   switch (action.type) {
+//     case "UPLOAD_PDF_REQUEST":
+//       return action.payload;
+//     default:
+//       return state;
+//   }
+// };
+
 export default pdfReducer;
