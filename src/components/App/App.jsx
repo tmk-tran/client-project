@@ -23,7 +23,7 @@ import GroupDetails from "../GroupDetails/GroupDetails";
 import MenuLinks from "../MenuLinks/MenuLinks";
 import ArchivedOrganizations from "../ArchivedOrganizations/ArchivedOrganizations";
 import GlobalFundraiserInput from "../GlobalFundraiserInput/GlobalFundraiserInput";
-import Merchant from "../Merchant/Merchant";
+import CouponDesign from "../CouponDesign/CouponDesign";
 import "./App.css";
 // Theme establishing global color for MUI
 const theme = createTheme({
@@ -96,7 +96,7 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/coupon">
-              <Merchant />
+              <CouponDesign />
             </ProtectedRoute>
 
             <Route exact path="/login">
