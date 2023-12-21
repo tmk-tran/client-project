@@ -25,7 +25,7 @@ import ArchivedOrganizations from "../ArchivedOrganizations/ArchivedOrganization
 import GlobalFundraiserInput from "../GlobalFundraiserInput/GlobalFundraiserInput";
 import CouponDesign from "../CouponDesign/CouponDesign";
 import "./App.css";
-// Theme establishing global color for MUI
+// ~~~~~ Theme establishing global color for MUI ~~~~~
 const theme = createTheme({
   typography: {
     fontSize: 18,
@@ -37,7 +37,7 @@ const theme = createTheme({
     },
   },
 });
-// end theme
+// ~~~~~ end theme ~~~~~
 
 function App() {
   const dispatch = useDispatch();

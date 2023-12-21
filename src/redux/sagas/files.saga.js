@@ -42,7 +42,8 @@ function* couponFiles(action) {
 }
 
 function* pdfFile(action) {
-  const couponId = action.payload; // added... needs to be req.params, and/or the coupon id
+  const couponId = action.payload; // added
+  console.log(couponId);
 
   try {
     const response = yield axios.get(`/api/coupon/${couponId}`, {
@@ -52,8 +53,9 @@ function* pdfFile(action) {
 
     // Dispatch success action with PDF blob data
     yield put(
-      fetchPdfSuccess(new Blob([response.data], { type: "application/pdf" }))
-    ); // Added
+      // fetchPdfSuccess(new Blob([response.data], { type: "application/pdf" }))
+      {type: "GET_PDF", payload: new Blob([response.data], { type: "application/pdf" }),
+  }); // Added
   } catch (error) {
     console.log(error);
     yield put(fetchPdfFailure(error.message)); // Added
