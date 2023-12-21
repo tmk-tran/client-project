@@ -29,9 +29,11 @@ export default function BasicMenu() {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -50,6 +52,12 @@ export default function BasicMenu() {
     history.push("/user");
     handleClose();
   }
+
+  function coupon() {
+    history.push("/coupon");
+    handleClose();
+  }
+
   function aboutPage() {
     history.push("/about");
     handleClose();
@@ -104,6 +112,7 @@ export default function BasicMenu() {
         <MenuItem onClick={archivedOrganizations}>
           Archived Organizations
         </MenuItem>
+        <MenuItem onClick={coupon}>Coupon</MenuItem>
         <MenuItem onClick={aboutPage}>About</MenuItem>
         {/* <hr /> */}
         {/* <MenuItem onClick={logOut}>Logout</MenuItem> */}
