@@ -1,32 +1,24 @@
-// const initialState = {
-//   uploading: false,
-//   error: null,
-// };
+const initialState = {
+  pdfs: {}, // Object to store PDF blobs with coupon IDs
+};
 
 // const pdfReducer = (state = initialState, action) => {
 //   switch (action.type) {
-//     case "UPLOAD_PDF_REQUEST":
+//     case "GET_PDF":
+//       const { couponId, pdfBlob } = action.payload;
 //       return {
 //         ...state,
-//         uploading: true,
-//         error: null,
+//         pdfs: {
+//           ...state.pdfs,
+//           [couponId]: pdfBlob,
+//         },
 //       };
-//     case "UPLOAD_PDF_SUCCESS":
-//       return {
-//         ...state,
-//         uploading: false,
-//         error: null,
-//       };
-//     case "UPLOAD_PDF_FAILURE":
-//       return {
-//         ...state,
-//         uploading: false,
-//         error: action.payload,
-//       };
+//     // other cases...
 //     default:
 //       return state;
 //   }
 // };
+
 
 const pdfReducer = (state = [], action) => {
   switch (action.type) {

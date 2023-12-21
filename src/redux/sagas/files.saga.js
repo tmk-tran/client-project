@@ -12,13 +12,20 @@ const fetchPdfSuccess = (pdfBlob) => ({
   payload: pdfBlob,
 });
 
+const fetchPdf = (pdfBlob) => ({
+  type: "GET_PDF",
+  payload: pdfBlob,
+});
+
 const fetchPdfFailure = (error) => ({
   type: "FETCH_PDF_FAILURE",
   payload: error,
 });
 
+
+
 function* couponFiles(action) {
-  // const couponId = action.payload; // added
+  console.log(action);
 
   try {
     const response = yield axios.get(`/api/coupon`);
@@ -32,7 +39,7 @@ function* couponFiles(action) {
     yield put(setCouponFiles(successfulFilesWithPdfData));
     // Dispatch success action with PDF blob data
     // yield put(
-    //   fetchPdfSuccess(new Blob([response.data], { type: "application/pdf" }))
+    //   fetchPdf(new Blob([response.data], { type: "application/pdf" }))
     // ); // Added
   } catch (error) {
     console.log(error);
@@ -42,6 +49,7 @@ function* couponFiles(action) {
 }
 
 function* pdfFile(action) {
+  console.log(action);
   const couponId = action.payload; // added
   console.log(couponId);
 
@@ -56,6 +64,8 @@ function* pdfFile(action) {
       // fetchPdfSuccess(new Blob([response.data], { type: "application/pdf" }))
       {type: "GET_PDF", payload: new Blob([response.data], { type: "application/pdf" }),
   }); // Added
+//   {type: "GET_PDF", payload: { couponId, pdfBlob: new Blob([response.data], { type: "application/pdf" }) },
+// });
   } catch (error) {
     console.log(error);
     yield put(fetchPdfFailure(error.message)); // Added

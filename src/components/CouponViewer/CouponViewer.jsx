@@ -4,14 +4,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPdfRequest } from "../../redux/sagas/files.saga";
 
 const CouponViewer = ({ couponId }) => {
+  console.log(couponId);
   const dispatch = useDispatch();
   const pdfBlob = useSelector((store) => store.pdf);
   console.log(pdfBlob);
 
+  // useEffect(() => {
+  //   // Dispatch an action to fetch the PDF when the component mounts
+  //   dispatch(fetchPdfRequest(couponId));
+  // }, [dispatch, couponId]);
+
   useEffect(() => {
     // Dispatch an action to fetch the PDF when the component mounts
-    dispatch(fetchPdfRequest(couponId));
+    if (couponId) {
+      dispatch(fetchPdfRequest(couponId));
+    }
   }, [dispatch, couponId]);
+  
 
   const downloadPdf = () => {
     if (pdfBlob) {
