@@ -20,6 +20,15 @@ const CouponViewer = ({ couponId }) => {
       dispatch(fetchPdfRequest(couponId));
     }
   }, [dispatch, couponId]);
+
+// PICK UP HERE<-- 
+
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "FETCH_PDF_FILE",
+  //     payload: paramsObject.id,
+  //   });
+  // }, []);
   
 
   const downloadPdf = () => {

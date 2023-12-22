@@ -94,8 +94,8 @@ function* pdfUpload(action) {
 }
 
 export default function* filesSaga() {
-  yield takeEvery("FETCH_COUPON_FILES", couponFiles);
-  yield takeEvery("FETCH_PDF_FILE", pdfFile);
+  yield takeEvery("FETCH_COUPON_FILES", couponFiles); // this call will come from Coupon component
+  yield takeEvery("FETCH_PDF_FILE", pdfFile); // place this call in the component that is viewed after clicking on the file (with its id)
   yield takeEvery("UPLOAD_PDF_REQUEST", pdfUpload);
 }
 

@@ -37,6 +37,9 @@ export default function Merchant() {
             <div key={i}>
               {file.filename}
               <CouponViewer couponId={file.id} />
+              <button onClick={() => history.push(`/coupon/${file.id}`)}>
+                View
+              </button>
             </div>
           ))}
         </CardContent>
