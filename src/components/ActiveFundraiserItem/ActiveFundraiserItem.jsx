@@ -37,7 +37,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     return date.toLocaleDateString(undefined, options);
   };
 
-  // Style for Table Cells
+  // ~~~~~~~~~~ Style for Table Cells ~~~~~~~~~~
   const center15px = {
     fontSize: "15px",
     textAlign: "center",
@@ -48,6 +48,13 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     width: "50px",
     border: "2px solid black",
   };
+
+  const outlinedInputStyle = {
+    fontSize: "15px",
+    width: "60px",
+    height: "25px",
+  };
+  // ~~~~~~~~~~ End Style for Table Cells ~~~~~~~~~~
 
   //Function that runs when the update button is clicked. Builds a new object with the updated data and sends it to the back end to be updated in the database. Also fires off a sweetalert to let user know that the fundraiser has been updated.
   const updateAmount = () => {
@@ -138,7 +145,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
               >
                 <Typography style={center15px}>
                   <OutlinedInput
-                    style={{ fontSize: "15px", width: "60px", height: "25px" }}
+                    style={outlinedInputStyle}
                     value={booksCheckedOut}
                     onChange={(e) => setBooksCheckedOut(e.target.value)}
                   >
@@ -160,7 +167,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
               >
                 <Typography style={center15px}>
                   <OutlinedInput
-                    style={{ fontSize: "15px", width: "60px", height: "25px" }}
+                    style={outlinedInputStyle}
                     value={booksCheckedIn}
                     onChange={(e) => setBooksCheckedIn(e.target.value)}
                   >
@@ -177,7 +184,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
               >
                 <Typography style={center15px}>
                   <OutlinedInput
-                    style={{ fontSize: "15px", width: "60px", height: "25px" }}
+                    style={outlinedInputStyle}
                     value={booksSold}
                     onChange={(e) => setBooksSold(e.target.value)}
                   >
