@@ -5,6 +5,7 @@ import { fetchPdfRequest } from "../../redux/sagas/files.saga";
 
 const CouponViewer = ({ couponId }) => {
   console.log(couponId);
+
   const dispatch = useDispatch();
   const pdfBlob = useSelector((store) => store.pdf);
   console.log(pdfBlob);
@@ -14,12 +15,12 @@ const CouponViewer = ({ couponId }) => {
   //   dispatch(fetchPdfRequest(couponId));
   // }, [dispatch, couponId]);
 
-  useEffect(() => {
-    // Dispatch an action to fetch the PDF when the component mounts
-    if (couponId) {
-      dispatch(fetchPdfRequest(couponId));
-    }
-  }, [dispatch, couponId]);
+  // useEffect(() => {
+  //   // Dispatch an action to fetch the PDF when the component mounts
+  //   if (couponId) {
+  //     dispatch(fetchPdfRequest(couponId));
+  //   }
+  // }, [dispatch, couponId]);
 
 // PICK UP HERE<-- 
 
@@ -30,6 +31,13 @@ const CouponViewer = ({ couponId }) => {
   //   });
   // }, []);
   
+  function fetchPdf(couponId) {
+    console.log(couponId);
+    dispatch({
+      type: "FETCH_PDF_FILE",
+      payload: couponId,
+    });
+  }
 
   const downloadPdf = () => {
     if (pdfBlob) {
@@ -59,6 +67,7 @@ const CouponViewer = ({ couponId }) => {
     <div>
       <button onClick={downloadPdf}>Download PDF</button>
       <button onClick={openPdf}>Open PDF</button>
+      <button onClick={fetchPdf}>Select PDF</button>
     </div>
   );
 };

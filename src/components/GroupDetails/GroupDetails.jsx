@@ -19,7 +19,10 @@ import {
 import GroupDetailsCard from "../GroupDetailsCard/GroupDetailsCard";
 import ActiveFundraiserItem from "../ActiveFundraiserItem/ActiveFundraiserItem";
 import ClosedFundraiserItem from "../ClosedFundraiserItem/ClosedFundraiserItem";
+// ~~~~~~~~~~ Style ~~~~~~~~~~
+import { ThemeProvider } from '@mui/material/styles';
 import "./GroupDetails.css";
+import theme from "./themeGroupDetails.js";
 
 //Function for the component
 export default function GroupDetails() {
@@ -177,6 +180,14 @@ export default function GroupDetails() {
                     Money Received
                   </Typography>
                 </TableCell>
+
+                <TableCell className="active_header_cell">
+                  <Typography
+                    id="active_header_text">
+                    PSG Earnings
+                  </Typography>
+                </TableCell>
+
                 <TableCell className="active_header_cell">
                   <Typography
                     className="active_header_text"

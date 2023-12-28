@@ -8,7 +8,7 @@ import { historyHook } from "../../hooks/useHistory";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import CouponViewer from "../CouponViewer/CouponViewer";
 
-export default function Merchant() {
+export default function CouponDesign() {
   const dispatch = useDispatch();
   const history = historyHook();
   const theme = useTheme();

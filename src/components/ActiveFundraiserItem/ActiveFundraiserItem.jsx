@@ -99,7 +99,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                 <Typography
                   style={{
                     fontSize: "15px",
-                    width: "88px",
+                    // width: "88px",
                     textAlign: "center",
                   }}
                 >
@@ -226,6 +226,32 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   </OutlinedInput>
                 </Typography>
               </TableCell>
+
+              <TableCell
+                style={{
+                  width: "50px",
+                  border: "2px solid black",
+                  padding: "0",
+                }}
+              >
+                <Typography
+                  style={{
+                    fontSize: "15px",
+                    textAlign: "center",
+                    padding: "0",
+                  }}
+                >
+                  {/* <OutlinedInput
+                    style={{ fontSize: "15px", width: "62px", height: "25px" }}
+                    value={moneyReceived}
+                    onChange={(e) => setMoneyRecieved(e.target.value)}
+                  >
+                    {fundraiser.money_received}
+                  </OutlinedInput> */}
+                  10000
+                </Typography>
+              </TableCell>
+
               <TableCell
                 TableCell
                 style={{ width: "50px", border: "2px solid black" }}

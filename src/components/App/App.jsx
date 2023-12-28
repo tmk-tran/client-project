@@ -29,7 +29,8 @@ import "./App.css";
 const theme = createTheme({
   typography: {
     fontSize: 18,
-    fontFamily: 'Lato, "Helvetica Neue", Arial, sans-serif',
+    // fontFamily: 'Lato, "Helvetica Neue", Arial, sans-serif',
+    fontFamily: "Helvetica Neue",
   },
   palette: {
     primary: {
