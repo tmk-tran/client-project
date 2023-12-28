@@ -37,6 +37,18 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     return date.toLocaleDateString(undefined, options);
   };
 
+  // Style for Table Cells
+  const center15px = {
+    fontSize: "15px",
+    textAlign: "center",
+    padding: "0",
+  };
+
+  const border50px = {
+    width: "50px",
+    border: "2px solid black",
+  };
+
   //Function that runs when the update button is clicked. Builds a new object with the updated data and sends it to the back end to be updated in the database. Also fires off a sweetalert to let user know that the fundraiser has been updated.
   const updateAmount = () => {
     const updatedAmount = {
@@ -57,7 +69,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     dispatch({ type: "UPDATE_FUNDRAISER_AMOUNTS", payload: updatedAmount });
     setEditMode(false);
   };
-//Function that runs on click of close button. A sweetalert will pop up prompting the user to confirm that the fundraiser is to be closed. Will then send the dispatch and payload to update a fundraiser to closed.
+  //Function that runs on click of close button. A sweetalert will pop up prompting the user to confirm that the fundraiser is to be closed. Will then send the dispatch and payload to update a fundraiser to closed.
   const handleCloseFundraiser = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -112,14 +124,8 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   </OutlinedInput>
                 </Typography>
               </TableCell>
-              <TableCell style={{ width: "50px", border: "2px solid black" }}>
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell style={border50px}>
+                <Typography style={center15px}>
                   {fundraiser.requested_book_quantity}
                 </Typography>
               </TableCell>
@@ -130,13 +136,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   padding: "0",
                 }}
               >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+                <Typography style={center15px}>
                   <OutlinedInput
                     style={{ fontSize: "15px", width: "60px", height: "25px" }}
                     value={booksCheckedOut}
@@ -146,14 +146,8 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   </OutlinedInput>
                 </Typography>
               </TableCell>
-              <TableCell style={{ width: "50px", border: "2px solid black" }}>
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell style={border50px}>
+                <Typography style={center15px}>
                   ${fundraiser.book_checked_out_total_value}
                 </Typography>
               </TableCell>
@@ -164,13 +158,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   padding: "0",
                 }}
               >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+                <Typography style={center15px}>
                   <OutlinedInput
                     style={{ fontSize: "15px", width: "60px", height: "25px" }}
                     value={booksCheckedIn}
@@ -187,13 +175,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   padding: "0",
                 }}
               >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+                <Typography style={center15px}>
                   <OutlinedInput
                     style={{ fontSize: "15px", width: "60px", height: "25px" }}
                     value={booksSold}
@@ -210,13 +192,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   padding: "0",
                 }}
               >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+                <Typography style={center15px}>
                   <OutlinedInput
                     style={{ fontSize: "15px", width: "62px", height: "25px" }}
                     value={moneyReceived}
@@ -226,44 +202,21 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   </OutlinedInput>
                 </Typography>
               </TableCell>
-              <TableCell
-                TableCell
-                style={{ width: "50px", border: "2px solid black" }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell TableCell style={border50px}>
+                <Typography style={center15px}>
                   $
                   {fundraiser.books_sold * 25 -
                     fundraiser.books_sold * fundraiser.organization_earnings}
                 </Typography>
               </TableCell>
-              <TableCell style={{ width: "50px", border: "2px solid black" }}>
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell style={border50px}>
+                <Typography style={center15px}>
                   {formatDate(fundraiser.start_date)} to{" "}
                   {formatDate(fundraiser.end_date)}
                 </Typography>
               </TableCell>
-              <TableCell style={{ width: "50px", border: "2px solid black" }}>
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
-                  {fundraiser.year}
-                </Typography>
+              <TableCell style={border50px}>
+                <Typography style={center15px}>{fundraiser.year}</Typography>
               </TableCell>
               <TableCell
                 style={{
@@ -272,13 +225,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   padding: "0",
                 }}
               >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+                <Typography style={center15px}>
                   <OutlinedInput
                     style={{ fontSize: "15px", width: "62px", height: "25px" }}
                     value={goal}
@@ -288,14 +235,8 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   </OutlinedInput>
                 </Typography>
               </TableCell>
-              <TableCell style={{ width: "50px", border: "2px solid black" }}>
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell style={border50px}>
+                <Typography style={center15px}>
                   ${fundraiser.outstanding_balance}
                 </Typography>
               </TableCell>
@@ -337,143 +278,55 @@ export default function ActiveFundraiserItem({ fundraiser }) {
               className="active_row"
               style={{ border: "2px solid black", height: "80px" }}
             >
-              <TableCell style={{ width: "50px", border: "2px solid black" }}>
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
-                  {fundraiser.title}
-                </Typography>
+              <TableCell style={border50px}>
+                <Typography style={center15px}>{fundraiser.title}</Typography>
               </TableCell>
-              <TableCell
-                TableCell
-                style={{ width: "50px", border: "2px solid black" }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell TableCell style={border50px}>
+                <Typography style={center15px}>
                   {fundraiser.requested_book_quantity}
                 </Typography>
               </TableCell>
-              <TableCell
-                TableCell
-                style={{ width: "50px", border: "2px solid black" }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell TableCell style={border50px}>
+                <Typography style={center15px}>
                   {fundraiser.book_quantity_checked_out}
                 </Typography>
               </TableCell>
-              <TableCell
-                TableCell
-                style={{ width: "50px", border: "2px solid black" }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell TableCell style={border50px}>
+                <Typography style={center15px}>
                   ${fundraiser.book_checked_out_total_value}
                 </Typography>
               </TableCell>
-              <TableCell
-                TableCell
-                style={{ width: "50px", border: "2px solid black" }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell TableCell style={border50px}>
+                <Typography style={center15px}>
                   {fundraiser.book_quantity_checked_in}
                 </Typography>
               </TableCell>
-              <TableCell
-                TableCell
-                style={{ width: "50px", border: "2px solid black" }}
-              >
+              <TableCell TableCell style={border50px}>
                 {" "}
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+                <Typography style={center15px}>
                   {fundraiser.books_sold}
                 </Typography>
               </TableCell>
-              <TableCell
-                TableCell
-                style={{ width: "50px", border: "2px solid black" }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell TableCell style={border50px}>
+                <Typography style={center15px}>
                   ${fundraiser.money_received}
                 </Typography>
               </TableCell>
-              <TableCell
-                TableCell
-                style={{ width: "50px", border: "2px solid black" }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell TableCell style={border50px}>
+                <Typography style={center15px}>
                   $
                   {fundraiser.books_sold * 25 -
                     fundraiser.books_sold * fundraiser.organization_earnings}
                 </Typography>
               </TableCell>
-              <TableCell style={{ width: "50px", border: "2px solid black" }}>
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+              <TableCell style={border50px}>
+                <Typography style={center15px}>
                   {formatDate(fundraiser.start_date)} to{" "}
                   {formatDate(fundraiser.end_date)}
                 </Typography>
               </TableCell>
-              <TableCell
-                TableCell
-                style={{ width: "50px", border: "2px solid black" }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
-                  {fundraiser.year}
-                </Typography>
+              <TableCell TableCell style={border50px}>
+                <Typography style={center15px}>{fundraiser.year}</Typography>
               </TableCell>
               <TableCell
                 style={{
@@ -485,28 +338,20 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                       : "transparent",
                 }}
               >
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
-                  ${fundraiser.goal}
-                </Typography>
+                <Typography style={center15px}>${fundraiser.goal}</Typography>
               </TableCell>
 
-              <TableCell style={{ width: "50px", border: "2px solid black", backgroundColor:
+              <TableCell
+                style={{
+                  width: "50px",
+                  border: "2px solid black",
+                  backgroundColor:
                     fundraiser.outstanding_balance > 0
                       ? "#E3A29B"
-                      : "transparent", }}>
-                <Typography
-                  style={{
-                    fontSize: "15px",
-                    textAlign: "center",
-                    padding: "0",
-                  }}
-                >
+                      : "transparent",
+                }}
+              >
+                <Typography style={center15px}>
                   ${fundraiser.outstanding_balance}
                 </Typography>
               </TableCell>
