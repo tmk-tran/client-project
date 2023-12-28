@@ -5,30 +5,9 @@
   margin-top: 20px;
 }
 
-.organization-header {
-  width: 100%;
-  font-weight: bold;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0
-}
-
-.fuzzy-search{
+.fuzzy-search {
   display: flex;
   justify-content: flex-end;
   margin-right: 1%;
   margin-top: -52px;
-  
 }
-
-
-/* .fuzzy-search {
-  position: absolute;
-  right: 0;
-  top: 160px; 
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 1%;
-  width: 30%;
-} */
-

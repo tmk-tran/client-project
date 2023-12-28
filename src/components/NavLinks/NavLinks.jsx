@@ -106,6 +106,18 @@ export default function NavLinks() {
                 Archived Organizations
               </MuiLink>
             </Typography>
+
+            <Typography>
+              <MuiLink
+                component={Link}
+                className="main-navlink"
+                to="/coupon"
+                underline="hover"
+              >
+                Coupon
+              </MuiLink>
+            </Typography>
+
             <Typography>
               <MuiLink
                 component={Link}

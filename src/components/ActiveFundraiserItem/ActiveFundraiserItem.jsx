@@ -54,7 +54,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     width: "60px",
     height: "25px",
   };
-  // ~~~~~~~~~~ End of Style for Table Cells ~~~~~~~~~~
+  // ~~~~~~~~~~ End Style for Table Cells ~~~~~~~~~~
 
   //Function that runs when the update button is clicked. Builds a new object with the updated data and sends it to the back end to be updated in the database. Also fires off a sweetalert to let user know that the fundraiser has been updated.
   const updateAmount = () => {

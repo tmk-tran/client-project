@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // Style
@@ -26,7 +26,7 @@ export default function orgDetails() {
   const paramsObject = useParams();
   const dispatch = useDispatch();
   // Store
-  const detailsOrg = useSelector((store) => store.orgDetailsReducer);
+  const detailsOrg = useSelector((store) => store.orgDetails);
   const groups = useSelector((store) => store.orgGroups);
   const notes = useSelector((store) => store.orgNotes);
   // State
@@ -71,9 +71,9 @@ export default function orgDetails() {
 
   return (
     <div
-      className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
+      className={`details-container ${isSmallScreen ? "small-screen" : ""}`}
     >
-      <Card className="OrgDetails-card" elevation={3}>
+      <Card className="details-card" elevation={3}>
         <CardContent>
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}

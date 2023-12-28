@@ -22,16 +22,15 @@ import Footer from "../Footer/Footer";
 import GroupDetails from "../GroupDetails/GroupDetails";
 import MenuLinks from "../MenuLinks/MenuLinks";
 import ArchivedOrganizations from "../ArchivedOrganizations/ArchivedOrganizations";
+import GlobalFundraiserInput from "../GlobalFundraiserInput/GlobalFundraiserInput";
+import CouponDesign from "../CouponDesign/CouponDesign";
 import "./App.css";
-import PublicOrgPage from "../PublicOrgPage/PublicOrgPage";
-import PublicOrgDetails from "../PublicOrgDetails/PublicOrgDetails";
-import GlobalFundraiserInput
- from "../GlobalFundraiserInput/GlobalFundraiserInput";
-// Theme establishing global color for MUI
+// ~~~~~ Theme establishing global color for MUI ~~~~~
 const theme = createTheme({
   typography: {
     fontSize: 18,
-    fontFamily: 'Lato, "Helvetica Neue", Arial, sans-serif',
+    // fontFamily: 'Lato, "Helvetica Neue", Arial, sans-serif',
+    fontFamily: "Helvetica Neue",
   },
   palette: {
     primary: {
@@ -39,7 +38,7 @@ const theme = createTheme({
     },
   },
 });
-// end theme
+// ~~~~~ end theme ~~~~~
 
 function App() {
   const dispatch = useDispatch();
@@ -50,8 +49,8 @@ function App() {
     dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
 
-  useEffect(() =>{
-    dispatch({ type: "FETCH_COUPON_BOOKS"})
+  useEffect(() => {
+    dispatch({ type: "FETCH_COUPON_BOOKS" });
   }, [user]);
 
   return (
@@ -72,61 +71,35 @@ function App() {
             >
               <AboutPage />
             </Route>
-            {/* <Route
-              // shows AboutPage at all times (logged in or not)
-              exact
-              path="/publicOrgs"
-            >
-              <PublicOrgPage />
-            </Route>
-            <Route
-              // logged in shows InfoPage else shows LoginPage
-              exact
-              path="/publicOrgDetails/:id"
-            >
-              <PublicOrgDetails/>
-            </Route> */}
-          
-            <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
-              exact
-              path="/user"
-            >
+
+            <ProtectedRoute exact path="/user">
               <UserPage />
             </ProtectedRoute>
 
-            <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
-              exact
-              path="/userProfile/:id"
-            >
+            <ProtectedRoute exact path="/userProfile/:id">
               <UserProfile />
             </ProtectedRoute>
-            <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
-              exact
-              path="/archivedOrganizations"
-            >
+
+            <ProtectedRoute exact path="/archivedOrganizations">
               <ArchivedOrganizations />
             </ProtectedRoute>
 
-            <ProtectedRoute
-              // logged in shows InfoPage else shows LoginPage
-              exact
-              path="/orgDetails/:id"
-            >
+            <ProtectedRoute exact path="/orgDetails/:id">
               <OrgDetails />
             </ProtectedRoute>
+
             <ProtectedRoute exact path="/group/:id">
-              <GroupDetails  user={user}/>
+              <GroupDetails user={user} />
             </ProtectedRoute>
-            <ProtectedRoute
-              // logged in shows InfoPage else shows LoginPage
-              exact
-              path="/newFundraiser"
-            >
+
+            <ProtectedRoute exact path="/newFundraiser">
               <GlobalFundraiserInput />
             </ProtectedRoute>
+
+            <ProtectedRoute exact path="/coupon">
+              <CouponDesign />
+            </ProtectedRoute>
+
             <Route exact path="/login">
               {user.id ? (
                 // If the user is already logged in,
@@ -155,7 +128,7 @@ function App() {
                 // redirect them to the /user page
                 <Redirect to="/user" />
               ) : (
-                // Otherwise, show the Landing page
+                // Otherwise, show the Login page
                 <LoginPage />
               )}
             </Route>
