@@ -204,11 +204,13 @@ export default function GroupDetails() {
                 >
                   <Typography style={bold16px}>Money Received</Typography>
                 </TableCell>
+
                 <TableCell className="active_header_cell">
                   <Typography style={bold16px}>
-                    Organization Earnings
+                    Group Earnings
                   </Typography>
                 </TableCell>
+
                 <TableCell
                   className="active_header_cell"
                   style={{ width: "10px" }}
