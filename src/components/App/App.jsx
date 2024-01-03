@@ -6,9 +6,6 @@ import {
   Switch,
 } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import Nav from "../Nav/Nav";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import UserProfile from "../UserProfile/UserProfile";
@@ -24,7 +21,13 @@ import MenuLinks from "../MenuLinks/MenuLinks";
 import ArchivedOrganizations from "../ArchivedOrganizations/ArchivedOrganizations";
 import GlobalFundraiserInput from "../GlobalFundraiserInput/GlobalFundraiserInput";
 import CouponDesign from "../CouponDesign/CouponDesign";
+// ~~~~~~~~~~ Style ~~~~~~~~~~
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
+import { User } from "../../hooks/reduxStore";
+
 // ~~~~~ Theme establishing global color for MUI ~~~~~
 const theme = createTheme({
   typography: {
@@ -41,9 +44,8 @@ const theme = createTheme({
 // ~~~~~ end theme ~~~~~
 
 function App() {
-  const dispatch = useDispatch();
-
-  const user = useSelector((store) => store.user);
+  const dispatch = dispatchHook();
+  const user = User();
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });

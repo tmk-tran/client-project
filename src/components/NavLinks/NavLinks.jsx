@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-// Style
+// ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Typography,
   ThemeProvider,
@@ -10,6 +8,8 @@ import {
   Link as MuiLink,
 } from "@mui/material";
 import "./NavLinks.css";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { User } from "../../hooks/reduxStore";
 
 // Custom theme for MUI component
 const theme = createTheme({
@@ -32,7 +32,7 @@ const theme = createTheme({
 });
 
 export default function NavLinks() {
-  const user = useSelector((store) => store.user);
+  const user = User();
 
   return (
     <ThemeProvider theme={theme}>

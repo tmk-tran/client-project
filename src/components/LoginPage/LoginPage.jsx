@@ -1,13 +1,14 @@
 import React from "react";
 import LoginForm from "../LoginForm/LoginForm";
-import { useHistory } from "react-router-dom";
 import {
   Button,
   Typography,
 } from "@mui/material";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { historyHook } from "../../hooks/useHistory";
 
 function LoginPage() {
-  const history = useHistory();
+  const history = historyHook();
 
   return (
     <div>

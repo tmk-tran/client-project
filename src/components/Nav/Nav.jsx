@@ -1,22 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-// Component
+// ~~~~~~~~~~ Component ~~~~~~~~~~
 import UserMenu from "../UserMenu/UserMenu";
 import LogoPSG from "../LogoPSG/LogoPSG";
 import NavLinks from "../NavLinks/NavLinks";
-// Style
+// ~~~~~~~~~~ Style ~~~~~~~~~~
 import "./Nav.css";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { User } from "../../hooks/reduxStore";
 function Nav() {
-  const user = useSelector((store) => store.user);
+  const user = User();
+
   return (
     <>
       <div className="nav">
-          <div className="logoPSG-container">
-            <Link to="/home" className="logo-psg">
-              <LogoPSG />
-            </Link>
-          </div>
+        <div className="logoPSG-container">
+          <Link to="/home" className="logo-psg">
+            <LogoPSG />
+          </Link>
+        </div>
         <div>
           {/* If a user is logged in, show these links */}
           {user.id && (
@@ -28,9 +30,10 @@ function Nav() {
       </div>
       <br />
       <>
-      <div className="NavLinks-container">
-        <NavLinks />
-      </div></>
+        <div className="NavLinks-container">
+          <NavLinks />
+        </div>
+      </>
     </>
   );
 }
