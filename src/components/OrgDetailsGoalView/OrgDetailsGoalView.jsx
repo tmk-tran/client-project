@@ -1,14 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
-// Style
+// ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Typography, Card, CardContent } from "@mui/material";
 import "./OrgDetailsGoalView.css";
-// Component
+// ~~~~~~~~~~ Component ~~~~~~~~~~
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { oFundraisers } from "../../hooks/reduxStore";
 
 export default function OrgDetailsGoalView({ info, groups }) {
-  const fundraiserInfo = useSelector((store) => store.orgFundraisers);
+  const fundraiserInfo = oFundraisers();
   console.log(fundraiserInfo);
 
   // Total number of goals for groups

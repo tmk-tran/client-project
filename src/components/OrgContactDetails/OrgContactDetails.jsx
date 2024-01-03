@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-
-// Styles
+// ~~~~~~~~~~ Styles ~~~~~~~~~~
 import {
   Box,
   Button,
@@ -11,17 +9,19 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import "./OrgContactDetails.css";
-// Icons
+// ~~~~~~~~~~ Icons ~~~~~~~~~~
 import EditNoteIcon from "@mui/icons-material/EditNote";
-// Components
+// ~~~~~~~~~~ Components ~~~~~~~~~~
 import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
 import OrgDetailsEdit from "../OrgDetailsEdit/OrgDetailsEdit";
 import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
-// Utils
+// ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { formatPhoneNumber } from "../Utils/helpers";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
 
 export default function OrgContactDetails({ info }) {
-  const dispatch = useDispatch();
+  const dispatch = dispatchHook();
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
 
