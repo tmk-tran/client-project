@@ -60,15 +60,9 @@ function App() {
           <Nav />
           <MenuLinks />
           <Switch>
-            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
 
-            {/* Visiting localhost:3000/about will show the about page. */}
-            <Route
-              // shows AboutPage at all times (logged in or not)
-              exact
-              path="/about"
-            >
+            <Route exact path="/about">
               <AboutPage />
             </Route>
 
@@ -123,14 +117,7 @@ function App() {
             </Route>
 
             <Route exact path="/home">
-              {user.id ? (
-                // If the user is already logged in,
-                // redirect them to the /user page
-                <Redirect to="/user" />
-              ) : (
-                // Otherwise, show the Login page
-                <LoginPage />
-              )}
+              {user.id ? <Redirect to="/user" /> : <LoginPage />}
             </Route>
 
             {/* If none of the other routes matched, we will show a 404. */}
