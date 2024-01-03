@@ -15,3 +15,7 @@ export const oNotes = () => {
 export const oFundraisers = () => {
   return useSelector((store) => store.orgFundraisers);
 };
+
+export const User = () => {
+  return useSelector((store) => store.user);
+};
