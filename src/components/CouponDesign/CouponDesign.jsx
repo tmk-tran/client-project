@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Typography, Card, CardContent } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
+import { dispatchHook } from "../../hooks/useDispatch";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import CouponViewer from "../CouponViewer/CouponViewer";
 
 export default function CouponDesign() {
-  const dispatch = useDispatch();
+  const dispatch = dispatchHook();
   const history = historyHook();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
