@@ -13,18 +13,6 @@ function RegisterPage() {
       {/* Commented out for deployment testing */}
       {/* <RegisterForm /> */}
 
-      {/* <center>
-        <Button
-          type="button"
-          variant="outlined"
-          className="btn btn_asLink"
-          onClick={() => {
-            history.push('/login');
-          }}
-        >
-          Login
-        </Button>
-      </center> */}
       <center>
         <h1>This appplication for ADMIN use only</h1>
       </center>
