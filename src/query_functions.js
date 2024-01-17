@@ -1,4 +1,4 @@
-import axios from "axios";
+
 
 function auth() {
     const AUTH_URL = "https://api.devii.io/auth";

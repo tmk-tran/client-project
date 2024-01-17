@@ -162,8 +162,8 @@ router.post("/newgroup", (req, res) => {
   //   res.sendStatus(500);
   // })
 // });
-//PUT route to update group department/sub-department, title, nickname, photo, and description
 
+//New update route that can be used to update general information or is_delete column probably
 router.post("/update/:id", (req, res) => {
   const id = req.params.id;
   const updatedGroup = req.body;
@@ -196,6 +196,7 @@ router.post("/update/:id", (req, res) => {
 })
 
 //Original update route
+//PUT route to update group department/sub-department, title, nickname, photo, and description
 // router.put('/:id', (req, res) => {
 //     const id = req.params.id;
 //     const updatedGroup = req.body;
