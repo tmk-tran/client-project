@@ -122,10 +122,10 @@ export default function NavLinks() {
               <MuiLink
                 component={Link}
                 className="main-navlink"
-                to="/new"
+                to="/tasks"
                 underline="hover"
               >
-                New Stuff
+                Tasks
               </MuiLink>
             </Typography>
 
