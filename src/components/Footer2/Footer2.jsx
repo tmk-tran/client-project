@@ -29,6 +29,9 @@ export default function Footer2() {
           backgroundColor: "#273B91",
           display: "flex",
           justifyContent: "center",
+          position: "fixed", // Set to "fixed" to keep it at the bottom
+          bottom: 0, // Stick it to the bottom of the screen
+          width: "100%", // Take up the full width
         }}
       >
         <div

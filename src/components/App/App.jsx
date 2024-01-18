@@ -61,7 +61,8 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <div>
-          <Nav />
+          {/* <Nav /> */}
+          <Header />
           <MenuLinks />
           <Switch>
             <Redirect exact from="/" to="/home" />
@@ -99,7 +100,7 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/new">
-              <Header />
+              {/* <Header /> */}
               {/* <Footer2 /> */}
             </ProtectedRoute>
 
@@ -135,7 +136,8 @@ function App() {
             </Route>
           </Switch>
         </div>
-        <Footer />
+        {/* <Footer /> */}
+        <Footer2 />
       </ThemeProvider>
     </Router>
   );
