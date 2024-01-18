@@ -4,7 +4,8 @@ import { Card, CardContent, Typography, MenuItem, Select } from "@mui/material";
 import "./TaskList.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import TaskCard from "../TaskCard/TaskCard";
-
+// ~~~~~~~~~~ Components ~~~~~~~~~~
+import TaskTabs from "../TaskTabs/TaskTabs";
 export default function TaskList() {
   // State to manage the selected tasks in each category
   const [newTask, setNewTask] = useState("");
@@ -34,7 +35,7 @@ export default function TaskList() {
         {newTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
-            <TaskCard />
+            <TaskCard newTask={newTask} />
           </MenuItem>
         ))}
       </Select>
@@ -53,7 +54,7 @@ export default function TaskList() {
         {inProgressTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
-            <TaskCard />
+            <TaskCard inProgressTask={inProgressTask} />
           </MenuItem>
         ))}
       </Select>
@@ -72,13 +73,14 @@ export default function TaskList() {
         {completeTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
-            <TaskCard />
+            <TaskCard completeTask={completeTask} />
           </MenuItem>
         ))}
       </Select>
 
       {/* Additional UI to display selected task details or move tasks between categories */}
       {/* Add your code here */}
+      <TaskTabs />
     </div>
   );
 }

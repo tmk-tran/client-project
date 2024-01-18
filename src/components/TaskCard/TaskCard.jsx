@@ -1,6 +1,14 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Select,
+  MenuItem,
+  Typography,
+  Button,
+} from "@mui/material";
 
-export default function TaskCard() {
+export default function TaskCard({ newTask }) {
+  // console.log(newTask);
   return (
     <Card style={{ width: "100%" }}>
       <CardContent>
@@ -23,6 +31,12 @@ export default function TaskCard() {
             style={{ border: "1px solid red" }}
           >
             Short description of task, entered during creation
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <Button>New</Button>
+            <Button>In Progress</Button>
+            <Button>Complete</Button>
           </div>
         </div>
       </CardContent>

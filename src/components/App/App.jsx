@@ -105,11 +105,6 @@ function App() {
               <TaskList />
             </ProtectedRoute>
 
-            <ProtectedRoute exact path="/new">
-              {/* <Header /> */}
-              {/* <Footer2 /> */}
-            </ProtectedRoute>
-
             <Route exact path="/login">
               {user.id ? (
                 // If the user is already logged in,
