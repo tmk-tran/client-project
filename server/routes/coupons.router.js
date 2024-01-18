@@ -69,7 +69,7 @@ router.post("/newcoupon", (req, res) => {
         });
 })
 
-// Post route to update a coupon via Devii api
+// Post route to update a coupon via Devii api, can be used for all update purposes
 router.post("/updatecoupon/:id", (req, res) => {
     const id = req.params.id
     const updatedCoupon = req.body

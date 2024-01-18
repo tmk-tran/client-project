@@ -3,9 +3,9 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  pool
-    .query(
-      `SELECT
+    pool
+        .query(
+            `SELECT
       o.*,
       COALESCE(group_count.total_groups, 0) AS total_groups,
       COALESCE(fundraiser_count.total_fundraisers, 0) AS total_fundraisers,
@@ -111,30 +111,30 @@ router.get("/", (req, res) => {
       o.is_deleted = true
   ORDER BY
       o.organization_name ASC;`
-    )
-    .then((response) => {
-      res.send(response.rows).status(200);
-    })
-    .catch((error) => {
-      console.log("Error in archived Organizations GET route", error);
-      res.sendStatus(500);
-    });
+        )
+        .then((response) => {
+            res.send(response.rows).status(200);
+        })
+        .catch((error) => {
+            console.log("Error in archived Organizations GET route", error);
+            res.sendStatus(500);
+        });
 });
 
 
 
 router.delete("/:id", (req, res) => {
-  pool
-    .query(`UPDATE "organization" SET is_deleted = false WHERE id = $1;`, [
-      req.params.id,
-    ])
-    .then((response) => {
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.log("Error with organizations DELETE route", error);
-      res.sendStatus(500);
-    });
+    pool
+        .query(`UPDATE "organization" SET is_deleted = false WHERE id = $1;`, [
+            req.params.id,
+        ])
+        .then((response) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log("Error with organizations DELETE route", error);
+            res.sendStatus(500);
+        });
 });
 
 // router.put("/:id", (req, res) => {

@@ -7,11 +7,11 @@ router.post("/", (req, res) => {
   const ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzUxMiJ9.eyJpYXQiOjE3MDU1OTYyNjcsIm5iZiI6MTcwNTU5NjI2NywianRpIjoiZmIxYzY3NTQtZjgwYy00ZWQzLWIyODYtYjY1OGRmNDIxYTlmIiwiZXhwIjoxNzA1NjgyNjY3LCJzdWIiOnsicm9sZWlkIjoyMDMzNiwidGVuYW50aWQiOjEwMTIxfSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.AKIXSsD4UrVxu6aIsgmwhOnao48Xy6g-WSkCy_lQbx_RUmyDXmKLOulPnu_qFJ6mtY4ufXenp909FspQoTcJZ_tbAewI92iE2fd7cyqd7A8OZzmBbw2BysWOdFi0MZr4n2e4cRlLtAylP6_R8FX7neyh4qIgXFsN0gJYjOLuewAy0vuK";
   const QUERY_URL = "https://api.devii.io/query";
   const query = "{\r\n    user {\r\n id\r\n username\r\n password\r\n is_admin\r\n is_deleted\r\n user_group_collection{\r\n id\r\n group_id\r\n user_id\r\n group_admin\r\n}\r\n}\r\n}";
-  
+
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
   myHeaders.append("Content-Type", "application/json");
-  
+
   var graphql = JSON.stringify({
     query: query,
     variables: {},
@@ -22,14 +22,17 @@ router.post("/", (req, res) => {
     body: graphql,
     redirect: "follow",
   };
-  
+
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.text())
-     .then((result) => {console.log(result);
-    res.sendStatus(200)})
-    .catch((error) => {console.log("Error getting data from Devii", error)
-    res.sendStatus(500)
-  });
+    .then((result) => {
+      console.log(result);
+      res.sendStatus(200)
+    })
+    .catch((error) => {
+      console.log("Error getting data from Devii", error)
+      res.sendStatus(500)
+    });
 })
 
 
@@ -81,13 +84,13 @@ router.post("/", (req, res) => {
 //Origional put route to add to user groups table
 // router.put('/', (req, res) => {
 //     const groups = req.body.groups; // Access the groups array
-  
+
 //     const updatePromises = groups.map((group) => {
 //       const queryText = 'UPDATE "user-group" SET "group_admin" = $1 WHERE "id" = $2;';
-  
+
 //       return pool.query(queryText, [group.group_admin, group.id]);
 //     });
-  
+
 //     // Wait for all update queries to complete
 //     Promise.all(updatePromises)
 //       .then(() => {

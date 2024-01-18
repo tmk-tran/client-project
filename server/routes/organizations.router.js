@@ -3,9 +3,9 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  pool
-    .query(
-      `  SELECT
+    pool
+        .query(
+            `  SELECT
       o.*,
       COALESCE(group_count.total_groups, 0) AS total_groups,
       COALESCE(fundraiser_count.total_fundraisers, 0) AS total_fundraisers,
@@ -111,22 +111,22 @@ router.get("/", (req, res) => {
       o.is_deleted = false
   ORDER BY
       o.organization_name ASC;`
-    )
-    .then((response) => {
-      res.send(response.rows).status(200);
-    })
-    .catch((error) => {
-      console.log("Error in organizations GET route", error);
-      res.sendStatus(500);
-    });
+        )
+        .then((response) => {
+            res.send(response.rows).status(200);
+        })
+        .catch((error) => {
+            console.log("Error in organizations GET route", error);
+            res.sendStatus(500);
+        });
 });
 
 // POST ROUTE
 router.post("/", (req, res) => {
-  const organization = req.body;
-  console.log(req.body);
-  console.log(req.user);
-  const queryText = `
+    const organization = req.body;
+    console.log(req.body);
+    console.log(req.user);
+    const queryText = `
       INSERT INTO "organization" (
         "organization_name",
         "type",
@@ -143,48 +143,48 @@ router.post("/", (req, res) => {
       )
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
 
-  pool
-    .query(queryText, [
-      organization.organization_name,
-      organization.type,
-      organization.address,
-      organization.city,
-      organization.state,
-      organization.zip,
-      organization.primary_contact_first_name,
-      organization.primary_contact_last_name,
-      organization.primary_contact_phone,
-      organization.primary_contact_email,
-      organization.organization_earnings,
-      organization.organization_logo
-    ])
-    .then((response) => {
-      res.sendStatus(201);
-    })
-    .catch((err) => {
-      console.log("error in organizations POST route", err);
-      res.sendStatus(500);
-    });
+    pool
+        .query(queryText, [
+            organization.organization_name,
+            organization.type,
+            organization.address,
+            organization.city,
+            organization.state,
+            organization.zip,
+            organization.primary_contact_first_name,
+            organization.primary_contact_last_name,
+            organization.primary_contact_phone,
+            organization.primary_contact_email,
+            organization.organization_earnings,
+            organization.organization_logo
+        ])
+        .then((response) => {
+            res.sendStatus(201);
+        })
+        .catch((err) => {
+            console.log("error in organizations POST route", err);
+            res.sendStatus(500);
+        });
 });
 
 // DELETE
 router.delete("/:id", (req, res) => {
-  pool
-    .query(`UPDATE "organization" SET is_deleted = true WHERE id = $1;`, [
-      req.params.id,
-    ])
-    .then((response) => {
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.log("Error with organizations DELETE route", error);
-      res.sendStatus(500);
-    });
+    pool
+        .query(`UPDATE "organization" SET is_deleted = true WHERE id = $1;`, [
+            req.params.id,
+        ])
+        .then((response) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log("Error with organizations DELETE route", error);
+            res.sendStatus(500);
+        });
 });
 
 router.put("/:id", (req, res) => {
-  const organization = req.body;
-  const queryText = `
+    const organization = req.body;
+    const queryText = `
   UPDATE "organization" 
   SET "organization_name" = $1, "type" = $2, "address" = $3,
       "city" = $4,
@@ -197,29 +197,29 @@ router.put("/:id", (req, res) => {
       "organization_earnings" = $11,
       "organization_logo" = $12
   WHERE "id" = $13;`;
-  pool
-    .query(queryText, [
-      organization.organization_name,
-      organization.type,
-      organization.address,
-      organization.city,
-      organization.state,
-      organization.zip,
-      organization.primary_contact_first_name,
-      organization.primary_contact_last_name,
-      organization.primary_contact_phone,
-      organization.primary_contact_email,
-      organization.organization_earnings,
-      organization.organization_logo,
-      req.params.id,
-    ])
-    .then((response) => {
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log("error with organizations PUT route", err);
-      res.sendStatus(500);
-    });
+    pool
+        .query(queryText, [
+            organization.organization_name,
+            organization.type,
+            organization.address,
+            organization.city,
+            organization.state,
+            organization.zip,
+            organization.primary_contact_first_name,
+            organization.primary_contact_last_name,
+            organization.primary_contact_phone,
+            organization.primary_contact_email,
+            organization.organization_earnings,
+            organization.organization_logo,
+            req.params.id,
+        ])
+        .then((response) => {
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            console.log("error with organizations PUT route", err);
+            res.sendStatus(500);
+        });
 });
 
 module.exports = router;
