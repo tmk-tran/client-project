@@ -100,6 +100,10 @@ function App() {
               <CouponDesign />
             </ProtectedRoute>
 
+            <ProtectedRoute exact path="/tasks">
+              {/* <TaskList /> */}
+            </ProtectedRoute>
+
             <ProtectedRoute exact path="/new">
               {/* <Header /> */}
               {/* <Footer2 /> */}

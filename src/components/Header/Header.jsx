@@ -7,6 +7,7 @@ import "./Header.css";
 import { User } from "../../hooks/reduxStore";
 export default function Header() {
   const user = User();
+
   return (
     <>
       <div style={{ height: "88px", backgroundColor: "#273B91" }}>
