@@ -21,12 +21,20 @@ const AccountMenu = () => {
         width: "216px",
         height: "48px",
         border: "1px solid gray",
+        padding: "0 10px",
       }}
       renderValue={(
         selected // <-- this allows the menu item to not be shown for username, just the placeholder on the menu is shown instead
       ) => (
-        <Typography style={{ color: selected ? "black" : "white" }}>
-          {selected || "Username"}
+        <Typography
+          style={{
+            color: selected ? "black" : "white",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <PersonIcon />
+          &nbsp;&nbsp;{selected || "Username"}
         </Typography>
       )}
     >

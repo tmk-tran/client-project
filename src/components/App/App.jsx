@@ -23,6 +23,7 @@ import GlobalFundraiserInput from "../GlobalFundraiserInput/GlobalFundraiserInpu
 import CouponDesign from "../CouponDesign/CouponDesign";
 import Header from "../Header/Header";
 import Footer2 from "../Footer2/Footer2";
+import Footer3 from "../Footer3/Footer3";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -137,7 +138,8 @@ function App() {
           </Switch>
         </div>
         {/* <Footer /> */}
-        <Footer2 />
+        {/* <Footer2 /> */}
+        <Footer3 />
       </ThemeProvider>
     </Router>
   );
