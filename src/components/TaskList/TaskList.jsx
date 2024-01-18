@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Typography, MenuItem, Select } from "@mui/material";
+import { Card, CardContent, Typography, MenuItem, Select } from "@mui/material";
 import "./TaskList.css";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import TaskCard from "../TaskCard/TaskCard";
 
 export default function TaskList() {
   // State to manage the selected tasks in each category
@@ -14,6 +16,8 @@ export default function TaskList() {
   const inProgressTasks = ["Task 4", "Task 5"];
   const completeTasks = ["Task 6", "Task 7", "Task 8"];
 
+  const getNumOptions = (tasks) => tasks.filter(Boolean).length;
+
   return (
     <div className="list-container">
       {/* Dropdown for New Tasks */}
@@ -23,13 +27,14 @@ export default function TaskList() {
         displayEmpty
         renderValue={() => (
           <Typography style={{ display: "flex", alignItems: "center" }}>
-            New
+            New ({getNumOptions(newTasks)})
           </Typography>
         )}
       >
         {newTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
+            <TaskCard />
           </MenuItem>
         ))}
       </Select>
@@ -41,13 +46,14 @@ export default function TaskList() {
         displayEmpty
         renderValue={() => (
           <Typography style={{ display: "flex", alignItems: "center" }}>
-            In Progress
+            In Progress ({getNumOptions(inProgressTasks)})
           </Typography>
         )}
       >
         {inProgressTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
+            <TaskCard />
           </MenuItem>
         ))}
       </Select>
@@ -59,13 +65,14 @@ export default function TaskList() {
         displayEmpty
         renderValue={() => (
           <Typography style={{ display: "flex", alignItems: "center" }}>
-            Complete
+            Complete ({getNumOptions(completeTasks)})
           </Typography>
         )}
       >
         {completeTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
+            <TaskCard />
           </MenuItem>
         ))}
       </Select>
