@@ -66,7 +66,7 @@ router.post("/newlocation", (req, res) => {
             console.log("Error getting data from Devii", error)
             res.sendStatus(500)
         });
-})
+});
 
 // Post route to update an existing location via Devii api
 router.post("/updatelocation/:id", (req, res) => {
