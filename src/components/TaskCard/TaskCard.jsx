@@ -13,6 +13,7 @@ export default function TaskCard({ newTask }) {
     <Card style={{ width: "100%" }}>
       <CardContent>
         <div className="list-details-card">
+            
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div className="org-name-section">
               <Typography sx={{ fontWeight: "bold" }}>
@@ -38,6 +39,7 @@ export default function TaskCard({ newTask }) {
             <Button>In Progress</Button>
             <Button>Complete</Button>
           </div>
+
         </div>
       </CardContent>
     </Card>
