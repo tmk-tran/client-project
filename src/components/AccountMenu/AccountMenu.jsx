@@ -45,7 +45,7 @@ const AccountMenu = () => {
     >
       <MenuItem value="profile" onClick={() => {history.push(`/userProfile/${user.id}`)}}>Profile</MenuItem>
       <hr style={{ width: "80%" }} />
-      <MenuItem value="organizations" onClick={() => {history.push('/tasks')}}>Tasks</MenuItem>
+      <MenuItem value="tasks" onClick={() => {history.push('/tasks')}}>Tasks</MenuItem>
       <MenuItem value="organizations" onClick={() => {history.push('/home')}}>Organizations</MenuItem>
       <MenuItem value="merchants">Merchants</MenuItem>
       <MenuItem value="coupons">Coupons</MenuItem>
