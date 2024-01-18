@@ -134,90 +134,156 @@ ORDER BY "f".id ASC, "f".closed = false;`;
     });
 });
 
-//Post route for a new fundraiser, data comes from form inputs
+// New post route to create a new fundraiser with the Devii api
 router.post("/", (req, res) => {
-  const newFundraiser = req.body;
-  console.log(req.body);
-  const queryText = `INSERT INTO "fundraiser" ("group_id", "title", "description", "requested_book_quantity", "book_quantity_checked_out", "goal", "start_date", "end_date", "coupon_book_id", "books_sold", "book_quantity_checked_in", "money_received")
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
-
-  pool.query(queryText, [newFundraiser.group_id, newFundraiser.title, newFundraiser.description, newFundraiser.requested_book_quantity, newFundraiser.book_quantity_checked_out, newFundraiser.goal, newFundraiser.start_date, newFundraiser.end_date, newFundraiser.coupon_book_id, newFundraiser.books_sold, newFundraiser.book_quantity_checked_in, newFundraiser.money_received])
-    .then(() => {
-      res.sendStatus(201);
-    })
-    .catch((err) => {
-      console.log("Error adding new fundraiser", err);
-      res.sendStatus(500);
-    });
+  const ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzUxMiJ9.eyJpYXQiOjE3MDU0MzA2NjMsIm5iZiI6MTcwNTQzMDY2MywianRpIjoiYzA3ZWNlMGEtNjdmYS00NjBiLThmOGQtZjc3M2NlNDk5OWY2IiwiZXhwIjoxNzA1NTE3MDYzLCJzdWIiOnsicm9sZWlkIjoyMDMzNiwidGVuYW50aWQiOjEwMTIxfSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.Af36SYvSr6U3MO7sIRQKYlK9vf1xrphIsIdt50e7nz7oI2LEFLA42Q9MyiL0tN84YjfMYPNmkm3j7gPgnAlGkLO6ANBj4h9UVSdTYXqElXD3TkRiJ4Gduf_J2wQCpEhewL7oBzBotxT-3BIFszGluwujCSW7afoQUH6YkpjVEIP0KaP6";
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n  mutation{\r\n create_fundraiser(\r\n input:{\r\n group_id: 1\r\n group_id: 1\r\n title: "string"\r\n description: "string"\r\n requested_book_quantity: 1\r\n book_quantity_checked_out: 1\r\n book_quantity_checked_in: 1\r\n books_sold: 1\r\n money_received: 1\r\n start_date: Date\r\n end_date: Date\r\n coupon_book_id: 1\r\n goal: 1\r\n }\r\n ){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}`;
+  
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+  
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+  
+  fetch(QUERY_URL, requestOptions)
+    .then((response) => response.text())
+     .then((result) => {console.log(result);
+    res.sendStatus(200)})
+    .catch((error) => {console.log("Error getting data from Devii", error)
+    res.sendStatus(500)
+  });
 });
 
-//Put route for updating amounts of books and money in a fundraiser
+
+// Old post route to create a new fundraiser
+// //Post route for a new fundraiser, data comes from form inputs
+// router.post("/", (req, res) => {
+//   const newFundraiser = req.body;
+//   console.log(req.body);
+//   const queryText = `INSERT INTO "fundraiser" ("group_id", "title", "description", "requested_book_quantity", "book_quantity_checked_out", "goal", "start_date", "end_date", "coupon_book_id", "books_sold", "book_quantity_checked_in", "money_received")
+//   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
+
+//   pool.query(queryText, [newFundraiser.group_id, newFundraiser.title, newFundraiser.description, newFundraiser.requested_book_quantity, newFundraiser.book_quantity_checked_out, newFundraiser.goal, newFundraiser.start_date, newFundraiser.end_date, newFundraiser.coupon_book_id, newFundraiser.books_sold, newFundraiser.book_quantity_checked_in, newFundraiser.money_received])
+//     .then(() => {
+//       res.sendStatus(201);
+//     })
+//     .catch((err) => {
+//       console.log("Error adding new fundraiser", err);
+//       res.sendStatus(500);
+//     });
+// });
+
+//New update route that uses Devii api, can be used for all updates
 router.put("/:id", (req, res) => {
   const id = req.params.id;
-  const updatedAmount = req.body;
-  console.log(updatedAmount);
-  const queryText = `UPDATE "fundraiser" SET "title" = $1, "book_quantity_checked_out" = $2, "book_quantity_checked_in" = $3, "books_sold" = $4, "money_received" = $5, "goal" = $6 WHERE "id" = $7;`;
+  const updatedFundraiser = req.body;
+  const ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzUxMiJ9.eyJpYXQiOjE3MDU0MzA2NjMsIm5iZiI6MTcwNTQzMDY2MywianRpIjoiYzA3ZWNlMGEtNjdmYS00NjBiLThmOGQtZjc3M2NlNDk5OWY2IiwiZXhwIjoxNzA1NTE3MDYzLCJzdWIiOnsicm9sZWlkIjoyMDMzNiwidGVuYW50aWQiOjEwMTIxfSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.Af36SYvSr6U3MO7sIRQKYlK9vf1xrphIsIdt50e7nz7oI2LEFLA42Q9MyiL0tN84YjfMYPNmkm3j7gPgnAlGkLO6ANBj4h9UVSdTYXqElXD3TkRiJ4Gduf_J2wQCpEhewL7oBzBotxT-3BIFszGluwujCSW7afoQUH6YkpjVEIP0KaP6";
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n  mutation{\r\n update_fundraiser(\r\n input:{\r\n  title: ${updatedFundraiser.newTitle}\r\n book_quantity_checked_out: ${updatedFundraiser.newBookCheckedOut}\r\n book_quantity_checked_in: ${updatedFundraiser.newBooksCheckedIn}\r\n books_sold: ${updatedFundraiser.newBooksSold}\r\n money_received: ${updatedFundraiser.newMoneyReceived}\r\n is_deleted: ${updatedFundraiser.is_deleted}\r\n closed: ${updatedFundraiser.closed}\r\n goal: ${updatedFundraiser.newGoal}\r\n}\r\n id: ${id}\r\n ){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n}`;
+  
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+  
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+  
+  fetch(QUERY_URL, requestOptions)
+    .then((response) => response.text())
+     .then((result) => {console.log(result);
+    res.sendStatus(200)})
+    .catch((error) => {console.log("Error getting data from Devii", error)
+    res.sendStatus(500)
+  });
+})
 
-  pool
-    .query(queryText, [
-      updatedAmount.title,
-      updatedAmount.newBooksCheckedOut,
-      updatedAmount.newBooksCheckedIn,
-      updatedAmount.newBooksSold,
-      updatedAmount.newMoneyReceived,
-      updatedAmount.newGoal,
-      id,
-    ])
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log("Error in updating amounts", err);
-      res.sendStatus(500);
-    });
-});
-//PUT route that sets a fundraiser to closed
-router.put("/close/:id", (req, res) => {
-  const id = req.params.id;
-  const queryText = `UPDATE "fundraiser" SET "closed" = 'true' WHERE "id" = $1;`;
-  pool
-    .query(queryText, [id])
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log("Error in closing fundraiser", err);
-      res.sendStatus(500);
-    });
-});
-//PUT route to reopen a fundraiser
-router.put("/open/:id", (req, res) => {
-  const id = req.params.id;
-  const queryText = `UPDATE "fundraiser" SET "closed" = 'false' WHERE "id" = $1;`;
-  pool
-    .query(queryText, [id])
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log("Error in opening fundraiser", err);
-      res.sendStatus(500);
-    });
-});
+// Origional put routes for updates
 
-//Delete route to set a fundraiser to deleted, not used in current scope of admin dashboard
-router.put("/delete/:id", (req, res) => {
-  const id = req.params.id;
-  const queryText = `UPDATE "fundraiser" SET "is_deleted" = 'true' WHERE "id" = $1;`;
-  pool
-    .query(queryText, [id])
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log("Error in deleting fundraiser", err);
-      res.sendStatus(500);
-    });
-});
+// //Put route for updating amounts of books and money in a fundraiser
+// router.put("/:id", (req, res) => {
+//   const id = req.params.id;
+//   const updatedAmount = req.body;
+//   console.log(updatedAmount);
+//   const queryText = `UPDATE "fundraiser" SET "title" = $1, "book_quantity_checked_out" = $2, "book_quantity_checked_in" = $3, "books_sold" = $4, "money_received" = $5, "goal" = $6 WHERE "id" = $7;`;
+
+//   pool
+//     .query(queryText, [
+//       updatedAmount.title,
+//       updatedAmount.newBooksCheckedOut,
+//       updatedAmount.newBooksCheckedIn,
+//       updatedAmount.newBooksSold,
+//       updatedAmount.newMoneyReceived,
+//       updatedAmount.newGoal,
+//       id,
+//     ])
+//     .then(() => {
+//       res.sendStatus(200);
+//     })
+//     .catch((err) => {
+//       console.log("Error in updating amounts", err);
+//       res.sendStatus(500);
+//     });
+// });
+// //PUT route that sets a fundraiser to closed
+// router.put("/close/:id", (req, res) => {
+//   const id = req.params.id;
+//   const queryText = `UPDATE "fundraiser" SET "closed" = 'true' WHERE "id" = $1;`;
+//   pool
+//     .query(queryText, [id])
+//     .then(() => {
+//       res.sendStatus(200);
+//     })
+//     .catch((err) => {
+//       console.log("Error in closing fundraiser", err);
+//       res.sendStatus(500);
+//     });
+// });
+// //PUT route to reopen a fundraiser
+// router.put("/open/:id", (req, res) => {
+//   const id = req.params.id;
+//   const queryText = `UPDATE "fundraiser" SET "closed" = 'false' WHERE "id" = $1;`;
+//   pool
+//     .query(queryText, [id])
+//     .then(() => {
+//       res.sendStatus(200);
+//     })
+//     .catch((err) => {
+//       console.log("Error in opening fundraiser", err);
+//       res.sendStatus(500);
+//     });
+// });
+
+// //Delete route to set a fundraiser to deleted, not used in current scope of admin dashboard
+// router.put("/delete/:id", (req, res) => {
+//   const id = req.params.id;
+//   const queryText = `UPDATE "fundraiser" SET "is_deleted" = 'true' WHERE "id" = $1;`;
+//   pool
+//     .query(queryText, [id])
+//     .then(() => {
+//       res.sendStatus(200);
+//     })
+//     .catch((err) => {
+//       console.log("Error in deleting fundraiser", err);
+//       res.sendStatus(500);
+//     });
+// });
 
 module.exports = router;
