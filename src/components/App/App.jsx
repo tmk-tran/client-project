@@ -99,8 +99,8 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/new">
-              {/* <Header /> */}
-              <Footer2 />
+              <Header />
+              {/* <Footer2 /> */}
             </ProtectedRoute>
 
             <Route exact path="/login">

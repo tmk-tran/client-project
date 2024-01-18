@@ -1,52 +1,44 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import React from "react";
+import { Select, MenuItem, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
+import "./AccountMenu.css";
 
-export default function AccountMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
+const AccountMenu = () => {
+  const handleMenuChange = (event) => {
+    // Handle menu item selection
+    console.log(event.target.value);
   };
 
   return (
-    <div style={{ display: "flex" }}>
-      <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-        sx={{ color: "white", backgroundColor: "#19338E" }}
-        // variant="contained"
-      >
-        <PersonIcon />
-        Username Here
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        {/* <Select placeholder="Username" displayEmpty inputProps={{ "aria-label": "Username" }}> */}
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Organizations</MenuItem>
-        <MenuItem onClick={handleClose}>Merchants</MenuItem>
-        <MenuItem onClick={handleClose}>Coupons</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
-      {/* </Select> */}
-    </div>
+    <Select
+      value=""
+      onChange={handleMenuChange}
+      displayEmpty
+      inputProps={{ "aria-label": "Account Menu" }}
+      style={{
+        minWidth: "120px",
+        backgroundColor: "#19338E",
+        width: "216px",
+        height: "48px",
+        border: "1px solid gray",
+      }}
+      renderValue={(
+        selected // <-- this allows the menu item to not be shown for username, just the placeholder on the menu is shown instead
+      ) => (
+        <Typography style={{ color: selected ? "black" : "white" }}>
+          {selected || "Username"}
+        </Typography>
+      )}
+    >
+      <MenuItem value="profile">Profile</MenuItem>
+      <hr style={{ width: "80%" }} />
+      <MenuItem value="organizations">Organizations</MenuItem>
+      <MenuItem value="merchants">Merchants</MenuItem>
+      <MenuItem value="coupons">Coupons</MenuItem>
+      <hr style={{ width: "80%" }} />
+      <MenuItem value="logout">Logout</MenuItem>
+    </Select>
   );
-}
+};
+
+export default AccountMenu;

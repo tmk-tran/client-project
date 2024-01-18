@@ -9,7 +9,9 @@ export default function Header() {
         src="../images/main-logo.jpg"
         alt="Preferred Saving Guide logo in colors blue and gold"
       />
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
       <AccountMenu />
+      </div>
       </div>
     </div>
   );
