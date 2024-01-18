@@ -34,9 +34,9 @@ export default function Footer2() {
             }}
           >
             <div>
-                <div style={{display: "flex", justifyContent: "center" }}>
-                <LinksSocial style={{ color: "white" }} />
-                </div>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <LinksSocial colors={["white", "white", "white", "white"]} />
+              </div>
               <br />
               <br />
               <Typography variant="body2">
