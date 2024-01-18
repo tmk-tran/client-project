@@ -65,11 +65,12 @@ router.post("/new", (req, res) => {
 });
 
 //Post route to update a region via Devii api
-router.post("/update", (req, res) => {
+router.post("/update/:id", (req, res) => {
+    const id = req.params.id;
     const updatedRegion = req.body;
     const ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzUxMiJ9.eyJpYXQiOjE3MDU0MzA2NjMsIm5iZiI6MTcwNTQzMDY2MywianRpIjoiYzA3ZWNlMGEtNjdmYS00NjBiLThmOGQtZjc3M2NlNDk5OWY2IiwiZXhwIjoxNzA1NTE3MDYzLCJzdWIiOnsicm9sZWlkIjoyMDMzNiwidGVuYW50aWQiOjEwMTIxfSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.Af36SYvSr6U3MO7sIRQKYlK9vf1xrphIsIdt50e7nz7oI2LEFLA42Q9MyiL0tN84YjfMYPNmkm3j7gPgnAlGkLO6ANBj4h9UVSdTYXqElXD3TkRiJ4Gduf_J2wQCpEhewL7oBzBotxT-3BIFszGluwujCSW7afoQUH6YkpjVEIP0KaP6";
     const QUERY_URL = "https://api.devii.io/query";
-    const query = `{\r\n mutation{\r\n update_region(\r\n input:{\r\n region_name: ${updatedRegion.name}\r\n} id: ${updatedRegion.id} \r\n){\r\n id\r\n region_name\r\n \r\n}`;
+    const query = `{\r\n mutation{\r\n update_region(\r\n input:{\r\n region_name: ${updatedRegion.name}\r\n} id: ${id} \r\n){\r\n id\r\n region_name\r\n \r\n}`;
     
    
     var myHeaders = new Headers();
@@ -95,3 +96,5 @@ router.post("/update", (req, res) => {
       res.sendStatus(500)
     });
 });
+
+module.exports = router
