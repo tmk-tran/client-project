@@ -99,7 +99,7 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/new">
-              <Header />
+              {/* <Header /> */}
               <Footer2 />
             </ProtectedRoute>
 

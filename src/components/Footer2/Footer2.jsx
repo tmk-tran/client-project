@@ -23,13 +23,25 @@ const theme = createTheme({
 export default function Footer2() {
   return (
     <ThemeProvider theme={theme}>
-      <div style={{ height: "235px", backgroundColor: "#273B91" }}>
-        <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          height: "235px",
+          backgroundColor: "#273B91",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
-              border: "1px solid white",
               width: "70vw",
             }}
           >
