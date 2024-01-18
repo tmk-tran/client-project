@@ -40,7 +40,7 @@ export default function NavLinks() {
         {/* If no user is logged in, show these links */}
         {!user.id && (
           <>
-          {/* <Typography>
+            {/* <Typography>
             <MuiLink
               component={Link}
               className="main-navlink"
@@ -50,27 +50,27 @@ export default function NavLinks() {
               View Organizations
             </MuiLink>
           </Typography> */}
-          <Typography>
-            <MuiLink
-              component={Link}
-              className="main-navlink"
-              to="/login"
-              underline="hover"
-            >
-             Login / Register
-            </MuiLink>
-          </Typography>
-          <Typography>
-            <MuiLink
-              component={Link}
-              className="main-navlink"
-              to="/about"
-              underline="hover"
-            >
-              About
-            </MuiLink>
-          </Typography>
-        </>
+            <Typography>
+              <MuiLink
+                component={Link}
+                className="main-navlink"
+                to="/login"
+                underline="hover"
+              >
+                Login / Register
+              </MuiLink>
+            </Typography>
+            <Typography>
+              <MuiLink
+                component={Link}
+                className="main-navlink"
+                to="/about"
+                underline="hover"
+              >
+                About
+              </MuiLink>
+            </Typography>
+          </>
         )}
 
         {/* If a user is logged in, show these links */}
@@ -117,6 +117,17 @@ export default function NavLinks() {
                 Coupon
               </MuiLink>
             </Typography> */}
+
+            <Typography>
+              <MuiLink
+                component={Link}
+                className="main-navlink"
+                to="/new"
+                underline="hover"
+              >
+                New Stuff
+              </MuiLink>
+            </Typography>
 
             <Typography>
               <MuiLink

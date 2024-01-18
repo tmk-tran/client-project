@@ -21,6 +21,9 @@ import MenuLinks from "../MenuLinks/MenuLinks";
 import ArchivedOrganizations from "../ArchivedOrganizations/ArchivedOrganizations";
 import GlobalFundraiserInput from "../GlobalFundraiserInput/GlobalFundraiserInput";
 import CouponDesign from "../CouponDesign/CouponDesign";
+import Header from "../Header/Header";
+import Footer2 from "../Footer2/Footer2";
+import Footer3 from "../Footer3/Footer3";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -59,7 +62,8 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <div>
-          <Nav />
+          {/* <Nav /> */}
+          <Header />
           <MenuLinks />
           <Switch>
             <Redirect exact from="/" to="/home" />
@@ -96,6 +100,15 @@ function App() {
               <CouponDesign />
             </ProtectedRoute>
 
+            <ProtectedRoute exact path="/tasks">
+              {/* <TaskList /> */}
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/new">
+              {/* <Header /> */}
+              {/* <Footer2 /> */}
+            </ProtectedRoute>
+
             <Route exact path="/login">
               {user.id ? (
                 // If the user is already logged in,
@@ -128,7 +141,9 @@ function App() {
             </Route>
           </Switch>
         </div>
-        <Footer />
+        {/* <Footer /> */}
+        {/* <Footer2 /> */}
+        <Footer3 />
       </ThemeProvider>
     </Router>
   );
