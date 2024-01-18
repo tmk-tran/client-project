@@ -1,14 +1,16 @@
 import React from "react";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { historyHook } from "../../hooks/useHistory";
+import { User } from "../../hooks/reduxStore";
+// ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Select, MenuItem, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import "./AccountMenu.css";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { historyHook } from "../../hooks/useHistory";
-import { useSelector } from "react-redux";
 
 const AccountMenu = () => {
-  const user = useSelector((store) => store.user);
+  const user = User();
   const history = historyHook();
+
   const handleMenuChange = (event) => {
     // Handle menu item selection
     console.log(event.target.value);
@@ -28,18 +30,16 @@ const AccountMenu = () => {
         border: "1px solid gray",
         padding: "0 10px",
       }}
-      renderValue={(
-        selected // <-- this allows the menu item to not be shown for username, just the placeholder on the menu is shown instead
-      ) => (
+      renderValue={() => (
         <Typography
           style={{
-            color: selected ? "black" : "white",
+            color: "white",
             display: "flex",
             alignItems: "center",
           }}
         >
           <PersonIcon />
-          &nbsp;&nbsp;{selected || "Username"}
+          &nbsp;&nbsp;{user.username}
         </Typography>
       )}
     >
@@ -51,7 +51,7 @@ const AccountMenu = () => {
       >
         Profile
       </MenuItem>
-      <hr style={{ width: "80%" }} />
+      <hr style={{ width: "90%" }} />
       <MenuItem
         value="tasks"
         onClick={() => {
@@ -70,7 +70,7 @@ const AccountMenu = () => {
       </MenuItem>
       <MenuItem value="merchants">Merchants</MenuItem>
       <MenuItem value="coupons">Coupons</MenuItem>
-      <hr style={{ width: "80%" }} />
+      <hr style={{ width: "90%" }} />
       <MenuItem value="logout">Logout</MenuItem>
     </Select>
   );
