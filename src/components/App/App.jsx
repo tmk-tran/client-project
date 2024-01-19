@@ -24,7 +24,6 @@ import CouponDesign from "../CouponDesign/CouponDesign";
 import Header from "../Header/Header";
 import Footer2 from "../Footer2/Footer2";
 import Footer3 from "../Footer3/Footer3";
-import TaskList from "../TaskList/TaskList";
 import TaskTabs from "../TaskTabs/TaskTabs";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -103,7 +102,6 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/tasks">
-              {/* <TaskList /> */}
               <TaskTabs />
             </ProtectedRoute>
 

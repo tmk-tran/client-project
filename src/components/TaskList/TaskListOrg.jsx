@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Card, CardContent, Typography, MenuItem, Select } from "@mui/material";
+import { Typography, MenuItem, Select } from "@mui/material";
 import "./TaskList.css";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import TaskCard from "../TaskCard/TaskCard";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import TaskTabs from "../TaskTabs/TaskTabs";
-export default function TaskList() {
+import TaskCardOrg from "../TaskCard/TaskCardOrg";
+
+export default function TaskListOrg() {
   // State to manage the selected tasks in each category
   const [newTask, setNewTask] = useState("");
   const [inProgressTask, setInProgressTask] = useState("");
@@ -35,7 +34,7 @@ export default function TaskList() {
         {newTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
-            <TaskCard newTask={newTask} />
+            <TaskCardOrg newTask={newTask} />
           </MenuItem>
         ))}
       </Select>
@@ -54,7 +53,7 @@ export default function TaskList() {
         {inProgressTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
-            <TaskCard inProgressTask={inProgressTask} />
+            <TaskCardOrg inProgressTask={inProgressTask} />
           </MenuItem>
         ))}
       </Select>
@@ -73,7 +72,7 @@ export default function TaskList() {
         {completeTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
-            <TaskCard completeTask={completeTask} />
+            <TaskCardOrg completeTask={completeTask} />
           </MenuItem>
         ))}
       </Select>

@@ -1,13 +1,11 @@
 import {
   Card,
   CardContent,
-  Select,
-  MenuItem,
   Typography,
   Button,
 } from "@mui/material";
 
-export default function TaskCard({ newTask }) {
+export default function TaskCardOrg({ newTask }) {
   // console.log(newTask);
   return (
     <Card style={{ width: "100%" }}>

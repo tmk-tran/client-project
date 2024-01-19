@@ -4,8 +4,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
-import TaskList from "../TaskList/TaskList";
+// ~~~~~~~~~~ Components ~~~~~~~~~~
+import TaskListOrg from "../TaskList/TaskListOrg";
+import TaskListMerchant from "../TaskList/TaskListMerchant";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -61,10 +62,10 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-      <TaskList />
+        <TaskListOrg />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        <TaskListMerchant />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Item Three
