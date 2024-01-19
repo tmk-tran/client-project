@@ -42,15 +42,26 @@ export default function BasicModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography variant="h6" sx={{ textAlign: "center" }}>
             New Task
           </Typography>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Select sx={{ margin: "5px 0" }}></Select>
-            <Select sx={{ margin: "5px 0" }}></Select>
-            <Select sx={{ margin: "5px 0" }}></Select>
-            <Select sx={{ margin: "5px 0" }}></Select>
+            <Select sx={{ margin: "5px 0" }}>
+              <MenuItem>Book</MenuItem>
+              <MenuItem>Contact</MenuItem>
+              <MenuItem>Coupon</MenuItem>
+              <MenuItem>Task</MenuItem>
+            </Select>
+            <Select sx={{ margin: "5px 0" }}>
+              <MenuItem></MenuItem>
+            </Select>
+            <Select sx={{ margin: "5px 0" }}>
+              <MenuItem></MenuItem>
+            </Select>
+            <Select sx={{ margin: "5px 0" }}>
+              <MenuItem></MenuItem>
+            </Select>
             <DatePicker />
           </div>
 
