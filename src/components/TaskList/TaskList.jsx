@@ -80,7 +80,6 @@ export default function TaskList() {
 
       {/* Additional UI to display selected task details or move tasks between categories */}
       {/* Add your code here */}
-      <TaskTabs />
     </div>
   );
 }

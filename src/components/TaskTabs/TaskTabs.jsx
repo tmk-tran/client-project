@@ -48,7 +48,7 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "70vw", margin: "0 auto" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -61,8 +61,7 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        {/* <TaskList /> */}
-        <div style={{ border: "1px solid red" }}>TaskList goes here</div>
+      <TaskList />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Item Two
