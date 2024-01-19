@@ -1,12 +1,13 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Tab, Tabs, Typography, Box, CardContent } from "@mui/material";
+import { Tab, Tabs, Box, Button } from "@mui/material";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import SearchBar from "../SearchBar/SearchBar";
 import TaskListOrg from "../TaskList/TaskListOrg";
 import TaskListMerchant from "../TaskList/TaskListMerchant";
+import NewTaskModal from "../NewTaskModal/NewTaskModal";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,7 +47,7 @@ export default function BasicTabs() {
 
   return (
     <Box
-      sx={{ width: "70vw", margin: "0 auto", height: "80vh", padding: "40px" }}
+      sx={{ width: "60vw", margin: "0 auto", height: "80vh", padding: "40px" }}
     >
       <Box
         sx={{
@@ -68,7 +69,7 @@ export default function BasicTabs() {
           <Tab label="Merchant" {...a11yProps(1)} />
           <Tab label="Coupons" {...a11yProps(2)} />
         </Tabs>
-        <LibraryAddIcon />
+        <NewTaskModal />
         <SearchBar />
       </Box>
 
