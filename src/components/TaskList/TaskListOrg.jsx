@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Typography, MenuItem, Select } from "@mui/material";
+import { Typography, MenuItem, Select, Box } from "@mui/material";
 import "./TaskList.css";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskCardOrg from "../TaskCard/TaskCardOrg";
+
+// ERRORS ARE  HERE FOR <DIV> CANNOT APPEAR AS DESCENDANT OF <P>
 
 export default function TaskListOrg() {
   // State to manage the selected tasks in each category
@@ -19,22 +21,22 @@ export default function TaskListOrg() {
   const getNumOptions = (tasks) => tasks.filter(Boolean).length;
 
   return (
-    <div className="list-container">
+    <Box className="list-container">
       {/* Dropdown for New Tasks */}
       <Select
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
         displayEmpty
         renderValue={() => (
-          <Typography style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
             New ({getNumOptions(newTasks)})
-          </Typography>
+          </div>
         )}
       >
         {newTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
-            <TaskCardOrg newTask={newTask} />
+            <TaskCardOrg />
           </MenuItem>
         ))}
       </Select>
@@ -53,7 +55,7 @@ export default function TaskListOrg() {
         {inProgressTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
-            <TaskCardOrg inProgressTask={inProgressTask} />
+            <TaskCardOrg />
           </MenuItem>
         ))}
       </Select>
@@ -72,13 +74,13 @@ export default function TaskListOrg() {
         {completeTasks.map((task) => (
           <MenuItem key={task} value={task}>
             {task}
-            <TaskCardOrg completeTask={completeTask} />
+            <TaskCardOrg />
           </MenuItem>
         ))}
       </Select>
 
       {/* Additional UI to display selected task details or move tasks between categories */}
       {/* Add your code here */}
-    </div>
+    </Box>
   );
 }

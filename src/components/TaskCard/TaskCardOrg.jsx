@@ -1,12 +1,12 @@
 import { Card, CardContent, Typography, Button } from "@mui/material";
 
-export default function TaskCardOrg({ newTask }) {
+export default function TaskCardOrg() {
   // console.log(newTask);
   return (
     <Card style={{ width: "100%" }}>
       <CardContent>
         <div>
-          
+
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ border: "1px solid red" }}>
               <div className="name-section">
