@@ -12,7 +12,19 @@ export default function TableTaskDetails() {
   return (
     <Table>
       <TableHead>
-      <Typography sx={{ fontWeight: "bold", textAlign: "center" }}>Task Number</Typography>
+        <TableRow>
+          <TableCell colSpan={2}>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                textAlign: "center",
+                border: "1px solid red",
+              }}
+            >
+              Task #
+            </Typography>
+          </TableCell>
+        </TableRow>
         <TableRow>
           <TableCell>
             <Typography sx={{ fontWeight: "bold" }}>Status:</Typography>

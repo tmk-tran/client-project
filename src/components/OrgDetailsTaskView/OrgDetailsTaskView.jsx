@@ -12,13 +12,13 @@ export default function OrgDetailsTaskView() {
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
       <Card className="goals-display-card">
         <CardContent>
-          <div className="org-detail-goal-container">
             <Typography
               variant="h6"
               sx={{ textAlign: "center", fontWeight: "bold" }}
             >
               Task Details
             </Typography>
+          <div className="org-detail-goal-container">
             <TableTaskDetails />
           </div>
         </CardContent>
