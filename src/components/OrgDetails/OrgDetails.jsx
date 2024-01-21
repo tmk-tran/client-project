@@ -143,7 +143,6 @@
 //   );
 // }
 
-
 import React, { useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
@@ -164,6 +163,7 @@ import "react-toastify/dist/ReactToastify.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { oDetails, oGroups, oNotes } from "../../hooks/reduxStore";
+import OrgDetailsTaskView from "../OrgDetailsTaskView/OrgDetailsTaskView";
 
 export default function OrgDetails({ caseType }) {
   const theme = useTheme();
@@ -239,7 +239,8 @@ export default function OrgDetails({ caseType }) {
                   {/* <AddGroupPopover info={orgDetails} /> */}
                 </div>
 
-                {caseType === 1 ? (
+                {!isTaskPage && (
+                  // Default content when not on the task page
                   <>
                     <OrgDetailsGoalView
                       info={orgDetails}
@@ -247,20 +248,16 @@ export default function OrgDetails({ caseType }) {
                       caseType={1}
                     />
                   </>
-                ) : caseType === 2 ? (
-                  <>
-                    {isTaskPage ? (
-                      // Show task-related content for caseType 2 on the task page
-                      <>
-                        <Typography variant="h6">Task Page View</Typography>
-                        {/* Add task-related content here */}
-                      </>
-                    ) : (
+                )}
 
-                      <OrgDetailsGoalView caseType={2} />
-                    )}
+                {isTaskPage && (
+                  // Show task-related content on the task page
+                  <>
+                    <Typography variant="h6">Task Page View</Typography>
+                    {/* Add task-related content here */}
+                    <OrgDetailsTaskView />
                   </>
-                ) : null}
+                )}
 
                 <div className="OrgGroupInfo-container">
                   {groups && groups.some((group) => group.group_id !== null) ? (
