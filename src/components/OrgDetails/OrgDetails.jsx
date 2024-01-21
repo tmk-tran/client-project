@@ -8,21 +8,22 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
-import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
-import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
-// ~~~~~~~~~~ Toast ~~~~~~~~~~
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { oDetails, oGroups, oNotes } from "../../hooks/reduxStore";
 import OrgDetailsTaskView from "../OrgDetailsTaskView/OrgDetailsTaskView";
 
-import { border } from "../Utils/colors";
+// ~~~~~~~~~~ May Use Later ~~~~~~~~~~
+import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
+import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
+// ~~~~~~~~~~ Toast ~~~~~~~~~~
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export default function OrgDetails({ caseType }) {
+export default function OrgDetails() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
@@ -84,10 +85,14 @@ export default function OrgDetails({ caseType }) {
           <div className="detailsOrg-container">
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
-                {!isTaskPage? (
-                <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
+                {!isTaskPage ? (
+                  <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
                 ) : (
-                  <OrgNotesDisplay notes={notes} orgDetails={orgDetails} caseType={1} />
+                  <OrgNotesDisplay
+                    notes={notes}
+                    orgDetails={orgDetails}
+                    caseType={1}
+                  />
                 )}
                 <center>
                   <OrgContactDetails info={orgDetails} />
@@ -129,16 +134,10 @@ export default function OrgDetails({ caseType }) {
                 {isTaskPage && (
                   // Show task-related content on the task page
                   <>
-                    {/* <Typography variant="h6">Task Page View</Typography> */}
                     {/* Add task-related content here */}
                     <OrgDetailsTaskView />
 
-                    <div style={{ border:"1px solid red", height: "50vh" }}>
-                    {/* <CouponReviewCard /> */}
-                    {/* <div style={{  height: "650px", width: "400px" }}></div> */}
-                    <div style={{ height: "100%", width: "100%", flexGrow: 1 }}></div>
-                    </div>
-
+                    <div style={{ height: "40vh" }}></div>
                   </>
                 )}
               </React.Fragment>

@@ -17,9 +17,9 @@ export default function OrgDetailsTaskView() {
         <CardContent>
             <Typography
               variant="h6"
-              sx={{ textAlign: "center", fontWeight: "bold" }}
+              sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}
             >
-              Task Details
+              Tasks
             </Typography>
           <div className="task-display-container">
             <TableTaskDetails />

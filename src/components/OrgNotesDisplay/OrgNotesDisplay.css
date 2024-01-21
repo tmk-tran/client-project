@@ -17,7 +17,7 @@
   max-height: 25vh;
 }
 
-/* Style for task view ~~~~~~~~~~ */
+/* Style for task details view ~~~~~~~~~~ */
 .notes-card-task-view {
   position: absolute;
   margin-left: 3vh;
@@ -32,7 +32,7 @@
   border-radius: 4px;
   max-height: 500px;
 }
-/* ~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 .note-main-container {
   padding-left: 25px;

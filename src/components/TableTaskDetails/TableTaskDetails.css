@@ -1,0 +1,4 @@
+.task-row-shading:nth-child(odd),
+.task-row-shading:nth-child(even) {
+  background-color: rgb(243, 243, 243);
+}

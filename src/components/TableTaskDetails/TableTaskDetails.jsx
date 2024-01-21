@@ -1,4 +1,5 @@
 import React from "react";
+// ~~~~~~~~~~ Style ~~~~~~~~~
 import {
   Table,
   TableBody,
@@ -7,13 +8,14 @@ import {
   TableHead,
   Typography,
 } from "@mui/material";
+import "./TableTaskDetails.css";
 
 export default function TableTaskDetails() {
   return (
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell colSpan={2}>
+          <TableCell colSpan={2} className="task-row-shading">
             <Typography
               sx={{
                 fontWeight: "bold",
@@ -31,7 +33,7 @@ export default function TableTaskDetails() {
           </TableCell>
           <TableCell>
             <Typography sx={{ fontWeight: "bold" }}>
-              Status Goes Here
+              Status Listed Here
             </Typography>
           </TableCell>
         </TableRow>
@@ -39,10 +41,10 @@ export default function TableTaskDetails() {
 
       <TableBody>
         <TableRow>
-          <TableCell>
+          <TableCell className="task-row-shading">
             <Typography sx={{ fontWeight: "bold" }}>Due:</Typography>
           </TableCell>
-          <TableCell>
+          <TableCell className="task-row-shading">
             <Typography sx={{ fontWeight: "bold" }}>
               Due Date Goes Here
             </Typography>
