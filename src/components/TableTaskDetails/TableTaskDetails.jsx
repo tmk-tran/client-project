@@ -48,6 +48,19 @@ export default function TableTaskDetails() {
             </Typography>
           </TableCell>
         </TableRow>
+        <TableRow>
+          <TableCell colSpan={2}>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                textAlign: "center",
+                border: "1px solid red",
+              }}
+            >
+              Most recent comment here
+            </Typography>
+          </TableCell>
+        </TableRow>
       </TableBody>
     </Table>
   );

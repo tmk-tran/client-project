@@ -9,7 +9,7 @@
   position: relative;
 }
 
-.OrgGroupInfo-container {
+.OrgDetailsCard-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

@@ -3,6 +3,8 @@ import { Typography, Card, CardContent } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import TableTaskDetails from "../TableTaskDetails/TableTaskDetails";
+import NewTaskModal from "../NewTaskModal/NewTaskModal";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 
 export default function OrgDetailsTaskView() {
   const theme = useTheme();
@@ -20,6 +22,9 @@ export default function OrgDetailsTaskView() {
             </Typography>
           <div className="org-detail-goal-container">
             <TableTaskDetails />
+          </div>
+          <div>
+            <NewTaskModal customIcon={<AddBoxIcon />} customText="Task" />
           </div>
         </CardContent>
       </Card>

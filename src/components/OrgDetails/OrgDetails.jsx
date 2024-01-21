@@ -242,10 +242,26 @@ export default function OrgDetails({ caseType }) {
                 {!isTaskPage && (
                   // Default content when not on the task page
                   <>
-                    <OrgDetailsGoalView
-                      info={orgDetails}
-                      groups={groups}
-                    />
+                    <OrgDetailsGoalView info={orgDetails} groups={groups} />
+
+                    <div className="OrgGroupInfo-container">
+                      {groups &&
+                      groups.some((group) => group.group_id !== null) ? (
+                        groups.map((groupInfo, i) => (
+                          <OrgGroupInfo
+                            key={groupInfo.group_id}
+                            groupInfo={groupInfo}
+                            groupNumber={i + 1}
+                          />
+                        ))
+                      ) : (
+                        <div style={{ height: "200px" }}>
+                          <Typography variant="h6">
+                            No Groups Assigned
+                          </Typography>
+                        </div>
+                      )}
+                    </div>
                   </>
                 )}
 
@@ -255,24 +271,14 @@ export default function OrgDetails({ caseType }) {
                     {/* <Typography variant="h6">Task Page View</Typography> */}
                     {/* Add task-related content here */}
                     <OrgDetailsTaskView />
+
+                    <div className="OrgDetailsCard-container">
+                      <Card>
+                        <CardContent>Coupon Card Here</CardContent>
+                      </Card>
+                    </div>
                   </>
                 )}
-
-                <div className="OrgGroupInfo-container">
-                  {groups && groups.some((group) => group.group_id !== null) ? (
-                    groups.map((groupInfo, i) => (
-                      <OrgGroupInfo
-                        key={groupInfo.group_id}
-                        groupInfo={groupInfo}
-                        groupNumber={i + 1}
-                      />
-                    ))
-                  ) : (
-                    <div style={{ height: "200px" }}>
-                      <Typography variant="h6">No Groups Assigned</Typography>
-                    </div>
-                  )}
-                </div>
               </React.Fragment>
             ))}
           </div>

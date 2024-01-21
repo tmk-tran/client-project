@@ -43,7 +43,7 @@ const taskOptions = {
 
 const userOptions = ["Chris", "Lacey", "Wendy"];
 
-export default function BasicModal({ merchantTab }) {
+export default function BasicModal({ merchantTab, customIcon, customText }) {
   const [open, setOpen] = useState(false);
 
   const [firstMenuChoice, setFirstMenuChoice] = useState("");
@@ -62,9 +62,16 @@ export default function BasicModal({ merchantTab }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>
-        <LibraryAddIcon />
+      
+      <Button onClick={handleOpen} fullWidth>
+        {customIcon ? (
+          customIcon // Render the custom icon if provided
+        ) : (
+          <LibraryAddIcon />
+        )}
+        {customText && <span>&nbsp;{customText}</span>}
       </Button>
+
       <Modal
         open={open}
         onClose={handleClose}
