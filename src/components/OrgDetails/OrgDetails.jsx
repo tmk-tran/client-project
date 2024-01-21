@@ -244,7 +244,7 @@ export default function OrgDetails({ caseType }) {
                   <>
                     <OrgDetailsGoalView info={orgDetails} groups={groups} />
 
-                    <div className="OrgGroupInfo-container">
+                    <div className="OrgDetailsCard-container">
                       {groups &&
                       groups.some((group) => group.group_id !== null) ? (
                         groups.map((groupInfo, i) => (
