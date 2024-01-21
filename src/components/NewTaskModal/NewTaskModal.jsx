@@ -13,6 +13,7 @@ import {
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import DatePicker from "../DatePicker/DatePicker";
+import { primaryColor } from "../Utils/helpers";
 
 const style = {
   position: "absolute",
@@ -36,6 +37,8 @@ const taskOptions = {
     "Other",
   ],
 };
+
+const userOptions = ["Chris", "Lacey", "Wendy"];
 
 export default function BasicModal() {
   const [open, setOpen] = useState(false);
@@ -71,20 +74,18 @@ export default function BasicModal() {
           </Typography>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <InputLabel sx={{ color: "primary" }}>Category:</InputLabel>
+            <InputLabel style={primaryColor}>Category:</InputLabel>
             <Select
               value={firstMenuChoice}
               onChange={handleFirstMenuChange}
               sx={{ margin: "5px 0" }}
-              // label="Category"
             >
-              <MenuItem value="">Select...</MenuItem>
               <MenuItem value="Book">Book</MenuItem>
               <MenuItem value="Contact">Contact</MenuItem>
               <MenuItem value="Task">Task</MenuItem>
             </Select>
 
-            <InputLabel>Task:</InputLabel>
+            <InputLabel style={primaryColor}>Task:</InputLabel>
             <Select
               value={secondMenuChoice}
               onChange={(event) => {
@@ -93,7 +94,6 @@ export default function BasicModal() {
               }}
               sx={{ margin: "5px 0" }}
             >
-              <MenuItem value="">Select...</MenuItem>
               {taskOptions[firstMenuChoice]?.map((option) => (
                 <MenuItem key={option} value={option}>
                   {option}
@@ -101,27 +101,26 @@ export default function BasicModal() {
               ))}
             </Select>
 
-            <InputLabel>Assign To:</InputLabel>
+            <InputLabel style={primaryColor}>Assign To:</InputLabel>
             <Select
               value={thirdMenuChoice}
               onChange={(event) => setThirdMenuChoice(event.target.value)}
               sx={{ margin: "5px 0" }}
             >
-              <MenuItem value="">Select...</MenuItem>
-              {taskOptions[secondMenuChoice]?.map((option) => (
+              {userOptions.map((option) => (
                 <MenuItem key={option} value={option}>
                   {option}
                 </MenuItem>
               ))}
             </Select>
 
-            <div style={{ margin: "0 auto" }}>
+            <div >
               <DatePicker />
             </div>
           </div>
           <TextField
             id="outlined-multiline-static"
-            label="Additional Details"
+            label="Additional Details..."
             multiline
             rows={4}
             fullWidth

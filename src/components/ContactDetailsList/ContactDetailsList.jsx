@@ -8,13 +8,13 @@ import {
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-// Utils
+// ~~~~~~~~~~ Utils ~~~~~~~~~~
 import {
   capitalizeWords,
   centerStyle,
   centeredStyle,
-  primaryColor,
 } from "../Utils/helpers";
+import { primaryColor } from "../Utils/colors";
 
 export default function ContactDetailsList({ info, contactPhone }) {
   return (
