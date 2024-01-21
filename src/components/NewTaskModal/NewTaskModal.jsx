@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+// ~~~~~~~~~~ Components ~~~~~~~~~~
+import DatePicker from "../DatePicker/DatePicker";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Box,
@@ -10,10 +12,11 @@ import {
   MenuItem,
   InputLabel,
 } from "@mui/material";
+import { primaryColor, border } from "../Utils/colors";
+// ~~~~~~~~~~ Icons ~~~~~~~~~~
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import DatePicker from "../DatePicker/DatePicker";
-import { primaryColor } from "../Utils/helpers";
+import CloseIcon from "@mui/icons-material/Close";
 
 const style = {
   position: "absolute",
@@ -69,9 +72,14 @@ export default function BasicModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography variant="h6" sx={{ textAlign: "center" }}>
-            New Task
-          </Typography>
+          <div>
+            <Button onClick={handleClose}>
+              <CloseIcon />
+            </Button>
+            <Typography variant="h6" sx={{ textAlign: "center", mb: 3 }}>
+              New Task
+            </Typography>
+          </div>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
             <InputLabel style={primaryColor}>Category:</InputLabel>
@@ -114,7 +122,7 @@ export default function BasicModal() {
               ))}
             </Select>
 
-            <div >
+            <div>
               <DatePicker />
             </div>
           </div>
@@ -127,7 +135,7 @@ export default function BasicModal() {
             sx={{ margin: "10px auto" }}
           />
 
-          <Button variant="contained" fullWidth>
+          <Button variant="contained" color="secondary" fullWidth>
             <AddBoxIcon sx={{ mr: 2 }} />
             Create Task
           </Button>
