@@ -5,13 +5,8 @@
 .notes-card {
   position: absolute;
   margin-left: 3vh;
-  /* height: 38vh; */
   width: 50vh;
   /* border: 1px solid #273b91; */
-}
-
-.notes-container {
-  max-height: 300px;
 }
 
 .orgNotes-container {
@@ -21,6 +16,23 @@
   border-radius: 4px;
   max-height: 25vh;
 }
+
+/* Style for task view ~~~~~~~~~~ */
+.notes-card-task-view {
+  position: absolute;
+  margin-left: 3vh;
+  width: 50vh;
+  height: 60vh;
+}
+
+.orgNotes-container-task-view {
+  overflow-wrap: break-word;
+  overflow-y: auto;
+  border: 1px solid #273a9158;
+  border-radius: 4px;
+  max-height: 500px;
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~ */
 
 .note-main-container {
   padding-left: 25px;

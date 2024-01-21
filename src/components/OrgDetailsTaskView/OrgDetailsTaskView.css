@@ -1,0 +1,7 @@
+.task-display-container {
+    height: 49vh;
+    max-height: 65vh;
+    overflow-y: auto;
+    border: 1px solid #273a9158;
+    border-radius: 4px;
+}

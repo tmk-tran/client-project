@@ -21,7 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 
-export default function OrgNotesDisplay({ notes, orgDetails }) {
+export default function OrgNotesDisplay({ notes, orgDetails, caseType }) {
   const dispatch = dispatchHook();
   const paramsObject = useParams();
 
@@ -76,7 +76,16 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
 
   return (
     <div className="notes-card-container">
-      <Card elevation={3} className="notes-card">
+      <Card
+        elevation={3}
+        className={`notes-card ${
+          caseType === 1
+            ? "notes-card-task-view"
+            : caseType === 2
+            ? "additional-style-2"
+            : ""
+        }`}
+      >
         <CardContent>
           <Typography
             variant="h6"
@@ -84,9 +93,18 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
           >
             Notes
           </Typography>
-          <div className="orgNotes-container">
+
+          <div
+            className={`orgNotes-container ${
+              caseType === 1
+                ? "orgNotes-container-task-view"
+                : caseType === 2
+                ? "additional-style-2"
+                : ""
+            }`}
+          >
             {notes && notes.length > 0 ? (
-              <div>
+              <div style={{ height: "40vh" }}>
                 {notes
                   .filter((note) => !note.is_deleted) // Filter out deleted notes
                   .map((note, i) => (
@@ -100,7 +118,6 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                           justifyContent: "space-between",
                         }}
                       >
-                        
                         {/* <li style={{ marginLeft: "10%" }}>
                           {note.note_content.charAt(0).toUpperCase() +
                             note.note_content.slice(1).toLowerCase()}

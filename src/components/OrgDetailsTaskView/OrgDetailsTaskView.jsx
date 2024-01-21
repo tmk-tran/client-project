@@ -5,6 +5,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import TableTaskDetails from "../TableTaskDetails/TableTaskDetails";
 import NewTaskModal from "../NewTaskModal/NewTaskModal";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import "./OrgDetailsTaskView.css";
 
 export default function OrgDetailsTaskView() {
   const theme = useTheme();
@@ -12,7 +13,7 @@ export default function OrgDetailsTaskView() {
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
-      <Card className="goals-display-card">
+      <Card elevation={3} className="goals-display-card">
         <CardContent>
             <Typography
               variant="h6"
@@ -20,7 +21,7 @@ export default function OrgDetailsTaskView() {
             >
               Task Details
             </Typography>
-          <div className="org-detail-goal-container">
+          <div className="task-display-container">
             <TableTaskDetails />
           </div>
           <div>
