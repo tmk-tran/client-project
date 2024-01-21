@@ -40,7 +40,6 @@ function a11yProps(index) {
 export default function BasicTabs() {
   const [value, setValue] = useState(0);
   const [merchantTab, setMerchantTab] = useState(false);
-  console.log(merchantTab);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
