@@ -172,7 +172,7 @@ export default function OrgDetails({ caseType }) {
   const location = useLocation(); // Use location to get the current route
 
   // Check if the user is on the task page
-  const isTaskPage = location.pathname.includes("/task"); // Adjust the path accordingly
+  const isTaskPage = location.pathname.includes("/orgtaskdetails"); // Adjust the path accordingly
 
   // ~~~~~~~~~~ Hooks ~~~~~~~~~~
   const dispatch = dispatchHook();
@@ -256,7 +256,7 @@ export default function OrgDetails({ caseType }) {
                         {/* Add task-related content here */}
                       </>
                     ) : (
-                      // Default content for caseType 2
+
                       <OrgDetailsGoalView caseType={2} />
                     )}
                   </>

@@ -91,7 +91,7 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/orgDetails/:id">
-              <OrgDetails />
+              <OrgDetails caseType={1} />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/group/:id">
