@@ -32,6 +32,7 @@ export default function TaskListOrg() {
             New ({getNumOptions(newTasks)})
           </div>
         )}
+        MenuProps={{ disableAutoFocusItem: true }}
       >
         {newTasks.map((task) => (
           <MenuItem key={task} value={task}>

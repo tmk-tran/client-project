@@ -19,14 +19,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { oDetails, oGroups, oNotes } from "../../hooks/reduxStore";
 
-
-export default function orgDetails() {
+export default function orgDetails({ caseType }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
   // ~~~~~~~~~~ Hooks ~~~~~~~~~~
   const dispatch = dispatchHook();
   const detailsOrg = oDetails();
+  console.log(detailsOrg);
   const groups = oGroups();
   console.log(groups);
   const notes = oNotes();
@@ -70,9 +70,7 @@ export default function orgDetails() {
   });
 
   return (
-    <div
-      className={`details-container ${isSmallScreen ? "small-screen" : ""}`}
-    >
+    <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
       <Card className="details-card" elevation={3}>
         <CardContent>
           <div className="detailsOrg-container">
@@ -106,7 +104,18 @@ export default function orgDetails() {
                 </div>
 
                 {/* <OrgDetailsGoalView /> */}
-                <OrgDetailsGoalView info={orgDetails} groups={groups} />
+                {caseType === 1 ? (
+                  <>
+                    <OrgDetailsGoalView info={orgDetails} groups={groups} />
+                  </>
+                ) : caseType === 2 ? (
+                  <>
+                    <div>
+                      <h3>Details 2 Here</h3>
+                      {/* Add any specific content for case 2 */}
+                    </div>
+                  </>
+                ) : null}
 
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">

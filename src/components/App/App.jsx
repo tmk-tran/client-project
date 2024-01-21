@@ -25,6 +25,7 @@ import Header from "../Header/Header";
 import Footer2 from "../Footer2/Footer2";
 import Footer3 from "../Footer3/Footer3";
 import TaskTabs from "../TaskTabs/TaskTabs";
+import OrgTaskDetails from "../OrgTaskDetails/OrgTaskDetails";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -107,6 +108,11 @@ function App() {
 
             <ProtectedRoute exact path="/tasks">
               <TaskTabs />
+            </ProtectedRoute>
+
+            {/* UPDATE THIS WITH CORRECT ID IN OrgTaskDetails */}
+            <ProtectedRoute exact path="/orgtaskdetails/:id">
+              <OrgTaskDetails />
             </ProtectedRoute>
 
             <Route exact path="/login">

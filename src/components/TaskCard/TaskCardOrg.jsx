@@ -1,10 +1,14 @@
 import { Card, CardContent, Typography, Button } from "@mui/material";
+import { historyHook } from "../../hooks/useHistory";
 
 export default function TaskCardOrg() {
-  // console.log(newTask);
+
+  const history = historyHook();
+
   return (
-    <Card style={{ width: "100%" }}>
+    <Card style={{ width: "100%" }} onClick={() => {console.log("Card click!")}}>
       <CardContent>
+        
         <div>
 
           <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -21,8 +25,11 @@ export default function TaskCardOrg() {
             </div>
 
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Button variant="contained">Details</Button>
+
+              {/* NEED to add an ID here to associate to specific task on next view */}
+              <Button variant="contained" onClick={() => history.push(`/orgtaskdetails/${1}`)}>Details</Button>
             </div>
+
           </div>
 
           <div className="task-description-section">
@@ -30,10 +37,11 @@ export default function TaskCardOrg() {
           </div>
 
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <Button>New</Button>
-            <Button>In Progress</Button>
-            <Button>Complete</Button>
+            <Button onClick={() => {console.log("New")}}>New</Button>
+            <Button onClick={() => {console.log("In Progress")}}>In Progress</Button>
+            <Button onClick={() => {console.log("Complete")}}>Complete</Button>
           </div>
+
         </div>
       </CardContent>
     </Card>
