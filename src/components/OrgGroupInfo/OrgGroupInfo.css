@@ -1,4 +1,4 @@
-#orgGroup-details-container {
+#orgDetails-Card {
   margin-top: 30px;
   height: 650px;
   width: 400px;
@@ -6,7 +6,7 @@
   /* border: 1px solid #273a9158; */
 }
 
-#orgGroup-details-container:hover {
+#orgDetails-Card:hover {
   cursor: pointer;
   transform: scale(1.03);
 }
@@ -30,21 +30,21 @@
 }
 
 @media (max-width: 1000px) {
-  #orgGroup-details-container {
+  #orgDetails-Card {
     width: 100%;
   }
-  #orgGroup-details-container:hover {
+  #orgDetails-Card:hover {
     transform: none;
   }
 }
 
 @media (max-width: 400px) {
-  #orgGroup-details-container {
+  #orgDetails-Card {
     width: 100%;
     padding: 0;
   }
 
-  #orgGroup-details-container:hover {
+  #orgDetails-Card:hover {
     transform: none;
   }
 }

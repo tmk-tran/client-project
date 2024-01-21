@@ -273,7 +273,7 @@ export default function OrgDetails({ caseType }) {
                     <OrgDetailsTaskView />
 
                     <div className="OrgDetailsCard-container">
-                      <Card>
+                      <Card elevation={6} id="orgDetails-Card">
                         <CardContent>Coupon Card Here</CardContent>
                       </Card>
                     </div>
