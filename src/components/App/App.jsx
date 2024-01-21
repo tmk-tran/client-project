@@ -41,7 +41,8 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#273b91", // Set to PSG brand blue
+      // main: "#273b91", // Set to PSG brand blue
+      main: "#19338E"
     },
   },
 });

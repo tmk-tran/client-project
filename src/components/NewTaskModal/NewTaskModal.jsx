@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Box,
@@ -8,6 +8,7 @@ import {
   TextField,
   Select,
   MenuItem,
+  InputLabel,
 } from "@mui/material";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -53,18 +54,6 @@ export default function BasicModal() {
     setThirdMenuChoice(""); // Reset third menu choice when first menu changes
   };
 
-  useEffect(() => {
-    // Reset second menu choice when first menu changes
-    setSecondMenuChoice("");
-  }, [firstMenuChoice]);
-
-  useEffect(() => {
-    // Reset third menu choice when second menu changes
-    if (!taskOptions[secondMenuChoice]?.includes(thirdMenuChoice)) {
-      setThirdMenuChoice("");
-    }
-  }, [secondMenuChoice, thirdMenuChoice]);
-
   return (
     <div>
       <Button onClick={handleOpen}>
@@ -82,10 +71,12 @@ export default function BasicModal() {
           </Typography>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
+            <InputLabel sx={{ color: "primary" }}>Category:</InputLabel>
             <Select
               value={firstMenuChoice}
               onChange={handleFirstMenuChange}
               sx={{ margin: "5px 0" }}
+              // label="Category"
             >
               <MenuItem value="">Select...</MenuItem>
               <MenuItem value="Book">Book</MenuItem>
@@ -93,6 +84,7 @@ export default function BasicModal() {
               <MenuItem value="Task">Task</MenuItem>
             </Select>
 
+            <InputLabel>Task:</InputLabel>
             <Select
               value={secondMenuChoice}
               onChange={(event) => {
@@ -109,6 +101,7 @@ export default function BasicModal() {
               ))}
             </Select>
 
+            <InputLabel>Assign To:</InputLabel>
             <Select
               value={thirdMenuChoice}
               onChange={(event) => setThirdMenuChoice(event.target.value)}

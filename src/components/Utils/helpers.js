@@ -91,8 +91,8 @@ export const styleFlexBox = {
   alignItems: "center",
 };
 
-// Style for Icon colors in OrgContactDetails
-export const styleIconColor = { color: "#273b91" };
+// Style for Icon colors in ContactDetailsList
+export const primaryColor = { color: "#19338E" };
 
 // Style for images
 export const styleImage = {

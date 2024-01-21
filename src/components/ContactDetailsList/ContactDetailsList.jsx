@@ -13,7 +13,7 @@ import {
   capitalizeWords,
   centerStyle,
   centeredStyle,
-  styleIconColor,
+  primaryColor,
 } from "../Utils/helpers";
 
 export default function ContactDetailsList({ info, contactPhone }) {
@@ -21,7 +21,7 @@ export default function ContactDetailsList({ info, contactPhone }) {
     <List style={{ padding: "15px", width: "70%", marginTop: "5px" }}>
       <ListItem disablePadding style={centerStyle}>
         <ListItemIcon style={centeredStyle}>
-          <AccountBoxIcon style={styleIconColor} />
+          <AccountBoxIcon style={primaryColor} />
         </ListItemIcon>
         <Typography>{`${capitalizeWords(
           info.primary_contact_first_name
@@ -29,13 +29,13 @@ export default function ContactDetailsList({ info, contactPhone }) {
       </ListItem>
       <ListItem disablePadding style={centerStyle}>
         <ListItemIcon style={centeredStyle}>
-          <PhoneIcon style={styleIconColor} />
+          <PhoneIcon style={primaryColor} />
         </ListItemIcon>
         <Typography>{contactPhone}</Typography>
       </ListItem>
       <ListItem disablePadding style={centerStyle}>
         <ListItemIcon style={centeredStyle}>
-          <EmailIcon style={styleIconColor} />
+          <EmailIcon style={primaryColor} />
         </ListItemIcon>
         {info.primary_contact_email ? (
           <Typography>
