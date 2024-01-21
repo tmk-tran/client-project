@@ -12,7 +12,6 @@ import {
   MenuItem,
   InputLabel,
 } from "@mui/material";
-import { primaryColor, border } from "../Utils/colors";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -32,6 +31,7 @@ const style = {
 
 const taskOptions = {
   Contact: ["Initial Contact", "Follow Up Call/Email/Text", "Follow Up Visit"],
+  Coupon: ["Add-on Request", "New Create Proof", "Update Create Proof"],
   Book: ["Drop Off Books", "Organization Picking Up Books"],
   Task: [
     "Organization Dropping Books Off",
@@ -43,7 +43,7 @@ const taskOptions = {
 
 const userOptions = ["Chris", "Lacey", "Wendy"];
 
-export default function BasicModal() {
+export default function BasicModal({ merchantTab }) {
   const [open, setOpen] = useState(false);
 
   const [firstMenuChoice, setFirstMenuChoice] = useState("");
@@ -82,18 +82,19 @@ export default function BasicModal() {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <InputLabel style={primaryColor}>Category:</InputLabel>
+            <InputLabel>Category:</InputLabel>
             <Select
               value={firstMenuChoice}
               onChange={handleFirstMenuChange}
               sx={{ margin: "5px 0" }}
             >
               <MenuItem value="Book">Book</MenuItem>
+              {merchantTab && <MenuItem value="Coupon">Coupon</MenuItem>}
               <MenuItem value="Contact">Contact</MenuItem>
               <MenuItem value="Task">Task</MenuItem>
             </Select>
 
-            <InputLabel style={primaryColor}>Task:</InputLabel>
+            <InputLabel>Task:</InputLabel>
             <Select
               value={secondMenuChoice}
               onChange={(event) => {
@@ -109,7 +110,7 @@ export default function BasicModal() {
               ))}
             </Select>
 
-            <InputLabel style={primaryColor}>Assign To:</InputLabel>
+            <InputLabel>Assign To:</InputLabel>
             <Select
               value={thirdMenuChoice}
               onChange={(event) => setThirdMenuChoice(event.target.value)}

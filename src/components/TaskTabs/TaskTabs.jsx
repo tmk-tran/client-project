@@ -1,8 +1,7 @@
-import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Tab, Tabs, Box, Button } from "@mui/material";
-import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
+import { Tab, Tabs, Box } from "@mui/material";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import SearchBar from "../SearchBar/SearchBar";
 import TaskListOrg from "../TaskList/TaskListOrg";
@@ -39,10 +38,16 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [merchantTab, setMerchantTab] = useState(false);
+  console.log(merchantTab);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    // Reset the merchantTab state when "Organization" tab is selected
+    if (newValue === 0) {
+      setMerchantTab(false);
+    }
   };
 
   return (
@@ -66,10 +71,14 @@ export default function BasicTabs() {
           aria-label="basic tabs example"
         >
           <Tab label="Organization" {...a11yProps(0)} />
-          <Tab label="Merchant" {...a11yProps(1)} />
+          <Tab
+            label="Merchant"
+            {...a11yProps(1)}
+            onClick={() => setMerchantTab(true)}
+          />
           <Tab label="Coupons" {...a11yProps(2)} />
         </Tabs>
-        <NewTaskModal />
+        <NewTaskModal merchantTab={merchantTab} />
         <SearchBar />
       </Box>
 
@@ -82,7 +91,7 @@ export default function BasicTabs() {
       </TabPanel>
 
       <TabPanel value={value} index={2}>
-        Item Three
+        Review / Publish info here
       </TabPanel>
     </Box>
   );
