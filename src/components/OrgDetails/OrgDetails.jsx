@@ -245,7 +245,6 @@ export default function OrgDetails({ caseType }) {
                     <OrgDetailsGoalView
                       info={orgDetails}
                       groups={groups}
-                      caseType={1}
                     />
                   </>
                 )}
@@ -253,7 +252,7 @@ export default function OrgDetails({ caseType }) {
                 {isTaskPage && (
                   // Show task-related content on the task page
                   <>
-                    <Typography variant="h6">Task Page View</Typography>
+                    {/* <Typography variant="h6">Task Page View</Typography> */}
                     {/* Add task-related content here */}
                     <OrgDetailsTaskView />
                   </>

@@ -8,7 +8,7 @@ import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { oFundraisers } from "../../hooks/reduxStore";
 
-export default function OrgDetailsGoalView({ caseType, info, groups }) {
+export default function OrgDetailsGoalView({ info, groups }) {
   const fundraiserInfo = oFundraisers();
   console.log(fundraiserInfo);
 
@@ -42,59 +42,45 @@ export default function OrgDetailsGoalView({ caseType, info, groups }) {
   };
 
   return (
-<>
+    <>
       <Card elevation={3} className="goals-display-card">
         <CardContent>
-          {caseType === 1 ? (
-            <>
-              <Typography
-                variant="h6"
-                sx={{ textAlign: "center", fontWeight: "bold" }}
-              >
-                Details
-              </Typography>
-              <div
-                className={`org-detail-goal-container ${
-                  fundraiserInfo && fundraiserInfo.length > 0
-                    ? ""
-                    : "no-fundraisers-bg"
-                }`}
-              >
-                {/* <div>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", fontWeight: "bold" }}
+          >
+            Details
+          </Typography>
+          <div
+            className={`org-detail-goal-container ${
+              fundraiserInfo && fundraiserInfo.length > 0
+                ? ""
+                : "no-fundraisers-bg"
+            }`}
+          >
+            {/* <div>
                   <AddGroupPopover info={info} />
                 </div> */}
-                <center>
-                  {/* <br /> */}
-                  {fundraiserInfo && fundraiserInfo.length > 0 ? (
-                    <TableGroupDetails
-                      key="goalData" // Set a key to force re-render when data changes
-                      totalGoals={goalData.totalGoals}
-                      totalReceived={goalData.totalReceived}
-                      groups={goalData.groups}
-                      fundraiserInfo={goalData.fundraiserInfo}
-                    />
-                  ) : (
-                    <div className="no-fundraisers-container">
-                      <Typography variant="h6">No Fundraisers Available</Typography>
-                    </div>
-                  )}
-                </center>
-              </div>
-              <div>
-                <AddGroupPopover info={info} />
-              </div>
-            </>
-          ) : caseType === 2 ? (
-            <>
-              <Typography
-                variant="h6"
-                sx={{ textAlign: "center", fontWeight: "bold" }}
-              >
-                Details 2
-              </Typography>
-              {/* Add content specific to caseType 2 */}
-            </>
-          ) : null}
+            <center>
+              {/* <br /> */}
+              {fundraiserInfo && fundraiserInfo.length > 0 ? (
+                <TableGroupDetails
+                  key="goalData" // Set a key to force re-render when data changes
+                  totalGoals={goalData.totalGoals}
+                  totalReceived={goalData.totalReceived}
+                  groups={goalData.groups}
+                  fundraiserInfo={goalData.fundraiserInfo}
+                />
+              ) : (
+                <div className="no-fundraisers-container">
+                  <Typography variant="h6">No Fundraisers Available</Typography>
+                </div>
+              )}
+            </center>
+          </div>
+          <div>
+            <AddGroupPopover info={info} />
+          </div>
         </CardContent>
       </Card>
     </>
