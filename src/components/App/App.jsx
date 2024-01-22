@@ -26,6 +26,7 @@ import Footer2 from "../Footer2/Footer2";
 import Footer3 from "../Footer3/Footer3";
 import TaskTabs from "../TaskTabs/TaskTabs";
 import OrgTaskDetails from "../OrgTaskDetails/OrgTaskDetails";
+import MerchantTaskDetails from "../MerchantTaskDetails/MerchantTaskDetails";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -43,10 +44,10 @@ const theme = createTheme({
   palette: {
     primary: {
       // main: "#273b91", // Set to PSG brand blue
-      main: "#19338E"
+      main: "#19338E",
     },
     secondary: {
-      main: "#198E19"
+      main: "#198E19",
     },
   },
 });
@@ -113,6 +114,11 @@ function App() {
             {/* UPDATE THIS WITH CORRECT ID IN OrgTaskDetails */}
             <ProtectedRoute exact path="/orgtaskdetails/:id">
               <OrgTaskDetails />
+            </ProtectedRoute>
+
+            {/* UPDATE THIS WITH CORRECT ID IN MerchantTaskDetails */}
+            <ProtectedRoute exact path="/merchantTaskDetails/:id">
+              <MerchantTaskDetails />
             </ProtectedRoute>
 
             <Route exact path="/login">

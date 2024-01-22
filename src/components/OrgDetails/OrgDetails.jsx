@@ -12,7 +12,7 @@ import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
-import { oDetails, oGroups, oNotes } from "../../hooks/reduxStore";
+import { oDetails, oGroups, oNotes, mNotes } from "../../hooks/reduxStore";
 import OrgDetailsTaskView from "../OrgDetailsTaskView/OrgDetailsTaskView";
 
 // ~~~~~~~~~~ May Use Later ~~~~~~~~~~
@@ -30,7 +30,9 @@ export default function OrgDetails() {
   const location = useLocation(); // Use location to get the current route
 
   // Check if the user is on the task page
-  const isTaskPage = location.pathname.includes("/orgtaskdetails"); // Adjust the path accordingly
+  const isDetailsPage = location.pathname.includes("/orgDetails"); // Adjust the path accordingly
+  const isTaskPage = location.pathname.includes("/orgtaskdetails");
+  const isMerchantTaskPage = location.pathname.includes("/merchantTaskDetails");
 
   // ~~~~~~~~~~ Hooks ~~~~~~~~~~
   const dispatch = dispatchHook();
@@ -39,6 +41,7 @@ export default function OrgDetails() {
   const groups = oGroups();
   console.log(groups);
   const notes = oNotes();
+  // const notesM = mNotes();
 
   useEffect(() => {
     dispatch({
@@ -94,16 +97,24 @@ export default function OrgDetails() {
                     caseType={1}
                   />
                 )}
+
+                {/* {isMerchantTaskPage && (
+                  <OrgNotesDisplay notes={notes} merchantDetails={merchantDetails} />
+                )} */}
+                {isMerchantTaskPage && (
+                  <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
+                )}
+
                 <center>
                   <OrgContactDetails info={orgDetails} />
                   <br />
                 </center>
 
-                <div>
-                  {/* Additional buttons or components */}
-                  {/* <OrgNotesModal info={orgDetails} /> */}
-                  {/* <AddGroupPopover info={orgDetails} /> */}
-                </div>
+                {/* May use later, disabled for now */}
+                {/* <div>
+                  <OrgNotesModal info={orgDetails} />
+                  <AddGroupPopover info={orgDetails} />
+                </div> */}
 
                 {!isTaskPage && (
                   // Default content when not on the task page
@@ -134,7 +145,7 @@ export default function OrgDetails() {
                 {isTaskPage && (
                   // Show task-related content on the task page
                   <>
-                    {/* Add task-related content here */}
+                    {/* May rename this to DetailsTaskView later */}
                     <OrgDetailsTaskView />
 
                     <div style={{ height: "40vh" }}></div>

@@ -15,12 +15,12 @@ export default function OrgDetailsTaskView() {
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
       <Card elevation={3} className="goals-display-card">
         <CardContent>
-            <Typography
-              variant="h6"
-              sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}
-            >
-              Tasks
-            </Typography>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}
+          >
+            Tasks
+          </Typography>
           <div className="task-display-container">
             <TableTaskDetails />
           </div>
