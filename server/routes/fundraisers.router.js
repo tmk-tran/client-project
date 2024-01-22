@@ -187,7 +187,7 @@ router.post("/", (req, res) => {
 // });
 
 //New update route that uses Devii api, can be used for all updates
-router.put("/:id", (req, res) => {
+router.post("/:id", (req, res) => {
   const id = req.params.id;
   const updatedFundraiser = req.body;
   const ACCESS_TOKEN = auth_response.access_token;
