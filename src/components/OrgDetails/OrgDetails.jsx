@@ -11,6 +11,7 @@ import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
 import DetailsTaskView from "../DetailsTaskView/DetailsTaskView";
+import CouponReviewCard from "../CouponReviewCard/CouponReviewCard";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { oDetails, oGroups, oNotes, mNotes } from "../../hooks/reduxStore";
@@ -196,7 +197,11 @@ export default function OrgDetails() {
                     <DetailsTaskView caseType={1} />
 
                     {/* REMOVE AFTER COUPON CARD IS INSERTED */}
-                    <div style={{ height: "40vh" }}></div>
+                    <div className="MerchantDetailsCard-container">
+                      <CouponReviewCard />
+                      <CouponReviewCard />
+                      <CouponReviewCard />
+                    </div>
                   </>
                 )}
               </React.Fragment>

@@ -9,7 +9,8 @@
   position: relative;
 }
 
-.OrgDetailsCard-container {
+.OrgDetailsCard-container,
+.MerchantDetailsCard-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -17,6 +18,11 @@
   gap: 50px;
   align-items: center;
   margin-top: 50px;
+}
+
+.MerchantDetailsCard-container {
+  border: 1px solid red;
+  width: 58vw;
 }
 
 .add-group-fields {
