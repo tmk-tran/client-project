@@ -89,7 +89,7 @@ export default function OrgDetails() {
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
 
-                {!isTaskPage ? (
+                {!isTaskPage || isMerchantTaskPage ? (
                   <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
                 ) : (
                   <OrgNotesDisplay
@@ -99,12 +99,10 @@ export default function OrgDetails() {
                   />
                 )}
 
+                {/* NEED MERCHANT TABLE DATA FROM BACKEND, TO REMOVE ORGDETAILS HERE */}
                 {/* {isMerchantTaskPage && (
                   <OrgNotesDisplay notes={notes} merchantDetails={merchantDetails} />
                 )} */}
-                {isMerchantTaskPage && (
-                  <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
-                )}
 
                 <center>
                   <OrgContactDetails info={orgDetails} />
@@ -154,10 +152,9 @@ export default function OrgDetails() {
 
                 {isMerchantTaskPage && (
                   <>
-                    <DetailsTaskView />
+                    <DetailsTaskView caseType={1} />
                   </>
                 )}
-
               </React.Fragment>
             ))}
           </div>

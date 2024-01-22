@@ -1,7 +1,28 @@
-.task-display-container {
-    height: 49vh;
-    max-height: 65vh;
-    overflow-y: auto;
-    border: 1px solid #273a9158;
-    border-radius: 4px;
+/* .task-display-container {
+  height: 49vh;
+  max-height: 65vh;
+  overflow-y: auto;
+  border: 1px solid #273a9158;
+  border-radius: 4px;
+}
+
+.merchant-task-view {
+  height: 40vh;
+  max-height: 65vh;
+  overflow-y: auto;
+  border: 1px solid #273a9158;
+  border-radius: 4px;
+} */
+
+.task-display-container,
+.merchant-task-view {
+  height: 49vh;
+  max-height: 65vh;
+  overflow-y: auto;
+  border: 1px solid #273a9158;
+  border-radius: 4px;
+}
+
+.merchant-task-view {
+  height: 15vh;
 }
