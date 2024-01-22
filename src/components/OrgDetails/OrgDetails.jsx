@@ -146,7 +146,6 @@ export default function OrgDetails() {
                 {isTaskPage && (
                   // Show task-related content on the task page
                   <>
-                    {/* May rename this to DetailsTaskView later */}
                     <DetailsTaskView />
 
                     <div style={{ height: "40vh" }}></div>

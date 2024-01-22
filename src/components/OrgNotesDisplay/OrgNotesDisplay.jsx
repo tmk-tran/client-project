@@ -78,13 +78,7 @@ export default function OrgNotesDisplay({ notes, orgDetails, caseType }) {
     <div className="notes-card-container">
       <Card
         elevation={3}
-        className={`notes-card ${
-          caseType === 1
-            ? "notes-card-task-view"
-            : caseType === 2
-            ? "additional-style-2"
-            : ""
-        }`}
+        className={`notes-card ${caseType === 1 ? "notes-card-task-view" : ""}`}
       >
         <CardContent>
           <Typography

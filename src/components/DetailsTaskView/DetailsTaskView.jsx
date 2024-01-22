@@ -7,7 +7,7 @@ import NewTaskModal from "../NewTaskModal/NewTaskModal";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import "./DetailsTaskView.css";
 
-export default function DetailsTaskView() {
+export default function DetailsTaskView({ caseType }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -21,7 +21,12 @@ export default function DetailsTaskView() {
           >
             Tasks
           </Typography>
-          <div className="task-display-container">
+          {/* <div className="task-display-container"> */}
+          <div
+            className={`task-display-container ${
+              caseType === 1 ? "merchant-task-view" : ""
+            }`}
+          >
             <TableTaskDetails />
           </div>
           <div>
