@@ -5,9 +5,9 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import TableTaskDetails from "../TableTaskDetails/TableTaskDetails";
 import NewTaskModal from "../NewTaskModal/NewTaskModal";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import "./OrgDetailsTaskView.css";
+import "./DetailsTaskView.css";
 
-export default function OrgDetailsTaskView() {
+export default function DetailsTaskView() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 

@@ -10,10 +10,10 @@ import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
+import DetailsTaskView from "../DetailsTaskView/DetailsTaskView";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { oDetails, oGroups, oNotes, mNotes } from "../../hooks/reduxStore";
-import OrgDetailsTaskView from "../OrgDetailsTaskView/OrgDetailsTaskView";
 
 // ~~~~~~~~~~ May Use Later ~~~~~~~~~~
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
@@ -88,6 +88,7 @@ export default function OrgDetails() {
           <div className="detailsOrg-container">
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
+
                 {!isTaskPage ? (
                   <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
                 ) : (
@@ -146,11 +147,18 @@ export default function OrgDetails() {
                   // Show task-related content on the task page
                   <>
                     {/* May rename this to DetailsTaskView later */}
-                    <OrgDetailsTaskView />
+                    <DetailsTaskView />
 
                     <div style={{ height: "40vh" }}></div>
                   </>
                 )}
+
+                {isMerchantTaskPage && (
+                  <>
+                    <DetailsTaskView />
+                  </>
+                )}
+
               </React.Fragment>
             ))}
           </div>
