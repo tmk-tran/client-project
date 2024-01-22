@@ -43,7 +43,12 @@ const taskOptions = {
 
 const userOptions = ["Chris", "Lacey", "Wendy"];
 
-export default function BasicModal({ merchantTab, customIcon, customText }) {
+export default function BasicModal({
+  merchantTab,
+  customIcon,
+  customText,
+  caseType,
+}) {
   const [open, setOpen] = useState(false);
 
   const [firstMenuChoice, setFirstMenuChoice] = useState("");
@@ -62,7 +67,6 @@ export default function BasicModal({ merchantTab, customIcon, customText }) {
 
   return (
     <div>
-      
       <Button onClick={handleOpen} fullWidth>
         {customIcon ? (
           customIcon // Render the custom icon if provided
@@ -90,18 +94,22 @@ export default function BasicModal({ merchantTab, customIcon, customText }) {
 
           <div style={{ display: "flex", flexDirection: "column" }}>
             <InputLabel>Category:</InputLabel>
+            {/* First Dropdown */}
             <Select
               value={firstMenuChoice}
               onChange={handleFirstMenuChange}
               sx={{ margin: "5px 0" }}
             >
               <MenuItem value="Book">Book</MenuItem>
-              {merchantTab && <MenuItem value="Coupon">Coupon</MenuItem>}
+              {(merchantTab || caseType === "merchantView") && (
+                <MenuItem value="Coupon">Coupon</MenuItem>
+              )}
               <MenuItem value="Contact">Contact</MenuItem>
               <MenuItem value="Task">Task</MenuItem>
             </Select>
 
             <InputLabel>Task:</InputLabel>
+            {/* Second Dropdown */}
             <Select
               value={secondMenuChoice}
               onChange={(event) => {
@@ -118,6 +126,7 @@ export default function BasicModal({ merchantTab, customIcon, customText }) {
             </Select>
 
             <InputLabel>Assign To:</InputLabel>
+            {/* Third Dropdown */}
             <Select
               value={thirdMenuChoice}
               onChange={(event) => setThirdMenuChoice(event.target.value)}
@@ -134,6 +143,7 @@ export default function BasicModal({ merchantTab, customIcon, customText }) {
               <DatePicker />
             </div>
           </div>
+
           <TextField
             id="outlined-multiline-static"
             label="Additional Details..."

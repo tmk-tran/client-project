@@ -194,7 +194,7 @@ export default function OrgDetails() {
 
                 {isMerchantTaskPage && (
                   <>
-                    <DetailsTaskView caseType={1} />
+                    <DetailsTaskView caseType={"merchantView"} />
 
                     {/* REMOVE AFTER COUPON CARD IS INSERTED */}
                     <div className="MerchantDetailsCard-container">

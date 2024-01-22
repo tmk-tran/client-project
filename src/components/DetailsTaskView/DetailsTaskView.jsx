@@ -10,6 +10,7 @@ import "./DetailsTaskView.css";
 export default function DetailsTaskView({ caseType }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  console.log(caseType);
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
@@ -21,17 +22,29 @@ export default function DetailsTaskView({ caseType }) {
           >
             Tasks
           </Typography>
-          {/* <div className="task-display-container"> */}
           <div
             className={`task-display-container ${
-              caseType === 1 ? "merchant-task-view" : ""
+              caseType === "merchantView" ? "merchant-task-view" : ""
             }`}
           >
             <TableTaskDetails />
+            {/* <TableTaskDetails />
+            <TableTaskDetails /> */}
           </div>
-          <div>
+          {/* <div>
             <NewTaskModal customIcon={<AddBoxIcon />} customText="Task" />
+          </div> */}
+
+          <div>
+          {caseType === 'merchantView' ? (
+              // Render NewTaskModal with 'merchantTab' props
+              <NewTaskModal customIcon={<AddBoxIcon />} customText="Task" caseType={'merchantView'} />
+            ) : (
+              // Render regular NewTaskModal
+              <NewTaskModal customIcon={<AddBoxIcon />} customText="Task" />
+            )}
           </div>
+
         </CardContent>
       </Card>
     </div>
