@@ -4,7 +4,7 @@ const router = express.Router();
 
 //New user query with Devii api call
 router.post("/", (req, res) => {
-  const ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzUxMiJ9.eyJpYXQiOjE3MDU1OTYyNjcsIm5iZiI6MTcwNTU5NjI2NywianRpIjoiZmIxYzY3NTQtZjgwYy00ZWQzLWIyODYtYjY1OGRmNDIxYTlmIiwiZXhwIjoxNzA1NjgyNjY3LCJzdWIiOnsicm9sZWlkIjoyMDMzNiwidGVuYW50aWQiOjEwMTIxfSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.AKIXSsD4UrVxu6aIsgmwhOnao48Xy6g-WSkCy_lQbx_RUmyDXmKLOulPnu_qFJ6mtY4ufXenp909FspQoTcJZ_tbAewI92iE2fd7cyqd7A8OZzmBbw2BysWOdFi0MZr4n2e4cRlLtAylP6_R8FX7neyh4qIgXFsN0gJYjOLuewAy0vuK";
+  const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
   const query = "{\r\n    user {\r\n id\r\n username\r\n password\r\n is_admin\r\n is_deleted\r\n user_group_collection{\r\n id\r\n group_id\r\n user_id\r\n group_admin\r\n}\r\n}\r\n}";
 
