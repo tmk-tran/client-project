@@ -4,6 +4,36 @@ const router = express.Router();
 
 router.get("/:id", (req, res) => {
   const orgId = req.params.id;
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n   fundraiser (filter: "group.organization_id = ${orgId}"{\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n
+  group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}\r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+    .then((response) => response.text())
+    .then((result) => {
+      console.log(result);
+      res.sendStatus(200)
+    })
+    .catch((error) => {
+      console.log("Error getting data from Devii", error)
+      res.sendStatus(500)
+    });
   // const queryText = `SELECT
   // o.id AS organization_id,
   // o.organization_name,
@@ -38,107 +68,138 @@ router.get("/:id", (req, res) => {
   // GROUP BY
   // o.id, g.id, f.group_id
   // ORDER BY LOWER (g.group_nickname) ASC;`;
-  const queryText = `SELECT
-  f.id AS fundraiser_id,
-  f.title AS fundraiser_title,
-  f.description AS fundraiser_description,
-  f.start_date AS fundraiser_start_date,
-  f.end_date AS fundraiser_end_date,
-  f.requested_book_quantity,
-  f.book_quantity_checked_out,
-  f.book_checked_out_total_value,
-  f.book_quantity_checked_in,
-  f.books_sold,
-  f.money_received,
-  f.outstanding_balance,
-  f.is_deleted AS fundraiser_is_deleted,
-  f.closed AS fundraiser_closed,
-  f.goal AS fundraiser_goal,
-  
-  g.id AS group_id,
-  g.organization_id AS group_organization_id,
-  g.department AS group_department,
-  g.sub_department AS group_sub_department,
-  g.group_nickname,
-  g.group_photo,
-  g.group_description,
-  g.is_deleted AS group_is_deleted,
-  
-  o.id AS organization_id,
-  o.organization_name,
-  o.type AS organization_type,
-  o.address AS organization_address,
-  o.city AS organization_city,
-  o.state AS organization_state,
-  o.zip AS organization_zip,
-  o.primary_contact_first_name,
-  o.primary_contact_last_name,
-  o.primary_contact_phone,
-  o.primary_contact_email,
-  o.organization_logo,
-  o.is_deleted AS organization_is_deleted,
-  o.organization_earnings
-FROM fundraiser f
-JOIN "group" g ON f.group_id = g.id
-JOIN organization o ON g.organization_id = o.id
-WHERE o.id = $1;`;
+  //   const queryText = `SELECT
+  //   f.id AS fundraiser_id,
+  //   f.title AS fundraiser_title,
+  //   f.description AS fundraiser_description,
+  //   f.start_date AS fundraiser_start_date,
+  //   f.end_date AS fundraiser_end_date,
+  //   f.requested_book_quantity,
+  //   f.book_quantity_checked_out,
+  //   f.book_checked_out_total_value,
+  //   f.book_quantity_checked_in,
+  //   f.books_sold,
+  //   f.money_received,
+  //   f.outstanding_balance,
+  //   f.is_deleted AS fundraiser_is_deleted,
+  //   f.closed AS fundraiser_closed,
+  //   f.goal AS fundraiser_goal,
 
-  pool
-    .query(queryText, [orgId])
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      console.log("ERROR in fundraisers", err);
-      res.sendStatus(500);
-    });
+  //   g.id AS group_id,
+  //   g.organization_id AS group_organization_id,
+  //   g.department AS group_department,
+  //   g.sub_department AS group_sub_department,
+  //   g.group_nickname,
+  //   g.group_photo,
+  //   g.group_description,
+  //   g.is_deleted AS group_is_deleted,
+
+  //   o.id AS organization_id,
+  //   o.organization_name,
+  //   o.type AS organization_type,
+  //   o.address AS organization_address,
+  //   o.city AS organization_city,
+  //   o.state AS organization_state,
+  //   o.zip AS organization_zip,
+  //   o.primary_contact_first_name,
+  //   o.primary_contact_last_name,
+  //   o.primary_contact_phone,
+  //   o.primary_contact_email,
+  //   o.organization_logo,
+  //   o.is_deleted AS organization_is_deleted,
+  //   o.organization_earnings
+  // FROM fundraiser f
+  // JOIN "group" g ON f.group_id = g.id
+  // JOIN organization o ON g.organization_id = o.id
+  // WHERE o.id = $1;`;
+
+  //   pool
+  //     .query(queryText, [orgId])
+  //     .then((result) => {
+  //       res.send(result.rows);
+  //     })
+  //     .catch((err) => {
+  //       console.log("ERROR in fundraisers", err);
+  //       res.sendStatus(500);
+  //     });
 });
 
 //Get route for fundraisers with a specific group id
 router.get("/groupfundraisers/:id", (req, res) => {
   const groupId = req.params.id;
-  const queryText = `SELECT 
-  "f".id, 
-  "f".group_id, 
-  "f".title, 
-  "f".description, 
-  "f".photo, 
-  "f".requested_book_quantity, 
-  "f".book_quantity_checked_out, 
-  "f".book_checked_out_total_value, 
-  "f".book_quantity_checked_in, 
-  "f".books_sold, 
-  "f".money_received, 
-  "f".start_date, 
-  "f".end_date, 
-  "f".goal, 
-  "cb".year, 
-  "f".outstanding_balance, 
-  "f".closed,
-  "o".organization_earnings
-FROM "fundraiser" AS "f"
-JOIN "group" AS "g" ON "f".group_id = "g".id
-JOIN "organization" AS "o" ON "g".organization_id = "o".id
-JOIN "coupon_book" AS "cb" ON "f".coupon_book_id = "cb".id
-WHERE "f".group_id = $1
-ORDER BY "f".id ASC, "f".closed = false;`;
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n   fundraiser (filter: "group_id = ${groupId}"{\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n
+  group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}\r\n}`;
 
-  pool
-    .query(queryText, [groupId])
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+    .then((response) => response.text())
     .then((result) => {
-      res.send(result.rows);
+      console.log(result);
+      res.sendStatus(200)
     })
-    .catch((err) => {
-      console.log("Error in getting fundraisers", err);
-      res.sendStatus(500);
+    .catch((error) => {
+      console.log("Error getting data from Devii", error)
+      res.sendStatus(500)
     });
+  //   const queryText = `SELECT 
+  //   "f".id, 
+  //   "f".group_id, 
+  //   "f".title, 
+  //   "f".description, 
+  //   "f".photo, 
+  //   "f".requested_book_quantity, 
+  //   "f".book_quantity_checked_out, 
+  //   "f".book_checked_out_total_value, 
+  //   "f".book_quantity_checked_in, 
+  //   "f".books_sold, 
+  //   "f".money_received, 
+  //   "f".start_date, 
+  //   "f".end_date, 
+  //   "f".goal, 
+  //   "cb".year, 
+  //   "f".outstanding_balance, 
+  //   "f".closed,
+  //   "o".organization_earnings
+  // FROM "fundraiser" AS "f"
+  // JOIN "group" AS "g" ON "f".group_id = "g".id
+  // JOIN "organization" AS "o" ON "g".organization_id = "o".id
+  // JOIN "coupon_book" AS "cb" ON "f".coupon_book_id = "cb".id
+  // WHERE "f".group_id = $1
+  // ORDER BY "f".id ASC, "f".closed = false;`;
+
+  //   pool
+  //     .query(queryText, [groupId])
+  //     .then((result) => {
+  //       res.send(result.rows);
+  //     })
+  //     .catch((err) => {
+  //       console.log("Error in getting fundraisers", err);
+  //       res.sendStatus(500);
+  //     });
 });
 
 // New post route to create a new fundraiser with the Devii api
 router.post("/", (req, res) => {
+  const newFundraiser = req.body;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
-  const query = `{\r\n  mutation{\r\n create_fundraiser(\r\n input:{\r\n group_id: 1\r\n group_id: 1\r\n title: "string"\r\n description: "string"\r\n requested_book_quantity: 1\r\n book_quantity_checked_out: 1\r\n book_quantity_checked_in: 1\r\n books_sold: 1\r\n money_received: 1\r\n start_date: Date\r\n end_date: Date\r\n coupon_book_id: 1\r\n goal: 1\r\n }\r\n ){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}`;
+  const query = `{\r\n  mutation{\r\n create_fundraiser(\r\n input:{\r\n group_id: ${newFundraiser.group_id}\r\n title: ${newFundraiser.title}\r\n description: ${newFundraiser.description}\r\n requested_book_quantity: ${newFundraiser.requested_book_quantity}\r\n book_quantity_checked_out: ${newFundraiser.book_quantity_checked_out}\r\n book_quantity_checked_in: ${newFundraiser.book_quantity_checked_in}\r\n books_sold: ${newFundraiser.books_sold}\r\n money_received: ${newFundraiser.money_received}\r\n start_date: ${newFundraiser.start_date}\r\n end_date: ${newFundraiser.end_data}\r\n coupon_book_id: ${newFundraiser.coupon_book_id}\r\n goal: ${newFundraiser.goal}\r\n }\r\n ){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}`;
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
