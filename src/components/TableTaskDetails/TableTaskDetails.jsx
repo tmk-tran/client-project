@@ -14,9 +14,11 @@ export default function TableTaskDetails() {
   return (
     <Table>
       <TableHead>
+
         <TableRow>
           <TableCell colSpan={2} className="task-row-shading">
             <Typography
+              variant="body2"
               sx={{
                 fontWeight: "bold",
                 textAlign: "center",
@@ -27,32 +29,41 @@ export default function TableTaskDetails() {
             </Typography>
           </TableCell>
         </TableRow>
+
         <TableRow>
           <TableCell>
-            <Typography sx={{ fontWeight: "bold" }}>Status:</Typography>
+            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+              Status:
+            </Typography>
           </TableCell>
           <TableCell>
-            <Typography sx={{ fontWeight: "bold" }}>
+            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
               Status Listed Here
             </Typography>
           </TableCell>
         </TableRow>
+        
       </TableHead>
 
       <TableBody>
+
         <TableRow>
           <TableCell className="task-row-shading">
-            <Typography sx={{ fontWeight: "bold" }}>Due:</Typography>
+            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+              Due:
+            </Typography>
           </TableCell>
           <TableCell className="task-row-shading">
-            <Typography sx={{ fontWeight: "bold" }}>
+            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
               Due Date Goes Here
             </Typography>
           </TableCell>
         </TableRow>
+
         <TableRow>
           <TableCell colSpan={2}>
             <Typography
+              variant="body2"
               sx={{
                 fontWeight: "bold",
                 textAlign: "center",
@@ -63,7 +74,9 @@ export default function TableTaskDetails() {
             </Typography>
           </TableCell>
         </TableRow>
+
       </TableBody>
+      
     </Table>
   );
 }

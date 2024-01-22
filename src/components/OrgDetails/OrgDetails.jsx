@@ -88,7 +88,6 @@ export default function OrgDetails() {
           <div className="detailsOrg-container">
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
-
                 {!isTaskPage || isMerchantTaskPage ? (
                   <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
                 ) : (
@@ -109,13 +108,55 @@ export default function OrgDetails() {
                   <br />
                 </center>
 
-                {/* May use later, disabled for now */}
+                {/* ~~~~~~~~~~ May use later, disabled for now ~~~~~~~~~~ */}
                 {/* <div>
                   <OrgNotesModal info={orgDetails} />
                   <AddGroupPopover info={orgDetails} />
                 </div> */}
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
-                {!isTaskPage && (
+                {/* {!isTaskPage && (
+                  // Default content when not on the task page
+                  <>
+                    <OrgDetailsGoalView info={orgDetails} groups={groups} />
+
+                    <div className="OrgDetailsCard-container">
+                      {groups &&
+                      groups.some((group) => group.group_id !== null) ? (
+                        groups.map((groupInfo, i) => (
+                          <OrgGroupInfo
+                            key={groupInfo.group_id}
+                            groupInfo={groupInfo}
+                            groupNumber={i + 1}
+                          />
+                        ))
+                      ) : (
+                        <div style={{ height: "200px" }}>
+                          <Typography variant="h6">
+                            No Groups Assigned
+                          </Typography>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+
+                {isMerchantTaskPage && (
+                  <>
+                    <DetailsTaskView caseType={1} />
+                  </>
+                )}
+
+                {isTaskPage && (
+                  // Show task-related content on the task page
+                  <>
+                    <DetailsTaskView />
+
+                    <div style={{ height: "40vh" }}></div>
+                  </>
+                )} */}
+
+                {!isTaskPage && !isMerchantTaskPage && (
                   // Default content when not on the task page
                   <>
                     <OrgDetailsGoalView info={orgDetails} groups={groups} />
@@ -153,6 +194,9 @@ export default function OrgDetails() {
                 {isMerchantTaskPage && (
                   <>
                     <DetailsTaskView caseType={1} />
+
+                    {/* REMOVE AFTER COUPON CARD IS INSERTED */}
+                    <div style={{ height: "40vh" }}></div>
                   </>
                 )}
               </React.Fragment>
