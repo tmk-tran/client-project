@@ -54,6 +54,8 @@ export default function BasicModal({
   const [firstMenuChoice, setFirstMenuChoice] = useState("");
   const [secondMenuChoice, setSecondMenuChoice] = useState("");
   const [thirdMenuChoice, setThirdMenuChoice] = useState("");
+  const [couponDetails, setCouponDetails] = useState("");
+  const [showDetailsInput, setShowDetailsInput] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -61,8 +63,17 @@ export default function BasicModal({
   const handleFirstMenuChange = (event) => {
     const choice = event.target.value;
     setFirstMenuChoice(choice);
-    setSecondMenuChoice(""); // Reset second menu choice when first menu changes
-    setThirdMenuChoice(""); // Reset third menu choice when first menu changes
+    setSecondMenuChoice("");
+    setThirdMenuChoice("");
+  };
+
+  const handleSecondMenuChange = (event) => {
+    const choice = event.target.value;
+    setSecondMenuChoice(choice);
+    setThirdMenuChoice("");
+
+    // Check if the selected option requires showing the details input
+    setShowDetailsInput(choice === "New Create Proof");
   };
 
   return (
@@ -83,11 +94,21 @@ export default function BasicModal({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div>
-            <Button onClick={handleClose}>
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "20px",
+            }}
+          >
+            <Button
+              onClick={handleClose}
+              style={{ position: "absolute", left: 0 }}
+            >
               <CloseIcon />
             </Button>
-            <Typography variant="h6" sx={{ textAlign: "center", mb: 3 }}>
+            <Typography variant="h6" sx={{ textAlign: "center", flexGrow: 1 }}>
               New Task
             </Typography>
           </div>
@@ -112,10 +133,7 @@ export default function BasicModal({
             {/* Second Dropdown */}
             <Select
               value={secondMenuChoice}
-              onChange={(event) => {
-                setSecondMenuChoice(event.target.value);
-                setThirdMenuChoice(""); // Reset third menu when changing the second menu
-              }}
+              onChange={handleSecondMenuChange}
               sx={{ margin: "5px 0" }}
             >
               {taskOptions[firstMenuChoice]?.map((option) => (
@@ -124,6 +142,20 @@ export default function BasicModal({
                 </MenuItem>
               ))}
             </Select>
+
+            {showDetailsInput && (
+              <TextField
+                id="outlined-multiline-static"
+                label="Coupon Details"
+                placeholder="Please enter coupon details here..."
+                fullWidth
+                multiline
+                rows={2}
+                value={couponDetails}
+                onChange={(event) => setCouponDetails(event.target.value)}
+                sx={{ margin: "10px auto" }}
+              />
+            )}
 
             <InputLabel>Assign To:</InputLabel>
             {/* Third Dropdown */}
