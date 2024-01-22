@@ -4,7 +4,7 @@ const router = express.Router();
 
 //New post route to Devii api to get all groups
 router.post('/', (req, res) => {
-  const ACCESS_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzUxMiJ9.eyJpYXQiOjE3MDU5NDYwMTEsIm5iZiI6MTcwNTk0NjAxMSwianRpIjoiZDc1MWQ2ODMtZTM1Ni00YmQ5LWEyNjQtYzNiMmFjNDk5ZTIxIiwiZXhwIjoxNzA2MDMyNDExLCJzdWIiOnsicm9sZWlkIjoyMDMzNiwidGVuYW50aWQiOjEwMTIxfSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.ACFILoT4BEpC5GDtO8D61b9_8HB2PbRwOAyFSvqtM9zLH94Zzd8BIVtkt0JxsWs9y2jk8hSdw7K19p-Bz_EAeqmcAH0HOcjWmVUSC0mZKCfOy8mjW-Mg-wX-aZsDpreySsrQONd_5VfhJIpj3uvPHMrHk1ru9ikLsLJA6upcW-EryGwy';
+  const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
   const query = "{\r\n  group{\r\n id\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n }\r\n}";
 
