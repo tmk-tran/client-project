@@ -42,6 +42,7 @@ const taskOptions = {
 };
 
 const userOptions = ["Chris", "Lacey", "Wendy"];
+const accountOptions = ["Account Name 1", "Account Name 2", "Account Name 3"];
 
 export default function BasicModal({
   merchantTab,
@@ -54,6 +55,7 @@ export default function BasicModal({
   const [firstMenuChoice, setFirstMenuChoice] = useState("");
   const [secondMenuChoice, setSecondMenuChoice] = useState("");
   const [thirdMenuChoice, setThirdMenuChoice] = useState("");
+  const [fourthMenuChoice, setFourthMenuChoice] = useState("");
   const [couponDetails, setCouponDetails] = useState("");
   const [showDetailsInput, setShowDetailsInput] = useState(false);
 
@@ -157,11 +159,25 @@ export default function BasicModal({
               />
             )}
 
-            <InputLabel>Assign To:</InputLabel>
             {/* Third Dropdown */}
+            <InputLabel>Account Name:</InputLabel>
             <Select
               value={thirdMenuChoice}
               onChange={(event) => setThirdMenuChoice(event.target.value)}
+              sx={{ margin: "5px 0" }}
+            >
+              {accountOptions.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Select>
+
+            <InputLabel>Assign To:</InputLabel>
+            {/* Fourth Dropdown */}
+            <Select
+              value={fourthMenuChoice}
+              onChange={(event) => setFourthMenuChoice(event.target.value)}
               sx={{ margin: "5px 0" }}
             >
               {userOptions.map((option) => (
@@ -180,7 +196,7 @@ export default function BasicModal({
             id="outlined-multiline-static"
             label="Additional Details..."
             multiline
-            rows={4}
+            rows={3}
             fullWidth
             sx={{ margin: "10px auto" }}
           />
