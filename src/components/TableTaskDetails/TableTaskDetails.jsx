@@ -24,6 +24,7 @@ export default function TableTaskDetails() {
                 fontWeight: "bold",
                 textAlign: "center",
                 border: "1px solid red",
+                // margin: 0,
               }}
             >
               Task #
@@ -64,7 +65,6 @@ export default function TableTaskDetails() {
             <CommentDisplay />
           </TableCell>
         </TableRow>
-        
       </TableBody>
     </Table>
   );

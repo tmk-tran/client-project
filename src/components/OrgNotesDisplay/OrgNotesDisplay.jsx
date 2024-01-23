@@ -12,14 +12,15 @@ import "./OrgNotesDisplay.css";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import DeleteIcon from "@mui/icons-material/Delete";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
-import { formatDate } from "../Utils/helpers";
+import { formatDate, hrStyle } from "../Utils/helpers";
 import { showSaveSweetAlert, showDeleteSweetAlert } from "../Utils/sweetAlerts";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
+
 // ~~~~~~~~~~ Toasts (INACTIVE, MAY USE LATER) ~~~~~~~~~~
 import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { dispatchHook } from "../../hooks/useDispatch";
 
 export default function OrgNotesDisplay({ notes, orgDetails, caseType }) {
   const dispatch = dispatchHook();
@@ -137,9 +138,7 @@ export default function OrgNotesDisplay({ notes, orgDetails, caseType }) {
                         </Button>
                       </div>
                       <br />
-                      <hr
-                        style={{ width: "85%", border: "1px solid #273b91" }}
-                      />
+                      <hr style={hrStyle} />
                     </div>
                   ))}
               </div>

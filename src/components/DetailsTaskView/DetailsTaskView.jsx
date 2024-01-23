@@ -6,6 +6,8 @@ import TableTaskDetails from "../TableTaskDetails/TableTaskDetails";
 import NewTaskModal from "../NewTaskModal/NewTaskModal";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import "./DetailsTaskView.css";
+// ~~~~~~~~~~ Utils ~~~~~~~~~~
+import { hrStyle } from "../Utils/helpers";
 
 export default function DetailsTaskView({ caseType }) {
   const theme = useTheme();
@@ -28,6 +30,7 @@ export default function DetailsTaskView({ caseType }) {
             }`}
           >
             <TableTaskDetails />
+            <hr style={hrStyle} />
             {/* <TableTaskDetails />
             <TableTaskDetails /> */}
           </div>

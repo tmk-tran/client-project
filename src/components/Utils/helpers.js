@@ -116,3 +116,9 @@ export const centerDiv = {
   justifyContent: "center",
   alignItems: "center",
 };
+
+// Style for hr lines in Notes and Task display
+export const hrStyle = {
+  width: "90%",
+  border: "1px solid #273b91"
+};
