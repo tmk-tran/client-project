@@ -1,10 +1,12 @@
 import { Typography } from "@mui/material";
-export default function CommentDisplay() {
+export default function CommentDisplay({ backgroundColor = "rgba(96, 96, 96, 0.1)" }) {
+  
   return (
     <div
       style={{
         height: "10vh",
-        backgroundColor: "rgba(96, 96, 96, 0.1)",
+        // backgroundColor: "rgba(96, 96, 96, 0.1)",
+        backgroundColor: backgroundColor,
       }}
     >
       <div style={{ display: "flex", flexDirection: "row" }}>

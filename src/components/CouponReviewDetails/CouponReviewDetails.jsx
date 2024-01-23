@@ -5,19 +5,19 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { border } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import CouponReviewButtons from "./CouponReviewButtons";
 import DenyProofModal from "../DenyProofModal/DenyProofModal";
 import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
+import CouponReviewButtons from "./CouponReviewButtons";
+import CouponReviewComments from "./CouponReviewComments";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
 
 export default function CouponReviewDetails() {
-  const history = historyHook();  
+  const history = historyHook();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(isModalOpen);
 
   const handleDenyButtonClick = () => {
     // Open the modal when Deny button is clicked
@@ -37,7 +37,14 @@ export default function CouponReviewDetails() {
                 marginBottom: "40px",
               }}
             >
-              <Button style={{ position: "absolute", left: 0 }} onClick={() => {history.goBack()}}>Back</Button>
+              <Button
+                style={{ position: "absolute", left: 0 }}
+                onClick={() => {
+                  history.goBack();
+                }}
+              >
+                Back
+              </Button>
               <Typography
                 variant="h5"
                 sx={{
@@ -53,70 +60,75 @@ export default function CouponReviewDetails() {
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <Card style={{ width: "50vw", height: "64vh" }} elevation={3}>
               <CardContent>
-                <div style={{ width: "25vw" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 15,
-                    }}
-                  >
-                    <div style={border}>
-                      <div
-                        style={{
-                          height: "18vh",
-                          backgroundColor: "#D9D9D9",
-                        }}
-                      >
-                        <Typography
-                          sx={{ textAlign: "center", lineHeight: "15vh" }}
+                <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
+                  <div style={{ width: "25vw" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 15,
+                      }}
+                    >
+                      <div style={border}>
+                        <div
+                          style={{
+                            height: "18vh",
+                            backgroundColor: "#D9D9D9",
+                          }}
                         >
-                          Front of Coupon
-                        </Typography>
+                          <Typography
+                            sx={{ textAlign: "center", lineHeight: "15vh" }}
+                          >
+                            Front of Coupon
+                          </Typography>
+                        </div>
                       </div>
-                    </div>
 
-                    <div style={border}>
-                      <div
-                        style={{
-                          height: "18vh",
-                          backgroundColor: "#D9D9D9",
-                        }}
-                      >
-                        <Typography
-                          sx={{ textAlign: "center", lineHeight: "15vh" }}
+                      <div style={border}>
+                        <div
+                          style={{
+                            height: "18vh",
+                            backgroundColor: "#D9D9D9",
+                          }}
                         >
-                          Back of Coupon
-                        </Typography>
+                          <Typography
+                            sx={{ textAlign: "center", lineHeight: "15vh" }}
+                          >
+                            Back of Coupon
+                          </Typography>
+                        </div>
                       </div>
-                    </div>
 
-                    <div style={border}>
-                      <div
-                        style={{
-                          height: "15vh",
-                          backgroundColor: "rgba(96, 96, 96, 0.1)",
-                        }}
-                      >
-                        <CouponStatusDropdown />
-
-                        <Typography
-                          variant="body2"
-                          sx={{ textAlign: "center", mt: 2 }}
+                      <div style={border}>
+                        <div
+                          style={{
+                            height: "15vh",
+                            backgroundColor: "rgba(96, 96, 96, 0.1)",
+                          }}
                         >
-                          Details of Coupon
-                        </Typography>
+                          <CouponStatusDropdown />
+
+                          <Typography
+                            variant="body2"
+                            sx={{ textAlign: "center", mt: 2 }}
+                          >
+                            Details of Coupon
+                          </Typography>
+                        </div>
                       </div>
+
+                      <CouponReviewButtons
+                        onDenyButtonClick={handleDenyButtonClick}
+                      />
+
+                      {isModalOpen && (
+                        <DenyProofModal onClose={() => setIsModalOpen(false)} />
+                      )}
                     </div>
-
-                    <CouponReviewButtons
-                      onDenyButtonClick={handleDenyButtonClick}
-                    />
-
-                    {isModalOpen && (
-                      <DenyProofModal onClose={() => setIsModalOpen(false)} />
-                    )}
                   </div>
+
+                  {/* Comments section */}
+                  <CouponReviewComments />
                 </div>
               </CardContent>
             </Card>

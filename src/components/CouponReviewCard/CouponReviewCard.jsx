@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import {
-  Button,
-  Card,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 import { border } from "../Utils/colors";
 // ~~~~~~~~~~ Component ~~~~~~~~~~
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
@@ -38,6 +33,8 @@ export default function CouponReviewCard() {
       }}
     >
       <CardContent>
+        
+        {/* HEADER FOR CARD ~~~~~~~~~~~~~~~~~~~~ */}
         <div
           style={{
             display: "flex",
@@ -46,13 +43,14 @@ export default function CouponReviewCard() {
           }}
           onClick={handleContainerClick}
         >
-          
+          {/* Status Menu */}
           <CouponStatusDropdown />
 
           <Button sx={{ marginLeft: "10px" }} onClick={handleUpdateClick}>
             Update
           </Button>
         </div>
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
         <hr />
 
