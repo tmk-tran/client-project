@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
+  Button,
   Card,
   CardContent,
   Select,
@@ -41,29 +42,62 @@ export default function CouponReviewCard() {
   return (
     <Card elevation={6} id="orgDetails-Card">
       <CardContent>
-        <Select
-          value={status}
-          onChange={handleMenuChange}
-          style={{ width: "100%", textAlign: "center", marginLeft: "unset", marginBottom: "20px" }}
-          displayEmpty
-        >
-          <MenuItem value="" disabled>
-            Change Status
-          </MenuItem>
-          {statusOptions.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
+        <div style={{ display: "flex", flexDirection: "row", border: "1px solid red" }}>
+          <Select
+            value={status}
+            onChange={handleMenuChange}
+            style={{
+              width: "100%",
+              textAlign: "center",
+              marginLeft: "unset",
+              marginBottom: "20px",
+            }}
+            displayEmpty
+          >
+            <MenuItem value="" disabled>
+              Change Status
             </MenuItem>
-          ))}
-        </Select>
-        
-        <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
-        <div style={border}><div style={{ height: "15vh", backgroundColor: "#D9D9D9" }}>Front of Coupon</div></div>
-        <div style={border}><div style={{ height: "15vh", backgroundColor: "#D9D9D9" }}>Back of Coupon</div></div>
-        <div style={border}><div style={{ height: "10vh", backgroundColor: "rgba(96, 96, 96, 0.1)" }}>Details of Coupon</div></div>
-        <div style={border}><div style={{ height: "10vh", backgroundColor: "rgba(96, 96, 96, 0.1)" }}>Most Recent Comment Shown Here</div></div> 
-        </div>   
+            {statusOptions.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </Select>
+          <Button sx={{ height: "7vh" }}>Update</Button>
+        </div>
 
+        <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+          <div style={border}>
+            <div style={{ height: "15vh", backgroundColor: "#D9D9D9" }}>
+              Front of Coupon
+            </div>
+          </div>
+          <div style={border}>
+            <div style={{ height: "15vh", backgroundColor: "#D9D9D9" }}>
+              Back of Coupon
+            </div>
+          </div>
+          <div style={border}>
+            <div
+              style={{
+                height: "10vh",
+                backgroundColor: "rgba(96, 96, 96, 0.1)",
+              }}
+            >
+              Details of Coupon
+            </div>
+          </div>
+          <div style={border}>
+            <div
+              style={{
+                height: "10vh",
+                backgroundColor: "rgba(96, 96, 96, 0.1)",
+              }}
+            >
+              Most Recent Comment Shown Here
+            </div>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
