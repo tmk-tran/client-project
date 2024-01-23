@@ -4,9 +4,6 @@ import {
   Button,
   Card,
   CardContent,
-  Select,
-  MenuItem,
-  InputLabel,
   Typography,
 } from "@mui/material";
 import { border } from "../Utils/colors";
@@ -14,31 +11,10 @@ import { border } from "../Utils/colors";
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
-
-const statusOptions = [
-  "*New Year: Merchant Coupon",
-  "Add-on Request",
-  "Changes Requested",
-  "Completed Coupon",
-  "Edit Proof",
-  "New: Add-on Proof",
-  "New: Create Proof",
-  "Pending Merchant Approval",
-  "Proof Approved",
-  "Ready For Review",
-  "Update Create Proof",
-];
+import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 
 export default function CouponReviewCard() {
   const history = historyHook();
-
-  const [status, setStatus] = useState("");
-
-  const handleMenuChange = (event) => {
-    const choice = event.target.value;
-    setStatus(choice);
-    event.stopPropagation();
-  };
 
   const handleUpdateClick = (event) => {
     // Add your logic for the Update button click
@@ -70,26 +46,9 @@ export default function CouponReviewCard() {
           }}
           onClick={handleContainerClick}
         >
-          <Select
-            value={status}
-            onChange={handleMenuChange}
-            style={{
-              width: "100%",
-              textAlign: "center",
-              marginLeft: "unset",
-              overflow: "hidden",
-            }}
-            displayEmpty
-          >
-            <MenuItem value="" disabled>
-              Change Status
-            </MenuItem>
-            {statusOptions.map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </Select>
+          
+          <CouponStatusDropdown />
+
           <Button sx={{ marginLeft: "10px" }} onClick={handleUpdateClick}>
             Update
           </Button>
