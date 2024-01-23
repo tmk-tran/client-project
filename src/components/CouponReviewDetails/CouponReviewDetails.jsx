@@ -58,7 +58,7 @@ export default function CouponReviewDetails() {
             </div>
 
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            <Card style={{ width: "50vw", height: "64vh" }} elevation={3}>
+            <Card style={{ width: "50vw", height: "64vh", margin: "0 auto" }} elevation={3}>
               <CardContent>
                 <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
                   <div style={{ width: "25vw" }}>
