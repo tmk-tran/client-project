@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Typography, Card, CardContent } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -11,6 +12,14 @@ import CouponReviewButtons from "./CouponReviewButtons";
 export default function CouponReviewDetails() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  console.log(isFormOpen);
+
+  const handleDenyButtonClick = () => {
+    // Set the state to open the form
+    setIsFormOpen(true);
+  };
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
@@ -81,7 +90,7 @@ export default function CouponReviewDetails() {
                       </div>
                     </div>
 
-                    <CouponReviewButtons />
+                    <CouponReviewButtons onDenyButtonClick={handleDenyButtonClick} />
 
                   </div>
                 </div>

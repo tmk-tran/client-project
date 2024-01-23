@@ -7,7 +7,12 @@ import { modalBtnStyle } from "../Utils/helpers";
 import CheckIcon from "@mui/icons-material/Check";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-export default function CouponReviewButtons() {
+export default function CouponReviewButtons({ onDenyButtonClick }) {
+  const handleDenyClick = () => {
+    // Call the parent component's function when the Deny button is clicked
+    onDenyButtonClick();
+  };
+
   const hoverDeny = {
     "&:hover": {
       backgroundColor: "#A42626", // Lighter shade for Deny button
@@ -25,6 +30,7 @@ export default function CouponReviewButtons() {
       <Button
         variant="contained"
         sx={{ backgroundColor: "#8E1919", width: "10vw", ...hoverDeny }}
+        onClick={handleDenyClick}
       >
         Deny &nbsp;
         <CancelIcon />
