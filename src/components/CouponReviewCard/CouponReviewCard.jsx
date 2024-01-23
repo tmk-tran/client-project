@@ -42,7 +42,7 @@ export default function CouponReviewCard() {
   return (
     <Card elevation={6} id="orgDetails-Card">
       <CardContent>
-        <div style={{ display: "flex", flexDirection: "row", border: "1px solid red", marginBottom: "20px" }}>
+        <div style={{ display: "flex", flexDirection: "row", marginBottom: "20px" }}>
           <Select
             value={status}
             onChange={handleMenuChange}
@@ -62,7 +62,7 @@ export default function CouponReviewCard() {
               </MenuItem>
             ))}
           </Select>
-          <Button sx={{ height: "7vh" }}>Update</Button>
+          <Button sx={{ marginLeft: "10px" }}>Update</Button>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
