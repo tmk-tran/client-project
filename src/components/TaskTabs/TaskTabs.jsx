@@ -78,7 +78,10 @@ export default function BasicTabs() {
           {/* <Tab label="Coupons" {...a11yProps(2)} /> */}
         </Tabs>
         <NewTaskModal merchantTab={merchantTab} />
-        <SearchBar />
+
+        <div style={{ flexGrow: .3 }}></div>
+        {/* <SearchBar /> */}
+        
       </Box>
 
       <TabPanel value={value} index={0}>
