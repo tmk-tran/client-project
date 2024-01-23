@@ -12,6 +12,7 @@ import {
   MenuItem,
   InputLabel,
 } from "@mui/material";
+import "./NewTaskModal.css";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -105,6 +106,7 @@ export default function BasicModal({
             }}
           >
             <Button
+              className="close-btn"
               onClick={handleClose}
               style={{ position: "absolute", left: 0 }}
             >

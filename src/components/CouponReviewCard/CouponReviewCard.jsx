@@ -44,7 +44,7 @@ export default function CouponReviewCard() {
         <Select
           value={status}
           onChange={handleMenuChange}
-          style={{ width: "100%", textAlign: "center", marginLeft: "unset" }}
+          style={{ width: "100%", textAlign: "center", marginLeft: "unset", marginBottom: "20px" }}
           displayEmpty
         >
           <MenuItem value="" disabled>
@@ -56,10 +56,12 @@ export default function CouponReviewCard() {
             </MenuItem>
           ))}
         </Select>
-
-        <div style={border}><div style={{ height: "15vh" }}>Front of Coupon</div></div>
-        <div style={border}><div style={{ height: "15vh" }}>Back of Coupon</div></div>
-        <div style={border}><div style={{ height: "10vh" }}>Details of Coupon</div></div>    
+        <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+        <div style={border}><div style={{ height: "15vh", backgroundColor: "#D9D9D9" }}>Front of Coupon</div></div>
+        <div style={border}><div style={{ height: "15vh", backgroundColor: "#D9D9D9" }}>Back of Coupon</div></div>
+        <div style={border}><div style={{ height: "10vh", backgroundColor: "rgba(96, 96, 96, 0.1)" }}>Details of Coupon</div></div>
+        <div style={border}><div style={{ height: "10vh", backgroundColor: "rgba(96, 96, 96, 0.1)" }}>Most Recent Comment Shown Here</div></div> 
+        </div>   
 
       </CardContent>
     </Card>

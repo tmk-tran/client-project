@@ -75,7 +75,7 @@ export default function BasicTabs() {
             {...a11yProps(1)}
             onClick={() => setMerchantTab(true)}
           />
-          <Tab label="Coupons" {...a11yProps(2)} />
+          {/* <Tab label="Coupons" {...a11yProps(2)} /> */}
         </Tabs>
         <NewTaskModal merchantTab={merchantTab} />
         <SearchBar />
@@ -89,9 +89,10 @@ export default function BasicTabs() {
         <TaskListMerchant />
       </TabPanel>
 
-      <TabPanel value={value} index={2}>
+      {/* <TabPanel value={value} index={2}>
         Review / Publish info here
-      </TabPanel>
+      </TabPanel> */}
+      
     </Box>
   );
 }
