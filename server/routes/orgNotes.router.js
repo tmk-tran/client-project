@@ -7,10 +7,10 @@ const {
 
 //New route to get notes from Devii
 router.post('/', async (req, res) => {
-  const id = req.params.id
+
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
-  const query = `{\r\n    organization_notes (filter:'organization_id = ${id}'){\r\n id\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n}`;
+  const query = `{\r\n    organization_notes {\r\n id\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n}`;
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
@@ -28,8 +28,11 @@ router.post('/', async (req, res) => {
   };
 
   fetch(QUERY_URL, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result.data.organization_notes)
+      res.sendStatus(200)
+    })
     .catch((error) => {
       console.log("Error getting data from Devii", error)
       res.sendStatus(500)
