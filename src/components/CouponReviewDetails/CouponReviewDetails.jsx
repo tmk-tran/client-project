@@ -5,20 +5,19 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { border } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import CouponReviewCard from "../CouponReviewCard/CouponReviewCard";
-import { modalBtnStyle } from "../Utils/helpers";
 import CouponReviewButtons from "./CouponReviewButtons";
+import DenyProofModal from "../DenyProofModal/DenyProofModal";
 
 export default function CouponReviewDetails() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  console.log(isFormOpen);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  console.log(isModalOpen);
 
   const handleDenyButtonClick = () => {
-    // Set the state to open the form
-    setIsFormOpen(true);
+    // Open the modal when Deny button is clicked
+    setIsModalOpen(true);
   };
 
   return (
@@ -90,7 +89,13 @@ export default function CouponReviewDetails() {
                       </div>
                     </div>
 
-                    <CouponReviewButtons onDenyButtonClick={handleDenyButtonClick} />
+                    <CouponReviewButtons
+                      onDenyButtonClick={handleDenyButtonClick}
+                    />
+
+                    {isModalOpen && (
+                      <DenyProofModal onClose={() => setIsModalOpen(false)} />
+                    )}
 
                   </div>
                 </div>
