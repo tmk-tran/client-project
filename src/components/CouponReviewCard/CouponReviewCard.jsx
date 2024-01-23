@@ -78,11 +78,13 @@ export default function CouponReviewCard() {
               Front of Coupon
             </div>
           </div>
+
           <div style={border}>
             <div style={{ height: "15vh", backgroundColor: "#D9D9D9" }}>
               Back of Coupon
             </div>
           </div>
+
           <div style={border}>
             <div
               style={{
@@ -93,6 +95,7 @@ export default function CouponReviewCard() {
               Details of Coupon
             </div>
           </div>
+          
           <div style={border}>
             <div
               style={{
