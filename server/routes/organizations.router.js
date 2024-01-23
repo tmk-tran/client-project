@@ -399,7 +399,7 @@ router.post("/:id", (req, res) => {
     };
 
     fetch(QUERY_URL, requestOptions)
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((result) => console.log(result))
         .catch((error) => {
             console.log("Error getting data from Devii", error)

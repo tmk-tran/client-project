@@ -2,7 +2,7 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-router.get("/:id", (req, res) => {
+router.post("/:id", (req, res) => {
   const orgId = req.params.id;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
@@ -25,7 +25,7 @@ router.get("/:id", (req, res) => {
   };
 
   fetch(QUERY_URL, requestOptions)
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((result) => {
       console.log(result);
       res.sendStatus(200)
@@ -248,7 +248,7 @@ router.post("/", (req, res) => {
 // });
 
 //New update route that uses Devii api, can be used for all updates
-router.post("/:id", (req, res) => {
+router.post("/updatedfundraiser", (req, res) => {
   const id = req.params.id;
   const updatedFundraiser = req.body;
   const ACCESS_TOKEN = auth_response.access_token;

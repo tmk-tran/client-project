@@ -25,7 +25,7 @@ router.post('/:id', (req, res) => {
   };
 
   fetch(QUERY_URL, requestOptions)
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((result) => {
       console.log(result);
       res.sendStatus(200)
@@ -70,7 +70,7 @@ router.post("/orggroups/:id", (req, res) => {
   };
 
   fetch(QUERY_URL, requestOptions)
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((result) => {
       console.log(result);
       res.sendStatus(200)
