@@ -50,55 +50,63 @@ export default function BasicTabs() {
   };
 
   return (
-    <Card elevation={3} sx={{ width: "85%", margin: "20px auto" }}>
-    <Box
-      sx={{ width: "60vw", margin: "0 auto", height: "80vh", padding: "40px" }}
-    >
-      <Typography variant="h5" sx={{ fontWeight: "bold", textAlign: "center", mb: 5 }}>Task Management</Typography>
+    <Card className="details-card" elevation={3}>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderBottom: 1,
-          borderColor: "divider",
-          marginBottom: 3,
-          paddingY: 2,
+          width: "60vw",
+          margin: "0 auto",
+          height: "80vh",
+          padding: "40px",
         }}
       >
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: "bold", textAlign: "center", mb: 5 }}
         >
-          <Tab label="Organization" {...a11yProps(0)} />
-          <Tab
-            label="Merchant"
-            {...a11yProps(1)}
-            onClick={() => setMerchantTab(true)}
-          />
-          {/* <Tab label="Coupons" {...a11yProps(2)} /> */}
-        </Tabs>
-        <NewTaskModal merchantTab={merchantTab} />
+          Task Management
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "divider",
+            marginBottom: 3,
+            paddingY: 2,
+          }}
+        >
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Organization" {...a11yProps(0)} />
+            <Tab
+              label="Merchant"
+              {...a11yProps(1)}
+              onClick={() => setMerchantTab(true)}
+            />
+            {/* <Tab label="Coupons" {...a11yProps(2)} /> */}
+          </Tabs>
+          <NewTaskModal merchantTab={merchantTab} />
 
-        <div style={{ flexGrow: .3 }}></div>
-        {/* <SearchBar /> */}
-        
-      </Box>
+          <div style={{ flexGrow: 0.3 }}></div>
+          {/* <SearchBar /> */}
+        </Box>
 
-      <TabPanel value={value} index={0}>
-        <TaskListOrg />
-      </TabPanel>
+        <TabPanel value={value} index={0}>
+          <TaskListOrg />
+        </TabPanel>
 
-      <TabPanel value={value} index={1}>
-        <TaskListMerchant />
-      </TabPanel>
+        <TabPanel value={value} index={1}>
+          <TaskListMerchant />
+        </TabPanel>
 
-      {/* <TabPanel value={value} index={2}>
+        {/* <TabPanel value={value} index={2}>
         Review / Publish info here
       </TabPanel> */}
-      
-    </Box>
+      </Box>
     </Card>
   );
 }
