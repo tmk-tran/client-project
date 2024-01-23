@@ -12,6 +12,8 @@ import {
 import { border } from "../Utils/colors";
 // ~~~~~~~~~~ Component ~~~~~~~~~~
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { historyHook } from "../../hooks/useHistory";
 
 const statusOptions = [
   "*New Year: Merchant Coupon",
@@ -34,6 +36,8 @@ const statusOptions = [
 // };
 
 export default function CouponReviewCard() {
+  const history = historyHook();
+
   const [status, setStatus] = useState("");
 
   const handleMenuChange = (event) => {
@@ -42,7 +46,7 @@ export default function CouponReviewCard() {
   };
 
   return (
-    <Card elevation={6} className="details-view-card">
+    <Card elevation={6} className="details-view-card" onClick={() => {history.push(`/coupon/${1}`)}}>
       <CardContent>
         <div
           style={{

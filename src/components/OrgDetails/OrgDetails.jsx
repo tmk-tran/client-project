@@ -86,7 +86,7 @@ export default function OrgDetails() {
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
       <Card className="details-card" elevation={3}>
         <CardContent>
-          <div className="detailsOrg-container">
+          <div className="detailsView-container">
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
                 {!isTaskPage || isMerchantTaskPage ? (
@@ -115,47 +115,6 @@ export default function OrgDetails() {
                   <AddGroupPopover info={orgDetails} />
                 </div> */}
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
-                {/* {!isTaskPage && (
-                  // Default content when not on the task page
-                  <>
-                    <OrgDetailsGoalView info={orgDetails} groups={groups} />
-
-                    <div className="OrgDetailsCard-container">
-                      {groups &&
-                      groups.some((group) => group.group_id !== null) ? (
-                        groups.map((groupInfo, i) => (
-                          <OrgGroupInfo
-                            key={groupInfo.group_id}
-                            groupInfo={groupInfo}
-                            groupNumber={i + 1}
-                          />
-                        ))
-                      ) : (
-                        <div style={{ height: "200px" }}>
-                          <Typography variant="h6">
-                            No Groups Assigned
-                          </Typography>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
-
-                {isMerchantTaskPage && (
-                  <>
-                    <DetailsTaskView caseType={1} />
-                  </>
-                )}
-
-                {isTaskPage && (
-                  // Show task-related content on the task page
-                  <>
-                    <DetailsTaskView />
-
-                    <div style={{ height: "40vh" }}></div>
-                  </>
-                )} */}
 
                 {!isTaskPage && !isMerchantTaskPage && (
                   // Default content when not on the task page

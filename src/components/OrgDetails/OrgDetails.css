@@ -1,4 +1,4 @@
-.detailsOrg-container {
+.detailsView-container {
   margin-top: 15px;
   position: relative;
 }
@@ -38,7 +38,7 @@
 
 @media (max-width: 400px) {
   .details-container,
-  .detailsOrg-container,
+  .detailsView-container,
   .details-card {
     width: 100%;
   }
