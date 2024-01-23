@@ -42,7 +42,7 @@ export default function CouponReviewCard() {
   return (
     <Card elevation={6} id="orgDetails-Card">
       <CardContent>
-        <div style={{ display: "flex", flexDirection: "row", border: "1px solid red" }}>
+        <div style={{ display: "flex", flexDirection: "row", border: "1px solid red", marginBottom: "20px" }}>
           <Select
             value={status}
             onChange={handleMenuChange}
@@ -50,7 +50,6 @@ export default function CouponReviewCard() {
               width: "100%",
               textAlign: "center",
               marginLeft: "unset",
-              marginBottom: "20px",
             }}
             displayEmpty
           >
