@@ -9,12 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import "./TableTaskDetails.css";
+// ~~~~~~~~~~ Component ~~~~~~~~~
+import CommentDisplay from "../CommentDisplay/CommentDisplay";
 
 export default function TableTaskDetails() {
   return (
     <Table>
       <TableHead>
-
         <TableRow>
           <TableCell colSpan={2} className="task-row-shading">
             <Typography
@@ -42,11 +43,9 @@ export default function TableTaskDetails() {
             </Typography>
           </TableCell>
         </TableRow>
-        
       </TableHead>
 
       <TableBody>
-
         <TableRow>
           <TableCell className="task-row-shading">
             <Typography variant="body2" sx={{ fontWeight: "bold" }}>
@@ -62,21 +61,11 @@ export default function TableTaskDetails() {
 
         <TableRow>
           <TableCell colSpan={2}>
-            <Typography
-              variant="body2"
-              sx={{
-                fontWeight: "bold",
-                textAlign: "center",
-                border: "1px solid red",
-              }}
-            >
-              Most recent comment here
-            </Typography>
+            <CommentDisplay />
           </TableCell>
         </TableRow>
-
+        
       </TableBody>
-      
     </Table>
   );
 }
