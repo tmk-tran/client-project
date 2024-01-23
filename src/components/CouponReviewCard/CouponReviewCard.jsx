@@ -37,10 +37,30 @@ export default function CouponReviewCard() {
   const handleMenuChange = (event) => {
     const choice = event.target.value;
     setStatus(choice);
+    event.stopPropagation();
+  };
+
+  const handleUpdateClick = (event) => {
+    // Add your logic for the Update button click
+    // ...
+
+    // Prevent the click event from propagating to the Card and triggering history.push
+    event.stopPropagation();
+  };
+
+  const handleContainerClick = (event) => {
+    // Prevent the click event from propagating to the Card and triggering history.push
+    event.stopPropagation();
   };
 
   return (
-    <Card elevation={6} className="details-view-card" onClick={() => {history.push(`/coupon/${1}`)}}>
+    <Card
+      elevation={6}
+      className="details-view-card"
+      onClick={() => {
+        history.push(`/coupon/${1}`);
+      }}
+    >
       <CardContent>
         <div
           style={{
@@ -48,6 +68,7 @@ export default function CouponReviewCard() {
             flexDirection: "row",
             marginBottom: "20px",
           }}
+          onClick={handleContainerClick}
         >
           <Select
             value={status}
@@ -69,10 +90,14 @@ export default function CouponReviewCard() {
               </MenuItem>
             ))}
           </Select>
-          <Button sx={{ marginLeft: "10px" }}>Update</Button>
+          <Button sx={{ marginLeft: "10px" }} onClick={handleUpdateClick}>
+            Update
+          </Button>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+        <hr />
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <div style={border}>
             <div

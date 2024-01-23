@@ -32,6 +32,7 @@ export default function CouponStatusDropdown({ width = "100%" }) {
         textAlign: "center",
         marginLeft: "unset",
         overflow: "hidden",
+        backgroundColor: "white",
       }}
       displayEmpty
     >
