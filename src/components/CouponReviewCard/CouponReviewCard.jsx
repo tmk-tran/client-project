@@ -73,15 +73,30 @@ export default function CouponReviewCard() {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+          {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <div style={border}>
-            <div style={{ height: "15vh", backgroundColor: "#D9D9D9" }}>
-              Front of Coupon
+            <div
+              style={{
+                height: "15vh",
+                backgroundColor: "#D9D9D9",
+              }}
+            >
+              <Typography sx={{ textAlign: "center", lineHeight: "15vh" }}>
+                Front of Coupon
+              </Typography>
             </div>
           </div>
 
           <div style={border}>
-            <div style={{ height: "15vh", backgroundColor: "#D9D9D9" }}>
-              Back of Coupon
+            <div
+              style={{
+                height: "15vh",
+                backgroundColor: "#D9D9D9",
+              }}
+            >
+              <Typography sx={{ textAlign: "center", lineHeight: "15vh" }}>
+                Back of Coupon
+              </Typography>
             </div>
           </div>
 
@@ -92,10 +107,15 @@ export default function CouponReviewCard() {
                 backgroundColor: "rgba(96, 96, 96, 0.1)",
               }}
             >
-              Details of Coupon
+              <Typography
+                variant="body2"
+                sx={{ textAlign: "center", lineHeight: "10vh" }}
+              >
+                Details of Coupon
+              </Typography>
             </div>
           </div>
-          
+
           <div style={border}>
             <div
               style={{
@@ -103,8 +123,19 @@ export default function CouponReviewCard() {
                 backgroundColor: "rgba(96, 96, 96, 0.1)",
               }}
             >
-              Most Recent Comment Shown Here
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <div>
+                  <Typography sx={{ ml: 1 }}>Username</Typography>
+                </div>
+                <div>
+                  <Typography variant="body2" sx={{ ml: 3, mt: 0.4 }}>
+                    time/date
+                  </Typography>
+                </div>
+              </div>
+              <li style={{ marginLeft: "15px" }}>Comment here</li>
             </div>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           </div>
         </div>
       </CardContent>
