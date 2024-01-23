@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Button, Typography, Modal, Select } from "@mui/material";
+import { Box, Button, Typography, Modal } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -18,7 +18,7 @@ export default function BasicModal({ onClose }) {
     <div>
       <Modal
         open={true}
-        onClose={onClose}
+        // onClose={onClose} // Locks the modal until user clicks cancel or close button
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >

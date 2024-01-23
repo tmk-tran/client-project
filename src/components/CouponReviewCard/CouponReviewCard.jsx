@@ -29,12 +29,6 @@ const statusOptions = [
   "Update Create Proof",
 ];
 
-// const statusOptions = {
-//   New: ["Initial Contact", "Follow Up Call/Email/Text", "Follow Up Visit"],
-//   "In Progress": ["Add-on Request", "New Create Proof", "Update Create Proof"],
-//   Complete: ["Drop Off Books", "Organization Picking Up Books"],
-// };
-
 export default function CouponReviewCard() {
   const history = historyHook();
 

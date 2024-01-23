@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Typography, Card, CardContent } from "@mui/material";
+import { Typography, Card, CardContent, Select } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { border } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import CouponReviewButtons from "./CouponReviewButtons";
 import DenyProofModal from "../DenyProofModal/DenyProofModal";
+import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 
 export default function CouponReviewDetails() {
   const theme = useTheme();
@@ -46,7 +47,7 @@ export default function CouponReviewDetails() {
                     <div style={border}>
                       <div
                         style={{
-                          height: "15vh",
+                          height: "18vh",
                           backgroundColor: "#D9D9D9",
                         }}
                       >
@@ -61,7 +62,7 @@ export default function CouponReviewDetails() {
                     <div style={border}>
                       <div
                         style={{
-                          height: "15vh",
+                          height: "18vh",
                           backgroundColor: "#D9D9D9",
                         }}
                       >
@@ -76,13 +77,15 @@ export default function CouponReviewDetails() {
                     <div style={border}>
                       <div
                         style={{
-                          height: "10vh",
+                          height: "15vh",
                           backgroundColor: "rgba(96, 96, 96, 0.1)",
                         }}
                       >
+                        <CouponStatusDropdown />
+
                         <Typography
                           variant="body2"
-                          sx={{ textAlign: "center", lineHeight: "10vh" }}
+                          sx={{ textAlign: "center", mt: 2 }}
                         >
                           Details of Coupon
                         </Typography>
