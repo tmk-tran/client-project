@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Tab, Tabs, Box } from "@mui/material";
+import { Tab, Tabs, Box, Typography, Card, CardContent } from "@mui/material";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import SearchBar from "../SearchBar/SearchBar";
 import TaskListOrg from "../TaskList/TaskListOrg";
@@ -50,9 +50,11 @@ export default function BasicTabs() {
   };
 
   return (
+    <Card elevation={3} sx={{ width: "85%", margin: "20px auto" }}>
     <Box
       sx={{ width: "60vw", margin: "0 auto", height: "80vh", padding: "40px" }}
     >
+      <Typography variant="h5" sx={{ fontWeight: "bold", textAlign: "center", mb: 5 }}>Task Management</Typography>
       <Box
         sx={{
           display: "flex",
@@ -97,5 +99,6 @@ export default function BasicTabs() {
       </TabPanel> */}
       
     </Box>
+    </Card>
   );
 }
