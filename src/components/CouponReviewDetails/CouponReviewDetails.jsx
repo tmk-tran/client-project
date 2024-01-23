@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Typography, Card, CardContent, Select } from "@mui/material";
+import { Typography, Card, CardContent, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { border } from "../Utils/colors";
@@ -8,8 +8,11 @@ import { border } from "../Utils/colors";
 import CouponReviewButtons from "./CouponReviewButtons";
 import DenyProofModal from "../DenyProofModal/DenyProofModal";
 import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { historyHook } from "../../hooks/useHistory";
 
 export default function CouponReviewDetails() {
+  const history = historyHook();  
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -26,12 +29,26 @@ export default function CouponReviewDetails() {
       <Card className="details-card" elevation={3}>
         <CardContent>
           <div className="detailsView-container">
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "bold", textAlign: "center", mb: 5 }}
+            <div
+              style={{
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "40px",
+              }}
             >
-              Coupon Details
-            </Typography>
+              <Button style={{ position: "absolute", left: 0 }} onClick={() => {history.goBack()}}>Back</Button>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  flexGrow: 1,
+                }}
+              >
+                Coupon Details
+              </Typography>
+            </div>
 
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <Card style={{ width: "50vw", height: "64vh" }} elevation={3}>
@@ -99,7 +116,6 @@ export default function CouponReviewDetails() {
                     {isModalOpen && (
                       <DenyProofModal onClose={() => setIsModalOpen(false)} />
                     )}
-
                   </div>
                 </div>
               </CardContent>
