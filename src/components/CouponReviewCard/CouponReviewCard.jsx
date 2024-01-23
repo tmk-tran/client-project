@@ -10,6 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import { border } from "../Utils/colors";
+// ~~~~~~~~~~ Component ~~~~~~~~~~
+import CommentDisplay from "../CommentDisplay/CommentDisplay";
 
 const statusOptions = [
   "*New Year: Merchant Coupon",
@@ -117,24 +119,7 @@ export default function CouponReviewCard() {
           </div>
 
           <div style={border}>
-            <div
-              style={{
-                height: "10vh",
-                backgroundColor: "rgba(96, 96, 96, 0.1)",
-              }}
-            >
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <div>
-                  <Typography sx={{ ml: 1 }}>Username</Typography>
-                </div>
-                <div>
-                  <Typography variant="body2" sx={{ ml: 3, mt: 0.4 }}>
-                    time/date
-                  </Typography>
-                </div>
-              </div>
-              <li style={{ marginLeft: "15px" }}>Comment here</li>
-            </div>
+            <CommentDisplay />
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           </div>
         </div>
