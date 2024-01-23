@@ -56,6 +56,7 @@ export default function CouponReviewCard() {
             </MenuItem>
           ))}
         </Select>
+        
         <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
         <div style={border}><div style={{ height: "15vh", backgroundColor: "#D9D9D9" }}>Front of Coupon</div></div>
         <div style={border}><div style={{ height: "15vh", backgroundColor: "#D9D9D9" }}>Back of Coupon</div></div>
