@@ -1,4 +1,4 @@
-#orgDetails-Card {
+.details-view-card {
   margin-top: 30px;
   height: 650px;
   width: 400px;
@@ -6,7 +6,7 @@
   /* border: 1px solid #273a9158; */
 }
 
-#orgDetails-Card:hover {
+.details-view-card:hover {
   cursor: pointer;
   transform: scale(1.03);
 }

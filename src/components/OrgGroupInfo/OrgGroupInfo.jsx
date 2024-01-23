@@ -16,7 +16,8 @@ export default function OrgGroupInfoCard({ groupInfo }) {
   return (
     <Card
       elevation={6}
-      id="orgDetails-Card"
+      // id="orgDetails-Card"
+      className="details-view-card"
       onClick={() => history.push(`/group/${groupInfo.group_id}`)}
     >
       <CardContent>

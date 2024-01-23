@@ -42,7 +42,7 @@ export default function CouponReviewCard() {
   };
 
   return (
-    <Card elevation={6} id="orgDetails-Card">
+    <Card elevation={6} className="details-view-card">
       <CardContent>
         <div
           style={{
