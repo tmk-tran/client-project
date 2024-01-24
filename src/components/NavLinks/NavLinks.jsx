@@ -72,7 +72,6 @@ export default function NavLinks() {
             </Typography>
           </>
         )}
-
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>

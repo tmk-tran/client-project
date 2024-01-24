@@ -9,11 +9,9 @@ import DenyProofModal from "../DenyProofModal/DenyProofModal";
 import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 import CouponReviewButtons from "./CouponReviewButtons";
 import CouponReviewComments from "./CouponReviewComments";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { historyHook } from "../../hooks/useHistory";
+import BackButton from "../BackButton/BackButton";
 
 export default function CouponReviewDetails() {
-  const history = historyHook();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -37,14 +35,15 @@ export default function CouponReviewDetails() {
                 marginBottom: "40px",
               }}
             >
-              <Button
+              {/* <Button
                 style={{ position: "absolute", left: 0 }}
                 onClick={() => {
                   history.goBack();
                 }}
               >
                 Back
-              </Button>
+              </Button> */}
+              <BackButton />
               <Typography
                 variant="h5"
                 sx={{
@@ -58,7 +57,10 @@ export default function CouponReviewDetails() {
             </div>
 
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            <Card style={{ width: "50vw", height: "64vh", margin: "0 auto" }} elevation={3}>
+            <Card
+              style={{ width: "50vw", height: "64vh", margin: "0 auto" }}
+              elevation={3}
+            >
               <CardContent>
                 <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
                   <div style={{ width: "25vw" }}>

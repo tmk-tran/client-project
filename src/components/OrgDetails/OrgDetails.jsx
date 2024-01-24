@@ -13,6 +13,7 @@ import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
 import DetailsTaskView from "../DetailsTaskView/DetailsTaskView";
 import CouponReviewCard from "../CouponReviewCard/CouponReviewCard";
 import MerchantContactDetails from "../ContactDetails/MerchantContactDetails";
+import BackButton from "../BackButton/BackButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { oDetails, oGroups, oNotes, mNotes } from "../../hooks/reduxStore";
@@ -85,6 +86,11 @@ export default function OrgDetails() {
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
+      <div style={{ position: "relative" }}>
+        <div style={{ position: "absolute", top: 0, left: 0 }}>
+          <BackButton />
+        </div>
+      </div>
       <Card className="details-card" elevation={3}>
         <CardContent>
           <div className="detailsView-container">
