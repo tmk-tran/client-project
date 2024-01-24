@@ -183,9 +183,9 @@ function oneOrg() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 //Adds a new organization
@@ -244,13 +244,13 @@ function newOrg() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
-    }
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+}
 
 // Update and existing org, to be used for all updates including is_deleted
-function newOrg () {
+function newOrg() {
   const organization = organization;
   const id = req.params.id
   const ACCESS_TOKEN = auth_response.access_token;
@@ -296,20 +296,20 @@ function newOrg () {
   myHeaders.append("Content-Type", "application/json");
 
   var graphql = JSON.stringify({
-      query: query,
-      variables: {},
+    query: query,
+    variables: {},
   });
   var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: graphql,
-      redirect: "follow",
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //ARCHIVED ORGANIZATION QUERIES:
 //get archived orgs
@@ -393,20 +393,20 @@ function getArchivedOrgs() {
   myHeaders.append("Content-Type", "application/json");
 
   var graphql = JSON.stringify({
-      query: query,
-      variables: {},
+    query: query,
+    variables: {},
   });
   var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: graphql,
-      redirect: "follow",
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 //update archived orgs, used to update is_deleted to false
@@ -456,26 +456,26 @@ function updateArchivedOrg() {
   myHeaders.append("Content-Type", "application/json");
 
   var graphql = JSON.stringify({
-      query: query,
-      variables: {},
+    query: query,
+    variables: {},
   });
   var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: graphql,
-      redirect: "follow",
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 
 //ORGANIZATION NOTES QUERIES:
 // Get org notes
-function getOrgNotes () {
+function getOrgNotes() {
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
   const query = `{\r\n    organization_notes {\r\n id\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n}`;
@@ -496,9 +496,9 @@ function getOrgNotes () {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 // post a new note
 function newOrgNote() {
@@ -523,9 +523,9 @@ function newOrgNote() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //Update an org note, used for all updates
 function updateOrgNote() {
@@ -550,9 +550,9 @@ function updateOrgNote() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 //GROUP QUERIES:
@@ -578,9 +578,9 @@ function getAllGroups() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 //get group details
@@ -606,9 +606,9 @@ function getGroupDetails() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 //get group by organization_id
@@ -634,9 +634,9 @@ function getOrgGroups() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 //Create a new group
@@ -663,9 +663,9 @@ function newGroup() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 //Update a group, can be used for all updates including is_deleted
@@ -692,9 +692,9 @@ function updateGroup() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //FUNDRAISER QUERIES:
 //get all fundraisers, filter by group's orgaization id
@@ -721,9 +721,9 @@ function getFundraisers() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //get fundraisers filtered by group id
 function getGroupFundraisers() {
@@ -749,9 +749,9 @@ function getGroupFundraisers() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //Creates a new fundraiser
 function createFundraiser() {
@@ -776,9 +776,9 @@ function createFundraiser() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //Update fundraiser, can be used for all updates including is_deleted
 function updateFundraiser() {
@@ -804,9 +804,9 @@ function updateFundraiser() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //COUPON BOOK QUERIES:
 //get coupon books:
@@ -831,9 +831,9 @@ function getCouponBooks() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //add a coupon book
 function newCouponBook() {
@@ -858,9 +858,9 @@ function newCouponBook() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 //ALL USERS FOR ADMIN TABLE:
@@ -886,9 +886,9 @@ function allUsers() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 //MERCHANT QUERIES:
@@ -903,20 +903,20 @@ function getMerchants() {
   myHeaders.append("Content-Type", "application/json");
 
   var graphql = JSON.stringify({
-      query: query,
-      variables: {},
+    query: query,
+    variables: {},
   });
   var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: graphql,
-      redirect: "follow",
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //get merchant details by id
 function merchantDetails() {
@@ -930,20 +930,20 @@ function merchantDetails() {
   myHeaders.append("Content-Type", "application/json");
 
   var graphql = JSON.stringify({
-      query: query,
-      variables: {},
+    query: query,
+    variables: {},
   });
   var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: graphql,
-      redirect: "follow",
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //Create a merchant
 function createMerchant() {
@@ -957,20 +957,20 @@ function createMerchant() {
   myHeaders.append("Content-Type", "application/json");
 
   var graphql = JSON.stringify({
-      query: query,
-      variables: {},
+    query: query,
+    variables: {},
   });
   var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: graphql,
-      redirect: "follow",
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //Update a merchant, used for all updates including is_deleted
 function updateMerchant() {
@@ -985,20 +985,20 @@ function updateMerchant() {
   myHeaders.append("Content-Type", "application/json");
 
   var graphql = JSON.stringify({
-      query: query,
-      variables: {},
+    query: query,
+    variables: {},
   });
   var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: graphql,
-      redirect: "follow",
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 //BUSINESS QUERIES:
@@ -1024,9 +1024,9 @@ function getBusiness() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //get business by id:
 function getBusiness() {
@@ -1051,9 +1051,9 @@ function getBusiness() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //create a business
 function createBusiness() {
@@ -1078,9 +1078,9 @@ function createBusiness() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //update business, this is for all updates including is_deleted
 function updateBusiness() {
@@ -1106,9 +1106,9 @@ function updateBusiness() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //REGIONS QUERIES:
 //get all regions:
@@ -1133,9 +1133,9 @@ function getRegions() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //Create a region:
 function createRegion() {
@@ -1161,9 +1161,9 @@ function createRegion() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //Update region, used for all updates
 function updateRegion() {
@@ -1190,9 +1190,9 @@ function updateRegion() {
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //LOCATION QUERIES:
 //get all location:
@@ -1206,100 +1206,182 @@ function getLocations() {
   myHeaders.append("Content-Type", "application/json");
 
   var graphql = JSON.stringify({
-      query: query,
-      variables: {},
+    query: query,
+    variables: {},
   });
   var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: graphql,
-      redirect: "follow",
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
   };
 
   fetch(QUERY_URL, requestOptions)
-  .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.log("error", error));
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 //get location details by id
 function getLocationDetails() {
   const id = id;
-    const ACCESS_TOKEN = auth_response.access_token;
-    const QUERY_URL = "https://api.devii.io/query";
-    const query = `{\r\n  location(filter: "id = ${id}){\r\n id\r\n location_name\r\n address\r\n city\r\n state\r\n zip\r\n coordinates\r\n region_id\r\n is_deleted\r\n }\r\n}`;
-  
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
-    myHeaders.append("Content-Type", "application/json");
-  
-    var graphql = JSON.stringify({
-        query: query,
-        variables: {},
-    });
-    var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: graphql,
-        redirect: "follow",
-    };
-  
-    fetch(QUERY_URL, requestOptions)
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n  location(filter: "id = ${id}){\r\n id\r\n location_name\r\n address\r\n city\r\n state\r\n zip\r\n coordinates\r\n region_id\r\n is_deleted\r\n }\r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
-  }
-  //create new location
-  function newLocation() {
-    const newLocation = newLocation;
-    const ACCESS_TOKEN = auth_response.access_token;
-    const QUERY_URL = "https://api.devii.io/query";
-    const query = `{\r\n  mutation{\r\n  create_coupon(\r\n input:{\r\n location_name: ${newLocation.location_name}\r\n address: ${newLocation.address}\r\n city: ${newLocation.city}\r\n state: ${newLocation.state}\r\n zip: ${newLocation.zip}\r\n coordinates: ${newLocation.coordinates}\r\n region_id: ${newLocation.region_id}\r\n is_deleted: ${newLocation.is_deleted}\r\n}\r\n){\r\n id\r\n location_name\r\n address\r\n city\r\n state\r\n zip\r\n coordinates\r\n region_id\r\n is_deleted\r\n }\r\n}\r\n}`;
+}
+//create new location
+function newLocation() {
+  const newLocation = newLocation;
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n  mutation{\r\n  create_coupon(\r\n input:{\r\n location_name: ${newLocation.location_name}\r\n address: ${newLocation.address}\r\n city: ${newLocation.city}\r\n state: ${newLocation.state}\r\n zip: ${newLocation.zip}\r\n coordinates: ${newLocation.coordinates}\r\n region_id: ${newLocation.region_id}\r\n is_deleted: ${newLocation.is_deleted}\r\n}\r\n){\r\n id\r\n location_name\r\n address\r\n city\r\n state\r\n zip\r\n coordinates\r\n region_id\r\n is_deleted\r\n }\r\n}\r\n}`;
 
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
-    myHeaders.append("Content-Type", "application/json");
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
 
-    var graphql = JSON.stringify({
-        query: query,
-        variables: {},
-    });
-    var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: graphql,
-        redirect: "follow",
-    };
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
 
-    fetch(QUERY_URL, requestOptions)
+  fetch(QUERY_URL, requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
-  }
-  //Update location by id, can be used for all updates including is_deleted
-  function updateLocation() {
-    const id = id;
-    const updatedLocation = updatedLocation;
-    const ACCESS_TOKEN = auth_response.access_token;
-    const QUERY_URL = "https://api.devii.io/query";
-    const query = `{\r\n  mutation{\r\n  update_coupon(\r\n input:{\r\n location_name: ${updatedLocation.location_name}\r\n address: ${updatedLocation.address}\r\n city: ${updatedLocation.city}\r\n state: ${updatedLocation.state}\r\n zip: ${updatedLocation.zip}\r\n coordinates: ${updatedLocation.coordinates}\r\n region_id: ${updatedLocation.region_id}\r\n is_deleted: ${updatedLocation.is_deleted}\r\n} id: ${id}\r\n){\r\n id\r\n location_name\r\n address\r\n city\r\n state\r\n zip\r\n coordinates\r\n region_id\r\n is_deleted\r\n }\r\n}\r\n}`;
+}
+//Update location by id, can be used for all updates including is_deleted
+function updateLocation() {
+  const id = id;
+  const updatedLocation = updatedLocation;
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n  mutation{\r\n  update_coupon(\r\n input:{\r\n location_name: ${updatedLocation.location_name}\r\n address: ${updatedLocation.address}\r\n city: ${updatedLocation.city}\r\n state: ${updatedLocation.state}\r\n zip: ${updatedLocation.zip}\r\n coordinates: ${updatedLocation.coordinates}\r\n region_id: ${updatedLocation.region_id}\r\n is_deleted: ${updatedLocation.is_deleted}\r\n} id: ${id}\r\n){\r\n id\r\n location_name\r\n address\r\n city\r\n state\r\n zip\r\n coordinates\r\n region_id\r\n is_deleted\r\n }\r\n}\r\n}`;
 
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
-    myHeaders.append("Content-Type", "application/json");
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
 
-    var graphql = JSON.stringify({
-        query: query,
-        variables: {},
-    });
-    var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: graphql,
-        redirect: "follow",
-    };
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
 
-    fetch(QUERY_URL, requestOptions)
+  fetch(QUERY_URL, requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
-  }
+}
+//COUPON QUERIES:
+//get coupons
+function getCoupons() {
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = "{\r\n  coupon{\r\n id\r\n description\r\n current_status\r\n time_stamp\r\n file_name\r\n file_storage_key\r\n is_deleted\r\n }\r\n}";
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+}
+//create new coupon:
+function newCoupon() {
+  const newCoupon = newCoupon;
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n  mutation{\r\n  create_coupon(\r\n input:{\r\n description: ${newCoupon.description}\r\n current_status: ${newCoupon.current_status}\r\n time_stamp: ${newCoupon.time_stamp}\r\n file_name: ${newCoupon.file_name}\r\n file_storage_key: ${newCoupon.file_storage_key}\r\n }\r\n){\r\n id\r\n description\r\n current_status\r\n time_stamp\r\n file_name\r\n file_storage_key\r\n is_deleted \r\n}\r\n}\r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+}
+//update coupon, used for all updates to the coupon
+function updateCoupon() {
+  const id = req.params.id
+  const updatedCoupon = req.body
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n  mutation{\r\n  update_coupon(\r\n input:{\r\n description: ${updatedCoupon.description}\r\n current_status: ${updatedCoupon.current_status}\r\n time_stamp: ${updatedCoupon.time_stamp}\r\n file_name: ${updatedCoupon.file_name}\r\n file_storage_key: ${updatedCoupon.file_storage_key}\r\n is_deleted: ${updatedCoupon.is_deleted}\r\n}\r\n id:${id}\r\n){\r\n id\r\n description\r\n current_status\r\n time_stamp\r\n file_name\r\n file_storage_key\r\n is_deleted \r\n}\r\n}\r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+}
