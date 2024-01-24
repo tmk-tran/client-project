@@ -125,7 +125,7 @@ router.post("/:id", (req, res) => {
 });
 
 //Get route for fundraisers with a specific group id
-router.get("/groupfundraisers/:id", (req, res) => {
+router.post("/groupfundraisers/:id", (req, res) => {
   const groupId = req.params.id;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
