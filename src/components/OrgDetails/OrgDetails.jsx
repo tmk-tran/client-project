@@ -12,7 +12,7 @@ import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
 import DetailsTaskView from "../DetailsTaskView/DetailsTaskView";
 import CouponReviewCard from "../CouponReviewCard/CouponReviewCard";
-import MerchantContactDetails from "../MerchantContactDetails/MerchantContactDetails";
+import MerchantContactDetails from "../ContactDetails/MerchantContactDetails";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { oDetails, oGroups, oNotes, mNotes } from "../../hooks/reduxStore";
