@@ -1,4 +1,5 @@
 import React from "react";
+// ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Card,
   CardContent,
@@ -6,7 +7,9 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import { errorColor } from "../Utils/colors";
+import { errorColor, successColor } from "../Utils/colors";
+// ~~~~~~~~~~ Helpers ~~~~~~~~~~
+import { hoverDeny, hoverAccept } from "../Utils/helpers";
 
 const DenyProofForm = () => {
   return (
@@ -32,10 +35,10 @@ const DenyProofForm = () => {
             marginTop: 16,
           }}
         >
-          <Button variant="contained" sx={{ backgroundColor: errorColor.color }}>
+          <Button variant="contained" sx={{ backgroundColor: errorColor.color, ...hoverDeny }}>
             Cancel
           </Button>
-          <Button variant="contained">
+          <Button variant="contained" sx={{ backgroundColor: successColor.color, width: "105px", ...hoverAccept }}>
             Ok
           </Button>
         </div>

@@ -122,3 +122,18 @@ export const hrStyle = {
   width: "90%",
   border: "1px solid #273b91"
 };
+
+// For Buttons in Coupon Review components
+export const hoverDeny = {
+  "&:hover": {
+    backgroundColor: "#A42626", // Lighter shade for Deny button
+  },
+};
+
+export const hoverAccept = {
+  "&:hover": {
+    backgroundColor: "#22A422", // Lighter shade for Accept button
+  },
+};
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
