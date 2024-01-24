@@ -1194,3 +1194,112 @@ function updateRegion() {
   .then((result) => console.log(result))
   .catch((error) => console.log("error", error));
 }
+//LOCATION QUERIES:
+//get all location:
+function getLocations() {
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = "{\r\n  location{\r\n id\r\n location_name\r\n address\r\n city\r\n state\r\n zip\r\n coordinates\r\n region_id\r\n is_deleted\r\n }\r\n}";
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+      query: query,
+      variables: {},
+  });
+  var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: graphql,
+      redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+}
+//get location details by id
+function getLocationDetails() {
+  const id = id;
+    const ACCESS_TOKEN = auth_response.access_token;
+    const QUERY_URL = "https://api.devii.io/query";
+    const query = `{\r\n  location(filter: "id = ${id}){\r\n id\r\n location_name\r\n address\r\n city\r\n state\r\n zip\r\n coordinates\r\n region_id\r\n is_deleted\r\n }\r\n}`;
+  
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+    myHeaders.append("Content-Type", "application/json");
+  
+    var graphql = JSON.stringify({
+        query: query,
+        variables: {},
+    });
+    var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: graphql,
+        redirect: "follow",
+    };
+  
+    fetch(QUERY_URL, requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+  }
+  //create new location
+  function newLocation() {
+    const newLocation = newLocation;
+    const ACCESS_TOKEN = auth_response.access_token;
+    const QUERY_URL = "https://api.devii.io/query";
+    const query = `{\r\n  mutation{\r\n  create_coupon(\r\n input:{\r\n location_name: ${newLocation.location_name}\r\n address: ${newLocation.address}\r\n city: ${newLocation.city}\r\n state: ${newLocation.state}\r\n zip: ${newLocation.zip}\r\n coordinates: ${newLocation.coordinates}\r\n region_id: ${newLocation.region_id}\r\n is_deleted: ${newLocation.is_deleted}\r\n}\r\n){\r\n id\r\n location_name\r\n address\r\n city\r\n state\r\n zip\r\n coordinates\r\n region_id\r\n is_deleted\r\n }\r\n}\r\n}`;
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    var graphql = JSON.stringify({
+        query: query,
+        variables: {},
+    });
+    var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: graphql,
+        redirect: "follow",
+    };
+
+    fetch(QUERY_URL, requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+  }
+  //Update location by id, can be used for all updates including is_deleted
+  function updateLocation() {
+    const id = id;
+    const updatedLocation = updatedLocation;
+    const ACCESS_TOKEN = auth_response.access_token;
+    const QUERY_URL = "https://api.devii.io/query";
+    const query = `{\r\n  mutation{\r\n  update_coupon(\r\n input:{\r\n location_name: ${updatedLocation.location_name}\r\n address: ${updatedLocation.address}\r\n city: ${updatedLocation.city}\r\n state: ${updatedLocation.state}\r\n zip: ${updatedLocation.zip}\r\n coordinates: ${updatedLocation.coordinates}\r\n region_id: ${updatedLocation.region_id}\r\n is_deleted: ${updatedLocation.is_deleted}\r\n} id: ${id}\r\n){\r\n id\r\n location_name\r\n address\r\n city\r\n state\r\n zip\r\n coordinates\r\n region_id\r\n is_deleted\r\n }\r\n}\r\n}`;
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    var graphql = JSON.stringify({
+        query: query,
+        variables: {},
+    });
+    var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: graphql,
+        redirect: "follow",
+    };
+
+    fetch(QUERY_URL, requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+  }
