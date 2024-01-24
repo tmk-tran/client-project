@@ -70,7 +70,6 @@ router.post("/newmerchant", (req, res) => {
 });
 
 // Post route to update a merchant, can be used for all updates
-// Post route to creat a new merchant via the Devii api
 router.post("/updatemerchant/:id", (req, res) => {
     const id = req.params.id;
     const updatedMerchant = req.body;

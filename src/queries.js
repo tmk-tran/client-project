@@ -1359,8 +1359,8 @@ function newCoupon() {
 }
 //update coupon, used for all updates to the coupon
 function updateCoupon() {
-  const id = req.params.id
-  const updatedCoupon = req.body
+  const id = id;
+  const updatedCoupon = updatedCoupon;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
   const query = `{\r\n  mutation{\r\n  update_coupon(\r\n input:{\r\n description: ${updatedCoupon.description}\r\n current_status: ${updatedCoupon.current_status}\r\n time_stamp: ${updatedCoupon.time_stamp}\r\n file_name: ${updatedCoupon.file_name}\r\n file_storage_key: ${updatedCoupon.file_storage_key}\r\n is_deleted: ${updatedCoupon.is_deleted}\r\n}\r\n id:${id}\r\n){\r\n id\r\n description\r\n current_status\r\n time_stamp\r\n file_name\r\n file_storage_key\r\n is_deleted \r\n}\r\n}\r\n}`;
