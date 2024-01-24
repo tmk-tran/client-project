@@ -1,6 +1,7 @@
 import React from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Button } from "@mui/material";
+import { errorColor, successColor } from "../Utils/colors";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { modalBtnStyle } from "../Utils/helpers";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
@@ -29,16 +30,16 @@ export default function CouponReviewButtons({ onDenyButtonClick }) {
     <div style={modalBtnStyle}>
       <Button
         variant="contained"
-        sx={{ backgroundColor: "#8E1919", width: "10vw", ...hoverDeny }}
+        sx={{ width: "10vw", ...hoverDeny, backgroundColor: errorColor.color }}
         onClick={handleDenyClick}
       >
         Deny &nbsp;
         <CancelIcon />
       </Button>
       <Button
+        variant="contained"
         sx={{
-          backgroundColor: "#198E19",
-          color: "white",
+          backgroundColor: successColor.color,
           width: "10vw",
           ...hoverAccept,
         }}
