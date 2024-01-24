@@ -1,12 +1,17 @@
-import { Card, CardContent, Typography, Button } from "@mui/material";
+import { Card, CardContent, Typography, Button, Select, MenuItem } from "@mui/material";
 import { historyHook } from "../../hooks/useHistory";
 
 export default function TaskCardOrg() {
 
   const history = historyHook();
 
+  const handleCardClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return (
-    <Card style={{ width: "100%" }} onClick={() => {console.log("Card click!")}}>
+    <Card style={{ width: "100%" }} onClick={handleCardClick}>
       <CardContent>
         
         <div>
@@ -36,10 +41,14 @@ export default function TaskCardOrg() {
             Short description of task, entered during creation
           </div>
 
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          {/* <div style={{ display: "flex", justifyContent: "space-evenly" }}>
             <Button onClick={() => {console.log("New")}}>New</Button>
             <Button onClick={() => {console.log("In Progress")}}>In Progress</Button>
             <Button onClick={() => {console.log("Complete")}}>Complete</Button>
+          </div> */}
+
+          <div>
+            <Select></Select>
           </div>
 
         </div>

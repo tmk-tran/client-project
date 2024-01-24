@@ -105,11 +105,6 @@ export default function OrgDetails() {
                   <OrgNotesDisplay notes={notes} merchantDetails={merchantDetails} />
                 )} */}
 
-                {/* <center>
-                  <OrgContactDetails info={orgDetails} />
-                  <br />
-                </center> */}
-
                 <center>
                   {isMerchantTaskPage ? (
                     <MerchantContactDetails info={orgDetails} />
