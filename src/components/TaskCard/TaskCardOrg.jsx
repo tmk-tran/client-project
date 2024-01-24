@@ -45,25 +45,6 @@ export default function TaskCardOrg() {
               }}
             >
               {/* NEED to add an ID here to associate to specific task on next view */}
-              {/* <Button
-                variant="contained"
-                onClick={() => history.push(`/orgtaskdetails/${1}`)}
-                fullWidth
-              >
-                Details
-              </Button>
-
-                <TaskDropdown onChange={handleTaskChange} />
-                {selectedTask && (
-                  <Button
-                    onClick={() =>
-                      console.log("Update clicked for", selectedTask)
-                    }
-                  >
-                    Update
-                  </Button>
-                )} */}
-
               {selectedTask ? (
                 <Button
                   variant="contained"

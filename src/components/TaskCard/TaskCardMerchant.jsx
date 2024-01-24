@@ -1,11 +1,21 @@
+import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import "./TaskCard.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
+import { successColor, hoverAccept } from "../Utils/colors";
+// ~~~~~~~~~~ Components ~~~~~~~~~~
+import TaskDropdown from "./TaskDropdown";
 
 export default function TaskCardMerchant() {
+  const [selectedTask, setSelectedTask] = useState(null);
+
   const history = historyHook();
+
+  const handleTaskChange = (task) => {
+    setSelectedTask(task); // Update selectedTask with the value received from TaskDropdown
+  };
 
   const handleCardClick = (e) => {
     e.preventDefault();
@@ -33,22 +43,37 @@ export default function TaskCardMerchant() {
               </div>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  history.push(`/merchantTaskDetails/${1}`);
-                }}
-              >
-                Details
-              </Button>
-            </div>
-          </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              {/* NEED to add an ID here to associate to specific task on next view */}
+              {selectedTask ? (
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    console.log("Update clicked for", selectedTask)
+                  }
+                  sx={{ backgroundColor: successColor.color, ...hoverAccept }}
+                  fullWidth
+                >
+                  Update
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={() => history.push(`/orgtaskdetails/${1}`)}
+                  fullWidth
+                >
+                  Details
+                </Button>
+              )}
 
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <Button>New</Button>
-            <Button>In Progress</Button>
-            <Button>Complete</Button>
+              <TaskDropdown onChange={handleTaskChange} />
+            </div>
           </div>
         </div>
       </CardContent>
