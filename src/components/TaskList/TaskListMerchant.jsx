@@ -25,7 +25,9 @@ export default function TaskListMerchant() {
         onChange={(e) => setNewTask(e.target.value)}
         displayEmpty
         renderValue={() => (
-          <Typography style={{ display: "flex", alignItems: "center" }}>
+          <Typography
+            style={{ display: "flex", alignItems: "center", marginLeft: "9vw" }}
+          >
             New ({getNumOptions(newTasks)})
           </Typography>
         )}
@@ -44,7 +46,9 @@ export default function TaskListMerchant() {
         onChange={(e) => setInProgressTask(e.target.value)}
         displayEmpty
         renderValue={() => (
-          <Typography style={{ display: "flex", alignItems: "center" }}>
+          <Typography
+            style={{ display: "flex", alignItems: "center", marginLeft: "9vw" }}
+          >
             In Progress ({getNumOptions(inProgressTasks)})
           </Typography>
         )}
@@ -63,7 +67,9 @@ export default function TaskListMerchant() {
         onChange={(e) => setCompleteTask(e.target.value)}
         displayEmpty
         renderValue={() => (
-          <Typography style={{ display: "flex", alignItems: "center" }}>
+          <Typography
+            style={{ display: "flex", alignItems: "center", marginLeft: "9vw" }}
+          >
             Complete ({getNumOptions(completeTasks)})
           </Typography>
         )}
