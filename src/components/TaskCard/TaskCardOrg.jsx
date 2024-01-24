@@ -73,17 +73,6 @@ export default function TaskCardOrg() {
           <div className="task-description-section">
             Short description of task, entered during creation
           </div>
-
-          {/* <div style={{ display: "flex", justifyContent: "right" }}>
-            <TaskDropdown onChange={handleTaskChange} />
-            {selectedTask && (
-              <Button
-                onClick={() => console.log("Update clicked for", selectedTask)}
-              >
-                Update
-              </Button>
-            )}
-          </div> */}
         </div>
       </CardContent>
     </Card>
