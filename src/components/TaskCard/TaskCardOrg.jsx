@@ -1,24 +1,17 @@
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Card, CardContent, Typography, Button } from "@mui/material";
 import { historyHook } from "../../hooks/useHistory";
-
-const taskOptions = ["New", "In Progress", "Complete"];
+import TaskDropdown from "./TaskDropdown";
+import CommentDisplay from "../CommentDisplay/CommentDisplay";
+import { successColor, hoverAccept } from "../Utils/colors";
 
 export default function TaskCardOrg() {
-  const [status, setStatus] = useState("");
+  const [selectedTask, setSelectedTask] = useState(null);
 
   const history = historyHook();
 
-  const handleMenuChange = (event) => {
-    const choice = event.target.value;
-    setStatus(choice);
+  const handleTaskChange = (task) => {
+    setSelectedTask(task); // Update selectedTask with the value received from TaskDropdown
   };
 
   const handleCardClick = (e) => {
@@ -39,30 +32,60 @@ export default function TaskCardOrg() {
               </div>
             </div>
 
-            <div style={{ border: "1px solid red" }}>
-              <div>Most Recent Comment Here</div>
+            <div style={{ border: "1px solid red", width: "30vw" }}>
+              {/* <div>Most Recent Comment Here</div> */}
+              <CommentDisplay />
             </div>
 
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               {/* NEED to add an ID here to associate to specific task on next view */}
-              <Button
+              {/* <Button
                 variant="contained"
                 onClick={() => history.push(`/orgtaskdetails/${1}`)}
+                fullWidth
               >
                 Details
               </Button>
 
-              {/* <Select value={status} onChange={handleMenuChange} displayEmpty>
-                <MenuItem value="" disabled>
-                  Task Status
-                </MenuItem>
-                {taskOptions.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Select> */}
+                <TaskDropdown onChange={handleTaskChange} />
+                {selectedTask && (
+                  <Button
+                    onClick={() =>
+                      console.log("Update clicked for", selectedTask)
+                    }
+                  >
+                    Update
+                  </Button>
+                )} */}
 
+              {selectedTask ? (
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    console.log("Update clicked for", selectedTask)
+                  }
+                  sx={{ backgroundColor: successColor.color, ...hoverAccept }}
+                  fullWidth
+                >
+                  Update
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={() => history.push(`/orgtaskdetails/${1}`)}
+                  fullWidth
+                >
+                  Details
+                </Button>
+              )}
+
+              <TaskDropdown onChange={handleTaskChange} />
             </div>
           </div>
 
@@ -70,10 +93,16 @@ export default function TaskCardOrg() {
             Short description of task, entered during creation
           </div>
 
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <Button fullWidth>Update</Button>
-          </div>
-          
+          {/* <div style={{ display: "flex", justifyContent: "right" }}>
+            <TaskDropdown onChange={handleTaskChange} />
+            {selectedTask && (
+              <Button
+                onClick={() => console.log("Update clicked for", selectedTask)}
+              >
+                Update
+              </Button>
+            )}
+          </div> */}
         </div>
       </CardContent>
     </Card>

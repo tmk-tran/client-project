@@ -9,3 +9,17 @@ export const successColor = { color: "#198E19" };
 export const backgroundColor = { color: "#273B91" };
 
 export const border = { border: "1px solid red" };
+
+// For Buttons in Coupon Review components
+export const hoverDeny = {
+  "&:hover": {
+    backgroundColor: "#A42626", // Lighter shade for Deny button
+  },
+};
+
+export const hoverAccept = {
+  "&:hover": {
+    backgroundColor: "#22A422", // Lighter shade for Accept button
+  },
+};
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

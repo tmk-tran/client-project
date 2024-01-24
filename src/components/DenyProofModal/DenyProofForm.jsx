@@ -8,7 +8,8 @@ import {
   border,
 } from "../Utils/colors";
 // ~~~~~~~~~~ Helpers ~~~~~~~~~~
-import { hoverDeny, hoverAccept, centerDiv } from "../Utils/helpers";
+import { centerDiv } from "../Utils/helpers";
+import { hoverAccept, hoverDeny } from "../Utils/colors";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
