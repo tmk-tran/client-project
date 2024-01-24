@@ -65,7 +65,7 @@ export default function TaskCardMerchant() {
               ) : (
                 <Button
                   variant="contained"
-                  onClick={() => history.push(`/orgtaskdetails/${1}`)}
+                  onClick={() => history.push(`/merchantTaskDetails/${1}`)}
                   fullWidth
                 >
                   Details
