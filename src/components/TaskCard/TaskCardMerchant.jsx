@@ -7,8 +7,13 @@ import { historyHook } from "../../hooks/useHistory";
 export default function TaskCardMerchant() {
   const history = historyHook();
 
+  const handleCardClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return (
-    <Card style={{ width: "100%" }}>
+    <Card style={{ width: "100%" }} onClick={handleCardClick}>
       <CardContent>
         <div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
