@@ -311,6 +311,167 @@ function newOrg () {
   .then((result) => console.log(result))
   .catch((error) => console.log("error", error));
 }
+//ARCHIVED ORGANIZATION QUERIES:
+//get archived orgs
+function getArchivedOrgs() {
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n      organization (ordering: "group_collection.organization_id" filter: "is_deleted = true"){\r\n
+      id\r\n
+      organization_name\r\n
+      type\r\n
+      address\r\n
+      city\r\n
+      state\r\n
+      zip\r\n
+      primary_contact_first_name\r\n
+      primary_contact_last_name\r\n
+      primary_contact_phone\r\n
+      primary_contact_email\r\n
+      organization_logo\r\n
+      is_deleted\r\n
+      organization_earnings\r\n
+      organization_notes_collection {\r\n
+        organization_id\r\n
+        note_date\r\n
+        note_content\r\n
+        is_deleted\r\n
+      }\r\n
+      group_collection {\r\n
+        organization_id\r\n
+        department\r\n
+        sub_department\r\n
+        group_nickname\r\n
+        group_description\r\n
+        is_deleted\r\n
+        fundraiser_collection{\r\n
+          id\r\n
+          group_id\r\n
+          title\r\n
+          description\r\n
+          requested_book_quantity\r\n
+          book_quantity_checked_out\r\n
+          book_checked_out_total_value\r\n
+          book_quantity_checked_in\r\n
+          books_sold\r\n
+          money_received\r\n
+          start_date\r\n
+          end_date\r\n
+          coupon_book_id\r\n
+          outstanding_balance\r\n
+          is_deleted\r\n
+          closed\r\n
+          goal\r\n
+        }\r\n
+        }\r\n
+        }\r\n
+    Aggregates{\r\n
+      total_groups: count(subquery: "query{group{id organization_id}}")\r\n
+       total_fundraisers: count(subquery: "query{fundraiser{id group_id}}" ordering: "group_id")\r\n
+      total_open_fundraisers: count(subquery: "query{group{organization_id{fundraiser_collection{group_id}}}" \r\n
+        filter: " fundraiser_collection.closed=false"  ordering: "group_id")\r\n
+      total_closed_fundraisers: count(subquery: "query{group{organization_id fundraiser_collection{group_id}}}" \r\n
+        filter: " fundraiser_collection.closed=true" 
+        ordering: "group_id")\r\n
+      total_books_sold: sum(subquery: "query{fundraiser{books_sold group_id}}" 
+        ordering: "id") \r\n
+       total_outstanding_balance: sum(subquery: "query{fundraiser{outstanding_balance group_id}}" 
+        ordering: "id")\r\n
+      total_books_checked_out: count
+      (subquery: "query{group{organization_id fundraiser_collection{group_id book_quantity_checked_out}}}" \r\n
+        filter: " fundraiser_collection.closed=false" 
+        ordering: "group_id")\r\n
+       total_books_checked_in: count
+      (subquery: "query{group{ organization_id fundraiser_collection{group_id book_quantity_checked_in}}}" \r\n
+        filter: " fundraiser_collection.closed=false" 
+        ordering: "group_id")\r\n
+    }\r\n
+  \r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+      query: query,
+      variables: {},
+  });
+  var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: graphql,
+      redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+}
+
+//update archived orgs, used to update is_deleted to false
+function updateArchivedOrg() {
+  const organization = req.body;
+  const id = req.params.id
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n    mutation{\r\n
+      update_organization(\r\n
+        input: {\r\n
+            organization_name: ${organization.organization_name}\r\n
+          type: ${organization.type}\r\n
+          address: ${organization.address}\r\n
+          city: ${organization.city}\r\n
+          state: ${organization.state}\r\n
+          zip: ${organization.zip}\r\n
+          primary_contact_first_name: ${organization.primary_contact_first_name}\r\n
+          primary_contact_last_name: ${organization.primary_contact_last_name}\r\n
+          primary_contact_phone:${organization.primary_contact_phone}\r\n
+          primary_contact_email: ${organization.primary_contact_email}\r\n
+          organization_logo: ${organization.organization_logo}\r\n
+          is_deleted: ${organization.is_deleted}\r\n
+          organization_earnings: ${organization.organization_earnings}\r\n
+        }\r\n
+        id: ${id}
+      )  {\r\n
+        organization_name\r\n
+        type\r\n
+        address\r\n
+        city\r\n
+        state\r\n
+        zip\r\n
+        primary_contact_first_name\r\n
+        primary_contact_last_name\r\n
+        primary_contact_phone\r\n
+        primary_contact_email\r\n
+        organization_logo\r\n
+        is_deleted\r\n
+        organization_earnings\r\n
+      }\r\n
+    }
+    \r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+      query: query,
+      variables: {},
+  });
+  var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: graphql,
+      redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+}
+
 
 //ORGANIZATION NOTES QUERIES:
 // Get org notes
@@ -647,3 +808,198 @@ function updateFundraiser() {
   .then((result) => console.log(result))
   .catch((error) => console.log("error", error));
 }
+//COUPON BOOK QUERIES:
+//get coupon books:
+function getCouponBooks() {
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = "{\r\n coupon_book{\r\n id\r\n year\r\n}\r\n}";
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+}
+//add a coupon book
+function newCouponBook() {
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const year = req.body;
+  const query = `{\r\n mutation{\r\n create_coupon_book(\r\n input:{ \r\n year: ${year}\r\n }\r\n){\r\n id\r\n year\r\n}\r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+}
+
+//ALL USERS FOR ADMIN TABLE:
+//get all users:
+function allUsers() {
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = "{\r\n    user {\r\n id\r\n username\r\n password\r\n is_admin\r\n is_deleted\r\n user_group_collection{\r\n id\r\n group_id\r\n user_id\r\n group_admin\r\n}\r\n}\r\n}";
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+}
+
+//MERCHANT QUERIES:
+//get all merchants
+function getMerchants() {
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = "{\r\n  merchant{\r\n id\r\n buisness_id\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n contact_phone_number\r\n contact_email\r\n is_deleted\r\n}\r\n}";
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+      query: query,
+      variables: {},
+  });
+  var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: graphql,
+      redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+}
+//get merchant details by id
+function merchantDetails() {
+  const id = id;
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n  merchant(filter: "id = ${id}){\r\n id\r\n buisness_id\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n contact_phone_number\r\n contact_email\r\n is_deleted\r\n}\r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+      query: query,
+      variables: {},
+  });
+  var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: graphql,
+      redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+}
+//Create a merchant
+function createMerchant() {
+  const newMerchant = merchant;
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n  mutation{\r\n  create_coupon(\r\n input:{\r\n buisness_id: ${newMerchant.business_id}\r\n address: ${newMerchant.address}\r\n city: ${newMerchant.city}\r\n state: ${newMerchant.state}\r\n zip: ${newMerchant.zip}\r\n primary_contact_first_name: ${newMerchant.primary_contact_first_name}\r\n primary_contact_last_name: ${newMerchant.primary_contact_last_name}\r\n contact_phone_number: ${newMerchant.contact_phone_number}\r\n contact_email: ${newMerchant.contact_email}\r\n }\r\n){\r\n merchant{\r\n id\r\n buisness_id\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n contact_phone_number\r\n contact_email\r\n is_deleted\r\n}\r\n}\r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+      query: query,
+      variables: {},
+  });
+  var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: graphql,
+      redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+}
+//Update a merchant, used for all updates including is_deleted
+function updateMerchant() {
+  const id = id;
+  const updatedMerchant = updatedMerchant;
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n  mutation{\r\n  update_coupon(\r\n input:{\r\n buisness_id: ${updatedMerchant.business_id}\r\n address: ${updatedMerchant.address}\r\n city: ${updatedMerchant.city}\r\n state: ${updatedMerchant.state}\r\n zip: ${updatedMerchant.zip}\r\n primary_contact_first_name: ${updatedMerchant.primary_contact_first_name}\r\n primary_contact_last_name: ${updatedMerchant.primary_contact_last_name}\r\n contact_phone_number: ${updatedMerchant.contact_phone_number}\r\n contact_email: ${updatedMerchant.contact_email}\r\n is_deleted: ${updatedMerchant.is_deleted}\r\n} id: ${id}\r\n){\r\n merchant{\r\n id\r\n buisness_id\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n contact_phone_number\r\n contact_email\r\n is_deleted\r\n}\r\n}\r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+      query: query,
+      variables: {},
+  });
+  var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: graphql,
+      redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+}
+
+//BUSINESS QUERIES:
+//get all businesses:
