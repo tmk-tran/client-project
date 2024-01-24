@@ -6,12 +6,13 @@ import { Typography, Card, CardContent } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
+import OrgContactDetails from "../ContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
 import DetailsTaskView from "../DetailsTaskView/DetailsTaskView";
 import CouponReviewCard from "../CouponReviewCard/CouponReviewCard";
+import MerchantContactDetails from "../MerchantContactDetails/MerchantContactDetails";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { oDetails, oGroups, oNotes, mNotes } from "../../hooks/reduxStore";
@@ -104,8 +105,17 @@ export default function OrgDetails() {
                   <OrgNotesDisplay notes={notes} merchantDetails={merchantDetails} />
                 )} */}
 
-                <center>
+                {/* <center>
                   <OrgContactDetails info={orgDetails} />
+                  <br />
+                </center> */}
+
+                <center>
+                  {isMerchantTaskPage ? (
+                    <MerchantContactDetails info={orgDetails} />
+                  ) : (
+                    <OrgContactDetails info={orgDetails} />
+                  )}
                   <br />
                 </center>
 
