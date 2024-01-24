@@ -35,7 +35,7 @@ export default function TaskListOrg() {
         MenuProps={{ disableAutoFocusItem: true }}
       >
         {newTasks.map((task) => (
-          <MenuItem key={task} value={task}>
+          <MenuItem key={task} value={task} disableRipple>
             {task}
             <TaskCardOrg />
           </MenuItem>
@@ -54,7 +54,7 @@ export default function TaskListOrg() {
         )}
       >
         {inProgressTasks.map((task) => (
-          <MenuItem key={task} value={task}>
+          <MenuItem key={task} value={task} disableRipple>
             {task}
             <TaskCardOrg />
           </MenuItem>
@@ -73,7 +73,7 @@ export default function TaskListOrg() {
         )}
       >
         {completeTasks.map((task) => (
-          <MenuItem key={task} value={task}>
+          <MenuItem key={task} value={task} disableRipple>
             {task}
             <TaskCardOrg />
           </MenuItem>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Typography, MenuItem, Select, } from "@mui/material";
+import { Typography, MenuItem, Select } from "@mui/material";
 import "./TaskList.css";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskCardMerchant from "../TaskCard/TaskCardMerchant";
@@ -31,7 +31,7 @@ export default function TaskListMerchant() {
         )}
       >
         {newTasks.map((task) => (
-          <MenuItem key={task} value={task}>
+          <MenuItem key={task} value={task} disableRipple>
             {task}
             <TaskCardMerchant newTask={newTask} />
           </MenuItem>
@@ -50,7 +50,7 @@ export default function TaskListMerchant() {
         )}
       >
         {inProgressTasks.map((task) => (
-          <MenuItem key={task} value={task}>
+          <MenuItem key={task} value={task} disableRipple>
             {task}
             <TaskCardMerchant inProgressTask={inProgressTask} />
           </MenuItem>
@@ -69,7 +69,7 @@ export default function TaskListMerchant() {
         )}
       >
         {completeTasks.map((task) => (
-          <MenuItem key={task} value={task}>
+          <MenuItem key={task} value={task} disableRipple>
             {task}
             <TaskCardMerchant completeTask={completeTask} />
           </MenuItem>
