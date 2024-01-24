@@ -27,9 +27,8 @@ export default function BasicModal({ onClose }) {
       >
         <Box sx={style}>
           
-          <DenyProofForm />
+          <DenyProofForm onClose={onClose} />
 
-          <Button onClick={onClose}>Close</Button>
         </Box>
       </Modal>
     </div>

@@ -11,7 +11,7 @@ import { errorColor, successColor } from "../Utils/colors";
 // ~~~~~~~~~~ Helpers ~~~~~~~~~~
 import { hoverDeny, hoverAccept } from "../Utils/helpers";
 
-const DenyProofForm = () => {
+const DenyProofForm = ({ onClose }) => {
   return (
     <Card>
       <CardContent>
@@ -35,10 +35,21 @@ const DenyProofForm = () => {
             marginTop: 16,
           }}
         >
-          <Button variant="contained" sx={{ backgroundColor: errorColor.color, ...hoverDeny }}>
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: errorColor.color, ...hoverDeny }}
+            onClick={onClose}
+          >
             Cancel
           </Button>
-          <Button variant="contained" sx={{ backgroundColor: successColor.color, width: "105px", ...hoverAccept }}>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: successColor.color,
+              width: "105px",
+              ...hoverAccept,
+            }}
+          >
             Ok
           </Button>
         </div>
