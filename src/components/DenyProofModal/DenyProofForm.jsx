@@ -1,28 +1,39 @@
 import React from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
+import { Typography, TextField, Button } from "@mui/material";
 import {
-  Typography,
-  TextField,
-  Button,
-} from "@mui/material";
-import { errorColor, successColor } from "../Utils/colors";
+  secondaryColor,
+  errorColor,
+  successColor,
+  border,
+} from "../Utils/colors";
 // ~~~~~~~~~~ Helpers ~~~~~~~~~~
-import { hoverDeny, hoverAccept } from "../Utils/helpers";
+import { hoverDeny, hoverAccept, centerDiv } from "../Utils/helpers";
+// ~~~~~~~~~~ Icons ~~~~~~~~~~
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 const DenyProofForm = ({ onClose }) => {
   return (
-    <div>
-      <Typography variant="h6" align="center">
+    <div style={{ height: "100%" }}>
+      <div style={{ height: "40%", ...centerDiv }}>
+        <div style={centerDiv}>
+          <ErrorOutlineIcon sx={{ fontSize: "100px", color: secondaryColor }} />
+        </div>
+      </div>
+      <Typography
+        variant="h5"
+        align="center"
+        sx={{ fontWeight: "bold", mb: 2 }}
+      >
         Please Enter Reason
       </Typography>
-
       <TextField
         multiline
         rows={4}
         fullWidth
         label="Comments or coupon changes here..."
         variant="outlined"
-        style={{ marginTop: 16 }}
+        sx={{ mt: 2, mb: 2 }}
       />
 
       <div

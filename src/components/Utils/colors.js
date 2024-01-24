@@ -1,5 +1,7 @@
 export const primaryColor = { color: "#19338E" };
 
+export const secondaryColor = { color: "#FFA500" };
+
 export const errorColor = { color: "#8E1919" };
 
 export const successColor = { color: "#198E19" };
