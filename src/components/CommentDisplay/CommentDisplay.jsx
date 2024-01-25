@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
-export default function CommentDisplay({ backgroundColor = "rgba(96, 96, 96, 0.1)" }) {
-  
+export default function CommentDisplay({
+  backgroundColor = "rgba(96, 96, 96, 0.1)",
+}) {
   return (
     <div
       style={{
@@ -19,7 +20,23 @@ export default function CommentDisplay({ backgroundColor = "rgba(96, 96, 96, 0.1
           </Typography>
         </div>
       </div>
-      <li style={{ marginLeft: "15px" }}>Comment here</li>
+      {/* <li style={{ marginLeft: "15px" }}>Comment here</li> */}
+      <div style={{ marginLeft: "15px", position: "relative" }}>
+        {/* <span style={{ position: "absolute" }}>•</span> */}
+        <span
+          style={{
+            position: "absolute",
+            fontSize: "25px",
+            top: "50%",
+            transform: "translateY(-50%)",
+          }}
+        >
+          •
+        </span>
+        <Typography variant="body2" sx={{ ml: 3 }}>
+          Comment Here
+        </Typography>
+      </div>
     </div>
   );
 }
