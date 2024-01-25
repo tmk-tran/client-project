@@ -39,7 +39,6 @@ export default function OrgDetails() {
   const location = useLocation(); // Use location to get the current route
 
   // Check if the user is on the task page
-  const isDetailsPage = location.pathname.includes("/orgDetails"); // Adjust the path accordingly
   const isTaskPage = location.pathname.includes("/orgtaskdetails");
   const isMerchantTaskPage = location.pathname.includes("/merchantTaskDetails");
   console.log(isMerchantTaskPage);
@@ -52,10 +51,7 @@ export default function OrgDetails() {
   console.log(groups);
   // const notes = oNotes();
   const notes = !isMerchantTaskPage ? oNotes() : mNotes();
-  console.log(notes);
   const merchantDetails = mDetails();
-  console.log(merchantDetails);
-  // const notesM = mNotes();
 
   useEffect(() => {
     // dispatch({
@@ -143,7 +139,7 @@ export default function OrgDetails() {
 
                 {isMerchantTaskPage && (
                   // <OrgNotesDisplay notes={merchantNotes} orgDetails={merchantDetails} />
-                  <OrgNotesDisplay notes={notes} orgDetails={orgDetails} isMerchantTaskPage={isMerchantTaskPage} />
+                  <OrgNotesDisplay notes={notes} orgDetails={merchantDetails} isMerchantTaskPage={isMerchantTaskPage} />
                 )}
 
                 {/* NEED MERCHANT TABLE DATA FROM BACKEND, TO REMOVE ORGDETAILS HERE */}

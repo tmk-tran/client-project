@@ -25,6 +25,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function OrgNotesDisplay({ notes, orgDetails, caseType, isMerchantTaskPage }) {
   console.log(isMerchantTaskPage);
   console.log(notes);
+  console.log(orgDetails);
   const dispatch = dispatchHook();
   const paramsObject = useParams();
 
@@ -32,7 +33,8 @@ export default function OrgNotesDisplay({ notes, orgDetails, caseType, isMerchan
   const [noteDelete, setNoteDelete] = useState(false);
   const [inputValue, setInputValue] = useState("");
   // State from popover
-  const [orgId, setOrgId] = useState(orgDetails.organization_id);
+  // const [orgId, setOrgId] = useState(orgDetails.organization_id);
+  const [orgId, setOrgId] = useState(!isMerchantTaskPage ? orgDetails.organization_id : orgDetails.merchant_id);
   const [noteDate, setNoteDate] = useState(new Date());
   const [noteAdded, setNoteAdded] = useState(false);
 
@@ -50,7 +52,7 @@ export default function OrgNotesDisplay({ notes, orgDetails, caseType, isMerchan
 
   useEffect(() => {
     // Define the action type based on isMerchantTaskPage
-    const fetchNotesActionType = isMerchantTaskPage ? "FETCH_MERCHANT_NOTES" : "FETCH_ORG_NOTES";
+    const fetchNotesActionType = !isMerchantTaskPage ? "FETCH_ORG_NOTES" : "FETCH_MERCHANT_NOTES";
   
     // Fetch notes based on the determined action type
     dispatch({
@@ -72,8 +74,17 @@ export default function OrgNotesDisplay({ notes, orgDetails, caseType, isMerchan
       note_content: inputValue,
     };
 
+    // const saveCall = () => {
+    //   dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
+    //   setNoteAdded(true);
+    // };
+
     const saveCall = () => {
-      dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
+      if (!isMerchantTaskPage) {
+        dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
+      } else {
+        dispatch({ type: "ADD_MERCHANT_NOTES", payload: sendNote });
+      }
       setNoteAdded(true);
     };
 

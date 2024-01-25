@@ -12,6 +12,17 @@ function* merchantNotes(action) {
   }
 }
 
+function* addNotes(action) {
+  try {
+    console.log(action.payload);
+    yield axios.post(`/api/merchantnotes/`, action.payload);
+    yield put({ type: "FETCH_MERCHANT_NOTES", payload: action.payload });
+  } catch (error) {
+    console.log("error in addNotes Merchant Saga", error);
+  }
+}
+
 export default function* merchantNotesSaga() {
   yield takeEvery("FETCH_MERCHANT_NOTES", merchantNotes);
+  yield takeEvery("ADD_MERCHANT_NOTES", addNotes);
 }

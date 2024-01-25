@@ -22,4 +22,24 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.post("/", rejectUnauthenticated, (req, res) => {
+  const note = req.body;
+  const merchantId = note.merchant_id;
+  const date = note.note_date;
+  const content = note.note_content;
+
+  const queryText = `INSERT INTO "merchant_notes" ("merchant_id", "note_date", "note_content")
+  VALUES ($1, $2, $3);`;
+
+  pool
+    .query(queryText, [merchantId, date, content])
+    .then((response) => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log("error in merchantNotes POST route", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
