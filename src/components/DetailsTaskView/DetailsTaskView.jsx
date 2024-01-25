@@ -7,7 +7,6 @@ import NewTaskModal from "../NewTaskModal/NewTaskModal";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import "./DetailsTaskView.css";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
-import { hrStyle } from "../Utils/helpers";
 
 export default function DetailsTaskView({ caseType }) {
   const theme = useTheme();
@@ -29,11 +28,7 @@ export default function DetailsTaskView({ caseType }) {
               caseType === "merchantView" ? "merchant-task-view" : ""
             }`}
           >
-            {/* UPDATE THIS FOR ALT ROW SHADING */}
-              <TableTaskDetails />
-
-            {/* <hr style={hrStyle} /> */}
-            
+            <TableTaskDetails />
           </div>
 
           <div>

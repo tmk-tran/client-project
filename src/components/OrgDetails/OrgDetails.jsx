@@ -199,7 +199,6 @@ export default function OrgDetails({ isMerchantTaskPage }) {
                   // Show task-related content on the task page
                   <>
                     <DetailsTaskView />
-
                     <div style={{ height: "40vh" }}></div>
                   </>
                 )}
