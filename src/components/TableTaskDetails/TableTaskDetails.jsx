@@ -15,12 +15,18 @@ import CommentDisplay from "../CommentDisplay/CommentDisplay";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~
 import { mTasks } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
+import { capitalizeWords, formatDate, hrStyle } from "../Utils/helpers";
+import { border } from "../Utils/colors";
 
 export default function TableTaskDetails() {
   const paramsObject = useParams();
   const dispatch = dispatchHook();
   const merchantTasks = mTasks();
   console.log(merchantTasks);
+
+  const fullWidth = {
+    width: "100%",
+  };
 
   useEffect(() => {
     dispatch({
@@ -32,111 +38,95 @@ export default function TableTaskDetails() {
   return (
     <Table>
       <TableBody>
-      {/* <TableHead>
-        <TableRow>
-          <TableCell colSpan={2}>
-            <Typography
-              variant="body2"
-              sx={{
-                fontWeight: "bold",
-                textAlign: "center",
-                border: "1px solid red",
-                // margin: 0,
-              }}
-            >
-              Task #
-            </Typography>
-          </TableCell>
-        </TableRow>
-
-        <TableRow>
-          <TableCell>
-            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-              Status:
-            </Typography>
-          </TableCell>
-          <TableCell>
-            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-              Status Listed Here
-            </Typography>
-          </TableCell>
-        </TableRow>
-      </TableHead>
-
-      <TableBody>
-        <TableRow>
-          <TableCell>
-            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-              Due:
-            </Typography>
-          </TableCell>
-          <TableCell>
-            <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-              Due Date Goes Here
-            </Typography>
-          </TableCell>
-        </TableRow>
-
-        <TableRow>
-          <TableCell colSpan={2}>
-            <CommentDisplay />
-          </TableCell>
-        </TableRow> */}
         {merchantTasks.map((task, index) => (
-          // <React.Fragment key={index}>
-            <div key={index} className="task-row-shading">
+          <div key={index} className="task-row-shading">
             <TableHead>
               <TableRow>
-                <TableCell colSpan={2}>
+                <TableCell
+                  colSpan={3}
+                  style={{ ...fullWidth, padding: 0, border: "none" }}
+                >
                   <Typography
-                    variant="body2"
+                    variant="body1"
                     sx={{
                       fontWeight: "bold",
                       textAlign: "center",
-                      border: "1px solid red",
+                      textDecoration: "underline",
                       // margin: 0,
                     }}
                   >
-                    Task #{index + 1}
+                    #{index + 1}: &nbsp;{capitalizeWords(task.task)}
                   </Typography>
                 </TableCell>
               </TableRow>
 
               <TableRow>
-                <TableCell>
-                  <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                <TableCell
+                  style={{
+                    ...fullWidth,
+                    border: "none",
+                    // ...border,
+                    padding: 0,
+                  }}
+                >
+                  <Typography
+                    variant="body2"
+                    sx={{ fontWeight: "bold", textAlign: "center" }}
+                  >
                     Status:
+                    <span style={{ marginLeft: "15px" }}>
+                      {capitalizeWords(task.task_status)}
+                    </span>
                   </Typography>
                 </TableCell>
-                <TableCell>
-                  <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                    {task.status}
+
+                <TableCell
+                  style={{
+                    border: "none",
+                    // backgroundColor: "rgba(111, 160, 216, 0.5)",
+                  }}
+                  colSpan={2}
+                >
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      backgroundColor: "rgba(111, 160, 216, 0.3)",
+                      padding: "2px",
+                    }}
+                  >
+                    Due:
+                    <span style={{ marginLeft: "15px" }}>
+                      {formatDate(task.due_date)}
+                    </span>
                   </Typography>
                 </TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+              {/* <TableRow>
+                <TableCell style={{ ...border }} colSpan={3}>
+                  <Typography
+                    variant="body2"
+                    sx={{ fontWeight: "bold", textAlign: "center" }}
+                  >
                     Due:
+                    <span style={{ marginLeft: "15px" }}>
+                      {formatDate(task.due_date)}
+                    </span>
                   </Typography>
                 </TableCell>
-                <TableCell>
-                  <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                    {task.due_date}
-                  </Typography>
-                </TableCell>
-              </TableRow>
+              </TableRow> */}
 
               <TableRow>
-                <TableCell colSpan={2}>
+                <TableCell colSpan={3} style={fullWidth}>
                   <CommentDisplay />
+                  <hr />
                 </TableCell>
               </TableRow>
             </TableBody>
-          {/* </React.Fragment> */}
           </div>
         ))}
       </TableBody>

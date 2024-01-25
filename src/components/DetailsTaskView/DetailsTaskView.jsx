@@ -30,11 +30,9 @@ export default function DetailsTaskView({ caseType }) {
             }`}
           >
             {/* UPDATE THIS FOR ALT ROW SHADING */}
-            {/* <div className="task-row-shading"> */}
               <TableTaskDetails />
-            {/* </div> */}
 
-            <hr style={hrStyle} />
+            {/* <hr style={hrStyle} /> */}
             
           </div>
 

@@ -1,3 +1,7 @@
 .task-row-shading:nth-child(even) {
   background-color: rgb(243, 243, 243);
 }
+
+.task-table {
+  width: 100%;
+}
