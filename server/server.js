@@ -22,6 +22,7 @@ const allUsersRouter = require('./routes/allUsers.router');
 const couponRouter = require('./routes/couponPDF.router');
 const merchantDetailsRouter = require('./routes/merchantDetails.router');
 const merchantNotesRouter = require('./routes/merchantNotes.router');
+const merchantTaskRouter = require('./routes/merchantTask.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -50,6 +51,7 @@ app.use('/api/allUsers', allUsersRouter);
 app.use('/api/coupon', couponRouter);
 app.use('/api/merchantDetails', merchantDetailsRouter);
 app.use('/api/merchantNotes', merchantNotesRouter);
+app.use('/api/merchantTask', merchantTaskRouter);
 
 
 // Serve static files

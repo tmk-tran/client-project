@@ -16,6 +16,7 @@ import allUsersSaga from "./allUsers.saga";
 import filesSaga from "./files.saga";
 import merchantDetailsSaga from "./merchantDetails.saga";
 import merchantNotesSaga from "./merchantNotes.saga";
+import merchantTaskSaga from "./merchantTask.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -42,5 +43,6 @@ export default function* rootSaga() {
     filesSaga(),
     merchantDetailsSaga(),
     merchantNotesSaga(),
+    merchantTaskSaga(),
   ]);
 }

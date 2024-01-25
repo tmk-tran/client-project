@@ -1,6 +1,6 @@
-const merchantDetailsReducer = (state = [], action) => {
+const merchantTaskReducer = (state = [], action) => {
   switch (action.type) {
-    case "SET_MERCHANT_DETAILS":
+    case "SET_MERCHANT_TASKS":
       return action.payload;
     case "SET_ERROR":
       // Add logic for handling SET_ERROR action
@@ -14,4 +14,4 @@ const merchantDetailsReducer = (state = [], action) => {
   }
 };
 
-export default merchantDetailsReducer;
+export default merchantTaskReducer;
