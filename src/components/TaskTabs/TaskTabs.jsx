@@ -46,6 +46,10 @@ export default function BasicTabs() {
     mb: 5,
   };
 
+  const tabWidth = {
+    width: "25vw",
+  };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     // Reset the merchantTab state when "Organization" tab is selected
@@ -87,11 +91,12 @@ export default function BasicTabs() {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab label="Organization" {...a11yProps(0)} />
+              <Tab label="Organization" {...a11yProps(0)} sx={tabWidth} />
               <Tab
                 label="Merchant"
                 {...a11yProps(1)}
                 onClick={() => setMerchantTab(true)}
+                sx={tabWidth}
               />
               {/* <Tab label="Coupons" {...a11yProps(2)} /> */}
             </Tabs>

@@ -25,8 +25,6 @@ import Header from "../Header/Header";
 import Footer2 from "../Footer2/Footer2";
 import Footer3 from "../Footer3/Footer3";
 import TaskTabs from "../TaskTabs/TaskTabs";
-import OrgTaskDetails from "../OrgTaskDetails/OrgTaskDetails";
-import MerchantTaskDetails from "../MerchantTaskDetails/MerchantTaskDetails";
 import CouponReviewDetails from "../CouponReviewDetails/CouponReviewDetails";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -114,12 +112,12 @@ function App() {
 
             {/* UPDATE THIS WITH CORRECT ID IN OrgTaskDetails */}
             <ProtectedRoute exact path="/orgtaskdetails/:id">
-              <OrgTaskDetails />
+              <OrgDetails isMerchantTaskPage={false} />
             </ProtectedRoute>
 
             {/* UPDATE THIS WITH CORRECT ID IN MerchantTaskDetails */}
             <ProtectedRoute exact path="/merchantTaskDetails/:id">
-              <MerchantTaskDetails />
+              <OrgDetails isMerchantTaskPage={true} />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/coupon/:id">
