@@ -26,7 +26,7 @@ export default function TaskListMerchant() {
         displayEmpty
         renderValue={() => (
           <Typography
-            style={{ display: "flex", alignItems: "center", marginLeft: "9vw" }}
+            style={{ display: "flex", alignItems: "center", marginLeft: "18vw" }}
           >
             New ({getNumOptions(newTasks)})
           </Typography>
@@ -47,7 +47,7 @@ export default function TaskListMerchant() {
         displayEmpty
         renderValue={() => (
           <Typography
-            style={{ display: "flex", alignItems: "center", marginLeft: "9vw" }}
+            style={{ display: "flex", alignItems: "center", marginLeft: "18vw" }}
           >
             In Progress ({getNumOptions(inProgressTasks)})
           </Typography>
@@ -68,7 +68,7 @@ export default function TaskListMerchant() {
         displayEmpty
         renderValue={() => (
           <Typography
-            style={{ display: "flex", alignItems: "center", marginLeft: "9vw" }}
+            style={{ display: "flex", alignItems: "center", marginLeft: "18vw" }}
           >
             Complete ({getNumOptions(completeTasks)})
           </Typography>

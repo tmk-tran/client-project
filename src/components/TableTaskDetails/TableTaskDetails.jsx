@@ -17,7 +17,7 @@ export default function TableTaskDetails() {
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell colSpan={2} className="task-row-shading">
+          <TableCell colSpan={2}>
             <Typography
               variant="body2"
               sx={{
@@ -48,12 +48,12 @@ export default function TableTaskDetails() {
 
       <TableBody>
         <TableRow>
-          <TableCell className="task-row-shading">
+          <TableCell>
             <Typography variant="body2" sx={{ fontWeight: "bold" }}>
               Due:
             </Typography>
           </TableCell>
-          <TableCell className="task-row-shading">
+          <TableCell>
             <Typography variant="body2" sx={{ fontWeight: "bold" }}>
               Due Date Goes Here
             </Typography>

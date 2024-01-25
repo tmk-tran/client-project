@@ -29,25 +29,29 @@ export default function DetailsTaskView({ caseType }) {
               caseType === "merchantView" ? "merchant-task-view" : ""
             }`}
           >
+            {/* UPDATE THIS FOR ALT ROW SHADING */}
+            <div className="task-row-shading">
+              <TableTaskDetails />
+            </div>
             <TableTaskDetails />
+
             <hr style={hrStyle} />
-            {/* <TableTaskDetails />
-            <TableTaskDetails /> */}
+            
           </div>
-          {/* <div>
-            <NewTaskModal customIcon={<AddBoxIcon />} customText="Task" />
-          </div> */}
 
           <div>
-          {caseType === 'merchantView' ? (
+            {caseType === "merchantView" ? (
               // Render NewTaskModal with 'merchantTab' props
-              <NewTaskModal customIcon={<AddBoxIcon />} customText="Task" caseType={'merchantView'} />
+              <NewTaskModal
+                customIcon={<AddBoxIcon />}
+                customText="Task"
+                caseType={"merchantView"}
+              />
             ) : (
               // Render regular NewTaskModal
               <NewTaskModal customIcon={<AddBoxIcon />} customText="Task" />
             )}
           </div>
-
         </CardContent>
       </Card>
     </div>

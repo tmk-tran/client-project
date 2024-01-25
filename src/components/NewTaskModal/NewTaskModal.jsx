@@ -15,8 +15,9 @@ import {
 import "./NewTaskModal.css";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 import CloseIcon from "@mui/icons-material/Close";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import { border } from "../Utils/colors";
 
 const style = {
   position: "absolute",
@@ -85,7 +86,8 @@ export default function BasicModal({
         {customIcon ? (
           customIcon // Render the custom icon if provided
         ) : (
-          <LibraryAddIcon />
+          // <LibraryAddIcon />
+          <AddBoxIcon />
         )}
         {customText && <span>&nbsp;{customText}</span>}
       </Button>

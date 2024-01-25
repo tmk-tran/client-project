@@ -9,6 +9,7 @@ function* merchantNotes(action) {
     yield put({ type: "SET_MERCHANT_NOTES", payload: items.data });
   } catch {
     console.log("error in merchantNotes Saga");
+    yield put({ type: "SET_ERROR", payload: error });
   }
 }
 
@@ -19,6 +20,7 @@ function* addNotes(action) {
     yield put({ type: "FETCH_MERCHANT_NOTES", payload: action.payload });
   } catch (error) {
     console.log("error in addNotes Merchant Saga", error);
+    yield put({ type: "SET_ERROR", payload: error });
   }
 }
 
