@@ -24,7 +24,10 @@ export default function OrgContactDetails({ info, isMerchantTaskPage }) {
   console.log(info);
   console.log(isMerchantTaskPage);
   const dispatch = dispatchHook();
-  const contactPhone = formatPhoneNumber(info.primary_contact_phone);
+  // const contactPhone = formatPhoneNumber(info.primary_contact_phone);
+  const contactPhone = isMerchantTaskPage
+    ? formatPhoneNumber(info.contact_phone_number)
+    : formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
 
   const [isEditing, setIsEditing] = useState(false);

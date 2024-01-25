@@ -138,7 +138,7 @@ export default function OrgDetails() {
                   {isMerchantTaskPage ? (
                     merchantDetails.map((info) => (
                       <OrgContactDetails
-                        key={info.id}  // Add key here
+                        key={info.id}
                         info={info}
                         isMerchantTaskPage={isMerchantTaskPage}
                       />
