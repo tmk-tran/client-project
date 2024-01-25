@@ -12,7 +12,6 @@ export const oNotes = () => {
   return useSelector((store) => store.orgNotes);
 };
 
-
 export const oFundraisers = () => {
   return useSelector((store) => store.orgFundraisers);
 };
@@ -22,8 +21,12 @@ export const mDetails = () => {
 };
 
 export const mNotes = () => {
-  return useSelector((store) => store.mNotes);
-}
+  return useSelector((store) => store.merchantNotes);
+};
+
+export const mTasks = () => {
+  return useSelector((store) => store.merchantTasks);
+};
 
 export const User = () => {
   return useSelector((store) => store.user);
