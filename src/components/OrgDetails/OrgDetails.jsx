@@ -54,33 +54,22 @@ export default function OrgDetails() {
   const merchantDetails = mDetails();
 
   useEffect(() => {
-    // dispatch({
-    //   type: "FETCH_ORG_DETAILS",
-    //   payload: paramsObject.id,
-    // });
-
-    if (!isMerchantTaskPage) {
-      dispatch({
-        type: "FETCH_ORG_DETAILS",
-        payload: paramsObject.id,
-      });
-    } else {
-      // Dispatch other actions for non-merchant task pages
-      dispatch({
-        type: "FETCH_MERCHANT_DETAILS",
-        payload: paramsObject.id,
-      });
-    }
-
+    dispatch({
+      type: "FETCH_ORG_DETAILS",
+      payload: paramsObject.id,
+    });
+  
+    dispatch({
+      type: isMerchantTaskPage ? "FETCH_MERCHANT_DETAILS" : "FETCH_ORG_FUNDRAISERS",
+      payload: paramsObject.id,
+    });
+  
     dispatch({
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
-    dispatch({
-      type: "FETCH_ORG_FUNDRAISERS",
-      payload: paramsObject.id,
-    });
-  }, [groups, isMerchantTaskPage]);
+  }, [paramsObject.id, isMerchantTaskPage]);
+  
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();
@@ -141,11 +130,6 @@ export default function OrgDetails() {
                   // <OrgNotesDisplay notes={merchantNotes} orgDetails={merchantDetails} />
                   <OrgNotesDisplay notes={notes} orgDetails={merchantDetails} isMerchantTaskPage={isMerchantTaskPage} />
                 )}
-
-                {/* NEED MERCHANT TABLE DATA FROM BACKEND, TO REMOVE ORGDETAILS HERE */}
-                {/* {isMerchantTaskPage && (
-                  <OrgNotesDisplay notes={notes} merchantDetails={merchantDetails} />
-                )} */}
 
                 <center>
                   {isMerchantTaskPage ? (
