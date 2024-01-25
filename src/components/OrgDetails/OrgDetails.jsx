@@ -16,7 +16,13 @@ import MerchantContactDetails from "../ContactDetails/MerchantContactDetails";
 import BackButton from "../BackButton/BackButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
-import { oDetails, oGroups, oNotes, mNotes } from "../../hooks/reduxStore";
+import {
+  oDetails,
+  oGroups,
+  oNotes,
+  mDetails,
+  mNotes,
+} from "../../hooks/reduxStore";
 
 // ~~~~~~~~~~ May Use Later ~~~~~~~~~~
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
@@ -40,17 +46,33 @@ export default function OrgDetails() {
   // ~~~~~~~~~~ Hooks ~~~~~~~~~~
   const dispatch = dispatchHook();
   const detailsOrg = oDetails();
-  console.log(detailsOrg);
+  // console.log(detailsOrg);
   const groups = oGroups();
   console.log(groups);
   const notes = oNotes();
+  const merchantDetails = mDetails();
+  console.log(merchantDetails);
   // const notesM = mNotes();
 
   useEffect(() => {
-    dispatch({
-      type: "FETCH_ORG_DETAILS",
-      payload: paramsObject.id,
-    });
+    // dispatch({
+    //   type: "FETCH_ORG_DETAILS",
+    //   payload: paramsObject.id,
+    // });
+
+    if (!isMerchantTaskPage) {
+      dispatch({
+        type: "FETCH_ORG_DETAILS",
+        payload: paramsObject.id,
+      });
+    } else {
+      // Dispatch other actions for non-merchant task pages
+      dispatch({
+        type: "FETCH_MERCHANT_DETAILS",
+        payload: paramsObject.id,
+      });
+    }
+
     dispatch({
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
@@ -59,7 +81,7 @@ export default function OrgDetails() {
       type: "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
     });
-  }, [groups]);
+  }, [groups, isMerchantTaskPage]);
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();
@@ -113,7 +135,7 @@ export default function OrgDetails() {
 
                 <center>
                   {isMerchantTaskPage ? (
-                    <MerchantContactDetails info={orgDetails} />
+                    <OrgContactDetails info={merchantDetails} isMerchantTaskPage={isMerchantTaskPage} />
                   ) : (
                     <OrgContactDetails info={orgDetails} />
                   )}

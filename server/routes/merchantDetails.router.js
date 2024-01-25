@@ -8,12 +8,12 @@ const {
 router.get("/:id", (req, res) => {
   const merchantId = req.params.id;
 
-  const queryText = `SELECT`;
+  const queryText = `SELECT * FROM merchant WHERE id = $1;`;
   pool
-    .query(queryText, [orgId])
+    .query(queryText, [merchantId])
     .then((result) => {
-      // console.log("orgId = ", orgId);
-      console.log("FROM orgDetails.router: ", result.rows);
+      // console.log("merchantId = ", merchantId);
+      console.log("FROM merchantDetails.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {

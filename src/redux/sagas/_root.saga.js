@@ -14,6 +14,7 @@ import groupAdminSaga from "./groupAdmin.saga";
 import orgNotesSaga from "./orgNotes.saga";
 import allUsersSaga from "./allUsers.saga";
 import filesSaga from "./files.saga";
+import merchantDetailsSaga from "./merchantDetails.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -38,5 +39,6 @@ export default function* rootSaga() {
     orgNotesSaga(),
     allUsersSaga(),
     filesSaga(),
+    merchantDetailsSaga(),
   ]);
 }

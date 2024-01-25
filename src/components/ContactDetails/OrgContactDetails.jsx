@@ -20,7 +20,9 @@ import { formatPhoneNumber } from "../Utils/helpers";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 
-export default function OrgContactDetails({ info }) {
+export default function OrgContactDetails({ info, isMerchantTaskPage }) {
+  console.log(info);
+  console.log(isMerchantTaskPage);
   const dispatch = dispatchHook();
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
