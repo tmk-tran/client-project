@@ -19,6 +19,7 @@ import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
 import { formatPhoneNumber } from "../Utils/helpers";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
+import ContactDetailsCard from "./ContactDetailsCard";
 
 export default function OrgContactDetails({ info, isMerchantTaskPage }) {
   console.log(info);
@@ -97,7 +98,7 @@ export default function OrgContactDetails({ info, isMerchantTaskPage }) {
         </div>
 
         {/* Organization Contact Details Card */}
-        <Card
+        {/* <Card
           elevation={5}
           sx={{
             maxWidth: 360,
@@ -128,11 +129,22 @@ export default function OrgContactDetails({ info, isMerchantTaskPage }) {
               onClose={() => setIsEditing(false)}
               info={info}
               onSaveChanges={handleSaveContact}
-            />
-            {/* <Button onClick={handleEditContact}>Edit</Button> */}
-          </div>
+            /> */}
+        {/* <Button onClick={handleEditContact}>Edit</Button> */}
+        {/* </div>
           <Divider />
-        </Card>
+        </Card> */}
+
+        <ContactDetailsCard
+          handleEditContact={handleEditContact}
+          info={info}
+          isMerchantTaskPage={isMerchantTaskPage}
+          handleSaveContact={handleSaveContact}
+          isSmallScreen={isSmallScreen}
+          contactPhone={contactPhone}
+          isEditing={isEditing}
+        />
+
         <Box sx={{ flexGrow: 1 }}></Box>
       </div>
     </>
