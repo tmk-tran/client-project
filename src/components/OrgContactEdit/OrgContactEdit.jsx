@@ -22,7 +22,9 @@ export default function OrgContactEdit({
   isMerchantTaskPage,
 }) {
   // const [orgName, setOrgName] = useState(info.organization_name);
-  const [orgName, setOrgName] = useState(!isMerchantTaskPage ? info.organization_name : info.merchant_name);
+  const [orgName, setOrgName] = useState(
+    !isMerchantTaskPage ? info.organization_name : info.merchant_name
+  );
   const [orgType, setOrgType] = useState(info.type);
   const [orgAddress, setOrgAddress] = useState(info.address);
   const [orgCity, setOrgCity] = useState(info.city);
@@ -35,7 +37,9 @@ export default function OrgContactEdit({
     info.primary_contact_last_name
   );
   const [editedPhone, setEditedPhone] = useState(
-    Number(info.primary_contact_phone)
+    !isMerchantTaskPage
+      ? Number(info.primary_contact_phone)
+      : Number(info.contact_phone_number)
   );
   const [phoneError, setPhoneError] = useState(false);
   const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
