@@ -51,25 +51,28 @@ export default function OrgDetails() {
   console.log(groups);
   // const notes = oNotes();
   const notes = !isMerchantTaskPage ? oNotes() : mNotes();
+  console.log(notes);
   const merchantDetails = mDetails();
+  console.log(merchantDetails);
 
   useEffect(() => {
     dispatch({
       type: "FETCH_ORG_DETAILS",
       payload: paramsObject.id,
     });
-  
+
     dispatch({
-      type: isMerchantTaskPage ? "FETCH_MERCHANT_DETAILS" : "FETCH_ORG_FUNDRAISERS",
+      type: isMerchantTaskPage
+        ? "FETCH_MERCHANT_DETAILS"
+        : "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
     });
-  
+
     dispatch({
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
   }, [paramsObject.id, isMerchantTaskPage]);
-  
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();
@@ -126,10 +129,22 @@ export default function OrgDetails() {
                   />
                 )}
 
-                {isMerchantTaskPage && (
+                {/* {isMerchantTaskPage && (
                   // <OrgNotesDisplay notes={merchantNotes} orgDetails={merchantDetails} />
                   <OrgNotesDisplay notes={notes} orgDetails={merchantDetails} isMerchantTaskPage={isMerchantTaskPage} />
-                )}
+                )} */}
+
+                {/* Check if it's a merchant task page */}
+                {isMerchantTaskPage &&
+                  // Map over merchantDetails and pass each object to OrgNotesDisplay
+                  merchantDetails.map((merchantInfo) => (
+                    <OrgNotesDisplay
+                      key={merchantInfo.id} // Replace with a unique key
+                      notes={notes}
+                      orgDetails={merchantInfo}
+                      isMerchantTaskPage={isMerchantTaskPage}
+                    />
+                  ))}
 
                 <center>
                   {isMerchantTaskPage ? (

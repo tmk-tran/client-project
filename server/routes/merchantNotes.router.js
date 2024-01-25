@@ -24,6 +24,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const note = req.body;
+  console.log(note);
   const merchantId = note.merchant_id;
   const date = note.note_date;
   const content = note.note_content;

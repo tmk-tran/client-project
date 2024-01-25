@@ -26,6 +26,7 @@ export default function OrgNotesDisplay({ notes, orgDetails, caseType, isMerchan
   console.log(isMerchantTaskPage);
   console.log(notes);
   console.log(orgDetails);
+
   const dispatch = dispatchHook();
   const paramsObject = useParams();
 
@@ -34,9 +35,14 @@ export default function OrgNotesDisplay({ notes, orgDetails, caseType, isMerchan
   const [inputValue, setInputValue] = useState("");
   // State from popover
   // const [orgId, setOrgId] = useState(orgDetails.organization_id);
-  const [orgId, setOrgId] = useState(!isMerchantTaskPage ? orgDetails.organization_id : orgDetails.merchant_id);
+  const [orgId, setOrgId] = useState(!isMerchantTaskPage ? orgDetails.organization_id : orgDetails.id);
+  console.log(orgId);
   const [noteDate, setNoteDate] = useState(new Date());
   const [noteAdded, setNoteAdded] = useState(false);
+
+  // Access merchant_id directly from orgDetails if isMerchantTaskPage is true
+  const merchantId = isMerchantTaskPage ? orgDetails.id : null;
+  console.log(merchantId);
 
 
   // useEffect(() => {
@@ -68,11 +74,19 @@ export default function OrgNotesDisplay({ notes, orgDetails, caseType, isMerchan
     // Format the date as "mm/dd/yyyy"
     const formattedDate = noteDate.toLocaleDateString("en-US");
 
+    // const sendNote = {
+    //   organization_id: orgId,
+    //   note_date: formattedDate,
+    //   note_content: inputValue,
+    // };
+
     const sendNote = {
-      organization_id: orgId,
+      organization_id: !isMerchantTaskPage ? orgId : null,
+      merchant_id: isMerchantTaskPage ? orgId : null,
       note_date: formattedDate,
       note_content: inputValue,
-    };
+    };    
+    
 
     // const saveCall = () => {
     //   dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
@@ -80,13 +94,12 @@ export default function OrgNotesDisplay({ notes, orgDetails, caseType, isMerchan
     // };
 
     const saveCall = () => {
-      if (!isMerchantTaskPage) {
-        dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
-      } else {
-        dispatch({ type: "ADD_MERCHANT_NOTES", payload: sendNote });
-      }
+      const actionType = isMerchantTaskPage ? "ADD_MERCHANT_NOTES" : "ADD_ORG_NOTES";
+      dispatch({ type: actionType, payload: sendNote });
+      console.log(sendNote);
       setNoteAdded(true);
     };
+    
 
     // Sweet Alert
     showSaveSweetAlert(saveCall);
