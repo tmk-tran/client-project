@@ -12,7 +12,6 @@ router.get("/:id", (req, res) => {
   pool
     .query(queryText, [merchantId])
     .then((result) => {
-      // console.log("merchantId = ", merchantId);
       console.log("FROM merchantDetails.router: ", result.rows);
       res.send(result.rows);
     })

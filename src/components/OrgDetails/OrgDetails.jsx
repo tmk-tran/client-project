@@ -42,6 +42,7 @@ export default function OrgDetails() {
   const isDetailsPage = location.pathname.includes("/orgDetails"); // Adjust the path accordingly
   const isTaskPage = location.pathname.includes("/orgtaskdetails");
   const isMerchantTaskPage = location.pathname.includes("/merchantTaskDetails");
+  console.log(isMerchantTaskPage);
 
   // ~~~~~~~~~~ Hooks ~~~~~~~~~~
   const dispatch = dispatchHook();
@@ -135,7 +136,14 @@ export default function OrgDetails() {
 
                 <center>
                   {isMerchantTaskPage ? (
-                    <OrgContactDetails info={merchantDetails} isMerchantTaskPage={isMerchantTaskPage} />
+                    merchantDetails.map((info) => (
+                      <OrgContactDetails
+                        key={info.id}  // Add key here
+                        info={info}
+                        isMerchantTaskPage={isMerchantTaskPage}
+                      />
+                    ))
+                      // <OrgContactDetails info={orgDetails} isMerchantTaskPage={isMerchantTaskPage} />
                   ) : (
                     <OrgContactDetails info={orgDetails} />
                   )}
