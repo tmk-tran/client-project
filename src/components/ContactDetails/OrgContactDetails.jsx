@@ -75,9 +75,18 @@ export default function OrgContactDetails({ info, isMerchantTaskPage }) {
           </div>
           <div className="org-address">
             <div className="org-name-container">
-              <Typography variant="h5" style={{ fontWeight: "bold" }}>
+              {!isMerchantTaskPage ? (
+                <Typography variant="h5" style={{ fontWeight: "bold" }}>
+                  {info.organization_name}
+                </Typography>
+              ) : (
+                <Typography variant="h5" style={{ fontWeight: "bold" }}>
+                  {info.merchant_name}
+                </Typography>
+              )}
+              {/* <Typography variant="h5" style={{ fontWeight: "bold" }}>
                 {info.organization_name}
-              </Typography>
+              </Typography> */}
             </div>
             <Typography>{info.address}</Typography>
             <Typography>
@@ -111,7 +120,7 @@ export default function OrgContactDetails({ info, isMerchantTaskPage }) {
           </div>
           <hr style={{ width: "80%" }} />
 
-          <ContactDetailsList info={info} contactPhone={contactPhone} />
+          <ContactDetailsList info={info} contactPhone={contactPhone} isMerchantTaskPage={isMerchantTaskPage} />
 
           <div style={{ marginBottom: "10px" }}>
             <OrgContactEdit
