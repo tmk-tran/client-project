@@ -19,8 +19,10 @@ export default function OrgContactEdit({
   onClose,
   info,
   onSaveChanges,
+  isMerchantTaskPage,
 }) {
-  const [orgName, setOrgName] = useState(info.organization_name);
+  // const [orgName, setOrgName] = useState(info.organization_name);
+  const [orgName, setOrgName] = useState(!isMerchantTaskPage ? info.organization_name : info.merchant_name);
   const [orgType, setOrgType] = useState(info.type);
   const [orgAddress, setOrgAddress] = useState(info.address);
   const [orgCity, setOrgCity] = useState(info.city);
@@ -39,14 +41,29 @@ export default function OrgContactEdit({
   const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
   const [emailError, setEmailError] = useState(false);
 
+  // useEffect(() => {
+  //   setOrgName(info.organization_name);
+  //   setOrgType(info.type);
+  //   setOrgAddress(info.address);
+  //   setOrgCity(info.city);
+  //   setOrgState(info.state);
+  //   setOrgZip(info.zip);
+  // }, [info]);
+
   useEffect(() => {
-    setOrgName(info.organization_name);
-    setOrgType(info.type);
-    setOrgAddress(info.address);
-    setOrgCity(info.city);
-    setOrgState(info.state);
-    setOrgZip(info.zip);
-  }, [info]);
+    if (isMerchantTaskPage) {
+      // If isMerchantTaskPage is true, setMerchantName to info.merchant_name
+      setOrgName(info.merchant_name);
+    } else {
+      // Otherwise, set organization-related values
+      setOrgName(info.organization_name);
+      setOrgType(info.type);
+      setOrgAddress(info.address);
+      setOrgCity(info.city);
+      setOrgState(info.state);
+      setOrgZip(info.zip);
+    }
+  }, [info, isMerchantTaskPage]);
 
   const handleSave = () => {
     // Validate email before saving

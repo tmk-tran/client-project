@@ -70,6 +70,7 @@ export default function OrgContactDetails({ info, isMerchantTaskPage }) {
                   onClose={() => setIsEditingOrgDetails(false)}
                   info={info}
                   onSaveChanges={handleSaveOrgDetails}
+                  isMerchantTaskPage={isMerchantTaskPage}
                 />
               </div>
             </center>
@@ -136,13 +137,14 @@ export default function OrgContactDetails({ info, isMerchantTaskPage }) {
         </Card> */}
 
         <ContactDetailsCard
-          handleEditContact={handleEditContact}
-          info={info}
-          isMerchantTaskPage={isMerchantTaskPage}
-          handleSaveContact={handleSaveContact}
-          isSmallScreen={isSmallScreen}
           contactPhone={contactPhone}
+          handleEditContact={handleEditContact}
+          handleSaveContact={handleSaveContact}
+          info={info}
           isEditing={isEditing}
+          isMerchantTaskPage={isMerchantTaskPage}
+          isSmallScreen={isSmallScreen}
+          setIsEditing={setIsEditing}
         />
 
         <Box sx={{ flexGrow: 1 }}></Box>

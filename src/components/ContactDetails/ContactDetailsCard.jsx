@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 
-import {
-    Button,
-    Card,
-    Divider,
-    Typography,
-  } from "@mui/material";
+import { Button, Card, Divider, Typography } from "@mui/material";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
-import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";  
+import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
 
-export default function ContactDetailsCard({ handleEditContact, info, isMerchantTaskPage, handleSaveContact, isSmallScreen, contactPhone, isEditing }) {
+export default function ContactDetailsCard({
+  contactPhone,
+  handleEditContact,
+  handleSaveContact,
+  info,
+  isEditing,
+  isMerchantTaskPage,
+  isSmallScreen,
+  setIsEditing,
+}) {
   return (
     <Card
       elevation={5}
@@ -47,6 +51,7 @@ export default function ContactDetailsCard({ handleEditContact, info, isMerchant
           onClose={() => setIsEditing(false)}
           info={info}
           onSaveChanges={handleSaveContact}
+          isMerchantTaskPage={isMerchantTaskPage}
         />
         {/* <Button onClick={handleEditContact}>Edit</Button> */}
       </div>

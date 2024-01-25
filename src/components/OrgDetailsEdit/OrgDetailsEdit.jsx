@@ -17,8 +17,10 @@ export default function OrgContactEdit({
   onClose,
   info,
   onSaveChanges,
+  isMerchantTaskPage,
 }) {
-  const [editedName, setEditedName] = useState(info.organization_name);
+  // const [editedName, setEditedName] = useState(info.organization_name);
+  const [editedName, setEditedName] = useState(!isMerchantTaskPage ? info.organization_name : info.merchant_name);
   const [editedType, setEditedType] = useState(info.type);
   const [editedAddress, setEditedAddress] = useState(info.address);
   const [editedCity, setEditedCity] = useState(info.city);
