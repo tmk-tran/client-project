@@ -15,8 +15,7 @@ import CommentDisplay from "../CommentDisplay/CommentDisplay";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~
 import { mTasks } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { capitalizeWords, formatDate, hrStyle } from "../Utils/helpers";
-import { border } from "../Utils/colors";
+import { capitalizeWords, formatDate } from "../Utils/helpers";
 
 export default function TableTaskDetails() {
   const paramsObject = useParams();
@@ -26,6 +25,11 @@ export default function TableTaskDetails() {
 
   const fullWidth = {
     width: "100%",
+  };
+
+  const boldCenter = {
+    fontWeight: "bold",
+    textAlign: "center",
   };
 
   useEffect(() => {
@@ -49,10 +53,8 @@ export default function TableTaskDetails() {
                   <Typography
                     variant="body1"
                     sx={{
-                      fontWeight: "bold",
-                      textAlign: "center",
+                      ...boldCenter,
                       textDecoration: "underline",
-                      // margin: 0,
                     }}
                   >
                     #{index + 1}: &nbsp;{capitalizeWords(task.task)}
@@ -65,14 +67,10 @@ export default function TableTaskDetails() {
                   style={{
                     ...fullWidth,
                     border: "none",
-                    // ...border,
                     padding: 0,
                   }}
                 >
-                  <Typography
-                    variant="body2"
-                    sx={{ fontWeight: "bold", textAlign: "center" }}
-                  >
+                  <Typography variant="body2" sx={boldCenter}>
                     Status:
                     <span style={{ marginLeft: "15px" }}>
                       {capitalizeWords(task.task_status)}
@@ -90,8 +88,7 @@ export default function TableTaskDetails() {
                   <Typography
                     variant="body2"
                     sx={{
-                      fontWeight: "bold",
-                      textAlign: "center",
+                      ...boldCenter,
                       backgroundColor: "rgba(111, 160, 216, 0.3)",
                       padding: "2px",
                     }}
@@ -106,20 +103,6 @@ export default function TableTaskDetails() {
             </TableHead>
 
             <TableBody>
-              {/* <TableRow>
-                <TableCell style={{ ...border }} colSpan={3}>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontWeight: "bold", textAlign: "center" }}
-                  >
-                    Due:
-                    <span style={{ marginLeft: "15px" }}>
-                      {formatDate(task.due_date)}
-                    </span>
-                  </Typography>
-                </TableCell>
-              </TableRow> */}
-
               <TableRow>
                 <TableCell colSpan={3} style={fullWidth}>
                   <CommentDisplay />
