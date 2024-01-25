@@ -21,9 +21,9 @@ export const mDetails = () => {
   return useSelector((store) => store.merchantDetails);
 };
 
-// export const mNotes = () => {
-//   return useSelector((store) => store.mNotes);
-// }
+export const mNotes = () => {
+  return useSelector((store) => store.mNotes);
+}
 
 export const User = () => {
   return useSelector((store) => store.user);

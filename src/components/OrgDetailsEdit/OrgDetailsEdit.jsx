@@ -36,11 +36,22 @@ export default function OrgContactEdit({
   const [contactPhone, setContactPhone] = useState(info.primary_contact_phone);
   const [contactEmail, setContactEmail] = useState(info.primary_contact_email);
 
+  // useEffect(() => {
+  //   setContactFirstName(info.primary_contact_first_name);
+  //   setContactLastName(info.primary_contact_last_name);
+  //   setContactPhone(info.primary_contact_phone);
+  //   setContactEmail(info.primary_contact_email);
+  // }, [info]);
+
   useEffect(() => {
     setContactFirstName(info.primary_contact_first_name);
     setContactLastName(info.primary_contact_last_name);
     setContactPhone(info.primary_contact_phone);
-    setContactEmail(info.primary_contact_email);
+    if (isMerchantTaskPage) {
+      setContactEmail(info.contact_email);
+    } else {
+      setContactEmail(info.primary_contact_email);
+    }
   }, [info]);
 
   const handleSave = () => {

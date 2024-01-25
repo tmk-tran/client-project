@@ -50,7 +50,9 @@ export default function OrgDetails() {
   // console.log(detailsOrg);
   const groups = oGroups();
   console.log(groups);
-  const notes = oNotes();
+  // const notes = oNotes();
+  const notes = !isMerchantTaskPage ? oNotes() : mNotes();
+  console.log(notes);
   const merchantDetails = mDetails();
   console.log(merchantDetails);
   // const notesM = mNotes();
@@ -119,7 +121,7 @@ export default function OrgDetails() {
           <div className="detailsView-container">
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
-                {!isTaskPage || isMerchantTaskPage ? (
+                {/* {!isTaskPage || isMerchantTaskPage ? (
                   <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
                 ) : (
                   <OrgNotesDisplay
@@ -127,6 +129,21 @@ export default function OrgDetails() {
                     orgDetails={orgDetails}
                     caseType={1}
                   />
+                )} */}
+
+                {!isTaskPage ? (
+                  <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
+                ) : (
+                  <OrgNotesDisplay
+                    notes={notes}
+                    orgDetails={orgDetails}
+                    caseType={1}
+                  />
+                )}
+
+                {isMerchantTaskPage && (
+                  // <OrgNotesDisplay notes={merchantNotes} orgDetails={merchantDetails} />
+                  <OrgNotesDisplay notes={notes} orgDetails={orgDetails} isMerchantTaskPage={isMerchantTaskPage} />
                 )}
 
                 {/* NEED MERCHANT TABLE DATA FROM BACKEND, TO REMOVE ORGDETAILS HERE */}
@@ -143,8 +160,8 @@ export default function OrgDetails() {
                         isMerchantTaskPage={isMerchantTaskPage}
                       />
                     ))
-                      // <OrgContactDetails info={orgDetails} isMerchantTaskPage={isMerchantTaskPage} />
                   ) : (
+                    // <OrgContactDetails info={orgDetails} isMerchantTaskPage={isMerchantTaskPage} />
                     <OrgContactDetails info={orgDetails} />
                   )}
                   <br />

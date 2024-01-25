@@ -42,32 +42,35 @@ export default function OrgContactEdit({
       : Number(info.contact_phone_number)
   );
   const [phoneError, setPhoneError] = useState(false);
-  const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
+  // const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
+  const [editedEmail, setEditedEmail] = useState(!isMerchantTaskPage ? info.primary_contact_email : info.contact_email);
   const [emailError, setEmailError] = useState(false);
-
-  // useEffect(() => {
-  //   setOrgName(info.organization_name);
-  //   setOrgType(info.type);
-  //   setOrgAddress(info.address);
-  //   setOrgCity(info.city);
-  //   setOrgState(info.state);
-  //   setOrgZip(info.zip);
-  // }, [info]);
+  console.log(orgName);
 
   useEffect(() => {
-    if (isMerchantTaskPage) {
-      // If isMerchantTaskPage is true, setMerchantName to info.merchant_name
-      setOrgName(info.merchant_name);
-    } else {
-      // Otherwise, set organization-related values
-      setOrgName(info.organization_name);
-      setOrgType(info.type);
-      setOrgAddress(info.address);
-      setOrgCity(info.city);
-      setOrgState(info.state);
-      setOrgZip(info.zip);
-    }
-  }, [info, isMerchantTaskPage]);
+    // {isMerchantTaskPage ? setOrgName(info.organization_name) : setOrgName(info.merchant_name)}
+    // setOrgName(info.organization_name);
+    setOrgType(info.type);
+    setOrgAddress(info.address);
+    setOrgCity(info.city);
+    setOrgState(info.state);
+    setOrgZip(info.zip);
+  }, [info]);
+
+  // useEffect(() => {
+  //   if (isMerchantTaskPage) {
+  //     // If isMerchantTaskPage is true, setMerchantName to info.merchant_name
+  //     setOrgName(info.merchant_name);
+  //   } else {
+  //     // Otherwise, set organization-related values
+  //     setOrgName(info.organization_name);
+  //     setOrgType(info.type);
+  //     setOrgAddress(info.address);
+  //     setOrgCity(info.city);
+  //     setOrgState(info.state);
+  //     setOrgZip(info.zip);
+  //   }
+  // }, [info, isMerchantTaskPage]);
 
   const handleSave = () => {
     // Validate email before saving

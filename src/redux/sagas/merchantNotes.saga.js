@@ -12,6 +12,6 @@ function* merchantNotes(action) {
   }
 }
 
-export default function* orgDetailsSaga() {
+export default function* merchantNotesSaga() {
   yield takeEvery("FETCH_MERCHANT_NOTES", merchantNotes);
 }

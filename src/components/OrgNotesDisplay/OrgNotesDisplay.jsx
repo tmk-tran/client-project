@@ -22,7 +22,9 @@ import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function OrgNotesDisplay({ notes, orgDetails, caseType }) {
+export default function OrgNotesDisplay({ notes, orgDetails, caseType, isMerchantTaskPage }) {
+  console.log(isMerchantTaskPage);
+  console.log(notes);
   const dispatch = dispatchHook();
   const paramsObject = useParams();
 
@@ -34,16 +36,31 @@ export default function OrgNotesDisplay({ notes, orgDetails, caseType }) {
   const [noteDate, setNoteDate] = useState(new Date());
   const [noteAdded, setNoteAdded] = useState(false);
 
+
+  // useEffect(() => {
+  //   // Fetch org notes whenever noteAdded changes
+  //   dispatch({
+  //     type: "FETCH_ORG_NOTES",
+  //     payload: paramsObject.id,
+  //   });
+
+  //   // Reset noteAdded after fetching data
+  //   setNoteAdded(false);
+  // }, [dispatch, paramsObject.id, noteAdded]);
+
   useEffect(() => {
-    // Fetch org notes whenever noteAdded changes
+    // Define the action type based on isMerchantTaskPage
+    const fetchNotesActionType = isMerchantTaskPage ? "FETCH_MERCHANT_NOTES" : "FETCH_ORG_NOTES";
+  
+    // Fetch notes based on the determined action type
     dispatch({
-      type: "FETCH_ORG_NOTES",
+      type: fetchNotesActionType,
       payload: paramsObject.id,
     });
-
+  
     // Reset noteAdded after fetching data
     setNoteAdded(false);
-  }, [dispatch, paramsObject.id, noteAdded]);
+  }, [dispatch, paramsObject.id, noteAdded, isMerchantTaskPage]);
 
   const handleSave = () => {
     // Format the date as "mm/dd/yyyy"
