@@ -20,9 +20,8 @@ export default function CommentDisplay({
           </Typography>
         </div>
       </div>
-      {/* <li style={{ marginLeft: "15px" }}>Comment here</li> */}
+      
       <div style={{ marginLeft: "15px", position: "relative" }}>
-        {/* <span style={{ position: "absolute" }}>•</span> */}
         <span
           style={{
             position: "absolute",
