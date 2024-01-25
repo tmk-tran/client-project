@@ -17,6 +17,10 @@ export default function TaskListMerchant() {
     completeTask: "",
   });
 
+  const indent = {
+    marginLeft: "18vw ",
+  };
+
   // const getNumOptions = (tasks) => tasks.filter(Boolean).length;
 
   const handleChange = (category, task) => {
@@ -28,7 +32,6 @@ export default function TaskListMerchant() {
 
   // Assuming store.merchantTasks is an array of tasks
   const merchantTasks = mTasks() || [];
-  console.log(merchantTasks);
 
   // Group tasks by task_status (case-insensitive)
   const tasksByStatus = merchantTasks.reduce((acc, task) => {
@@ -40,151 +43,78 @@ export default function TaskListMerchant() {
 
   // Sort tasks within each category
   const sortedNewTasks = tasksByStatus["new"] || [];
+  console.log(sortedNewTasks);
   const sortedInProgressTasks = tasksByStatus["in progress"] || [];
   const sortedCompleteTasks = tasksByStatus["complete"] || [];
 
   return (
-    // <div className="list-container">
-    //   {/* Dropdown for New Tasks */}
-    //   <Select
-    //     value={newTask}
-    //     onChange={(e) => setNewTask(e.target.value)}
-    //     displayEmpty
-    //     renderValue={() => (
-    //       <Typography
-    //         style={{
-    //           display: "flex",
-    //           alignItems: "center",
-    //           marginLeft: "18vw",
-    //         }}
-    //       >
-    //         New
-    //       </Typography>
-    //     )}
-    //   >
-    //     {newTasks.map((task) => (
-    //       <MenuItem key={task} value={task} disableRipple>
-    //         {task}
-    //         <TaskCardMerchant newTask={newTask} />
-    //       </MenuItem>
-    //     ))}
-    //   </Select>
-
-    //   {/* Dropdown for In Progress Tasks */}
-    //   <Select
-    //     value={inProgressTask}
-    //     onChange={(e) => setInProgressTask(e.target.value)}
-    //     displayEmpty
-    //     renderValue={() => (
-    //       <Typography
-    //         style={{
-    //           display: "flex",
-    //           alignItems: "center",
-    //           marginLeft: "18vw",
-    //         }}
-    //       >
-    //         In Progress
-    //       </Typography>
-    //     )}
-    //   >
-    //     {inProgressTasks.map((task) => (
-    //       <MenuItem key={task} value={task} disableRipple>
-    //         {task}
-    //         <TaskCardMerchant inProgressTask={inProgressTask} />
-    //       </MenuItem>
-    //     ))}
-    //   </Select>
-
-    //   {/* Dropdown for Complete Tasks */}
-    //   <Select
-    //     value={completeTask}
-    //     onChange={(e) => setCompleteTask(e.target.value)}
-    //     displayEmpty
-    //     renderValue={() => (
-    //       <Typography
-    //         style={{
-    //           display: "flex",
-    //           alignItems: "center",
-    //           marginLeft: "18vw",
-    //         }}
-    //       >
-    //         Complete
-    //       </Typography>
-    //     )}
-    //   >
-    //     {completeTasks.map((task) => (
-    //       <MenuItem key={task} value={task} disableRipple>
-    //         {task}
-    //         <TaskCardMerchant completeTask={completeTask} />
-    //       </MenuItem>
-    //     ))}
-    //   </Select>
-
-    //   {/* Additional UI to display selected task details or move tasks between categories */}
-    //   {/* Add your code here */}
-    // </div>
-
     <div className="list-container">
-    {/* Dropdown for New Tasks */}
-    <Select
-      value={selectedTasks.newTask}
-      onChange={(e) => setSelectedTasks({ ...selectedTasks, newTask: e.target.value })}
-      displayEmpty
-      renderValue={() => (
-        <Typography>
-          New
-        </Typography>
-      )}
-    >
-      {sortedNewTasks.map((task) => (
-        <MenuItem key={task.id} value={task.task}>
-          {task.task}
-          <TaskCardMerchant task={task} />
-        </MenuItem>
-      ))}
-    </Select>
+      {/* Dropdown for New Tasks */}
+      <Select
+        value={selectedTasks.newTask}
+        onChange={(e) =>
+          setSelectedTasks({ ...selectedTasks, newTask: e.target.value })
+        }
+        displayEmpty
+        renderValue={() => (
+          <Typography
+            sx={{...indent, fontWeight: "bold" }}
+          >{`New (${sortedNewTasks.length})`}</Typography>
+        )}
+      >
+        {sortedNewTasks.map((task, i) => (
+          <MenuItem key={task.id} value={i + 1}>
+            {/* Display the task number along with task information */}
+            <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
+            <TaskCardMerchant task={task} />
+          </MenuItem>
+        ))}
+      </Select>
 
-    {/* Dropdown for In Progress Tasks */}
-    <Select
-      value={selectedTasks.inProgressTask}
-      onChange={(e) => setSelectedTasks({ ...selectedTasks, inProgressTask: e.target.value })}
-      displayEmpty
-      renderValue={() => (
-        <Typography>
-          In Progress
-        </Typography>
-      )}
-    >
-      {sortedInProgressTasks.map((task) => (
-        <MenuItem key={task.id} value={task.task}>
-          {task.task}
-          <TaskCardMerchant task={task} />
-        </MenuItem>
-      ))}
-    </Select>
+      {/* Dropdown for In Progress Tasks */}
+      <Select
+        value={selectedTasks.inProgressTask}
+        onChange={(e) =>
+          setSelectedTasks({ ...selectedTasks, inProgressTask: e.target.value })
+        }
+        displayEmpty
+        renderValue={() => (
+          <Typography sx={indent}>
+            {`In Progress (${sortedInProgressTasks.length})`}
+          </Typography>
+        )}
+      >
+        {sortedInProgressTasks.map((task, i) => (
+          <MenuItem key={task.id} value={i + 1}>
+            <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
+            <TaskCardMerchant task={task} />
+          </MenuItem>
+        ))}
+      </Select>
 
-    {/* Dropdown for Complete Tasks */}
-    <Select
-      value={selectedTasks.completeTask}
-      onChange={(e) => setSelectedTasks({ ...selectedTasks, completeTask: e.target.value })}
-      displayEmpty
-      renderValue={() => (
-        <Typography>
-          Complete
-        </Typography>
-      )}
-    >
-      {sortedCompleteTasks.map((task) => (
-        <MenuItem key={task.id} value={task.task}>
-          {task.task}
-          <TaskCardMerchant task={task} />
-        </MenuItem>
-      ))}
-    </Select>
+      {/* Dropdown for Complete Tasks */}
+      <Select
+        value={selectedTasks.completeTask}
+        onChange={(e) =>
+          setSelectedTasks({ ...selectedTasks, completeTask: e.target.value })
+        }
+        displayEmpty
+        renderValue={() => (
+          <Typography
+            sx={{ ml: "18vw" }}
+          >{`Complete (${sortedCompleteTasks.length})`}</Typography>
+        )}
+      >
+        {sortedCompleteTasks.map((task, i) => (
+          <MenuItem key={task.id} value={i + 1}>
+            <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
+            <TaskCardMerchant task={task} />
+          </MenuItem>
+        ))}
+      </Select>
 
-    {/* Additional UI to display selected task details or move tasks between categories */}
-    {/* Add your code here */}
-  </div>
-
+      {/* Additional UI to display selected task details or move tasks between categories */}
+      {/* Add your code here */}
+    </div>
   );
 }
