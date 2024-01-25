@@ -53,9 +53,9 @@ app.post("/api/user/login", (req, res) => {
   const AUTH_URL = "https://api.devii.io/auth";
 
   var formdata = new FormData();
-  formdata.append("login", `${user.login}`);
+  formdata.append("login", `${user.username}`);
   formdata.append("password", `${user.password}`);
-  formdata.append("tenantid", `${user.tenantid}`);
+  formdata.append("tenantid", `10121`);
 
   var requestOptions = {
     method: "POST",
@@ -69,6 +69,7 @@ app.post("/api/user/login", (req, res) => {
       console.log(result);
       auth_response = result;
       console.log(auth_response.access_token)
+      console.log(result.user)
       res.sendStatus(200)
     })
     .catch((error) => {
@@ -76,6 +77,39 @@ app.post("/api/user/login", (req, res) => {
       res.sendStatus(500)
     });
 });
+//FETCH USER!!!!!:
+app.post("/api/user/", (req, res) => {
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n    user{ \r\n id\r\n username\r\n password\r\n is_admin\r\n is_deleted\r\n}\r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result.data.user);
+      res.send(result.data.user[0])
+    })
+    .catch((error) => {
+      console.log("Error getting data from Devii", error)
+      res.sendStatus(500)
+    });
+});
+
 
 // Anon auth url
 app.post("/api/user/anon", (req, res) => {
