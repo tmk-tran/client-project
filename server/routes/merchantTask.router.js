@@ -21,4 +21,20 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.put("/:id", rejectUnauthenticated, (req, res) => {
+  const taskId = req.params.id;
+  const status = req.body;
+
+  const queryText = `UPDATE "merchant_tasks" SET task_status = $1 WHERE merchant_id = $2;`;
+  pool
+    .query(queryText, [taskId, status])
+    .then((response) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error with orgNotes PUT route", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

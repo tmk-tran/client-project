@@ -12,8 +12,8 @@ import TaskDropdown from "./TaskDropdown";
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 
 export default function TaskCardMerchant({ task }) {
-  console.log(task);
   const [selectedTask, setSelectedTask] = useState(null);
+  console.log(selectedTask);
 
   const history = historyHook();
 
