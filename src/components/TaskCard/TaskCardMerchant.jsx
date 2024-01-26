@@ -32,7 +32,7 @@ export default function TaskCardMerchant({ task }) {
             <div style={{ border: "1px solid red" }}>
               <div className="name-section">
                 <Typography sx={{ fontWeight: "bold" }}>
-                  Merchant Name
+                  Name: {task.merchant_name}
                 </Typography>
                 <div>Due: {formatDate(task.due_date)}</div>
               </div>
