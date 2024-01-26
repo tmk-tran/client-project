@@ -5,7 +5,7 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-router.get("/:id", (req, res) => {
+router.get("/:id", rejectUnauthenticated, (req, res) => {
   const merchantId = req.params.id;
 
   const queryText = `SELECT * FROM merchant_tasks WHERE merchant_id = $1;`;
