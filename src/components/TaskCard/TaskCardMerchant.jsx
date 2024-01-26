@@ -12,6 +12,7 @@ import TaskDropdown from "./TaskDropdown";
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 
 export default function TaskCardMerchant({ task }) {
+  console.log(task);
   const [selectedTask, setSelectedTask] = useState(null);
 
   const history = historyHook();
@@ -102,7 +103,7 @@ export default function TaskCardMerchant({ task }) {
               ) : (
                 <Button
                   variant="contained"
-                  onClick={() => history.push(`/merchantTaskDetails/${1}`)}
+                  onClick={() => history.push(`/merchantTaskDetails/${task.merchant_id}`)}
                   fullWidth
                 >
                   Details
