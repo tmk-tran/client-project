@@ -15,10 +15,6 @@ export default function TaskListMerchant() {
     completeTask: "",
   });
 
-  const indent = {
-    marginLeft: "18vw ",
-  };
-
   useEffect(() => {
     dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
   }, [mTasks]);
@@ -50,9 +46,10 @@ export default function TaskListMerchant() {
         }
         displayEmpty
         renderValue={() => (
-          <Typography
-            sx={{ ...indent, fontWeight: "bold" }}
-          >{`New (${sortedNewTasks.length})`}</Typography>
+          <Typography>
+            {"New"}&nbsp;
+            {`(${sortedNewTasks.length})`}
+          </Typography>
         )}
       >
         {sortedNewTasks.map((task, i) => (
@@ -72,8 +69,9 @@ export default function TaskListMerchant() {
         }
         displayEmpty
         renderValue={() => (
-          <Typography sx={indent}>
-            {`In Progress (${sortedInProgressTasks.length})`}
+          <Typography>
+            {"In Progress"}&nbsp;
+            {`(${sortedInProgressTasks.length})`}
           </Typography>
         )}
       >
@@ -93,9 +91,10 @@ export default function TaskListMerchant() {
         }
         displayEmpty
         renderValue={() => (
-          <Typography
-            sx={{ ml: "18vw" }}
-          >{`Complete (${sortedCompleteTasks.length})`}</Typography>
+          <Typography>
+            {"Complete"}&nbsp;
+            {`(${sortedCompleteTasks.length})`}
+          </Typography>
         )}
       >
         {sortedCompleteTasks.map((task, i) => (
