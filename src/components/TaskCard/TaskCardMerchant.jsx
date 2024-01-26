@@ -4,13 +4,14 @@ import { Card, CardContent, Typography, Button } from "@mui/material";
 import "./TaskCard.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
-import { successColor, hoverAccept } from "../Utils/colors";
+import { successColor, hoverAccept, border } from "../Utils/colors";
 import { formatDate } from "../Utils/helpers";
+import { dueDateHighlight } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskDropdown from "./TaskDropdown";
+import CommentDisplay from "../CommentDisplay/CommentDisplay";
 
 export default function TaskCardMerchant({ task }) {
-  console.log(task);
   const [selectedTask, setSelectedTask] = useState(null);
 
   const history = historyHook();
@@ -24,33 +25,65 @@ export default function TaskCardMerchant({ task }) {
     e.stopPropagation();
   };
 
+  const fullWidth = {
+    width: "100%",
+  };
+
+  const flexColumn = {
+    display: "flex",
+    flexDirection: "column",
+  };
+
   return (
-    <Card style={{ width: "100%" }} onClick={handleCardClick}>
+    <Card style={fullWidth} onClick={handleCardClick}>
       <CardContent>
         <div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div style={{ border: "1px solid red" }}>
+            <div
+              style={{
+                ...flexColumn,
+                ...fullWidth,
+              }}
+            >
+              {/* MERCHANT NAME */}
               <div className="name-section">
-                <Typography sx={{ fontWeight: "bold" }}>
+                <Typography sx={{ fontWeight: "bold", textAlign: "center" }}>
                   Name: {task.merchant_name}
                 </Typography>
-                <div>Due: {formatDate(task.due_date)}</div>
               </div>
-            </div>
 
-            <div style={{ border: "1px solid red" }}>
-              {/* <div>Status of Development</div> */}
-              Task: {task.task}
-              <div className="task-description-section">
-                {/* Short description of task, entered during creation */}
-                Details: {task.description}
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  {/* TASK */}
+                  <div>
+                    <Typography>Task: {task.task}</Typography>
+                  </div>{" "}
+                  {/* DATE */}
+                  <div style={{ marginRight: "10px", ...dueDateHighlight }}>
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Due: {formatDate(task.due_date)}
+                    </Typography>
+                  </div>
+                </div>
+                {/* DESCRIPTION */}
+                <div className="task-description-section">
+                  Details: {task.description}
+                </div>
+              </div>
+              {/* COMMENT SECTION */}
+              <div style={border}>
+                <CommentDisplay />
               </div>
             </div>
 
             <div
               style={{
-                display: "flex",
-                flexDirection: "column",
+                ...flexColumn,
                 alignItems: "center",
               }}
             >

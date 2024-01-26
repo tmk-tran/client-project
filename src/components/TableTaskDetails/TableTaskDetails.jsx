@@ -16,6 +16,7 @@ import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import { mTasks } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { capitalizeWords, formatDate } from "../Utils/helpers";
+import { dueDateHighlight } from "../Utils/colors";
 
 export default function TableTaskDetails() {
   const paramsObject = useParams();
@@ -89,8 +90,7 @@ export default function TableTaskDetails() {
                     variant="body2"
                     sx={{
                       ...boldCenter,
-                      backgroundColor: "rgba(111, 160, 216, 0.3)",
-                      padding: "2px",
+                      ...dueDateHighlight,
                     }}
                   >
                     Due:

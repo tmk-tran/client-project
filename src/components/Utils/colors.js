@@ -10,7 +10,9 @@ export const backgroundColor = { color: "#273B91" };
 
 export const border = { border: "1px solid red" };
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // For Buttons in Coupon Review components
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export const hoverDeny = {
   "&:hover": {
     backgroundColor: "#A42626", // Lighter shade for Deny button
@@ -22,4 +24,15 @@ export const hoverAccept = {
     backgroundColor: "#22A422", // Lighter shade for Accept button
   },
 };
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Highlight color for due date in tasks
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export const dueDateHighlight = {
+  backgroundColor: "rgba(111, 160, 216, 0.3)",
+  padding: "2px",
+};
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
