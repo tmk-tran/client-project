@@ -3,9 +3,9 @@ import { put, takeEvery } from "redux-saga/effects";
 
 function* orgDetails(action) {
   try {
-    const items = yield axios.get(`/api/orgDetails/${action.payload}`);
-    console.log("FETCH request from orgDetails.saga, ITEMS = ", items);
-    yield put({ type: "SET_ORG_DETAILS", payload: items.data });
+    const response = yield axios.post(`/api/orgDetails/${action.payload}`);
+    console.log("FETCH request from orgDetails.saga, response = ", response);
+    yield put({ type: "SET_ORG_DETAILS", payload: response.data });
   } catch {
     console.log("error in orgDetailsSaga");
   }
