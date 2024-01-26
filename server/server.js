@@ -396,7 +396,7 @@ app.post("/api/orgDetails/update/:id", (req, res) => {
 });
 //ORGANIZATION NOTES QUERIES:
 //get all notes for secific org
-app.post('/api/orgnotes/:id', (req, res) => {
+app.post('/api/orgNotes/:id', (req, res) => {
   const id = req.params.id
   let ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
@@ -420,8 +420,8 @@ app.post('/api/orgnotes/:id', (req, res) => {
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result)
-      res.sendStatus(200)
+      console.log(result.data.organization_notes)
+      res.send(result.data.organization_notes)
     })
     .catch((error) => {
       console.log("Error getting data from Devii", error)
@@ -431,7 +431,7 @@ app.post('/api/orgnotes/:id', (req, res) => {
 });
 
 //add a new note:
-app.post("api/orgnotes/newnote", (req, res) => {
+app.post("api/orgNotes/newnote", (req, res) => {
   const note = req.body;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
@@ -462,7 +462,7 @@ app.post("api/orgnotes/newnote", (req, res) => {
 })
 
 //Update a note, used for all updates including is_deleted
-app.post("api/orgnotes/update/:id", (req, res) => {
+app.post("api/orgNotes/update/:id", (req, res) => {
   const updatedNote = req.body;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
