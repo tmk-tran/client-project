@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Typography, MenuItem, Select } from "@mui/material";
 import "./TaskList.css";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskCardMerchant from "../TaskCard/TaskCardMerchant";
 import { mTasks } from "../../hooks/reduxStore";
+import { dispatchHook } from "../../hooks/useDispatch";
 
 export default function TaskListMerchant() {
-  // State to manage the selected tasks in each category
-  const [newTask, setNewTask] = useState("");
-  const [inProgressTask, setInProgressTask] = useState("");
-  const [completeTask, setCompleteTask] = useState("");
+  const dispatch = dispatchHook();
   const [selectedTasks, setSelectedTasks] = useState({
     newTask: "",
     inProgressTask: "",
@@ -21,17 +19,13 @@ export default function TaskListMerchant() {
     marginLeft: "18vw ",
   };
 
-  // const getNumOptions = (tasks) => tasks.filter(Boolean).length;
-
-  const handleChange = (category, task) => {
-    setSelectedTasks((prevSelectedTasks) => ({
-      ...prevSelectedTasks,
-      [category]: task,
-    }));
-  };
+  useEffect(() => {
+    dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
+  }, [mTasks]);
 
   // Assuming store.merchantTasks is an array of tasks
   const merchantTasks = mTasks() || [];
+  console.log(merchantTasks);
 
   // Group tasks by task_status (case-insensitive)
   const tasksByStatus = merchantTasks.reduce((acc, task) => {
@@ -43,7 +37,6 @@ export default function TaskListMerchant() {
 
   // Sort tasks within each category
   const sortedNewTasks = tasksByStatus["new"] || [];
-  console.log(sortedNewTasks);
   const sortedInProgressTasks = tasksByStatus["in progress"] || [];
   const sortedCompleteTasks = tasksByStatus["complete"] || [];
 
@@ -58,7 +51,7 @@ export default function TaskListMerchant() {
         displayEmpty
         renderValue={() => (
           <Typography
-            sx={{...indent, fontWeight: "bold" }}
+            sx={{ ...indent, fontWeight: "bold" }}
           >{`New (${sortedNewTasks.length})`}</Typography>
         )}
       >
