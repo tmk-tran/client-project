@@ -5,16 +5,18 @@ import "./TaskCard.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
 import { successColor, hoverAccept } from "../Utils/colors";
+import { formatDate } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskDropdown from "./TaskDropdown";
 
-export default function TaskCardMerchant() {
+export default function TaskCardMerchant({ task }) {
+  console.log(task);
   const [selectedTask, setSelectedTask] = useState(null);
 
   const history = historyHook();
 
-  const handleTaskChange = (task) => {
-    setSelectedTask(task); // Update selectedTask with the value received from TaskDropdown
+  const handleTaskChange = (taskStatus) => {
+    setSelectedTask(taskStatus); // Update selectedTask with the value received from TaskDropdown
   };
 
   const handleCardClick = (e) => {
@@ -32,14 +34,16 @@ export default function TaskCardMerchant() {
                 <Typography sx={{ fontWeight: "bold" }}>
                   Merchant Name
                 </Typography>
-                <div>Coupon Number</div>
+                <div>Due: {formatDate(task.due_date)}</div>
               </div>
             </div>
 
             <div style={{ border: "1px solid red" }}>
-              <div>Status of Development</div>
+              {/* <div>Status of Development</div> */}
+              Task: {task.task}
               <div className="task-description-section">
-                Short description of task, entered during creation
+                {/* Short description of task, entered during creation */}
+                Details: {task.description}
               </div>
             </div>
 
