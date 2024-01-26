@@ -25,9 +25,9 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   const taskId = req.params.id;
   const status = req.body;
 
-  const queryText = `UPDATE "merchant_tasks" SET task_status = $1 WHERE merchant_id = $2;`;
+  const queryText = `UPDATE "merchant_tasks" SET task_status = $1 WHERE id = $2;`;
   pool
-    .query(queryText, [taskId, status])
+    .query(queryText, [status, taskId])
     .then((response) => {
       res.sendStatus(200);
     })
