@@ -69,7 +69,6 @@ app.post("/api/user/login", (req, res) => {
       console.log(result);
       auth_response = result;
       console.log(auth_response.access_token)
-      console.log(result.user)
       res.sendStatus(200)
     })
     .catch((error) => {
@@ -157,10 +156,10 @@ app.post("/api/roles/", (req, res) => {
 });
 //ORGANIZATION QUERIES:
 //all orgs query
-app.post("/api/organization", (req, res) => {
+app.post("/api/organizations/", (req, res) => {
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
-  const query = `{\r\n organization(ordering: "group_collection.organization_id"){\r\n id\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n organization_notes_collection {\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n group_collection {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_description\r\n is_deleted\r\n fundraiser_collection{\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n} Aggregates{\r\n total_groups: count(subquery: "query{group{id organization_id}}")\r\n total_fundraisers: count(subquery: "query{fundraiser{id group_id}}" ordering: "group_id")\r\n total_open_fundraisers: count(subquery: "query{group{organization_id{fundraiser_collection{group_id}}}"\r\n filter: "fundraiser_collection.closed=false" ordering: "group_id")\r\n total_closed_fundraisers: count (subquery: "query{group{organization_id fundraiser_collection{group_id}}} "\r\n filter: "fundraiser_collection.closed=true" ordering: "group_id")\r\n total_books_sold: sum(subquery: "query{fundraiser{books_sold group_id}}" ordering: "id")\r\n total_outstanding_balance: sum(subquery: "query{fundraiser{outstanding_balance group_id}}"\r\n ordering: "id")\r\n total_books_checked_out: count (subquery: "query{group{organization_id fundraiser_collection{group_id book_quantity_checked_out}}}"\r\n filter: "fundraiser_collection.closed=false" ordering: "group_id")\r\n total_books_checked_in: count (subquery: "query{group{ organization_id fundraiser_collection{group_id book_quantity_checked_in}}}"\r\n filter: "fundraiser_collection.closed=false" ordering: "group_id")\r\n}\r\n}\r\n}`;
+  const query = `{\r\n organization(ordering: "group_collection.organization_id"){\r\n id\r\n organization_name\r\n type\r\n address\r\n \ city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n organization_notes_collection {\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n group_collection {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_description\r\n is_deleted\r\n fundraiser_collection{\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n }\r\n}\r\n}\r\n}`;
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
@@ -180,8 +179,8 @@ app.post("/api/organization", (req, res) => {
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
-      res.sendStatus(200)
+      console.log(result.data.organization);
+      res.send(result.data.organization)
     })
     .catch((error) => {
       console.log("Error getting data from Devii", error)
