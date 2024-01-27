@@ -21,8 +21,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 router.put("/:id", rejectUnauthenticated, (req, res) => {
   const taskId = req.params.id;
-  const status = req.body;
-  const taskStatus = status.task_status;
+  const taskStatus = req.body.task_status;
 
   const queryText = `UPDATE "merchant_tasks" SET task_status = $1 WHERE id = $2;`;
   pool
@@ -31,7 +30,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
       res.sendStatus(200);
     })
     .catch((err) => {
-      console.log("error with merchantTask PUT route", err);
+      console.log("error with allTaskM PUT route", err);
       res.sendStatus(500);
     });
 });
