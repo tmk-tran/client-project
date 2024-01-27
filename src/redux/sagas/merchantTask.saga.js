@@ -38,11 +38,11 @@ function* editMerchantTask(action) {
     console.log("merchantTask action.payload = ", action.payload);
 
     yield put({
-      type: "SET_MERCHANT_TASKS",
-      payload: action.payload.merchant_id,
+      type: "FETCH_ALL_MERCHANT_TASKS",
+      payload: action.payload.id,
     });
-  } catch {
-    console.log("error in editMerchantTask Saga");
+  } catch (err) {
+    console.log("error in editMerchantTask Saga", err);
   }
 }
 
