@@ -10,12 +10,16 @@ import { dueDateHighlight } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskDropdown from "./TaskDropdown";
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
+import { dispatchHook } from "../../hooks/useDispatch";
 
 export default function TaskCardMerchant({ task }) {
   const [selectedTask, setSelectedTask] = useState(null);
   console.log(selectedTask);
+  console.log(task);
+  console.log(task.id);
 
   const history = historyHook();
+  const dispatch = dispatchHook();
 
   const handleTaskChange = (taskStatus) => {
     setSelectedTask(taskStatus); // Update selectedTask with the value received from TaskDropdown
@@ -24,6 +28,16 @@ export default function TaskCardMerchant({ task }) {
   const handleCardClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
+  };
+
+  const handleTaskUpdate = () => {
+    dispatch({
+      type: "UPDATE_MERCHANT_TASK",
+      payload: {
+        taskId: task.id,
+        selectedTask: selectedTask,
+      },
+    });
   };
 
   const fullWidth = {
@@ -92,9 +106,7 @@ export default function TaskCardMerchant({ task }) {
               {selectedTask ? (
                 <Button
                   variant="contained"
-                  onClick={() =>
-                    console.log("Update clicked for", selectedTask)
-                  }
+                  onClick={handleTaskUpdate}
                   sx={{ backgroundColor: successColor.color, ...hoverAccept }}
                   fullWidth
                 >
@@ -103,7 +115,9 @@ export default function TaskCardMerchant({ task }) {
               ) : (
                 <Button
                   variant="contained"
-                  onClick={() => history.push(`/merchantTaskDetails/${task.merchant_id}`)}
+                  onClick={() =>
+                    history.push(`/merchantTaskDetails/${task.merchant_id}`)
+                  }
                   fullWidth
                 >
                   Details

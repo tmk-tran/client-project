@@ -49,6 +49,6 @@ function* editMerchantTask(action) {
 export default function* merchantNotesSaga() {
   yield takeEvery("FETCH_MERCHANT_TASKS", merchantTask);
   yield takeEvery("FETCH_ALL_MERCHANT_TASKS", fetchAllMerchantTasks);
-  yield takeEvery("EDIT_MERCHANT_TASK", editMerchantTask);
+  yield takeEvery("UPDATE_MERCHANT_TASK", editMerchantTask);
   //   yield takeEvery("ADD_MERCHANT_NOTES", addNotes);
 }

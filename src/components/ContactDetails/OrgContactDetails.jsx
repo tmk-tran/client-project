@@ -16,7 +16,7 @@ import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
 import OrgDetailsEdit from "../OrgDetailsEdit/OrgDetailsEdit";
 import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
-import { formatPhoneNumber } from "../Utils/helpers";
+import { capitalizeWords, formatPhoneNumber } from "../Utils/helpers";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import ContactDetailsCard from "./ContactDetailsCard";
@@ -79,20 +79,21 @@ export default function OrgContactDetails({ info, isMerchantTaskPage }) {
             <div className="org-name-container">
               {!isMerchantTaskPage ? (
                 <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                  {info.organization_name}
+                  {capitalizeWords(info.organization_name)}
                 </Typography>
               ) : (
                 <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                  {info.merchant_name}
+                  {capitalizeWords(info.merchant_name)}
                 </Typography>
               )}
               {/* <Typography variant="h5" style={{ fontWeight: "bold" }}>
                 {info.organization_name}
               </Typography> */}
             </div>
-            <Typography>{info.address}</Typography>
+            <Typography>{capitalizeWords(info.address)}</Typography>
             <Typography>
-              {info.city}, {info.state} {info.zip}
+              {capitalizeWords(info.city)}, {info.state.toUpperCase()}{" "}
+              {info.zip}
             </Typography>
           </div>
           <br />
