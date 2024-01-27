@@ -5,7 +5,11 @@ import "./TaskCard.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
 import { successColor, hoverAccept, border } from "../Utils/colors";
-import { formatDate } from "../Utils/helpers";
+import {
+  capitalizeFirstWord,
+  capitalizeWords,
+  formatDate,
+} from "../Utils/helpers";
 import { dueDateHighlight } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskDropdown from "./TaskDropdown";
@@ -63,7 +67,7 @@ export default function TaskCardMerchant({ task }) {
               {/* MERCHANT NAME */}
               <div className="name-section">
                 <Typography sx={{ fontWeight: "bold", textAlign: "center" }}>
-                  Name: {task.merchant_name}
+                  Name: {capitalizeWords(task.merchant_name)}
                 </Typography>
               </div>
 
@@ -76,7 +80,7 @@ export default function TaskCardMerchant({ task }) {
                 >
                   {/* TASK */}
                   <div>
-                    <Typography>Task: {task.task}</Typography>
+                    <Typography>Task: {capitalizeWords(task.task)}</Typography>
                   </div>{" "}
                   {/* DATE */}
                   <div style={{ marginRight: "10px", ...dueDateHighlight }}>
@@ -87,7 +91,7 @@ export default function TaskCardMerchant({ task }) {
                 </div>
                 {/* DESCRIPTION */}
                 <div className="task-description-section">
-                  Details: {task.description}
+                  Details: {capitalizeFirstWord(task.description)}
                 </div>
               </div>
               {/* COMMENT SECTION */}

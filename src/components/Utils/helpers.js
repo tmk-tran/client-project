@@ -29,6 +29,14 @@ export const capitalizeWords = (sentence) => {
     : "";
 };
 
+export const capitalizeFirstWord = (sentence) => {
+  if (typeof sentence !== 'string' || sentence.length === 0) {
+    return '';
+  }
+
+  return sentence.charAt(0).toUpperCase() + sentence.slice(1);
+}
+
 // In progress, trying to account for acronyms in a sentence
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
