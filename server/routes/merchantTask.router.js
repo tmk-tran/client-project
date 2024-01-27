@@ -24,6 +24,8 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 router.put("/:id", rejectUnauthenticated, (req, res) => {
   const taskId = req.params.id;
   const status = req.body;
+  console.log(status);
+  const taskStatus = status.task_status;
 
   const queryText = `UPDATE "merchant_tasks" SET task_status = $1 WHERE id = $2;`;
   pool
@@ -32,7 +34,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
       res.sendStatus(200);
     })
     .catch((err) => {
-      console.log("error with orgNotes PUT route", err);
+      console.log("error with merchantTask PUT route", err);
       res.sendStatus(500);
     });
 });

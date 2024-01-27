@@ -6,7 +6,7 @@ const {
 } = require("../modules/authentication-middleware");
 
 router.get("/", rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT * FROM merchant_tasks;`;
+  const queryText = `SELECT * FROM merchant_tasks ORDER BY due_date ASC;`;
   pool
     .query(queryText)
     .then((result) => {

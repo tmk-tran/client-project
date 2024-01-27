@@ -25,8 +25,30 @@ function* fetchAllMerchantTasks() {
   }
 }
 
+function* editMerchantTask(action) {
+  try {
+    const items = yield axios.put(
+      `/api/merchantTask/${action.payload.id}`,
+      action.payload
+    );
+    console.log(
+      "FETCH request from merchantTask.saga, ITEMS FOR edit = ",
+      items
+    );
+    console.log("merchantTask action.payload = ", action.payload);
+
+    yield put({
+      type: "FETCH_MERCHANT_TASKS",
+      payload: action.payload.merchant_id,
+    });
+  } catch {
+    console.log("error in editMerchantTask Saga");
+  }
+}
+
 export default function* merchantNotesSaga() {
   yield takeEvery("FETCH_MERCHANT_TASKS", merchantTask);
   yield takeEvery("FETCH_ALL_MERCHANT_TASKS", fetchAllMerchantTasks);
+  yield takeEvery("EDIT_MERCHANT_TASK", editMerchantTask);
   //   yield takeEvery("ADD_MERCHANT_NOTES", addNotes);
 }
