@@ -15,26 +15,44 @@ export default function TaskListMerchant() {
     completeTask: "",
   });
 
-  useEffect(() => {
-    dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
-  }, [mTasks]);
+  // useEffect(() => {
+  //   dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
+  // }, [mTasks]);
+
+  const handleTaskUpdate = () => {
+    dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" }); // Refetch merchant tasks after an update
+  };
 
   // Assuming store.merchantTasks is an array of tasks
   const merchantTasks = mTasks() || [];
   console.log(merchantTasks);
 
-  // Group tasks by task_status (case-insensitive)
-  const tasksByStatus = merchantTasks.reduce((acc, task) => {
-    const statusKey = task.task_status.toLowerCase();
-    acc[statusKey] = acc[statusKey] || [];
-    acc[statusKey].push(task);
-    return acc;
-  }, {});
+  // // Group tasks by task_status (case-insensitive)
+  // const tasksByStatus = merchantTasks.reduce((acc, task) => {
+  //   const statusKey = task.task_status.toLowerCase();
+  //   acc[statusKey] = acc[statusKey] || [];
+  //   acc[statusKey].push(task);
+  //   return acc;
+  // }, {});
+
+  // Check if merchantTasks is an array before using reduce
+  const tasksByStatus = Array.isArray(merchantTasks)
+    ? merchantTasks.reduce((acc, task) => {
+        const statusKey = task.task_status.toLowerCase();
+        acc[statusKey] = acc[statusKey] || [];
+        acc[statusKey].push(task);
+        return acc;
+      }, {})
+    : {};
 
   // Sort tasks within each category
   const sortedNewTasks = tasksByStatus["new"] || [];
   const sortedInProgressTasks = tasksByStatus["in progress"] || [];
   const sortedCompleteTasks = tasksByStatus["complete"] || [];
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
+  }, [mTasks]);
 
   return (
     <div className="list-container">
@@ -56,7 +74,7 @@ export default function TaskListMerchant() {
           <MenuItem key={task.id} value={i + 1}>
             {/* Display the task number along with task information */}
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCardMerchant task={task} />
+            <TaskCardMerchant task={task} onTaskUpddate={handleTaskUpdate} />
           </MenuItem>
         ))}
       </Select>

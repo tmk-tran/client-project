@@ -16,7 +16,7 @@ import TaskDropdown from "./TaskDropdown";
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import { dispatchHook } from "../../hooks/useDispatch";
 
-export default function TaskCardMerchant({ task }) {
+export default function TaskCardMerchant({ task, onTaskUpdate }) {
   const [selectedTask, setSelectedTask] = useState(null);
   console.log(selectedTask);
   console.log(task);
@@ -38,8 +38,8 @@ export default function TaskCardMerchant({ task }) {
     dispatch({
       type: "UPDATE_MERCHANT_TASK",
       payload: {
-        taskId: task.id,
-        selectedTask: selectedTask,
+        id: task.id,
+        task_status: selectedTask,
       },
     });
   };
