@@ -66,8 +66,8 @@ export default function TaskCardMerchant({ task }) {
             >
               {/* MERCHANT NAME */}
               <div className="name-section">
-                <Typography sx={{ fontWeight: "bold", textAlign: "center" }}>
-                  Name: {capitalizeWords(task.merchant_name)}
+                <Typography sx={{ fontWeight: "bold", textAlign: "center", backgroundColor: "lightgray" }}>
+                  Merchant: {capitalizeWords(task.merchant_name)}
                 </Typography>
               </div>
 

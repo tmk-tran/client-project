@@ -17,7 +17,7 @@ export default function TaskDropdown({ onChange }) {
   return (
     <Select value={status} onChange={handleMenuChange} displayEmpty sx={{ width: "10vw" }}>
       <MenuItem value="" disabled>
-        Move Task
+        Task Status...
       </MenuItem>
       {taskOptions.map((option) => (
         <MenuItem key={option} value={option}>
