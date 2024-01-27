@@ -68,7 +68,7 @@ export default function TaskListMerchant() {
         )}
       >
         {sortedNewTasks.map((task, i) => (
-          <MenuItem key={task.id} value={i + 1}>
+          <MenuItem key={task.id} value={i + 1} disableRipple>
             {/* Display the task number along with task information */}
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
             <TaskCardMerchant task={task} />
@@ -91,7 +91,7 @@ export default function TaskListMerchant() {
         )}
       >
         {sortedInProgressTasks.map((task, i) => (
-          <MenuItem key={task.id} value={i + 1}>
+          <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
             <TaskCardMerchant task={task} />
           </MenuItem>
@@ -113,7 +113,7 @@ export default function TaskListMerchant() {
         )}
       >
         {sortedCompleteTasks.map((task, i) => (
-          <MenuItem key={task.id} value={i + 1}>
+          <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
             <TaskCardMerchant task={task} />
           </MenuItem>
