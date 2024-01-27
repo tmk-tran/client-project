@@ -28,7 +28,7 @@ import {
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
 // ~~~~~~~~~~ Toast ~~~~~~~~~~
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -15,10 +15,6 @@ export default function TaskListMerchant() {
     completeTask: "",
   });
 
-  // useEffect(() => {
-  //   dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
-  // }, [mTasks]);
-
   const handleTaskUpdate = () => {
     dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" }); // Refetch merchant tasks after an update
   };
@@ -35,6 +31,7 @@ export default function TaskListMerchant() {
   //   return acc;
   // }, {});
 
+  // Group tasks by task_status (case-insensitive)
   // Check if merchantTasks is an array before using reduce
   const tasksByStatus = Array.isArray(merchantTasks)
     ? merchantTasks.reduce((acc, task) => {
@@ -74,7 +71,7 @@ export default function TaskListMerchant() {
           <MenuItem key={task.id} value={i + 1}>
             {/* Display the task number along with task information */}
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCardMerchant task={task} onTaskUpddate={handleTaskUpdate} />
+            <TaskCardMerchant task={task} />
           </MenuItem>
         ))}
       </Select>
