@@ -83,7 +83,7 @@ export default function TaskCardMerchant({ task }) {
                     <Typography>Task: {capitalizeWords(task.task)}</Typography>
                   </div>{" "}
                   {/* DATE */}
-                  <div style={{ marginRight: "10px", ...dueDateHighlight }}>
+                  <div style={{ ...dueDateHighlight }}>
                     <Typography sx={{ fontWeight: "bold" }}>
                       Due: {formatDate(task.due_date)}
                     </Typography>
@@ -104,6 +104,7 @@ export default function TaskCardMerchant({ task }) {
               style={{
                 ...flexColumn,
                 alignItems: "center",
+                marginLeft: "20px",
               }}
             >
               {/* NEED to add an ID here to associate to specific task on next view */}
