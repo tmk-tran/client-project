@@ -109,37 +109,23 @@ export default function OrgDetails({ isMerchantTaskPage }) {
           <div className="detailsView-container">
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
-                {/* {!isTaskPage || isMerchantTaskPage ? (
+                {!isTaskPage && !isMerchantTaskPage && (
                   <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
-                ) : (
-                  <OrgNotesDisplay
-                    notes={notes}
-                    orgDetails={orgDetails}
-                    caseType={1}
-                  />
-                )} */}
+                )}
 
-                {!isTaskPage ? (
-                  <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
-                ) : (
+                {isTaskPage && (
                   <OrgNotesDisplay
                     notes={notes}
                     orgDetails={orgDetails}
                     caseType={1}
                   />
                 )}
-
-                {/* {isMerchantTaskPage && (
-                  // <OrgNotesDisplay notes={merchantNotes} orgDetails={merchantDetails} />
-                  <OrgNotesDisplay notes={notes} orgDetails={merchantDetails} isMerchantTaskPage={isMerchantTaskPage} />
-                )} */}
-
                 {/* Check if it's a merchant task page */}
                 {isMerchantTaskPage &&
                   // Map over merchantDetails and pass each object to OrgNotesDisplay
                   merchantDetails.map((merchantInfo) => (
                     <OrgNotesDisplay
-                      key={merchantInfo.id} // Replace with a unique key
+                      key={merchantInfo.id}
                       notes={notes}
                       orgDetails={merchantInfo}
                       isMerchantTaskPage={isMerchantTaskPage}
