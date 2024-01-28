@@ -19,6 +19,37 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.post("/", rejectUnauthenticated, (req, res) => {
+  const queryText = `INSERT INTO "merchant_tasks" (category, task, merchant_id, merchant_name, assign, due_date, description, task_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
+  const category = req.body.category;
+  const task = req.body.task;
+  const merchantId = req.body.merchant_id;
+  const merchantName = req.body.merchant_name;
+  const assign = req.body.assign;
+  const dueDate = req.body.due_date;
+  const description = req.body.description;
+  const taskStatus = req.body.task_status;
+
+  pool
+    .query(queryText, [
+      category,
+      task,
+      merchantId,
+      merchantName,
+      assign,
+      dueDate,
+      description,
+      taskStatus,
+    ])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("error with allTaskM POST route", err);
+      res.sendStatus(500);
+    });
+});
+
 router.put("/:id", rejectUnauthenticated, (req, res) => {
   const taskId = req.params.id;
   const taskStatus = req.body.task_status;

@@ -25,6 +25,24 @@ function* fetchAllMerchantTasks() {
   }
 }
 
+function* addMerchantTask(action) {
+  try {
+    const items = yield axios.post("/api/tasks", action.payload);
+    console.log(
+      "FETCH request from merchantTask.saga, ITEMS FOR add = ",
+      items
+    );
+    console.log("merchantTask action.payload = ", action.payload);
+
+    yield put({
+      type: "FETCH_ALL_MERCHANT_TASKS",
+      payload: action.payload.id,
+    });
+  } catch (err) {
+    console.log("error in addMerchantTask Saga", err);
+  }
+}
+
 function* editMerchantTask(action) {
   try {
     const items = yield axios.put(
@@ -46,26 +64,10 @@ function* editMerchantTask(action) {
   }
 }
 
-// function* updateTask(action) {
-//   try {
-//     const { taskId, updatedTaskData } = action.payload;
-
-//     // Send a PUT request to update the specific task
-//     yield axios.put(`/api/tasks/${taskId}`, updatedTaskData);
-
-//     // After the update, fetch all tasks again or update the specific task in the state
-//     const updatedItems = yield axios.get("/api/tasks");
-//     yield put({ type: "SET_MERCHANT_TASKS", payload: updatedItems.data });
-//   } catch (error) {
-//     console.log("error in updateTask Saga", error);
-//     yield put({ type: "SET_ERROR", payload: error });
-//   }
-// }
 
 export default function* merchantNotesSaga() {
   yield takeEvery("FETCH_MERCHANT_TASKS", merchantTask);
   yield takeEvery("FETCH_ALL_MERCHANT_TASKS", fetchAllMerchantTasks);
-  // yield takeEvery("UPDATE_MERCHANT_TASK", updateTask);
+  yield takeEvery("ADD_MERCHANT_TASK", addMerchantTask);
   yield takeEvery("UPDATE_MERCHANT_TASK", editMerchantTask);
-  //   yield takeEvery("ADD_MERCHANT_NOTES", addNotes);
 }
