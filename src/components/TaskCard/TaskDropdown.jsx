@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Select, MenuItem } from "@mui/material";
 
 const taskOptions = ["New", "In Progress", "Complete"];
 
-export default function TaskDropdown({ onChange }) {
+export default function TaskDropdown({ onChange, taskStatus }) {
   const [status, setStatus] = useState("");
+  console.log(taskStatus);
+
+  useEffect(() => {
+    setStatus(taskStatus);
+  }, [taskStatus]);
 
   const handleMenuChange = (event) => {
     const choice = event.target.value;

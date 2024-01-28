@@ -20,7 +20,6 @@ export default function TaskCardMerchant({ task }) {
   const [selectedTask, setSelectedTask] = useState(null);
   console.log(selectedTask);
   console.log(task);
-  console.log(task.id);
 
   const history = historyHook();
   const dispatch = dispatchHook();
@@ -66,7 +65,7 @@ export default function TaskCardMerchant({ task }) {
             >
               {/* MERCHANT NAME */}
               <div className="name-section">
-                <Typography sx={{ fontWeight: "bold", textAlign: "center", backgroundColor: "lightgray" }}>
+                <Typography sx={{ fontWeight: "bold", fontSize: "large", textAlign: "center", backgroundColor: "lightgray" }}>
                   Merchant: {capitalizeWords(task.merchant_name)}
                 </Typography>
               </div>
@@ -83,7 +82,7 @@ export default function TaskCardMerchant({ task }) {
                     <Typography>Task: {capitalizeWords(task.task)}</Typography>
                   </div>{" "}
                   {/* DATE */}
-                  <div style={{ ...dueDateHighlight }}>
+                  <div >
                     <Typography sx={{ fontWeight: "bold" }}>
                       Due: {formatDate(task.due_date)}
                     </Typography>
@@ -129,7 +128,7 @@ export default function TaskCardMerchant({ task }) {
                 </Button>
               )}
 
-              <TaskDropdown onChange={handleTaskChange} />
+              <TaskDropdown onChange={handleTaskChange} taskStatus={task.task_status} />
             </div>
           </div>
         </div>
