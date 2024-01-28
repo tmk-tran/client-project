@@ -54,6 +54,7 @@ export default function BasicModal({
   customText,
   caseType,
 }) {
+  console.log(merchantTab);
   const dispatch = dispatchHook();
   // ~~~~~~~~~~ All merchants from store ~~~~~~~~~~
   const merchants = allMerchants();
@@ -70,9 +71,21 @@ export default function BasicModal({
   const [dueDate, setDueDate] = useState(new Date());
   const [additionalDetails, setAdditionalDetails] = useState("");
 
+  // useEffect(() => {
+  //   dispatch({ type: "FETCH_ALL_MERCHANTS" });
+  // }, []);
+
   useEffect(() => {
-    dispatch({ type: "FETCH_ALL_MERCHANTS" });
-  }, []);
+    // Conditional logic based on merchantTab
+    merchantTab
+      ? /* Logic for merchantTab being true */
+        (dispatch({ type: "FETCH_ALL_MERCHANTS" }),
+        console.log("Merchant Tab is true"))
+      : /* Logic for merchantTab being false */
+        console.log("Merchant Tab is false");
+
+    // Cleanup function or dependencies for useEffect
+  }, [merchantTab]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -113,7 +126,7 @@ export default function BasicModal({
     setDueDate(formattedDate);
   };
 
-  const addNewTask = () => {
+  const addNewTaskM = () => {
     dispatch({
       type: "ADD_MERCHANT_TASK",
       payload: {
@@ -236,7 +249,6 @@ export default function BasicModal({
               {/* Populate the dropdown with the list of merchants */}
               {merchants.map((merchant) => (
                 <MenuItem key={merchant.id} value={merchant.merchant_name}>
-                  {console.log(merchant.id)}
                   {merchant.merchant_name}
                 </MenuItem>
               ))}
@@ -275,7 +287,7 @@ export default function BasicModal({
             variant="contained"
             color="secondary"
             fullWidth
-            onClick={addNewTask}
+            onClick={addNewTaskM}
           >
             <AddBoxIcon sx={{ mr: 2 }} />
             Create Task
