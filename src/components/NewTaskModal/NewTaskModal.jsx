@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
-import { allMerchants } from "../../hooks/reduxStore";
+import { allMerchants, allOrganizations } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import DatePicker from "../DatePicker/DatePicker";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
@@ -56,14 +56,17 @@ export default function BasicModal({
 }) {
   console.log(merchantTab);
   const dispatch = dispatchHook();
-  // ~~~~~~~~~~ All merchants from store ~~~~~~~~~~
+  // ~~~~~~~~~~ All Merchants from store ~~~~~~~~~~
   const merchants = allMerchants();
+  // ~~~~~~~~~~ All Organizations from store ~~~~~~~~~~
+  const organizations = allOrganizations();
   // ~~~~~~~~~~ Modal State ~~~~~~~~~~
   const [open, setOpen] = useState(false);
   // ~~~~~~~~~~ Menu State ~~~~~~~~~~
   const [firstMenuChoice, setFirstMenuChoice] = useState("");
   const [secondMenuChoice, setSecondMenuChoice] = useState("");
   const [thirdMenuChoice, setThirdMenuChoice] = useState("");
+  const [organizationId, setOrganizationId] = useState(null);
   const [merchantId, setMerchantId] = useState(null);
   const [fourthMenuChoice, setFourthMenuChoice] = useState("");
   const [couponDetails, setCouponDetails] = useState("");
@@ -82,7 +85,8 @@ export default function BasicModal({
         (dispatch({ type: "FETCH_ALL_MERCHANTS" }),
         console.log("Merchant Tab is true"))
       : /* Logic for merchantTab being false */
-        console.log("Merchant Tab is false");
+        (dispatch({ type: "FETCH_ALL_ORGANIZATIONS" }),
+        console.log("Merchant Tab is false"));
 
     // Cleanup function or dependencies for useEffect
   }, [merchantTab]);
@@ -106,14 +110,38 @@ export default function BasicModal({
     setShowDetailsInput(choice === "New Create Proof");
   };
 
-  const handleMerchantChange = (event) => {
-    const selectedName = event.target.value;
-    const selectedId =
-      merchants.find((merchant) => merchant.merchant_name === selectedName)
-        ?.id || "";
+  // const handleAccountChange = (event) => {
+  //   const selectedName = event.target.value;
+  //   const selectedId =
+  //     merchants.find((merchant) => merchant.merchant_name === selectedName)
+  //       ?.id || "";
 
-    setThirdMenuChoice(selectedName);
-    setMerchantId(selectedId);
+  //   setThirdMenuChoice(selectedName);
+  //   setMerchantId(selectedId);
+  // };
+
+  const handleAccountChange = (event) => {
+    const selectedName = event.target.value;
+
+    if (merchantTab) {
+      // Logic for merchantTab being true
+      const selectedId =
+        merchants.find((merchant) => merchant.merchant_name === selectedName)
+          ?.id || "";
+
+      setThirdMenuChoice(selectedName);
+      setMerchantId(selectedId);
+    } else {
+      // Logic for merchantTab being false (organizations logic)
+      // Add your logic here to get organization_id based on your requirements
+      const selectedId =
+        organizations.find(
+          (organization) => organization.organization_name === selectedName
+        )?.id || "";
+
+      setThirdMenuChoice(selectedName);
+      setOrganizationId(selectedId);
+    }
   };
 
   const handleDateChange = (date) => {
@@ -126,20 +154,70 @@ export default function BasicModal({
     setDueDate(formattedDate);
   };
 
-  const addNewTaskM = () => {
+  // const addNewTask = () => {
+  //   dispatch({
+  //     type: "ADD_MERCHANT_TASK",
+  //     payload: {
+  //       category: firstMenuChoice,
+  //       task: secondMenuChoice,
+  //       merchant_id: merchantId,
+  //       merchant_name: thirdMenuChoice,
+  //       assign: fourthMenuChoice,
+  //       due_date: dueDate,
+  //       description: additionalDetails,
+  //       task_status: "New",
+  //       coupon_details: couponDetails,
+  //     },
+  //   });
+
+  //   // Reset fields on submit
+  //   setFirstMenuChoice("");
+  //   setSecondMenuChoice("");
+  //   setThirdMenuChoice("");
+  //   setMerchantId(null);
+  //   setFourthMenuChoice("");
+  //   setDueDate("");
+  //   setShowDetailsInput(false);
+  //   setAdditionalDetails("");
+  //   setCouponDetails("");
+  //   setAdditionalDetails("");
+  //   handleClose();
+  // };
+
+  const addNewTask = () => {
+    const actionType = merchantTab
+      ? "ADD_MERCHANT_TASK"
+      : "ADD_ORGANIZATION_TASK";
+
+    const payload = merchantTab
+      ? {
+          category: firstMenuChoice,
+          task: secondMenuChoice,
+          merchant_id: merchantId,
+          merchant_name: thirdMenuChoice,
+          assign: fourthMenuChoice,
+          due_date: dueDate,
+          description: additionalDetails,
+          task_status: "New",
+          coupon_details: couponDetails,
+        }
+      : {
+          // Adjust the payload properties for organization logic
+          // Example:
+          category: firstMenuChoice,
+          task: secondMenuChoice,
+          organization_id: organizationId,
+          organization_name: thirdMenuChoice,
+          assign: fourthMenuChoice,
+          due_date: dueDate,
+          description: additionalDetails,
+          task_status: "New",
+          // Adjust other properties as needed
+        };
+
     dispatch({
-      type: "ADD_MERCHANT_TASK",
-      payload: {
-        category: firstMenuChoice,
-        task: secondMenuChoice,
-        merchant_id: merchantId,
-        merchant_name: thirdMenuChoice,
-        assign: fourthMenuChoice,
-        due_date: dueDate,
-        description: additionalDetails,
-        task_status: "New",
-        coupon_details: couponDetails,
-      },
+      type: actionType,
+      payload: payload,
     });
 
     // Reset fields on submit
@@ -197,7 +275,9 @@ export default function BasicModal({
 
           <div style={{ display: "flex", flexDirection: "column" }}>
             <InputLabel>Category:</InputLabel>
-            {/* First Dropdown */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ FIRST DROPDOWN ~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <Select
               value={firstMenuChoice}
               onChange={handleFirstMenuChange}
@@ -212,7 +292,9 @@ export default function BasicModal({
             </Select>
 
             <InputLabel>Task:</InputLabel>
-            {/* Second Dropdown */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ SECOND DROPDOWN ~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <Select
               value={secondMenuChoice}
               onChange={handleSecondMenuChange}
@@ -239,23 +321,36 @@ export default function BasicModal({
               />
             )}
 
-            {/* Third Dropdown */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ THIRD DROPDOWN ~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <InputLabel>Account Name:</InputLabel>
             <Select
               value={thirdMenuChoice}
-              onChange={handleMerchantChange}
+              onChange={handleAccountChange}
               sx={{ margin: "5px 0" }}
             >
-              {/* Populate the dropdown with the list of merchants */}
-              {merchants.map((merchant) => (
-                <MenuItem key={merchant.id} value={merchant.merchant_name}>
-                  {merchant.merchant_name}
-                </MenuItem>
-              ))}
+              {/* Populate the dropdown with the list of merchants or organizations based on merchantTab */}
+              {merchantTab
+                ? merchants.map((merchant) => (
+                    <MenuItem key={merchant.id} value={merchant.merchant_name}>
+                      {merchant.merchant_name}
+                    </MenuItem>
+                  ))
+                : organizations.map((organization) => (
+                    <MenuItem
+                      key={organization.id}
+                      value={organization.organization_name}
+                    >
+                      {organization.organization_name}
+                    </MenuItem>
+                  ))}
             </Select>
 
             <InputLabel>Assign To:</InputLabel>
-            {/* Fourth Dropdown */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ FOURTH DROPDOWN ~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <Select
               value={fourthMenuChoice}
               onChange={(event) => setFourthMenuChoice(event.target.value)}
@@ -287,7 +382,7 @@ export default function BasicModal({
             variant="contained"
             color="secondary"
             fullWidth
-            onClick={addNewTaskM}
+            onClick={addNewTask}
           >
             <AddBoxIcon sx={{ mr: 2 }} />
             Create Task
