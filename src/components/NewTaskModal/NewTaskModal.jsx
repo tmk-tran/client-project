@@ -47,7 +47,6 @@ const taskOptions = {
 };
 
 const userOptions = ["Chris", "Lacey", "Wendy"];
-// const accountOptions = ["Account Name 1", "Account Name 2", "Account Name 3"];
 
 export default function BasicModal({
   merchantTab,
@@ -56,9 +55,8 @@ export default function BasicModal({
   caseType,
 }) {
   const dispatch = dispatchHook();
+  // ~~~~~~~~~~ All merchants from store ~~~~~~~~~~
   const merchants = allMerchants();
-  console.log(merchants);
-  // console.log(merchants.merchant.id);
   // ~~~~~~~~~~ Modal State ~~~~~~~~~~
   const [open, setOpen] = useState(false);
   // ~~~~~~~~~~ Menu State ~~~~~~~~~~
@@ -71,14 +69,6 @@ export default function BasicModal({
   const [showDetailsInput, setShowDetailsInput] = useState(false);
   const [dueDate, setDueDate] = useState(new Date());
   const [additionalDetails, setAdditionalDetails] = useState("");
-  console.log(firstMenuChoice);
-  console.log(secondMenuChoice);
-  console.log(thirdMenuChoice);
-  console.log(fourthMenuChoice);
-  console.log(dueDate); // confirmed
-  console.log(additionalDetails);
-  console.log(showDetailsInput);
-  console.log(couponDetails);
 
   useEffect(() => {
     dispatch({ type: "FETCH_ALL_MERCHANTS" });
@@ -105,9 +95,10 @@ export default function BasicModal({
 
   const handleMerchantChange = (event) => {
     const selectedName = event.target.value;
-    const selectedId = merchants.find((merchant) => merchant.merchant_name === selectedName)?.id || "";
-    console.log(selectedId);
-    
+    const selectedId =
+      merchants.find((merchant) => merchant.merchant_name === selectedName)
+        ?.id || "";
+
     setThirdMenuChoice(selectedName);
     setMerchantId(selectedId);
   };
@@ -118,21 +109,11 @@ export default function BasicModal({
       month: "2-digit",
       day: "2-digit",
     });
-    console.log(formattedDate);
 
     setDueDate(formattedDate);
   };
 
   const addNewTask = () => {
-    console.log(firstMenuChoice); // C
-    console.log(secondMenuChoice); // C
-    console.log(thirdMenuChoice); // C
-    console.log(merchantId); 
-    console.log(fourthMenuChoice); // C
-    console.log(dueDate); // C
-    console.log(additionalDetails);
-    console.log(couponDetails);
-
     dispatch({
       type: "ADD_MERCHANT_TASK",
       payload: {
@@ -148,7 +129,7 @@ export default function BasicModal({
       },
     });
 
-    // reset fields on submit
+    // Reset fields on submit
     setFirstMenuChoice("");
     setSecondMenuChoice("");
     setThirdMenuChoice("");
