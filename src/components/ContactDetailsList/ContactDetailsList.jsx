@@ -42,7 +42,7 @@ export default function ContactDetailsList({
           <EmailIcon style={primaryColor} />
         </ListItemIcon>
         {isMerchantTaskPage ? (
-          <Typography>
+          <Typography style={{ maxWidth: "90%", overflowWrap: "break-word" }}>
             <a href={`mailto:${info.contact_email}`}>{info.contact_email}</a>
           </Typography>
         ) : (
