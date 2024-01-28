@@ -19,7 +19,7 @@ export default function ContactDetailsCard({
     <Card
       elevation={5}
       sx={{
-        maxWidth: 375,
+        maxWidth: 360,
         bgcolor: "background.paper",
         ...(isSmallScreen && {
           maxWidth: "100%", // Adjust styles for smaller screens
