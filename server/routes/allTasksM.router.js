@@ -20,7 +20,8 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/", rejectUnauthenticated, (req, res) => {
-  const queryText = `INSERT INTO "merchant_tasks" (category, task, merchant_id, merchant_name, assign, due_date, description, task_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
+  const queryText = `INSERT INTO "merchant_tasks" (category, task, merchant_id, merchant_name, assign, due_date, description, task_status) 
+                                            VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
   const category = req.body.category;
   const task = req.body.task;
   const merchantId = req.body.merchant_id;

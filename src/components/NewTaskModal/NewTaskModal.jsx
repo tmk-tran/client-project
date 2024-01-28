@@ -18,6 +18,8 @@ import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import CloseIcon from "@mui/icons-material/Close";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { border } from "../Utils/colors";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
 
 const style = {
   position: "absolute",
@@ -52,14 +54,26 @@ export default function BasicModal({
   customText,
   caseType,
 }) {
+  const dispatch = dispatchHook();
+  // ~~~~~~~~~~ Modal State ~~~~~~~~~~
   const [open, setOpen] = useState(false);
-
+  // ~~~~~~~~~~ Menu State ~~~~~~~~~~
   const [firstMenuChoice, setFirstMenuChoice] = useState("");
   const [secondMenuChoice, setSecondMenuChoice] = useState("");
   const [thirdMenuChoice, setThirdMenuChoice] = useState("");
   const [fourthMenuChoice, setFourthMenuChoice] = useState("");
   const [couponDetails, setCouponDetails] = useState("");
   const [showDetailsInput, setShowDetailsInput] = useState(false);
+  const [dueDate, setDueDate] = useState(new Date());
+  const [additionalDetails, setAdditionalDetails] = useState("");
+  console.log(firstMenuChoice);
+  console.log(secondMenuChoice);
+  console.log(thirdMenuChoice);
+  console.log(fourthMenuChoice);
+  console.log(dueDate); // confirmed
+  console.log(additionalDetails);
+  console.log(showDetailsInput);
+  console.log(couponDetails);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -78,6 +92,41 @@ export default function BasicModal({
 
     // Check if the selected option requires showing the details input
     setShowDetailsInput(choice === "New Create Proof");
+  };
+
+  const handleDateChange = (date) => {
+    const formattedDate = date.$d.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    console.log(formattedDate);
+
+    setDueDate(formattedDate);
+  };
+
+  const addNewTask = () => {
+    console.log(firstMenuChoice); // C
+    console.log(secondMenuChoice); // C
+    console.log(thirdMenuChoice); // C
+    console.log(fourthMenuChoice); // C
+    console.log(dueDate); // C
+    console.log(additionalDetails);
+    console.log(couponDetails);
+
+    dispatch({
+      type: "ADD_MERCHANT_TASK",
+      payload: {
+        category: firstMenuChoice,
+        task: secondMenuChoice,
+        merchant_name: thirdMenuChoice,
+        assign: fourthMenuChoice,
+        due_date: dueDate,
+        description: additionalDetails,
+        task_status: "New",
+        coupon_details: couponDetails,
+      },
+    })
   };
 
   return (
@@ -192,7 +241,7 @@ export default function BasicModal({
             </Select>
 
             <div>
-              <DatePicker />
+              <DatePicker initialDate={dueDate} onChange={handleDateChange} />
             </div>
           </div>
 
@@ -203,9 +252,15 @@ export default function BasicModal({
             rows={3}
             fullWidth
             sx={{ margin: "10px auto" }}
+            onChange={(event) => setAdditionalDetails(event.target.value)}
           />
 
-          <Button variant="contained" color="secondary" fullWidth>
+          <Button
+            variant="contained"
+            color="secondary"
+            fullWidth
+            onClick={addNewTask}
+          >
             <AddBoxIcon sx={{ mr: 2 }} />
             Create Task
           </Button>
