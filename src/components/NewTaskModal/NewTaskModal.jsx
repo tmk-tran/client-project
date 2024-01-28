@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
+import { allMerchants } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import DatePicker from "../DatePicker/DatePicker";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
@@ -18,8 +21,6 @@ import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import CloseIcon from "@mui/icons-material/Close";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { border } from "../Utils/colors";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { dispatchHook } from "../../hooks/useDispatch";
 
 const style = {
   position: "absolute",
@@ -46,7 +47,7 @@ const taskOptions = {
 };
 
 const userOptions = ["Chris", "Lacey", "Wendy"];
-const accountOptions = ["Account Name 1", "Account Name 2", "Account Name 3"];
+// const accountOptions = ["Account Name 1", "Account Name 2", "Account Name 3"];
 
 export default function BasicModal({
   merchantTab,
@@ -55,12 +56,16 @@ export default function BasicModal({
   caseType,
 }) {
   const dispatch = dispatchHook();
+  const merchants = allMerchants();
+  console.log(merchants);
+  // console.log(merchants.merchant.id);
   // ~~~~~~~~~~ Modal State ~~~~~~~~~~
   const [open, setOpen] = useState(false);
   // ~~~~~~~~~~ Menu State ~~~~~~~~~~
   const [firstMenuChoice, setFirstMenuChoice] = useState("");
   const [secondMenuChoice, setSecondMenuChoice] = useState("");
   const [thirdMenuChoice, setThirdMenuChoice] = useState("");
+  const [merchantId, setMerchantId] = useState(null);
   const [fourthMenuChoice, setFourthMenuChoice] = useState("");
   const [couponDetails, setCouponDetails] = useState("");
   const [showDetailsInput, setShowDetailsInput] = useState(false);
@@ -74,6 +79,10 @@ export default function BasicModal({
   console.log(additionalDetails);
   console.log(showDetailsInput);
   console.log(couponDetails);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_ALL_MERCHANTS" });
+  }, []);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -94,6 +103,15 @@ export default function BasicModal({
     setShowDetailsInput(choice === "New Create Proof");
   };
 
+  const handleMerchantChange = (event) => {
+    const selectedName = event.target.value;
+    const selectedId = merchants.find((merchant) => merchant.merchant_name === selectedName)?.id || "";
+    console.log(selectedId);
+    
+    setThirdMenuChoice(selectedName);
+    setMerchantId(selectedId);
+  };
+
   const handleDateChange = (date) => {
     const formattedDate = date.$d.toLocaleDateString("en-US", {
       year: "numeric",
@@ -109,6 +127,7 @@ export default function BasicModal({
     console.log(firstMenuChoice); // C
     console.log(secondMenuChoice); // C
     console.log(thirdMenuChoice); // C
+    console.log(merchantId); 
     console.log(fourthMenuChoice); // C
     console.log(dueDate); // C
     console.log(additionalDetails);
@@ -119,6 +138,7 @@ export default function BasicModal({
       payload: {
         category: firstMenuChoice,
         task: secondMenuChoice,
+        merchant_id: merchantId,
         merchant_name: thirdMenuChoice,
         assign: fourthMenuChoice,
         due_date: dueDate,
@@ -126,7 +146,20 @@ export default function BasicModal({
         task_status: "New",
         coupon_details: couponDetails,
       },
-    })
+    });
+
+    // reset fields on submit
+    setFirstMenuChoice("");
+    setSecondMenuChoice("");
+    setThirdMenuChoice("");
+    setMerchantId(null);
+    setFourthMenuChoice("");
+    setDueDate("");
+    setShowDetailsInput(false);
+    setAdditionalDetails("");
+    setCouponDetails("");
+    setAdditionalDetails("");
+    handleClose();
   };
 
   return (
@@ -216,12 +249,14 @@ export default function BasicModal({
             <InputLabel>Account Name:</InputLabel>
             <Select
               value={thirdMenuChoice}
-              onChange={(event) => setThirdMenuChoice(event.target.value)}
+              onChange={handleMerchantChange}
               sx={{ margin: "5px 0" }}
             >
-              {accountOptions.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
+              {/* Populate the dropdown with the list of merchants */}
+              {merchants.map((merchant) => (
+                <MenuItem key={merchant.id} value={merchant.merchant_name}>
+                  {console.log(merchant.id)}
+                  {merchant.merchant_name}
                 </MenuItem>
               ))}
             </Select>

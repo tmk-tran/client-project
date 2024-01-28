@@ -12,7 +12,18 @@ function* merchantDetails(action) {
   }
 }
 
+function* allMerchants(action) {
+  try {
+    const items = yield axios.get("/api/merchantDetails");
+    console.log("FETCH request from merchantDetails.saga, ITEMS = ", items);
+    yield put({ type: "SET_MERCHANTS", payload: items.data });
+  } catch (error) {
+    console.log("Error in merchantDetailsSaga", error);
+    yield put({ type: "SET_ERROR", payload: error.message });
+  }
+}
+
 export default function* merchantDetailsSaga() {
   yield takeEvery("FETCH_MERCHANT_DETAILS", merchantDetails);
-  //   yield takeEvery("EDIT_MERCHANT_DETAILS", editMerchant);
+  yield takeEvery("FETCH_ALL_MERCHANTS", allMerchants);
 }

@@ -19,6 +19,7 @@ import pdf from "./pdf.reducer";
 import merchantDetails from "./merchantDetails.reducer";
 import merchantNotes from "./merchantNotes.reducer";
 import merchantTasks from "./merchantTask.reducer";
+import merchants from "./merchants.reducer";
 
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   merchantNotes,
   merchantDetails,
   merchantTasks,
+  merchants,
 });
 
 export default rootReducer;
