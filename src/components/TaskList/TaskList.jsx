@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-// ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Typography, MenuItem, Select } from "@mui/material";
 import "./TaskList.css";
-// ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskCardMerchant from "../TaskCard/TaskCardMerchant";
-import { mTasks } from "../../hooks/reduxStore";
+import { mTasks, oTasks } from "../../hooks/reduxStore" // Assuming you have organization tasks in your redux store
 import { dispatchHook } from "../../hooks/useDispatch";
 
-export default function TaskListMerchant() {
+export default function TaskList({ taskType }) {
+  console.log(taskType);
   const dispatch = dispatchHook();
   const [selectedTasks, setSelectedTasks] = useState({
     newTask: "",
@@ -15,14 +14,12 @@ export default function TaskListMerchant() {
     completeTask: "",
   });
 
-  // Assuming store.merchantTasks is an array of tasks
-  const merchantTasks = mTasks() || [];
-  console.log(merchantTasks);
+  // Choose the appropriate task array based on the taskType prop
+  const tasks = taskType === "organization" ? oTasks() || [] : mTasks() || [];
+  console.log(tasks);
 
-  // Group tasks by task_status (case-insensitive)
-  // Check if merchantTasks is an array before using reduce
-  const tasksByStatus = Array.isArray(merchantTasks)
-    ? merchantTasks.reduce((acc, task) => {
+  const tasksByStatus = Array.isArray(tasks)
+    ? tasks.reduce((acc, task) => {
         const statusKey = task.task_status.toLowerCase();
         acc[statusKey] = acc[statusKey] || [];
         acc[statusKey].push(task);
@@ -30,14 +27,18 @@ export default function TaskListMerchant() {
       }, {})
     : {};
 
-  // Sort tasks within each category
   const sortedNewTasks = tasksByStatus["new"] || [];
   const sortedInProgressTasks = tasksByStatus["in progress"] || [];
   const sortedCompleteTasks = tasksByStatus["complete"] || [];
 
-  // useEffect(() => {
-  //   dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
-  // }, [mTasks]);
+  useEffect(() => {
+    // Use the appropriate action based on the taskType prop
+    const actionType =
+      taskType === "organization"
+        ? "FETCH_ALL_ORGANIZATION_TASKS"
+        : "FETCH_ALL_MERCHANT_TASKS";
+    dispatch({ type: actionType });
+  }, [taskType]);
 
   return (
     <div className="list-container">
@@ -57,7 +58,6 @@ export default function TaskListMerchant() {
       >
         {sortedNewTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
-            {/* Display the task number along with task information */}
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
             <TaskCardMerchant task={task} />
           </MenuItem>

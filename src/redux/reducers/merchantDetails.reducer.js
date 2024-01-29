@@ -3,7 +3,7 @@ const merchantDetailsReducer = (state = [], action) => {
     case "SET_MERCHANT_DETAILS":
       return action.payload;
     // case "SET_MERCHANTS":
-    //   return action.payload;  
+    //   return action.payload;
     case "SET_ERROR":
       // Add logic for handling SET_ERROR action
       return {

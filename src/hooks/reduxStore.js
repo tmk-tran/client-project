@@ -32,6 +32,10 @@ export const mNotes = () => {
   return useSelector((store) => store.merchantNotes);
 };
 
+export const oTasks = () => {
+  return useSelector((store) => store.orgTasks);
+};
+
 export const mTasks = () => {
   return useSelector((store) => store.merchantTasks);
 };

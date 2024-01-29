@@ -5,34 +5,8 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-// router.get("/", rejectUnauthenticated, (req, res) => {
-//   const queryText = `SELECT * FROM merchant_tasks ORDER BY due_date ASC;`;
-//   pool
-//     .query(queryText)
-//     .then((result) => {
-//       console.log("FROM tasks.router: ", result.rows);
-//       res.send(result.rows);
-//     })
-//     .catch((err) => {
-//       console.log("error in the GET / request for authorized users", err);
-//       res.sendStatus(500);
-//     });
-// });
-
-// Assuming you have a query parameter like ?type=organization or ?type=merchant
-router.get("/", rejectUnauthenticated, (req, res) => {
-  const type = req.query.type || "organization";
-
-  let queryText;
-  if (type === "organization") {
-    queryText = `SELECT * FROM organization_tasks ORDER BY due_date ASC;`;
-  } else if (type === "merchant") {
-    queryText = `SELECT * FROM merchant_tasks ORDER BY due_date ASC;`;
-  } else {
-    res.sendStatus(400); // Invalid type
-    return;
-  }
-
+router.get("/:tab", rejectUnauthenticated, (req, res) => {
+  const queryText = `SELECT * FROM merchant_tasks ORDER BY due_date ASC;`;
   pool
     .query(queryText)
     .then((result) => {
@@ -45,6 +19,19 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.get("/", rejectUnauthenticated, (req, res) => {
+  const queryText = `SELECT * FROM organization_tasks ORDER BY due_date ASC;`;
+  pool
+    .query(queryText)
+    .then((result) => {
+      console.log("FROM allTasksO.router: ", result.rows);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("error in the GET / request for authorized users", err);
+      res.sendStatus(500);
+    });
+});
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const queryText = `INSERT INTO "merchant_tasks" (category, task, merchant_id, merchant_name, assign, due_date, description, task_status) 

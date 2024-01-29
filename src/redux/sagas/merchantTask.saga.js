@@ -16,7 +16,7 @@ function* merchantTask(action) {
 // ADD FETCH ALL MERCHANT TASKS TYPE
 function* fetchAllMerchantTasks() {
   try {
-    const items = yield axios.get("/api/tasks");
+    const items = yield axios.get("/api/tasks/:tab");
     console.log("FETCH all merchant tasks, ITEMS = ", items.data);
     yield put({ type: "SET_MERCHANT_TASKS", payload: items.data });
   } catch (error) {

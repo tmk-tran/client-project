@@ -8,6 +8,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import TaskListOrg from "../TaskList/TaskListOrg";
 import TaskListMerchant from "../TaskList/TaskListMerchant";
 import NewTaskModal from "../NewTaskModal/NewTaskModal";
+import TaskList from "../TaskList/TaskList";
 import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -46,6 +47,13 @@ export default function BasicTabs() {
   const history = historyHook();
   const [value, setValue] = useState(0);
   const [merchantTab, setMerchantTab] = useState(false);
+  const [type, setType] = useState("organization");
+  console.log(type);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_ALL_ORGANZATION_TASKS" });
+    // dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
+  }, [dispatch]);
 
   const styleTaskHeaders = {
     fontWeight: "bold",
@@ -62,30 +70,22 @@ export default function BasicTabs() {
   //   if (newValue === 0) {
   //     setMerchantTab(false);
   //   }
-  //   // Set the URL and include the type parameter
-  //   const url =
-  //     newValue === 0 ? "/tasks?type=organization" : "/tasks?type=merchant";
-  //   console.log(url);
+  //   history.push(`/tasks/${newValue}`);
   // };
 
   const handleChange = (event, newValue) => {
-    // If the tab is clicked, newValue is the index of the tab
-    // If the tab is changed programmatically, event is null, and newValue is the index
-    const selectedIndex = event ? newValue : newValue;
-    console.log(selectedIndex);
+    setValue(newValue);
+    console.log(newValue);
 
-    setValue(selectedIndex);
+    // Dispatch different actions based on the selected tab
+    if (newValue === 0) {
+      dispatch({ type: "FETCH_ALL_ORGANIZATION_TASKS", payload: { type: "organization" } });
+    } else if (newValue === 1) {
+      dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
+    }
 
-    // Reset the merchantTab state when "Organization" tab is selected
-    setMerchantTab(selectedIndex === 0);
-
-    // Set the URL and include the type parameter
-    const type =
-      selectedIndex === 0 ? "organization" : "merchant";
-    console.log(type);
-
-    // Dispatch action for fetching tasks with the type information
-    dispatch({ type: "FETCH_ALL_TASKS", payload: { type } });
+    // Reset URL parameters for the "Organization" tab
+    // history.push("/tasks");
   };
 
   return (
@@ -118,6 +118,7 @@ export default function BasicTabs() {
           >
             <Tabs
               value={value}
+              // value={currentTab}
               onChange={handleChange}
               aria-label="basic tabs example"
             >
@@ -125,7 +126,7 @@ export default function BasicTabs() {
                 label="Organization"
                 {...a11yProps(0)}
                 sx={tabWidth}
-                // onClick={() => history.push("/tasks/?type=organization")}
+                // onClick={() => history.push("/tasks")}
               />
               <Tab
                 label="Merchant"
@@ -147,10 +148,12 @@ export default function BasicTabs() {
 
           <TabPanel value={value} index={0}>
             <TaskListOrg />
+            {/* <TaskList taskType={type} /> */}
           </TabPanel>
 
           <TabPanel value={value} index={1}>
             <TaskListMerchant />
+            {/* <TaskList taskType={type} /> */}
           </TabPanel>
 
           {/* <TabPanel value={value} index={2}>
