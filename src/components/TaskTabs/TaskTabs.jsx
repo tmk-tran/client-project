@@ -50,11 +50,6 @@ export default function BasicTabs() {
   const [type, setType] = useState("organization");
   console.log(type);
 
-  useEffect(() => {
-    dispatch({ type: "FETCH_ALL_ORGANZATION_TASKS" });
-    // dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
-  }, [dispatch]);
-
   const styleTaskHeaders = {
     fontWeight: "bold",
     mb: 5,
@@ -63,15 +58,6 @@ export default function BasicTabs() {
   const tabWidth = {
     width: "25vw",
   };
-
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  //   // Reset the merchantTab state when "Organization" tab is selected
-  //   if (newValue === 0) {
-  //     setMerchantTab(false);
-  //   }
-  //   history.push(`/tasks/${newValue}`);
-  // };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

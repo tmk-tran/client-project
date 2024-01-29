@@ -27,19 +27,6 @@ function* fetchAllOrganizationTasks() {
   }
 }
 
-// function* fetchAllOrganizationTasks(action) {
-//   try {
-//     const { type } = action.payload; // Extract type from the action payload
-//     const items = yield axios.get(`/api/tasks?type=${type}`);
-//     console.log("FETCH all tasks, ITEMS = ", items.data);
-//     yield put({ type: "SET_ORG_TASKS", payload: items.data });
-//   } catch (error) {
-//     console.log("error in fetchAllOrganizationTasks Saga", error);
-//     yield put({ type: "SET_ERROR", payload: error });
-//   }
-// }
-
-
 function* addOrganizationTask(action) {
   try {
     const items = yield axios.post("/api/tasks", action.payload);
