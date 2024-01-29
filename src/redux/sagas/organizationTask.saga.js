@@ -29,7 +29,7 @@ function* fetchAllOrganizationTasks() {
 
 function* addOrganizationTask(action) {
   try {
-    const items = yield axios.post("/api/tasks", action.payload);
+    const items = yield axios.post("/api/tasks/organizations", action.payload);
     console.log(
       "FETCH request from organizationTask.saga, ITEMS FOR add = ",
       items
