@@ -35,25 +35,15 @@ export default function TaskCardMerchant({ task, taskType, index }) {
     e.stopPropagation();
   };
 
-  // const handleTaskUpdate = () => {
-  //   dispatch({
-  //     type: "UPDATE_MERCHANT_TASK",
-  //     payload: {
-  //       id: task.id,
-  //       task_status: selectedTask,
-  //     },
-  //   });
-  // };
-
   const handleTaskUpdate = () => {
     const updateActionType =
       taskType === "organization"
         ? "UPDATE_ORGANIZATION_TASK"
         : "UPDATE_MERCHANT_TASK";
 
-        console.log(updateActionType);
-        console.log(task.id);
-        console.log(selectedTask);
+    console.log(updateActionType);
+    console.log(task.id);
+    console.log(selectedTask);
     dispatch({
       type: updateActionType,
       payload: {
@@ -90,14 +80,16 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                 ...fullWidth,
               }}
             >
-              {/* MERCHANT NAME / ORGANIZATION NAME */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~ MERCHANT / ORG NAME ~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               <div className="name-section">
                 <Typography
                   sx={{
                     fontWeight: "bold",
                     fontSize: "larger",
                     textAlign: "center",
-                    // backgroundColor: "lightgray",
+                    mb: 1,
                   }}
                 >
                   {taskType === "organization" ? "Organization" : "Merchant"}:{" "}
@@ -108,7 +100,8 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                   )}
                 </Typography>
               </div>
-
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* May use border here, undecided */}
               <div>
                 <div
                   style={{
@@ -116,7 +109,9 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                     justifyContent: "space-between",
                   }}
                 >
-                  {/* TASK */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~ TASK ~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   <div>
                     <Typography sx={{ fontSize: "larger" }}>
                       <strong>Task: </strong> {capitalizeWords(task.task)}
@@ -128,9 +123,12 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                       Due: {formatDate(task.due_date)}
                     </Typography>
                   </div>
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 </div>
-                {/* DESCRIPTION */}
-                <div>
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~~~~ DESCRIPTION ~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                <div style={{ border: "1px solid blue" }}>
                   {task.description ? (
                     <Typography sx={{ mb: 1, mt: 1 }}>
                       <strong>Details: </strong>{" "}
@@ -142,11 +140,15 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                     </Typography>
                   )}
                 </div>
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               </div>
-              {/* COMMENT SECTION */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~ COMMENTS SECTION ~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               <div style={border}>
                 <CommentDisplay />
               </div>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             </div>
 
             <div
@@ -156,7 +158,9 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                 marginLeft: "20px",
               }}
             >
-              {/* NEED to add an ID here to associate to specific task on next view */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~ UPDATE TASK ~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {selectedTask ? (
                 <Button
                   variant="contained"
@@ -169,9 +173,6 @@ export default function TaskCardMerchant({ task, taskType, index }) {
               ) : (
                 <Button
                   variant="contained"
-                  // onClick={() =>
-                  //   history.push(`/merchantTaskDetails/${task.merchant_id}`)
-                  // }
                   onClick={() =>
                     history.push(
                       `/${
@@ -190,6 +191,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                   Details
                 </Button>
               )}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
               <TaskDropdown
                 onChange={handleTaskChange}
