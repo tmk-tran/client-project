@@ -26,7 +26,7 @@ function* fetchAllMerchantTasks() {
 
 function* addMerchantTask(action) {
   try {
-    const items = yield axios.post("/api/tasks", action.payload);
+    const items = yield axios.post("/api/tasks/merchants", action.payload);
     console.log(
       "FETCH request from merchantTask.saga, ITEMS FOR add = ",
       items
@@ -45,7 +45,7 @@ function* addMerchantTask(action) {
 function* editMerchantTask(action) {
   try {
     const items = yield axios.put(
-      `/api/tasks/${action.payload.id}`,
+      `/api/tasks/merchants/${action.payload.id}`,
       action.payload
     );
     console.log(
