@@ -58,7 +58,6 @@ export default function OrgDetails({ isMerchantTaskPage, isTaskPage }) {
   const comments = mComments();
   console.log(comments);
 
-
   useEffect(() => {
     dispatch({
       type: "FETCH_ORG_DETAILS",
@@ -205,8 +204,12 @@ export default function OrgDetails({ isMerchantTaskPage, isTaskPage }) {
 
                     {/* REMOVE AFTER COUPON CARD IS INSERTED */}
                     <div className="MerchantDetailsCard-container">
+                      {merchantDetails.map((merchant, i) => (
+                        <CouponReviewCard key={i} merchant={merchant} />
+                      ))}
+
+                      {/* <CouponReviewCard  /> */}
                       {/* <CouponReviewCard />
-                      <CouponReviewCard />
                       <CouponReviewCard /> */}
                     </div>
                   </>

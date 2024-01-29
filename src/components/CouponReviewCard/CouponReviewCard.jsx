@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import { border } from "../Utils/colors";
@@ -7,9 +9,28 @@ import CommentDisplay from "../CommentDisplay/CommentDisplay";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
 import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
+import { dispatchHook } from "../../hooks/useDispatch";
+import { mComments } from "../../hooks/reduxStore";
 
-export default function CouponReviewCard() {
+export default function CouponReviewCard({ merchant }) {
+  console.log(merchant);
+  const mId = useParams();
+  console.log(mId);
+  const merchantId = mId.id;
+  console.log(merchantId);
+
+  const dispatch = dispatchHook();
   const history = historyHook();
+
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_MERCHANT_COMMENTS",
+      payload: merchantId,
+    });
+  }, []);
+
+  const merchantComments = mComments(merchantId);
+  console.log(merchantComments);
 
   const handleUpdateClick = (event) => {
     // Add your logic for the Update button click
@@ -31,9 +52,9 @@ export default function CouponReviewCard() {
       onClick={() => {
         history.push(`/coupon/${1}`);
       }}
+      // sx={{ height: "80%" }}
     >
       <CardContent>
-        
         {/* HEADER FOR CARD ~~~~~~~~~~~~~~~~~~~~ */}
         <div
           style={{
@@ -54,7 +75,7 @@ export default function CouponReviewCard() {
 
         <hr />
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
           {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <div style={border}>
             <div
@@ -98,8 +119,10 @@ export default function CouponReviewCard() {
             </div>
           </div>
 
-          <div style={border}>
-            <CommentDisplay />
+          <div style={{ padding: "5%" }}>
+            {merchantComments.map((comment, i) => (
+              <CommentDisplay key={i} comment={comment} />
+            ))}
           </div>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         </div>
