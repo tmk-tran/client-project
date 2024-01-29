@@ -276,7 +276,7 @@ export default function BasicModal({
           <div style={{ display: "flex", flexDirection: "column" }}>
             <InputLabel>Category:</InputLabel>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            {/* ~~~~~~~~~~ FIRST DROPDOWN ~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ FIRST DROPDOWN ~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <Select
               value={firstMenuChoice}
@@ -290,10 +290,11 @@ export default function BasicModal({
               <MenuItem value="Contact">Contact</MenuItem>
               <MenuItem value="Task">Task</MenuItem>
             </Select>
+            {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
             <InputLabel>Task:</InputLabel>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            {/* ~~~~~~~~~~ SECOND DROPDOWN ~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~ SECOND DROPDOWN ~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <Select
               value={secondMenuChoice}
@@ -306,6 +307,7 @@ export default function BasicModal({
                 </MenuItem>
               ))}
             </Select>
+            {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
             {showDetailsInput && (
               <TextField
@@ -322,7 +324,7 @@ export default function BasicModal({
             )}
 
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            {/* ~~~~~~~~~~ THIRD DROPDOWN ~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ THIRD DROPDOWN ~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <InputLabel>Account Name:</InputLabel>
             <Select
@@ -346,10 +348,11 @@ export default function BasicModal({
                     </MenuItem>
                   ))}
             </Select>
+            {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
             <InputLabel>Assign To:</InputLabel>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            {/* ~~~~~~~~~~ FOURTH DROPDOWN ~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~ FOURTH DROPDOWN ~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <Select
               value={fourthMenuChoice}
@@ -362,12 +365,20 @@ export default function BasicModal({
                 </MenuItem>
               ))}
             </Select>
+            {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~~ DATE SECTION ~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <div>
               <DatePicker initialDate={dueDate} onChange={handleDateChange} />
             </div>
+            {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
           </div>
 
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~ ADDITIONAL DETAILS ~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <TextField
             id="outlined-multiline-static"
             label="Additional Details..."
@@ -377,6 +388,7 @@ export default function BasicModal({
             sx={{ margin: "10px auto" }}
             onChange={(event) => setAdditionalDetails(event.target.value)}
           />
+          {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
           <Button
             variant="contained"

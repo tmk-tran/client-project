@@ -48,19 +48,18 @@ export default function BasicTabs() {
   const [value, setValue] = useState(0);
   const [merchantTab, setMerchantTab] = useState(false);
   console.log(merchantTab);
-  const [activeTab, setActiveTab] = useState('organization'); // Set the default tab
+  const [activeTab, setActiveTab] = useState("organization"); // Set the default tab
   console.log(activeTab);
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   useEffect(() => {
     // Dispatch actions based on the active tab
-    if (activeTab === 'organization') {
-      dispatch({ type: 'FETCH_ALL_ORGANIZATION_TASKS' });
-    } else if (activeTab === 'merchant') {
-      dispatch({ type: 'FETCH_ALL_MERCHANT_TASKS' });
+    if (activeTab === "organization") {
+      dispatch({ type: "FETCH_ALL_ORGANIZATION_TASKS" });
+    } else if (activeTab === "merchant") {
+      dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
     }
     // Add more conditions if needed...
-
   }, [dispatch, activeTab]);
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -85,7 +84,6 @@ export default function BasicTabs() {
     // } else if (newValue === 1) {
     //   dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
     // }
-
   };
 
   return (
@@ -99,12 +97,16 @@ export default function BasicTabs() {
             padding: "35px",
           }}
         >
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~ Page Header ~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Typography
             variant="h5"
             sx={{ textAlign: "center", ...styleTaskHeaders }}
           >
             Task Management
           </Typography>
+          {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
           <Box
             sx={{
               display: "flex",
@@ -116,6 +118,9 @@ export default function BasicTabs() {
               paddingY: 2,
             }}
           >
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~~~ Tab Headers ~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <Tabs
               value={value}
               // value={currentTab}
@@ -143,11 +148,14 @@ export default function BasicTabs() {
               customText="Task"
               merchantTab={merchantTab}
             />
+            {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
             {/* <div style={{ flexGrow: 0.3 }}></div> */}
             {/* <SearchBar /> */}
           </Box>
-
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~ Tab Body ~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <TabPanel value={value} index={0}>
             <TaskListOrg />
             {/* <TaskList taskType={type} /> */}
@@ -157,10 +165,15 @@ export default function BasicTabs() {
             <TaskListMerchant />
             {/* <TaskList taskType={type} /> */}
           </TabPanel>
+          {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~ Coupon Tab (unused) ~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* <TabPanel value={value} index={2}>
         Review / Publish info here
       </TabPanel> */}
+          {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
         </Box>
       </CardContent>
     </Card>

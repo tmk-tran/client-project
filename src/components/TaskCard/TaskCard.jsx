@@ -100,7 +100,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                   )}
                 </Typography>
               </div>
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
               {/* May use border here, undecided */}
               <div>
                 <div
@@ -123,7 +123,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                       Due: {formatDate(task.due_date)}
                     </Typography>
                   </div>
-                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
                 </div>
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~ DESCRIPTION ~~~~~~~~~~~~~ */}
@@ -140,7 +140,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                     </Typography>
                   )}
                 </div>
-                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
               </div>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~ COMMENTS SECTION ~~~~~~~~~~~~~ */}
@@ -148,7 +148,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
               <div style={border}>
                 <CommentDisplay />
               </div>
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
             </div>
 
             <div
@@ -191,7 +191,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                   Details
                 </Button>
               )}
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
 
               <TaskDropdown
                 onChange={handleTaskChange}
