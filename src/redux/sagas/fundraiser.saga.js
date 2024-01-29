@@ -5,7 +5,7 @@ import { takeEvery, put } from "redux-saga/effects";
 //Fetches fundraiser data based on the group id
 function* fetchFundraisersSaga(action) {
     try {
-        const response = yield axios.get(`/api/fundraisers/groupfundraisers/${action.payload}`)
+        const response = yield axios.post(`/api/fundraisers/groupfundraisers/${action.payload}`)
         yield put({ type: "SET_FUNDRAISERS", payload: response.data })
         console.log(response.data);
     } catch (err) {
@@ -16,7 +16,7 @@ function* fetchFundraisersSaga(action) {
 // Fetches fundraiser data based on organization id
 function* fetchOrgFundraisersSaga(action) {
     try {
-        const response = yield axios.get(`/api/fundraisers/${action.payload}`)
+        const response = yield axios.post(`/api/fundraisers/${action.payload}`)
         yield put({ type: "SET_ORG_FUNDRAISERS", payload: response.data })
     } catch (err) {
         console.log("Error fetching ORG fundraisers ", err)

@@ -773,7 +773,7 @@ app.post("/api/group/orggroups/:id", (req, res) => {
 
   var graphql = JSON.stringify({
     query: query,
-    variables: {},
+    variables: {}
   });
   var requestOptions = {
     method: "POST",
@@ -785,7 +785,7 @@ app.post("/api/group/orggroups/:id", (req, res) => {
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
+      console.log("org groups result", result);
       res.sendStatus(200)
     })
     .catch((error) => {
@@ -891,7 +891,7 @@ app.post("/api/fundraisers/:id", (req, res) => {
     .then((response) => response.json())
     .then((result) => {
       console.log(result.data.fundraiser);
-      res.sendStatus(200)
+      res.send(result.data.fundraiser)
     })
     .catch((error) => {
       console.log("Error getting data from Devii", error)
@@ -925,8 +925,8 @@ app.post("/api/fundraisers/groupfundraisers/:id", (req, res) => {
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.text())
     .then((result) => {
-      console.log(result);
-      res.sendStatus(200)
+      console.log( "fundraiser result", result);
+      res.send(200)
     })
     .catch((error) => {
       console.log("Error getting data from Devii", error)

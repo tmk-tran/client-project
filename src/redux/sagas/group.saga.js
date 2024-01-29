@@ -5,7 +5,7 @@ import { takeEvery, put } from "redux-saga/effects";
 function* fetchGroupSaga(action) {
     try {
         console.log(action.payload)
-        const response = yield axios.get(`/api/group/${action.payload}`)
+        const response = yield axios.post(`/api/group/${action.payload}`)
         yield put({ type: "SET_GROUP_DETAILS", payload: response.data })
     } catch (error) {
         console.log("Error fetching group details", err)
@@ -15,7 +15,7 @@ function* fetchGroupSaga(action) {
 function* fetchOrgGroupsSaga(action) {
     try {
         console.log(action.payload)
-        const response = yield axios.get(`/api/group/orggroups/${action.payload}`)
+        const response = yield axios.post(`/api/group/orggroups/${action.payload}`)
         yield put({ type: "SET_ORG_GROUPS", payload: response.data })
         console.log("response data = ", response.data);
     } catch (err) {
