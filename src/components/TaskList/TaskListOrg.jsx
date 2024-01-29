@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Typography, MenuItem, Select, Box } from "@mui/material";
 import "./TaskList.css";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskCard from "../TaskCard/TaskCard";
 import { oTasks } from "../../hooks/reduxStore";
-import { dispatchHook } from "../../hooks/useDispatch";
 
 // ERRORS ARE  HERE FOR <DIV> CANNOT APPEAR AS DESCENDANT OF <P>
 
 export default function TaskListOrg() {
-  const dispatch = dispatchHook();
   const [selectedTasks, setSelectedTasks] = useState({
     newTask: "",
     inProgressTask: "",
     completeTask: "",
   });
-
-  // Mock data for tasks in different categories
-  // const newTasks = ["Task 1", "Task 2", "Task 3"];
-  // const inProgressTasks = ["Task 4", "Task 5"];
-  // const completeTasks = ["Task 6", "Task 7", "Task 8"];
-
-  // const getNumOptions = (tasks) => tasks.filter(Boolean).length;
 
   const orgTasks = oTasks() || [];
   console.log(orgTasks);
@@ -43,13 +34,11 @@ export default function TaskListOrg() {
   const sortedInProgressTasks = tasksByStatus["in progress"] || [];
   const sortedCompleteTasks = tasksByStatus["complete"] || [];
 
-  // useEffect(() => {
-  //   dispatch({ type: "FETCH_ALL_ORGANIZATION_TASKS" });
-  // }, [oTasks]);
-
   return (
     <Box className="list-container">
-      {/* Dropdown for New Tasks */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~ Dropdown for New Tasks ~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <Select
         value={selectedTasks.newTask}
         onChange={(e) =>
@@ -72,8 +61,11 @@ export default function TaskListOrg() {
           </MenuItem>
         ))}
       </Select>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
-      {/* Dropdown for In Progress Tasks */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~ Dropdown for In Progress Tasks ~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <Select
         value={selectedTasks.inProgressTask}
         onChange={(e) =>
@@ -94,8 +86,11 @@ export default function TaskListOrg() {
           </MenuItem>
         ))}
       </Select>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
-      {/* Dropdown for Complete Tasks */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~ Dropdown for Complete Tasks ~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <Select
         value={selectedTasks.completeTask}
         onChange={(e) =>
@@ -116,9 +111,9 @@ export default function TaskListOrg() {
           </MenuItem>
         ))}
       </Select>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
       {/* Additional UI to display selected task details or move tasks between categories */}
-      {/* Add your code here */}
     </Box>
   );
 }

@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Typography, MenuItem, Select } from "@mui/material";
 import "./TaskList.css";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskCard from "../TaskCard/TaskCard";
 import { mTasks } from "../../hooks/reduxStore";
-import { dispatchHook } from "../../hooks/useDispatch";
 
 export default function TaskListMerchant() {
-  const dispatch = dispatchHook();
   const [selectedTasks, setSelectedTasks] = useState({
     newTask: "",
     inProgressTask: "",
@@ -35,13 +33,11 @@ export default function TaskListMerchant() {
   const sortedInProgressTasks = tasksByStatus["in progress"] || [];
   const sortedCompleteTasks = tasksByStatus["complete"] || [];
 
-  // useEffect(() => {
-  //   dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
-  // }, [mTasks]);
-
   return (
     <div className="list-container">
-      {/* Dropdown for New Tasks */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~ Dropdown for New Tasks ~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <Select
         value={selectedTasks.newTask}
         onChange={(e) =>
@@ -63,8 +59,11 @@ export default function TaskListMerchant() {
           </MenuItem>
         ))}
       </Select>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
-      {/* Dropdown for In Progress Tasks */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~ Dropdown for In Progress Tasks ~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <Select
         value={selectedTasks.inProgressTask}
         onChange={(e) =>
@@ -85,8 +84,11 @@ export default function TaskListMerchant() {
           </MenuItem>
         ))}
       </Select>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
-      {/* Dropdown for Complete Tasks */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~ Dropdown for Complete Tasks ~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <Select
         value={selectedTasks.completeTask}
         onChange={(e) =>
@@ -107,9 +109,8 @@ export default function TaskListMerchant() {
           </MenuItem>
         ))}
       </Select>
-
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* Additional UI to display selected task details or move tasks between categories */}
-      {/* Add your code here */}
     </div>
   );
 }
