@@ -38,21 +38,6 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routes for merchant and organization tasks
-// app.put("/api/tasks/merchants/:id", (req, res) => {
-//   // Handle update for merchant tasks
-//   const taskId = req.params.id;
-//   // Your update logic for merchant tasks
-//   res.sendStatus(200);
-// });
-
-// app.put("/api/tasks/organizations/:id", (req, res) => {
-//   // Handle update for organization tasks
-//   const taskId = req.params.id;
-//   // Your update logic for organization tasks
-//   res.sendStatus(200);
-// });
-
 /* Routes */
 app.use("/api/user", userRouter);
 app.use("/api/group", groupRouter);
@@ -71,12 +56,8 @@ app.use("/api/merchantDetails", merchantDetailsRouter);
 app.use("/api/merchantNotes", merchantNotesRouter);
 app.use("/api/merchantTask", merchantTaskRouter);
 app.use("/api/organizationTask", organizationTaskRouter);
-// app.use("/api/tasks", allTasksRouter);
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 app.use("/api/tasks/merchants", allTasksRouter);
 app.use("/api/tasks/organizations", allTasksORouter);
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 
 // Serve static files
