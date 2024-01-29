@@ -18,7 +18,7 @@ function* organizationTask(action) {
 
 function* fetchAllOrganizationTasks() {
   try {
-    const items = yield axios.get("/api/tasks");
+    const items = yield axios.get("/api/tasks/organizations");
     console.log("FETCH all organization tasks, ITEMS = ", items.data);
     yield put({ type: "SET_ORG_TASKS", payload: items.data });
   } catch (error) {

@@ -48,8 +48,21 @@ export default function BasicTabs() {
   const [value, setValue] = useState(0);
   const [merchantTab, setMerchantTab] = useState(false);
   console.log(merchantTab);
-  const [type, setType] = useState("organization");
-  console.log(type);
+  const [activeTab, setActiveTab] = useState('organization'); // Set the default tab
+  console.log(activeTab);
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  useEffect(() => {
+    // Dispatch actions based on the active tab
+    if (activeTab === 'organization') {
+      dispatch({ type: 'FETCH_ALL_ORGANIZATION_TASKS' });
+    } else if (activeTab === 'merchant') {
+      dispatch({ type: 'FETCH_ALL_MERCHANT_TASKS' });
+    }
+    // Add more conditions if needed...
+
+  }, [dispatch, activeTab]);
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   const styleTaskHeaders = {
     fontWeight: "bold",
@@ -63,13 +76,15 @@ export default function BasicTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     console.log(newValue);
+    // setType("merchant");
 
-    // Dispatch different actions based on the selected tab
-    if (newValue === 0) {
-      dispatch({ type: "FETCH_ALL_ORGANIZATION_TASKS", payload: { type: "organization" } });
-    } else if (newValue === 1) {
-      dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
-    }
+    // // Dispatch different actions based on the selected tab
+    // if (newValue === 0) {
+    //   dispatch({ type: "FETCH_ALL_ORGANIZATION_TASKS", payload: { type: "organization" } });
+    //   // history.push("/tasks/organizations");
+    // } else if (newValue === 1) {
+    //   dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
+    // }
 
   };
 
@@ -111,12 +126,14 @@ export default function BasicTabs() {
                 label="Organization"
                 {...a11yProps(0)}
                 sx={tabWidth}
-                onClick={() => setMerchantTab(false)}
+                // onClick={() => setMerchantTab(false)}
+                onClick={() => setActiveTab("organization")}
               />
               <Tab
                 label="Merchant"
                 {...a11yProps(1)}
-                onClick={() => setMerchantTab(true)}
+                // onClick={() => setMerchantTab(true)}
+                onClick={() => setActiveTab("merchant")}
                 sx={tabWidth}
               />
               {/* <Tab label="Coupons" {...a11yProps(2)} /> */}

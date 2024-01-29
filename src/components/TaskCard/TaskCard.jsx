@@ -51,6 +51,9 @@ export default function TaskCardMerchant({ task, taskType, index }) {
         ? "UPDATE_ORGANIZATION_TASK"
         : "UPDATE_MERCHANT_TASK";
 
+        console.log(updateActionType);
+        console.log(task.id);
+        console.log(selectedTask);
     dispatch({
       type: updateActionType,
       payload: {

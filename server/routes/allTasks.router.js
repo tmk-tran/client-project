@@ -5,7 +5,7 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-router.get("/:tab", rejectUnauthenticated, (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM merchant_tasks ORDER BY due_date ASC;`;
   pool
     .query(queryText)
@@ -19,19 +19,19 @@ router.get("/:tab", rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get("/", rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT * FROM organization_tasks ORDER BY due_date ASC;`;
-  pool
-    .query(queryText)
-    .then((result) => {
-      console.log("FROM allTasksO.router: ", result.rows);
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      console.log("error in the GET / request for authorized users", err);
-      res.sendStatus(500);
-    });
-});
+// router.get("/", rejectUnauthenticated, (req, res) => {
+//   const queryText = `SELECT * FROM organization_tasks ORDER BY due_date ASC;`;
+//   pool
+//     .query(queryText)
+//     .then((result) => {
+//       console.log("FROM allTasksO.router: ", result.rows);
+//       res.send(result.rows);
+//     })
+//     .catch((err) => {
+//       console.log("error in the GET / request for authorized users", err);
+//       res.sendStatus(500);
+//     });
+// });
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const queryText = `INSERT INTO "merchant_tasks" (category, task, merchant_id, merchant_name, assign, due_date, description, task_status) 
