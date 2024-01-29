@@ -140,10 +140,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                   {/* ~~~~~~~~~~~~~~~~~ ASSIGNED ~~~~~~~~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   <div>
-                    <Typography
-                      variant="body2"
-                      sx={{ width: "10vw", textAlign: "center" }}
-                    >
+                    <Typography sx={{ width: "10vw", textAlign: "center" }}>
                       <strong>Assigned to: </strong>
                       {task.assign}
                     </Typography>
@@ -182,7 +179,6 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                 ...flexColumn,
                 alignItems: "center",
                 marginLeft: "20px",
-                // ...border,
               }}
             >
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
