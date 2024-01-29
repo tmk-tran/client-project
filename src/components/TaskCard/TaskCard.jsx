@@ -86,13 +86,15 @@ export default function TaskCardMerchant({ task, taskType, index }) {
               <div className="name-section">
                 <Typography
                   sx={{
-                    fontWeight: "bold",
+                    // fontWeight: "bold",
                     fontSize: "larger",
-                    textAlign: "center",
+                    // textAlign: "center",
                     mb: 1,
                   }}
                 >
-                  {taskType === "organization" ? "Organization" : "Merchant"}:{" "}
+                  <strong>
+                    {taskType === "organization" ? "Organization" : "Merchant"}:{" "}
+                  </strong>
                   {capitalizeWords(
                     taskType === "organization"
                       ? task.organization_name
@@ -128,7 +130,11 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~ DESCRIPTION ~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                <div style={{ border: "1px solid blue" }}>
+                <div
+                  style={{
+                    border: "1px solid blue",
+                  }}
+                >
                   {task.description ? (
                     <Typography sx={{ mb: 1, mt: 1 }}>
                       <strong>Details: </strong>{" "}
@@ -156,6 +162,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                 ...flexColumn,
                 alignItems: "center",
                 marginLeft: "20px",
+                ...border
               }}
             >
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -197,6 +204,9 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                 onChange={handleTaskChange}
                 taskStatus={task.task_status}
               />
+              <div style={{...fullWidth, ...border}}>
+                <Typography sx={{ textAlign: "center", fontWeight: "bold" }}>Assigned to: <Typography sx={{ textAlign: "center", fontSize: "larger" }}>{task.assign}</Typography></Typography>
+              </div>
             </div>
           </div>
         </div>
