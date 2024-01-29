@@ -23,21 +23,32 @@ export default function TaskDropdown({ onChange, taskStatus }) {
   return (
     <FormControl>
       <InputLabel sx={{ mt: 1 }}>Status</InputLabel>
-        <Select
-          value={status}
-          onChange={handleMenuChange}
-          displayEmpty
-          sx={{ width: "10vw", mt:3 }}
-        >
-          <MenuItem value="" disabled>
-            Move Task...
+      <Select
+        value={status}
+        onChange={handleMenuChange}
+        displayEmpty
+        sx={{ width: "10vw", mt: 3 }}
+        MenuProps={{
+          anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "bottom",
+          },
+          transformOrigin: {
+            vertical: "bottom",
+            horizontal: "left",
+          },
+          getContentAnchorEl: null,
+        }}
+      >
+        <MenuItem value="" disabled>
+          Move Task...
+        </MenuItem>
+        {taskOptions.map((option) => (
+          <MenuItem key={option} value={option}>
+            {option}
           </MenuItem>
-          {taskOptions.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </Select>
+        ))}
+      </Select>
     </FormControl>
   );
 }

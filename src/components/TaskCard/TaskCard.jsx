@@ -206,6 +206,8 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                 ...flexColumn,
                 alignItems: "center",
                 marginLeft: "20px",
+                maxHeight: "200px",
+                position: "relative",
               }}
             >
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -220,6 +222,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                     backgroundColor: successColor.color,
                     ...hoverAccept,
                     height: "30%",
+                    maxHeight: "50px",
                     mb: 5,
                   }}
                   fullWidth
@@ -244,14 +247,14 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                   }
                   fullWidth
                   // sx={{ height: "100%" }}
-                  sx={{ height: "30%", mb: 5 }}
+                  sx={{ height: "30%", maxHeight: "50px", mb: 5 }}
                 >
                   Details
                 </Button>
               )}
               {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
+              <div style={{ height: "100%"}}></div>
               <TaskDropdown
                 onChange={handleTaskChange}
                 taskStatus={task.task_status}
