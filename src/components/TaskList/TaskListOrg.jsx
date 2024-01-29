@@ -68,7 +68,7 @@ export default function TaskListOrg() {
           <MenuItem key={task.id} value={i + 1} disableRipple>
             {/* Display the task number along with task information */}
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCard task={task} taskType="organization" />
+            <TaskCard task={task} taskType="organization" index={i} />
           </MenuItem>
         ))}
       </Select>
@@ -90,7 +90,7 @@ export default function TaskListOrg() {
         {sortedInProgressTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCard task={task} />
+            <TaskCard task={task} taskType="organization" index={i} />
           </MenuItem>
         ))}
       </Select>
@@ -112,7 +112,7 @@ export default function TaskListOrg() {
         {sortedCompleteTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCard task={task} />
+            <TaskCard task={task} taskType="organization" index={i} />
           </MenuItem>
         ))}
       </Select>

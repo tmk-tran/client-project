@@ -48,7 +48,7 @@ function* addOrganizationTask(action) {
 function* editOrganizationTask(action) {
   try {
     const items = yield axios.put(
-      `/api/tasks/${action.payload.id}`,
+      `/api/tasks/organizations/${action.payload.id}`,
       action.payload
     );
     console.log(
