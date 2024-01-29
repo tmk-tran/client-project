@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Tab, Tabs, Box, Typography, Card, CardContent } from "@mui/material";
@@ -62,22 +62,31 @@ export default function BasicTabs() {
   //   if (newValue === 0) {
   //     setMerchantTab(false);
   //   }
+  //   // Set the URL and include the type parameter
+  //   const url =
+  //     newValue === 0 ? "/tasks?type=organization" : "/tasks?type=merchant";
+  //   console.log(url);
   // };
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  
-    if (newValue === 0) {
-      setMerchantTab(false);
-      // Dispatch action for fetching organization tasks
-      dispatch({ type: "FETCH_ALL_ORGANIZATION_TASKS" });
-    } else {
-      setMerchantTab(true);
-      // Dispatch action for fetching merchant tasks
-      dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
-    }
+    // If the tab is clicked, newValue is the index of the tab
+    // If the tab is changed programmatically, event is null, and newValue is the index
+    const selectedIndex = event ? newValue : newValue;
+    console.log(selectedIndex);
+
+    setValue(selectedIndex);
+
+    // Reset the merchantTab state when "Organization" tab is selected
+    setMerchantTab(selectedIndex === 0);
+
+    // Set the URL and include the type parameter
+    const type =
+      selectedIndex === 0 ? "organization" : "merchant";
+    console.log(type);
+
+    // Dispatch action for fetching tasks with the type information
+    dispatch({ type: "FETCH_ALL_TASKS", payload: { type } });
   };
-  
 
   return (
     <Card className="details-card" elevation={3}>
@@ -112,12 +121,16 @@ export default function BasicTabs() {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab label="Organization" {...a11yProps(0)} sx={tabWidth} />
+              <Tab
+                label="Organization"
+                {...a11yProps(0)}
+                sx={tabWidth}
+                // onClick={() => history.push("/tasks/?type=organization")}
+              />
               <Tab
                 label="Merchant"
                 {...a11yProps(1)}
                 onClick={() => setMerchantTab(true)}
-                // onClick={() => history.push("/tasks/merchants")}
                 sx={tabWidth}
               />
               {/* <Tab label="Coupons" {...a11yProps(2)} /> */}
