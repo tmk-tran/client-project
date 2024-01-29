@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Typography, Card, CardContent, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -10,10 +11,18 @@ import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 import CouponReviewButtons from "./CouponReviewButtons";
 import CouponReviewComments from "./CouponReviewComments";
 import BackButton from "../BackButton/BackButton";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
+import { mComments } from "../../hooks/reduxStore";
 
 export default function CouponReviewDetails() {
+  const dispatch = dispatchHook();
+  const mId = useParams();
+  const merchantId = mId.id;
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const merchantComments = mComments(mId) || [];
+  console.log(merchantComments);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -21,6 +30,13 @@ export default function CouponReviewDetails() {
     // Open the modal when Deny button is clicked
     setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    // Ensure that merchantId is available before dispatching the action
+    if (merchantId) {
+      dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
+    }
+  }, [dispatch, merchantId]);
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
@@ -128,9 +144,15 @@ export default function CouponReviewDetails() {
                       )}
                     </div>
                   </div>
-
                   {/* Comments section */}
-                  <CouponReviewComments />
+                  {merchantComments.map((comment, i) => (
+                    <CouponReviewComments
+                      key={comment.id}
+                      comment={comment}
+                    />
+                  ))}
+
+                  {/* <CouponReviewComments /> */}
                 </div>
               </CardContent>
             </Card>

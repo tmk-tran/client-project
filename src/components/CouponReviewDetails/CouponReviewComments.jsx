@@ -5,7 +5,8 @@ import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import CommentInput from "./CommentInput";
 import "./CouponReviewDetails.css";
 
-export default function CouponReviewComments() {
+export default function CouponReviewComments({ comment }) {
+  
   return (
     <div
       style={{
@@ -25,13 +26,7 @@ export default function CouponReviewComments() {
 
       <div style={{ height: "415px", overflowY: "auto" }}>
         <div className="comment-display-row">
-          <CommentDisplay backgroundColor="" />
-        </div>
-        <div className="comment-display-row">
-          <CommentDisplay backgroundColor="" />
-        </div>
-        <div className="comment-display-row">
-          <CommentDisplay backgroundColor="" />
+          <CommentDisplay backgroundColor="" comment={comment} />
         </div>
       </div>
 

@@ -40,6 +40,10 @@ export const mTasks = () => {
   return useSelector((store) => store.merchantTasks);
 };
 
+export const mComments = () => {
+  return useSelector((store) => store.merchantComments);
+};
+
 export const User = () => {
   return useSelector((store) => store.user);
 };
