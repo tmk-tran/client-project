@@ -4,10 +4,15 @@ import { border } from "../Utils/colors";
 export default function CommentDisplay({
   backgroundColor = "rgba(96, 96, 96, 0.1)",
   comment,
+  mId,
 }) {
+  const merchantId = mId;
+  console.log(merchantId);
   const date = formatDate(comment.date);
+  console.log(date);
   const time = comment.time;
   const content = comment.comment_content;
+  console.log(content);
   const user = comment.user;
 
   return (

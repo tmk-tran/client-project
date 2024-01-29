@@ -13,7 +13,7 @@ import "./TableTaskDetails.css";
 // ~~~~~~~~~~ Component ~~~~~~~~~
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~
-import { mTasks } from "../../hooks/reduxStore";
+import { mTasks, mComments } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { capitalizeWords, formatDate } from "../Utils/helpers";
 import { dueDateHighlight } from "../Utils/colors";
@@ -23,6 +23,8 @@ export default function TableTaskDetails() {
   const dispatch = dispatchHook();
   const merchantTasks = mTasks();
   console.log(merchantTasks);
+  const comments = mComments();
+  console.log(comments);
 
   const fullWidth = {
     width: "100%",
@@ -33,12 +35,12 @@ export default function TableTaskDetails() {
     textAlign: "center",
   };
 
-  useEffect(() => {
-    dispatch({
-      type: "FETCH_MERCHANT_TASKS",
-      payload: paramsObject.id,
-    });
-  }, []);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "FETCH_MERCHANT_TASKS",
+  //     payload: paramsObject.id,
+  //   });
+  // }, []);
 
   return (
     <Table>
@@ -105,7 +107,15 @@ export default function TableTaskDetails() {
             <TableBody>
               <TableRow>
                 <TableCell colSpan={3} style={fullWidth}>
-                  <CommentDisplay />
+                  {comments.map((comment, index) => (
+                    <CommentDisplay
+                      key={comment.id}
+                      comment={comment}
+                      index={index}
+                      mId={paramsObject.id}
+                    />
+                  ))}
+                  {/* <CommentDisplay /> */}
                   <hr />
                 </TableCell>
               </TableRow>

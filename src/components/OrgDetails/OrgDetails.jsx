@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import "./OrgDetails.css";
@@ -22,6 +22,7 @@ import {
   oNotes,
   mDetails,
   mNotes,
+  mComments,
 } from "../../hooks/reduxStore";
 
 // ~~~~~~~~~~ May Use Later ~~~~~~~~~~
@@ -36,7 +37,6 @@ export default function OrgDetails({ isMerchantTaskPage, isTaskPage }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
-  // const location = useLocation(); // Use location to get the current route
 
   // Check if the user is on the task page
   // const isTaskPage = location.pathname.includes("/orgtaskdetails");
@@ -55,6 +55,9 @@ export default function OrgDetails({ isMerchantTaskPage, isTaskPage }) {
   console.log(notes);
   const merchantDetails = mDetails();
   console.log(merchantDetails);
+  const comments = mComments();
+  console.log(comments);
+
 
   useEffect(() => {
     dispatch({
@@ -68,6 +71,12 @@ export default function OrgDetails({ isMerchantTaskPage, isTaskPage }) {
         : "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
     });
+    // // Fetch merchant comments if isMerchantTaskPage is true
+    // if (isMerchantTaskPage) {
+    //   // Assuming mComments is a function that fetches comments from your Redux store
+    //   const comments = mComments(paramsObject.id) || [];
+    //   setMerchantComments(comments);
+    // }
 
     dispatch({
       type: "FETCH_ORGANIZATIONS",
@@ -196,9 +205,9 @@ export default function OrgDetails({ isMerchantTaskPage, isTaskPage }) {
 
                     {/* REMOVE AFTER COUPON CARD IS INSERTED */}
                     <div className="MerchantDetailsCard-container">
+                      {/* <CouponReviewCard />
                       <CouponReviewCard />
-                      <CouponReviewCard />
-                      <CouponReviewCard />
+                      <CouponReviewCard /> */}
                     </div>
                   </>
                 )}

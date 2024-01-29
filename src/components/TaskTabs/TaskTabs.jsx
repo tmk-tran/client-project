@@ -11,7 +11,8 @@ import NewTaskModal from "../NewTaskModal/NewTaskModal";
 import TaskList from "../TaskList/TaskList";
 import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
-import { dispatchHook } from "../../hooks/useDispatch";
+import { dispatchHook } from "../../hooks/useDispatch"
+import { mComments } from "../../hooks/reduxStore";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,6 +63,9 @@ export default function BasicTabs() {
     // Add more conditions if needed...
   }, [dispatch, activeTab]);
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  const merchantComments = mComments() || [];
+  console.log(merchantComments);
 
   const styleTaskHeaders = {
     fontWeight: "bold",

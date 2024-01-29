@@ -1,30 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import "./TaskCard.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
-import { successColor, hoverAccept, border } from "../Utils/colors";
+import { successColor, hoverAccept, border, primaryColor, dueDateHighlight } from "../Utils/colors";
 import {
   capitalizeFirstWord,
   capitalizeWords,
   formatDate,
 } from "../Utils/helpers";
-import { dueDateHighlight } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskDropdown from "./TaskDropdown";
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import { dispatchHook } from "../../hooks/useDispatch";
+import { mComments } from "../../hooks/reduxStore";
 
 export default function TaskCardMerchant({ task, taskType, index }) {
   console.log(taskType);
   const [selectedTask, setSelectedTask] = useState(null);
   console.log(selectedTask);
   console.log(task);
+  console.log(task.merchant_id);
+  const mId = task.merchant_id;
+  console.log(mId);
   console.log(index);
 
   const history = historyHook();
   const dispatch = dispatchHook();
+
+  // Comments
+  const merchantComments = mComments(mId) || [];
+  console.log(merchantComments);
 
   const handleTaskChange = (taskStatus) => {
     setSelectedTask(taskStatus); // Update selectedTask with the value received from TaskDropdown
@@ -61,6 +68,12 @@ export default function TaskCardMerchant({ task, taskType, index }) {
     display: "flex",
     flexDirection: "column",
   };
+
+  const commentBorder = {
+    border: `1px solid ${primaryColor.color}`,
+    borderRadius: "5px",
+  };
+
 
   return (
     <Card
@@ -167,9 +180,23 @@ export default function TaskCardMerchant({ task, taskType, index }) {
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~ COMMENTS SECTION ~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              <div style={border}>
-                <CommentDisplay />
+              <div style={commentBorder}>
+                {merchantComments.length > 0 ? (
+                  merchantComments
+                    .filter((comment) => comment.merchant_id === mId) // Filter comments for the current merchant
+                    .map((comment, i) => (
+                      <CommentDisplay
+                        key={comment.id}
+                        comment={comment}
+                        index={i}
+                      />
+                    ))
+                ) : (
+                  
+                  <p>No Comments Available</p>
+                )}
               </div>
+
               {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             </div>

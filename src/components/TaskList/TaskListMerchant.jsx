@@ -1,21 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Typography, MenuItem, Select } from "@mui/material";
 import "./TaskList.css";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskCard from "../TaskCard/TaskCard";
-import { mTasks } from "../../hooks/reduxStore";
+import { mTasks, mComments } from "../../hooks/reduxStore";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
 
 export default function TaskListMerchant() {
+  const dispatch = dispatchHook();
   const [selectedTasks, setSelectedTasks] = useState({
     newTask: "",
     inProgressTask: "",
     completeTask: "",
   });
 
-  // Assuming store.merchantTasks is an array of tasks
+  // // Comments
+  // const merchantComments = mComments() || [];
+  // console.log(merchantComments);
+  // Tasks
   const merchantTasks = mTasks() || [];
   console.log(merchantTasks);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_ALL_MERCHANT_COMMENTS" });
+  }, []);
 
   // Group tasks by task_status (case-insensitive)
   // Check if merchantTasks is an array before using reduce
