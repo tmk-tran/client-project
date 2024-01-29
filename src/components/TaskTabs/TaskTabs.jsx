@@ -47,6 +47,7 @@ export default function BasicTabs() {
   const history = historyHook();
   const [value, setValue] = useState(0);
   const [merchantTab, setMerchantTab] = useState(false);
+  console.log(merchantTab);
   const [type, setType] = useState("organization");
   console.log(type);
 
@@ -70,8 +71,6 @@ export default function BasicTabs() {
       dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
     }
 
-    // Reset URL parameters for the "Organization" tab
-    // history.push("/tasks");
   };
 
   return (
@@ -112,7 +111,7 @@ export default function BasicTabs() {
                 label="Organization"
                 {...a11yProps(0)}
                 sx={tabWidth}
-                // onClick={() => history.push("/tasks")}
+                onClick={() => setMerchantTab(false)}
               />
               <Tab
                 label="Merchant"

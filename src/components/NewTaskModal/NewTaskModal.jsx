@@ -85,7 +85,7 @@ export default function BasicModal({
         (dispatch({ type: "FETCH_ALL_MERCHANTS" }),
         console.log("Merchant Tab is true"))
       : /* Logic for merchantTab being false */
-        (dispatch({ type: "FETCH_ALL_ORGANIZATIONS" }),
+        (dispatch({ type: "FETCH_ORGANIZATIONS" }),
         console.log("Merchant Tab is false"));
 
     // Cleanup function or dependencies for useEffect

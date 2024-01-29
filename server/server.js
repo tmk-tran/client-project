@@ -21,6 +21,7 @@ const orgNotesRouter = require("./routes/orgNotes.router");
 const allUsersRouter = require("./routes/allUsers.router");
 const couponRouter = require("./routes/couponPDF.router");
 const merchantDetailsRouter = require("./routes/merchantDetails.router");
+const organizationTaskRouter = require("./routes/organizationTask.router");
 const merchantNotesRouter = require("./routes/merchantNotes.router");
 const merchantTaskRouter = require("./routes/merchantTask.router");
 const allTasksRouter = require("./routes/allTasks.router");
@@ -53,6 +54,7 @@ app.use("/api/coupon", couponRouter);
 app.use("/api/merchantDetails", merchantDetailsRouter);
 app.use("/api/merchantNotes", merchantNotesRouter);
 app.use("/api/merchantTask", merchantTaskRouter);
+app.use("/api/organizationTask", organizationTaskRouter);
 app.use("/api/tasks", allTasksRouter);
 
 // Serve static files

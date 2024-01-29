@@ -111,14 +111,11 @@ function App() {
             </ProtectedRoute>
 
             {/* ProtectedRoute for /tasks with dynamic tab parameter */}
-        <ProtectedRoute path="/tasks/:tab" component={TaskTabs} />
-
-{/* Redirect to /tasks/organization by default */}
-{/* <Redirect from="/tasks/0" to="/tasks" /> */}
+            <ProtectedRoute path="/tasks/:tab" component={TaskTabs} />
 
             {/* UPDATE THIS WITH CORRECT ID IN OrgTaskDetails */}
-            <ProtectedRoute exact path="/orgtaskdetails/:id">
-              <OrgDetails isMerchantTaskPage={false} />
+            <ProtectedRoute exact path="/organizationtaskdetails/:id">
+              <OrgDetails isMerchantTaskPage={false} isTaskPage={true} />
             </ProtectedRoute>
 
             {/* UPDATE THIS WITH CORRECT ID IN MerchantTaskDetails */}

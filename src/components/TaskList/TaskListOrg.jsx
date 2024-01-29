@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Typography, MenuItem, Select, Box } from "@mui/material";
 import "./TaskList.css";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import TaskCardOrg from "../TaskCard/TaskCardOrg";
+import TaskCard from "../TaskCard/TaskCard";
 import { oTasks } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 
@@ -68,7 +68,7 @@ export default function TaskListOrg() {
           <MenuItem key={task.id} value={i + 1} disableRipple>
             {/* Display the task number along with task information */}
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCardOrg task={task} />
+            <TaskCard task={task} taskType="organization" />
           </MenuItem>
         ))}
       </Select>
@@ -90,7 +90,7 @@ export default function TaskListOrg() {
         {sortedInProgressTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCardOrg task={task} />
+            <TaskCard task={task} />
           </MenuItem>
         ))}
       </Select>
@@ -112,7 +112,7 @@ export default function TaskListOrg() {
         {sortedCompleteTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCardOrg task={task} />
+            <TaskCard task={task} />
           </MenuItem>
         ))}
       </Select>

@@ -13,7 +13,6 @@ function* merchantTask(action) {
   }
 }
 
-// ADD FETCH ALL MERCHANT TASKS TYPE
 function* fetchAllMerchantTasks() {
   try {
     const items = yield axios.get("/api/tasks/:tab");

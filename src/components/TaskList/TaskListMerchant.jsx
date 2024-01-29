@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Typography, MenuItem, Select } from "@mui/material";
 import "./TaskList.css";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import TaskCardMerchant from "../TaskCard/TaskCardMerchant";
+import TaskCard from "../TaskCard/TaskCard";
 import { mTasks } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 
@@ -59,7 +59,7 @@ export default function TaskListMerchant() {
           <MenuItem key={task.id} value={i + 1} disableRipple>
             {/* Display the task number along with task information */}
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCardMerchant task={task} />
+            <TaskCard task={task} taskType="merchant" index={i} />
           </MenuItem>
         ))}
       </Select>
@@ -81,7 +81,7 @@ export default function TaskListMerchant() {
         {sortedInProgressTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCardMerchant task={task} />
+            <TaskCard task={task} />
           </MenuItem>
         ))}
       </Select>
@@ -103,7 +103,7 @@ export default function TaskListMerchant() {
         {sortedCompleteTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCardMerchant task={task} />
+            <TaskCard task={task} />
           </MenuItem>
         ))}
       </Select>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Typography, MenuItem, Select } from "@mui/material";
 import "./TaskList.css";
-import TaskCardMerchant from "../TaskCard/TaskCardMerchant";
+import TaskCard from "../TaskCard/TaskCard";
 import { mTasks, oTasks } from "../../hooks/reduxStore" // Assuming you have organization tasks in your redux store
 import { dispatchHook } from "../../hooks/useDispatch";
 
@@ -59,7 +59,7 @@ export default function TaskList({ taskType }) {
         {sortedNewTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCardMerchant task={task} />
+            <TaskCard task={task}  />
           </MenuItem>
         ))}
       </Select>
@@ -81,7 +81,7 @@ export default function TaskList({ taskType }) {
         {sortedInProgressTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCardMerchant task={task} />
+            <TaskCard task={task} />
           </MenuItem>
         ))}
       </Select>
@@ -103,7 +103,7 @@ export default function TaskList({ taskType }) {
         {sortedCompleteTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCardMerchant task={task} />
+            <TaskCard task={task} />
           </MenuItem>
         ))}
       </Select>

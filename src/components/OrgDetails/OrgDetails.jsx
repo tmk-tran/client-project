@@ -32,16 +32,17 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export default function OrgDetails({ isMerchantTaskPage }) {
+export default function OrgDetails({ isMerchantTaskPage, isTaskPage }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
-  const location = useLocation(); // Use location to get the current route
+  // const location = useLocation(); // Use location to get the current route
 
   // Check if the user is on the task page
-  const isTaskPage = location.pathname.includes("/orgtaskdetails");
+  // const isTaskPage = location.pathname.includes("/orgtaskdetails");
   // const isMerchantTaskPage = location.pathname.includes("/merchantTaskDetails");
   console.log(isMerchantTaskPage);
+  console.log(isTaskPage);
 
   // ~~~~~~~~~~ Hooks ~~~~~~~~~~
   const dispatch = dispatchHook();

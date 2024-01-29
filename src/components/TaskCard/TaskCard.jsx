@@ -16,10 +16,12 @@ import TaskDropdown from "./TaskDropdown";
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import { dispatchHook } from "../../hooks/useDispatch";
 
-export default function TaskCardMerchant({ task }) {
+export default function TaskCardMerchant({ task, taskType, index }) {
+  console.log(taskType);
   const [selectedTask, setSelectedTask] = useState(null);
   console.log(selectedTask);
   console.log(task);
+  console.log(index);
 
   const history = historyHook();
   const dispatch = dispatchHook();
@@ -33,9 +35,24 @@ export default function TaskCardMerchant({ task }) {
     e.stopPropagation();
   };
 
+  // const handleTaskUpdate = () => {
+  //   dispatch({
+  //     type: "UPDATE_MERCHANT_TASK",
+  //     payload: {
+  //       id: task.id,
+  //       task_status: selectedTask,
+  //     },
+  //   });
+  // };
+
   const handleTaskUpdate = () => {
+    const updateActionType =
+      taskType === "organization"
+        ? "UPDATE_ORGANIZATION_TASK"
+        : "UPDATE_MERCHANT_TASK";
+
     dispatch({
-      type: "UPDATE_MERCHANT_TASK",
+      type: updateActionType,
       payload: {
         id: task.id,
         task_status: selectedTask,
@@ -53,7 +70,14 @@ export default function TaskCardMerchant({ task }) {
   };
 
   return (
-    <Card style={fullWidth} onClick={handleCardClick}>
+    <Card
+      elevation={5}
+      style={{
+        backgroundColor: index % 2 === 0 ? "white" : "#e9e9e9bf",
+        ...fullWidth,
+      }}
+      onClick={handleCardClick}
+    >
       <CardContent>
         <div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -63,10 +87,22 @@ export default function TaskCardMerchant({ task }) {
                 ...fullWidth,
               }}
             >
-              {/* MERCHANT NAME */}
+              {/* MERCHANT NAME / ORGANIZATION NAME */}
               <div className="name-section">
-                <Typography sx={{ fontWeight: "bold", fontSize: "large", textAlign: "center", backgroundColor: "lightgray" }}>
-                  Merchant: {capitalizeWords(task.merchant_name)}
+                <Typography
+                  sx={{
+                    fontWeight: "bold",
+                    fontSize: "larger",
+                    textAlign: "center",
+                    // backgroundColor: "lightgray",
+                  }}
+                >
+                  {taskType === "organization" ? "Organization" : "Merchant"}:{" "}
+                  {capitalizeWords(
+                    taskType === "organization"
+                      ? task.organization_name
+                      : task.merchant_name
+                  )}
                 </Typography>
               </div>
 
@@ -79,18 +115,29 @@ export default function TaskCardMerchant({ task }) {
                 >
                   {/* TASK */}
                   <div>
-                    <Typography>Task: {capitalizeWords(task.task)}</Typography>
+                    <Typography sx={{ fontSize: "larger" }}>
+                      <strong>Task: </strong> {capitalizeWords(task.task)}
+                    </Typography>
                   </div>{" "}
                   {/* DATE */}
-                  <div >
+                  <div style={dueDateHighlight}>
                     <Typography sx={{ fontWeight: "bold" }}>
                       Due: {formatDate(task.due_date)}
                     </Typography>
                   </div>
                 </div>
                 {/* DESCRIPTION */}
-                <div className="task-description-section">
-                  Details: {capitalizeFirstWord(task.description)}
+                <div>
+                  {task.description ? (
+                    <Typography sx={{ mb: 1, mt: 1 }}>
+                      <strong>Details: </strong>{" "}
+                      {capitalizeFirstWord(task.description)}
+                    </Typography>
+                  ) : (
+                    <Typography sx={{ mb: 1, mt: 1 }}>
+                      <strong>No details available</strong>
+                    </Typography>
+                  )}
                 </div>
               </div>
               {/* COMMENT SECTION */}
@@ -119,8 +166,21 @@ export default function TaskCardMerchant({ task }) {
               ) : (
                 <Button
                   variant="contained"
+                  // onClick={() =>
+                  //   history.push(`/merchantTaskDetails/${task.merchant_id}`)
+                  // }
                   onClick={() =>
-                    history.push(`/merchantTaskDetails/${task.merchant_id}`)
+                    history.push(
+                      `/${
+                        taskType === "organization"
+                          ? "organizationTaskDetails"
+                          : "merchantTaskDetails"
+                      }/${
+                        taskType === "organization"
+                          ? task.organization_id
+                          : task.merchant_id
+                      }`
+                    )
                   }
                   fullWidth
                 >
@@ -128,7 +188,10 @@ export default function TaskCardMerchant({ task }) {
                 </Button>
               )}
 
-              <TaskDropdown onChange={handleTaskChange} taskStatus={task.task_status} />
+              <TaskDropdown
+                onChange={handleTaskChange}
+                taskStatus={task.task_status}
+              />
             </div>
           </div>
         </div>
