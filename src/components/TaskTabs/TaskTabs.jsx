@@ -9,6 +9,8 @@ import TaskListOrg from "../TaskList/TaskListOrg";
 import TaskListMerchant from "../TaskList/TaskListMerchant";
 import NewTaskModal from "../NewTaskModal/NewTaskModal";
 import { border } from "../Utils/colors";
+import { historyHook } from "../../hooks/useHistory";
+import { dispatchHook } from "../../hooks/useDispatch";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -40,6 +42,8 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs() {
+  const dispatch = dispatchHook();
+  const history = historyHook();
   const [value, setValue] = useState(0);
   const [merchantTab, setMerchantTab] = useState(false);
 
@@ -52,13 +56,28 @@ export default function BasicTabs() {
     width: "25vw",
   };
 
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  //   // Reset the merchantTab state when "Organization" tab is selected
+  //   if (newValue === 0) {
+  //     setMerchantTab(false);
+  //   }
+  // };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    // Reset the merchantTab state when "Organization" tab is selected
+  
     if (newValue === 0) {
       setMerchantTab(false);
+      // Dispatch action for fetching organization tasks
+      dispatch({ type: "FETCH_ALL_ORGANIZATION_TASKS" });
+    } else {
+      setMerchantTab(true);
+      // Dispatch action for fetching merchant tasks
+      dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
     }
   };
+  
 
   return (
     <Card className="details-card" elevation={3}>
@@ -98,6 +117,7 @@ export default function BasicTabs() {
                 label="Merchant"
                 {...a11yProps(1)}
                 onClick={() => setMerchantTab(true)}
+                // onClick={() => history.push("/tasks/merchants")}
                 sx={tabWidth}
               />
               {/* <Tab label="Coupons" {...a11yProps(2)} /> */}
