@@ -83,7 +83,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~ MERCHANT / ORG NAME ~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              <div className="name-section">
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Typography
                   sx={{
                     // fontWeight: "bold",
@@ -101,8 +101,25 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                       : task.merchant_name
                   )}
                 </Typography>
+
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~~~~~~~ DATE ~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                <div style={dueDateHighlight}>
+                  <Typography
+                    sx={{
+                      fontWeight: "bold",
+                      width: "10vw",
+                      textAlign: "center",
+                      mt: 0.5,
+                    }}
+                  >
+                    Due: {formatDate(task.due_date)}
+                  </Typography>
+                </div>
+                {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               </div>
-              {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
               {/* May use border here, undecided */}
               <div>
                 <div
@@ -119,22 +136,23 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                       <strong>Task: </strong> {capitalizeWords(task.task)}
                     </Typography>
                   </div>{" "}
-                  {/* DATE */}
-                  <div style={dueDateHighlight}>
-                    <Typography sx={{ fontWeight: "bold" }}>
-                      Due: {formatDate(task.due_date)}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~ ASSIGNED ~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  <div>
+                    <Typography
+                      variant="body2"
+                      sx={{ width: "10vw", textAlign: "center" }}
+                    >
+                      <strong>Assigned to: </strong>
+                      {task.assign}
                     </Typography>
                   </div>
-                  {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
                 </div>
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~ DESCRIPTION ~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                <div
-                  style={{
-                    border: "1px solid blue",
-                  }}
-                >
+                <div>
                   {task.description ? (
                     <Typography sx={{ mb: 1, mt: 1 }}>
                       <strong>Details: </strong>{" "}
@@ -147,6 +165,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                   )}
                 </div>
                 {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               </div>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~ COMMENTS SECTION ~~~~~~~~~~~~~ */}
@@ -155,6 +174,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                 <CommentDisplay />
               </div>
               {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             </div>
 
             <div
@@ -162,17 +182,23 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                 ...flexColumn,
                 alignItems: "center",
                 marginLeft: "20px",
-                ...border
+                // ...border,
               }}
             >
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~ UPDATE TASK ~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+
               {selectedTask ? (
                 <Button
                   variant="contained"
                   onClick={handleTaskUpdate}
-                  sx={{ backgroundColor: successColor.color, ...hoverAccept }}
+                  sx={{
+                    backgroundColor: successColor.color,
+                    ...hoverAccept,
+                    height: "30%",
+                    mb: 5,
+                  }}
                   fullWidth
                 >
                   Update
@@ -194,19 +220,19 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                     )
                   }
                   fullWidth
+                  // sx={{ height: "100%" }}
+                  sx={{ height: "30%", mb: 5 }}
                 >
                   Details
                 </Button>
               )}
               {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
               <TaskDropdown
                 onChange={handleTaskChange}
                 taskStatus={task.task_status}
               />
-              <div style={{...fullWidth, ...border}}>
-                <Typography sx={{ textAlign: "center", fontWeight: "bold" }}>Assigned to: <Typography sx={{ textAlign: "center", fontSize: "larger" }}>{task.assign}</Typography></Typography>
-              </div>
             </div>
           </div>
         </div>

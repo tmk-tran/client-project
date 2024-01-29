@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Select, MenuItem } from "@mui/material";
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
 const taskOptions = ["New", "In Progress", "Complete"];
 
@@ -21,15 +21,23 @@ export default function TaskDropdown({ onChange, taskStatus }) {
   };
 
   return (
-    <Select value={status} onChange={handleMenuChange} displayEmpty sx={{ width: "10vw" }}>
-      <MenuItem value="" disabled>
-        Task Status...
-      </MenuItem>
-      {taskOptions.map((option) => (
-        <MenuItem key={option} value={option}>
-          {option}
-        </MenuItem>
-      ))}
-    </Select>
+    <FormControl>
+      <InputLabel sx={{ mt: 1 }}>Status</InputLabel>
+        <Select
+          value={status}
+          onChange={handleMenuChange}
+          displayEmpty
+          sx={{ width: "10vw", mt:3 }}
+        >
+          <MenuItem value="" disabled>
+            Task Status...
+          </MenuItem>
+          {taskOptions.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </Select>
+    </FormControl>
   );
 }

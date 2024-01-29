@@ -33,6 +33,7 @@ export const hoverAccept = {
 export const dueDateHighlight = {
   backgroundColor: "rgba(111, 160, 216, 0.3)",
   padding: "2px",
+  borderRadius: "5px",
 };
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
