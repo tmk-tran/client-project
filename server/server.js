@@ -24,7 +24,7 @@ const merchantDetailsRouter = require("./routes/merchantDetails.router");
 const organizationTaskRouter = require("./routes/organizationTask.router");
 const merchantNotesRouter = require("./routes/merchantNotes.router");
 const merchantTaskRouter = require("./routes/merchantTask.router");
-const allTasksRouter = require("./routes/allTasks.router");
+const allTasksMRouter = require("./routes/allTasksM.router");
 const allTasksORouter = require("./routes/allTasksO.router");
 const merchantCommentsRouter = require("./routes/merchantComments.router");
 
@@ -57,7 +57,7 @@ app.use("/api/merchantDetails", merchantDetailsRouter);
 app.use("/api/merchantNotes", merchantNotesRouter);
 app.use("/api/merchantTask", merchantTaskRouter);
 app.use("/api/organizationTask", organizationTaskRouter);
-app.use("/api/tasks/merchants", allTasksRouter);
+app.use("/api/tasks/merchants", allTasksMRouter);
 app.use("/api/tasks/organizations", allTasksORouter);
 app.use("/api/merchantComments", merchantCommentsRouter);
 

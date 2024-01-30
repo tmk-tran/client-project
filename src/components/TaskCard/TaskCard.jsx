@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import "./TaskCard.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
-import { successColor, hoverAccept, border, primaryColor, dueDateHighlight } from "../Utils/colors";
+import {
+  successColor,
+  hoverAccept,
+  border,
+  primaryColor,
+  dueDateHighlight,
+} from "../Utils/colors";
 import {
   capitalizeFirstWord,
   capitalizeWords,
@@ -16,16 +22,20 @@ import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { mComments } from "../../hooks/reduxStore";
 
-export default function TaskCardMerchant({ task, taskType, index }) {
+export default function TaskCardMerchant({ id, task, taskType, index }) {
+  console.log(id);
   console.log(taskType);
   const [selectedTask, setSelectedTask] = useState(null);
-  console.log(selectedTask);
   console.log(task);
   console.log(task.merchant_id);
   const mId = task.merchant_id;
   console.log(mId);
   console.log(index);
-
+  console.log(task.task_status);
+  const complete = task.task_status;
+  console.log(complete);
+  const [completedTask, setCompletedTask] = useState(complete === "Complete");
+  console.log(completedTask);
   const history = historyHook();
   const dispatch = dispatchHook();
 
@@ -34,6 +44,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
   console.log(merchantComments);
 
   const handleTaskChange = (taskStatus) => {
+    console.log(taskStatus);
     setSelectedTask(taskStatus); // Update selectedTask with the value received from TaskDropdown
   };
 
@@ -60,6 +71,16 @@ export default function TaskCardMerchant({ task, taskType, index }) {
     });
   };
 
+  const archiveTask = () => {
+    console.log(id);
+    dispatch({
+      type: "ARCHIVE_MERCHANT_TASK",
+      payload: {
+        id: id,
+      },
+    });
+  };
+
   const fullWidth = {
     width: "100%",
   };
@@ -73,7 +94,6 @@ export default function TaskCardMerchant({ task, taskType, index }) {
     border: `1px solid ${primaryColor.color}`,
     borderRadius: "5px",
   };
-
 
   return (
     <Card
@@ -131,7 +151,6 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                   </Typography>
                 </div>
                 {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
-                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               </div>
               {/* May use border here, undecided */}
               <div>
@@ -175,7 +194,6 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                   )}
                 </div>
                 {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
-                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               </div>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~ COMMENTS SECTION ~~~~~~~~~~~~~ */}
@@ -192,13 +210,10 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                       />
                     ))
                 ) : (
-                  
                   <p>No Comments Available</p>
                 )}
               </div>
-
               {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             </div>
 
             <div
@@ -213,7 +228,6 @@ export default function TaskCardMerchant({ task, taskType, index }) {
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~ UPDATE TASK ~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
               {selectedTask ? (
                 <Button
                   variant="contained"
@@ -223,7 +237,7 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                     ...hoverAccept,
                     height: "30%",
                     maxHeight: "50px",
-                    mb: 5,
+                    mb: 2,
                   }}
                   fullWidth
                 >
@@ -247,14 +261,18 @@ export default function TaskCardMerchant({ task, taskType, index }) {
                   }
                   fullWidth
                   // sx={{ height: "100%" }}
-                  sx={{ height: "30%", maxHeight: "50px", mb: 5 }}
+                  sx={{ height: "30%", maxHeight: "50px", mb: 2 }}
                 >
                   Details
                 </Button>
               )}
+              {completedTask ? (
+                <Button onClick={archiveTask} fullWidth>
+                  Archive
+                </Button>
+              ) : null}
               {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              <div style={{ height: "100%"}}></div>
+              <div style={{ height: "100%" }}></div>
               <TaskDropdown
                 onChange={handleTaskChange}
                 taskStatus={task.task_status}

@@ -63,10 +63,31 @@ function* editMerchantTask(action) {
   }
 }
 
+function* deleteMerchantTask(action) {
+  try {
+    const items = yield axios.delete(
+      `/api/tasks/merchants/${action.payload.id}`
+    );
+    console.log(
+      "FETCH request from merchantTask.saga, ITEMS FOR delete = ",
+      items
+    );
+    console.log("merchantTask action.payload = ", action.payload);
+
+    yield put({
+      type: "FETCH_ALL_MERCHANT_TASKS",
+      payload: action.payload.id,
+    });
+  } catch (err) {
+    console.log("error in deleteMerchantTask Saga", err);
+  }
+}
+
 
 export default function* merchantTaskSaga() {
   yield takeEvery("FETCH_MERCHANT_TASKS", merchantTask);
   yield takeEvery("FETCH_ALL_MERCHANT_TASKS", fetchAllMerchantTasks);
   yield takeEvery("ADD_MERCHANT_TASK", addMerchantTask);
   yield takeEvery("UPDATE_MERCHANT_TASK", editMerchantTask);
+  yield takeEvery("ARCHIVE_MERCHANT_TASK", deleteMerchantTask);
 }

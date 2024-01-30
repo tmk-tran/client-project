@@ -19,19 +19,21 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// router.get("/", rejectUnauthenticated, (req, res) => {
-//   const queryText = `SELECT * FROM organization_tasks ORDER BY due_date ASC;`;
-//   pool
-//     .query(queryText)
-//     .then((result) => {
-//       console.log("FROM allTasksO.router: ", result.rows);
-//       res.send(result.rows);
-//     })
-//     .catch((err) => {
-//       console.log("error in the GET / request for authorized users", err);
-//       res.sendStatus(500);
-//     });
-// });
+router.get("/:id", rejectUnauthenticated, (req, res) => {
+  const merchantId = req.params.id;
+
+  const queryText = `SELECT * FROM merchant_tasks WHERE merchant_id = $1;`;
+  pool
+    .query(queryText, [merchantId])
+    .then((result) => {
+      console.log("FROM tasks.router: ", result.rows);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("error in the GET / request for authorized users", err);
+      res.sendStatus(500);
+    });
+});
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const queryText = `INSERT INTO "merchant_tasks" (category, task, merchant_id, merchant_name, assign, due_date, description, task_status) 
@@ -77,6 +79,25 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     })
     .catch((err) => {
       console.log("error with allTaskM PUT route", err);
+      res.sendStatus(500);
+    });
+});
+
+router.delete("/:id", (req, res) => {
+  const taskId = req.params.id;
+  console.log("taskId = ", taskId);
+  pool
+    .query(
+      `UPDATE "merchant_tasks"
+      SET is_deleted = true
+      WHERE id = $1;`,
+      [taskId]
+    )
+    .then((response) => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Error with allTaskM DELETE route", error);
       res.sendStatus(500);
     });
 });

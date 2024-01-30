@@ -42,6 +42,7 @@ export default function TaskListMerchant() {
   const sortedNewTasks = tasksByStatus["new"] || [];
   const sortedInProgressTasks = tasksByStatus["in progress"] || [];
   const sortedCompleteTasks = tasksByStatus["complete"] || [];
+  console.log(sortedCompleteTasks);
 
   return (
     <div className="list-container">
@@ -105,12 +106,17 @@ export default function TaskListMerchant() {
           setSelectedTasks({ ...selectedTasks, completeTask: e.target.value })
         }
         displayEmpty
-        renderValue={() => (
-          <Typography>
-            {"Complete"}&nbsp;
-            {`(${sortedCompleteTasks.length})`}
-          </Typography>
-        )}
+        renderValue={() => {
+          const nonDeletedTasks = sortedCompleteTasks.filter(
+            (task) => !task.is_deleted
+          );
+          return (
+            <Typography>
+              {"Complete"}&nbsp;
+              {`(${nonDeletedTasks.length})`}
+            </Typography>
+          );
+        }}
       >
         {sortedCompleteTasks
           .filter((task) => !task.is_deleted)
@@ -118,7 +124,7 @@ export default function TaskListMerchant() {
             !task.is_deleted ? (
               <MenuItem key={task.id} value={i + 1} disableRipple>
                 <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-                <TaskCard task={task} taskType="merchant" index={i} />
+                <TaskCard id={task.id} task={task} taskType="merchant" index={i} />
               </MenuItem>
             ) : null
           )}
