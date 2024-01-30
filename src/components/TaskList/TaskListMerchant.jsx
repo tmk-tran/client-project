@@ -112,12 +112,16 @@ export default function TaskListMerchant() {
           </Typography>
         )}
       >
-        {sortedCompleteTasks.map((task, i) => (
-          <MenuItem key={task.id} value={i + 1} disableRipple>
-            <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCard task={task} taskType="merchant" index={i} />
-          </MenuItem>
-        ))}
+        {sortedCompleteTasks
+          .filter((task) => !task.is_deleted)
+          .map((task, i) =>
+            !task.is_deleted ? (
+              <MenuItem key={task.id} value={i + 1} disableRipple>
+                <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
+                <TaskCard task={task} taskType="merchant" index={i} />
+              </MenuItem>
+            ) : null
+          )}
       </Select>
       {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
       {/* Additional UI to display selected task details or move tasks between categories */}

@@ -13,6 +13,7 @@ import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
 import { dispatchHook } from "../../hooks/useDispatch"
 import { mComments } from "../../hooks/reduxStore";
+import SearchableSelect from "../NewTaskModal/SearchableSelect";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

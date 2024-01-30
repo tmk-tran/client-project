@@ -4,6 +4,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { allMerchants, allOrganizations } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import DatePicker from "../DatePicker/DatePicker";
+import SearchableSelect from "../NewTaskModal/SearchableSelect";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Box,
@@ -66,6 +67,7 @@ export default function BasicModal({
   const [firstMenuChoice, setFirstMenuChoice] = useState("");
   const [secondMenuChoice, setSecondMenuChoice] = useState("");
   const [thirdMenuChoice, setThirdMenuChoice] = useState("");
+  console.log(thirdMenuChoice);
   const [organizationId, setOrganizationId] = useState(null);
   const [merchantId, setMerchantId] = useState(null);
   const [fourthMenuChoice, setFourthMenuChoice] = useState("");
@@ -107,7 +109,9 @@ export default function BasicModal({
     setThirdMenuChoice("");
 
     // Check if the selected option requires showing the details input
-    setShowDetailsInput(choice === "New Create Proof");
+    setShowDetailsInput(
+      choice === "New Create Proof" || choice === "Add-on Request"
+    );
   };
 
   // const handleAccountChange = (event) => {
@@ -120,8 +124,10 @@ export default function BasicModal({
   //   setMerchantId(selectedId);
   // };
 
-  const handleAccountChange = (event) => {
-    const selectedName = event.target.value;
+  const handleAccountChange = (event, value) => {
+    // const selectedName = event.target.value;
+    const selectedName = value;
+
 
     if (merchantTab) {
       // Logic for merchantTab being true
@@ -327,12 +333,12 @@ export default function BasicModal({
             {/* ~~~~~~~~~~~~ THIRD DROPDOWN ~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <InputLabel>Account Name:</InputLabel>
-            <Select
+            {/* <Select
               value={thirdMenuChoice}
               onChange={handleAccountChange}
               sx={{ margin: "5px 0" }}
             >
-              {/* Populate the dropdown with the list of merchants or organizations based on merchantTab */}
+              Populate the dropdown with the list of merchants or organizations based on merchantTab
               {merchantTab
                 ? merchants.map((merchant) => (
                     <MenuItem key={merchant.id} value={merchant.merchant_name}>
@@ -347,7 +353,14 @@ export default function BasicModal({
                       {organization.organization_name}
                     </MenuItem>
                   ))}
-            </Select>
+            </Select> */}
+            <SearchableSelect
+              thirdMenuChoice={thirdMenuChoice}
+              handleAccountChange={handleAccountChange}
+              merchantTab={merchantTab}
+              merchants={merchants}
+              organizations={organizations}
+            />
             {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
             <InputLabel>Assign To:</InputLabel>
