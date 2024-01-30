@@ -79,16 +79,12 @@ export default function BasicTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     console.log(newValue);
-    // setType("merchant");
-
-    // // Dispatch different actions based on the selected tab
-    // if (newValue === 0) {
-    //   dispatch({ type: "FETCH_ALL_ORGANIZATION_TASKS", payload: { type: "organization" } });
-    //   // history.push("/tasks/organizations");
-    // } else if (newValue === 1) {
-    //   dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
-    // }
   };
+
+  const handleMerchantTab = () => {
+    setActiveTab("merchant");
+    setMerchantTab(true);
+  }
 
   return (
     <Card className="details-card" elevation={3}>
@@ -142,7 +138,7 @@ export default function BasicTabs() {
                 label="Merchant"
                 {...a11yProps(1)}
                 // onClick={() => setMerchantTab(true)}
-                onClick={() => setActiveTab("merchant")}
+                onClick={handleMerchantTab}
                 sx={tabWidth}
               />
               {/* <Tab label="Coupons" {...a11yProps(2)} /> */}
