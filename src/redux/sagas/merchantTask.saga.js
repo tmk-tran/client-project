@@ -83,7 +83,6 @@ function* deleteMerchantTask(action) {
   }
 }
 
-
 export default function* merchantTaskSaga() {
   yield takeEvery("FETCH_MERCHANT_TASKS", merchantTask);
   yield takeEvery("FETCH_ALL_MERCHANT_TASKS", fetchAllMerchantTasks);

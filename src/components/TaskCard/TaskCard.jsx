@@ -22,14 +22,17 @@ import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { mComments } from "../../hooks/reduxStore";
 
-export default function TaskCardMerchant({ id, task, taskType, index }) {
+export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
   console.log(id);
   console.log(taskType);
   const [selectedTask, setSelectedTask] = useState(null);
   console.log(task);
   console.log(task.merchant_id);
+  console.log(task.organization_id);
+  const oId = task.organization_id;
   const mId = task.merchant_id;
   console.log(mId);
+  console.log(oId);
   console.log(index);
   console.log(task.task_status);
   const complete = task.task_status;
@@ -69,14 +72,32 @@ export default function TaskCardMerchant({ id, task, taskType, index }) {
         task_status: selectedTask,
       },
     });
+    // Notify the parent component about the task update
+    onTaskUpdate();
+    // Show the success alert
+    // setIsAlertOpen(true);
   };
 
   const archiveTask = () => {
     console.log(id);
+    // dispatch({
+    //   type: "ARCHIVE_MERCHANT_TASK",
+    //   payload: {
+    //     id: id,
+    //   },
+    // });
+
+    const archiveActionType =
+      taskType === "organization"
+        ? "ARCHIVE_ORGANIZATION_TASK"
+        : "ARCHIVE_MERCHANT_TASK";
+
+    console.log(archiveActionType);
+    console.log(task.id);
     dispatch({
-      type: "ARCHIVE_MERCHANT_TASK",
+      type: archiveActionType,
       payload: {
-        id: id,
+        id: task.id,
       },
     });
   };
@@ -105,6 +126,7 @@ export default function TaskCardMerchant({ id, task, taskType, index }) {
       onClick={handleCardClick}
     >
       <CardContent>
+
         <div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div

@@ -80,6 +80,7 @@ export default function BasicTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     console.log(newValue);
+    setMerchantTab(false);
   };
 
   const handleMerchantTab = () => {

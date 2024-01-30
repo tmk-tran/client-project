@@ -4,6 +4,8 @@ import { Typography, MenuItem, Select, Box } from "@mui/material";
 import "./TaskList.css";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskCard from "../TaskCard/TaskCard";
+import SuccessAlert from "../SuccessAlert/SuccessAlert";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { oTasks } from "../../hooks/reduxStore";
 
 // ERRORS ARE  HERE FOR <DIV> CANNOT APPEAR AS DESCENDANT OF <P>
@@ -14,6 +16,18 @@ export default function TaskListOrg() {
     inProgressTask: "",
     completeTask: "",
   });
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+
+  // Handler to close the alert
+  const handleAlertClose = () => {
+    setIsAlertOpen(false);
+  };
+
+  // Handler to be called when the task is updated
+  const handleTaskUpdate = () => {
+    // Additional logic if needed
+    setIsAlertOpen(true);
+  };
 
   const orgTasks = oTasks() || [];
   console.log(orgTasks);
@@ -57,7 +71,12 @@ export default function TaskListOrg() {
           <MenuItem key={task.id} value={i + 1} disableRipple>
             {/* Display the task number along with task information */}
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCard task={task} taskType="organization" index={i} />
+            <TaskCard
+              task={task}
+              taskType="organization"
+              index={i}
+              onTaskUpdate={handleTaskUpdate}
+            />
           </MenuItem>
         ))}
       </Select>
@@ -82,7 +101,12 @@ export default function TaskListOrg() {
         {sortedInProgressTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCard task={task} taskType="organization" index={i} />
+            <TaskCard
+              task={task}
+              taskType="organization"
+              index={i}
+              onTaskUpdate={handleTaskUpdate}
+            />
           </MenuItem>
         ))}
       </Select>
@@ -91,28 +115,43 @@ export default function TaskListOrg() {
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~ Dropdown for Complete Tasks ~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
       <Select
         value={selectedTasks.completeTask}
         onChange={(e) =>
           setSelectedTasks({ ...selectedTasks, completeTask: e.target.value })
         }
         displayEmpty
-        renderValue={() => (
-          <Typography>
-            {"Complete"}&nbsp;
-            {`(${sortedCompleteTasks.length})`}
-          </Typography>
-        )}
+        renderValue={() => {
+          const nonDeletedTasks = sortedCompleteTasks.filter(
+            (task) => !task.is_deleted
+          );
+          return (
+            <Typography>
+              {"Complete"}&nbsp;
+              {`(${nonDeletedTasks.length})`}
+            </Typography>
+          );
+        }}
       >
-        {sortedCompleteTasks.map((task, i) => (
-          <MenuItem key={task.id} value={i + 1} disableRipple>
-            <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCard task={task} taskType="organization" index={i} />
-          </MenuItem>
-        ))}
+        {sortedCompleteTasks
+          .filter((task) => !task.is_deleted)
+          .map((task, i) =>
+            !task.is_deleted ? (
+              <MenuItem key={task.id} value={i + 1} disableRipple>
+                <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
+                <TaskCard
+                  id={task.id}
+                  task={task}
+                  taskType="organization"
+                  index={i}
+                  onTaskUpdate={handleTaskUpdate}
+                />
+              </MenuItem>
+            ) : null
+          )}
       </Select>
       {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
       {/* Additional UI to display selected task details or move tasks between categories */}
     </Box>
   );

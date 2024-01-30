@@ -67,4 +67,23 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+  const taskId = req.params.id;
+  console.log("taskId = ", taskId);
+  pool
+    .query(
+      `UPDATE "organization_tasks"
+      SET is_deleted = true
+      WHERE id = $1;`,
+      [taskId]
+    )
+    .then((response) => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Error with allTaskO DELETE route", error);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

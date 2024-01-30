@@ -4,8 +4,9 @@ import { Typography, MenuItem, Select } from "@mui/material";
 import "./TaskList.css";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskCard from "../TaskCard/TaskCard";
-import { mTasks, mComments } from "../../hooks/reduxStore";
+import SuccessAlert from "../SuccessAlert/SuccessAlert";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { mTasks } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 
 export default function TaskListMerchant() {
@@ -15,10 +16,19 @@ export default function TaskListMerchant() {
     inProgressTask: "",
     completeTask: "",
   });
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
-  // // Comments
-  // const merchantComments = mComments() || [];
-  // console.log(merchantComments);
+  // Handler to close the alert
+  const handleAlertClose = () => {
+    setIsAlertOpen(false);
+  };
+
+  // Handler to be called when the task is updated
+  const handleTaskUpdate = () => {
+    // Additional logic if needed
+    setIsAlertOpen(true);
+  };
+
   // Tasks
   const merchantTasks = mTasks() || [];
   console.log(merchantTasks);
@@ -49,6 +59,7 @@ export default function TaskListMerchant() {
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~ Dropdown for New Tasks ~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
       <Select
         value={selectedTasks.newTask}
         onChange={(e) =>
@@ -66,7 +77,12 @@ export default function TaskListMerchant() {
           <MenuItem key={task.id} value={i + 1} disableRipple>
             {/* Display the task number along with task information */}
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCard task={task} taskType="merchant" index={i} />
+            <TaskCard
+              task={task}
+              taskType="merchant"
+              index={i}
+              onTaskUpdate={handleTaskUpdate}
+            />
           </MenuItem>
         ))}
       </Select>
@@ -91,7 +107,12 @@ export default function TaskListMerchant() {
         {sortedInProgressTasks.map((task, i) => (
           <MenuItem key={task.id} value={i + 1} disableRipple>
             <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-            <TaskCard task={task} taskType="merchant" index={i} />
+            <TaskCard
+              task={task}
+              taskType="merchant"
+              index={i}
+              onTaskUpdate={handleTaskUpdate}
+            />
           </MenuItem>
         ))}
       </Select>
@@ -124,7 +145,13 @@ export default function TaskListMerchant() {
             !task.is_deleted ? (
               <MenuItem key={task.id} value={i + 1} disableRipple>
                 <Typography variant="h6">{`#${i + 1} - `}&nbsp;</Typography>
-                <TaskCard id={task.id} task={task} taskType="merchant" index={i} />
+                <TaskCard
+                  id={task.id}
+                  task={task}
+                  taskType="merchant"
+                  index={i}
+                  onTaskUpdate={handleTaskUpdate}
+                />
               </MenuItem>
             ) : null
           )}
