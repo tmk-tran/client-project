@@ -55,7 +55,9 @@ export default function CouponReviewCard({ merchant }) {
       // sx={{ height: "80%" }}
     >
       <CardContent>
-        {/* HEADER FOR CARD ~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <div
           style={{
             display: "flex",
@@ -77,7 +79,12 @@ export default function CouponReviewCard({ merchant }) {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
           {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <div style={border}>
+
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~ FRONT OF COUPON ~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* <div style={border}> */}
+          <div>
             <div
               style={{
                 height: "15vh",
@@ -89,8 +96,11 @@ export default function CouponReviewCard({ merchant }) {
               </Typography>
             </div>
           </div>
-
-          <div style={border}>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~ BACK OF COUPON ~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* <div style={border}> */}
+          <div>
             <div
               style={{
                 height: "15vh",
@@ -102,8 +112,11 @@ export default function CouponReviewCard({ merchant }) {
               </Typography>
             </div>
           </div>
-
-          <div style={border}>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~ COUPON DETAILS ~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* <div style={border}> */}
+          <div>
             <div
               style={{
                 height: "10vh",
@@ -118,13 +131,15 @@ export default function CouponReviewCard({ merchant }) {
               </Typography>
             </div>
           </div>
-
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <div style={{ padding: "5%" }}>
             {merchantComments.map((comment, i) => (
               <CommentDisplay key={i} comment={comment} />
             ))}
           </div>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         </div>
       </CardContent>
     </Card>
