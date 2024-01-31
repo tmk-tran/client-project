@@ -113,33 +113,35 @@ export default function BasicModal({
   };
 
   const handleAccountChange = (event, value) => {
+    console.log(value);
     const selectedName = value;
     console.log(selectedName);
-    console.log(selectedName.merchant_name);
     console.log(selectedName.id);
 
 
     if (merchantTab) {
       // Logic for merchantTab being true
       const selectedId =
-  merchants.find((merchant) => merchant.merchant_name === selectedName.merchant_name)?.id || "";
+      merchants.find((merchant) => merchant.merchant_name === selectedName)?.id || "";
+      console.log(merchants);
 
 
       console.log(merchants);
       console.log(selectedId);
-      console.log(selectedName.merchant_name);
-      setThirdMenuChoice(selectedName.merchant_name);
+      console.log(selectedName);
+      setThirdMenuChoice(selectedName);
       setMerchantId(selectedId);
       console.log(selectedId);
     } else {
       // Logic for merchantTab being false (organizations logic)
       const selectedId =
         organizations.find(
-          (organization) => organization.organization_name === selectedName
-        )?.id || "";
+          (organization) => organization.organization_name === selectedName)?.id || "";
 
+      console.log(selectedName);
       setThirdMenuChoice(selectedName);
       setOrganizationId(selectedId);
+      console.log(selectedId);
     }
   };
 

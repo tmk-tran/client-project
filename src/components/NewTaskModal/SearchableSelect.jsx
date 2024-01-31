@@ -40,23 +40,32 @@ export default function YourComponent({
   return (
     <Autocomplete
       value={thirdMenuChoice !== "" ? thirdMenuChoice : null}
-      onChange={(event, value) => handleAccountChange(event, value)}
+      onChange={(event, value) => {
+        console.log(value.organization_name);
+        console.log(value.merchant_name);
+        merchantTab ? handleAccountChange(event, value.merchant_name) : handleAccountChange(event, value.organization_name);
+        // handleAccountChange(event, value.organization_name);
+      }}
       options={merchantTab ? merchants : organizations}
       getOptionLabel={(option) => {
-        console.log(
-          "Option Label:",
-          merchantTab ? option.merchant_name : option.organization_name
-        );
+        // console.log(
+        //   "Option Label:",
+        //   merchantTab ? option.merchant_name : option.organization_name
+        // );
+        console.log(option);
         console.log(merchantTab);
         console.log(option);
-        return merchantTab ? option.merchant_name : option.organization_name;
+        // return merchantTab ? option.merchant_name : option.organization_name;
+        return option;
       }}
       renderInput={(params) => {
-        console.log("Input Value:", params.inputValue);
+        console.log(params);
+        console.log("Input Value:", params.inputProps.value);
+        
         return (
           <TextField
             {...params}
-            placeholder={params.inputValue ? params.inputValue : "Account Name"}
+            placeholder={params.inputProps.value ? params.inputProps.value : "Account Name"}
             variant="outlined"
           />
         );
