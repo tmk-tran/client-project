@@ -77,10 +77,6 @@ export default function BasicModal({
   const [dueDate, setDueDate] = useState(new Date());
   const [additionalDetails, setAdditionalDetails] = useState("");
 
-  // useEffect(() => {
-  //   dispatch({ type: "FETCH_ALL_MERCHANTS" });
-  // }, []);
-
   useEffect(() => {
     // Conditional logic based on merchantTab
     merchantTab
@@ -115,18 +111,7 @@ export default function BasicModal({
     );
   };
 
-  // const handleAccountChange = (event) => {
-  //   const selectedName = event.target.value;
-  //   const selectedId =
-  //     merchants.find((merchant) => merchant.merchant_name === selectedName)
-  //       ?.id || "";
-
-  //   setThirdMenuChoice(selectedName);
-  //   setMerchantId(selectedId);
-  // };
-
   const handleAccountChange = (event, value) => {
-    // const selectedName = event.target.value;
     const selectedName = value;
 
 
@@ -140,7 +125,6 @@ export default function BasicModal({
       setMerchantId(selectedId);
     } else {
       // Logic for merchantTab being false (organizations logic)
-      // Add your logic here to get organization_id based on your requirements
       const selectedId =
         organizations.find(
           (organization) => organization.organization_name === selectedName
@@ -160,36 +144,6 @@ export default function BasicModal({
 
     setDueDate(formattedDate);
   };
-
-  // const addNewTask = () => {
-  //   dispatch({
-  //     type: "ADD_MERCHANT_TASK",
-  //     payload: {
-  //       category: firstMenuChoice,
-  //       task: secondMenuChoice,
-  //       merchant_id: merchantId,
-  //       merchant_name: thirdMenuChoice,
-  //       assign: fourthMenuChoice,
-  //       due_date: dueDate,
-  //       description: additionalDetails,
-  //       task_status: "New",
-  //       coupon_details: couponDetails,
-  //     },
-  //   });
-
-  //   // Reset fields on submit
-  //   setFirstMenuChoice("");
-  //   setSecondMenuChoice("");
-  //   setThirdMenuChoice("");
-  //   setMerchantId(null);
-  //   setFourthMenuChoice("");
-  //   setDueDate("");
-  //   setShowDetailsInput(false);
-  //   setAdditionalDetails("");
-  //   setCouponDetails("");
-  //   setAdditionalDetails("");
-  //   handleClose();
-  // };
 
   const addNewTask = () => {
     const actionType = merchantTab
@@ -334,27 +288,9 @@ export default function BasicModal({
             {/* ~~~~~~~~~~~~ THIRD DROPDOWN ~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <InputLabel>Account Name:</InputLabel>
-            {/* <Select
-              value={thirdMenuChoice}
-              onChange={handleAccountChange}
-              sx={{ margin: "5px 0" }}
-            >
-              Populate the dropdown with the list of merchants or organizations based on merchantTab
-              {merchantTab
-                ? merchants.map((merchant) => (
-                    <MenuItem key={merchant.id} value={merchant.merchant_name}>
-                      {merchant.merchant_name}
-                    </MenuItem>
-                  ))
-                : organizations.map((organization) => (
-                    <MenuItem
-                      key={organization.id}
-                      value={organization.organization_name}
-                    >
-                      {organization.organization_name}
-                    </MenuItem>
-                  ))}
-            </Select> */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~ SEARCHABLE FIELD ~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}  
             <SearchableSelect
               thirdMenuChoice={thirdMenuChoice}
               handleAccountChange={handleAccountChange}
