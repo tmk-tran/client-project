@@ -9,8 +9,6 @@ import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import { oTasks } from "../../hooks/reduxStore";
 import { useAlert } from "../SuccessAlert/useAlert";
 
-// ERRORS ARE  HERE FOR <DIV> CANNOT APPEAR AS DESCENDANT OF <P>
-
 export default function TaskListOrg() {
   const [selectedTasks, setSelectedTasks] = useState({
     newTask: "",
@@ -71,8 +69,6 @@ export default function TaskListOrg() {
           </MenuItem>
         ))}
       </Select>
-      {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
-
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~ Dropdown for In Progress Tasks ~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -101,8 +97,6 @@ export default function TaskListOrg() {
           </MenuItem>
         ))}
       </Select>
-      {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~ Dropdown for Complete Tasks ~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -142,8 +136,6 @@ export default function TaskListOrg() {
             ) : null
           )}
       </Select>
-      {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {/* Additional UI to display selected task details or move tasks between categories */}
     </Box>
   );
 }
