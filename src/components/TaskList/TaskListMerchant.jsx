@@ -77,8 +77,6 @@ export default function TaskListMerchant() {
           </MenuItem>
         ))}
       </Select>
-      {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
-
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~ Dropdown for In Progress Tasks ~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -107,8 +105,6 @@ export default function TaskListMerchant() {
           </MenuItem>
         ))}
       </Select>
-      {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
-
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~ Dropdown for Complete Tasks ~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -147,8 +143,6 @@ export default function TaskListMerchant() {
             ) : null
           )}
       </Select>
-      {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
-      {/* Additional UI to display selected task details or move tasks between categories */}
     </div>
   );
 }
