@@ -71,6 +71,7 @@ export default function BasicModal({
   console.log(thirdMenuChoice);
   const [organizationId, setOrganizationId] = useState(null);
   const [merchantId, setMerchantId] = useState(null);
+  console.log(merchantId);
   const [fourthMenuChoice, setFourthMenuChoice] = useState("");
   const [couponDetails, setCouponDetails] = useState("");
   const [showDetailsInput, setShowDetailsInput] = useState(false);
@@ -113,16 +114,23 @@ export default function BasicModal({
 
   const handleAccountChange = (event, value) => {
     const selectedName = value;
+    console.log(selectedName);
+    console.log(selectedName.merchant_name);
+    console.log(selectedName.id);
 
 
     if (merchantTab) {
       // Logic for merchantTab being true
       const selectedId =
-        merchants.find((merchant) => merchant.merchant_name === selectedName)
-          ?.id || "";
+  merchants.find((merchant) => merchant.merchant_name === selectedName.merchant_name)?.id || "";
 
-      setThirdMenuChoice(selectedName);
+
+      console.log(merchants);
+      console.log(selectedId);
+      console.log(selectedName.merchant_name);
+      setThirdMenuChoice(selectedName.merchant_name);
       setMerchantId(selectedId);
+      console.log(selectedId);
     } else {
       // Logic for merchantTab being false (organizations logic)
       const selectedId =

@@ -90,7 +90,7 @@ export default function CouponReviewDetails() {
                         gap: 15,
                       }}
                     >
-                      <div style={border}>
+                      <div>
                         <div
                           style={{
                             height: "18vh",
@@ -105,7 +105,7 @@ export default function CouponReviewDetails() {
                         </div>
                       </div>
 
-                      <div style={border}>
+                      <div>
                         <div
                           style={{
                             height: "18vh",
@@ -120,7 +120,7 @@ export default function CouponReviewDetails() {
                         </div>
                       </div>
 
-                      <div style={border}>
+                      <div>
                         <div
                           style={{
                             height: "15vh",

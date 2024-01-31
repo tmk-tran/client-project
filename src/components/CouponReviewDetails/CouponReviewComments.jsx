@@ -1,5 +1,5 @@
 import { Typography, TextField } from "@mui/material";
-import { border } from "../Utils/colors";
+import { border, primaryColor } from "../Utils/colors";
 // ~~~~~~~~~~ Component ~~~~~~~~~
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import CommentInput from "./CommentInput";
@@ -15,7 +15,7 @@ export default function CouponReviewComments() {
       style={{
         width: "50%",
         position: "relative",
-        ...border,
+        border: `1px solid ${primaryColor.color}`,
         display: "flex",
         flexDirection: "column",
       }}

@@ -40,10 +40,10 @@ export default function CommentDisplay({
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div>
-          <Typography sx={{ ml: 1 }}>{user}</Typography>
+          <Typography variant="body2" sx={{ ml: 1, fontWeight: "bold" }}>{user}</Typography>
         </div>
         <div>
-          <Typography variant="body2" sx={{ ml: 3, mt: 0.4 }}>
+          <Typography variant="caption" sx={{ ml: 3, mt: 0.4 }}>
             {date} - {time}
           </Typography>
         </div>
