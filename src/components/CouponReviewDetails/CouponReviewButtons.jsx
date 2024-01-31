@@ -13,6 +13,7 @@ import { useAlert } from "../SuccessAlert/useAlert";
 export default function CouponReviewButtons({
   onDenyButtonClick,
   isTaskUpdate,
+  updateTaskState,
 }) {
   console.log(isTaskUpdate);
 
@@ -35,12 +36,19 @@ export default function CouponReviewButtons({
     },
   };
 
+  const handleUpdateClick = () => {
+    // Perform any necessary actions in the child component
+    handleTaskUpdate();
+    // Update the state in the parent component
+    updateTaskState(false);
+  };
+
   return (
     <div style={modalBtnStyle}>
       <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
 
       {isTaskUpdate ? (
-        <Button onClick={handleTaskUpdate} variant="contained" fullWidth>
+        <Button onClick={handleUpdateClick} sx={{ backgroundColor: successColor.color, ...hoverAccept }} variant="contained" fullWidth>
           Update
         </Button>
       ) : (

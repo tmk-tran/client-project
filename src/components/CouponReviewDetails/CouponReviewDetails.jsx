@@ -34,6 +34,10 @@ export default function CouponReviewDetails() {
     setIsTaskUpdate(true);
   };
 
+  const updateTaskState = (newValue) => {
+    setIsTaskUpdate(newValue);
+  };
+
   useEffect(() => {
     // Ensure that merchantId is available before dispatching the action
     if (merchantId) {
@@ -143,6 +147,7 @@ export default function CouponReviewDetails() {
                       <CouponReviewButtons
                         onDenyButtonClick={handleDenyButtonClick}
                         isTaskUpdate={isTaskUpdate}
+                        updateTaskState={updateTaskState}
                       />
 
                       {isModalOpen && (
