@@ -12,7 +12,7 @@ import {
 import { showToast } from "../Utils/toasts";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
-export default function OrgContactEdit({
+export default function DetailsEdit({
   isOpen,
   onClose,
   info,
@@ -33,8 +33,10 @@ export default function OrgContactEdit({
   const [contactLastName, setContactLastName] = useState(
     info.primary_contact_last_name
   );
-  const [contactPhone, setContactPhone] = useState(info.primary_contact_phone);
-  const [contactEmail, setContactEmail] = useState(info.primary_contact_email);
+  const [contactPhone, setContactPhone] = useState(!isMerchantTaskPage ? info.primary_contact_phone : info.contact_phone_number);
+  console.log(contactPhone);
+  const [contactEmail, setContactEmail] = useState(!isMerchantTaskPage ? info.primary_contact_email : info.contact_email);
+  console.log(contactEmail);
 
   // useEffect(() => {
   //   setContactFirstName(info.primary_contact_first_name);
@@ -46,12 +48,8 @@ export default function OrgContactEdit({
   useEffect(() => {
     setContactFirstName(info.primary_contact_first_name);
     setContactLastName(info.primary_contact_last_name);
-    setContactPhone(info.primary_contact_phone);
-    if (isMerchantTaskPage) {
-      setContactEmail(info.contact_email);
-    } else {
-      setContactEmail(info.primary_contact_email);
-    }
+    !isMerchantTaskPage ? setContactPhone(info.primary_contact_phone) : setContactPhone(info.contact_phone_number);
+    !isMerchantTaskPage ? setContactEmail(info.primary_contact_email) : setContactEmail(info.contact_email);
   }, [info]);
 
   const handleSave = () => {

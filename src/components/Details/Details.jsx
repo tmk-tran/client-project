@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import "./OrgDetails.css";
+import "./Details.css";
 import { Typography, Card, CardContent } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import OrgContactDetails from "../ContactDetails/OrgContactDetails";
+import ContactDetails from "../ContactDetails/ContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
@@ -33,7 +33,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export default function OrgDetails({ isMerchantTaskPage, isTaskPage }) {
+export default function Details({ isMerchantTaskPage, isTaskPage }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
@@ -144,7 +144,7 @@ export default function OrgDetails({ isMerchantTaskPage, isTaskPage }) {
                 <center>
                   {isMerchantTaskPage ? (
                     merchantDetails.map((info) => (
-                      <OrgContactDetails
+                      <ContactDetails
                         key={info.id}
                         info={info}
                         isMerchantTaskPage={isMerchantTaskPage}
@@ -152,7 +152,7 @@ export default function OrgDetails({ isMerchantTaskPage, isTaskPage }) {
                     ))
                   ) : (
                     // <OrgContactDetails info={orgDetails} isMerchantTaskPage={isMerchantTaskPage} />
-                    <OrgContactDetails info={orgDetails} />
+                    <ContactDetails info={orgDetails} />
                   )}
                   <br />
                 </center>

@@ -12,8 +12,8 @@ import "./OrgContactDetails.css";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import EditNoteIcon from "@mui/icons-material/EditNote";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
-import OrgDetailsEdit from "../OrgDetailsEdit/OrgDetailsEdit";
+import OrgContactEdit from "../ContactEdit/ContactEdit";
+import OrgDetailsEdit from "../DetailsEdit/DetailsEdit";
 import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { capitalizeWords, formatPhoneNumber } from "../Utils/helpers";
@@ -21,7 +21,7 @@ import { capitalizeWords, formatPhoneNumber } from "../Utils/helpers";
 import { dispatchHook } from "../../hooks/useDispatch";
 import ContactDetailsCard from "./ContactDetailsCard";
 
-export default function OrgContactDetails({ info, isMerchantTaskPage }) {
+export default function ContactDetails({ info, isMerchantTaskPage }) {
   console.log(info);
   console.log(isMerchantTaskPage);
   const dispatch = dispatchHook();

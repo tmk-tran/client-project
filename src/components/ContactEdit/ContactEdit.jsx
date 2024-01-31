@@ -8,13 +8,13 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import "./OrgContactEdit.css";
+import "./ContactEdit.css";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { modalBtnStyle } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import { showToast } from "../Utils/toasts";
 
-export default function OrgContactEdit({
+export default function ContactEdit({
   isOpen,
   onClose,
   info,
@@ -22,10 +22,13 @@ export default function OrgContactEdit({
   isMerchantTaskPage,
 }) {
   // const [orgName, setOrgName] = useState(info.organization_name);
+  console.log(isMerchantTaskPage);
   const [orgName, setOrgName] = useState(
     !isMerchantTaskPage ? info.organization_name : info.merchant_name
   );
+  console.log(orgName);
   const [orgType, setOrgType] = useState(info.type);
+  console.log(orgType);
   const [orgAddress, setOrgAddress] = useState(info.address);
   const [orgCity, setOrgCity] = useState(info.city);
   const [orgState, setOrgState] = useState(info.state);
@@ -37,13 +40,15 @@ export default function OrgContactEdit({
     info.primary_contact_last_name
   );
   const [editedPhone, setEditedPhone] = useState(
-    !isMerchantTaskPage
-      ? Number(info.primary_contact_phone)
-      : Number(info.contact_phone_number)
+    isMerchantTaskPage
+      ? Number(info.contact_phone_number)
+      : Number(info.primary_contact_phone)
   );
+  console.log(editedPhone);
   const [phoneError, setPhoneError] = useState(false);
   // const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
   const [editedEmail, setEditedEmail] = useState(!isMerchantTaskPage ? info.primary_contact_email : info.contact_email);
+  console.log(editedEmail);
   const [emailError, setEmailError] = useState(false);
   console.log(orgName);
 
@@ -55,7 +60,9 @@ export default function OrgContactEdit({
     setOrgCity(info.city);
     setOrgState(info.state);
     setOrgZip(info.zip);
-  }, [info]);
+    !isMerchantTaskPage ? setEditedPhone(info.primary_contact_phone) : setEditedPhone(info.contact_phone_number);
+    !isMerchantTaskPage ? setEditedEmail(info.primary_contact_email) : setEditedEmail(info.contact_email);
+  }, [info, isMerchantTaskPage, isOpen]);
 
   // useEffect(() => {
   //   if (isMerchantTaskPage) {

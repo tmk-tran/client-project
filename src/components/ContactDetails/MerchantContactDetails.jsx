@@ -12,8 +12,8 @@ import "../ContactDetails/OrgContactDetails.css";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import EditNoteIcon from "@mui/icons-material/EditNote";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
-import OrgDetailsEdit from "../OrgDetailsEdit/OrgDetailsEdit";
+import OrgContactEdit from "../ContactEdit/ContactEdit";
+import OrgDetailsEdit from "../DetailsEdit/DetailsEdit";
 import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { formatPhoneNumber } from "../Utils/helpers";

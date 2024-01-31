@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Button, Card, Divider, Typography } from "@mui/material";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import OrgContactEdit from "../OrgContactEdit/OrgContactEdit";
+import OrgContactEdit from "../ContactEdit/ContactEdit";
 import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
 
 export default function ContactDetailsCard({

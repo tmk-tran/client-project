@@ -11,7 +11,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import UserProfile from "../UserProfile/UserProfile";
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
-import OrgDetails from "../OrgDetails/OrgDetails";
+import Details from "../Details/Details";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
@@ -91,7 +91,7 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/orgDetails/:id">
-              <OrgDetails />
+              <Details />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/group/:id">
@@ -115,12 +115,12 @@ function App() {
 
             {/* UPDATE THIS WITH CORRECT ID IN OrgTaskDetails */}
             <ProtectedRoute exact path="/organizationtaskdetails/:id">
-              <OrgDetails isMerchantTaskPage={false} isTaskPage={true} />
+              <Details isMerchantTaskPage={false} isTaskPage={true} />
             </ProtectedRoute>
 
             {/* UPDATE THIS WITH CORRECT ID IN MerchantTaskDetails */}
             <ProtectedRoute exact path="/merchantTaskDetails/:id">
-              <OrgDetails isMerchantTaskPage={true} />
+              <Details isMerchantTaskPage={true} />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/coupon/:id">
