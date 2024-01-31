@@ -95,7 +95,7 @@ export default function BasicTabs() {
 
   return (
     <Card className="details-card" elevation={3}>
-      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
+      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} caseType="NewTask" />
 
       <CardContent>
         <Box
