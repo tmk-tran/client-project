@@ -11,9 +11,11 @@ import NewTaskModal from "../NewTaskModal/NewTaskModal";
 import TaskList from "../TaskList/TaskList";
 import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
-import { dispatchHook } from "../../hooks/useDispatch"
+import { dispatchHook } from "../../hooks/useDispatch";
 import { mComments } from "../../hooks/reduxStore";
 import SearchableSelect from "../NewTaskModal/SearchableSelect";
+import { useAlert } from "../SuccessAlert/useAlert";
+import SuccessAlert from "../SuccessAlert/SuccessAlert";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,6 +54,8 @@ export default function BasicTabs() {
   console.log(merchantTab);
   const [activeTab, setActiveTab] = useState("organization"); // Set the default tab
   console.log(activeTab);
+  // ~~~~~~~~~~ Alert ~~~~~~~~~~
+  const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   useEffect(() => {
@@ -87,10 +91,12 @@ export default function BasicTabs() {
   const handleMerchantTab = () => {
     setActiveTab("merchant");
     setMerchantTab(true);
-  }
+  };
 
   return (
     <Card className="details-card" elevation={3}>
+      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
+
       <CardContent>
         <Box
           sx={{
@@ -150,6 +156,7 @@ export default function BasicTabs() {
               customIcon={<AddBoxIcon />}
               customText="Task"
               merchantTab={merchantTab}
+              onChange={handleTaskUpdate}
             />
             {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 

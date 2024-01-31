@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Alert, Snackbar } from "@mui/material";
 
 export default function SuccessAlert({ isOpen, onClose }) {

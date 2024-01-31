@@ -21,7 +21,10 @@ import "./NewTaskModal.css";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import CloseIcon from "@mui/icons-material/Close";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { border } from "../Utils/colors";
+import { useAlert } from "../SuccessAlert/useAlert";
+import SuccessAlert from "../SuccessAlert/SuccessAlert";
 
 const style = {
   position: "absolute",
@@ -49,12 +52,13 @@ const taskOptions = {
 
 const userOptions = ["Chris", "Lacey", "Wendy"];
 
-// ~~~~~~~~~ ADD USE ALERT HERE FOR SUCCESS ALERT ~~~~~~~~~~~~~~~~~~~ ADD USE ALERT HERE FOR SUCCESS ALERT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+// ~~~~~~~~~ ADD USE ALERT HERE FOR SUCCESS ALERT ~~~~~~~~~~~~~~~~~~~ ADD USE ALERT HERE FOR SUCCESS ALERT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default function BasicModal({
   merchantTab,
   customIcon,
   customText,
   caseType,
+  onChange,
 }) {
   console.log(merchantTab);
   const dispatch = dispatchHook();
@@ -116,15 +120,12 @@ export default function BasicModal({
     console.log(value);
     const selectedName = value;
     console.log(selectedName);
-    console.log(selectedName.id);
-
 
     if (merchantTab) {
       // Logic for merchantTab being true
       const selectedId =
-      merchants.find((merchant) => merchant.merchant_name === selectedName)?.id || "";
-      console.log(merchants);
-
+        merchants.find((merchant) => merchant.merchant_name === selectedName)
+          ?.id || "";
 
       console.log(merchants);
       console.log(selectedId);
@@ -136,7 +137,8 @@ export default function BasicModal({
       // Logic for merchantTab being false (organizations logic)
       const selectedId =
         organizations.find(
-          (organization) => organization.organization_name === selectedName)?.id || "";
+          (organization) => organization.organization_name === selectedName
+        )?.id || "";
 
       console.log(selectedName);
       setThirdMenuChoice(selectedName);
@@ -203,6 +205,7 @@ export default function BasicModal({
     setCouponDetails("");
     setAdditionalDetails("");
     handleClose();
+    onChange();
   };
 
   return (
@@ -300,7 +303,7 @@ export default function BasicModal({
             <InputLabel>Account Name:</InputLabel>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~ SEARCHABLE FIELD ~~~~~~~~~~~ */}
-            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}  
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <SearchableSelect
               thirdMenuChoice={thirdMenuChoice}
               handleAccountChange={handleAccountChange}
