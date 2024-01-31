@@ -14,8 +14,8 @@ function* orgDetails(action) {
 
 function* editOrg(action) {
   try {
-    const items = yield axios.put(
-      `/api/orgDetails/${action.payload.id}`,
+    const items = yield axios.post(
+      `/api/orgDetails/update/${action.payload.id}`,
       action.payload
     );
     console.log("FETCH request from orgDetails.saga, ITEMS FOR editContact = ", items);

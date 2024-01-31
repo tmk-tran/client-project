@@ -14,7 +14,7 @@ function* fetchOrganizationsSaga() {
 function* addOrganizationSaga(action) {
   try {
     console.log(action.payload);
-    yield axios.post("/api/organizations", action.payload);
+    yield axios.post("/api/organizations/neworg", action.payload);
     yield put({ type: "FETCH_ORGANIZATIONS" });
   } catch (error) {
     console.log("error in addOrganizationSaga", error);
@@ -33,7 +33,7 @@ function* deleteOrganizationSaga(action) {
 function* editOrganizationSaga(action) {
   try {
     console.log("ACTION PAYLOAD IS", action.payload);
-    const response = yield axios.put(`/api/organizations/${action.payload.id}`, {
+    const response = yield axios.post(`/api/organizations/${action.payload.id}`, {
       organization_name: action.payload.organization_name,
       type: action.payload.type,
       address: action.payload.address,

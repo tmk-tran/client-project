@@ -37,7 +37,7 @@ function* addGroupSaga(action) {
 function* updateGroupSaga(action) {
     try {
         console.log(action.payload)
-        yield axios.put(`/api/group/${action.payload}`, action.payload)
+        yield axios.post(`/api/group/${action.payload}`, action.payload)
         yield put({ type: "FETCH_GROUP_DETAILS", payload: action.payload.organization_id })
     } catch (err) {
         console.log("Error updating group details", err)

@@ -186,7 +186,7 @@ app.post("/api/organizations", (req, res) => {
     });
 });
 //Create a new organization
-app.post("api/organization/neworg", (req, res) => {
+app.post("api/organizations/neworg", (req, res) => {
   const organization = req.body;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
@@ -274,7 +274,9 @@ app.post("/api/organization/:id", (req, res) => {
 
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.json())
-    .then((result) => console.log(result))
+    .then((result) => {console.log("Updated organization", result)
+    res.sendStatus(200)
+  })
     .catch((error) => {
       console.log("Error getting data from Devii", error)
       res.sendStatus(500)
@@ -386,7 +388,7 @@ app.post("/api/orgDetails/update/:id", (req, res) => {
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.text())
     .then((result) => {
-      console.log(result);
+      console.log("Updated organization", result);
       res.sendStatus(200)
     })
     .catch((error) => {
@@ -396,7 +398,7 @@ app.post("/api/orgDetails/update/:id", (req, res) => {
 });
 //ORGANIZATION NOTES QUERIES:
 //get all notes for secific org
-app.post('/api/orgNotes/:id', (req, res) => {
+app.post('/api/orgnotes/:id', (req, res) => {
   const id = req.params.id
   let ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
@@ -420,7 +422,7 @@ app.post('/api/orgNotes/:id', (req, res) => {
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result.data.organization_notes)
+      console.log("fetching org notes", result.data.organization_notes)
       res.send(result.data.organization_notes)
     })
     .catch((error) => {
@@ -431,7 +433,7 @@ app.post('/api/orgNotes/:id', (req, res) => {
 });
 
 //add a new note:
-app.post("api/orgNotes/newnote", (req, res) => {
+app.post("api/orgnotes/newnote", (req, res) => {
   const note = req.body;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
@@ -454,7 +456,9 @@ app.post("api/orgNotes/newnote", (req, res) => {
 
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.text())
-    .then((result) => console.log(result))
+    .then((result) => {console.log("New note", result);
+    res.sendStatus(200);
+  })
     .catch((error) => {
       console.log("Error getting data from Devii", error)
       res.sendStatus(500)
@@ -462,7 +466,7 @@ app.post("api/orgNotes/newnote", (req, res) => {
 })
 
 //Update a note, used for all updates including is_deleted
-app.post("api/orgNotes/update/:id", (req, res) => {
+app.post("api/orgnotes/update/:id", (req, res) => {
   const updatedNote = req.body;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
@@ -485,7 +489,9 @@ app.post("api/orgNotes/update/:id", (req, res) => {
 
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.text())
-    .then((result) => console.log(result))
+    .then((result) => {console.log("updated note", result)
+    res.sendStatus(200)
+  })
     .catch((error) => {
       console.log("Error getting data from Devii", error)
       res.sendStatus(500)
@@ -719,7 +725,7 @@ app.post('/api/group/:id', (req, res) => {
     .then((response) => response.json())
     .then((result) => {
       console.log("group stuff", result);
-      res.sendStatus(200)
+      res.send(result.data.group)
     })
     .catch((error) => {
       console.log("Error getting data from Devii", error)
@@ -753,7 +759,7 @@ app.post("/api/group/orggroups/:id", (req, res) => {
     .then((response) => response.json())
     .then((result) => {
       console.log("org groups result", result);
-      res.sendStatus(200)
+      res.send(result.data.group)
     })
     .catch((error) => {
       console.log("Error getting data from Devii", error)
@@ -837,7 +843,7 @@ app.post("/api/fundraisers/:id", (req, res) => {
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
   const query = `{\r\n   fundraiser (filter: "group.organization_id = ${orgId}"){\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n
-  group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}\r\n}`;
+  group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}`;
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
@@ -857,7 +863,7 @@ app.post("/api/fundraisers/:id", (req, res) => {
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result.data.fundraiser);
+      console.log( "org fundraiser fetch", result.data.fundraiser);
       res.send(result.data.fundraiser)
     })
     .catch((error) => {
@@ -872,7 +878,7 @@ app.post("/api/fundraisers/groupfundraisers/:id", (req, res) => {
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
   const query = `{\r\n   fundraiser (filter: "group_id = ${groupId}") {\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n
-    group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}\r\n}`;
+    group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}`;
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
@@ -890,10 +896,10 @@ app.post("/api/fundraisers/groupfundraisers/:id", (req, res) => {
   };
 
   fetch(QUERY_URL, requestOptions)
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((result) => {
-      console.log( "fundraiser result", result);
-      res.send(200)
+      console.log( "group fundraiser result", result);
+      res.send(result.data.fundraiser)
     })
     .catch((error) => {
       console.log("Error getting data from Devii", error)
