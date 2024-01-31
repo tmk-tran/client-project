@@ -8,6 +8,7 @@ import SuccessAlert from "../SuccessAlert/SuccessAlert";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { mTasks } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
+import { useAlert } from "../SuccessAlert/useAlert";
 
 export default function TaskListMerchant() {
   const dispatch = dispatchHook();
@@ -16,18 +17,8 @@ export default function TaskListMerchant() {
     inProgressTask: "",
     completeTask: "",
   });
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
-  // Handler to close the alert
-  const handleAlertClose = () => {
-    setIsAlertOpen(false);
-  };
-
-  // Handler to be called when the task is updated
-  const handleTaskUpdate = () => {
-    // Additional logic if needed
-    setIsAlertOpen(true);
-  };
+  const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
   // Tasks
   const merchantTasks = mTasks() || [];

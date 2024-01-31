@@ -7,6 +7,7 @@ import TaskCard from "../TaskCard/TaskCard";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { oTasks } from "../../hooks/reduxStore";
+import { useAlert } from "../SuccessAlert/useAlert";
 
 // ERRORS ARE  HERE FOR <DIV> CANNOT APPEAR AS DESCENDANT OF <P>
 
@@ -16,18 +17,8 @@ export default function TaskListOrg() {
     inProgressTask: "",
     completeTask: "",
   });
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
-  // Handler to close the alert
-  const handleAlertClose = () => {
-    setIsAlertOpen(false);
-  };
-
-  // Handler to be called when the task is updated
-  const handleTaskUpdate = () => {
-    // Additional logic if needed
-    setIsAlertOpen(true);
-  };
+  const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
   const orgTasks = oTasks() || [];
   console.log(orgTasks);

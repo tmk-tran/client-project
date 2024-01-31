@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Button } from "@mui/material";
 import { errorColor, successColor } from "../Utils/colors";
@@ -7,8 +7,17 @@ import { modalBtnStyle } from "../Utils/helpers";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import CheckIcon from "@mui/icons-material/Check";
 import CancelIcon from "@mui/icons-material/Cancel";
+// ~~~~~~~~~~ Components ~~~~~~~~~~
+import SuccessAlert from "../SuccessAlert/SuccessAlert";
+import { useAlert } from "../SuccessAlert/useAlert";
+export default function CouponReviewButtons({
+  onDenyButtonClick,
+  isTaskUpdate,
+}) {
+  console.log(isTaskUpdate);
 
-export default function CouponReviewButtons({ onDenyButtonClick }) {
+  const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
+
   const handleDenyClick = () => {
     // Call the parent component's function when the Deny button is clicked
     onDenyButtonClick();
@@ -28,25 +37,39 @@ export default function CouponReviewButtons({ onDenyButtonClick }) {
 
   return (
     <div style={modalBtnStyle}>
-      <Button
-        variant="contained"
-        sx={{ width: "10vw", ...hoverDeny, backgroundColor: errorColor.color }}
-        onClick={handleDenyClick}
-      >
-        Deny &nbsp;
-        <CancelIcon />
-      </Button>
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: successColor.color,
-          width: "10vw",
-          ...hoverAccept,
-        }}
-      >
-        <CheckIcon />
-        &nbsp; Accept
-      </Button>
+      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
+
+      {isTaskUpdate ? (
+        <Button onClick={handleTaskUpdate} variant="contained" fullWidth>
+          Update
+        </Button>
+      ) : (
+        <>
+          <Button
+            variant="contained"
+            sx={{
+              width: "10vw",
+              ...hoverDeny,
+              backgroundColor: errorColor.color,
+            }}
+            onClick={handleDenyClick}
+          >
+            Deny &nbsp;
+            <CancelIcon />
+          </Button>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: successColor.color,
+              width: "10vw",
+              ...hoverAccept,
+            }}
+          >
+            <CheckIcon />
+            &nbsp; Accept
+          </Button>
+        </>
+      )}
     </div>
   );
 }

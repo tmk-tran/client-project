@@ -49,6 +49,7 @@ const taskOptions = {
 
 const userOptions = ["Chris", "Lacey", "Wendy"];
 
+// ~~~~~~~~~ ADD USE ALERT HERE FOR SUCCESS ALERT ~~~~~~~~~~~~~~~~~~~ ADD USE ALERT HERE FOR SUCCESS ALERT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 export default function BasicModal({
   merchantTab,
   customIcon,

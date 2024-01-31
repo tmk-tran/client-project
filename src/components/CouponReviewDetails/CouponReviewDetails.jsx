@@ -22,10 +22,16 @@ export default function CouponReviewDetails() {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTaskUpdate, setIsTaskUpdate] = useState(false);
+  console.log(isTaskUpdate);
 
   const handleDenyButtonClick = () => {
     // Open the modal when Deny button is clicked
     setIsModalOpen(true);
+  };
+
+  const handleUpdateTask = () => {
+    setIsTaskUpdate(true);
   };
 
   useEffect(() => {
@@ -120,7 +126,9 @@ export default function CouponReviewDetails() {
                           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                           {/* ~~~~~~~~~~~~ STATUS ~~~~~~~~~~~~~ */}
                           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                          <CouponStatusDropdown />
+                          <CouponStatusDropdown
+                            handleUpdateTask={handleUpdateTask}
+                          />
                           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
                           <Typography
@@ -134,6 +142,7 @@ export default function CouponReviewDetails() {
 
                       <CouponReviewButtons
                         onDenyButtonClick={handleDenyButtonClick}
+                        isTaskUpdate={isTaskUpdate}
                       />
 
                       {isModalOpen && (
