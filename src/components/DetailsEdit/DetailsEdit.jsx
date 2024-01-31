@@ -20,7 +20,13 @@ export default function DetailsEdit({
   isMerchantTaskPage,
 }) {
   // const [editedName, setEditedName] = useState(info.organization_name);
-  const [editedName, setEditedName] = useState(!isMerchantTaskPage ? info.organization_name : info.merchant_name);
+  console.log(isOpen);
+  console.log(info);
+  console.log(info.merchant_name);
+  const [editedName, setEditedName] = useState(
+    !isMerchantTaskPage ? info.organization_name : info.merchant_name
+  );
+  console.log(editedName);
   const [editedType, setEditedType] = useState(info.type);
   const [editedAddress, setEditedAddress] = useState(info.address);
   const [editedCity, setEditedCity] = useState(info.city);
@@ -33,24 +39,25 @@ export default function DetailsEdit({
   const [contactLastName, setContactLastName] = useState(
     info.primary_contact_last_name
   );
-  const [contactPhone, setContactPhone] = useState(!isMerchantTaskPage ? info.primary_contact_phone : info.contact_phone_number);
+  const [contactPhone, setContactPhone] = useState(
+    !isMerchantTaskPage ? info.primary_contact_phone : info.contact_phone_number
+  );
   console.log(contactPhone);
-  const [contactEmail, setContactEmail] = useState(!isMerchantTaskPage ? info.primary_contact_email : info.contact_email);
+  const [contactEmail, setContactEmail] = useState(
+    !isMerchantTaskPage ? info.primary_contact_email : info.contact_email
+  );
   console.log(contactEmail);
-
-  // useEffect(() => {
-  //   setContactFirstName(info.primary_contact_first_name);
-  //   setContactLastName(info.primary_contact_last_name);
-  //   setContactPhone(info.primary_contact_phone);
-  //   setContactEmail(info.primary_contact_email);
-  // }, [info]);
 
   useEffect(() => {
     setContactFirstName(info.primary_contact_first_name);
     setContactLastName(info.primary_contact_last_name);
-    !isMerchantTaskPage ? setContactPhone(info.primary_contact_phone) : setContactPhone(info.contact_phone_number);
-    !isMerchantTaskPage ? setContactEmail(info.primary_contact_email) : setContactEmail(info.contact_email);
-  }, [info]);
+    !isMerchantTaskPage
+      ? setContactPhone(info.primary_contact_phone)
+      : setContactPhone(info.contact_phone_number);
+    !isMerchantTaskPage
+      ? setContactEmail(info.primary_contact_email)
+      : setContactEmail(info.contact_email);
+  }, [info, isOpen]);
 
   const handleSave = () => {
     // Verification for zip code (assumes a 5 digit zip code)
@@ -140,22 +147,33 @@ export default function DetailsEdit({
           gap: 2,
         }}
       >
-        <Typography
-          variant="h5"
-          sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
-        >
-          Edit Organization Details
-        </Typography>
+        {!isMerchantTaskPage ? (
+          <Typography
+            variant="h5"
+            sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
+          >
+            Edit Organization Details
+          </Typography>
+        ) : (
+          <Typography
+            variant="h5"
+            sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
+          >
+            Edit Merchant Details
+          </Typography>
+        )}
         <TextField
           label="Name"
           value={editedName}
           onChange={(e) => setEditedName(e.target.value)}
         />
-        <TextField
-          label="Type"
-          value={editedType}
-          onChange={(e) => setEditedType(e.target.value)}
-        />
+        {!isMerchantTaskPage ? (
+          <TextField
+            label="Type"
+            value={editedType}
+            onChange={(e) => setEditedType(e.target.value)}
+          />
+        ) : null}
         <TextField
           label="Address"
           value={editedAddress}

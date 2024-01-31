@@ -22,6 +22,7 @@ export default function ContactEdit({
   isMerchantTaskPage,
 }) {
   // const [orgName, setOrgName] = useState(info.organization_name);
+  console.log(isOpen);
   console.log(isMerchantTaskPage);
   const [orgName, setOrgName] = useState(
     !isMerchantTaskPage ? info.organization_name : info.merchant_name
