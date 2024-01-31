@@ -7,10 +7,11 @@ export default function CommentDisplay({
   mId,
   showAllComments = true,
   key,
+  caseType,
 }) {
   const merchantId = mId;
   console.log(merchantId);
-  console.log(key)
+  console.log(key);
   const date = formatDate(comment.date);
   const time = comment.time;
   const content = comment.comment_content;
@@ -22,13 +23,12 @@ export default function CommentDisplay({
   if (!comment || comment.length === 0) {
     return <Typography>No Comments Available</Typography>;
   }
-  
+
   // Display only the most recent comment if showAllComments is false
   const mostRecentComment = !showAllComments
     ? comment
     : [comment[comment.length - 1]];
-    console.log(mostRecentComment);
-
+  console.log(mostRecentComment);
 
   return (
     <div

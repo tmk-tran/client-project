@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~
 import {
   Table,
@@ -17,7 +18,10 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { capitalizeWords, formatDate } from "../Utils/helpers";
 import { dueDateHighlight } from "../Utils/colors";
 
-export default function TableTaskDetails() {
+export default function TableTaskDetails({ mId }) {
+  console.log(mId);
+  const paramsObject = useParams();
+  const dispatch = dispatchHook();
   const merchantTasks = mTasks();
   console.log(merchantTasks);
   const comments = mComments();
@@ -40,6 +44,10 @@ export default function TableTaskDetails() {
           const taskComments = comments.filter(
             (comment) => comment.task_id === task.id
           );
+          console.log(taskComments);
+          // Check if there are multiple comments for the task
+          const displaySingleComment = taskComments.length > 0;
+          console.log(displaySingleComment);
 
           return (
             <div key={index} className="task-row-shading">
@@ -105,13 +113,13 @@ export default function TableTaskDetails() {
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     {/* Map through taskComments for the current task */}
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    {taskComments.map((comment) => (
+                    {displaySingleComment && (
                       <CommentDisplay
-                        key={comment.id}
-                        comment={comment}
+                        key={taskComments[0].id}
+                        comment={taskComments[0]}
                         showAllComments={false}
                       />
-                    ))}
+                    )}
                     <hr />
                   </TableCell>
                 </TableRow>
