@@ -5,15 +5,30 @@ export default function CommentDisplay({
   backgroundColor = "rgba(96, 96, 96, 0.1)",
   comment,
   mId,
+  showAllComments = true,
+  key,
 }) {
   const merchantId = mId;
   console.log(merchantId);
+  console.log(key)
   const date = formatDate(comment.date);
-  console.log(date);
   const time = comment.time;
   const content = comment.comment_content;
-  console.log(content);
   const user = comment.user;
+
+  console.log(showAllComments);
+  console.log(comment);
+
+  if (!comment || comment.length === 0) {
+    return <Typography>No Comments Available</Typography>;
+  }
+  
+  // Display only the most recent comment if showAllComments is false
+  const mostRecentComment = !showAllComments
+    ? comment
+    : [comment[comment.length - 1]];
+    console.log(mostRecentComment);
+
 
   return (
     <div
@@ -45,9 +60,13 @@ export default function CommentDisplay({
         >
           •
         </span>
-        <Typography variant="body2" sx={{ ml: 3 }}>
-          {capitalizeFirstWord(content)}
-        </Typography>
+        {content ? (
+          <Typography variant="body2" sx={{ ml: 3 }}>
+            {capitalizeFirstWord(content)}
+          </Typography>
+        ) : (
+          <Typography>No Comments Available</Typography>
+        )}
       </div>
     </div>
   );

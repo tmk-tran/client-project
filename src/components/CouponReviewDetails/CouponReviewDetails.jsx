@@ -13,7 +13,6 @@ import CouponReviewComments from "./CouponReviewComments";
 import BackButton from "../BackButton/BackButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
-import { mComments } from "../../hooks/reduxStore";
 
 export default function CouponReviewDetails() {
   const dispatch = dispatchHook();
@@ -21,8 +20,6 @@ export default function CouponReviewDetails() {
   const merchantId = mId.id;
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const merchantComments = mComments(mId) || [];
-  console.log(merchantComments);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -51,15 +48,11 @@ export default function CouponReviewDetails() {
                 marginBottom: "40px",
               }}
             >
-              {/* <Button
-                style={{ position: "absolute", left: 0 }}
-                onClick={() => {
-                  history.goBack();
-                }}
-              >
-                Back
-              </Button> */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~ BACK BUTTON ~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               <BackButton />
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               <Typography
                 variant="h5"
                 sx={{
@@ -124,7 +117,11 @@ export default function CouponReviewDetails() {
                             backgroundColor: "rgba(96, 96, 96, 0.1)",
                           }}
                         >
+                          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                          {/* ~~~~~~~~~~~~ STATUS ~~~~~~~~~~~~~ */}
+                          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                           <CouponStatusDropdown />
+                          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
                           <Typography
                             variant="body2"
@@ -144,15 +141,11 @@ export default function CouponReviewDetails() {
                       )}
                     </div>
                   </div>
-                  {/* Comments section */}
-                  {merchantComments.map((comment, i) => (
-                    <CouponReviewComments
-                      key={comment.id}
-                      comment={comment}
-                    />
-                  ))}
-
-                  {/* <CouponReviewComments /> */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~ COMMENTS ~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  <CouponReviewComments />
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 </div>
               </CardContent>
             </Card>

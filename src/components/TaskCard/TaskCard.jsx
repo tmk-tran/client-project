@@ -27,6 +27,7 @@ export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
   console.log(taskType);
   const [selectedTask, setSelectedTask] = useState(null);
   console.log(task);
+  console.log(task.id);
   console.log(task.merchant_id);
   console.log(task.organization_id);
   const oId = task.organization_id;
@@ -45,6 +46,22 @@ export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
   // Comments
   const merchantComments = mComments(mId) || [];
   console.log(merchantComments);
+
+  const matchingComment = merchantComments.find(
+    (comment) => comment.task_id === task.id
+  );
+
+  if (matchingComment) {
+    console.log("Found matching comment:", matchingComment);
+  } else {
+    console.log("No matching comment found for task_id:", task.id);
+  }
+
+  // Filter and get the most recent comment for the current merchant
+  const mostRecentComment = merchantComments.find(
+    (comment) => comment.merchant_id === task.merchant_id
+  );
+  console.log(mostRecentComment);
 
   const handleTaskChange = (taskStatus) => {
     console.log(taskStatus);
@@ -80,12 +97,6 @@ export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
 
   const archiveTask = () => {
     console.log(id);
-    // dispatch({
-    //   type: "ARCHIVE_MERCHANT_TASK",
-    //   payload: {
-    //     id: id,
-    //   },
-    // });
 
     const archiveActionType =
       taskType === "organization"
@@ -126,7 +137,6 @@ export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
       onClick={handleCardClick}
     >
       <CardContent>
-
         <div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div
@@ -221,18 +231,12 @@ export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
               {/* ~~~~~~~~~~~~~ COMMENTS SECTION ~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               <div style={commentBorder}>
-                {merchantComments.length > 0 ? (
-                  merchantComments
-                    .filter((comment) => comment.merchant_id === mId) // Filter comments for the current merchant
-                    .map((comment, i) => (
-                      <CommentDisplay
-                        key={comment.id}
-                        comment={comment}
-                        index={i}
-                      />
-                    ))
-                ) : (
-                  <p>No Comments Available</p>
+                {matchingComment && (
+                  <CommentDisplay
+                    key={matchingComment.id}
+                    comment={matchingComment}
+                    showAllComments={false}
+                  />
                 )}
               </div>
               {/* ~~~~~~~~~~~~~~~~ END~~~~~~~~~~~~~~~~~~~~ */}

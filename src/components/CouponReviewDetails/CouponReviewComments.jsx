@@ -4,9 +4,12 @@ import { border } from "../Utils/colors";
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import CommentInput from "./CommentInput";
 import "./CouponReviewDetails.css";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { mComments } from "../../hooks/reduxStore";
+export default function CouponReviewComments() {
+  const merchantComments = mComments() || [];
+  console.log(merchantComments);
 
-export default function CouponReviewComments({ comment }) {
-  
   return (
     <div
       style={{
@@ -24,11 +27,11 @@ export default function CouponReviewComments({ comment }) {
         Comments
       </Typography>
 
-      <div style={{ height: "415px", overflowY: "auto" }}>
+      {merchantComments.map((comment) => (
         <div className="comment-display-row">
           <CommentDisplay backgroundColor="" comment={comment} />
         </div>
-      </div>
+      ))}
 
       <div style={{ width: "100%", marginTop: "auto" }}>
         <CommentInput />

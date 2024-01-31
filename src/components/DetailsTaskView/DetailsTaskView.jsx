@@ -17,15 +17,15 @@ export default function DetailsTaskView({ caseType }) {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   console.log(caseType);
   const merchantId = useParams();
-  console.log(merchantId.id);
+  const mId = merchantId.id;
 
   useEffect(() => {
-    dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId.id });
+    dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: mId });
     dispatch({
       type: "FETCH_MERCHANT_TASKS",
-      payload: merchantId.id,
+      payload: mId,
     });
-  }, [dispatch, merchantId.id]);
+  }, [dispatch, mId]);
   
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>

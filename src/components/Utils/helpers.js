@@ -17,6 +17,17 @@ export const formatDate = (dateString) => {
   return `${month}/${day}/${year}`;
 };
 
+export const convertTo12HourFormat = (time24hr) => {
+  const [hours, minutes] = time24hr.split(':');
+  const dummyDate = new Date(0, 0, 0, hours, minutes);
+  const time12hr = dummyDate.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  });
+  return time12hr;
+};
+
 // Function to capitalize the first letter of each word
 export const capitalizeWords = (sentence) => {
   return sentence
