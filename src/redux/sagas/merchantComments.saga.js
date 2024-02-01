@@ -44,5 +44,5 @@ function* addComments(action) {
 export default function* merchantCommentsSaga() {
   yield takeEvery("FETCH_ALL_MERCHANT_COMMENTS", fetchAllMerchantComments);  
   yield takeEvery("FETCH_MERCHANT_COMMENTS", merchantComments);
-  yield takeEvery("ADD_MERCHANT_COMMENTS", addComments);
+  yield takeEvery("ADD_MERCHANT_COMMENT", addComments);
 }

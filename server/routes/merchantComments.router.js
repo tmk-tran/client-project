@@ -13,7 +13,8 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       TO_CHAR(created_at, 'MM/DD/YYYY') AS formatted_date,
       TO_CHAR(created_at, 'HH12:MI:SS AM') AS formatted_time,
       comment_content,
-      "user"
+      "user",
+      "task_id"
   FROM
       "merchant_comments"
   ORDER BY
@@ -27,7 +28,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log("error in the GET / request for authorized users", err);
+      console.log("error in the GET / request for merchantComments", err);
       res.sendStatus(500);
     });
 });
@@ -42,7 +43,8 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
       TO_CHAR(created_at, 'MM/DD/YYYY') AS formatted_date,
       TO_CHAR(created_at, 'HH12:MI:SS AM') AS formatted_time,
      comment_content,
-     "user"
+     "user",
+     "task_id"
   FROM
      "merchant_comments"
   WHERE
@@ -60,7 +62,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log("error in the GET / request for authorized users", err);
+      console.log("error in the GET / request for merchantComments", err);
       res.sendStatus(500);
     });
 });
