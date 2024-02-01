@@ -12,7 +12,7 @@ import "./OrgContactDetails.css";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import EditNoteIcon from "@mui/icons-material/EditNote";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import OrgContactEdit from "../ContactEdit/ContactEdit";
+import ContactEdit from "../ContactEdit/ContactEdit";
 import OrgDetailsEdit from "../DetailsEdit/DetailsEdit";
 import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
@@ -44,13 +44,15 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
 
   const handleSaveContact = (editedItem) => {
     console.log("New Contact Info:", editedItem);
-    dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
+    isMerchantTaskPage ? dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedItem }) : dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
+    // dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
     setIsEditing(false);
   };
 
-  const handleSaveOrgDetails = (editedOrg) => {
-    console.log("New Org Details:", editedOrg);
-    dispatch({ type: "EDIT_ORG_DETAILS", payload: editedOrg });
+  const handleSaveOrgDetails = (editedDetails) => { 
+    console.log("New Details:", editedDetails);
+    isMerchantTaskPage ? dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedDetails }) : dispatch({ type: "EDIT_ORG_DETAILS", payload: editedDetails });
+    // dispatch({ type: "EDIT_ORG_DETAILS", payload: editedOrg });
   };
 
   return (
@@ -126,7 +128,7 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
           <ContactDetailsList info={info} contactPhone={contactPhone} isMerchantTaskPage={isMerchantTaskPage} />
 
           <div style={{ marginBottom: "10px" }}>
-            <OrgContactEdit
+            <ContactEdit
               isOpen={isEditing}
               onClose={() => setIsEditing(false)}
               info={info}

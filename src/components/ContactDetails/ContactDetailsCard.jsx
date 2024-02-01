@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Button, Card, Divider, Typography } from "@mui/material";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import OrgContactEdit from "../ContactEdit/ContactEdit";
+import ContactEdit from "../ContactEdit/ContactEdit";
 import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
 
 export default function ContactDetailsCard({
@@ -46,7 +46,7 @@ export default function ContactDetailsCard({
       />
 
       <div style={{ marginBottom: "10px" }}>
-        <OrgContactEdit
+        <ContactEdit
           isOpen={isEditing}
           onClose={() => setIsEditing(false)}
           info={info}

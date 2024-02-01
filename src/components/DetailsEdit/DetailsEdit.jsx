@@ -66,35 +66,42 @@ export default function DetailsEdit({
       return;
     }
 
-    const orgInfo = {
+    const detailsInfo = {
       ...info,
-      organization_name: editedName,
-      type: editedType,
-      address: editedAddress,
-      city: editedCity,
-      state: editedState,
-      zip: editedZip,
-      primary_contact_first_name: contactFirstName,
-      primary_contact_last_name: contactLastName,
-      primary_contact_phone: contactPhone,
-      primary_contact_email: contactEmail,
     };
+    console.log(detailsInfo);
 
-    const orgId = orgInfo.organization_id;
+    const orgId = detailsInfo.organization_id;
+    console.log(orgId);
+    const merchantId = detailsInfo.id;
+    console.log(merchantId);
 
-    const editedOrg = {
-      organization_name: editedName,
-      type: editedType,
-      address: editedAddress,
-      city: editedCity,
-      state: editedState,
-      zip: editedZip,
-      primary_contact_first_name: contactFirstName,
-      primary_contact_last_name: contactLastName,
-      primary_contact_phone: contactPhone,
-      primary_contact_email: contactEmail,
-      organization_id: orgId,
-    };
+    const editedDetails = !isMerchantTaskPage
+      ? {
+          organization_name: editedName,
+          type: editedType,
+          address: editedAddress,
+          city: editedCity,
+          state: editedState,
+          zip: editedZip,
+          primary_contact_first_name: contactFirstName,
+          primary_contact_last_name: contactLastName,
+          primary_contact_phone: contactPhone,
+          primary_contact_email: contactEmail,
+          organization_id: orgId,
+        }
+      : {
+          merchant_name: editedName,
+          address: editedAddress,
+          city: editedCity,
+          state: editedState,
+          zip: editedZip,
+          primary_contact_first_name: contactFirstName,
+          primary_contact_last_name: contactLastName,
+          contact_phone_number: contactPhone,
+          contact_email: contactEmail,
+          id: merchantId,
+        };
 
     // from Utils
     // showToast();
@@ -104,7 +111,7 @@ export default function DetailsEdit({
 
     setZipError(false);
 
-    onSaveChanges(editedOrg);
+    onSaveChanges(editedDetails);
     onClose();
   };
 

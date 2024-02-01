@@ -23,7 +23,29 @@ function* allMerchants(action) {
   }
 }
 
+function* editMerchant(action) {
+  try {
+    const items = yield axios.put(
+      `/api/merchantDetails/${action.payload.id}`,
+      action.payload
+    );
+    console.log(
+      "FETCH request from merchantDetails.saga, ITEMS FOR editContact = ",
+      items
+    );
+    console.log("EDIT_CONTACT_INFO action.payload = ", action.payload);
+
+    yield put({
+      type: "FETCH_MERCHANT_DETAILS",
+      payload: action.payload.id,
+    });
+  } catch {
+    console.log("error in editMerchantSaga");
+  }
+}
+
 export default function* merchantDetailsSaga() {
   yield takeEvery("FETCH_MERCHANT_DETAILS", merchantDetails);
   yield takeEvery("FETCH_ALL_MERCHANTS", allMerchants);
+  yield takeEvery("EDIT_MERCHANT_DETAILS", editMerchant);
 }

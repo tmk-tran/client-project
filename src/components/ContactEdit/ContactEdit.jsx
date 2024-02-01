@@ -21,25 +21,31 @@ export default function ContactEdit({
   onSaveChanges,
   isMerchantTaskPage,
 }) {
-  // const [orgName, setOrgName] = useState(info.organization_name);
+  // const [name, setName] = useState(info.organization_name);
   console.log(isOpen);
   console.log(isMerchantTaskPage);
-  const [orgName, setOrgName] = useState(
+  const [name, setName] = useState(
     !isMerchantTaskPage ? info.organization_name : info.merchant_name
   );
-  console.log(orgName);
+  console.log(name);
   const [orgType, setOrgType] = useState(info.type);
   console.log(orgType);
-  const [orgAddress, setOrgAddress] = useState(info.address);
-  const [orgCity, setOrgCity] = useState(info.city);
-  const [orgState, setOrgState] = useState(info.state);
-  const [orgZip, setOrgZip] = useState(info.zip);
+  const [address, setAddress] = useState(info.address);
+  console.log(address);
+  const [city, setCity] = useState(info.city);
+  console.log(city);
+  const [state, setState] = useState(info.state);
+  console.log(state);
+  const [zip, setZip] = useState(info.zip);
+  console.log(zip);
   const [editedFirstName, setEditedFirstName] = useState(
     info.primary_contact_first_name
   );
+  console.log(editedFirstName);
   const [editedLastName, setEditedLastName] = useState(
     info.primary_contact_last_name
   );
+  console.log(editedLastName);
   const [editedPhone, setEditedPhone] = useState(
     isMerchantTaskPage
       ? Number(info.contact_phone_number)
@@ -47,38 +53,29 @@ export default function ContactEdit({
   );
   console.log(editedPhone);
   const [phoneError, setPhoneError] = useState(false);
+  console.log(phoneError);
   // const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
-  const [editedEmail, setEditedEmail] = useState(!isMerchantTaskPage ? info.primary_contact_email : info.contact_email);
+  const [editedEmail, setEditedEmail] = useState(
+    !isMerchantTaskPage ? info.primary_contact_email : info.contact_email
+  );
   console.log(editedEmail);
   const [emailError, setEmailError] = useState(false);
-  console.log(orgName);
+  console.log(emailError);
+  console.log(name);
 
   useEffect(() => {
-    // {isMerchantTaskPage ? setOrgName(info.organization_name) : setOrgName(info.merchant_name)}
-    // setOrgName(info.organization_name);
     setOrgType(info.type);
-    setOrgAddress(info.address);
-    setOrgCity(info.city);
-    setOrgState(info.state);
-    setOrgZip(info.zip);
-    !isMerchantTaskPage ? setEditedPhone(info.primary_contact_phone) : setEditedPhone(info.contact_phone_number);
-    !isMerchantTaskPage ? setEditedEmail(info.primary_contact_email) : setEditedEmail(info.contact_email);
+    setAddress(info.address);
+    setCity(info.city);
+    setState(info.state);
+    setZip(info.zip);
+    !isMerchantTaskPage
+      ? setEditedPhone(info.primary_contact_phone)
+      : setEditedPhone(info.contact_phone_number);
+    !isMerchantTaskPage
+      ? setEditedEmail(info.primary_contact_email)
+      : setEditedEmail(info.contact_email);
   }, [info, isMerchantTaskPage, isOpen]);
-
-  // useEffect(() => {
-  //   if (isMerchantTaskPage) {
-  //     // If isMerchantTaskPage is true, setMerchantName to info.merchant_name
-  //     setOrgName(info.merchant_name);
-  //   } else {
-  //     // Otherwise, set organization-related values
-  //     setOrgName(info.organization_name);
-  //     setOrgType(info.type);
-  //     setOrgAddress(info.address);
-  //     setOrgCity(info.city);
-  //     setOrgState(info.state);
-  //     setOrgZip(info.zip);
-  //   }
-  // }, [info, isMerchantTaskPage]);
 
   const handleSave = () => {
     // Validate email before saving
@@ -96,34 +93,40 @@ export default function ContactEdit({
 
     const contactInfo = {
       ...info,
-      organization_name: orgName,
-      type: orgType,
-      address: orgAddress,
-      city: orgCity,
-      state: orgState,
-      zip: orgZip,
-      primary_contact_first_name: editedFirstName,
-      primary_contact_last_name: editedLastName,
-      primary_contact_phone: editedPhone,
-      primary_contact_email: editedEmail,
     };
+    console.log(contactInfo);
 
     const orgId = contactInfo.organization_id;
+    console.log(orgId);
+    const merchantId = contactInfo.id;
+    console.log(merchantId);
 
-    const editedItem = {
-      organization_id: orgId,
-      organization_name: orgName,
-      type: orgType,
-      address: orgAddress,
-      city: orgCity,
-      state: orgState,
-      zip: orgZip,
-      primary_contact_first_name: editedFirstName,
-      primary_contact_last_name: editedLastName,
-      primary_contact_phone: editedPhone,
-      primary_contact_email: editedEmail,
-      organization_id: orgId,
-    };
+    const editedItem = !isMerchantTaskPage
+      ? {
+          organization_id: orgId,
+          organization_name: name,
+          type: orgType,
+          address: address,
+          city: city,
+          state: state,
+          zip: zip,
+          primary_contact_first_name: editedFirstName,
+          primary_contact_last_name: editedLastName,
+          primary_contact_phone: editedPhone,
+          primary_contact_email: editedEmail,
+        }
+      : {
+          id: merchantId,
+          merchant_name: name,
+          address: address,
+          city: city,
+          state: state,
+          zip: zip,
+          primary_contact_first_name: editedFirstName,
+          primary_contact_last_name: editedLastName,
+          contact_phone_number: editedPhone,
+          contact_email: editedEmail,
+        };
 
     // from Utils
     // showToast();
@@ -137,6 +140,7 @@ export default function ContactEdit({
     setPhoneError(false);
 
     onSaveChanges(editedItem);
+    console.log(editedItem);
   };
 
   const handleReset = () => {
