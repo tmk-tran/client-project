@@ -97,6 +97,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
       orgId,
     ])
     .then((response) => {
+      console.log("response from orgDetails.router: ", response.rows);
       res.sendStatus(200);
     })
     .catch((err) => {
