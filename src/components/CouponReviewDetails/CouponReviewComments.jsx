@@ -29,7 +29,7 @@ export default function CouponReviewComments() {
 
       {merchantComments.map((comment) => (
         <div className="comment-display-row">
-          <CommentDisplay backgroundColor="" comment={comment} />
+          <CommentDisplay backgroundColor="" comment={comment} showAllComments={true} />
         </div>
       ))}
 

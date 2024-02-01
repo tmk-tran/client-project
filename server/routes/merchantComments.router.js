@@ -6,7 +6,19 @@ const {
 } = require("../modules/authentication-middleware");
 
 router.get("/", rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT * FROM "merchant_comments" ORDER BY CONCAT("date", ' ', "time")`;
+  const queryText = `
+  SELECT
+      id,
+      merchant_id,
+      TO_CHAR(created_at, 'MM/DD/YYYY') AS formatted_date,
+      TO_CHAR(created_at, 'HH12:MI:SS AM') AS formatted_time,
+      comment_content,
+      "user"
+  FROM
+      "merchant_comments"
+  ORDER BY
+      created_at;
+  `;
 
   pool
     .query(queryText)
@@ -24,11 +36,22 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   const merchantId = req.params.id;
   console.log("merchantId = ", merchantId);
   const queryText = `
-  SELECT * 
-  FROM "merchant_comments" 
-  WHERE merchant_id = $1 
-  ORDER BY CONCAT("date", ' ', "time") DESC, "id" DESC;
+  SELECT
+      id,
+      merchant_id,
+      TO_CHAR(created_at, 'MM/DD/YYYY') AS formatted_date,
+      TO_CHAR(created_at, 'HH12:MI:SS AM') AS formatted_time,
+     comment_content,
+     "user"
+  FROM
+     "merchant_comments"
+  WHERE
+      merchant_id = $1
+  ORDER BY
+      created_at DESC, id DESC;
+
 `;
+
   pool
     .query(queryText, [merchantId])
     .then((result) => {
@@ -46,15 +69,17 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const comment = req.body;
   console.log(comment);
   const merchantId = comment.merchant_id;
-  const date = comment.comment_date;
   const content = comment.comment_content;
+  const user = comment.user;
+  const taskId = comment.task_id;
 
-  const queryText = `INSERT INTO "merchant_comments" ("merchant_id", "date", "time", "comment_content", "user")
-                                                        VALUES ($1, $2, $3, $4, $5);`;
+  const queryText = `INSERT INTO "merchant_comments" ("merchant_id", "comment_content", "user", "task_id")
+                                                        VALUES ($1, $2, $3, $4);`;
 
   pool
-    .query(queryText, [merchantId, date, content])
+    .query(queryText, [merchantId, content, user, taskId])
     .then((response) => {
+      console.log("response from merchantComments.router: ", response.rows);
       res.sendStatus(201);
     })
     .catch((err) => {

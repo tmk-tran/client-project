@@ -4,21 +4,18 @@ import { border } from "../Utils/colors";
 export default function CommentDisplay({
   backgroundColor = "rgba(96, 96, 96, 0.1)",
   comment,
-  mId,
-  showAllComments = true,
-  key,
-  caseType,
+  showAllComments,
 }) {
-  const merchantId = mId;
-  console.log(merchantId);
-  console.log(key);
-  const date = formatDate(comment.date);
-  const time = comment.time;
   const content = comment.comment_content;
+  console.log(content);
   const user = comment.user;
-
+  console.log(user);
   console.log(showAllComments);
   console.log(comment);
+  const date = comment.formatted_date;
+  console.log(date);
+  const time = comment.formatted_time;
+  console.log(time);
 
   if (!comment || comment.length === 0) {
     return <Typography>No Comments Available</Typography>;
@@ -40,7 +37,9 @@ export default function CommentDisplay({
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div>
-          <Typography variant="body2" sx={{ ml: 1, fontWeight: "bold" }}>{user}</Typography>
+          <Typography variant="body2" sx={{ ml: 1, fontWeight: "bold" }}>
+            {user}
+          </Typography>
         </div>
         <div>
           <Typography variant="caption" sx={{ ml: 3, mt: 0.4 }}>

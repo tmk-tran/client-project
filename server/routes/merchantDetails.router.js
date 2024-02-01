@@ -21,7 +21,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", rejectUnauthenticated, (req, res) => {
   const merchantId = req.params.id;
 
   const queryText = `SELECT * FROM merchant WHERE id = $1;`;
@@ -37,7 +37,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", rejectUnauthenticated, (req, res) => {
   const merchant = req.body;
   const merchantId = req.params.id;
   console.log("MERCHANT = ", merchant);

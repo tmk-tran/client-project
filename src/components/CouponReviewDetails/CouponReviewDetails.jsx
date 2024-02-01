@@ -17,7 +17,9 @@ import { dispatchHook } from "../../hooks/useDispatch";
 export default function CouponReviewDetails() {
   const dispatch = dispatchHook();
   const mId = useParams();
+  console.log(mId);
   const merchantId = mId.id;
+  console.log(merchantId);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 

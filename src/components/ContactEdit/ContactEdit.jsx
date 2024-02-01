@@ -147,8 +147,14 @@ export default function ContactEdit({
     // Reset form fields to their original values
     setEditedFirstName(info.primary_contact_first_name);
     setEditedLastName(info.primary_contact_last_name);
-    setEditedPhone(info.primary_contact_phone);
-    setEditedEmail(info.primary_contact_email);
+    setEditedPhone(
+      !isMerchantTaskPage
+        ? info.primary_contact_phone
+        : info.contact_phone_number
+    );
+    setEditedEmail(
+      !isMerchantTaskPage ? info.primary_contact_email : info.contact_email
+    );
     setEmailError(false);
     setPhoneError(false);
   };

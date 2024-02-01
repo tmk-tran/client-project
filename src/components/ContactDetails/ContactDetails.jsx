@@ -12,20 +12,17 @@ import "./OrgContactDetails.css";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import EditNoteIcon from "@mui/icons-material/EditNote";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import ContactEdit from "../ContactEdit/ContactEdit";
-import OrgDetailsEdit from "../DetailsEdit/DetailsEdit";
-import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
+import DetailsEdit from "../DetailsEdit/DetailsEdit";
+import ContactDetailsCard from "./ContactDetailsCard";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { capitalizeWords, formatPhoneNumber } from "../Utils/helpers";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
-import ContactDetailsCard from "./ContactDetailsCard";
 
 export default function ContactDetails({ info, isMerchantTaskPage }) {
   console.log(info);
   console.log(isMerchantTaskPage);
   const dispatch = dispatchHook();
-  // const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const contactPhone = isMerchantTaskPage
     ? formatPhoneNumber(info.contact_phone_number)
     : formatPhoneNumber(info.primary_contact_phone);
@@ -44,15 +41,17 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
 
   const handleSaveContact = (editedItem) => {
     console.log("New Contact Info:", editedItem);
-    isMerchantTaskPage ? dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedItem }) : dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
-    // dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
+    isMerchantTaskPage
+      ? dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedItem })
+      : dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
     setIsEditing(false);
   };
 
-  const handleSaveOrgDetails = (editedDetails) => { 
+  const handleSaveOrgDetails = (editedDetails) => {
     console.log("New Details:", editedDetails);
-    isMerchantTaskPage ? dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedDetails }) : dispatch({ type: "EDIT_ORG_DETAILS", payload: editedDetails });
-    // dispatch({ type: "EDIT_ORG_DETAILS", payload: editedOrg });
+    isMerchantTaskPage
+      ? dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedDetails })
+      : dispatch({ type: "EDIT_ORG_DETAILS", payload: editedDetails });
   };
 
   return (
@@ -67,7 +66,7 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
                     <EditNoteIcon className="edit-note-icon" />
                   </Button>
                 </div>
-                <OrgDetailsEdit
+                <DetailsEdit
                   isOpen={isEditingOrgDetails}
                   onClose={() => setIsEditingOrgDetails(false)}
                   info={info}
@@ -88,9 +87,6 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
                   {capitalizeWords(info.merchant_name)}
                 </Typography>
               )}
-              {/* <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                {info.organization_name}
-              </Typography> */}
             </div>
             <Typography>{capitalizeWords(info.address)}</Typography>
             <Typography>
@@ -100,45 +96,9 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
           </div>
           <br />
         </div>
-
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* Organization Contact Details Card */}
-        {/* <Card
-          elevation={5}
-          sx={{
-            maxWidth: 360,
-            bgcolor: "background.paper",
-            ...(isSmallScreen && {
-              maxWidth: "100%", // Adjust styles for smaller screens
-            }),
-          }}
-        >
-          <div className="contact-info-header">
-            <Typography style={{ fontWeight: "bold", marginTop: "15px" }}>
-              Contact
-            </Typography>
-
-            <div className="contact-info-edit-btn">
-              <Button onClick={handleEditContact} sx={{ fontSize: "16px" }}>
-                Edit
-              </Button>
-            </div>
-          </div>
-          <hr style={{ width: "80%" }} />
-
-          <ContactDetailsList info={info} contactPhone={contactPhone} isMerchantTaskPage={isMerchantTaskPage} />
-
-          <div style={{ marginBottom: "10px" }}>
-            <ContactEdit
-              isOpen={isEditing}
-              onClose={() => setIsEditing(false)}
-              info={info}
-              onSaveChanges={handleSaveContact}
-            /> */}
-        {/* <Button onClick={handleEditContact}>Edit</Button> */}
-        {/* </div>
-          <Divider />
-        </Card> */}
-
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <ContactDetailsCard
           contactPhone={contactPhone}
           handleEditContact={handleEditContact}
@@ -149,7 +109,7 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
           isSmallScreen={isSmallScreen}
           setIsEditing={setIsEditing}
         />
-
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <Box sx={{ flexGrow: 1 }}></Box>
       </div>
     </>

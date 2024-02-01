@@ -16,7 +16,7 @@ export default function DetailsEdit({
   isOpen,
   onClose,
   info,
-  onSaveChanges,
+  onSaveChanges, // --> FROM ContactDetails.jsx
   isMerchantTaskPage,
 }) {
   // const [editedName, setEditedName] = useState(info.organization_name);
@@ -117,7 +117,9 @@ export default function DetailsEdit({
 
   const handleReset = () => {
     // Reset form fields to their original values
-    setEditedName(info.organization_name);
+    setEditedName(
+      !isMerchantTaskPage ? info.organization_name : info.merchant_name
+    );
     setEditedType(info.type);
     setEditedAddress(info.address);
     setEditedCity(info.city);
