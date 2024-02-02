@@ -1,9 +1,6 @@
 import React from "react";
 import LoginForm from "../LoginForm/LoginForm";
-import {
-  Button,
-  Typography,
-} from "@mui/material";
+import { Button, Typography } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
 
@@ -12,17 +9,26 @@ function LoginPage() {
 
   return (
     <div>
+      <Typography variant="h5" sx={{ textAlign: "center", fontWeight: "bold" }}>
+        * Testing Environment *
+      </Typography>
       <br />
       <LoginForm />
 
-      <center style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <center
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <Typography>Not a member?&nbsp;</Typography>
         <Button
           type="button"
-          style={{ textDecoration: 'underline' }}
+          style={{ textDecoration: "underline" }}
           className="btn btn_asLink"
           onClick={() => {
-            history.push('/registration');
+            history.push("/registration");
           }}
         >
           Create Account

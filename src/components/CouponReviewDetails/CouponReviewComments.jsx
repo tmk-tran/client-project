@@ -56,8 +56,8 @@ export default function CouponReviewComments({ merchantId }) {
         Comments
       </Typography>
 
-      {merchantComments.map((comment) => (
-        <div className="comment-display-row">
+      {merchantComments.map((comment, i) => (
+        <div className="comment-display-row" key={i}>
           <CommentDisplay
             backgroundColor=""
             comment={comment}

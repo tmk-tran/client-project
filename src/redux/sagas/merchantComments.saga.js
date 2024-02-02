@@ -17,6 +17,7 @@ function* fetchAllMerchantComments(action) {
 
 function* merchantComments(action) {
   console.log(action.payload);
+
   try {
     const items = yield axios.get(`/api/merchantComments/${action.payload}`);
     console.log(
