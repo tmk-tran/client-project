@@ -11,10 +11,10 @@ function RegisterPage() {
     <div>
       <br />
       {/* Commented out for deployment testing */}
-      {/* <RegisterForm /> */}
+      <RegisterForm />
 
       <center>
-        <h1>This appplication for ADMIN use only</h1>
+        <h1>This application for ADMIN use only</h1>
       </center>
     </div>
   );
