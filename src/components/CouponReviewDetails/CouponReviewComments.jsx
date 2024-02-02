@@ -5,19 +5,21 @@ import { border, primaryColor } from "../Utils/colors";
 // ~~~~~~~~~~ Component ~~~~~~~~~
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import CommentInput from "./CommentInput";
+import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import "./CouponReviewDetails.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { mComments } from "../../hooks/reduxStore";
-import { dispatchHook } from "../../hooks/useDispatch";
+import { useAlert } from "../SuccessAlert/useAlert";
 
 export default function CouponReviewComments({ merchantId, onSubmit }) {
-  const dispatch = dispatchHook();
-
   const [taskId, setTaskId] = useState(null);
   console.log(taskId);
   console.log(merchantId);
   const merchantComments = mComments() || [];
   console.log(merchantComments);
+
+  // ~~~~~~~~~~ Alert ~~~~~~~~~~
+  const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
   // useEffect to handle the extraction when merchantComments changes
   useEffect(() => {
@@ -32,9 +34,6 @@ export default function CouponReviewComments({ merchantId, onSubmit }) {
     } else {
       console.log("No valid task ID found");
     }
-
-    // dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
-
   }, [merchantComments]);
 
   return (
@@ -47,6 +46,11 @@ export default function CouponReviewComments({ merchantId, onSubmit }) {
         flexDirection: "column",
       }}
     >
+      <SuccessAlert
+        isOpen={isAlertOpen}
+        onClose={handleAlertClose}
+        caseType="NewComment"
+      />
       <Typography
         variant="h6"
         sx={{ fontWeight: "bold", textAlign: "center", mb: 1 }}
@@ -65,7 +69,12 @@ export default function CouponReviewComments({ merchantId, onSubmit }) {
       ))}
 
       <div style={{ width: "100%", marginTop: "auto" }}>
-        <CommentInput merchantId={merchantId} taskId={taskId} onSubmit={onSubmit} />
+        <CommentInput
+          merchantId={merchantId}
+          taskId={taskId}
+          onSubmit={onSubmit}
+          onChange={handleTaskUpdate}
+        />
       </div>
     </div>
   );

@@ -29,9 +29,6 @@ export default function CouponReviewDetails() {
   const [commentAdded, setCommentAdded] = useState(false);
   console.log(commentAdded);
 
-  // const merchantComments = mComments() || [];
-  // console.log(merchantComments);
-
   const handleDenyButtonClick = () => {
     // Open the modal when Deny button is clicked
     setIsModalOpen(true);
@@ -169,7 +166,10 @@ export default function CouponReviewDetails() {
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~~~ COMMENTS ~~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                  <CouponReviewComments merchantId={merchantId} onSubmit={updateComments} />
+                  <CouponReviewComments
+                    merchantId={merchantId}
+                    onSubmit={updateComments}
+                  />
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 </div>
               </CardContent>
