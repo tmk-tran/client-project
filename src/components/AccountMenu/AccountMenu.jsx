@@ -6,10 +6,13 @@ import { User } from "../../hooks/reduxStore";
 import { Select, MenuItem, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import "./AccountMenu.css";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
 
 const AccountMenu = () => {
   const user = User();
   const history = historyHook();
+  const dispatch = dispatchHook();
 
   const handleMenuChange = (event) => {
     // Handle menu item selection
@@ -71,7 +74,7 @@ const AccountMenu = () => {
       <MenuItem value="merchants">Merchants</MenuItem>
       <MenuItem value="coupons">Coupons</MenuItem>
       <hr style={{ width: "90%" }} />
-      <MenuItem value="logout">Logout</MenuItem>
+      <MenuItem value="logout" onClick={() => dispatch({ type: "LOGOUT" })}>Logout</MenuItem>
     </Select>
   );
 };
