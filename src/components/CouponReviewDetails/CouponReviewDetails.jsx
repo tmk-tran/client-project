@@ -26,6 +26,8 @@ export default function CouponReviewDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTaskUpdate, setIsTaskUpdate] = useState(false);
   console.log(isTaskUpdate);
+  const [commentAdded, setCommentAdded] = useState(false);
+  console.log(commentAdded);
 
   // const merchantComments = mComments() || [];
   // console.log(merchantComments);
@@ -43,12 +45,16 @@ export default function CouponReviewDetails() {
     setIsTaskUpdate(newValue);
   };
 
+  const updateComments = () => {
+    setCommentAdded(true);
+  };
+
   useEffect(() => {
     // Ensure that merchantId is available before dispatching the action
     if (merchantId) {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
     }
-  }, [dispatch, merchantId]);
+  }, [dispatch, merchantId, commentAdded]);
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
@@ -163,7 +169,7 @@ export default function CouponReviewDetails() {
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~~~ COMMENTS ~~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                  <CouponReviewComments merchantId={merchantId} />
+                  <CouponReviewComments merchantId={merchantId} onSubmit={updateComments} />
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 </div>
               </CardContent>

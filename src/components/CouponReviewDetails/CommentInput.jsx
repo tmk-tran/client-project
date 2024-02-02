@@ -6,7 +6,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { User } from "../../hooks/reduxStore";
 
-export default function CommentInput({ merchantId, taskId }) {
+export default function CommentInput({ merchantId, taskId, onSubmit }) {
   console.log(merchantId);
   console.log(taskId);
   const [comment, setComment] = useState("");
@@ -20,9 +20,9 @@ export default function CommentInput({ merchantId, taskId }) {
 
   const dispatch = dispatchHook();
 
-  useEffect(() => {
-    dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
-  }, [dispatch, commentAdded]);
+  // useEffect(() => {
+  //   dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
+  // }, [dispatch, commentAdded]);
 
   const newComment = {
     merchant_id: merchantId,
@@ -37,6 +37,7 @@ export default function CommentInput({ merchantId, taskId }) {
     dispatch({ type: "ADD_MERCHANT_COMMENT", payload: newComment });
     setCommentAdded(true);
     setComment("");
+    onSubmit();
   };
 
   const handleFileUpload = () => {

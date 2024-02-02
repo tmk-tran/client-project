@@ -10,12 +10,10 @@ import "./CouponReviewDetails.css";
 import { mComments } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 
-export default function CouponReviewComments({ merchantId }) {
+export default function CouponReviewComments({ merchantId, onSubmit }) {
   const dispatch = dispatchHook();
 
   const [taskId, setTaskId] = useState(null);
-  // const [commentAdded, setCommentAdded] = useState(false);
-  // console.log(commentAdded);
   console.log(taskId);
   console.log(merchantId);
   const merchantComments = mComments() || [];
@@ -67,7 +65,7 @@ export default function CouponReviewComments({ merchantId }) {
       ))}
 
       <div style={{ width: "100%", marginTop: "auto" }}>
-        <CommentInput merchantId={merchantId} taskId={taskId} />
+        <CommentInput merchantId={merchantId} taskId={taskId} onSubmit={onSubmit} />
       </div>
     </div>
   );

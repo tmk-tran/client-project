@@ -16,6 +16,7 @@ function* fetchAllMerchantComments(action) {
 }
 
 function* merchantComments(action) {
+  console.log(action);
   console.log(action.payload);
 
   try {
@@ -34,8 +35,9 @@ function* merchantComments(action) {
 function* addComments(action) {
   try {
     console.log(action.payload);
+    console.log(action.payload.merchant_id);
     yield axios.post(`/api/merchantComments/`, action.payload);
-    yield put({ type: "FETCH_MERCHANT_COMMENTS", payload: action.payload });
+    yield put({ type: "FETCH_MERCHANT_COMMENTS", payload: action.payload.merchant_id });
   } catch (error) {
     console.log("error in addComments Merchant Saga", error);
     yield put({ type: "SET_ERROR", payload: error });

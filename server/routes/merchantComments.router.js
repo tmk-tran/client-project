@@ -69,7 +69,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const comment = req.body;
-  console.log(comment);
+  console.log("COMMENT IS: ", comment);
   const merchantId = comment.merchant_id;
   const content = comment.comment_content;
   const user = comment.user;
