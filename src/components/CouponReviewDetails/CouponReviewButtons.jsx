@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import { errorColor, successColor } from "../Utils/colors";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { modalBtnStyle } from "../Utils/helpers";
+import { border } from "../Utils/colors";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import CheckIcon from "@mui/icons-material/Check";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -36,6 +37,15 @@ export default function CouponReviewButtons({
     },
   };
 
+  const cancelButton = {
+    width: "40%",
+    backgroundColor: errorColor.color,
+  };
+
+  const handleCancelClick = () => {
+    updateTaskState(false);
+  };
+
   const handleUpdateClick = () => {
     // Perform any necessary actions in the child component
     handleTaskUpdate();
@@ -48,12 +58,27 @@ export default function CouponReviewButtons({
       <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
 
       {isTaskUpdate ? (
-        <Button onClick={handleUpdateClick} sx={{ backgroundColor: successColor.color, ...hoverAccept }} variant="contained" fullWidth>
-          Update
-        </Button>
-      ) : (
         <>
           <Button
+            onClick={handleCancelClick}
+            variant="contained"
+            sx={{ ...cancelButton, ...hoverDeny }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleUpdateClick}
+            sx={{ backgroundColor: successColor.color, ...hoverAccept }}
+            variant="contained"
+            fullWidth
+          >
+            Update
+          </Button>
+        </>
+      ) : (
+        // <div style={{ height: "4vh", ...border }}></div>
+        <>
+          {/* <Button
             variant="contained"
             sx={{
               width: "10vw",
@@ -75,6 +100,18 @@ export default function CouponReviewButtons({
           >
             <CheckIcon />
             &nbsp; Accept
+          </Button> */}
+
+          <Button variant="contained" sx={cancelButton} disabled>
+            Cancel
+          </Button>
+          <Button
+            sx={{ backgroundColor: successColor.color, ...hoverAccept }}
+            variant="contained"
+            disabled
+            fullWidth
+          >
+            Update
           </Button>
         </>
       )}

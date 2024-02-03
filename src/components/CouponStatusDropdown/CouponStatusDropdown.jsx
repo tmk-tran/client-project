@@ -15,14 +15,22 @@ const statusOptions = [
   "Update Create Proof",
 ];
 
-export default function CouponStatusDropdown({ width = "100%", handleUpdateTask }) {
+export default function CouponStatusDropdown({
+  width = "100%",
+  handleUpdateTask,
+}) {
   const [status, setStatus] = useState("");
+  const [changesRequested, setChangesRequested] = useState(false);
+  console.log(changesRequested);
   const [isTaskUpdate, setIsTaskUpdate] = useState(false);
   console.log(isTaskUpdate);
 
   const handleMenuChange = (event) => {
     const choice = event.target.value;
     setStatus(choice);
+    choice === "Changes Requested"
+      ? setChangesRequested(true)
+      : setChangesRequested(false);
     setIsTaskUpdate(true);
 
     // Pass both the selected status and isTaskUpdate state to the parent
