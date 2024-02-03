@@ -135,7 +135,6 @@
 //   );
 // }
 
-
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -159,8 +158,14 @@ export default function TableTaskDetails({ mId, caseType }) {
   const paramsObject = useParams();
   const dispatch = dispatchHook();
   const merchantTasks = mTasks();
+  console.log(merchantTasks);
   const comments = mComments();
   const orgTasks = oTasks();
+
+  const toDoTasks = merchantTasks.filter(
+    (task) => task.task_status !== "Complete"
+  );
+  console.log(toDoTasks);
 
   const fullWidth = {
     width: "100%",
@@ -267,7 +272,7 @@ export default function TableTaskDetails({ mId, caseType }) {
       <TableBody>
         {caseType === "orgTaskView"
           ? orgTasks.map(renderTask)
-          : merchantTasks.map(renderTask)}
+          : toDoTasks.map(renderTask)}
       </TableBody>
     </Table>
   );
