@@ -84,12 +84,6 @@ export default function NotesDisplay({
     // Format the date as "mm/dd/yyyy"
     const formattedDate = noteDate.toLocaleDateString("en-US");
 
-    // const sendNote = {
-    //   organization_id: orgId,
-    //   note_date: formattedDate,
-    //   note_content: inputValue,
-    // };
-
     const sendNote = {
       organization_id: !isMerchantTaskPage ? orgId : null,
       merchant_id: isMerchantTaskPage ? orgId : null,
@@ -117,33 +111,23 @@ export default function NotesDisplay({
     setInputValue("");
   };
 
-  // const handleDelete = (id, organization_id) => {
-  //   console.log(id);
-  //   // const deleteCall = () => {
-  //   const actionType = isMerchantTaskPage
-  //     ? "DELETE_MERCHANT_NOTE"
-  //     : "DELETE_ORG_NOTE";
-
-  //   const accountId = isMerchantTaskPage ? { id } : { organization_id };
-
-  //   dispatch({ type: actionType, payload: accountId });
-  //   setNoteDelete(true);
-  //   // };
-  //   // from Utils
-  //   // showDeleteSweetAlert(deleteCall);
-  //   console.log(actionType);
-  //   console.log(accountId);
-  //   console.log(organization_id);
-  //   console.log(id);
-
+  const showDeleteConfirmation = (noteId, entityId) => {
+    // Sweet Alert
+    showDeleteSweetAlert(() => {
+      // If the user confirms, call the handleDelete function
+      handleDelete(noteId, entityId);
+    });
+  };
+  
   const handleDelete = (noteId, entityId) => {
     console.log(noteId);
     console.log(entityId);
+  
     // Assuming you're using Redux for state management
     const actionType = isMerchantTaskPage
       ? "DELETE_MERCHANT_NOTE"
       : "DELETE_ORG_NOTE";
-
+  
     dispatch({
       type: actionType,
       payload: {
@@ -151,7 +135,11 @@ export default function NotesDisplay({
         entityId,
       },
     });
+  
+    // Call the function to show the confirmation modal
+    showDeleteConfirmation(noteId, entityId);
   };
+  
 
   return (
     <div className="notes-card-container">
@@ -191,10 +179,6 @@ export default function NotesDisplay({
                           justifyContent: "space-between",
                         }}
                       >
-                        {/* <li style={{ marginLeft: "10%" }}>
-                          {note.note_content.charAt(0).toUpperCase() +
-                            note.note_content.slice(1).toLowerCase()}
-                        </li> */}
                         <li style={{ marginLeft: "10%" }}>
                           {note.note_content &&
                             note.note_content
@@ -206,14 +190,6 @@ export default function NotesDisplay({
                               .join(" ")}
                         </li>
 
-                        {/* <Button
-                          className="notes-delete-btn"
-                          onClick={() =>
-                            isMerchantTaskPage
-                              ? handleDelete(note.id, note.merchant_id)
-                              : handleDelete(note.id, note.organization_id)
-                          }
-                        > */}
                         <Button
                           className="notes-delete-btn"
                           onClick={() => {
@@ -224,7 +200,7 @@ export default function NotesDisplay({
                                 "Merchant ID:",
                                 note.merchant_id
                               );
-                              handleDelete(note.id, note.merchant_id);
+                              showDeleteConfirmation(note.id, note.merchant_id);
                             } else {
                               console.log(
                                 "Organization Task Page - Note ID:",
@@ -232,7 +208,7 @@ export default function NotesDisplay({
                                 "Organization ID:",
                                 note.organization_id
                               );
-                              handleDelete(note.id, note.organization_id);
+                              showDeleteConfirmation(note.id, note.organization_id);
                             }
                           }}
                         >
