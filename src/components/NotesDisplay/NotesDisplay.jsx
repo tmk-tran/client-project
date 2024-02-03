@@ -8,7 +8,7 @@ import {
   CardContent,
   TextField,
 } from "@mui/material";
-import "./OrgNotesDisplay.css";
+import "./NotesDisplay.css";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import DeleteIcon from "@mui/icons-material/Delete";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
@@ -22,10 +22,11 @@ import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function OrgNotesDisplay({ notes, orgDetails, caseType, isMerchantTaskPage }) {
+export default function NotesDisplay({ notes, orgDetails, caseType, isMerchantTaskPage }) {
   console.log(isMerchantTaskPage);
   console.log(notes);
-  console.log(orgDetails);
+  console.log(orgDetails)
+  console.log(caseType);
 
   const dispatch = dispatchHook();
   const paramsObject = useParams();

@@ -8,7 +8,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import ContactDetails from "../ContactDetails/ContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
-import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
+import NotesDisplay from "../NotesDisplay/NotesDisplay";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
 import DetailsTaskView from "../DetailsTaskView/DetailsTaskView";
 import CouponReviewCard from "../CouponReviewCard/CouponReviewCard";
@@ -120,11 +120,11 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
                 {!isTaskPage && !isMerchantTaskPage && (
-                  <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
+                  <NotesDisplay notes={notes} orgDetails={orgDetails} />
                 )}
 
                 {isTaskPage && (
-                  <OrgNotesDisplay
+                  <NotesDisplay
                     notes={notes}
                     orgDetails={orgDetails}
                     caseType={1}
@@ -132,9 +132,9 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                 )}
                 {/* Check if it's a merchant task page */}
                 {isMerchantTaskPage &&
-                  // Map over merchantDetails and pass each object to OrgNotesDisplay
+                  // Map over merchantDetails and pass each object to NotesDisplay
                   merchantDetails.map((merchantInfo) => (
-                    <OrgNotesDisplay
+                    <NotesDisplay
                       key={merchantInfo.id}
                       notes={notes}
                       orgDetails={merchantInfo}
