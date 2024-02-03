@@ -16,9 +16,9 @@ import { dispatchHook } from "../../hooks/useDispatch";
 
 export default function CouponReviewDetails() {
   const dispatch = dispatchHook();
-  const mId = useParams();
-  console.log(mId);
-  const merchantId = mId.id;
+  const params = useParams();
+  console.log(params.id);
+  const merchantId = params.id;
   console.log(merchantId);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -151,12 +151,15 @@ export default function CouponReviewDetails() {
                           </Typography>
                         </div>
                       </div>
-
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~~ BUTTONS ~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       <CouponReviewButtons
                         onDenyButtonClick={handleDenyButtonClick}
                         isTaskUpdate={isTaskUpdate}
                         updateTaskState={updateTaskState}
                       />
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
                       {isModalOpen && (
                         <DenyProofModal onClose={() => setIsModalOpen(false)} />

@@ -21,20 +21,5 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// router.put("/:id", rejectUnauthenticated, (req, res) => {
-//   const taskId = req.params.id;
-//   const taskStatus = req.body.task_status;
-
-//   const queryText = `UPDATE "merchant_tasks" SET task_status = $1 WHERE id = $2;`;
-//   pool
-//     .query(queryText, [taskStatus, taskId])
-//     .then((response) => {
-//       res.sendStatus(200);
-//     })
-//     .catch((err) => {
-//       console.log("error with merchantTask PUT route", err);
-//       res.sendStatus(500);
-//     });
-// });
 
 module.exports = router;
