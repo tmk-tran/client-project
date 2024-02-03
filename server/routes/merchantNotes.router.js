@@ -43,4 +43,25 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+  const noteId = req.params.id;
+  console.log("MERCHANT noteId = ", noteId);
+
+  pool
+    .query(
+      `UPDATE "merchant_notes"
+      SET is_deleted = true
+      WHERE id = $1;`,
+      [noteId]
+    )
+    .then((response) => {
+      console.log(response.rows);
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Error with merchantNotes DELETE route", error);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

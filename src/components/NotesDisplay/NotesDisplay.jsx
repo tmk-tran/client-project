@@ -22,11 +22,17 @@ import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function NotesDisplay({ notes, orgDetails, caseType, isMerchantTaskPage }) {
+export default function NotesDisplay({
+  notes,
+  orgDetails, // change name ??
+  caseType,
+  isMerchantTaskPage,
+}) {
   console.log(isMerchantTaskPage);
   console.log(notes);
-  console.log(orgDetails)
+  console.log(orgDetails);
   console.log(caseType);
+  console.log(notes);
 
   const dispatch = dispatchHook();
   const paramsObject = useParams();
@@ -36,7 +42,9 @@ export default function NotesDisplay({ notes, orgDetails, caseType, isMerchantTa
   const [inputValue, setInputValue] = useState("");
   // State from popover
   // const [orgId, setOrgId] = useState(orgDetails.organization_id);
-  const [orgId, setOrgId] = useState(!isMerchantTaskPage ? orgDetails.organization_id : orgDetails.id);
+  const [orgId, setOrgId] = useState(
+    !isMerchantTaskPage ? orgDetails.organization_id : orgDetails.id
+  );
   console.log(orgId);
   const [noteDate, setNoteDate] = useState(new Date());
   const [noteAdded, setNoteAdded] = useState(false);
@@ -44,7 +52,6 @@ export default function NotesDisplay({ notes, orgDetails, caseType, isMerchantTa
   // Access merchant_id directly from orgDetails if isMerchantTaskPage is true
   const merchantId = isMerchantTaskPage ? orgDetails.id : null;
   console.log(merchantId);
-
 
   // useEffect(() => {
   //   // Fetch org notes whenever noteAdded changes
@@ -59,14 +66,16 @@ export default function NotesDisplay({ notes, orgDetails, caseType, isMerchantTa
 
   useEffect(() => {
     // Define the action type based on isMerchantTaskPage
-    const fetchNotesActionType = !isMerchantTaskPage ? "FETCH_ORG_NOTES" : "FETCH_MERCHANT_NOTES";
-  
+    const fetchNotesActionType = !isMerchantTaskPage
+      ? "FETCH_ORG_NOTES"
+      : "FETCH_MERCHANT_NOTES";
+
     // Fetch notes based on the determined action type
     dispatch({
       type: fetchNotesActionType,
       payload: paramsObject.id,
     });
-  
+
     // Reset noteAdded after fetching data
     setNoteAdded(false);
   }, [dispatch, paramsObject.id, noteAdded, isMerchantTaskPage]);
@@ -86,8 +95,7 @@ export default function NotesDisplay({ notes, orgDetails, caseType, isMerchantTa
       merchant_id: isMerchantTaskPage ? orgId : null,
       note_date: formattedDate,
       note_content: inputValue,
-    };    
-    
+    };
 
     // const saveCall = () => {
     //   dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
@@ -95,12 +103,13 @@ export default function NotesDisplay({ notes, orgDetails, caseType, isMerchantTa
     // };
 
     const saveCall = () => {
-      const actionType = isMerchantTaskPage ? "ADD_MERCHANT_NOTES" : "ADD_ORG_NOTES";
+      const actionType = isMerchantTaskPage
+        ? "ADD_MERCHANT_NOTES"
+        : "ADD_ORG_NOTES";
       dispatch({ type: actionType, payload: sendNote });
       console.log(sendNote);
       setNoteAdded(true);
     };
-    
 
     // Sweet Alert
     showSaveSweetAlert(saveCall);
@@ -108,13 +117,40 @@ export default function NotesDisplay({ notes, orgDetails, caseType, isMerchantTa
     setInputValue("");
   };
 
-  const handleDelete = (id, organization_id) => {
-    const deleteCall = () => {
-      dispatch({ type: "DELETE_ORG_NOTE", payload: { id, organization_id } });
-      setNoteDelete(true);
-    };
-    // from Utils
-    showDeleteSweetAlert(deleteCall);
+  // const handleDelete = (id, organization_id) => {
+  //   console.log(id);
+  //   // const deleteCall = () => {
+  //   const actionType = isMerchantTaskPage
+  //     ? "DELETE_MERCHANT_NOTE"
+  //     : "DELETE_ORG_NOTE";
+
+  //   const accountId = isMerchantTaskPage ? { id } : { organization_id };
+
+  //   dispatch({ type: actionType, payload: accountId });
+  //   setNoteDelete(true);
+  //   // };
+  //   // from Utils
+  //   // showDeleteSweetAlert(deleteCall);
+  //   console.log(actionType);
+  //   console.log(accountId);
+  //   console.log(organization_id);
+  //   console.log(id);
+
+  const handleDelete = (noteId, entityId) => {
+    console.log(noteId);
+    console.log(entityId);
+    // Assuming you're using Redux for state management
+    const actionType = isMerchantTaskPage
+      ? "DELETE_MERCHANT_NOTE"
+      : "DELETE_ORG_NOTE";
+
+    dispatch({
+      type: actionType,
+      payload: {
+        noteId,
+        entityId,
+      },
+    });
   };
 
   return (
@@ -170,11 +206,35 @@ export default function NotesDisplay({ notes, orgDetails, caseType, isMerchantTa
                               .join(" ")}
                         </li>
 
-                        <Button
+                        {/* <Button
                           className="notes-delete-btn"
                           onClick={() =>
-                            handleDelete(note.id, note.organization_id)
+                            isMerchantTaskPage
+                              ? handleDelete(note.id, note.merchant_id)
+                              : handleDelete(note.id, note.organization_id)
                           }
+                        > */}
+                        <Button
+                          className="notes-delete-btn"
+                          onClick={() => {
+                            if (isMerchantTaskPage) {
+                              console.log(
+                                "Merchant Task Page - Note ID:",
+                                note.id,
+                                "Merchant ID:",
+                                note.merchant_id
+                              );
+                              handleDelete(note.id, note.merchant_id);
+                            } else {
+                              console.log(
+                                "Organization Task Page - Note ID:",
+                                note.id,
+                                "Organization ID:",
+                                note.organization_id
+                              );
+                              handleDelete(note.id, note.organization_id);
+                            }
+                          }}
                         >
                           <DeleteIcon style={{ fontSize: "20px" }} />
                         </Button>

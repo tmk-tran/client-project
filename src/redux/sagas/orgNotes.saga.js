@@ -44,8 +44,9 @@ function* editNotes(action) {
 }
 
 function* deleteOrgNote(action) {
-  const noteId = action.payload.id;
-  const orgId = action.payload.organization_id;
+  console.log(action.payload);
+  const noteId = action.payload.noteId;
+  const orgId = action.payload.entityId;
   try {
     const response = yield axios.delete(`/api/orgnotes/${noteId}`);
     console.log(

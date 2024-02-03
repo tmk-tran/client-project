@@ -24,7 +24,26 @@ function* addNotes(action) {
   }
 }
 
+function* deleteMerchantNote(action) {
+  console.log(action.payload);
+  const noteId = action.payload.noteId;
+  console.log(noteId);
+  const merchantId = action.payload.entityId;
+
+  try {
+    const response = yield axios.delete(`/api/merchantnotes/${noteId}`);
+    console.log(
+      "DELETE request from merchantNotes.saga, response FOR DELETE = ",
+      response
+    );
+    yield put({ type: "FETCH_MERCHANT_NOTES", payload: merchantId });
+  } catch (error) {
+    console.log("error with deleteMerchantNote request", error);
+  }
+}
+
 export default function* merchantNotesSaga() {
   yield takeEvery("FETCH_MERCHANT_NOTES", merchantNotes);
   yield takeEvery("ADD_MERCHANT_NOTES", addNotes);
+  yield takeEvery("DELETE_MERCHANT_NOTE", deleteMerchantNote);
 }

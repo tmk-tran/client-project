@@ -44,7 +44,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const noteId = req.params.id;
-  console.log("noteId = ", noteId);
+  console.log("ORG noteId = ", noteId);
   pool
     .query(
       `UPDATE "organization_notes"
