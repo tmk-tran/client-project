@@ -114,7 +114,7 @@ function App() {
             <ProtectedRoute path="/tasks/:tab" component={TaskTabs} />
 
             {/* UPDATE THIS WITH CORRECT ID IN OrgTaskDetails */}
-            <ProtectedRoute exact path="/organizationtaskdetails/:id">
+            <ProtectedRoute exact path="/organizationTaskDetails/:id">
               <Details isMerchantTaskPage={false} isTaskPage={true} />
             </ProtectedRoute>
 

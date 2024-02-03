@@ -37,6 +37,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
+  console.log(paramsObject);
 
   // Check if the user is on the task page
   // const isTaskPage = location.pathname.includes("/orgtaskdetails");
@@ -193,7 +194,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                 {isTaskPage && (
                   // Show task-related content on the task page
                   <>
-                    <DetailsTaskView />
+                    <DetailsTaskView caseType="orgTaskView" />
                     <div style={{ height: "40vh" }}></div>
                   </>
                 )}

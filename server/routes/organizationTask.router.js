@@ -7,6 +7,7 @@ const {
 
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const orgId = req.params.id;
+  console.log(orgId);
 
   const queryText = `SELECT * FROM organization_tasks WHERE organization_id = $1 ORDER BY due_date ASC;`;
   pool

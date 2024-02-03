@@ -17,15 +17,30 @@ export default function DetailsTaskView({ caseType }) {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   console.log(caseType);
   const merchantId = useParams();
+  console.log(merchantId);
   const mId = merchantId.id;
+  console.log(mId);
+
+  // useEffect(() => {
+  //   dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: mId });
+    
+  //   dispatch({
+  //     type: "FETCH_MERCHANT_TASKS",
+  //     payload: mId,
+  //   });
+  // }, [dispatch, mId]);
 
   useEffect(() => {
-    dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: mId });
-    dispatch({
-      type: "FETCH_MERCHANT_TASKS",
-      payload: mId,
-    });
-  }, [dispatch, mId]);
+    if (caseType === "orgTaskView") {
+      dispatch({
+        type: "FETCH_ORGANIZATION_TASKS",
+        payload: mId,
+      });
+    } else {
+      dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: mId });
+      dispatch({ type: "FETCH_MERCHANT_TASKS", payload: mId });
+    }
+  }, [dispatch, mId, caseType]);
   
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
@@ -42,7 +57,7 @@ export default function DetailsTaskView({ caseType }) {
               caseType === "merchantView" ? "merchant-task-view" : ""
             }`}
           >
-            <TableTaskDetails />
+            <TableTaskDetails caseType={caseType} mId={mId} />
           </div>
 
           <div>
