@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
-// ~~~~~~~~~~ Style ~~~~~~~~~~
+import React, { useState, useRef } from "react";
 import { TextField, Button, IconButton, Paper } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { User } from "../../hooks/reduxStore";
-import CouponDesign from "../CouponDesign/CouponDesign";
 
 export default function CommentInput({ merchantId, taskId, onSubmit, onChange }) {
   console.log(merchantId);
@@ -19,6 +17,9 @@ export default function CommentInput({ merchantId, taskId, onSubmit, onChange })
   const currentUsername = user.username;
   console.log(currentUsername);
 
+  const fileInputRef = useRef(null); // Add useRef here
+  console.log(fileInputRef);
+
   const dispatch = dispatchHook();
 
   const newComment = {
@@ -28,19 +29,26 @@ export default function CommentInput({ merchantId, taskId, onSubmit, onChange })
     task_id: taskId,
   };
 
-  const handleSubmit = () => {
-    // Handle comment submission logic
-    console.log("Comment submitted:", newComment);
-    // dispatch({ type: "ADD_MERCHANT_COMMENT", payload: newComment });
-    setCommentAdded(true);
-    setComment("");
-    onSubmit();
-    onChange();
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    console.log('Selected File:', selectedFile);
+    // Handle the file as needed
   };
 
   const handleFileUpload = () => {
-    // Handle file upload logic
+    // Trigger the file input click event to open the file selection screen
+    fileInputRef.current.click();
   };
+
+const handleSubmit = () => {
+  // Handle comment submission logic
+  console.log("Comment submitted:", newComment);
+  dispatch({ type: "ADD_MERCHANT_COMMENT", payload: newComment });
+  setCommentAdded(true);
+  setComment("");
+  onSubmit();
+  onChange();
+};
 
   return (
     <Paper
@@ -69,6 +77,12 @@ export default function CommentInput({ merchantId, taskId, onSubmit, onChange })
           alignItems: "center",
         }}
       >
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+        />
         <IconButton color="primary" onClick={handleFileUpload}>
           <AttachFileIcon />
         </IconButton>
@@ -77,9 +91,6 @@ export default function CommentInput({ merchantId, taskId, onSubmit, onChange })
           Submit
         </Button>
       </div>
-      {/* <div>
-        <CouponDesign />
-      </div> */}
     </Paper>
   );
 }
