@@ -31,27 +31,8 @@ export default function CouponReviewCard({ merchant }) {
 
   const merchantComments = mComments(merchantId);
   console.log(merchantComments);
-  // const mostRecentComment = merchantComments.length > 0 ? merchantComments[0] : null;
-  // console.log(mostRecentComment);
-
-  // Create a map to store the most recent comment for each task
-  const mostRecentCommentsMap = new Map();
-
-  // Iterate through each comment and update the map with the most recent comment for each task
-  merchantComments.forEach((comment) => {
-    const taskId = comment.task_id;
-    console.log(taskId);
-    const existingComment = mostRecentCommentsMap.get(taskId);
-    console.log(existingComment);
-
-    if (!existingComment || comment.date > existingComment.date) {
-      mostRecentCommentsMap.set(taskId, comment);
-    }
-  });
-
-  // Convert the map values (most recent comments) into an array
-  const mostRecentComments = Array.from(mostRecentCommentsMap.values());
-  console.log(mostRecentComments);
+  const mostRecentComment = merchantComments.length > 0 ? merchantComments[0] : null;
+  console.log(mostRecentComment);
 
   const handleUpdateClick = (event) => {
     // Add your logic for the Update button click
@@ -88,7 +69,8 @@ export default function CouponReviewCard({ merchant }) {
           onClick={handleContainerClick}
         >
           {/* Status Menu */}
-          <CouponStatusDropdown />
+          {/* Need to add onCHange prop here to resolve error */}
+          {/* <CouponStatusDropdown /> */}
 
           <Button sx={{ marginLeft: "10px" }} onClick={handleUpdateClick}>
             Update
@@ -156,9 +138,7 @@ export default function CouponReviewCard({ merchant }) {
           {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <div style={{ padding: "5%" }}>
-            {mostRecentComments.map((comment) => (
-              <CommentDisplay key={comment.id} comment={comment} />
-            ))}
+            <CommentDisplay comment={mostRecentComment} />
           </div>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         </div>

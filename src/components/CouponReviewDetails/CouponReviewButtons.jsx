@@ -15,8 +15,12 @@ export default function CouponReviewButtons({
   onDenyButtonClick,
   isTaskUpdate,
   updateTaskState,
+  changesRequested,
+  completedCoupon,
 }) {
   console.log(isTaskUpdate);
+  console.log(changesRequested);
+  console.log(completedCoupon);
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
@@ -38,8 +42,11 @@ export default function CouponReviewButtons({
   };
 
   const cancelButton = {
-    width: "40%",
     backgroundColor: errorColor.color,
+  };
+
+  const buttonWidth = {
+    width: "40%",
   };
 
   const handleCancelClick = () => {
@@ -62,15 +69,18 @@ export default function CouponReviewButtons({
           <Button
             onClick={handleCancelClick}
             variant="contained"
-            sx={{ ...cancelButton, ...hoverDeny }}
+            sx={{ ...cancelButton, ...hoverDeny, ...buttonWidth }}
           >
             Cancel
           </Button>
           <Button
-            onClick={handleUpdateClick}
-            sx={{ backgroundColor: successColor.color, ...hoverAccept }}
+            onClick={!changesRequested ? handleUpdateClick : handleDenyClick}
+            sx={{
+              backgroundColor: successColor.color,
+              ...hoverAccept,
+              ...buttonWidth,
+            }}
             variant="contained"
-            fullWidth
           >
             Update
           </Button>
@@ -102,11 +112,11 @@ export default function CouponReviewButtons({
             &nbsp; Accept
           </Button> */}
 
-          <Button variant="contained" sx={cancelButton} disabled>
+          <Button variant="contained" sx={buttonWidth} disabled>
             Cancel
           </Button>
           <Button
-            sx={{ backgroundColor: successColor.color, ...hoverAccept }}
+            sx={{ ...buttonWidth }}
             variant="contained"
             disabled
             fullWidth

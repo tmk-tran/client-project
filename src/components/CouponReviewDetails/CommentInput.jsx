@@ -5,6 +5,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { User } from "../../hooks/reduxStore";
+import CouponDesign from "../CouponDesign/CouponDesign";
 
 export default function CommentInput({ merchantId, taskId, onSubmit, onChange }) {
   console.log(merchantId);
@@ -76,6 +77,9 @@ export default function CommentInput({ merchantId, taskId, onSubmit, onChange })
           Submit
         </Button>
       </div>
+      {/* <div>
+        <CouponDesign />
+      </div> */}
     </Paper>
   );
 }

@@ -18,23 +18,23 @@ const statusOptions = [
 export default function CouponStatusDropdown({
   width = "100%",
   handleUpdateTask,
+  onChange,
+  complete,
 }) {
   const [status, setStatus] = useState("");
-  const [changesRequested, setChangesRequested] = useState(false);
-  console.log(changesRequested);
-  const [isTaskUpdate, setIsTaskUpdate] = useState(false);
-  console.log(isTaskUpdate);
+  console.log(status);
+
+  status === "Changes Requested" ? onChange(true) : onChange(false);
+  status === "Completed Coupon" ? complete(true) : complete(false);
 
   const handleMenuChange = (event) => {
     const choice = event.target.value;
     setStatus(choice);
-    choice === "Changes Requested"
-      ? setChangesRequested(true)
-      : setChangesRequested(false);
-    setIsTaskUpdate(true);
+    // choice === "Changes Requested" ? onChange() : null;
+    console.log(choice);
 
     // Pass both the selected status and isTaskUpdate state to the parent
-    handleUpdateTask(choice, isTaskUpdate);
+    handleUpdateTask(choice);
   };
 
   return (

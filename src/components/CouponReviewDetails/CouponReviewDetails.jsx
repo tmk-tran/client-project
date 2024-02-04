@@ -28,6 +28,10 @@ export default function CouponReviewDetails() {
   console.log(isTaskUpdate);
   const [commentAdded, setCommentAdded] = useState(false);
   console.log(commentAdded);
+  const [changesRequested, setChangesRequested] = useState(false);
+  console.log(changesRequested);
+  const [completedCoupon, setCompletedCoupon] = useState(false);
+  console.log(completedCoupon);
 
   const handleDenyButtonClick = () => {
     // Open the modal when Deny button is clicked
@@ -44,6 +48,16 @@ export default function CouponReviewDetails() {
 
   const updateComments = () => {
     setCommentAdded(true);
+  };
+
+  const handleChangeRequest = (newValue) => {
+    setChangesRequested(newValue);
+    console.log("Changes requested: ", changesRequested); 
+  };
+
+  const handleCompletedCoupon = () => {
+    setCompletedCoupon(true);
+    console.log("Completed coupon: ", completedCoupon);
   };
 
   useEffect(() => {
@@ -140,6 +154,8 @@ export default function CouponReviewDetails() {
                           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                           <CouponStatusDropdown
                             handleUpdateTask={handleUpdateTask}
+                            onChange={handleChangeRequest}
+                            complete={handleCompletedCoupon}
                           />
                           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
@@ -158,6 +174,8 @@ export default function CouponReviewDetails() {
                         onDenyButtonClick={handleDenyButtonClick}
                         isTaskUpdate={isTaskUpdate}
                         updateTaskState={updateTaskState}
+                        changesRequested={changesRequested}
+                        completedCoupon={completedCoupon}
                       />
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
