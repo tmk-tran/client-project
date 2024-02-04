@@ -22,8 +22,6 @@ const fetchPdfFailure = (error) => ({
   payload: error,
 });
 
-
-
 function* couponFiles(action) {
   console.log(action);
 
@@ -50,34 +48,32 @@ function* couponFiles(action) {
 
 function* pdfFile(action) {
   console.log(action);
-  const couponId = action.payload; // added
+  const couponId = action.payload;
   console.log(couponId);
 
   try {
     const response = yield axios.get(`/api/coupon/${couponId}`, {
       responseType: "arraybuffer",
-    }); // Added
+    });
     console.log("FETCH request from coupon.saga, RESPONSE = ", response.data);
 
     // Dispatch success action with PDF blob data
-    yield put(
-      // fetchPdfSuccess(new Blob([response.data], { type: "application/pdf" }))
-      {type: "GET_PDF", payload: new Blob([response.data], { type: "application/pdf" }),
-  }); // Added
-//   {type: "GET_PDF", payload: { couponId, pdfBlob: new Blob([response.data], { type: "application/pdf" }) },
-// });
+    yield put({
+      type: "GET_PDF",
+      payload: new Blob([response.data], { type: "application/pdf" }),
+    });
   } catch (error) {
     console.log(error);
-    yield put(fetchPdfFailure(error.message)); // Added
+    yield put(fetchPdfFailure(error.message));
   }
 }
 
 function* pdfUpload(action) {
-  const { pdfFile } = action.payload;
+  const { selectedFile } = action.payload;
 
   try {
     const formData = new FormData();
-    formData.append("pdf", pdfFile);
+    formData.append("pdf", selectedFile);
 
     const response = yield axios.post(`/api/coupon`, formData);
     console.log("RESPONSE from uploadPdf = ", response.data);
@@ -93,7 +89,7 @@ function* pdfUpload(action) {
   }
 }
 
-export default function* filesSaga() {
+export default function* couponPDFSaga() {
   yield takeEvery("FETCH_COUPON_FILES", couponFiles); // this call will come from Coupon component
   yield takeEvery("FETCH_PDF_FILE", pdfFile); // place this call in the component that is viewed after clicking on the file (with its id)
   yield takeEvery("UPLOAD_PDF_REQUEST", pdfUpload);

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPdfRequest } from "../../redux/sagas/files.saga";
+import { fetchPdfRequest } from "../../redux/sagas/couponPDF.saga";
 
 const CouponViewer = ({ couponId }) => {
   console.log(couponId);
