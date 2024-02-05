@@ -6,15 +6,18 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { User } from "../../hooks/reduxStore";
 import CouponDesign from "../CouponDesign/CouponDesign";
 import { border } from "../Utils/colors";
+import FilePreview from "./FilePreview";
 
 export default function CommentInput({
   merchantId,
   taskId,
   onSubmit,
   onChange,
+  files,
 }) {
   console.log(merchantId);
   console.log(taskId);
+  console.log(files);
   const [comment, setComment] = useState("");
   const [commentAdded, setCommentAdded] = useState(false);
   const [addedFileName, setAddedFileName] = useState("");
@@ -83,6 +86,12 @@ export default function CommentInput({
         height: "fit-content",
       }}
     >
+
+      <div>
+        Files Uploaded, Viewed Here
+        <FilePreview pdfBlob={files} />
+      </div>
+
       {/* Display the selected file name */}
       {selectedFile && (
         <div>

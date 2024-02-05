@@ -62,7 +62,7 @@ export default function CouponReviewButtons({
 
   return (
     <div style={modalBtnStyle}>
-      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
+      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} caseType="CompletedCoupon" />
 
       {isTaskUpdate ? (
         <>

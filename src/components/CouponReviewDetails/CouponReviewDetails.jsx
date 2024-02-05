@@ -54,7 +54,7 @@ export default function CouponReviewDetails() {
 
   const handleChangeRequest = (newValue) => {
     setChangesRequested(newValue);
-    console.log("Changes requested: ", changesRequested); 
+    console.log("Changes requested: ", changesRequested);
   };
 
   const handleCompletedCoupon = () => {
@@ -71,6 +71,7 @@ export default function CouponReviewDetails() {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
     }
     dispatch({ type: "FETCH_PDF_FILE", payload: couponId });
+    // dispatch({ type: "FETCH_COUPON_FILES", payload: merchantId });
   }, [dispatch, merchantId, commentAdded]);
 
   const files = pdfFile() || [];
@@ -121,7 +122,10 @@ export default function CouponReviewDetails() {
                         gap: 15,
                       }}
                     >
-                      <div>
+                      <div style={border}>
+                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                        {/* ~~~~~~~~~ FRONT OF COUPON ~~~~~~~ */}
+                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                         <div
                           style={{
                             height: "18vh",
@@ -134,9 +138,13 @@ export default function CouponReviewDetails() {
                             Front of Coupon
                           </Typography>
                         </div>
+                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       </div>
 
-                      <div>
+                      <div style={border}>
+                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                        {/* ~~~~~~~~~ BACK OF COUPON ~~~~~~~~ */}
+                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                         <div
                           style={{
                             height: "18vh",
@@ -149,6 +157,7 @@ export default function CouponReviewDetails() {
                             Back of Coupon
                           </Typography>
                         </div>
+                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       </div>
 
                       <div>
@@ -199,13 +208,9 @@ export default function CouponReviewDetails() {
                   <CouponReviewComments
                     merchantId={merchantId}
                     onSubmit={updateComments}
+                    files={files}
                   />
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
-                  <div>
-                    Display Files Here
-                    <FilePreview pdfBlob={files} />
-                  </div>
 
                 </div>
               </CardContent>

@@ -26,30 +26,8 @@ router.get("/", (req, res) => {
 });
 
 // Route to retrieve PDF data by ID
-// router.get("/:id", (req, res) => {
-//   const couponId = req.params.id;
-
-//   // Query the database to get the PDF data by ID
-//   pool
-//     .query("SELECT pdf_data FROM coupon WHERE id = $1", [couponId])
-//     .then((result) => {
-//       if (result.rows.length > 0) {
-//         const pdfData = result.rows[0].pdf_data;
-
-//         // Send the PDF data as binary
-//         res.setHeader("Content-Type", "application/pdf");
-//         res.send(pdfData);
-//       } else {
-//         res.status(404).send("PDF not found");
-//       }
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       res.status(500).send("Error retrieving PDF");
-//     });
-// });
-
 router.get("/:id", async (req, res) => {
+  // router.get("/:id/pdf", async (req, res) => { // Added this for testing new route
   const couponId = req.params.id;
 
   try {
@@ -73,6 +51,37 @@ router.get("/:id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+// router.get("/:id", async (req, res) => {
+// router.get("/:id/files", async (req, res) => {
+//   const merchantId = req.params.id;
+
+//   try {
+//     // Query the database to get all PDF data for the given merchant_id
+//     const result = await pool.query(
+//       "SELECT pdf_data FROM coupon WHERE merchant_id = $1",
+//       [merchantId]
+//     );
+
+//     if (result.rows.length > 0) {
+//       const pdfDataArray = result.rows.map((row) => row.pdf_data);
+
+//       // Set the Content-Type header to indicate that the response is a JSON
+//       res.setHeader("Content-Type", "application/json");
+//       // Send the array of PDF data as a JSON response
+//       res.status(200).json(pdfDataArray);
+//     } else {
+//       // Set the Content-Type header to indicate that the response is a JSON
+//       res.setHeader("Content-Type", "application/json");
+//       res.status(404).json({ message: "No PDFs found for the given merchant" });
+//     }
+//   } catch (error) {
+//     console.error("Error retrieving PDFs:", error);
+//     // Set the Content-Type header to indicate that the response is a JSON
+//     res.setHeader("Content-Type", "application/json");
+//     res.status(500).json({ message: "Internal Server Error" });
+//   }
+// });
 
 router.post("/", upload.single("pdf"), (req, res) => {
   console.log(req.body);
