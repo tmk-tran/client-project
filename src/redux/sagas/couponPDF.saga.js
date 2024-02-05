@@ -32,8 +32,15 @@ function* couponFiles(action) {
     // Dispatch the successful results to the Redux store
     const pdfData = response.data;
     console.log("PDF DATA = ", pdfData);
+    const pdfDataArray = response.data.map((coupon) => ({
+      pdf_data: coupon.pdf_data,
+      filename: coupon.filename,
+    })); // Added, REMOVE IF NEEDED
+    console.log("PDF DATA ARRAY = ", pdfDataArray); // Added, REMOVE IF NEEDED
     // yield put(setCouponFiles(pdfData));
-    yield put({ type: "SET_COUPON_FILES", payload: pdfData });
+    // yield put({ type: "SET_COUPON_FILES", payload: pdfData });
+    yield put({ type: "SET_COUPON_FILES", payload: pdfDataArray }); // Added, REMOVE IF NEEDED
+    console.log("PDF DATA = ", pdfDataArray);
   } catch (error) {
     console.log("Error in couponPDF.saga: ", error);
     yield put(fetchCouponFilesFailure(error.message));

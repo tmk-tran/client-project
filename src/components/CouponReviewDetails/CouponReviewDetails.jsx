@@ -70,8 +70,8 @@ export default function CouponReviewDetails() {
     if (merchantId) {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
     }
-    dispatch({ type: "FETCH_PDF_FILE", payload: couponId });
-    // dispatch({ type: "FETCH_COUPON_FILES", payload: merchantId });
+    // dispatch({ type: "FETCH_PDF_FILE", payload: couponId });
+    dispatch({ type: "FETCH_COUPON_FILES", payload: merchantId });
   }, [dispatch, merchantId, commentAdded]);
 
   const files = pdfFile() || [];
