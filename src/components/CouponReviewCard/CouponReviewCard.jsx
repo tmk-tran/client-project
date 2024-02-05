@@ -6,21 +6,32 @@ import { Button, Card, CardContent, Typography } from "@mui/material";
 import { border } from "../Utils/colors";
 // ~~~~~~~~~~ Component ~~~~~~~~~~
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
+// import SuccessAlert from "../SuccessAlert/SuccessAlert";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
 import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { mComments } from "../../hooks/reduxStore";
+import { useAlert } from "../SuccessAlert/useAlert";
 
-export default function CouponReviewCard({ merchant }) {
+export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   console.log(merchant);
   const mId = useParams();
   console.log(mId);
   const merchantId = mId.id;
   console.log(merchantId);
 
+  const [isTaskUpdate, setIsTaskUpdate] = useState(false);
+  console.log(isTaskUpdate);
+  const [changesRequested, setChangesRequested] = useState(false);
+  console.log(changesRequested);
+  const [completedCoupon, setCompletedCoupon] = useState(false);
+  console.log(completedCoupon);
+
   const dispatch = dispatchHook();
   const history = historyHook();
+
+  // const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
   useEffect(() => {
     dispatch({
@@ -31,12 +42,13 @@ export default function CouponReviewCard({ merchant }) {
 
   const merchantComments = mComments(merchantId);
   console.log(merchantComments);
-  const mostRecentComment = merchantComments.length > 0 ? merchantComments[0] : null;
+  const mostRecentComment =
+    merchantComments.length > 0 ? merchantComments[0] : null;
   console.log(mostRecentComment);
 
   const handleUpdateClick = (event) => {
     // Add your logic for the Update button click
-    // ...
+    onTaskUpdate();
 
     // Prevent the click event from propagating to the Card and triggering history.push
     event.stopPropagation();
@@ -45,6 +57,21 @@ export default function CouponReviewCard({ merchant }) {
   const handleContainerClick = (event) => {
     // Prevent the click event from propagating to the Card and triggering history.push
     event.stopPropagation();
+  };
+
+  const handleUpdateTask = (choice) => {
+    console.log(choice);
+    setIsTaskUpdate(true);
+  };
+
+  const handleChangeRequest = (newValue) => {
+    setChangesRequested(newValue);
+    console.log("Changes requested: ", changesRequested);
+  };
+
+  const handleCompletedCoupon = () => {
+    setCompletedCoupon(true);
+    console.log("Completed coupon: ", completedCoupon);
   };
 
   return (
@@ -57,6 +84,7 @@ export default function CouponReviewCard({ merchant }) {
       // sx={{ height: "80%" }}
     >
       <CardContent>
+        {/* <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} /> */}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -69,8 +97,12 @@ export default function CouponReviewCard({ merchant }) {
           onClick={handleContainerClick}
         >
           {/* Status Menu */}
-          {/* Need to add onCHange prop here to resolve error */}
-          {/* <CouponStatusDropdown /> */}
+          {/* Need to add onChange prop here to resolve error */}
+          <CouponStatusDropdown
+            handleUpdateTask={handleUpdateTask}
+            onChange={handleChangeRequest}
+            complete={handleCompletedCoupon}
+          />
 
           <Button sx={{ marginLeft: "10px" }} onClick={handleUpdateClick}>
             Update

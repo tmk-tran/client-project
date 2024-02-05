@@ -14,8 +14,10 @@ import DetailsTaskView from "../DetailsTaskView/DetailsTaskView";
 import CouponReviewCard from "../CouponReviewCard/CouponReviewCard";
 import MerchantContactDetails from "../ContactDetails/MerchantContactDetails";
 import BackButton from "../BackButton/BackButton";
+import SuccessAlert from "../SuccessAlert/SuccessAlert";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
+import { useAlert } from "../SuccessAlert/useAlert";
 import {
   oDetails,
   oGroups,
@@ -38,6 +40,8 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
   console.log(paramsObject);
+
+  const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
   // Check if the user is on the task page
   // const isTaskPage = location.pathname.includes("/orgtaskdetails");
@@ -109,6 +113,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
+      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
       <div style={{ position: "relative" }}>
         <div style={{ position: "absolute", top: 0, left: 0 }}>
           <BackButton />
@@ -206,7 +211,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                     {/* REMOVE AFTER COUPON CARD IS INSERTED */}
                     <div className="MerchantDetailsCard-container">
                       {merchantDetails.map((merchant, i) => (
-                        <CouponReviewCard key={i} merchant={merchant} />
+                        <CouponReviewCard key={i} merchant={merchant} onTaskUpdate={handleTaskUpdate} />
                       ))}
 
                       {/* <CouponReviewCard  /> */}

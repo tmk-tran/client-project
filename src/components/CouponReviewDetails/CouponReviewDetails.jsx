@@ -40,7 +40,8 @@ export default function CouponReviewDetails() {
     setIsModalOpen(true);
   };
 
-  const handleUpdateTask = () => {
+  const handleUpdateTask = (choice) => {
+    console.log(choice);
     setIsTaskUpdate(true);
   };
 
