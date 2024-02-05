@@ -5,17 +5,13 @@ import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./ListView.css";
 import Swal from "sweetalert2";
 import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
-import { allMerchants } from "../../hooks/reduxStore";
 
 function ListView({ data, isMerchant }) {
+  console.log(data);
   console.log(isMerchant);
   const history = useHistory();
   const dispatch = useDispatch();
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [isMerchantList, setIsMerchantList] = useState(false);
-  console.log(isMerchantList);
-  const merchants = allMerchants() || [];
-  console.log(merchants);
 
   const handleEdit = () => {
     setEditModalOpen(true);
@@ -92,23 +88,16 @@ function ListView({ data, isMerchant }) {
 
   return (
     <>
-      <Button
-        onClick={() => {
-          setIsMerchantList(!isMerchantList);
-        }}
-      >
-        Switch Views
-      </Button>
       <Card className="mainListContainer">
         <CardContent>
-          {!isMerchant ? (
+          {/* {!isMerchant ? ( */}
             <div className="contentClickable" onClick={goToDetails}>
               <div className="mainListHeader">
                 {renderLogoOrInitials()}
 
                 <div className="mainListDetails">
                   <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                    {data.organization_name}
+                 {data.organization_name}
                   </Typography>
 
                   <div style={{ display: "flex" }}>
@@ -147,9 +136,9 @@ function ListView({ data, isMerchant }) {
                 </div>
               </div>
             </div>
-          ) : (
+          {/* ) : (
             <div>{isMerchant ? "Merchant List" : "Merchant List"}</div>
-          )}
+          )} */}
 
           {!isMerchant ? (
             <div
