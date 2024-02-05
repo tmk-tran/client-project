@@ -11,8 +11,10 @@ import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 import CouponReviewButtons from "./CouponReviewButtons";
 import CouponReviewComments from "./CouponReviewComments";
 import BackButton from "../BackButton/BackButton";
+import FilePreview from "./FilePreview";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
+import { pdfFile } from "../../hooks/reduxStore";
 
 export default function CouponReviewDetails() {
   const dispatch = dispatchHook();
@@ -60,12 +62,19 @@ export default function CouponReviewDetails() {
     console.log("Completed coupon: ", completedCoupon);
   };
 
+  const couponId = 6;
+  console.log(couponId);
+
   useEffect(() => {
     // Ensure that merchantId is available before dispatching the action
     if (merchantId) {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
     }
+    dispatch({ type: "FETCH_PDF_FILE", payload: couponId });
   }, [dispatch, merchantId, commentAdded]);
+
+  const files = pdfFile() || [];
+  console.log(files);
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
@@ -192,6 +201,12 @@ export default function CouponReviewDetails() {
                     onSubmit={updateComments}
                   />
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+
+                  <div>
+                    Display Files Here
+                    <FilePreview pdfBlob={files} />
+                  </div>
+
                 </div>
               </CardContent>
             </Card>

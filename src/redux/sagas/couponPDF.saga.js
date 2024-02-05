@@ -27,20 +27,15 @@ function* couponFiles(action) {
 
   try {
     const response = yield axios.get(`/api/coupon`);
-    // const response = yield axios.get(`/api/coupon/${couponId}`, {
-    //   responseType: "arraybuffer",
-    // }); // Added
-    console.log("FETCH request from coupon.saga, RESPONSE = ", response.data);
+    console.log("FETCH request from couponPDF.saga, RESPONSE = ", response.data);
 
     // Dispatch the successful results to the Redux store
-    const successfulFilesWithPdfData = response.data;
-    yield put(setCouponFiles(successfulFilesWithPdfData));
-    // Dispatch success action with PDF blob data
-    // yield put(
-    //   fetchPdf(new Blob([response.data], { type: "application/pdf" }))
-    // ); // Added
+    const pdfData = response.data;
+    console.log("PDF DATA = ", pdfData);
+    // yield put(setCouponFiles(pdfData));
+    yield put({ type: "SET_COUPON_FILES", payload: pdfData });
   } catch (error) {
-    console.log(error);
+    console.log("Error in couponPDF.saga: ", error);
     yield put(fetchCouponFilesFailure(error.message));
     // yield put(fetchPdfFailure(error.message)); // Added
   }

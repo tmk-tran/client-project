@@ -68,6 +68,8 @@ export default function CouponReviewComments({ merchantId, onSubmit }) {
         </div>
       ))}
 
+      <div style={{ ...border, height: "50px" }}></div>
+
       <div style={{ width: "100%", marginTop: "auto" }}>
         <CommentInput
           merchantId={merchantId}
