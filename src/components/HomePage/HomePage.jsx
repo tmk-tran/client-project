@@ -12,7 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import "./HomePage.css";
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
-import OrgListView from "../OrgListView/OrgListView.jsx";
+import ListView from "../ListView/ListView.jsx";
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -156,7 +156,7 @@ function HomePage() {
         </center>
         <div className="organizationsContainer">
           {currentItems.map((organization, index) => (
-            <OrgListView key={index} organization={organization} />
+            <ListView key={index} organization={organization} />
             // <OrganizationCard key={index} organization={organization} />
           ))}
         </div>

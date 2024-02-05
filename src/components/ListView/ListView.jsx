@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button, Card, CardContent, Typography } from "@mui/material";
-import "./OrgListView.css";
+import "./ListView.css";
 import Swal from "sweetalert2";
 import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
 import { allMerchants } from "../../hooks/reduxStore";
 
-function OrgListView({ organization }) {
+function ListView({ organization }) {
   console.log(organization);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -186,4 +186,4 @@ function OrgListView({ organization }) {
   );
 }
 
-export default OrgListView;
+export default ListView;
