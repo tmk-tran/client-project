@@ -13,15 +13,23 @@ import "./HomePage.css";
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
 import ListView from "../ListView/ListView.jsx";
+import { allMerchants } from "../../hooks/reduxStore.js";
 
 function HomePage() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch({ type: "FETCH_ORGANIZATIONS" });
-  }, []);
+
   const history = useHistory();
   const user = useSelector((store) => store.user);
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
   const organizationsList = useSelector((store) => store.organizations);
+  console.log(organizationsList);
+  const merchants = allMerchants() || [];
+  console.log(merchants);
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  const [isMerchantList, setIsMerchantList] = useState(false);
+  console.log(isMerchantList);
 
   // state for the search and modal and pagination
   const [query, setQuery] = useState(" ");
@@ -29,6 +37,14 @@ function HomePage() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
+
+  useEffect(() => {
+    if (isMerchantList === false) {
+      dispatch({ type: "FETCH_ORGANIZATIONS" });
+    } else {
+      dispatch({ type: "FETCH_ALL_MERCHANTS" });
+    }
+  }, [isMerchantList]);
 
   // fuzzy search information
   const fuse = new Fuse(organizationsList, {
@@ -84,82 +100,115 @@ function HomePage() {
     <div className="organizationsContainer">
       <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
         <br />
+        <Button
+          onClick={() => {
+            setIsMerchantList(!isMerchantList);
+          }}
+        >
+          Switch Views
+        </Button>
         <br />
-        <center>
-          <Typography variant="h5" style={{ fontWeight: "bold" }}>
-            Organization List
-          </Typography>
-          <br />
-          <Button
-            style={{ marginBottom: "5px" }}
-            variant="outlined"
-            onClick={handleAddOrganizationClick}
-          >
-            Add Organization
-          </Button>
-
-          {showInput ? (
-            <>
-              <br />
-              <TextField
-                style={{
-                  marginTop: "10px",
-                  marginLeft: "3%",
-                  borderRadius: "4px",
-                  width: "230px",
-                  backgroundColor: "white",
-                }}
-                variant="outlined"
-                fullWidth
-                size="small"
-                label="Search By Organization"
-                value={query}
-                onChange={(e) => handleOnSearch(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <SearchIcon
-                      color="primary"
-                      style={{ marginRight: "10px" }}
-                    />
-                  ),
-                }}
-              />
-            </>
-          ) : (
-            <SearchIcon
-              color="primary"
-              style={{
-                marginLeft: "3%",
-                marginBottom: "-7px",
-                cursor: "pointer",
-              }}
-              onClick={() => setShowInput(true)}
-            />
-          )}
-          {showInput && (
+        {!isMerchantList ? (
+          <center>
+            <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+              Organization List
+            </Typography>
+            <br />
             <Button
-              style={{
-                marginTop: "15px",
-                marginLeft: "10px",
-                backgroundColor: "#DAA226",
-                height: "30px",
-                color: "white",
-                width: "0px",
-                fontSize: "13px",
-              }}
-              variant="contained"
-              onClick={clearInput}
+              style={{ marginBottom: "5px" }}
+              variant="outlined"
+              onClick={handleAddOrganizationClick}
             >
-              Clear
+              Add Organization
             </Button>
-          )}
-        </center>
+
+            {showInput ? (
+              <>
+                <br />
+                <TextField
+                  style={{
+                    marginTop: "10px",
+                    marginLeft: "3%",
+                    borderRadius: "4px",
+                    width: "230px",
+                    backgroundColor: "white",
+                  }}
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  label="Search By Organization"
+                  value={query}
+                  onChange={(e) => handleOnSearch(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <SearchIcon
+                        color="primary"
+                        style={{ marginRight: "10px" }}
+                      />
+                    ),
+                  }}
+                />
+              </>
+            ) : (
+              <SearchIcon
+                color="primary"
+                style={{
+                  marginLeft: "3%",
+                  marginBottom: "-7px",
+                  cursor: "pointer",
+                }}
+                onClick={() => setShowInput(true)}
+              />
+            )}
+            {showInput && (
+              <Button
+                style={{
+                  marginTop: "15px",
+                  marginLeft: "10px",
+                  backgroundColor: "#DAA226",
+                  height: "30px",
+                  color: "white",
+                  width: "0px",
+                  fontSize: "13px",
+                }}
+                variant="contained"
+                onClick={clearInput}
+              >
+                Clear
+              </Button>
+            )}
+          </center>
+        ) : (
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: "bold", textAlign: "center" }}
+          >
+            Merchant List
+          </Typography>
+        )}
+
         <div className="organizationsContainer">
-          {currentItems.map((organization, index) => (
-            <ListView key={index} organization={organization} />
-            // <OrganizationCard key={index} organization={organization} />
-          ))}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~ List Cards ~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* {currentItems.map((organization, index) => (
+            <ListView key={index} data={organization} />
+          ))} */}
+          
+          {isMerchantList ? (
+            merchants.map((merchant, index) => (
+              <ListView key={index} data={merchant} isMerchant={true} />
+            ))
+          ) : (
+            currentItems.map((organization, index) => (
+              <ListView key={index} data={organization} isMerchant={false} />
+            ))
+            // <div>Not Merchant List</div>
+          )}
         </div>
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~ Add New Org ~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <AddOrganizationModal
           open={isModalOpen}
           handleModalClose={handleModalClose}
