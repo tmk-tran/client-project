@@ -3,15 +3,15 @@ import { Button } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 
-const FilePreview = ({ pdfBlob }) => {
+const FilePreview = ({ pdfBlob, merchantId }) => {
+  console.log(merchantId);
   const dispatch = dispatchHook();
   const [pdfUrl, setPdfUrl] = useState(null);
   console.log(pdfBlob);
   console.log(pdfUrl);
-  
+
   // START HERE, NEED TO SET UP STATE FOR SHOWING ALL FILES, AND RESET TO SHOW
   // FILES AFTER VIEWING
-
 
   useEffect(() => {
     if (pdfBlob instanceof Blob) {
@@ -45,15 +45,13 @@ const FilePreview = ({ pdfBlob }) => {
         pdfBlob.map((file, i) => (
           <div key={i}>
             {file.filename}{" "}
-            <button onClick={() => handleButtonClick(file, i)}>
-              View PDF
-            </button>
+            <button onClick={() => handleButtonClick(file, i)}>View PDF</button>
           </div>
         ))
       ) : (
         <p>No PDF files available</p>
       )}
-    {/* You can also display other content or components here */}
+      {/* You can also display other content or components here */}
     </div>
   );
 };

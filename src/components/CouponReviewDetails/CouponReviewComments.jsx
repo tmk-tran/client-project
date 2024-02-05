@@ -11,7 +11,7 @@ import "./CouponReviewDetails.css";
 import { mComments } from "../../hooks/reduxStore";
 import { useAlert } from "../SuccessAlert/useAlert";
 
-export default function CouponReviewComments({ merchantId, onSubmit, files }) {
+export default function CouponReviewComments({ merchantId, onSubmit, files, handleUploadFile }) {
   console.log(files);
   const [taskId, setTaskId] = useState(null);
   console.log(taskId);
@@ -76,6 +76,7 @@ export default function CouponReviewComments({ merchantId, onSubmit, files }) {
           onSubmit={onSubmit}
           onChange={handleTaskUpdate}
           files={files}
+          onUploadFile={handleUploadFile}
         />
       </div>
     </div>

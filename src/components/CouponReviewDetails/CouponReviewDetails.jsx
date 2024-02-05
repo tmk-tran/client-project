@@ -34,6 +34,8 @@ export default function CouponReviewDetails() {
   console.log(changesRequested);
   const [completedCoupon, setCompletedCoupon] = useState(false);
   console.log(completedCoupon);
+  const [uploadedFiles, setUploadedFiles] = useState(false);
+  console.log(uploadedFiles);
 
   const handleDenyButtonClick = () => {
     // Open the modal when Deny button is clicked
@@ -63,6 +65,10 @@ export default function CouponReviewDetails() {
     console.log("Completed coupon: ", completedCoupon);
   };
 
+  const handleUploadFile = () => {
+    setUploadedFiles(true);
+  };
+
   const couponId = 6;
   console.log(couponId);
 
@@ -71,9 +77,9 @@ export default function CouponReviewDetails() {
     if (merchantId) {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
     }
-    // dispatch({ type: "FETCH_PDF_FILE", payload: couponId });
     dispatch({ type: "FETCH_COUPON_FILES", payload: merchantId });
-  }, [dispatch, merchantId, commentAdded]);
+    setUploadedFiles(false);
+  }, [dispatch, merchantId, commentAdded, uploadedFiles]);
 
   const files = pdfFile() || [];
   console.log(files);
@@ -210,6 +216,7 @@ export default function CouponReviewDetails() {
                     merchantId={merchantId}
                     onSubmit={updateComments}
                     files={files}
+                    handleUploadFile={handleUploadFile}
                   />
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 

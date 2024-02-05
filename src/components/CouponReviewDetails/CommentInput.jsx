@@ -14,6 +14,7 @@ export default function CommentInput({
   onSubmit,
   onChange,
   files,
+  onUploadFile,
 }) {
   console.log(merchantId);
   console.log(taskId);
@@ -59,10 +60,19 @@ export default function CommentInput({
 
   const handleUpload = () => {
     if (selectedFile) {
-      // Now you can use 'selectedFile' to perform any actions or dispatch the action
-      dispatch({ type: "UPLOAD_PDF_REQUEST", payload: { selectedFile } });
+      // Check if the selected file is a PDF
+      if (selectedFile.type === "application/pdf") {
+        // Dispatch the action for uploading PDF
+        dispatch({ type: "UPLOAD_PDF_REQUEST", payload: { selectedFile } });
+        setSelectedFile(null);
+        onUploadFile();
+      } else {
+        // Alert the user if the selected file is not a PDF
+        alert("Please select a PDF file");
+      }
     } else {
-      console.log("No file selected");
+      // Alert the user if no file is selected
+      alert("No file selected");
     }
   };
 
@@ -86,10 +96,9 @@ export default function CommentInput({
         height: "fit-content",
       }}
     >
-
       <div>
         Files Uploaded, Viewed Here
-        <FilePreview pdfBlob={files} />
+        <FilePreview pdfBlob={files} merchantId={merchantId} />
       </div>
 
       {/* Display the selected file name */}
