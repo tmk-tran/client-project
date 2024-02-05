@@ -26,31 +26,31 @@ router.get("/", (req, res) => {
 });
 
 // Route to retrieve PDF data by ID
-router.get("/:id", async (req, res) => {
-  // router.get("/:id/pdf", async (req, res) => { // Added this for testing new route
-  const couponId = req.params.id;
+// router.get("/:id", async (req, res) => {
+//   // router.get("/:id/pdf", async (req, res) => { // Added this for testing new route
+//   const couponId = req.params.id;
 
-  try {
-    // Query the database to get the PDF data by ID
-    const result = await pool.query(
-      "SELECT pdf_data FROM coupon WHERE id = $1",
-      [couponId]
-    );
+//   try {
+//     // Query the database to get the PDF data by ID
+//     const result = await pool.query(
+//       "SELECT pdf_data FROM coupon WHERE id = $1",
+//       [couponId]
+//     );
 
-    if (result.rows.length > 0) {
-      const pdfData = result.rows[0].pdf_data;
+//     if (result.rows.length > 0) {
+//       const pdfData = result.rows[0].pdf_data;
 
-      // Send the PDF data as binary
-      res.setHeader("Content-Type", "application/pdf");
-      res.send(pdfData);
-    } else {
-      res.status(404).send("PDF not found");
-    }
-  } catch (error) {
-    console.error("Error retrieving PDF:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+//       // Send the PDF data as binary
+//       res.setHeader("Content-Type", "application/pdf");
+//       res.send(pdfData);
+//     } else {
+//       res.status(404).send("PDF not found");
+//     }
+//   } catch (error) {
+//     console.error("Error retrieving PDF:", error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 
 // router.get("/:id", async (req, res) => {
 // router.get("/:id/files", async (req, res) => {
@@ -82,6 +82,33 @@ router.get("/:id", async (req, res) => {
 //     res.status(500).json({ message: "Internal Server Error" });
 //   }
 // });
+
+router.get("/:id", async (req, res) => {
+  const merchantId = req.params.id;
+
+  try {
+    const result = await pool.query(
+      "SELECT pdf_data, filename FROM coupon WHERE merchant_id = $1",
+      [merchantId]
+    );
+
+    if (result.rows.length > 0) {
+      const files = result.rows.map((row) => ({
+        pdfBlob: Buffer.from(row.pdf_data, "base64"),
+        filename: row.filename,
+      }));
+
+      res.send(files);
+      console.log("files = ", files);
+    } else {
+      res.status(404).send("No files found for the given merchant");
+    }
+  } catch (error) {
+    console.error("Error retrieving files:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 
 router.post("/", upload.single("pdf"), (req, res) => {
   console.log(req.body);

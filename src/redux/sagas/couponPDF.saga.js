@@ -22,6 +22,32 @@ const fetchPdfFailure = (error) => ({
   payload: error,
 });
 
+// function* couponFiles(action) {
+//   console.log(action);
+
+//   try {
+//     const response = yield axios.get(`/api/coupon`);
+//     console.log("FETCH request from couponPDF.saga, RESPONSE = ", response.data);
+
+//     // Dispatch the successful results to the Redux store
+//     const pdfData = response.data;
+//     console.log("PDF DATA = ", pdfData);
+//     const pdfDataArray = response.data.map((coupon) => ({
+//       pdf_data: coupon.pdf_data.data,
+//       filename: coupon.filename,
+//     })); // Added, REMOVE IF NEEDED
+//     console.log("PDF DATA ARRAY = ", pdfDataArray); // Added, REMOVE IF NEEDED
+//     // yield put(setCouponFiles(pdfData));
+//     // yield put({ type: "SET_COUPON_FILES", payload: pdfData });
+//     yield put({ type: "SET_COUPON_FILES", payload: pdfDataArray }); // Added, REMOVE IF NEEDED
+//     console.log("PDF DATA = ", pdfDataArray);
+//   } catch (error) {
+//     console.log("Error in couponPDF.saga: ", error);
+//     yield put(fetchCouponFilesFailure(error.message));
+//     // yield put(fetchPdfFailure(error.message)); // Added
+//   }
+// }
+
 function* couponFiles(action) {
   console.log(action);
 
@@ -30,23 +56,26 @@ function* couponFiles(action) {
     console.log("FETCH request from couponPDF.saga, RESPONSE = ", response.data);
 
     // Dispatch the successful results to the Redux store
-    const pdfData = response.data;
-    console.log("PDF DATA = ", pdfData);
-    const pdfDataArray = response.data.map((coupon) => ({
-      pdf_data: coupon.pdf_data,
+    const files = response.data;
+
+    // Convert Buffer to Blob
+    const blobify = (buffer, type) => new Blob([buffer], { type });
+
+    // Map the data received from the server
+    const formattedFiles = files.map((coupon) => ({
+      pdfBlob: new Blob([Uint8Array.from(coupon.pdf_data.data)], { type: 'application/pdf' }),
       filename: coupon.filename,
-    })); // Added, REMOVE IF NEEDED
-    console.log("PDF DATA ARRAY = ", pdfDataArray); // Added, REMOVE IF NEEDED
-    // yield put(setCouponFiles(pdfData));
-    // yield put({ type: "SET_COUPON_FILES", payload: pdfData });
-    yield put({ type: "SET_COUPON_FILES", payload: pdfDataArray }); // Added, REMOVE IF NEEDED
-    console.log("PDF DATA = ", pdfDataArray);
+    }));
+    console.log("FORMATTED FILES = ", formattedFiles);
+
+    // Dispatch the formatted data to the Redux store
+    yield put({ type: "SET_COUPON_FILES", payload: formattedFiles });
   } catch (error) {
     console.log("Error in couponPDF.saga: ", error);
     yield put(fetchCouponFilesFailure(error.message));
-    // yield put(fetchPdfFailure(error.message)); // Added
   }
 }
+
 
 function* pdfFile(action) {
   console.log(action);
