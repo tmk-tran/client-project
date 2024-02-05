@@ -11,7 +11,7 @@ import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 import CouponReviewButtons from "./CouponReviewButtons";
 import CouponReviewComments from "./CouponReviewComments";
 import BackButton from "../BackButton/BackButton";
-import FilePreview from "./FilePreview";
+import FilePreview from "./FilePreview";     
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { pdfFile } from "../../hooks/reduxStore";
@@ -129,7 +129,7 @@ export default function CouponReviewDetails() {
                         gap: 15,
                       }}
                     >
-                      <div style={border}>
+                      <div>
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                         {/* ~~~~~~~~~ FRONT OF COUPON ~~~~~~~ */}
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -148,7 +148,7 @@ export default function CouponReviewDetails() {
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       </div>
 
-                      <div style={border}>
+                      <div>
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                         {/* ~~~~~~~~~ BACK OF COUPON ~~~~~~~~ */}
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}

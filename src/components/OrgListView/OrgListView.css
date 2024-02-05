@@ -1,4 +1,4 @@
-.organizationListContainer {
+.mainListContainer {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -8,9 +8,6 @@
   margin: 5px;
   height: 148px;
 }
-.detailsContainer {
-  display: flex;
-}
 
 .column {
   flex: 1;
@@ -19,14 +16,14 @@
   text-align: center;
 }
 
-.organizationClickable {
+.contentClickable {
   flex-grow: 1;
   cursor: pointer;
   margin-top: -5px;
   overflow: hidden; /* Ensure that the clickable area doesn't overflow into the actions area */
 }
 
-.organizationActions {
+.mainListActions {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -34,18 +31,18 @@
   margin-bottom: 0px;
 }
 
-.organizationActions Button {
+.mainListActions Button {
   margin-top: 8px; /* Adjust this value as needed for spacing between buttons */
 }
 
-.organizationListContainer:hover {
+.mainListContainer:hover {
   background-color: rgba(78, 77, 77, 0.1);
   transform: scale(1.03);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
-.organizationHeader {
+.mainListHeader {
   display: flex;
   align-items: center;
 }
@@ -57,7 +54,7 @@
   margin-top: -5px;
 }
 
-.organizationDetails {
+.mainListDetails {
   /* border: 1px solid black; */
   flex-grow: 1;
   display: flex;
@@ -81,7 +78,7 @@
 }
 
 @media (max-width: 600px) {
-  .organizationListContainer {
+  .mainListContainer {
     display: flex;
     flex-direction: column;
     width: 80%; /* Full width on small screens */
@@ -90,7 +87,7 @@
     height: 410px; /* Automatically adjust height */
   }
 
-  .organizationHeader {
+  .mainListHeader {
     display: flex;
     flex-direction: column; /* Stack items vertically on small screens */
     align-items: center;
@@ -103,7 +100,7 @@
     margin-top: 10px;
   }
 
-  .organizationDetails {
+  .mainListDetails {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -112,7 +109,7 @@
     padding: 0 15px; /* Adjust padding for small screens */
   }
 
-  .organizationActions {
+  .mainListActions {
     display: flex;
     flex-direction: column;
     align-items: center; /* Center actions on small screens */
@@ -132,7 +129,4 @@
     color: #000000;
   }
 
-  .edit-button {
-    margin-left: 18px;
-  }
 }

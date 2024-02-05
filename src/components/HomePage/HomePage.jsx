@@ -9,12 +9,12 @@ import {
 } from "@mui/material";
 import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
-import "./UserPage.css";
+import "./HomePage.css";
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
 import OrgListView from "../OrgListView/OrgListView.jsx";
 
-function UserPage() {
+function HomePage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: "FETCH_ORGANIZATIONS" });
@@ -180,4 +180,4 @@ function UserPage() {
   );
 }
 
-export default UserPage;
+export default HomePage;

@@ -10,7 +10,7 @@ import Nav from "../Nav/Nav";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import UserProfile from "../UserProfile/UserProfile";
 import AboutPage from "../AboutPage/AboutPage";
-import UserPage from "../UserPage/UserPage";
+import HomePage from "../HomePage/HomePage";
 import Details from "../Details/Details";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
@@ -79,7 +79,7 @@ function App() {
             </Route>
 
             <ProtectedRoute exact path="/user">
-              <UserPage />
+              <HomePage />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/userProfile/:id">

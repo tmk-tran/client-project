@@ -5,12 +5,18 @@ import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./OrgListView.css";
 import Swal from "sweetalert2";
 import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
+import { allMerchants } from "../../hooks/reduxStore";
 
 function OrgListView({ organization }) {
+  console.log(organization);
   const history = useHistory();
   const dispatch = useDispatch();
   // const organizationsList = useSelector((store) => store.organizations);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isMerchantList, setIsMerchantList] = useState(false);
+  console.log(isMerchantList);
+  const merchants = allMerchants() || [];
+  console.log(merchants);
 
   // sets edit to true to open the modal
   const handleEdit = () => {
@@ -78,74 +84,95 @@ function OrgListView({ organization }) {
 
   return (
     <>
-      <Card className="organizationListContainer">
+      <Button
+        onClick={() => {
+          setIsMerchantList(!isMerchantList);
+        }}
+      >
+        Switch Views
+      </Button>
+      <Card className="mainListContainer">
         <CardContent>
-          <div className="organizationClickable" onClick={goToDetails}>
-            <div className="organizationHeader">
-              {renderLogoOrInitials()}
-              <div className="organizationDetails">
-                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                  {organization.organization_name}
-                </Typography>
-                <div className="detailsContainer">
-                  <div className="column">
-                    <Typography variant="body2">
-                      Organization Fee: ${organization.organization_earnings}
-                    </Typography>
-                    <Typography variant="body2">
-                      Total Books Sold: {organization.total_books_sold}
-                    </Typography>
-                    <Typography variant="body2">
-                      Organization Earnings: ${formattedEarnings}
-                    </Typography>
-                  </div>
-                  <div className="column">
-                    <Typography variant="body2">
-                      Total Groups: {organization.total_groups}
-                    </Typography>
-                    <Typography variant="body2">
-                      Total Outstanding Books: {totalStandingBooks}
-                    </Typography>
-                    <Typography variant="body2">
-                      PSG Earnings: $
-                      {(
-                        organization.total_books_sold * 25 -
-                        organization.total_org_earnings
-                      ).toLocaleString()}
-                    </Typography>
+          {!isMerchantList ? (
+            <div className="contentClickable" onClick={goToDetails}>
+              <div className="mainListHeader">
+                {renderLogoOrInitials()}
+
+                <div className="mainListDetails">
+                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                    {organization.organization_name}
+                  </Typography>
+
+                  <div style={{ display: "flex" }}>
+                    <div className="column">
+                      <Typography variant="body2">
+                        Organization Fee: ${organization.organization_earnings}
+                      </Typography>
+                      <Typography variant="body2">
+                        Total Books Sold: {organization.total_books_sold}
+                      </Typography>
+                      <Typography variant="body2">
+                        Organization Earnings: ${formattedEarnings}
+                      </Typography>
+                    </div>
+
+                    <div className="column">
+                      <Typography variant="body2">
+                        Total Groups: {organization.total_groups}
+                      </Typography>
+                      <Typography variant="body2">
+                        Total Outstanding Books: {totalStandingBooks}
+                      </Typography>
+                      <Typography variant="body2">
+                        PSG Earnings: $
+                        {(
+                          organization.total_books_sold * 25 -
+                          organization.total_org_earnings
+                        ).toLocaleString()}
+                      </Typography>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div>Merchant List</div>
+          )}
 
-          <div
-            className="organizationActions"
-            style={{
-              marginTop:
-                organization.total_active_fundraisers <= 0 ? "-115px" : "-85px",
-            }}
-          >
-            <Button
-              style={{ marginRight: "14px" }}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleEdit(organization.id);
+          {!isMerchantList ? (
+            <div
+              className="mainListActions"
+              style={{
+                marginTop:
+                  organization.total_active_fundraisers <= 0
+                    ? "-115px"
+                    : "-85px",
               }}
             >
-              <span className="edit-button">Edit</span>
-            </Button>
-            {organization.total_active_fundraisers <= 0 && (
               <Button
+                style={{ marginRight: "14px" }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleArchive(organization.id);
+                  handleEdit(organization.id);
                 }}
               >
-                Archive
+                Edit
               </Button>
-            )}
-          </div>
+
+              {organization.total_active_fundraisers <= 0 && (
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleArchive(organization.id);
+                  }}
+                >
+                  Archive
+                </Button>
+              )}
+            </div>
+          ) : (
+            <div>M List Action Buttons</div>
+          )}
         </CardContent>
 
         <EditOrganizationModal
