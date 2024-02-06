@@ -41,17 +41,17 @@ function HomePage() {
   const itemsPerPage = 12;
 
   useEffect(() => {
-    // Fetch data when editComplete is true
+    // Initial data fetch based on isMerchantList
+    const fetchDataAction = isMerchantList ? "FETCH_ALL_MERCHANTS" : "FETCH_ORGANIZATIONS";
+    dispatch({ type: fetchDataAction });
+  
+    // If editComplete is true, trigger refresh and reset editComplete
     if (editComplete) {
-      if (!isMerchantList) {
-        dispatch({ type: "FETCH_ORGANIZATIONS" });
-      } else {
-        dispatch({ type: "FETCH_ALL_MERCHANTS" });
-      }
-      // Reset editComplete state after triggering the refresh
+      dispatch({ type: fetchDataAction });
       setEditComplete(false);
     }
   }, [isMerchantList, editComplete]);
+  
 
   // fuzzy search information
   const fuse = new Fuse(organizationsList, {
@@ -205,26 +205,17 @@ function HomePage() {
           {/* {currentItems.map((organization, index) => (
             <ListView key={index} data={organization} />
           ))} */}
-
-          {isMerchantList
-            ? merchants.map((merchant, index) => (
-                <ListView
-                  key={index}
-                  data={merchant}
-                  isMerchantList={true}
-                  onChange={handleEdit}
-                  editComplete={editComplete}
-                />
-              ))
-            : currentItems.map((organization, index) => (
-                <ListView
-                  key={index}
-                  data={organization}
-                  isMerchantList={false}
-                />
-              ))
-              // <div>Not Merchant List</div>
-          }
+          
+          {isMerchantList ? (
+            merchants.map((merchant, index) => (
+              <ListView key={index} data={merchant} isMerchantList={true} onChange={handleEdit} editComplete={editComplete} setEditComplete={setEditComplete} />
+            ))
+          ) : (
+            currentItems.map((organization, index) => (
+              <ListView key={index} data={organization} isMerchantList={false} />
+            ))
+            // <div>Not Merchant List</div>
+          )}
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~ Add New Org ~~~~~~~~~~~~~~~~~~~~~~ */}
