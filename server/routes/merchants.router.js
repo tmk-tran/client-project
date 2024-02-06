@@ -28,7 +28,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [merchantId])
     .then((result) => {
-      console.log("FROM merchantDetails.router: ", result.rows);
+      console.log("FROM merchants.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -71,11 +71,11 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
       merchantId,
     ])
     .then((response) => {
-      console.log("response from merchantDetails.router: ", response.rows);
+      console.log("response from merchants.router: ", response.rows);
       res.sendStatus(200);
     })
     .catch((err) => {
-      console.log("error saving to database, from merchantDetails.router", err);
+      console.log("error saving to database, from merchants.router", err);
       res.sendStatus(500);
     });
 });

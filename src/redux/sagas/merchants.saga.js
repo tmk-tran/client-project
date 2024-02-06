@@ -4,10 +4,10 @@ import { put, takeEvery } from "redux-saga/effects";
 function* merchantDetails(action) {
   try {
     const items = yield axios.get(`/api/merchants/${action.payload}`);
-    console.log("FETCH request from merchantDetails.saga, ITEMS = ", items);
+    console.log("FETCH request from merchants.saga, ITEMS = ", items);
     yield put({ type: "SET_MERCHANT_DETAILS", payload: items.data });
   } catch (error) {
-    console.log("Error in merchantDetailsSaga", error);
+    console.log("Error in merchantsSaga", error);
     yield put({ type: "SET_ERROR", payload: error.message });
   }
 }
@@ -15,10 +15,10 @@ function* merchantDetails(action) {
 function* allMerchants(action) {
   try {
     const items = yield axios.get("/api/merchants");
-    console.log("FETCH request from merchantDetails.saga, ITEMS = ", items);
+    console.log("FETCH request from merchants.saga, ITEMS = ", items);
     yield put({ type: "SET_MERCHANTS", payload: items.data });
   } catch (error) {
-    console.log("Error in merchantDetailsSaga", error);
+    console.log("Error in merchantsSaga", error);
     yield put({ type: "SET_ERROR", payload: error.message });
   }
 }
@@ -30,7 +30,7 @@ function* editMerchant(action) {
       action.payload
     );
     console.log(
-      "FETCH request from merchantDetails.saga, ITEMS FOR editContact = ",
+      "FETCH request from merchants.saga, ITEMS FOR editContact = ",
       items
     );
     console.log("EDIT_CONTACT_INFO action.payload = ", action.payload);
