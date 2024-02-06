@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal, Box, TextField, Button, Typography, Grid } from "@mui/material";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
+import { border } from "../Utils/colors";
 
-const EditAccountModal = ({ open, handleClose, data }) => {
+const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const dispatch = useDispatch();
   const [editedAccount, setEditedAccount] = useState(data);
   console.log(editedAccount);
@@ -51,28 +52,47 @@ const EditAccountModal = ({ open, handleClose, data }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~ MODAL HEADER ~~~~~~~~~~ */}
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add Organization
+            {!isMerchantList ? (
+              <span>Edit Organization</span>
+            ) : (
+              <span>Edit Merchant</span>
+            )}
           </Typography>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~ ACCOUNT NAME ~~~~~~~~~~ */}
+            <Grid item xs={!isMerchantList ? 6 : 12} >
               <TextField
-                label="Organization Name"
+                label={!isMerchantList ? "Organization Name" : "Merchant Name"}
                 fullWidth
-                value={editedAccount.organization_name}
+                value={
+                  !isMerchantList
+                    ? editedAccount.organization_name
+                    : editedAccount.merchant_name
+                }
                 onChange={(e) =>
                   handleChange("organization_name", e.target.value)
                 }
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~ ACCOUNT TYPE ORG ONLY) ~~~~~~~~~~ */}
             <Grid item xs={6}>
+              {!isMerchantList && (
               <TextField
                 label="Organization Type"
                 fullWidth
                 value={editedAccount.type}
                 onChange={(e) => handleChange("type", e.target.value)}
               />
+              )}
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ ADDRESS ~~~~~~~~~~~ */}
             <Grid item xs={12}>
               <TextField
                 label="Address"
@@ -81,6 +101,8 @@ const EditAccountModal = ({ open, handleClose, data }) => {
                 onChange={(e) => handleChange("address", e.target.value)}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ CITY ~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
               <TextField
                 label="City"
@@ -89,6 +111,8 @@ const EditAccountModal = ({ open, handleClose, data }) => {
                 onChange={(e) => handleChange("city", e.target.value)}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ STATE ~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
               <TextField
                 label="State"
@@ -97,6 +121,8 @@ const EditAccountModal = ({ open, handleClose, data }) => {
                 onChange={(e) => handleChange("state", e.target.value)}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~~ ZIP ~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
               <TextField
                 label="Zip Code"
@@ -106,6 +132,8 @@ const EditAccountModal = ({ open, handleClose, data }) => {
                 onChange={(e) => handleChange("zip", e.target.value)}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~ */}
             <Grid item xs={8}>
               <TextField
                 label="Logo URL (optional)"
@@ -116,6 +144,8 @@ const EditAccountModal = ({ open, handleClose, data }) => {
                 }
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
               <TextField
                 type="number"

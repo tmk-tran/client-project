@@ -210,6 +210,7 @@ function ListView({ data, isMerchantList }) {
           open={isEditModalOpen}
           handleClose={handleEditClose}
           data={data}
+          isMerchantList={isMerchantList}
         />
       </Card>
       <br />
