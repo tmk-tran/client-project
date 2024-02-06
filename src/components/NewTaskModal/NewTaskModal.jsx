@@ -86,7 +86,7 @@ export default function BasicModal({
     // Conditional logic based on merchantTab
     merchantTab
       ? /* Logic for merchantTab being true */
-        (dispatch({ type: "FETCH_ALL_MERCHANTS" }),
+        (dispatch({ type: "FETCH_MERCHANTS" }),
         console.log("Merchant Tab is true"))
       : /* Logic for merchantTab being false */
         (dispatch({ type: "FETCH_ORGANIZATIONS" }),

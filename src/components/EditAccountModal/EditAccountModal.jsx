@@ -25,7 +25,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
     dispatch({ type: "FETCH_ORGANIZATIONS" });
     } else {
       dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedAccount });
-      dispatch({ type: "FETCH_ALL_MERCHANTS" });
+      dispatch({ type: "FETCH_MERCHANTS" });
     }
     Swal.fire({
       icon: "success",

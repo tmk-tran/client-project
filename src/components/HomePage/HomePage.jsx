@@ -42,7 +42,7 @@ function HomePage() {
 
   useEffect(() => {
     // Initial data fetch based on isMerchantList
-    const fetchDataAction = isMerchantList ? "FETCH_ALL_MERCHANTS" : "FETCH_ORGANIZATIONS";
+    const fetchDataAction = isMerchantList ? "FETCH_MERCHANTS" : "FETCH_ORGANIZATIONS";
     dispatch({ type: fetchDataAction });
   
     // If editComplete is true, trigger refresh and reset editComplete
