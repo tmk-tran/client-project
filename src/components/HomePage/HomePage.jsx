@@ -36,15 +36,22 @@ function HomePage() {
   const [showInput, setShowInput] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [editComplete, setEditComplete] = useState(false);
+  console.log(editComplete);
   const itemsPerPage = 12;
 
   useEffect(() => {
-    if (isMerchantList === false) {
-      dispatch({ type: "FETCH_ORGANIZATIONS" });
-    } else {
-      dispatch({ type: "FETCH_ALL_MERCHANTS" });
+    // Fetch data when editComplete is true
+    if (editComplete) {
+      if (!isMerchantList) {
+        dispatch({ type: "FETCH_ORGANIZATIONS" });
+      } else {
+        dispatch({ type: "FETCH_ALL_MERCHANTS" });
+      }
+      // Reset editComplete state after triggering the refresh
+      setEditComplete(false);
     }
-  }, [isMerchantList]);
+  }, [isMerchantList, editComplete]);
 
   // fuzzy search information
   const fuse = new Fuse(organizationsList, {
@@ -94,6 +101,10 @@ function HomePage() {
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
+  };
+
+  const handleEdit = () => {
+    setEditComplete(true);
   };
 
   return (
@@ -194,17 +205,26 @@ function HomePage() {
           {/* {currentItems.map((organization, index) => (
             <ListView key={index} data={organization} />
           ))} */}
-          
-          {isMerchantList ? (
-            merchants.map((merchant, index) => (
-              <ListView key={index} data={merchant} isMerchantList={true} />
-            ))
-          ) : (
-            currentItems.map((organization, index) => (
-              <ListView key={index} data={organization} isMerchantList={false} />
-            ))
-            // <div>Not Merchant List</div>
-          )}
+
+          {isMerchantList
+            ? merchants.map((merchant, index) => (
+                <ListView
+                  key={index}
+                  data={merchant}
+                  isMerchantList={true}
+                  onChange={handleEdit}
+                  editComplete={editComplete}
+                />
+              ))
+            : currentItems.map((organization, index) => (
+                <ListView
+                  key={index}
+                  data={organization}
+                  isMerchantList={false}
+                />
+              ))
+              // <div>Not Merchant List</div>
+          }
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~ Add New Org ~~~~~~~~~~~~~~~~~~~~~~ */}

@@ -10,6 +10,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const [editedAccount, setEditedAccount] = useState(data);
   console.log(editedAccount);
 
+
   useEffect(() => {
     setEditedAccount(data);
   }, [data]);

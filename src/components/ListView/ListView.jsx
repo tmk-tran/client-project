@@ -7,12 +7,13 @@ import Swal from "sweetalert2";
 import EditAccountModal from "../EditAccountModal/EditAccountModal";
 import { border } from "../Utils/colors";
 
-function ListView({ data, isMerchantList }) {
+function ListView({ data, isMerchantList, onChange, editComplete }) {
   console.log(data);
   console.log(isMerchantList);
   const history = useHistory();
   const dispatch = useDispatch();
   const [isEditModalOpen, setEditModalOpen] = useState(false);
+  console.log(editComplete);
 
   const handleEdit = () => {
     setEditModalOpen(true);
@@ -20,6 +21,7 @@ function ListView({ data, isMerchantList }) {
 
   const handleEditClose = () => {
     setEditModalOpen(false);
+    onChange();
   };
 
   const renderLogoOrInitials = () => {
