@@ -197,11 +197,11 @@ function HomePage() {
           
           {isMerchantList ? (
             merchants.map((merchant, index) => (
-              <ListView key={index} data={merchant} isMerchant={true} />
+              <ListView key={index} data={merchant} isMerchantList={true} />
             ))
           ) : (
             currentItems.map((organization, index) => (
-              <ListView key={index} data={organization} isMerchant={false} />
+              <ListView key={index} data={organization} isMerchantList={false} />
             ))
             // <div>Not Merchant List</div>
           )}

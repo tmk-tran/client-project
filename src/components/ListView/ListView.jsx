@@ -5,10 +5,11 @@ import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./ListView.css";
 import Swal from "sweetalert2";
 import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
+import { border } from "../Utils/colors";
 
-function ListView({ data, isMerchant }) {
+function ListView({ data, isMerchantList }) {
   console.log(data);
-  console.log(isMerchant);
+  console.log(isMerchantList);
   const history = useHistory();
   const dispatch = useDispatch();
   const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -47,7 +48,7 @@ function ListView({ data, isMerchant }) {
   const handleArchive = (dataId) => {
     Swal.fire({
       title: `Are you sure you want to Archive this ${
-        isMerchant ? "Merchant" : "Organization"
+        isMerchantList ? "Merchant" : "Organization"
       }?`,
       icon: "warning",
       showCancelButton: true,
@@ -57,21 +58,23 @@ function ListView({ data, isMerchant }) {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch({
-          type: `DELETE_${isMerchant ? "MERCHANT" : "ORGANIZATION"}`,
+          type: `DELETE_${isMerchantList ? "MERCHANT" : "ORGANIZATION"}`,
           payload: dataId,
         });
         dispatch({
-          type: `FETCH_${isMerchant ? "MERCHANTS" : "ORGANIZATIONS"}`,
+          type: `FETCH_${isMerchantList ? "MERCHANTS" : "ORGANIZATIONS"}`,
         });
         Swal.fire(
-          `${isMerchant ? "Merchant" : "Organization"} Successfully Archived!`
+          `${
+            isMerchantList ? "Merchant" : "Organization"
+          } Successfully Archived!`
         );
       }
     });
   };
 
   function goToDetails() {
-    history.push(`/${isMerchant ? "merchant" : "orgDetails"}/${data.id}`);
+    history.push(`/${isMerchantList ? "merchant" : "orgDetails"}/${data.id}`);
   }
 
   const totalOrgEarnings =
@@ -90,38 +93,63 @@ function ListView({ data, isMerchant }) {
     <>
       <Card className="mainListContainer">
         <CardContent>
-          {/* {!isMerchant ? ( */}
-            <div className="contentClickable" onClick={goToDetails}>
-              <div className="mainListHeader">
-                {renderLogoOrInitials()}
+          
+          <div className="contentClickable" onClick={goToDetails}>
+            <div className="mainListHeader">
+              {renderLogoOrInitials()}
 
-                <div className="mainListDetails">
-                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                 {data.organization_name}
-                  </Typography>
+              <div className="mainListDetails">
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~ NAME HEADER ~~~~~~~~~~ */}
+                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                  {!isMerchantList
+                    ? data.organization_name
+                    : data.merchant_name}
+                </Typography>
 
-                  <div style={{ display: "flex" }}>
-                    <div className="column">
+                <div style={{ display: "flex" }}>
+                  <div className="column">
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~~ EARNINGS ~~~~~~~~~~~~ */}
+                    {!isMerchantList && (
                       <Typography variant="body2">
-                        {isMerchant ? "Merchant Fee" : "Organization Fee"}: $
-                        {data.organization_earnings}
+                        Organization Fee: ${data.organization_earnings}
                       </Typography>
+                    )}
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~ BOOKS SOLD ~~~~~~~~~~~ */}
+                    {!isMerchantList && (
                       <Typography variant="body2">
                         Total Books Sold: {data.total_books_sold}
                       </Typography>
+                    )}
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~~ EARNINGS ~~~~~~~~~~~~ */}
+                    {!isMerchantList && (
                       <Typography variant="body2">
-                        {isMerchant ? "Merchant" : "Organization"} Earnings: $
-                        {formattedEarnings}
+                        Organization Earnings: ${formattedEarnings}
                       </Typography>
-                    </div>
+                    )}
+                  </div>
 
-                    <div className="column">
+                  <div className="column">
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~~~ GROUPS ~~~~~~~~~~~~~ */}
+                    {!isMerchantList && (
                       <Typography variant="body2">
                         Total Groups: {data.total_groups}
                       </Typography>
+                    )}
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~ TOTAL BOOKS ~~~~~~~~~~ */}
+                    {!isMerchantList && (
                       <Typography variant="body2">
                         Total Outstanding Books: {totalStandingBooks}
                       </Typography>
+                    )}
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~ PSG EARNINGS ~~~~~~~~~ */}
+                    {!isMerchantList && (
                       <Typography variant="body2">
                         PSG Earnings: $
                         {(
@@ -131,50 +159,44 @@ function ListView({ data, isMerchant }) {
                             : 0)
                         ).toLocaleString()}
                       </Typography>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
+          </div>
           {/* ) : (
-            <div>{isMerchant ? "Merchant List" : "Merchant List"}</div>
+            <div>{isMerchantList ? "Merchant List" : "Merchant List"}</div>
           )} */}
 
-          {!isMerchant ? (
-            <div
-              className="mainListActions"
-              style={{
-                marginTop:
-                  data.total_active_fundraisers <= 0 ? "-115px" : "-85px",
+          <div
+            className="mainListActions"
+            style={{
+              marginTop:
+                data.total_active_fundraisers <= 0 ? "-115px" : "-85px",
+            }}
+          >
+            <Button
+              style={{ marginRight: "14px" }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleEdit(data.id);
               }}
             >
+              Edit
+            </Button>
+
+            {data.total_active_fundraisers <= 0 && (
               <Button
-                style={{ marginRight: "14px" }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleEdit(data.id);
+                  handleArchive(data.id);
                 }}
               >
-                Edit
+                Archive
               </Button>
-
-              {data.total_active_fundraisers <= 0 && (
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleArchive(data.id);
-                  }}
-                >
-                  Archive
-                </Button>
-              )}
-            </div>
-          ) : (
-            <div>
-              {isMerchant ? "M List Action Buttons" : "Org List Action Buttons"}
-              {console.log(isMerchant)}
-            </div>
-          )}
+            )}
+          </div>
         </CardContent>
 
         {/* <EditOrganizationModal

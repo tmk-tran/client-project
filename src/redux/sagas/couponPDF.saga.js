@@ -101,6 +101,7 @@ function* pdfFile(action) {
 
 function* pdfUpload(action) {
   const { selectedFile } = action.payload;
+  console.log(selectedFile);
 
   try {
     const formData = new FormData();

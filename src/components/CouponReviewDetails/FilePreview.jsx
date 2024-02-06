@@ -9,6 +9,8 @@ const FilePreview = ({ pdfBlob, merchantId }) => {
   const [pdfUrl, setPdfUrl] = useState(null);
   console.log(pdfBlob);
   console.log(pdfUrl);
+  const [isUploading, setIsUploading] = useState(false);
+  console.log(isUploading);
 
   // START HERE, NEED TO SET UP STATE FOR SHOWING ALL FILES, AND RESET TO SHOW
   // FILES AFTER VIEWING
