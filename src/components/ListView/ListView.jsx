@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./ListView.css";
 import Swal from "sweetalert2";
-import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
+import EditAccountModal from "../EditAccountModal/EditAccountModal";
 import { border } from "../Utils/colors";
 
 function ListView({ data, isMerchantList }) {
@@ -206,7 +206,7 @@ function ListView({ data, isMerchantList }) {
           </div>
         </CardContent>
 
-        <EditOrganizationModal
+        <EditAccountModal
           open={isEditModalOpen}
           handleClose={handleEditClose}
           data={data}

@@ -4,7 +4,7 @@ import { Modal, Box, TextField, Button, Typography, Grid } from "@mui/material";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 
-const EditOrganizationModal = ({ open, handleClose, data }) => {
+const EditAccountModal = ({ open, handleClose, data }) => {
   const dispatch = useDispatch();
   const [editedAccount, setEditedAccount] = useState(data);
   console.log(editedAccount);
@@ -150,4 +150,4 @@ const EditOrganizationModal = ({ open, handleClose, data }) => {
   );
 };
 
-export default EditOrganizationModal;
+export default EditAccountModal;
