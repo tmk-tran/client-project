@@ -14,16 +14,21 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
     setEditedAccount(data);
   }, [data]);
 
-  const handleChange = (field, value) => {
-    setEditedAccount((prev) => ({ ...prev, [field]: value }));
+  const handleChange = (field, value, isMerchant) => {
+    setEditedAccount((prev) => ({ ...prev, [isMerchant ? "merchant_name" : field]: value, }));
   };
 
   const handleEditSave = (editedAccount) => {
+    if (!isMerchantList) {
     dispatch({ type: "EDIT_ORGANIZATION", payload: editedAccount });
     dispatch({ type: "FETCH_ORGANIZATIONS" });
+    } else {
+      dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedAccount });
+      dispatch({ type: "FETCH_ALL_MERCHANTS" });
+    }
     Swal.fire({
       icon: "success",
-      title: "Organization Successfully Edited!",
+      title: "Account Successfully Edited!",
       showConfirmButton: false,
       timer: 1500, // Adjust the timer as needed
     });
@@ -75,7 +80,9 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
                     : editedAccount.merchant_name
                 }
                 onChange={(e) =>
-                  handleChange("organization_name", e.target.value)
+                  handleChange(!isMerchantList ? "organization_name" : "merchant_name", // Use "merchant_name" if isMerchantList is true
+                  e.target.value,
+                  isMerchantList)
                 }
               />
             </Grid>
@@ -147,6 +154,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
+              {!isMerchantList && (
               <TextField
                 type="number"
                 label="Organization Fee"
@@ -161,6 +169,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
                   ),
                 }}
               />
+              )}
             </Grid>
           </Grid>
           <br />
