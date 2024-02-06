@@ -4,20 +4,21 @@ import { Modal, Box, TextField, Button, Typography, Grid } from "@mui/material";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 
-const EditOrganizationModal = ({ open, handleClose, organization }) => {
-  const [editedOrganization, setEditedOrganization] = useState(organization);
+const EditOrganizationModal = ({ open, handleClose, data }) => {
   const dispatch = useDispatch();
+  const [editedAccount, setEditedAccount] = useState(data);
+  console.log(editedAccount);
 
   useEffect(() => {
-    setEditedOrganization(organization);
-  }, [organization]);
+    setEditedAccount(data);
+  }, [data]);
 
   const handleChange = (field, value) => {
-    setEditedOrganization((prev) => ({ ...prev, [field]: value }));
+    setEditedAccount((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleEditSave = (editedOrganization) => {
-    dispatch({ type: "EDIT_ORGANIZATION", payload: editedOrganization });
+  const handleEditSave = (editedAccount) => {
+    dispatch({ type: "EDIT_ORGANIZATION", payload: editedAccount });
     dispatch({ type: "FETCH_ORGANIZATIONS" });
     Swal.fire({
       icon: "success",
@@ -58,7 +59,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
               <TextField
                 label="Organization Name"
                 fullWidth
-                value={editedOrganization.organization_name}
+                value={editedAccount.organization_name}
                 onChange={(e) =>
                   handleChange("organization_name", e.target.value)
                 }
@@ -68,7 +69,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
               <TextField
                 label="Organization Type"
                 fullWidth
-                value={editedOrganization.type}
+                value={editedAccount.type}
                 onChange={(e) => handleChange("type", e.target.value)}
               />
             </Grid>
@@ -76,7 +77,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
               <TextField
                 label="Address"
                 fullWidth
-                value={editedOrganization.address}
+                value={editedAccount.address}
                 onChange={(e) => handleChange("address", e.target.value)}
               />
             </Grid>
@@ -84,7 +85,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
               <TextField
                 label="City"
                 fullWidth
-                value={editedOrganization.city}
+                value={editedAccount.city}
                 onChange={(e) => handleChange("city", e.target.value)}
               />
             </Grid>
@@ -92,7 +93,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
               <TextField
                 label="State"
                 fullWidth
-                value={editedOrganization.state}
+                value={editedAccount.state}
                 onChange={(e) => handleChange("state", e.target.value)}
               />
             </Grid>
@@ -101,7 +102,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
                 label="Zip Code"
                 fullWidth
                 type="number"
-                value={editedOrganization.zip}
+                value={editedAccount.zip}
                 onChange={(e) => handleChange("zip", e.target.value)}
               />
             </Grid>
@@ -109,7 +110,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
               <TextField
                 label="Logo URL (optional)"
                 fullWidth
-                value={editedOrganization.organization_logo}
+                value={editedAccount.organization_logo}
                 onChange={(e) =>
                   handleChange("organization_logo", e.target.value)
                 }
@@ -120,7 +121,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
                 type="number"
                 label="Organization Fee"
                 fullWidth
-                value={editedOrganization.organization_earnings}
+                value={editedAccount.organization_earnings}
                 onChange={(e) =>
                   handleChange("organization_earnings", e.target.value)
                 }
@@ -137,7 +138,7 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
             Cancel
           </Button>{" "}
           <Button
-            onClick={() => handleEditSave(editedOrganization)}
+            onClick={() => handleEditSave(editedAccount)}
             variant="contained"
             color="primary"
           >

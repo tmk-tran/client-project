@@ -93,9 +93,10 @@ function ListView({ data, isMerchantList }) {
     <>
       <Card className="mainListContainer">
         <CardContent>
-          
           <div className="contentClickable" onClick={goToDetails}>
             <div className="mainListHeader">
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~ ORG LOGO  ~~~~~~~~~~~ */}
               {renderLogoOrInitials()}
 
               <div className="mainListDetails">
@@ -107,49 +108,46 @@ function ListView({ data, isMerchantList }) {
                     : data.merchant_name}
                 </Typography>
 
-                <div style={{ display: "flex" }}>
-                  <div className="column">
-                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    {/* ~~~~~~~~~~~ EARNINGS ~~~~~~~~~~~~ */}
-                    {!isMerchantList && (
+                {!isMerchantList ? (
+                  <div style={{ display: "flex" }}>
+                    <div className="column">
+                      {/* ///////////////////////////////////////// */}
+                      {/* ///////////// ORG INFORMATION /////////// */}
+                      {/* ///////////////////////////////////////// */}
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~~ EARNINGS ~~~~~~~~~~~~ */}
                       <Typography variant="body2">
                         Organization Fee: ${data.organization_earnings}
                       </Typography>
-                    )}
-                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    {/* ~~~~~~~~~~ BOOKS SOLD ~~~~~~~~~~~ */}
-                    {!isMerchantList && (
+
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~ BOOKS SOLD ~~~~~~~~~~~ */}
                       <Typography variant="body2">
                         Total Books Sold: {data.total_books_sold}
                       </Typography>
-                    )}
-                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    {/* ~~~~~~~~~~~ EARNINGS ~~~~~~~~~~~~ */}
-                    {!isMerchantList && (
+
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~~ EARNINGS ~~~~~~~~~~~~ */}
                       <Typography variant="body2">
                         Organization Earnings: ${formattedEarnings}
                       </Typography>
-                    )}
-                  </div>
+                    </div>
 
-                  <div className="column">
-                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    {/* ~~~~~~~~~~~~ GROUPS ~~~~~~~~~~~~~ */}
-                    {!isMerchantList && (
+                    <div className="column" style={border}>
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~~~ GROUPS ~~~~~~~~~~~~~ */}
                       <Typography variant="body2">
                         Total Groups: {data.total_groups}
                       </Typography>
-                    )}
-                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    {/* ~~~~~~~~~~ TOTAL BOOKS ~~~~~~~~~~ */}
-                    {!isMerchantList && (
+
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~ TOTAL BOOKS ~~~~~~~~~~ */}
                       <Typography variant="body2">
                         Total Outstanding Books: {totalStandingBooks}
                       </Typography>
-                    )}
-                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    {/* ~~~~~~~~~~ PSG EARNINGS ~~~~~~~~~ */}
-                    {!isMerchantList && (
+
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~ PSG EARNINGS ~~~~~~~~~ */}
                       <Typography variant="body2">
                         PSG Earnings: $
                         {(
@@ -159,9 +157,18 @@ function ListView({ data, isMerchantList }) {
                             : 0)
                         ).toLocaleString()}
                       </Typography>
-                    )}
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div style={{ display: "flex", ...border, flexDirection: "column" }}>
+                    
+                  <div style={border}>
+                    <Typography>
+                      Coupon Count (Active): # here
+                    </Typography>
+                  </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -199,12 +206,11 @@ function ListView({ data, isMerchantList }) {
           </div>
         </CardContent>
 
-        {/* <EditOrganizationModal
+        <EditOrganizationModal
           open={isEditModalOpen}
           handleClose={handleEditClose}
           data={data}
-          isOrganization={!isMerchant}
-        /> */}
+        />
       </Card>
       <br />
     </>
