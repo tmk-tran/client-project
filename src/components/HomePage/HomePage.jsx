@@ -13,6 +13,7 @@ import "./HomePage.css";
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
 import ListView from "../ListView/ListView.jsx";
+import HomePageTabs from "../HomePage/HomePageTabs.jsx";
 import { allMerchants } from "../../hooks/reduxStore.js";
 
 function HomePage() {
@@ -118,13 +119,16 @@ function HomePage() {
         >
           Switch Views
         </Button>
+        <HomePageTabs />
         <br />
         {!isMerchantList ? (
-          <center>
-            <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+          // <center>
+          <>
+            <Typography variant="h5" sx={{ fontWeight: "bold", textAlign: "center" }}>
               Organization List
             </Typography>
             <br />
+
             <Button
               style={{ marginBottom: "5px" }}
               variant="outlined"
@@ -188,7 +192,8 @@ function HomePage() {
                 Clear
               </Button>
             )}
-          </center>
+            </>
+          // </center>
         ) : (
           <Typography
             variant="h5"
@@ -212,7 +217,7 @@ function HomePage() {
             ))
           ) : (
             currentItems.map((organization, index) => (
-              <ListView key={index} data={organization} isMerchantList={false} />
+              <ListView key={index} data={organization} isMerchantList={false} onChange={handleEdit} editComplete={editComplete} setEditComplete={setEditComplete} />
             ))
             // <div>Not Merchant List</div>
           )}

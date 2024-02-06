@@ -10,19 +10,21 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const [editedAccount, setEditedAccount] = useState(data);
   console.log(editedAccount);
 
-
   useEffect(() => {
     setEditedAccount(data);
   }, [data]);
 
   const handleChange = (field, value, isMerchant) => {
-    setEditedAccount((prev) => ({ ...prev, [isMerchant ? "merchant_name" : field]: value, }));
+    setEditedAccount((prev) => ({
+      ...prev,
+      [isMerchant ? "merchant_name" : field]: value,
+    }));
   };
 
   const handleEditSave = (editedAccount) => {
     if (!isMerchantList) {
-    dispatch({ type: "EDIT_ORGANIZATION", payload: editedAccount });
-    dispatch({ type: "FETCH_ORGANIZATIONS" });
+      dispatch({ type: "EDIT_ORGANIZATION", payload: editedAccount });
+      dispatch({ type: "FETCH_ORGANIZATIONS" });
     } else {
       dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedAccount });
       dispatch({ type: "FETCH_MERCHANTS" });
@@ -71,7 +73,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
           <Grid container spacing={2}>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~ ACCOUNT NAME ~~~~~~~~~~ */}
-            <Grid item xs={!isMerchantList ? 6 : 12} >
+            <Grid item xs={!isMerchantList ? 6 : 12}>
               <TextField
                 label={!isMerchantList ? "Organization Name" : "Merchant Name"}
                 fullWidth
@@ -81,9 +83,11 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
                     : editedAccount.merchant_name
                 }
                 onChange={(e) =>
-                  handleChange(!isMerchantList ? "organization_name" : "merchant_name", // Use "merchant_name" if isMerchantList is true
-                  e.target.value,
-                  isMerchantList)
+                  handleChange(
+                    !isMerchantList ? "organization_name" : "merchant_name", // Use "merchant_name" if isMerchantList is true
+                    e.target.value,
+                    isMerchantList
+                  )
                 }
               />
             </Grid>
@@ -91,12 +95,12 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             {/* ~~~~~~~~ ACCOUNT TYPE ORG ONLY) ~~~~~~~~~~ */}
             <Grid item xs={6}>
               {!isMerchantList && (
-              <TextField
-                label="Organization Type"
-                fullWidth
-                value={editedAccount.type}
-                onChange={(e) => handleChange("type", e.target.value)}
-              />
+                <TextField
+                  label="Organization Type"
+                  fullWidth
+                  value={editedAccount.type}
+                  onChange={(e) => handleChange("type", e.target.value)}
+                />
               )}
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -156,20 +160,20 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
               {!isMerchantList && (
-              <TextField
-                type="number"
-                label="Organization Fee"
-                fullWidth
-                value={editedAccount.organization_earnings}
-                onChange={(e) =>
-                  handleChange("organization_earnings", e.target.value)
-                }
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">$</InputAdornment>
-                  ),
-                }}
-              />
+                <TextField
+                  type="number"
+                  label="Organization Fee"
+                  fullWidth
+                  value={editedAccount.organization_earnings}
+                  onChange={(e) =>
+                    handleChange("organization_earnings", e.target.value)
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">$</InputAdornment>
+                    ),
+                  }}
+                />
               )}
             </Grid>
           </Grid>
