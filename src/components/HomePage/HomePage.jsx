@@ -13,7 +13,6 @@ import "./HomePage.css";
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
 import ListView from "../ListView/ListView.jsx";
-import HomePageTabs from "../HomePage/HomePageTabs.jsx";
 import { allMerchants } from "../../hooks/reduxStore.js";
 
 function HomePage() {
@@ -113,6 +112,13 @@ function HomePage() {
     <div className="organizationsContainer">
       <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
         <br />
+        <Button
+          onClick={() => {
+            setIsMerchantList(!isMerchantList);
+          }}
+        >
+          Switch Views
+        </Button>
         {!isMerchantList ? (
           // <center>
           <>
@@ -197,18 +203,6 @@ function HomePage() {
             Merchant List
           </Typography>
         )}
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        {/* ~~~~~~~~~~ TABS ~~~~~~~~~~ */}
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        <HomePageTabs
-          isMerchantList={isMerchantList}
-          setIsMerchantList={setIsMerchantList}
-          organizations={organizationsList}
-          merchants={merchants}
-          handleEdit={handleEdit}
-          editComplete={editComplete}
-          setEditComplete={setEditComplete}
-        />
         <br />
 
         <div className="organizationsContainer">
@@ -219,7 +213,7 @@ function HomePage() {
             <ListView key={index} data={organization} />
           ))} */}
 
-          {/* {isMerchantList ? (
+          {isMerchantList ? (
             merchants.map((merchant, index) => (
               <ListView key={index} data={merchant} isMerchantList={true} onChange={handleEdit} editComplete={editComplete} setEditComplete={setEditComplete} />
             ))
@@ -228,7 +222,7 @@ function HomePage() {
               <ListView key={index} data={organization} isMerchantList={false} onChange={handleEdit} editComplete={editComplete} setEditComplete={setEditComplete} />
             ))
             // <div>Not Merchant List</div>
-          )} */}
+          )}
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~ Add New Org ~~~~~~~~~~~~~~~~~~~~~~ */}
