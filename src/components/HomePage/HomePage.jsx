@@ -119,8 +119,6 @@ function HomePage() {
         >
           Switch Views
         </Button>
-        <HomePageTabs />
-        <br />
         {!isMerchantList ? (
           // <center>
           <>
@@ -202,6 +200,11 @@ function HomePage() {
             Merchant List
           </Typography>
         )}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~ TABS ~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        <HomePageTabs isMerchantList={isMerchantList} organizations={organizationsList} merchants={merchants} handleEdit={handleEdit} editComplete={editComplete} setEditComplete={setEditComplete} />
+        <br />
 
         <div className="organizationsContainer">
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -211,7 +214,7 @@ function HomePage() {
             <ListView key={index} data={organization} />
           ))} */}
           
-          {isMerchantList ? (
+          {/* {isMerchantList ? (
             merchants.map((merchant, index) => (
               <ListView key={index} data={merchant} isMerchantList={true} onChange={handleEdit} editComplete={editComplete} setEditComplete={setEditComplete} />
             ))
@@ -220,7 +223,7 @@ function HomePage() {
               <ListView key={index} data={organization} isMerchantList={false} onChange={handleEdit} editComplete={editComplete} setEditComplete={setEditComplete} />
             ))
             // <div>Not Merchant List</div>
-          )}
+          )} */}
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~ Add New Org ~~~~~~~~~~~~~~~~~~~~~~ */}

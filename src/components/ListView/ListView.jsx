@@ -215,7 +215,6 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
           isMerchantList={isMerchantList}
         />
       </Card>
-      <br />
     </>
   );
 }

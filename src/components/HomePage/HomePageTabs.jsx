@@ -1,9 +1,8 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { Tab, Tabs, Typography, Box } from "@mui/material";
+// ~~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~
+import ListView from "../ListView/ListView";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -38,7 +37,17 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function BasicTabs({
+  isMerchantList,
+  organizations,
+  merchants,
+  handleEdit,
+  editComplete,
+  setEditComplete,
+}) {
+  console.log(isMerchantList);
+  console.log(organizations);
+  console.log(merchants);
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -53,16 +62,40 @@ export default function BasicTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Organizations" {...a11yProps(0)} />
+          <Tab label="Merchants" {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        Item One
+      {organizations.map((organization, index) => (
+        <CustomTabPanel value={value} index={0}>
+          <ListView
+            key={index}
+            data={organization}
+            isMerchantList={false}
+            onChange={handleEdit}
+            editComplete={editComplete}
+            setEditComplete={setEditComplete}
+          />
+        </CustomTabPanel>
+      ))}
+      {merchants.map((merchant, index) => (
+        <CustomTabPanel value={value} index={1}>
+          <ListView
+            key={index}
+            data={merchant}
+            isMerchantList={true}
+            onChange={handleEdit}
+            editComplete={editComplete}
+            setEditComplete={setEditComplete}
+          />
+        </CustomTabPanel>
+      ))}
+      {/* <CustomTabPanel value={value} index={0}>
+        Org data
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
-      </CustomTabPanel>
+        Merchant data
+      </CustomTabPanel> */}
     </Box>
   );
 }
