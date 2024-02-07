@@ -4,13 +4,19 @@ import { Box, Button, Modal, TextField, Typography, Grid } from "@mui/material";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 
-export default function AddOrganizationModal({ open, handleModalClose, isMerchantList }) {
+export default function AddOrganizationModal({
+  open,
+  handleModalClose,
+  isMerchantList,
+}) {
   console.log(isMerchantList);
   const dispatch = useDispatch();
 
   // Set state for the add organization form
   const [organizationName, setOrganizationName] = useState("");
   const [organizationType, setOrganizationType] = useState("");
+  const [merchantName, setMerchantName] = useState("");
+  console.log(merchantName);
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -24,23 +30,40 @@ export default function AddOrganizationModal({ open, handleModalClose, isMerchan
 
   // Save function to dispatch data for new organization
   const handleSave = () => {
-    dispatch({
-      type: "ADD_ORGANIZATION",
-      payload: {
-        organization_name: organizationName,
-        type: organizationType,
-        address,
-        city,
-        state,
-        zip,
-        primary_contact_first_name: contactFirstName,
-        primary_contact_last_name: contactLastName,
-        primary_contact_phone: contactPhone,
-        primary_contact_email: contactEmail,
-        organization_logo: logoUrl,
-        organization_earnings: orgEarnings,
-      },
-    });
+    !isMerchantList
+      ? dispatch({
+          type: "ADD_ORGANIZATION",
+          payload: {
+            organization_name: organizationName,
+            type: organizationType,
+            address,
+            city,
+            state,
+            zip,
+            primary_contact_first_name: contactFirstName,
+            primary_contact_last_name: contactLastName,
+            primary_contact_phone: contactPhone,
+            primary_contact_email: contactEmail,
+            organization_logo: logoUrl,
+            organization_earnings: orgEarnings,
+          },
+        })
+      : dispatch({
+          type: "ADD_MERCHANT",
+          payload: {
+            merchant_name: merchantName,
+            address,
+            city,
+            state,
+            zip,
+            primary_contact_first_name: contactFirstName,
+            primary_contact_last_name: contactLastName,
+            contact_phone_number: contactPhone,
+            contact_email: contactEmail,
+            merchant_logo: logoUrl,
+            organization_earnings: orgEarnings,
+          },
+        });
     // clear input fields
     clearFields();
     // close modal
@@ -104,30 +127,43 @@ export default function AddOrganizationModal({ open, handleModalClose, isMerchan
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add Organization
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~ HEADER ~~~~~~~~~~~~~~~~ */}
+          <Typography variant="h6" sx={{ textAlign: "center", mb: 5 }}>
+            {!isMerchantList ? "Add New Organization" : "Add New Merchant"}
           </Typography>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={!isMerchantList ? 6 : 12}>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~ NAME ~~~~~~~~~~~~~~~~~~ */}
               <TextField
                 required
-                label="Organization Name"
+                label={!isMerchantList ? "Organization Name" : "Merchant Name"}
                 fullWidth
-                value={organizationName}
-                onChange={(e) =>
-                  setOrganizationName(capitalizeFirstLetter(e.target.value))
-                }
+                value={!isMerchantList ? organizationName : merchantName}
+                onChange={(e) => {
+                  !isMerchantList
+                    ? setOrganizationName(capitalizeFirstLetter(e.target.value))
+                    : setMerchantName(capitalizeFirstLetter(e.target.value));
+                }}
               />
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                required
-                label="Organization Type"
-                fullWidth
-                value={organizationType}
-                onChange={(e) => setOrganizationType(e.target.value)}
-              />
-            </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ TYPE ~~~~~~~~~~~~~~~~~~ */}
+            {!isMerchantList ? (
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  label="Organization Type"
+                  fullWidth
+                  value={organizationType}
+                  onChange={(e) => setOrganizationType(e.target.value)}
+                />
+              </Grid>
+            ) : null}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ ADDRESS ~~~~~~~~~~~~~~~ */}
             <Grid item xs={12}>
               <TextField
                 required
@@ -137,6 +173,8 @@ export default function AddOrganizationModal({ open, handleModalClose, isMerchan
                 onChange={(e) => setAddress(e.target.value)}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ CITY ~~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
               <TextField
                 required
@@ -146,6 +184,8 @@ export default function AddOrganizationModal({ open, handleModalClose, isMerchan
                 onChange={(e) => setCity(e.target.value)}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ STATE ~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
               <TextField
                 required
@@ -155,6 +195,8 @@ export default function AddOrganizationModal({ open, handleModalClose, isMerchan
                 onChange={(e) => setState(e.target.value)}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ ZIP ~~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
               <TextField
                 required
@@ -165,6 +207,8 @@ export default function AddOrganizationModal({ open, handleModalClose, isMerchan
                 onChange={(e) => setZip(Number(e.target.value))}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ FIRST NAME~~~~~~~~~~~~~ */}
             <Grid item xs={6}>
               <TextField
                 label="Contact First Name"
@@ -173,6 +217,8 @@ export default function AddOrganizationModal({ open, handleModalClose, isMerchan
                 onChange={(e) => setContactFirstName(e.target.value)}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ LAST NAME ~~~~~~~~~~~~~ */}
             <Grid item xs={6}>
               <TextField
                 required
@@ -182,6 +228,8 @@ export default function AddOrganizationModal({ open, handleModalClose, isMerchan
                 onChange={(e) => setContactLastName(e.target.value)}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ PHONE ~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={6}>
               <TextField
                 required
@@ -192,6 +240,8 @@ export default function AddOrganizationModal({ open, handleModalClose, isMerchan
                 onChange={(e) => setContactPhone(Number(e.target.value))}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ EMAIL ~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={6}>
               <TextField
                 label="Contact Email (optional)"
@@ -200,7 +250,9 @@ export default function AddOrganizationModal({ open, handleModalClose, isMerchan
                 onChange={(e) => setContactEmail(e.target.value)}
               />
             </Grid>
-            <Grid item xs={8}>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~~~~~ */}
+            <Grid item xs={!isMerchantList ? 8 : 12}>
               <TextField
                 label="Logo URL (optional)"
                 fullWidth
@@ -208,19 +260,23 @@ export default function AddOrganizationModal({ open, handleModalClose, isMerchan
                 onChange={(e) => setLogoUrl(e.target.value)}
               />
             </Grid>
-            <Grid item xs={4}>
-              <TextField
-                label="Organization Fee"
-                fullWidth
-                value={orgEarnings}
-                onChange={(e) => setOrgEarnings(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">$</InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~~ */}
+            {!isMerchantList ? (
+              <Grid item xs={4}>
+                <TextField
+                  label="Organization Fee"
+                  fullWidth
+                  value={orgEarnings}
+                  onChange={(e) => setOrgEarnings(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">$</InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+            ) : null}
           </Grid>
           <br />
           <Button onClick={cancelAdd} variant="outlined" color="primary">
