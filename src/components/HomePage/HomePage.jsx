@@ -13,7 +13,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
 import ToggleOffIcon from "@mui/icons-material/ToggleOff";
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~
-import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
+import AddAccountModal from "../AddAccountModal/AddAccountModal.jsx";
 import ListView from "../ListView/ListView.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
@@ -135,6 +135,7 @@ function HomePage() {
               </>
             )}
           </Button>
+
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ SEARCH BAR ~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -171,10 +172,6 @@ function HomePage() {
             {!isMerchantList ? "Add Organization" : "Add Merchant"}
           </Button>
         </div>
-
-        {/* {!isMerchantList ? ( */}
-
-
 
         {/* {showInput ? (
               <>
@@ -265,7 +262,7 @@ function HomePage() {
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~ Add New Org ~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        <AddOrganizationModal
+        <AddAccountModal
           open={isModalOpen}
           handleModalClose={handleModalClose}
         />
