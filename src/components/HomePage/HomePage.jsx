@@ -113,6 +113,9 @@ function HomePage() {
     <div className="organizationsContainer">
       <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~ TOGGLE VIEWS ~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Button
             variant="outlined"
             onClick={() => {
@@ -132,7 +135,10 @@ function HomePage() {
               </>
             )}
           </Button>
-          <div style={{ margin: 5 }}>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~ SEARCH BAR ~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          <div style={{ margin: 16 }}>
             {!isMerchantList ? (
               <SearchBar isOrganization={true} />
             ) : (
@@ -140,26 +146,37 @@ function HomePage() {
             )}
           </div>
         </div>
-        {!isMerchantList ? (
-          // <center>
-          <>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "bold", textAlign: "center" }}
-            >
-              Organization List
-            </Typography>
-            <br />
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~ PAGE HEADER ~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: "bold", textAlign: "center" }}
+        >
+          {!isMerchantList ? "Organization List" : "Merchant List"}
+        </Typography>
 
-            <Button
-              style={{ marginBottom: "5px" }}
-              variant="outlined"
-              onClick={handleAddOrganizationClick}
-            >
-              Add Organization
-            </Button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "16px",
+          }}
+        >
+          <Button
+            style={{ marginBottom: "5px" }}
+            variant="outlined"
+            onClick={handleAddOrganizationClick}
+          >
+            {!isMerchantList ? "Add Organization" : "Add Merchant"}
+          </Button>
+        </div>
 
-            {showInput ? (
+        {/* {!isMerchantList ? ( */}
+
+
+
+        {/* {showInput ? (
               <>
                 <br />
                 <TextField
@@ -213,28 +230,12 @@ function HomePage() {
               >
                 Clear
               </Button>
-            )}
-          </>
-        ) : (
-          // </center>
-          <>
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "bold", textAlign: "center" }}
-            >
-              Merchant List
-            </Typography>
-          </>
-        )}
-        <br />
+            )} */}
 
         <div className="organizationsContainer">
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~ List Cards ~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* {currentItems.map((organization, index) => (
-            <ListView key={index} data={organization} />
-          ))} */}
 
           {
             isMerchantList

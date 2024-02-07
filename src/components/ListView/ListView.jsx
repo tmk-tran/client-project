@@ -24,28 +24,58 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
     onChange();
   };
 
-  const renderLogoOrInitials = () => {
-    if (data.organization_logo) {
-      return (
-        <img
-          className="logoImage"
-          src={data.organization_logo}
-          alt="Organization Logo"
-        />
-      );
-    } else {
-      const initials =
-        data.organization_name !== undefined
-          ? data.organization_name
-              .split(" ")
-              .map((word) => word[0])
-              .join("")
-              .toUpperCase()
-          : null;
+  // const renderLogoOrInitials = () => {
 
-      return <div className="initialsContainer">{initials}</div>;
+  //   if (data.organization_logo) {
+  //     return (
+  //       <img
+  //         className="logoImage"
+  //         src={data.organization_logo}
+  //         alt="Organization Logo"
+  //       />
+  //     );
+  //   } else {
+  //     const initials =
+  //       data.organization_name !== undefined
+  //         ? data.organization_name
+  //             .split(" ")
+  //             .map((word) => word[0])
+  //             .join("")
+  //             .toUpperCase()
+  //         : null;
+
+  //     return <div className="initialsContainer">{initials}</div>;
+  //   }
+  // };
+
+  const renderLogoOrInitials = () => {
+    if (!isMerchantList) {
+      if (data.organization_logo) {
+        return (
+          <img
+            className="logoImage"
+            src={data.organization_logo}
+            alt="Organization Logo"
+          />
+        );
+      } else {
+        const initials =
+          data.organization_name !== undefined
+            ? data.organization_name
+                .split(" ")
+                .map((word) => word[0])
+                .join("")
+                .toUpperCase()
+            : null;
+  
+        return <div className="initialsContainer">{initials}</div>;
+      }
+    } else {
+      // Add logic here for merchant logos
+      return <div className="initialsContainer">Merchant Logo</div>; // Placeholder, replace with logic for merchant logos
     }
   };
+  
 
   const handleArchive = (dataId) => {
     Swal.fire({

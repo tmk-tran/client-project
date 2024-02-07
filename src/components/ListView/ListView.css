@@ -71,8 +71,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #d6d2d2; /* Optional: Add a background color for better visibility */
-  font-size: 50px;
+  background-color: #d6d2d2;
+  /* font-size: 50px; */
   font-weight: bold;
   color: #000000; /* Optional: Set text color */
 }
@@ -119,12 +119,12 @@
 
   .initialsContainer {
     width: 100%; /* Full width on small screens */
-    height: 200px; /* Automatically adjust height */
+    height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #d6d2d2;
-    font-size: 70px; /* Adjust font size for small screens */
+    /* font-size: 70px; */
     font-weight: bold;
     color: #000000;
   }

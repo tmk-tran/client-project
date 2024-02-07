@@ -23,7 +23,7 @@ const SearchBar = ({ isOrganization }) => {
           InputProps={{
             startAdornment: (
               <Search
-                color="action"
+                color="primary"
                 fontSize="small"
                 style={{ marginRight: 16 }}
               />
@@ -49,7 +49,7 @@ const SearchBar = ({ isOrganization }) => {
           InputProps={{
             startAdornment: (
               <Search
-                color="action"
+                color="primary"
                 fontSize="small"
                 style={{ marginRight: 16 }}
               />
