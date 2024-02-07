@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import { Tab, Tabs, Typography, Box } from "@mui/material";
 // ~~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~
 import ListView from "../ListView/ListView";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { tabWidth } from "../Utils/helpers";
+import { border } from "../Utils/colors";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -16,7 +19,7 @@ function CustomTabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: .5 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -39,6 +42,7 @@ function a11yProps(index) {
 
 export default function BasicTabs({
   isMerchantList,
+  setIsMerchantList,
   organizations,
   merchants,
   handleEdit,
@@ -55,21 +59,20 @@ export default function BasicTabs({
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Box sx={{ width: "100%", ...border }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 5 }}>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Organizations" {...a11yProps(0)} />
-          <Tab label="Merchants" {...a11yProps(1)} />
+          <Tab label="Organizations" {...a11yProps(0)} onClick={() => {setIsMerchantList(false)}} sx={tabWidth} />
+          <Tab label="Merchants" {...a11yProps(1)} onClick={() => {setIsMerchantList(true)}} sx={tabWidth} />
         </Tabs>
       </Box>
       {organizations.map((organization, index) => (
-        <CustomTabPanel value={value} index={0}>
+        <CustomTabPanel key={index} value={value} index={0}>
           <ListView
-            key={index}
             data={organization}
             isMerchantList={false}
             onChange={handleEdit}
@@ -79,9 +82,8 @@ export default function BasicTabs({
         </CustomTabPanel>
       ))}
       {merchants.map((merchant, index) => (
-        <CustomTabPanel value={value} index={1}>
+        <CustomTabPanel key={index} value={value} index={1}>
           <ListView
-            key={index}
             data={merchant}
             isMerchantList={true}
             onChange={handleEdit}

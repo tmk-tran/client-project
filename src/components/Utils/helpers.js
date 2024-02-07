@@ -18,11 +18,11 @@ export const formatDate = (dateString) => {
 };
 
 export const convertTo12HourFormat = (time24hr) => {
-  const [hours, minutes] = time24hr.split(':');
+  const [hours, minutes] = time24hr.split(":");
   const dummyDate = new Date(0, 0, 0, hours, minutes);
-  const time12hr = dummyDate.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
+  const time12hr = dummyDate.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
     hour12: true,
   });
   return time12hr;
@@ -41,12 +41,12 @@ export const capitalizeWords = (sentence) => {
 };
 
 export const capitalizeFirstWord = (sentence) => {
-  if (typeof sentence !== 'string' || sentence.length === 0) {
-    return '';
+  if (typeof sentence !== "string" || sentence.length === 0) {
+    return "";
   }
 
   return sentence.charAt(0).toUpperCase() + sentence.slice(1);
-}
+};
 
 // In progress, trying to account for acronyms in a sentence
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -140,4 +140,9 @@ export const centerDiv = {
 export const hrStyle = {
   width: "90%",
   border: "1px solid #273b91",
+};
+
+// Tab width for Tabs in TaskTabs, and HomePageTabs
+export const tabWidth = {
+  width: "25vw",
 };

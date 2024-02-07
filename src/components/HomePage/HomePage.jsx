@@ -43,16 +43,17 @@ function HomePage() {
 
   useEffect(() => {
     // Initial data fetch based on isMerchantList
-    const fetchDataAction = isMerchantList ? "FETCH_MERCHANTS" : "FETCH_ORGANIZATIONS";
+    const fetchDataAction = isMerchantList
+      ? "FETCH_MERCHANTS"
+      : "FETCH_ORGANIZATIONS";
     dispatch({ type: fetchDataAction });
-  
+
     // If editComplete is true, trigger refresh and reset editComplete
     if (editComplete) {
       dispatch({ type: fetchDataAction });
       setEditComplete(false);
     }
   }, [isMerchantList, editComplete]);
-  
 
   // fuzzy search information
   const fuse = new Fuse(organizationsList, {
@@ -112,17 +113,13 @@ function HomePage() {
     <div className="organizationsContainer">
       <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
         <br />
-        <Button
-          onClick={() => {
-            setIsMerchantList(!isMerchantList);
-          }}
-        >
-          Switch Views
-        </Button>
         {!isMerchantList ? (
           // <center>
           <>
-            <Typography variant="h5" sx={{ fontWeight: "bold", textAlign: "center" }}>
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", textAlign: "center", mt: 3 }}
+            >
               Organization List
             </Typography>
             <br />
@@ -190,12 +187,12 @@ function HomePage() {
                 Clear
               </Button>
             )}
-            </>
-          // </center>
+          </>
         ) : (
+          // </center>
           <Typography
             variant="h5"
-            sx={{ fontWeight: "bold", textAlign: "center" }}
+            sx={{ fontWeight: "bold", textAlign: "center", mt: 3 }}
           >
             Merchant List
           </Typography>
@@ -203,7 +200,15 @@ function HomePage() {
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ TABS ~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        <HomePageTabs isMerchantList={isMerchantList} organizations={organizationsList} merchants={merchants} handleEdit={handleEdit} editComplete={editComplete} setEditComplete={setEditComplete} />
+        <HomePageTabs
+          isMerchantList={isMerchantList}
+          setIsMerchantList={setIsMerchantList}
+          organizations={organizationsList}
+          merchants={merchants}
+          handleEdit={handleEdit}
+          editComplete={editComplete}
+          setEditComplete={setEditComplete}
+        />
         <br />
 
         <div className="organizationsContainer">
@@ -213,7 +218,7 @@ function HomePage() {
           {/* {currentItems.map((organization, index) => (
             <ListView key={index} data={organization} />
           ))} */}
-          
+
           {/* {isMerchantList ? (
             merchants.map((merchant, index) => (
               <ListView key={index} data={merchant} isMerchantList={true} onChange={handleEdit} editComplete={editComplete} setEditComplete={setEditComplete} />

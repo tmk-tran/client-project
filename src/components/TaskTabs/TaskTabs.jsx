@@ -16,6 +16,8 @@ import { mComments } from "../../hooks/reduxStore";
 import SearchableSelect from "../NewTaskModal/SearchableSelect";
 import { useAlert } from "../SuccessAlert/useAlert";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { tabWidth } from "../Utils/helpers";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -76,10 +78,6 @@ export default function BasicTabs() {
   const styleTaskHeaders = {
     fontWeight: "bold",
     mb: 5,
-  };
-
-  const tabWidth = {
-    width: "25vw",
   };
 
   const handleChange = (event, newValue) => {
