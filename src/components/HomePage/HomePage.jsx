@@ -265,6 +265,7 @@ function HomePage() {
         <AddAccountModal
           open={isModalOpen}
           handleModalClose={handleModalClose}
+          isMerchantList={isMerchantList}
         />
         <br />
         <div style={{ display: "flex", justifyContent: "center" }}>

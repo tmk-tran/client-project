@@ -12,7 +12,7 @@ function* merchantDetails(action) {
   }
 }
 
-function* allMerchants(action) {
+function* allMerchants() {
   try {
     const items = yield axios.get("/api/merchants");
     console.log("FETCH request from merchants.saga, ITEMS = ", items);
@@ -20,6 +20,16 @@ function* allMerchants(action) {
   } catch (error) {
     console.log("Error in merchantsSaga", error);
     yield put({ type: "SET_ERROR", payload: error.message });
+  }
+}
+
+function* addMerchantSaga(action) {
+  try {
+    console.log(action.payload);
+    yield axios.post("/api/merchants", action.payload);
+    yield put({ type: "FETCH_MERCHANTS" });
+  } catch (error) {
+    console.log("error in addMerchantSaga", error);
   }
 }
 
@@ -47,5 +57,6 @@ function* editMerchant(action) {
 export default function* merchantDetailsSaga() {
   yield takeEvery("FETCH_MERCHANT_DETAILS", merchantDetails);
   yield takeEvery("FETCH_MERCHANTS", allMerchants);
+  yield takeEvery("ADD_MERCHANT", addMerchantSaga);
   yield takeEvery("EDIT_MERCHANT_DETAILS", editMerchant);
 }

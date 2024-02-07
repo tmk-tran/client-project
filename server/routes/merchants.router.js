@@ -12,7 +12,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText)
     .then((result) => {
-      console.log("FROM merchants.router: ", result.rows);
+      console.log("from GET ALL merchants.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -28,11 +28,65 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [merchantId])
     .then((result) => {
-      console.log("FROM merchants.router: ", result.rows);
+      console.log("from GET /id merchants.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
       console.log("error in the GET / request for authorized users", err);
+      res.sendStatus(500);
+    });
+});
+
+router.post("/", (req, res) => {
+  const data = req.body;
+  console.log(req.body);
+  console.log(req.user);
+
+  const merchantName = data.merchant_name;
+  const address = data.address;
+  const city = data.city;
+  const state = data.state;
+  const zip = data.zip;
+  const primaryContactFirstName = data.primary_contact_first_name;
+  const primaryContactLastName = data.primary_contact_last_name;
+  const contactPhoneNumber = data.contact_phone_number;
+  const contactEmail = data.contact_email;
+  const merchantLogo = data.merchant_logo;
+
+  const queryText = `
+      INSERT INTO "merchant" (
+        "merchant_name",
+        "address",
+        "city",
+        "state",
+        "zip",
+        "primary_contact_first_name",
+        "primary_contact_last_name",
+        "contact_phone_number",
+        "contact_email",
+        "merchant_logo"
+      )
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+
+  pool
+    .query(queryText, [
+      merchantName,
+      address,
+      city,
+      state,
+      zip,
+      primaryContactFirstName,
+      primaryContactLastName,
+      contactPhoneNumber,
+      contactEmail,
+      merchantLogo,
+    ])
+    .then((response) => {
+      console.log("response from POST merchants.router: ", response.rows);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log("error in organizations POST route", err);
       res.sendStatus(500);
     });
 });
@@ -71,7 +125,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
       merchantId,
     ])
     .then((response) => {
-      console.log("response from merchants.router: ", response.rows);
+      console.log("response from EDIT merchants.router: ", response.rows);
       res.sendStatus(200);
     })
     .catch((err) => {

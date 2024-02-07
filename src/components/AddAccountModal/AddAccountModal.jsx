@@ -4,7 +4,8 @@ import { Box, Button, Modal, TextField, Typography, Grid } from "@mui/material";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 
-export default function AddOrganizationModal({ open, handleModalClose }) {
+export default function AddOrganizationModal({ open, handleModalClose, isMerchantList }) {
+  console.log(isMerchantList);
   const dispatch = useDispatch();
 
   // Set state for the add organization form
