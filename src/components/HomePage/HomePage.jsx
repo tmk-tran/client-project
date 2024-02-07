@@ -7,19 +7,20 @@ import {
   Pagination,
   Typography,
 } from "@mui/material";
+import "./HomePage.css";
 import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
-import "./HomePage.css";
+import ToggleOnIcon from "@mui/icons-material/ToggleOn";
+import ToggleOffIcon from "@mui/icons-material/ToggleOff";
+// ~~~~~~~~~~ Components ~~~~~~~~~~~~~~
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
-import { useHistory } from "react-router-dom";
 import ListView from "../ListView/ListView.jsx";
+import SearchBar from "../SearchBar/SearchBar.jsx";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { allMerchants } from "../../hooks/reduxStore.js";
 
 function HomePage() {
   const dispatch = useDispatch();
-
-  const history = useHistory();
-  const user = useSelector((store) => store.user);
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
   const organizationsList = useSelector((store) => store.organizations);
@@ -111,20 +112,40 @@ function HomePage() {
   return (
     <div className="organizationsContainer">
       <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
-        <br />
-        <Button
-          onClick={() => {
-            setIsMerchantList(!isMerchantList);
-          }}
-        >
-          Switch Views
-        </Button>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setIsMerchantList(!isMerchantList);
+            }}
+            sx={{ margin: 2 }}
+          >
+            {!isMerchantList ? (
+              <>
+                <ToggleOnIcon />
+                &nbsp;Merchants
+              </>
+            ) : (
+              <>
+                <ToggleOffIcon />
+                &nbsp;Organizations
+              </>
+            )}
+          </Button>
+          <div style={{ margin: 5 }}>
+            {!isMerchantList ? (
+              <SearchBar isOrganization={true} />
+            ) : (
+              <SearchBar isOrganization={false} />
+            )}
+          </div>
+        </div>
         {!isMerchantList ? (
           // <center>
           <>
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", textAlign: "center", mt: 3 }}
+              sx={{ fontWeight: "bold", textAlign: "center" }}
             >
               Organization List
             </Typography>
@@ -196,12 +217,14 @@ function HomePage() {
           </>
         ) : (
           // </center>
-          <Typography
-            variant="h5"
-            sx={{ fontWeight: "bold", textAlign: "center", mt: 3 }}
-          >
-            Merchant List
-          </Typography>
+          <>
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", textAlign: "center" }}
+            >
+              Merchant List
+            </Typography>
+          </>
         )}
         <br />
 
@@ -213,16 +236,30 @@ function HomePage() {
             <ListView key={index} data={organization} />
           ))} */}
 
-          {isMerchantList ? (
-            merchants.map((merchant, index) => (
-              <ListView key={index} data={merchant} isMerchantList={true} onChange={handleEdit} editComplete={editComplete} setEditComplete={setEditComplete} />
-            ))
-          ) : (
-            currentItems.map((organization, index) => (
-              <ListView key={index} data={organization} isMerchantList={false} onChange={handleEdit} editComplete={editComplete} setEditComplete={setEditComplete} />
-            ))
+          {
+            isMerchantList
+              ? merchants.map((merchant, index) => (
+                  <ListView
+                    key={index}
+                    data={merchant}
+                    isMerchantList={true}
+                    onChange={handleEdit}
+                    editComplete={editComplete}
+                    setEditComplete={setEditComplete}
+                  />
+                ))
+              : currentItems.map((organization, index) => (
+                  <ListView
+                    key={index}
+                    data={organization}
+                    isMerchantList={false}
+                    onChange={handleEdit}
+                    editComplete={editComplete}
+                    setEditComplete={setEditComplete}
+                  />
+                ))
             // <div>Not Merchant List</div>
-          )}
+          }
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~ Add New Org ~~~~~~~~~~~~~~~~~~~~~~ */}
