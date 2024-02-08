@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 // Style
 import {
@@ -20,7 +20,9 @@ import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function OrgNotesDisplay({ notes, orgDetails }) {
+export default function OrgNotesDisplay() {
+  const notes = useSelector((store) => store.orgNotes)
+  const id = notes.id
   const dispatch = useDispatch();
   const paramsObject = useParams();
 
@@ -28,7 +30,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
   const [noteDelete, setNoteDelete] = useState(false);
   const [inputValue, setInputValue] = useState("");
   // State from popover
-  const [orgId, setOrgId] = useState(orgDetails.organization_id);
+  // const [orgId, setOrgId] = useState(orgDetails.organization_id);
   const [noteDate, setNoteDate] = useState(new Date());
   const [noteAdded, setNoteAdded] = useState(false);
 
@@ -84,12 +86,11 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
             Notes
           </Typography>
           <div className="orgNotes-container">
-            {notes && notes.length > 0 ? (
+            {notes ? (
               <div>
-                {notes
-                  .filter((note) => !note.is_deleted) // Filter out deleted notes
-                  .map((note, i) => (
-                    <div className="note-main-container" key={i}>
+                {notes.map((note) => (
+                    <div className="note-main-container" key={id}>
+                      
                       <Typography sx={{ mt: 1 }} variant="caption">
                         {formatDate(note.note_date)}
                       </Typography>
@@ -99,7 +100,6 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                           justifyContent: "space-between",
                         }}
                       >
-                        
                         {/* <li style={{ marginLeft: "10%" }}>
                           {note.note_content.charAt(0).toUpperCase() +
                             note.note_content.slice(1).toLowerCase()}
@@ -114,7 +114,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                               )
                               .join(" ")}
                         </li>
-
+                        
                         <Button
                           className="notes-delete-btn"
                           onClick={() =>

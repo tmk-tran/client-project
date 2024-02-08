@@ -24,8 +24,8 @@ export default function ContactDetailsList({ info, contactPhone }) {
           <AccountBoxIcon style={styleIconColor} />
         </ListItemIcon>
         <Typography>{`${capitalizeWords(
-          info.primary_contact_first_name
-        )} ${capitalizeWords(info.primary_contact_last_name)}`}</Typography>
+          info[0].primary_contact_first_name
+        )} ${capitalizeWords(info[0].primary_contact_last_name)}`}</Typography>
       </ListItem>
       <ListItem disablePadding style={centerStyle}>
         <ListItemIcon style={centeredStyle}>
@@ -37,10 +37,10 @@ export default function ContactDetailsList({ info, contactPhone }) {
         <ListItemIcon style={centeredStyle}>
           <EmailIcon style={styleIconColor} />
         </ListItemIcon>
-        {info.primary_contact_email ? (
+        {info[0].primary_contact_email ? (
           <Typography>
-            <a href={`mailto:${info.primary_contact_email}`}>
-              {info.primary_contact_email}
+            <a href={`mailto:${info[0].primary_contact_email}`}>
+              {info[0].primary_contact_email}
             </a>
           </Typography>
         ) : (

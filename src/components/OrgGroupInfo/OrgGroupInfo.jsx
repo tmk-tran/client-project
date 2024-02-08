@@ -10,7 +10,7 @@ import "./OrgGroupInfo.css";
 export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
   const user = useSelector((store) => store.user);
-  console.log(user);
+ 
 
   return (
     <Card

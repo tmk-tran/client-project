@@ -37,37 +37,44 @@ export default function orgDetails() {
       payload: paramsObject.id,
     });
     dispatch({
-      type: "FETCH_ORGANIZATIONS",
+      type: "FETCH_ORG_GROUPS",
       payload: paramsObject.id,
+    });
+    dispatch({
+      type: "FETCH_ORG_NOTES",
+      payload: paramsObject.id,
+    });
+    dispatch({
+      type: "FETCH_ORGANIZATIONS",
     });
     dispatch({
       type: "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
     });
-  }, [groups]);
+  }, []);
 
-  // Create a map to store organization details and associated groups
-  const orgMap = new Map();
+  // // Create a map to store organization details and associated groups
+  // const orgMap = new Map();
 
-  // Populate the map with unique organizations and associated groups
-  detailsOrg.forEach((info) => {
-    const orgId = info.organization_id;
+  // // Populate the map with unique organizations and associated groups
+  // detailsOrg.forEach((info) => {
+  //   const orgId = info.organization_id;
 
-    if (!orgMap.has(orgId)) {
-      orgMap.set(orgId, { orgDetails: info, groups: [] });
-    }
+  //   if (!orgMap.has(orgId)) {
+  //     orgMap.set(orgId, { orgDetails: info, groups: [] });
+  //   }
 
-    // Add group details to the associated organization
-    orgMap.get(orgId).groups.push({
-      group_id: info.group_id,
-      department: info.department,
-      sub_department: info.sub_department,
-      group_nickname: info.group_nickname,
-      group_photo: info.group_photo,
-      group_description: info.group_description,
-      goal: info.sum,
-    });
-  });
+  //   // Add group details to the associated organization
+  //   orgMap.get(orgId).groups.push({
+  //     group_id: info.group_id,
+  //     department: info.department,
+  //     sub_department: info.sub_department,
+  //     group_nickname: info.group_nickname,
+  //     group_photo: info.group_photo,
+  //     group_description: info.group_description,
+  //     goal: info.sum,
+  //   });
+  // });
 
   return (
     <div
@@ -77,12 +84,13 @@ export default function orgDetails() {
         <CardContent>
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}
-            {[...orgMap.values()].map(({ orgDetails, groups }) => (
-              <React.Fragment key={orgDetails.organization_id}>
-                <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
+            {/* {notes.map(( notes ) => ( */}
+              {/* // <React.Fragment key={orgDetails.organization_id}> */}
+              <>
+                <OrgNotesDisplay notes={notes} info={detailsOrg} />
                 {/* Display organization details once */}
                 <center>
-                  <OrgContactDetails info={orgDetails} />
+                  <OrgContactDetails info={detailsOrg} />
                   <br />
                 </center>
 
@@ -106,7 +114,7 @@ export default function orgDetails() {
                 </div>
 
                 {/* <OrgDetailsGoalView /> */}
-                <OrgDetailsGoalView info={orgDetails} groups={groups} />
+                <OrgDetailsGoalView  groups={groups} info={detailsOrg}/>
 
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
@@ -124,8 +132,9 @@ export default function orgDetails() {
                     </div>
                   )}
                 </div>
-              </React.Fragment>
-            ))}
+              {/* // </React.Fragment> */}
+              </>
+           
           </div>
         </CardContent>
       </Card>

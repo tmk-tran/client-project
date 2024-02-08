@@ -22,7 +22,7 @@ import { formatPhoneNumber } from "../Utils/helpers";
 
 export default function OrgContactDetails({ info }) {
   const dispatch = useDispatch();
-  const contactPhone = formatPhoneNumber(info.primary_contact_phone);
+  const contactPhone = formatPhoneNumber(info[0].primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
 
   const [isEditing, setIsEditing] = useState(false);
@@ -71,12 +71,12 @@ export default function OrgContactDetails({ info }) {
           <div className="org-address">
             <div className="org-name-container">
               <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                {info.organization_name}
+                {info[0].organization_name}
               </Typography>
             </div>
             <Typography>{info.address}</Typography>
             <Typography>
-              {info.city}, {info.state} {info.zip}
+              {info[0].city}, {info[0].state} {info[0].zip}
             </Typography>
           </div>
           <br />

@@ -701,7 +701,7 @@ app.post("/api/allGroups/", (req, res) => {
 });
 //group details fetch filtered by group_id:
 app.post('/api/group/:id', (req, res) => {
-  const id = req.params.id
+  const id = Number(req.params.id)
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
   const query = `{\r\n  group (filter: "id = ${id}"){\r\n id\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n fundraiser_collection{\r\n id\r\n group_id\r\n title\r\n description\r\n  requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n}`;
@@ -724,7 +724,7 @@ app.post('/api/group/:id', (req, res) => {
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log("group stuff", result);
+      console.log("group stuff", result.data.group);
       res.send(result.data.group)
     })
     .catch((error) => {
@@ -842,8 +842,7 @@ app.post("/api/fundraisers/:id", (req, res) => {
   const orgId = req.params.id;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
-  const query = `{\r\n   fundraiser (filter: "group.organization_id = ${orgId}"){\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n
-  group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}`;
+  const query = `{\r\n   fundraiser (filter: "group.organization_id = ${orgId}"){\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}\r\n}`;
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
@@ -874,11 +873,11 @@ app.post("/api/fundraisers/:id", (req, res) => {
 
 //get fundraisers filtered by group_id:
 app.post("/api/fundraisers/groupfundraisers/:id", (req, res) => {
-  const groupId = req.params.id;
+  const id = req.params.id;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
-  const query = `{\r\n   fundraiser (filter: "group_id = ${groupId}") {\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n
-    group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}`;
+  const query = `{\r\n   fundraiser (filter: "group_id = ${id}"){\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n
+    group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}\r\n}`;
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
@@ -899,7 +898,7 @@ app.post("/api/fundraisers/groupfundraisers/:id", (req, res) => {
     .then((response) => response.json())
     .then((result) => {
       console.log( "group fundraiser result", result);
-      res.send(result.data.fundraiser)
+      res.send(result)
     })
     .catch((error) => {
       console.log("Error getting data from Devii", error)

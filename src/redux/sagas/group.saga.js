@@ -7,7 +7,7 @@ function* fetchGroupSaga(action) {
         console.log(action.payload)
         const response = yield axios.post(`/api/group/${action.payload}`)
         yield put({ type: "SET_GROUP_DETAILS", payload: response.data })
-    } catch (error) {
+    } catch (err) {
         console.log("Error fetching group details", err)
     }
 }
