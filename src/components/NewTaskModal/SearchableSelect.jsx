@@ -48,15 +48,15 @@ export default function YourComponent({
       }}
       options={merchantTab ? merchants : organizations}
       getOptionLabel={(option) => {
-        // console.log(
-        //   "Option Label:",
-        //   merchantTab ? option.merchant_name : option.organization_name
-        // );
+        console.log(
+          "Option Label:",
+          merchantTab ? option.merchant_name : option.organization_name
+        );
         console.log(option);
         console.log(merchantTab);
         console.log(option);
         // return merchantTab ? option.merchant_name : option.organization_name;
-        return option;
+        return merchantTab ? option.merchant_name : option.organization_name;
       }}
       renderInput={(params) => {
         console.log(params);
@@ -70,6 +70,12 @@ export default function YourComponent({
           />
         );
       }}
+      filterOptions={(options, { inputValue }) =>
+        options.filter((option) => {
+          const label = merchantTab ? option.merchant_name : option.organization_name;
+          return label.toLowerCase().includes(inputValue.toLowerCase());
+        })
+      }
       sx={{ margin: "5px 0" }}
       renderOption={(props, option) => (
         <MenuItem {...props}>
