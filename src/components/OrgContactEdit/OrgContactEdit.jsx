@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// Style
+// ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Backdrop,
   Modal,
@@ -9,7 +9,7 @@ import {
   Button,
 } from "@mui/material";
 import "./OrgContactEdit.css";
-// Utils
+// ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { modalBtnStyle } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import { showToast } from "../Utils/toasts";

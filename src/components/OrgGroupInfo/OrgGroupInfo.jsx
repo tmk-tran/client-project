@@ -1,15 +1,16 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-// Style
+// ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Card, CardContent, Typography } from "@mui/material";
-// Utils
+// ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { capitalizeWords, centerStyle, styleImage } from "../Utils/helpers";
 import "./OrgGroupInfo.css";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { User } from "../../hooks/reduxStore";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
-  const user = useSelector((store) => store.user);
+  const user = User();
   console.log(user);
 
   return (

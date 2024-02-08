@@ -1,35 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-// Style
+// ~~~~~~~~~~ Style ~~~~~~~~~~
 import "./OrgDetails.css";
 import { Typography, Card, CardContent } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-// Components
+// ~~~~~~~~~~ Components ~~~~~~~~~~
 import OrgContactDetails from "../OrgContactDetails/OrgContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import OrgNotesDisplay from "../OrgNotesDisplay/OrgNotesDisplay";
 import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
-// Sweet Alert
+// ~~~~~~~~~~ Sweet Alert ~~~~~~~~~~
 import Swal from "sweetalert2";
-// Toast
+// ~~~~~~~~~~ Toast ~~~~~~~~~~
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// Icons
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
+import { oDetails, oGroups, oNotes } from "../../hooks/reduxStore";
+
 
 export default function orgDetails() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
-  const dispatch = useDispatch();
-  // Store
-  const detailsOrg = useSelector((store) => store.orgDetailsReducer);
-  const groups = useSelector((store) => store.orgGroups);
-  const notes = useSelector((store) => store.orgNotes);
-  // State
+  // ~~~~~~~~~~ Hooks ~~~~~~~~~~
+  const dispatch = dispatchHook();
+  const detailsOrg = oDetails();
+  const groups = oGroups();
+  console.log(groups);
+  const notes = oNotes();
 
   useEffect(() => {
     dispatch({
@@ -71,9 +73,9 @@ export default function orgDetails() {
 
   return (
     <div
-      className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
+      className={`details-container ${isSmallScreen ? "small-screen" : ""}`}
     >
-      <Card className="OrgDetails-card" elevation={3}>
+      <Card className="details-card" elevation={3}>
         <CardContent>
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}

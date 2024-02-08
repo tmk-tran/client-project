@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-// Style
+// ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Button,
   Typography,
@@ -10,18 +9,20 @@ import {
   TextField,
 } from "@mui/material";
 import "./OrgNotesDisplay.css";
-// Icons
+// ~~~~~~~~~~ Icons ~~~~~~~~~~
 import DeleteIcon from "@mui/icons-material/Delete";
-// Utils
+// ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { formatDate } from "../Utils/helpers";
 import { showSaveSweetAlert, showDeleteSweetAlert } from "../Utils/sweetAlerts";
-// Toasts (INACTIVE, MAY USE LATER)
+// ~~~~~~~~~~ Toasts (INACTIVE, MAY USE LATER) ~~~~~~~~~~
 import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
 
 export default function OrgNotesDisplay({ notes, orgDetails }) {
-  const dispatch = useDispatch();
+  const dispatch = dispatchHook();
   const paramsObject = useParams();
 
   // State for showing notes

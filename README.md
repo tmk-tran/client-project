@@ -1,66 +1,56 @@
-# Project Title
+# PSG Admin Dashboard
 
-One Paragraph of project description goes here
+This is an admin dashboard for the Preferred Savings Guide based in Fargo, ND. Admin users will be able to log in, add, delete, and edit organizations and groups that host fundraisers. The fundraisers track the books requested, sold, checked back in, as well as money received and outstanding balance. This is the first step in a bigger project to digitize part of their coupon book to cut costs and be less paper waste for the enviorment.
 
 ### Authors
 
-## Joe Colago, Alyssa Nichols, and T Mark Schisel ##
-
-## Table of Contents
-- [About](#description)
-- [Start](#getting-started)
-- [Install](#development-setup-instructions)
-- [Databases](#database-configuration)
-- [Thanks](#acknowledgments)
-- [Dependencies](#dependencies)
-
-## Description
-This project (description here)
+Joe Colago, Alyssa Nichols, and T Mark Schisel
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. This project should be able to run in your favorite IDE. I used VS code while building it.
 
 ### Prerequisites
 
 Before you get started, make sure you have the following software installed on your computer:
 
 - [Node.js](https://nodejs.org/en/)
-- [PostrgeSQL](https://www.postgresql.org/)
-- [Nodemon](https://nodemon.io/)
 
-## Development Setup Instructions
+### Installation
 
-- Run `npm install`
-- Create a `.env` file at the root of the project and paste this line into the file:
-  ```
-  SERVER_SESSION_SECRET=superDuperSecret
-  ```
-  While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm run server`
-- Run `npm run client`
-- Navigate to `localhost:3000`
+1. Fork the repository
+2. Copy the SSH key in your new repository
+3. In your terminal type... `git clone {paste SSH link}`
+4. Navigate into the repository's folder in your terminal
+5. Open VS Code (or editor of your choice) and open the folder
+6. In the terminal of VS Code run `npm install` to install all dependencies
+7. Create a `.env` file at the root of the project and paste this line into the file:
+
+```
+SERVER_SESSION_SECRET=superDuperSecret
+```
+
+While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning. 8. Create a database named `psg_project` in PostgresSQL
+-If you would like to name your database something else, you will need to change `psg_project` to the name of your new database name in `server/modules/pool.js` 9. The queries in the database.sql file are set up to create all the necessary tables that you need, as well as mock data to test the app. Copy and paste those queries in the SQL query of the database. If this is going to production, leave out the mock data. 10. Start postgres if not running already by using `brew services start postgresql` 11. Run `npm run server` in your VS Code terminal 12. Open a second terminal and run `npm run client` 13. Navigate to `localhost:3000`
 
 ## Database Configuration
 
 - For this project, we created a database using Postico 2
 - If you would like to create a database using mock data, please review the database.sql file
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 
-- JavaScript
-- React
-- Node
-- CSS
-- Material UI
-- animate.css
-- SweetAlerts
-- Javascript
+- VS Code <a href="https://code.visualstudio.com/"><img src="https://github.com/devicons/devicon/blob/master/icons/vscode/vscode-original-wordmark.svg" height="30px" width="30px" /></a>
+- Css <a href="https://www.w3schools.com/w3css/defaulT.asp"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" height="30px" width="30px" /></a>
+- Html <a href="https://www.w3schools.com/html/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" height="30px" width="30px" /></a>
+- Javascript <a href="https://www.w3schools.com/js/default.asp"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" height="30px" width="30px" /></a>
+- Postgres <a href="https://www.postgresql.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" height="30px" width="30px" /></a>
+- React <a href="https://reactjs.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" height="30px" width="30px" /></a>
+- Redux <a href="https://redux.js.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" height="30px" width="30px" /></a>
+- Material UI <a href="https://material-ui.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg" height="30px" width="30px" /></a>
+- Node JS <a href="https://nodejs.org/en/"><img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-plain.svg" height="30px" width="30px" /></a>
+- FuseJs <a href="https://fusejs.io/"><img src="https://github.com/devicons/devicon/blob/master/icons/fusejs/fusejs-plain.svg" height="30px" width="30px" alt="Fuse.js"></a>
+- Sweet Alerts <a href="https://sweetalert2.github.io/"><img src="https://raw.githubusercontent.com/sweetalert2/sweetalert2/master/assets/sweetalert2.png" height="30px" width="30px" alt="SweetAlert2"></a>
 
 ## License
 
@@ -68,17 +58,10 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Thanks to Emerging Digital Academy for teaching us the skills to complete this project
+- Thanks to Emerging Digital Academy for teaching us the skills to complete this project
 
-* Thank you to our clients, Chris and Wendy from the Preferred Savings Guide
+- Thank you to our clients, Chris and Wendy from the Preferred Savings Guide
 
-* A big thanks to Anthony at Devii for providing us with a client, and for your support throughout the project
+- A big thanks to Anthony at Devii for providing us with a client, and for your support throughout the project
 
-* Thanks to Ann, for guiding us through to project completion
-
-## Dependencies
-
-- Material UI
-- React.toastify
-- Sweet Alerts
-- A full list of dependencies can be found in `package.json`
+- Thanks to Ann, for guiding us through to project completion

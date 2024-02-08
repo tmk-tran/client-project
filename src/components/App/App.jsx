@@ -6,9 +6,6 @@ import {
   Switch,
 } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import Nav from "../Nav/Nav";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import UserProfile from "../UserProfile/UserProfile";
@@ -22,16 +19,24 @@ import Footer from "../Footer/Footer";
 import GroupDetails from "../GroupDetails/GroupDetails";
 import MenuLinks from "../MenuLinks/MenuLinks";
 import ArchivedOrganizations from "../ArchivedOrganizations/ArchivedOrganizations";
+import GlobalFundraiserInput from "../GlobalFundraiserInput/GlobalFundraiserInput";
+import CouponDesign from "../CouponDesign/CouponDesign";
+import Header from "../Header/Header";
+import Footer2 from "../Footer2/Footer2";
+import Footer3 from "../Footer3/Footer3";
+// ~~~~~~~~~~ Style ~~~~~~~~~~
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
-import PublicOrgPage from "../PublicOrgPage/PublicOrgPage";
-import PublicOrgDetails from "../PublicOrgDetails/PublicOrgDetails";
-import GlobalFundraiserInput
- from "../GlobalFundraiserInput/GlobalFundraiserInput";
-// Theme establishing global color for MUI
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
+import { User } from "../../hooks/reduxStore";
+
+// ~~~~~ Theme establishing global color for MUI ~~~~~
 const theme = createTheme({
   typography: {
     fontSize: 18,
-    fontFamily: 'Lato, "Helvetica Neue", Arial, sans-serif',
+    // fontFamily: 'Lato, "Helvetica Neue", Arial, sans-serif',
+    fontFamily: "Helvetica Neue",
   },
   palette: {
     primary: {
@@ -39,94 +44,71 @@ const theme = createTheme({
     },
   },
 });
-// end theme
+// ~~~~~ end theme ~~~~~
 
 function App() {
-  const dispatch = useDispatch();
-
-  const user = useSelector((store) => store.user);
+  const dispatch = dispatchHook();
+  const user = User();
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
 
-  useEffect(() =>{
-    dispatch({ type: "FETCH_COUPON_BOOKS"})
+  useEffect(() => {
+    dispatch({ type: "FETCH_COUPON_BOOKS" });
   }, [user]);
 
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <div>
-          <Nav />
+          {/* <Nav /> */}
+          <Header />
           <MenuLinks />
           <Switch>
-            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
 
-            {/* Visiting localhost:3000/about will show the about page. */}
-            <Route
-              // shows AboutPage at all times (logged in or not)
-              exact
-              path="/about"
-            >
+            <Route exact path="/about">
               <AboutPage />
             </Route>
-            <Route
-              // shows AboutPage at all times (logged in or not)
-              exact
-              path="/publicOrgs"
-            >
-              <PublicOrgPage />
-            </Route>
-            <Route
-              // logged in shows InfoPage else shows LoginPage
-              exact
-              path="/publicOrgDetails/:id"
-            >
-              <PublicOrgDetails/>
-            </Route>
-          
-            <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
-              exact
-              path="/user"
-            >
+
+            <ProtectedRoute exact path="/user">
               <UserPage />
             </ProtectedRoute>
 
-            <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
-              exact
-              path="/userProfile/:id"
-            >
+            <ProtectedRoute exact path="/userProfile/:id">
               <UserProfile />
             </ProtectedRoute>
-            <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
-              exact
-              path="/archivedOrganizations"
-            >
+
+            <ProtectedRoute exact path="/archivedOrganizations">
               <ArchivedOrganizations />
             </ProtectedRoute>
 
-            <ProtectedRoute
-              // logged in shows InfoPage else shows LoginPage
-              exact
-              path="/orgDetails/:id"
-            >
+            <ProtectedRoute exact path="/orgDetails/:id">
               <OrgDetails />
             </ProtectedRoute>
+
             <ProtectedRoute exact path="/group/:id">
-              <GroupDetails  user={user}/>
+              <GroupDetails user={user} />
             </ProtectedRoute>
-            <ProtectedRoute
-              // logged in shows InfoPage else shows LoginPage
-              exact
-              path="/newFundraiser"
-            >
+
+            <ProtectedRoute exact path="/newFundraiser">
               <GlobalFundraiserInput />
             </ProtectedRoute>
+
+            <ProtectedRoute exact path="/coupon">
+              <CouponDesign />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/tasks">
+              {/* <TaskList /> */}
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/new">
+              {/* <Header /> */}
+              {/* <Footer2 /> */}
+            </ProtectedRoute>
+
             <Route exact path="/login">
               {user.id ? (
                 // If the user is already logged in,
@@ -150,14 +132,7 @@ function App() {
             </Route>
 
             <Route exact path="/home">
-              {user.id ? (
-                // If the user is already logged in,
-                // redirect them to the /user page
-                <Redirect to="/user" />
-              ) : (
-                // Otherwise, show the Landing page
-                <LoginPage />
-              )}
+              {user.id ? <Redirect to="/user" /> : <LoginPage />}
             </Route>
 
             {/* If none of the other routes matched, we will show a 404. */}
@@ -166,7 +141,9 @@ function App() {
             </Route>
           </Switch>
         </div>
-        <Footer />
+        {/* <Footer /> */}
+        {/* <Footer2 /> */}
+        <Footer3 />
       </ThemeProvider>
     </Router>
   );
