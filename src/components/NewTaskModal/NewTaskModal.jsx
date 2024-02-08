@@ -113,7 +113,7 @@ export default function BasicModal({
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    resetForm();
+    // resetForm();
     setOpen(false);
 }
   const handleFirstMenuChange = (event) => {

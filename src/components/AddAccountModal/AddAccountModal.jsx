@@ -134,6 +134,9 @@ export default function AddOrganizationModal({
           </Typography>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography sx={{ fontWeight: "bold" }}>Name / Location</Typography>
+            </Grid>
             <Grid item xs={!isMerchantList ? 6 : 12}>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~ NAME ~~~~~~~~~~~~~~~~~~ */}
@@ -206,6 +209,12 @@ export default function AddOrganizationModal({
                 type="number"
                 onChange={(e) => setZip(Number(e.target.value))}
               />
+            </Grid>
+            {/* //////////////////////////////////// */}
+            {/* ////////// CONTACT INFO //////////// */}
+            {/* //////////////////////////////////// */}
+            <Grid item xs={12}>
+            <Typography sx={{ fontWeight: "bold" }}>Primary Contact</Typography>
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ FIRST NAME~~~~~~~~~~~~~ */}
