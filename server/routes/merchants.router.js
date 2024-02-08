@@ -7,7 +7,13 @@ const {
 
 router.get("/", rejectUnauthenticated, (req, res) => {
   // const queryText = `SELECT * FROM merchant;`;
-  const queryText = `SELECT * FROM merchant ORDER BY merchant_name;`;
+  const queryText = `
+  SELECT 
+    * FROM merchant 
+  WHERE 
+    is_deleted=false 
+  ORDER BY 
+    merchant_name;`;
 
   pool
     .query(queryText)
@@ -134,6 +140,23 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// NEED DELETE ROUTE ON NEXT LOGIN, SAGA AS WELL. RESUME ARCHIVE FEATURE AFTER DELETE SETUP
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+  const { archiveReason } = req.body; 
+
+  const queryText = `UPDATE "merchant" SET is_deleted = true, archive_reason = $1 WHERE id = $2;`;
+  pool
+    .query(queryText, [
+      archiveReason, id
+    ])
+    .then((response) => {
+      console.log("response from DELETE merchants.router: ", response.rows);
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Error with merchant DELETE route", error);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;

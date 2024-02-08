@@ -5,7 +5,12 @@ import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./ListView.css";
 import Swal from "sweetalert2";
 import EditAccountModal from "../EditAccountModal/EditAccountModal";
-import { border } from "../Utils/colors";
+import {
+  backgroundColor,
+  border,
+  primaryColor,
+  successColor,
+} from "../Utils/colors";
 
 function ListView({ data, isMerchantList, onChange, editComplete }) {
   console.log(data);
@@ -77,37 +82,68 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
   };
 
   const handleArchive = (dataId) => {
-    // Swal.fire({
-    //   title: `Are you sure you want to Archive this ${
-    //     isMerchantList ? "Merchant" : "Organization"
-    //   }?`,
-    //   icon: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonColor: "#3085d6",
-    //   cancelButtonColor: "#d33",
-    //   confirmButtonText: `Yes, Archive It`,
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //     dispatch({
-    //       type: `DELETE_${isMerchantList ? "MERCHANT" : "ORGANIZATION"}`,
-    //       payload: dataId,
-    //     });
-    //     dispatch({
-    //       type: `FETCH_${isMerchantList ? "MERCHANTS" : "ORGANIZATIONS"}`,
-    //     });
-    //     Swal.fire(
-    //       `${
-    //         isMerchantList ? "Merchant" : "Organization"
-    //       } Successfully Archived!`
-    //     );
-    //   }
-    // });
+    Swal.fire({
+      title: `Are you sure you want to Archive this ${
+        isMerchantList ? "Merchant" : "Organization"
+      }?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: backgroundColor.color,
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Yes, Archive`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Please enter a reason for archiving",
+          input: "text",
+          showCancelButton: true,
+          confirmButtonColor: backgroundColor.color,
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Archive",
+          inputValidator: (value) => {
+            if (!value) {
+              return "Please enter a reason!";
+            }
+          },
+        }).then((reasonResult) => {
+          if (reasonResult.isConfirmed) {
+            const archiveReason = reasonResult.value;
+            console.log(archiveReason);
+            // Perform dispatch actions or other operations with archiveReason
+            // Log dispatched actions and payloads
+            console.log("Dispatching DELETE action:", {
+              type: `DELETE_${isMerchantList ? "MERCHANT" : "ORGANIZATION"}`,
+              payload: { dataId, archiveReason },
+            });
 
-    console.log(dataId);
+            console.log("Dispatching FETCH action:", {
+              type: `FETCH_${isMerchantList ? "MERCHANTS" : "ORGANIZATIONS"}`,
+            });
+
+            dispatch({
+              type: `DELETE_${isMerchantList ? "MERCHANT" : "ORGANIZATION"}`,
+              payload: { dataId, archiveReason }
+            });
+
+            dispatch({
+              type: `FETCH_${isMerchantList ? "MERCHANTS" : "ORGANIZATIONS"}`,
+            });
+            Swal.fire({
+              icon: "success",
+              title: `${
+                isMerchantList ? "Merchant" : "Organization"
+              } Successfully Archived!`,
+            });
+          }
+        });
+      }
+    });
   };
 
   function goToDetails() {
-    history.push(`/${isMerchantList ? "merchant" : "orgDetails"}/${data.id}`);
+    history.push(
+      `/${isMerchantList ? "merchantTaskDetails" : "orgDetails"}/${data.id}`
+    );
   }
 
   const totalOrgEarnings =

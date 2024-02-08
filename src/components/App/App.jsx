@@ -94,6 +94,10 @@ function App() {
               <Details />
             </ProtectedRoute>
 
+            <ProtectedRoute exact path="/merchantDetails/:id">
+              <Details />
+            </ProtectedRoute>
+
             <ProtectedRoute exact path="/group/:id">
               <GroupDetails user={user} />
             </ProtectedRoute>

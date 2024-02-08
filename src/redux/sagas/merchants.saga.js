@@ -54,9 +54,25 @@ function* editMerchant(action) {
   }
 }
 
+function* deleteMerchantSaga(action) {
+  console.log(action.payload);
+  const merchantId = action.payload.dataId;
+  const archiveReason = action.payload.archiveReason;
+  console.log(merchantId);
+  console.log(archiveReason);
+
+  try {
+    yield axios.delete(`/api/merchants/${merchantId}`, { data: { archiveReason } });
+    yield put({ type: "FETCH_MERCHANTS" });
+  } catch (error) {
+    console.log("error with deleteMerchantSaga request", error);
+  }
+}
+
 export default function* merchantDetailsSaga() {
   yield takeEvery("FETCH_MERCHANT_DETAILS", merchantDetails);
   yield takeEvery("FETCH_MERCHANTS", allMerchants);
   yield takeEvery("ADD_MERCHANT", addMerchantSaga);
   yield takeEvery("EDIT_MERCHANT_DETAILS", editMerchant);
+  yield takeEvery("DELETE_MERCHANT", deleteMerchantSaga);
 }
