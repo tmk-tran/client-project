@@ -3,9 +3,6 @@ import { Backdrop } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { allMerchants, allOrganizations } from "../../hooks/reduxStore";
-// ~~~~~~~~~~ Components ~~~~~~~~~~
-import DatePicker from "../DatePicker/DatePicker";
-import SearchableSelect from "../NewTaskModal/SearchableSelect";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Box,
@@ -17,7 +14,6 @@ import {
   MenuItem,
   InputLabel,
 } from "@mui/material";
-import "./NewTaskModal.css";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import CloseIcon from "@mui/icons-material/Close";
@@ -25,7 +21,12 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { border } from "../Utils/colors";
 import { useAlert } from "../SuccessAlert/useAlert";
+import { modalHeaderStyle } from "../Utils/modalStyles";
+// ~~~~~~~~~~ Components ~~~~~~~~~~
+import DatePicker from "../DatePicker/DatePicker";
+import SearchableSelect from "../NewTaskModal/SearchableSelect";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
+import CloseButton from "../CloseButton/CloseButton";
 
 const style = {
   position: "absolute",
@@ -101,7 +102,7 @@ export default function BasicModal({
     setFirstMenuChoice("");
     setSecondMenuChoice("");
     setThirdMenuChoice("");
-    setOrganizationId(null)
+    setOrganizationId(null);
     setMerchantId(null);
     setFourthMenuChoice("");
     setDueDate("");
@@ -113,9 +114,9 @@ export default function BasicModal({
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    // resetForm();
+    resetForm();
     setOpen(false);
-}
+  };
   const handleFirstMenuChange = (event) => {
     const choice = event.target.value;
     setFirstMenuChoice(choice);
@@ -211,17 +212,6 @@ export default function BasicModal({
       payload: payload,
     });
 
-    // Reset fields on submit
-    setFirstMenuChoice("");
-    setSecondMenuChoice("");
-    setThirdMenuChoice("");
-    setMerchantId(null);
-    setFourthMenuChoice("");
-    setDueDate("");
-    setShowDetailsInput(false);
-    setAdditionalDetails("");
-    setCouponDetails("");
-    setAdditionalDetails("");
     handleClose();
     onChange();
   };
@@ -252,25 +242,15 @@ export default function BasicModal({
         }}
       >
         <Box sx={style}>
-          <div
-            style={{
-              position: "relative",
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "20px",
-            }}
-          >
-            <Button
-              className="close-btn"
-              onClick={handleClose}
-              style={{ position: "absolute", left: 0 }}
-            >
-              <CloseIcon />
-            </Button>
-            <Typography variant="h6" sx={{ textAlign: "center", flexGrow: 1 }}>
-              New Task
-            </Typography>
-          </div>
+          {/* ////////////////////////// */}
+          {/* ///~~~ CLOSE BUTTON ~~~/// */}
+          {/* ////////////////////////// */}
+          <CloseButton handleClose={handleClose} />
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~ HEADER ~~~~~~~~~~~~~~~~~~ */}
+          <Typography variant="h6" sx={modalHeaderStyle}>
+            New Task
+          </Typography>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
             <InputLabel>Category:</InputLabel>

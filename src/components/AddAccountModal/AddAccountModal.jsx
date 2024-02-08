@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Box, Button, Modal, TextField, Typography, Grid } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
+import CloseButton from "../CloseButton/CloseButton";
+// ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
+import { modalHeaderStyle } from "../Utils/modalStyles";
 
 export default function AddOrganizationModal({
   open,
@@ -129,13 +133,19 @@ export default function AddOrganizationModal({
         <Box sx={style}>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~ HEADER ~~~~~~~~~~~~~~~~ */}
-          <Typography variant="h6" sx={{ textAlign: "center", mb: 5 }}>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ///~~ CLOSE BUTTON ~~/// */}
+          <CloseButton handleClose={handleModalClose} />
+          {/* ///~~~~~~~~~~~~~~~~~~/// */}
+          <Typography variant="h6" sx={modalHeaderStyle}>
             {!isMerchantList ? "Add New Organization" : "Add New Merchant"}
           </Typography>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography sx={{ fontWeight: "bold" }}>Name / Location</Typography>
+            <Grid item xs={12}>
+              <Typography sx={{ fontWeight: "bold" }}>
+                Name / Location
+              </Typography>
             </Grid>
             <Grid item xs={!isMerchantList ? 6 : 12}>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -214,7 +224,9 @@ export default function AddOrganizationModal({
             {/* ////////// CONTACT INFO //////////// */}
             {/* //////////////////////////////////// */}
             <Grid item xs={12}>
-            <Typography sx={{ fontWeight: "bold" }}>Primary Contact</Typography>
+              <Typography sx={{ fontWeight: "bold" }}>
+                Primary Contact
+              </Typography>
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ FIRST NAME~~~~~~~~~~~~~ */}

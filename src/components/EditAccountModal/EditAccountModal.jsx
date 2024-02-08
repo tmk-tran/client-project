@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal, Box, TextField, Button, Typography, Grid } from "@mui/material";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
+// ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
 import { border } from "../Utils/colors";
+import { modalHeaderStyle } from "../Utils/modalStyles";
 
 const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const dispatch = useDispatch();
@@ -56,13 +58,11 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~ MODAL HEADER ~~~~~~~~~~ */}
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography variant="h6" sx={modalHeaderStyle} >
             {!isMerchantList ? (
               <span>Edit Organization</span>
             ) : (
