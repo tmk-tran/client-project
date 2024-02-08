@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Backdrop } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { allMerchants, allOrganizations } from "../../hooks/reduxStore";
@@ -95,9 +96,26 @@ export default function BasicModal({
     // Cleanup function or dependencies for useEffect
   }, [merchantTab]);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const resetForm = () => {
+    // Reset form fields
+    setFirstMenuChoice("");
+    setSecondMenuChoice("");
+    setThirdMenuChoice("");
+    setOrganizationId(null)
+    setMerchantId(null);
+    setFourthMenuChoice("");
+    setDueDate("");
+    setShowDetailsInput(false);
+    setAdditionalDetails("");
+    setCouponDetails("");
+    setAdditionalDetails("");
+  };
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    resetForm();
+    setOpen(false);
+}
   const handleFirstMenuChange = (event) => {
     const choice = event.target.value;
     setFirstMenuChoice(choice);
@@ -225,6 +243,13 @@ export default function BasicModal({
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          // Disable closing on backdrop click
+          onClick: (event) => event.stopPropagation(),
+          // Disable the backdrop from being clickable
+          clickable: false,
+        }}
       >
         <Box sx={style}>
           <div

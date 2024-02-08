@@ -23,9 +23,6 @@
 import React from "react";
 import { Autocomplete, TextField, MenuItem } from "@mui/material";
 
-// Assuming merchants and organizations are arrays with objects having 'id' and 'merchant_name' or 'organization_name' properties.
-// Adjust the structure based on your actual data.
-
 export default function YourComponent({
   thirdMenuChoice,
   handleAccountChange,
@@ -43,7 +40,9 @@ export default function YourComponent({
       onChange={(event, value) => {
         console.log(value.organization_name);
         console.log(value.merchant_name);
-        merchantTab ? handleAccountChange(event, value.merchant_name) : handleAccountChange(event, value.organization_name);
+        merchantTab
+          ? handleAccountChange(event, value.merchant_name)
+          : handleAccountChange(event, value.organization_name);
         // handleAccountChange(event, value.organization_name);
       }}
       options={merchantTab ? merchants : organizations}
@@ -61,18 +60,22 @@ export default function YourComponent({
       renderInput={(params) => {
         console.log(params);
         console.log("Input Value:", params.inputProps.value);
-        
+
         return (
           <TextField
             {...params}
-            placeholder={params.inputProps.value ? params.inputProps.value : "Account Name"}
+            placeholder={
+              params.inputProps.value ? params.inputProps.value : "Account Name"
+            }
             variant="outlined"
           />
         );
       }}
       filterOptions={(options, { inputValue }) =>
         options.filter((option) => {
-          const label = merchantTab ? option.merchant_name : option.organization_name;
+          const label = merchantTab
+            ? option.merchant_name
+            : option.organization_name;
           return label.toLowerCase().includes(inputValue.toLowerCase());
         })
       }
