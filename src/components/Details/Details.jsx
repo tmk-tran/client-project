@@ -13,7 +13,7 @@ import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
 import DetailsTaskView from "../DetailsTaskView/DetailsTaskView";
 import CouponReviewCard from "../CouponReviewCard/CouponReviewCard";
 import MerchantContactDetails from "../ContactDetails/MerchantContactDetails";
-import BackButton from "../BackButton/BackButton";
+import BackButton from "../Buttons/BackButton";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";

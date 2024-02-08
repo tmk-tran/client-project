@@ -17,6 +17,8 @@ export default function TaskListMerchant() {
     inProgressTask: "",
     completeTask: "",
   });
+  const [caseType, setCaseType] = useState("");
+  console.log(caseType);
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
@@ -45,12 +47,20 @@ export default function TaskListMerchant() {
   const sortedCompleteTasks = tasksByStatus["complete"] || [];
   console.log(sortedCompleteTasks);
 
+  const handleCaseTypeChange = (newValue) => {
+    setCaseType(newValue);
+  };
+
   return (
     <div className="list-container">
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~ Dropdown for New Tasks ~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
+      <SuccessAlert
+        isOpen={isAlertOpen}
+        onClose={handleAlertClose}
+        caseType={caseType}
+      />
       <Select
         value={selectedTasks.newTask}
         onChange={(e) =>
@@ -138,6 +148,7 @@ export default function TaskListMerchant() {
                   taskType="merchant"
                   index={i}
                   onTaskUpdate={handleTaskUpdate}
+                  handleCaseTypeChange={handleCaseTypeChange}
                 />
               </MenuItem>
             ) : null

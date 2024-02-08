@@ -26,7 +26,7 @@ import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import DatePicker from "../DatePicker/DatePicker";
 import SearchableSelect from "../NewTaskModal/SearchableSelect";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
-import CloseButton from "../CloseButton/CloseButton";
+import CloseButton from "../Buttons/CloseButton";
 import { capitalizeFirstWord } from "../Utils/helpers";
 
 const style = {

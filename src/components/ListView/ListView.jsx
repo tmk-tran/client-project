@@ -67,7 +67,7 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
                 .join("")
                 .toUpperCase()
             : null;
-  
+
         return <div className="initialsContainer">{initials}</div>;
       }
     } else {
@@ -75,34 +75,35 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
       return <div className="initialsContainer">Merchant Logo</div>; // Placeholder, replace with logic for merchant logos
     }
   };
-  
 
   const handleArchive = (dataId) => {
-    Swal.fire({
-      title: `Are you sure you want to Archive this ${
-        isMerchantList ? "Merchant" : "Organization"
-      }?`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: `Yes, Archive It`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch({
-          type: `DELETE_${isMerchantList ? "MERCHANT" : "ORGANIZATION"}`,
-          payload: dataId,
-        });
-        dispatch({
-          type: `FETCH_${isMerchantList ? "MERCHANTS" : "ORGANIZATIONS"}`,
-        });
-        Swal.fire(
-          `${
-            isMerchantList ? "Merchant" : "Organization"
-          } Successfully Archived!`
-        );
-      }
-    });
+    // Swal.fire({
+    //   title: `Are you sure you want to Archive this ${
+    //     isMerchantList ? "Merchant" : "Organization"
+    //   }?`,
+    //   icon: "warning",
+    //   showCancelButton: true,
+    //   confirmButtonColor: "#3085d6",
+    //   cancelButtonColor: "#d33",
+    //   confirmButtonText: `Yes, Archive It`,
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     dispatch({
+    //       type: `DELETE_${isMerchantList ? "MERCHANT" : "ORGANIZATION"}`,
+    //       payload: dataId,
+    //     });
+    //     dispatch({
+    //       type: `FETCH_${isMerchantList ? "MERCHANTS" : "ORGANIZATIONS"}`,
+    //     });
+    //     Swal.fire(
+    //       `${
+    //         isMerchantList ? "Merchant" : "Organization"
+    //       } Successfully Archived!`
+    //     );
+    //   }
+    // });
+
+    console.log(dataId);
   };
 
   function goToDetails() {
@@ -192,13 +193,16 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
                     </div>
                   </div>
                 ) : (
-                  <div style={{ display: "flex", ...border, flexDirection: "column" }}>
-                    
-                  <div style={border}>
-                    <Typography>
-                      Coupon Count (Active): # here
-                    </Typography>
-                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      ...border,
+                      flexDirection: "column",
+                    }}
+                  >
+                    <div style={border}>
+                      <Typography>Coupon Count (Active): # here</Typography>
+                    </div>
                   </div>
                 )}
               </div>
@@ -226,6 +230,17 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
             </Button>
 
             {data.total_active_fundraisers <= 0 && (
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleArchive(data.id);
+                }}
+              >
+                Archive
+              </Button>
+            )}
+
+            {isMerchantList && (
               <Button
                 onClick={(e) => {
                   e.stopPropagation();

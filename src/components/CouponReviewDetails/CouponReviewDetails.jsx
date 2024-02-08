@@ -10,7 +10,7 @@ import DenyProofModal from "../DenyProofModal/DenyProofModal";
 import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 import CouponReviewButtons from "./CouponReviewButtons";
 import CouponReviewComments from "./CouponReviewComments";
-import BackButton from "../BackButton/BackButton";
+import BackButton from "../Buttons/BackButton";
 import FilePreview from "./FilePreview";     
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";

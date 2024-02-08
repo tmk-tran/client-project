@@ -15,6 +15,8 @@ export default function TaskListOrg() {
     inProgressTask: "",
     completeTask: "",
   });
+  const [caseType, setCaseType] = useState("");
+  console.log(caseType);
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
@@ -37,8 +39,17 @@ export default function TaskListOrg() {
   const sortedInProgressTasks = tasksByStatus["in progress"] || [];
   const sortedCompleteTasks = tasksByStatus["complete"] || [];
 
+  const handleCaseTypeChange = (newValue) => {
+    setCaseType(newValue);
+  };
+
   return (
     <Box className="list-container">
+      <SuccessAlert
+        isOpen={isAlertOpen}
+        onClose={handleAlertClose}
+        caseType={caseType}
+      />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~ Dropdown for New Tasks ~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -100,7 +111,6 @@ export default function TaskListOrg() {
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~ Dropdown for Complete Tasks ~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
       <Select
         value={selectedTasks.completeTask}
         onChange={(e) =>
@@ -131,6 +141,7 @@ export default function TaskListOrg() {
                   taskType="organization"
                   index={i}
                   onTaskUpdate={handleTaskUpdate}
+                  handleCaseTypeChange={handleCaseTypeChange}
                 />
               </MenuItem>
             ) : null

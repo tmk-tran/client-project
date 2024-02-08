@@ -134,4 +134,6 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
+// NEED DELETE ROUTE ON NEXT LOGIN, SAGA AS WELL. RESUME ARCHIVE FEATURE AFTER DELETE SETUP
+
 module.exports = router;

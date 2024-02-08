@@ -9,7 +9,8 @@ export const useAlert = () => {
   };
 
   // Handler to be called when the task is updated
-  const handleTaskUpdate = () => {
+  const handleTaskUpdate = (caseType) => {
+    console.log(caseType);
     // Additional logic if needed
     setIsAlertOpen(true);
   };

@@ -6,12 +6,14 @@ import {
   Paper,
   Pagination,
   Typography,
+  Fab,
 } from "@mui/material";
 import "./HomePage.css";
 import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
 import ToggleOffIcon from "@mui/icons-material/ToggleOff";
+import AddIcon from '@mui/icons-material/Add';
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~
 import AddAccountModal from "../AddAccountModal/AddAccountModal.jsx";
 import ListView from "../ListView/ListView.jsx";

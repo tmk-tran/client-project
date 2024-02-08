@@ -15,7 +15,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { border, primaryColor } from "../Utils/colors";
 import { modalHeaderStyle, headerDivider } from "../Utils/modalStyles";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~
-import CloseButton from "../CloseButton/CloseButton";
+import CloseButton from "../Buttons/CloseButton";
 import {
   capitalizeWords,
   capitalizeFirstWord,

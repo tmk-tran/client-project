@@ -22,7 +22,14 @@ import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { mComments } from "../../hooks/reduxStore";
 
-export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
+export default function TaskCard({
+  id,
+  task,
+  taskType,
+  index,
+  onTaskUpdate,
+  handleCaseTypeChange,
+}) {
   console.log(id);
   console.log(taskType);
   const [selectedTask, setSelectedTask] = useState(null);
@@ -105,6 +112,8 @@ export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
         id: task.id,
       },
     });
+    onTaskUpdate();
+    handleCaseTypeChange("Archived");
   };
 
   const fullWidth = {

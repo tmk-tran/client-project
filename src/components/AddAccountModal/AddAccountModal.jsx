@@ -13,7 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
-import CloseButton from "../CloseButton/CloseButton";
+import CloseButton from "../Buttons/CloseButton";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
 import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { hoverAccept, primaryColor } from "../Utils/colors";

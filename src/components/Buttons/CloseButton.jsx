@@ -8,7 +8,7 @@ export default function CloseButton({ handleClose }) {
     //   variant="outlined"
       style={{ position: "absolute" }}
     >
-      <CloseIcon />
+      <CloseIcon sx={{ fontSize: "35px" }}/>
     </Button>
   );
 }
