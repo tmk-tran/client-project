@@ -16,6 +16,12 @@ import { border, primaryColor } from "../Utils/colors";
 import { modalHeaderStyle, headerDivider } from "../Utils/modalStyles";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~
 import CloseButton from "../CloseButton/CloseButton";
+import {
+  capitalizeWords,
+  capitalizeFirstWord,
+  capitalizeStateAbbr,
+  capitalize,
+} from "../Utils/helpers";
 
 const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const dispatch = useDispatch();
@@ -105,7 +111,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
                 onChange={(e) =>
                   handleChange(
                     !isMerchantList ? "organization_name" : "merchant_name", // Use "merchant_name" if isMerchantList is true
-                    e.target.value,
+                    capitalize(e.target.value),
                     isMerchantList
                   )
                 }
@@ -129,8 +135,10 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
               <TextField
                 label="Address"
                 fullWidth
-                value={editedAccount.address}
-                onChange={(e) => handleChange("address", e.target.value)}
+                value={capitalize(editedAccount.address)}
+                onChange={(e) =>
+                  handleChange("address", capitalize(e.target.value))
+                }
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -139,8 +147,10 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
               <TextField
                 label="City"
                 fullWidth
-                value={editedAccount.city}
-                onChange={(e) => handleChange("city", e.target.value)}
+                value={capitalize(editedAccount.city)}
+                onChange={(e) =>
+                  handleChange("city", capitalize(e.target.value))
+                }
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -149,7 +159,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
               <TextField
                 label="State"
                 fullWidth
-                value={editedAccount.state}
+                value={capitalizeStateAbbr(editedAccount.state)}
                 onChange={(e) => handleChange("state", e.target.value)}
               />
             </Grid>

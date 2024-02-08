@@ -27,6 +27,7 @@ import DatePicker from "../DatePicker/DatePicker";
 import SearchableSelect from "../NewTaskModal/SearchableSelect";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import CloseButton from "../CloseButton/CloseButton";
+import { capitalizeFirstWord } from "../Utils/helpers";
 
 const style = {
   position: "absolute",
@@ -83,6 +84,7 @@ export default function BasicModal({
   const [showDetailsInput, setShowDetailsInput] = useState(false);
   const [dueDate, setDueDate] = useState(new Date());
   const [additionalDetails, setAdditionalDetails] = useState("");
+  console.log(additionalDetails);
 
   useEffect(() => {
     // Conditional logic based on merchantTab
@@ -354,7 +356,8 @@ export default function BasicModal({
             rows={3}
             fullWidth
             sx={{ margin: "10px auto" }}
-            onChange={(event) => setAdditionalDetails(event.target.value)}
+            value={additionalDetails}
+            onChange={(event) => setAdditionalDetails(capitalizeFirstWord(event.target.value))}
           />
           {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 

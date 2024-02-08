@@ -48,6 +48,16 @@ export const capitalizeFirstWord = (sentence) => {
   return sentence.charAt(0).toUpperCase() + sentence.slice(1);
 };
 
+export function capitalize(str) {
+  return str.replace(/\b\w/g, function (char) {
+    return char.toUpperCase();
+  });
+}
+
+export function capitalizeStateAbbr(abbr) {
+  return abbr.slice(0, 2).toUpperCase();
+}
+
 // In progress, trying to account for acronyms in a sentence
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

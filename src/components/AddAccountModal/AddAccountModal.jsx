@@ -10,6 +10,7 @@ import {
   Divider,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 import CloseButton from "../CloseButton/CloseButton";
@@ -161,7 +162,7 @@ export default function AddOrganizationModal({
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography sx={{ fontWeight: "bold" }}>
+              <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                 Name / Location
               </Typography>
             </Grid>
@@ -246,7 +247,7 @@ export default function AddOrganizationModal({
             {/* //////////////////////////////////// */}
             <Divider sx={dividerMarginTop} />
             <Grid item xs={12}>
-              <Typography sx={{ fontWeight: "bold" }}>
+              <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                 Primary Contact
               </Typography>
             </Grid>
@@ -332,6 +333,7 @@ export default function AddOrganizationModal({
             sx={hoverAccept}
             fullWidth
           >
+            <AddBoxIcon sx={{ mr: 2 }} />
             Add
           </Button>
         </Box>

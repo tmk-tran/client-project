@@ -7,6 +7,7 @@ import { User } from "../../hooks/reduxStore";
 import CouponDesign from "../CouponDesign/CouponDesign";
 import { border } from "../Utils/colors";
 import FilePreview from "./FilePreview";
+import { capitalizeFirstWord } from "../Utils/helpers";
 
 export default function CommentInput({
   merchantId,
@@ -115,7 +116,7 @@ export default function CommentInput({
         maxRows={4}
         variant="outlined"
         value={comment}
-        onChange={(e) => setComment(e.target.value)}
+        onChange={(e) => setComment(capitalizeFirstWord(e.target.value))}
         style={{ marginBottom: "10px" }}
       />
 
