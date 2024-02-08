@@ -5,7 +5,7 @@ export default function CloseButton({ handleClose }) {
   return (
     <Button
       onClick={handleClose}
-      variant="outlined"
+    //   variant="outlined"
       style={{ position: "absolute" }}
     >
       <CloseIcon />

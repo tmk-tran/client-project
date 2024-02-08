@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Backdrop } from "@mui/material";
+import { Backdrop, Divider } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { allMerchants, allOrganizations } from "../../hooks/reduxStore";
@@ -19,9 +19,9 @@ import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import CloseIcon from "@mui/icons-material/Close";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { border } from "../Utils/colors";
+import { border, hoverAccept } from "../Utils/colors";
 import { useAlert } from "../SuccessAlert/useAlert";
-import { modalHeaderStyle } from "../Utils/modalStyles";
+import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import DatePicker from "../DatePicker/DatePicker";
 import SearchableSelect from "../NewTaskModal/SearchableSelect";
@@ -110,11 +110,12 @@ export default function BasicModal({
     setAdditionalDetails("");
     setCouponDetails("");
     setAdditionalDetails("");
+    handleClose();
   };
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    resetForm();
+    // resetForm();
     setOpen(false);
   };
   const handleFirstMenuChange = (event) => {
@@ -231,26 +232,25 @@ export default function BasicModal({
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          // Disable closing on backdrop click
-          onClick: (event) => event.stopPropagation(),
-          // Disable the backdrop from being clickable
-          clickable: false,
-        }}
+        // BackdropComponent={Backdrop}
+        // BackdropProps={{
+        //   // Disable closing on backdrop click
+        //   onClick: (event) => event.stopPropagation(),
+        //   // Disable the backdrop from being clickable
+        //   clickable: false,
+        // }}
       >
         <Box sx={style}>
           {/* ////////////////////////// */}
           {/* ///~~~ CLOSE BUTTON ~~~/// */}
           {/* ////////////////////////// */}
-          <CloseButton handleClose={handleClose} />
+          <CloseButton handleClose={resetForm} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~ HEADER ~~~~~~~~~~~~~~~~~~ */}
           <Typography variant="h6" sx={modalHeaderStyle}>
             New Task
           </Typography>
+          <Divider sx={headerDivider} />
 
           <div style={{ display: "flex", flexDirection: "column" }}>
             <InputLabel>Category:</InputLabel>
@@ -361,8 +361,9 @@ export default function BasicModal({
           <Button
             variant="contained"
             color="secondary"
-            fullWidth
             onClick={addNewTask}
+            sx={hoverAccept}
+            fullWidth
           >
             <AddBoxIcon sx={{ mr: 2 }} />
             Create Task

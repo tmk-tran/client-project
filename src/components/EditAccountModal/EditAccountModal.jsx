@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal, Box, TextField, Button, Typography, Grid } from "@mui/material";
+import {
+  Modal,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Grid,
+  Divider,
+} from "@mui/material";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
-import { border } from "../Utils/colors";
-import { modalHeaderStyle } from "../Utils/modalStyles";
+import { border, primaryColor } from "../Utils/colors";
+import { modalHeaderStyle, headerDivider } from "../Utils/modalStyles";
+// ~~~~~~~~~~~ Components ~~~~~~~~~~~
+import CloseButton from "../CloseButton/CloseButton";
 
 const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const dispatch = useDispatch();
@@ -53,22 +63,32 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
     p: 4,
   };
 
+  const editHeaderStyle = {
+    ...headerDivider,
+    mb: 5,
+  };
+
   return (
     <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-      >
+      <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~ MODAL HEADER ~~~~~~~~~~ */}
-          <Typography variant="h6" sx={modalHeaderStyle} >
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ////////////////////////// */}
+          {/* ///~~~ CLOSE BUTTON ~~~/// */}
+          {/* ////////////////////////// */}
+          <CloseButton handleClose={handleClose} />
+          {/* ////////////////////////// */}
+          <Typography variant="h6" sx={modalHeaderStyle}>
             {!isMerchantList ? (
               <span>Edit Organization</span>
             ) : (
               <span>Edit Merchant</span>
             )}
           </Typography>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          <Divider sx={editHeaderStyle} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Grid container spacing={2}>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -146,7 +166,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~ */}
-            <Grid item xs={8}>
+            <Grid item xs={!isMerchantList ? 8 : 12}>
               <TextField
                 label="Logo URL (optional)"
                 fullWidth
@@ -178,13 +198,14 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             </Grid>
           </Grid>
           <br />
-          <Button onClick={handleClose} variant="contained" color="primary">
-            Cancel
-          </Button>{" "}
+          {/* ///////////////////////// */}
+          {/* ///~~~ SAVE BUTTON ~~~/// */}
+          {/* ///////////////////////// */}
           <Button
             onClick={() => handleEditSave(editedAccount)}
             variant="contained"
-            color="primary"
+            color="secondary"
+            fullWidth
           >
             Save
           </Button>

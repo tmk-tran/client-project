@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Box, Button, Modal, TextField, Typography, Grid } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  TextField,
+  Typography,
+  Grid,
+  Divider,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 import CloseButton from "../CloseButton/CloseButton";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
-import { modalHeaderStyle } from "../Utils/modalStyles";
+import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
+import { hoverAccept, primaryColor } from "../Utils/colors";
 
 export default function AddOrganizationModal({
   open,
@@ -117,6 +126,13 @@ export default function AddOrganizationModal({
     p: 4,
   };
 
+  const dividerMarginTop = {
+    ...headerDivider,
+    mt: 3,
+    ml: 2,
+    width: "98%",
+  };
+
   // function to capitalize the first letter of whatever you wrap in this
   const capitalizeFirstLetter = (value) => {
     return value.charAt(0).toUpperCase() + value.slice(1);
@@ -135,11 +151,13 @@ export default function AddOrganizationModal({
           {/* ~~~~~~~~~~~~ HEADER ~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ///~~ CLOSE BUTTON ~~/// */}
-          <CloseButton handleClose={handleModalClose} />
+          <CloseButton handleClose={cancelAdd} />
           {/* ///~~~~~~~~~~~~~~~~~~/// */}
           <Typography variant="h6" sx={modalHeaderStyle}>
             {!isMerchantList ? "Add New Organization" : "Add New Merchant"}
           </Typography>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          <Divider sx={headerDivider} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -220,9 +238,13 @@ export default function AddOrganizationModal({
                 onChange={(e) => setZip(Number(e.target.value))}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* <Divider sx={dividerMarginTop}  /> */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* //////////////////////////////////// */}
             {/* ////////// CONTACT INFO //////////// */}
             {/* //////////////////////////////////// */}
+            <Divider sx={dividerMarginTop} />
             <Grid item xs={12}>
               <Typography sx={{ fontWeight: "bold" }}>
                 Primary Contact
@@ -300,11 +322,17 @@ export default function AddOrganizationModal({
             ) : null}
           </Grid>
           <br />
-          <Button onClick={cancelAdd} variant="outlined" color="primary">
+          {/* <Button onClick={cancelAdd} variant="outlined" color="primary">
             Cancel
-          </Button>{" "}
-          <Button onClick={handleSave} variant="contained" color="primary">
-            Save
+          </Button>{" "} */}
+          <Button
+            onClick={handleSave}
+            variant="contained"
+            color="secondary"
+            sx={hoverAccept}
+            fullWidth
+          >
+            Add
           </Button>
         </Box>
       </Modal>
