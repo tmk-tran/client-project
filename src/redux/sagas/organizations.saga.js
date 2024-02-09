@@ -33,33 +33,6 @@ function* deleteOrganizationSaga(action) {
   }
 }
 
-// function* editOrganizationSaga(action) {
-//   try {
-//     console.log("ACTION PAYLOAD IS", action.payload);
-//     const response = yield axios.put(
-//       `/api/organizations/${action.payload.id}`,
-//       {
-//         organization_name: action.payload.organization_name,
-//         type: action.payload.type,
-//         address: action.payload.address,
-//         city: action.payload.city,
-//         state: action.payload.state,
-//         zip: action.payload.zip,
-//         primary_contact_first_name: action.payload.primary_contact_first_name,
-//         primary_contact_last_name: action.payload.primary_contact_last_name,
-//         primary_contact_phone: action.payload.primary_contact_phone,
-//         primary_contact_email: action.payload.primary_contact_email,
-//         organization_earnings: action.payload.organization_earnings,
-//         organization_logo: action.payload.organization_logo,
-//         filename: action.payload.filename,
-//       }
-//     );
-//     console.log("RESPONSE IS", response);
-//     yield put({ type: "FETCH_ORGANIZATIONS", payload: action.payload });
-//   } catch (error) {
-//     console.log("error in edit invoice", error);
-//   }
-// }
 function* editOrganizationSaga(action) {
   try {
     console.log("ACTION PAYLOAD IS", action.payload);
@@ -69,7 +42,10 @@ function* editOrganizationSaga(action) {
 
     // Create a FormData object to send the file data
     const formData = new FormData();
-    formData.append("organization_name", action.payload.editedAccount.organization_name);
+    formData.append(
+      "organization_name",
+      action.payload.editedAccount.organization_name
+    );
     formData.append("type", action.payload.editedAccount.type);
     formData.append("address", action.payload.editedAccount.address);
     formData.append("city", action.payload.editedAccount.city);
@@ -98,19 +74,21 @@ function* editOrganizationSaga(action) {
 
     // Check if a file is uploaded
     if (action.payload.editedAccount.uploadedFile) {
-      formData.append("organization_logo", action.payload.editedAccount.uploadedFile);
-      formData.append("filename", action.payload.editedAccount.uploadedFile.name);
+      formData.append(
+        "organization_logo",
+        action.payload.editedAccount.uploadedFile
+      );
+      formData.append(
+        "filename",
+        action.payload.editedAccount.uploadedFile.name
+      );
     }
 
-    const response = yield axios.put(
-      `/api/organizations/${orgId}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data", // Set content type to multipart/form-data for file upload
-        },
-      }
-    );
+    const response = yield axios.put(`/api/organizations/${orgId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Set content type to multipart/form-data for file upload
+      },
+    });
 
     console.log("RESPONSE IS", response);
 

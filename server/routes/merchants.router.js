@@ -9,7 +9,10 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   // const queryText = `SELECT * FROM merchant;`;
   const queryText = `
   SELECT 
-    * FROM merchant 
+    *,
+    encode(merchant_logo, 'base64') AS merchant_logo_base64
+  FROM 
+    merchant 
   WHERE 
     is_deleted=false 
   ORDER BY 
@@ -30,7 +33,16 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const merchantId = req.params.id;
 
-  const queryText = `SELECT * FROM merchant WHERE id = $1;`;
+  // const queryText = `SELECT * FROM merchant WHERE id = $1;`;
+  const queryText = `
+  SELECT
+    *,
+    encode(merchant_logo, 'base64') AS merchant_logo_base64
+  FROM
+    merchant
+  WHERE
+    id = $1;`;
+
   pool
     .query(queryText, [merchantId])
     .then((result) => {
