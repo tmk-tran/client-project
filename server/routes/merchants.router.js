@@ -142,13 +142,11 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
-  const { archiveReason } = req.body; 
+  const { archiveReason } = req.body;
 
   const queryText = `UPDATE "merchant" SET is_deleted = true, archive_reason = $1 WHERE id = $2;`;
   pool
-    .query(queryText, [
-      archiveReason, id
-    ])
+    .query(queryText, [archiveReason, id])
     .then((response) => {
       console.log("response from DELETE merchants.router: ", response.rows);
       res.sendStatus(200);

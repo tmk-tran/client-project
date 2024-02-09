@@ -109,16 +109,6 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
           if (reasonResult.isConfirmed) {
             const archiveReason = reasonResult.value;
             console.log(archiveReason);
-            // Perform dispatch actions or other operations with archiveReason
-            // Log dispatched actions and payloads
-            console.log("Dispatching DELETE action:", {
-              type: `DELETE_${isMerchantList ? "MERCHANT" : "ORGANIZATION"}`,
-              payload: isMerchantList ? { dataId, archiveReason } : { dataId },
-            });
-
-            console.log("Dispatching FETCH action:", {
-              type: `FETCH_${isMerchantList ? "MERCHANTS" : "ORGANIZATIONS"}`,
-            });
 
             dispatch({
               type: `DELETE_${isMerchantList ? "MERCHANT" : "ORGANIZATION"}`,

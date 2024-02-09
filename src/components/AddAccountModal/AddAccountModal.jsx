@@ -14,6 +14,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 import CloseButton from "../Buttons/CloseButton";
+import AddFileButton from "../AddFileButton/AddFileButton";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
 import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { hoverAccept, primaryColor } from "../Utils/colors";
@@ -297,12 +298,13 @@ export default function AddOrganizationModal({
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={!isMerchantList ? 8 : 12}>
-              <TextField
+              {/* <TextField
                 label="Logo URL (optional)"
                 fullWidth
                 value={logoUrl}
                 onChange={(e) => setLogoUrl(e.target.value)}
-              />
+              /> */}
+              <AddFileButton />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~~ */}
