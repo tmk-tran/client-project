@@ -1,6 +1,9 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+const multer = require("multer");
+const storage = multer.memoryStorage(); // Store files in memory
+const upload = multer({ storage: storage });
 
 router.get("/", (req, res) => {
   pool
@@ -15,7 +18,8 @@ router.get("/", (req, res) => {
       COALESCE(total_outstanding_balance.total_outstanding_balance, 0) AS total_outstanding_balance,
       COALESCE(total_books_sold.total_books_sold, 0) * COALESCE(o.organization_earnings, 0) AS total_org_earnings,
       COALESCE(total_checked_out_books.total_checked_out_books, 0) AS total_checked_out_books,
-      COALESCE(total_checked_in_books.total_checked_in_books, 0) AS total_checked_in_books
+      COALESCE(total_checked_in_books.total_checked_in_books, 0) AS total_checked_in_books,
+      encode(o.organization_logo, 'base64') AS organization_logo_base64
   FROM
       organization o
   LEFT JOIN (
@@ -122,10 +126,55 @@ router.get("/", (req, res) => {
 });
 
 // POST ROUTE
-router.post("/", (req, res) => {
+// router.post("/", (req, res) => {
+//   const organization = req.body;
+//   console.log(req.body);
+//   console.log(req.user);
+//   const queryText = `
+//       INSERT INTO "organization" (
+//         "organization_name",
+//         "type",
+//         "address",
+//         "city",
+//         "state",
+//         "zip",
+//         "primary_contact_first_name",
+//         "primary_contact_last_name",
+//         "primary_contact_phone",
+//         "primary_contact_email",
+//         "organization_earnings",
+//         "organization_logo"
+//       )
+//       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
+
+//   pool
+//     .query(queryText, [
+//       organization.organization_name,
+//       organization.type,
+//       organization.address,
+//       organization.city,
+//       organization.state,
+//       organization.zip,
+//       organization.primary_contact_first_name,
+//       organization.primary_contact_last_name,
+//       organization.primary_contact_phone,
+//       organization.primary_contact_email,
+//       organization.organization_earnings,
+//       organization.organization_logo
+//     ])
+//     .then((response) => {
+//       res.sendStatus(201);
+//     })
+//     .catch((err) => {
+//       console.log("error in organizations POST route", err);
+//       res.sendStatus(500);
+//     });
+// });
+
+router.post("/", upload.single("organization_logo"), (req, res) => {
   const organization = req.body;
-  console.log(req.body);
-  console.log(req.user);
+  const organizationLogo = req.file.buffer; // Get the file buffer from multer
+
   const queryText = `
       INSERT INTO "organization" (
         "organization_name",
@@ -156,7 +205,7 @@ router.post("/", (req, res) => {
       organization.primary_contact_phone,
       organization.primary_contact_email,
       organization.organization_earnings,
-      organization.organization_logo
+      organizationLogo, // Use the file buffer as the organization logo
     ])
     .then((response) => {
       res.sendStatus(201);
@@ -169,8 +218,8 @@ router.post("/", (req, res) => {
 
 // DELETE
 router.delete("/:id", (req, res) => {
-    console.log("PARAMS FROM ORG ROUTER", req.params.id);
-    console.log("BODY FROM ORG ROUTER", req.body);
+  console.log("PARAMS FROM ORG ROUTER", req.params.id);
+  console.log("BODY FROM ORG ROUTER", req.body);
   pool
     .query(`UPDATE "organization" SET is_deleted = true WHERE id = $1;`, [
       req.params.id,
@@ -184,37 +233,86 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+// router.put("/:id", (req, res) => {
+//   const organization = req.body;
+//   const queryText = `
+//   UPDATE "organization"
+//   SET "organization_name" = $1, "type" = $2, "address" = $3,
+//       "city" = $4,
+//       "state" = $5,
+//       "zip" = $6,
+//       "primary_contact_first_name" = $7,
+//       "primary_contact_last_name" = $8,
+//       "primary_contact_phone" = $9,
+//       "primary_contact_email" = $10,
+//       "organization_earnings" = $11,
+//       "organization_logo" = $12
+//   WHERE "id" = $13;`;
+//   pool
+//     .query(queryText, [
+//       organization.organization_name,
+//       organization.type,
+//       organization.address,
+//       organization.city,
+//       organization.state,
+//       organization.zip,
+//       organization.primary_contact_first_name,
+//       organization.primary_contact_last_name,
+//       organization.primary_contact_phone,
+//       organization.primary_contact_email,
+//       organization.organization_earnings,
+//       organization.organization_logo,
+//       req.params.id,
+//     ])
+//     .then((response) => {
+//       res.sendStatus(200);
+//     })
+//     .catch((err) => {
+//       console.log("error with organizations PUT route", err);
+//       res.sendStatus(500);
+//     });
+// });
+
+router.put("/:id", upload.single("organization_logo"), (req, res) => {
+  const organizationId = req.params.id;
   const organization = req.body;
+  const organization_logo = req.file ? req.file.buffer : null;
+
   const queryText = `
-  UPDATE "organization" 
-  SET "organization_name" = $1, "type" = $2, "address" = $3,
-      "city" = $4,
-      "state" = $5,
-      "zip" = $6,
-      "primary_contact_first_name" = $7,
-      "primary_contact_last_name" = $8,
-      "primary_contact_phone" = $9,
-      "primary_contact_email" = $10,
-      "organization_earnings" = $11,
-      "organization_logo" = $12
-  WHERE "id" = $13;`;
+      UPDATE "organization"
+      SET
+        "organization_name" = $1,
+        "type" = $2,
+        "address" = $3,
+        "city" = $4,
+        "state" = $5,
+        "zip" = $6,
+        "primary_contact_first_name" = $7,
+        "primary_contact_last_name" = $8,
+        "primary_contact_phone" = $9,
+        "primary_contact_email" = $10,
+        "organization_earnings" = $11,
+        "organization_logo" = $12
+      WHERE "id" = $13;`;
+
+  const values = [
+    organization.organization_name,
+    organization.type,
+    organization.address,
+    organization.city,
+    organization.state,
+    organization.zip,
+    organization.primary_contact_first_name,
+    organization.primary_contact_last_name,
+    organization.primary_contact_phone,
+    organization.primary_contact_email,
+    organization.organization_earnings,
+    organization_logo,
+    organizationId,
+  ];
+
   pool
-    .query(queryText, [
-      organization.organization_name,
-      organization.type,
-      organization.address,
-      organization.city,
-      organization.state,
-      organization.zip,
-      organization.primary_contact_first_name,
-      organization.primary_contact_last_name,
-      organization.primary_contact_phone,
-      organization.primary_contact_email,
-      organization.organization_earnings,
-      organization.organization_logo,
-      req.params.id,
-    ])
+    .query(queryText, values)
     .then((response) => {
       res.sendStatus(200);
     })

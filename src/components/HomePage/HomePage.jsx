@@ -57,6 +57,17 @@ function HomePage() {
     }
   }, [isMerchantList, editComplete]);
 
+  // Function to decode bytea data into a URL
+  // const decodeBytea = (bytea) => {
+  //   const binaryString = window.atob(bytea);
+  //   const byteArray = new Uint8Array(binaryString.length);
+  //   for (let i = 0; i < binaryString.length; i++) {
+  //     byteArray[i] = binaryString.charCodeAt(i);
+  //   }
+  //   const blob = new Blob([byteArray], { type: 'image/jpeg' }); // Adjust type as needed
+  //   return URL.createObjectURL(blob);
+  // };
+
   // fuzzy search information
   const fuse = new Fuse(organizationsList, {
     keys: ["organization_name"],
@@ -246,6 +257,7 @@ function HomePage() {
                     onChange={handleEdit}
                     editComplete={editComplete}
                     setEditComplete={setEditComplete}
+                    decodeBytea={decodeBytea}
                   />
                 ))
               : currentItems.map((organization, index) => (

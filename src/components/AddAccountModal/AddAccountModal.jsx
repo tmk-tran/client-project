@@ -9,8 +9,6 @@ import {
   Grid,
   Divider,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 import CloseButton from "../Buttons/CloseButton";
@@ -162,11 +160,26 @@ export default function AddOrganizationModal({
           <Divider sx={headerDivider} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={9}>
               <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                 Name / Location
               </Typography>
             </Grid>
+            {!isMerchantList ? (
+              <Grid item xs={3}>
+                <TextField
+                  label="Fee"
+                  fullWidth
+                  value={orgEarnings}
+                  onChange={(e) => setOrgEarnings(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">$</InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+            ) : null}
             <Grid item xs={!isMerchantList ? 6 : 12}>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~~ NAME ~~~~~~~~~~~~~~~~~~ */}
@@ -247,7 +260,7 @@ export default function AddOrganizationModal({
             {/* ////////// CONTACT INFO //////////// */}
             {/* //////////////////////////////////// */}
             <Divider sx={dividerMarginTop} />
-            <Grid item xs={12}>
+            <Grid item xs={8}>
               <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                 Primary Contact
               </Typography>
@@ -297,7 +310,7 @@ export default function AddOrganizationModal({
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~~~~~ */}
-            <Grid item xs={!isMerchantList ? 8 : 12}>
+            <Grid item xs={12}>
               {/* <TextField
                 label="Logo URL (optional)"
                 fullWidth
@@ -308,7 +321,7 @@ export default function AddOrganizationModal({
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~~ */}
-            {!isMerchantList ? (
+            {/* {!isMerchantList ? (
               <Grid item xs={4}>
                 <TextField
                   label="Organization Fee"
@@ -322,7 +335,7 @@ export default function AddOrganizationModal({
                   }}
                 />
               </Grid>
-            ) : null}
+            ) : null} */}
           </Grid>
           <br />
           {/* <Button onClick={cancelAdd} variant="outlined" color="primary">
@@ -335,7 +348,7 @@ export default function AddOrganizationModal({
             sx={hoverAccept}
             fullWidth
           >
-            <AddBoxIcon sx={{ mr: 2 }} />
+            {/* <AddBoxIcon sx={{ mr: 2 }} /> */}
             Add
           </Button>
         </Box>
