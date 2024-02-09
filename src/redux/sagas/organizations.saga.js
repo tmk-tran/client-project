@@ -22,8 +22,11 @@ function* addOrganizationSaga(action) {
 }
 
 function* deleteOrganizationSaga(action) {
+  console.log(action.payload);
+  console.log(action.payload.dataId);
+  const organizationId = action.payload.dataId;
   try {
-    yield axios.delete(`/api/organizations/${action.payload}`);
+    yield axios.delete(`/api/organizations/${organizationId}`);
     yield put({ type: "FETCH_ORGANIZATIONS" });
   } catch (error) {
     console.log("error with deleteOrganizationSaga request", error);
@@ -33,21 +36,23 @@ function* deleteOrganizationSaga(action) {
 function* editOrganizationSaga(action) {
   try {
     console.log("ACTION PAYLOAD IS", action.payload);
-    const response = yield axios.put(`/api/organizations/${action.payload.id}`, {
-      organization_name: action.payload.organization_name,
-      type: action.payload.type,
-      address: action.payload.address,
-      city: action.payload.city,
-      state: action.payload.state,
-      zip: action.payload.zip,
-      primary_contact_first_name: action.payload.primary_contact_first_name,
-      primary_contact_last_name: action.payload.primary_contact_last_name,
-      primary_contact_phone: action.payload.primary_contact_phone,
-      primary_contact_email: action.payload.primary_contact_email,
-      organization_earnings: action.payload.organization_earnings,
-      organization_logo: action.payload.organization_logo,
-
-    });
+    const response = yield axios.put(
+      `/api/organizations/${action.payload.id}`,
+      {
+        organization_name: action.payload.organization_name,
+        type: action.payload.type,
+        address: action.payload.address,
+        city: action.payload.city,
+        state: action.payload.state,
+        zip: action.payload.zip,
+        primary_contact_first_name: action.payload.primary_contact_first_name,
+        primary_contact_last_name: action.payload.primary_contact_last_name,
+        primary_contact_phone: action.payload.primary_contact_phone,
+        primary_contact_email: action.payload.primary_contact_email,
+        organization_earnings: action.payload.organization_earnings,
+        organization_logo: action.payload.organization_logo,
+      }
+    );
     console.log("RESPONSE IS", response);
     yield put({ type: "FETCH_ORGANIZATIONS", payload: action.payload });
   } catch (error) {

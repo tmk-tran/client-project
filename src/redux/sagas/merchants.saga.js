@@ -55,14 +55,15 @@ function* editMerchant(action) {
 }
 
 function* deleteMerchantSaga(action) {
-  console.log(action.payload);
   const merchantId = action.payload.dataId;
   const archiveReason = action.payload.archiveReason;
   console.log(merchantId);
   console.log(archiveReason);
 
   try {
-    yield axios.delete(`/api/merchants/${merchantId}`, { data: { archiveReason } });
+    yield axios.delete(`/api/merchants/${merchantId}`, {
+      data: { archiveReason },
+    });
     yield put({ type: "FETCH_MERCHANTS" });
   } catch (error) {
     console.log("error with deleteMerchantSaga request", error);

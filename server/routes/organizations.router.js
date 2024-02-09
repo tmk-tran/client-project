@@ -169,6 +169,8 @@ router.post("/", (req, res) => {
 
 // DELETE
 router.delete("/:id", (req, res) => {
+    console.log("PARAMS FROM ORG ROUTER", req.params.id);
+    console.log("BODY FROM ORG ROUTER", req.body);
   pool
     .query(`UPDATE "organization" SET is_deleted = true WHERE id = $1;`, [
       req.params.id,

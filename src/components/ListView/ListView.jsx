@@ -113,7 +113,7 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
             // Log dispatched actions and payloads
             console.log("Dispatching DELETE action:", {
               type: `DELETE_${isMerchantList ? "MERCHANT" : "ORGANIZATION"}`,
-              payload: { dataId, archiveReason },
+              payload: isMerchantList ? { dataId, archiveReason } : { dataId },
             });
 
             console.log("Dispatching FETCH action:", {
@@ -122,7 +122,7 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
 
             dispatch({
               type: `DELETE_${isMerchantList ? "MERCHANT" : "ORGANIZATION"}`,
-              payload: { dataId, archiveReason }
+              payload: isMerchantList ? { dataId, archiveReason } : { dataId },
             });
 
             dispatch({

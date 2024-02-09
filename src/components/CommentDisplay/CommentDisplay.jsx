@@ -28,12 +28,14 @@ export default function CommentDisplay({
   console.log(date);
   const time = comment.formatted_time;
   console.log(time);
-
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // Display only the most recent comment if showAllComments is false
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const mostRecentComment = !showAllComments
     ? comment
     : [comment[comment.length - 1]];
   console.log(mostRecentComment);
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   return (
     <div
