@@ -22,6 +22,7 @@ import {
   capitalizeStateAbbr,
   capitalize,
 } from "../Utils/helpers";
+import AddFileButton from "../AddFileButton/AddFileButton";
 
 const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const dispatch = useDispatch();
@@ -39,9 +40,16 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
     }));
   };
 
+  const handleFileSelection = (uploadedFile) => {
+    console.log(uploadedFile);
+    setEditedAccount({ ...editedAccount, uploadedFile });
+  };
+
   const handleEditSave = (editedAccount) => {
     if (!isMerchantList) {
-      dispatch({ type: "EDIT_ORGANIZATION", payload: editedAccount });
+      const payload = { editedAccount };
+      console.log(payload);
+      dispatch({ type: "EDIT_ORGANIZATION", payload });
       dispatch({ type: "FETCH_ORGANIZATIONS" });
     } else {
       dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedAccount });
@@ -177,14 +185,31 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~ */}
             <Grid item xs={!isMerchantList ? 8 : 12}>
-              <TextField
+              {/* <TextField
                 label="Logo URL (optional)"
                 fullWidth
                 value={editedAccount.organization_logo}
                 onChange={(e) =>
                   handleChange("organization_logo", e.target.value)
                 }
-              />
+              /> */}
+              {/* <TextField
+                disabled
+                // label="Logo (optional)"
+                fullWidth
+                value={editedAccount.filename ? editedAccount.filename : "No Current Logo"}
+                onChange={(e) =>
+                  handleChange("organization_logo", e.target.value)
+                }
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AddFileButton />
+                    </InputAdornment>
+                  ),
+                }}
+              /> */}
+              <AddFileButton filename={editedAccount.filename} onFileSelect={handleFileSelection}  />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~ */}

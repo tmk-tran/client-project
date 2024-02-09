@@ -9,7 +9,23 @@ router.get("/", (req, res) => {
   pool
     .query(
       `  SELECT
-      o.*,
+      o.id,
+      o.organization_name,
+      o.type,
+      o.address,
+      o.city,
+      o.state,
+      o.zip,
+      o.primary_contact_first_name,
+      o.primary_contact_last_name,
+      o.primary_contact_phone,
+      o.primary_contact_email,
+      o.is_deleted,
+      o.organization_earnings,
+      encode(o.organization_logo, 'base64') AS organization_logo_base64,
+      o.filename,
+      COALESCE(group_count.total_groups, 0) AS total_groups,
+      COALESCE(fundraiser_count.total_fundraisers, 0) AS total_fundraisers,
       COALESCE(group_count.total_groups, 0) AS total_groups,
       COALESCE(fundraiser_count.total_fundraisers, 0) AS total_fundraisers,
       COALESCE(closed_fundraiser_count.total_closed_fundraisers, 0) AS total_closed_fundraisers,
@@ -18,8 +34,7 @@ router.get("/", (req, res) => {
       COALESCE(total_outstanding_balance.total_outstanding_balance, 0) AS total_outstanding_balance,
       COALESCE(total_books_sold.total_books_sold, 0) * COALESCE(o.organization_earnings, 0) AS total_org_earnings,
       COALESCE(total_checked_out_books.total_checked_out_books, 0) AS total_checked_out_books,
-      COALESCE(total_checked_in_books.total_checked_in_books, 0) AS total_checked_in_books,
-      encode(o.organization_logo, 'base64') AS organization_logo_base64
+      COALESCE(total_checked_in_books.total_checked_in_books, 0) AS total_checked_in_books
   FROM
       organization o
   LEFT JOIN (
@@ -276,6 +291,7 @@ router.delete("/:id", (req, res) => {
 router.put("/:id", upload.single("organization_logo"), (req, res) => {
   const organizationId = req.params.id;
   const organization = req.body;
+  console.log(organization);
   const organization_logo = req.file ? req.file.buffer : null;
 
   const queryText = `
@@ -292,8 +308,9 @@ router.put("/:id", upload.single("organization_logo"), (req, res) => {
         "primary_contact_phone" = $9,
         "primary_contact_email" = $10,
         "organization_earnings" = $11,
-        "organization_logo" = $12
-      WHERE "id" = $13;`;
+        "organization_logo" = $12,
+        "filename" = $13
+      WHERE "id" = $14;`;
 
   const values = [
     organization.organization_name,
@@ -308,6 +325,7 @@ router.put("/:id", upload.single("organization_logo"), (req, res) => {
     organization.primary_contact_email,
     organization.organization_earnings,
     organization_logo,
+    organization.filename,
     organizationId,
   ];
 

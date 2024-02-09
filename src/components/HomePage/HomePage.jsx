@@ -257,7 +257,6 @@ function HomePage() {
                     onChange={handleEdit}
                     editComplete={editComplete}
                     setEditComplete={setEditComplete}
-                    decodeBytea={decodeBytea}
                   />
                 ))
               : currentItems.map((organization, index) => (

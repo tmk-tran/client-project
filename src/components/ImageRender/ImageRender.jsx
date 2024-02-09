@@ -6,7 +6,11 @@ const ImageRender = ({ base64Logo }) => {
   }
 
   return (
-    <img className="logoImage" src={`data:image/jpeg;base64,${base64Logo}`} alt="Organization Logo" />
+    <img
+      className="logoImage"
+      src={`data:image/jpeg;base64,${base64Logo}`}
+      alt="Organization Logo"
+    />
   );
 };
 
