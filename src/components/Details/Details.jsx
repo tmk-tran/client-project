@@ -35,7 +35,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export default function Details({ isMerchantTaskPage, isTaskPage }) {
+export default function Details({
+  isMerchantTaskPage,
+  isTaskPage,
+  isMerchantDetails,
+}) {
+  console.log(isMerchantTaskPage);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
@@ -56,7 +61,8 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   const groups = oGroups();
   console.log(groups);
   // const notes = oNotes();
-  const notes = !isMerchantTaskPage ? oNotes() : mNotes();
+  // const notes = !isMerchantTaskPage ? oNotes() : mNotes();
+  const notes = isMerchantDetails ? mNotes() : oNotes();
   console.log(notes);
   const merchantDetails = mDetails();
   console.log(merchantDetails);
@@ -70,7 +76,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
     });
 
     dispatch({
-      type: isMerchantTaskPage
+      type: isMerchantTaskPage || isMerchantDetails
         ? "FETCH_MERCHANT_DETAILS"
         : "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
@@ -124,7 +130,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
           <div className="detailsView-container">
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
-                {!isTaskPage && !isMerchantTaskPage && (
+                {!isTaskPage && !isMerchantTaskPage && !isMerchantDetails && (
                   <NotesDisplay notes={notes} orgDetails={orgDetails} />
                 )}
 
@@ -135,7 +141,9 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                     caseType={1}
                   />
                 )}
+                {/* ////////////////////////////////// */}
                 {/* Check if it's a merchant task page */}
+                {/* ////////////////////////////////// */}
                 {isMerchantTaskPage &&
                   // Map over merchantDetails and pass each object to NotesDisplay
                   merchantDetails.map((merchantInfo) => (
@@ -144,6 +152,18 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                       notes={notes}
                       orgDetails={merchantInfo}
                       isMerchantTaskPage={isMerchantTaskPage}
+                    />
+                  ))}
+                {/* ///////////////////////////////////// */}
+                {/* Check if it's a merchant details view */}
+                {/* ///////////////////////////////////// */}
+                {isMerchantDetails && 
+                  merchantDetails.map((merchantInfo) => (
+                    <NotesDisplay
+                      key={merchantInfo.id}
+                      notes={notes}
+                      orgDetails={merchantInfo}
+                      isMerchantTaskPage={true}
                     />
                   ))}
 
@@ -211,7 +231,11 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                     {/* REMOVE AFTER COUPON CARD IS INSERTED */}
                     <div className="MerchantDetailsCard-container">
                       {merchantDetails.map((merchant, i) => (
-                        <CouponReviewCard key={i} merchant={merchant} onTaskUpdate={handleTaskUpdate} />
+                        <CouponReviewCard
+                          key={i}
+                          merchant={merchant}
+                          onTaskUpdate={handleTaskUpdate}
+                        />
                       ))}
 
                       {/* <CouponReviewCard  /> */}

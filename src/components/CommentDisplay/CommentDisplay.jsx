@@ -6,6 +6,18 @@ export default function CommentDisplay({
   comment,
   showAllComments,
 }) {
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // Check if the comment is null or undefined
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  if (!comment || comment.length === 0) {
+    return (
+      <div style={border}>
+        <Typography>No Comments Available</Typography>
+      </div>
+    );
+  }
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
   const content = comment.comment_content;
   console.log(content);
   const user = comment.user;
@@ -16,10 +28,6 @@ export default function CommentDisplay({
   console.log(date);
   const time = comment.formatted_time;
   console.log(time);
-
-  if (!comment || comment.length === 0) {
-    return <Typography>No Comments Available</Typography>;
-  }
 
   // Display only the most recent comment if showAllComments is false
   const mostRecentComment = !showAllComments
@@ -59,7 +67,14 @@ export default function CommentDisplay({
         >
           •
         </span>
-        {content ? (
+        {/* {content ? (
+          <Typography variant="body2" sx={{ ml: 3 }}>
+            {capitalizeFirstWord(content)}
+          </Typography>
+        ) : (
+          <Typography>No Comments Available</Typography>
+        )} */}
+        {content !== undefined && content !== "" ? (
           <Typography variant="body2" sx={{ ml: 3 }}>
             {capitalizeFirstWord(content)}
           </Typography>
