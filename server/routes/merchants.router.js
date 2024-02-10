@@ -4,6 +4,10 @@ const router = express.Router();
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
+// ~~~~~~~~~~ Upload Files ~~~~~~~~~~
+const multer = require("multer");
+const storage = multer.memoryStorage(); // Store files in memory
+const upload = multer({ storage: storage });
 
 router.get("/", rejectUnauthenticated, (req, res) => {
   // const queryText = `SELECT * FROM merchant;`;
@@ -55,10 +59,11 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", upload.single("merchant_logo"), (req, res) => {
   const data = req.body;
   console.log(req.body);
   console.log(req.user);
+  const merchantLogo = req.file.buffer;
 
   const merchantName = data.merchant_name;
   const address = data.address;
@@ -69,7 +74,8 @@ router.post("/", (req, res) => {
   const primaryContactLastName = data.primary_contact_last_name;
   const contactPhoneNumber = data.contact_phone_number;
   const contactEmail = data.contact_email;
-  const merchantLogo = data.merchant_logo;
+  // const merchantLogo = data.merchant_logo;
+  const filename = data.filename;
 
   const queryText = `
       INSERT INTO "merchant" (
@@ -82,9 +88,10 @@ router.post("/", (req, res) => {
         "primary_contact_last_name",
         "contact_phone_number",
         "contact_email",
-        "merchant_logo"
+        "merchant_logo",
+        "filename"
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
 
   pool
     .query(queryText, [
@@ -98,6 +105,7 @@ router.post("/", (req, res) => {
       contactPhoneNumber,
       contactEmail,
       merchantLogo,
+      filename,
     ])
     .then((response) => {
       console.log("response from POST merchants.router: ", response.rows);

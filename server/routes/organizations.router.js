@@ -1,6 +1,7 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+// ~~~~~~~~~~ Upload Files ~~~~~~~~~~
 const multer = require("multer");
 const storage = multer.memoryStorage(); // Store files in memory
 const upload = multer({ storage: storage });
@@ -203,9 +204,10 @@ router.post("/", upload.single("organization_logo"), (req, res) => {
         "primary_contact_phone",
         "primary_contact_email",
         "organization_earnings",
-        "organization_logo"
+        "organization_logo",
+        "filename"
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
 
   pool
     .query(queryText, [
@@ -221,6 +223,7 @@ router.post("/", upload.single("organization_logo"), (req, res) => {
       organization.primary_contact_email,
       organization.organization_earnings,
       organizationLogo, // Use the file buffer as the organization logo
+      organization.filename,
     ])
     .then((response) => {
       res.sendStatus(201);
