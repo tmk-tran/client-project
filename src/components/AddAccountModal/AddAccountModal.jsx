@@ -173,13 +173,14 @@ export default function AddOrganizationModal({
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~ HEADER ~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ///~~~~~~~~~~~~~~~~~~/// */}
           {/* ///~~ CLOSE BUTTON ~~/// */}
           <CloseButton handleClose={cancelAdd} />
           {/* ///~~~~~~~~~~~~~~~~~~/// */}
           <Typography variant="h6" sx={modalHeaderStyle}>
             {!isMerchantList ? "Add New Organization" : "Add New Merchant"}
           </Typography>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~ END HEADER ~~~~~~~~~~~~~~ */}
           <Divider sx={headerDivider} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Grid container spacing={2}>
