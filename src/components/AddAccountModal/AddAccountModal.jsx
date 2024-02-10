@@ -18,6 +18,8 @@ import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { hoverAccept, primaryColor } from "../Utils/colors";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~
 import StateFieldInput from "./StateFieldInput";
+import WebsiteInput from "./WebsiteInput";
+import RadioButtons from "./RadioButtons";
 
 export default function AddOrganizationModal({
   open,
@@ -35,16 +37,20 @@ export default function AddOrganizationModal({
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
-  console.log(state);
   const [zip, setZip] = useState("");
   const [contactFirstName, setContactFirstName] = useState("");
   const [contactLastName, setContactLastName] = useState("");
   const [contactPhone, setContactPhone] = useState("");
   const [contactEmail, setContactEmail] = useState("");
-  const [logoUrl, setLogoUrl] = useState("");
+  const [logoFile, setLogoFile] = useState("");
+  console.log(logoFile);
   const [orgEarnings, setOrgEarnings] = useState(10);
-  const [merchantWebsite, setMerchantWebsite] = useState("");
-  const [websiteError, setWebsiteError] = useState("");
+  const [selectedChoice, setSelectedChoice] = useState("");
+  console.log(selectedChoice);
+
+  const handleLogoSelection = (selectedFile) => {
+    setLogoFile(selectedFile);
+  };
 
   // Save function to dispatch data for new organization
   const handleSave = () => {
@@ -62,7 +68,7 @@ export default function AddOrganizationModal({
             primary_contact_last_name: contactLastName,
             primary_contact_phone: contactPhone,
             primary_contact_email: contactEmail,
-            organization_logo: logoUrl,
+            organization_logo: logoFile,
             organization_earnings: orgEarnings,
           },
         })
@@ -78,7 +84,7 @@ export default function AddOrganizationModal({
             primary_contact_last_name: contactLastName,
             contact_phone_number: contactPhone,
             contact_email: contactEmail,
-            merchant_logo: logoUrl,
+            merchant_logo: logoFile,
             organization_earnings: orgEarnings,
           },
         });
@@ -98,6 +104,7 @@ export default function AddOrganizationModal({
   // clear input fields function
   const clearFields = () => {
     setOrganizationName("");
+    setMerchantName("");
     setOrganizationType("");
     setAddress("");
     setCity("");
@@ -107,7 +114,7 @@ export default function AddOrganizationModal({
     setContactLastName("");
     setContactPhone("");
     setContactEmail("");
-    setLogoUrl("");
+    setLogoFile("");
     setOrgEarnings(10);
   };
 
@@ -143,25 +150,16 @@ export default function AddOrganizationModal({
     return value.charAt(0).toUpperCase() + value.slice(1);
   };
 
-  const handleWebsiteField = (event) => {
-    const value = event.target.value;
-    setMerchantWebsite(value);
-
-    // Validate website format
-    const websiteRegex =
-      /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
-    if (!websiteRegex.test(value)) {
-      setWebsiteError(
-        "Please enter a valid website format (e.g., www.example.com)"
-      );
-    } else {
-      setWebsiteError("");
-    }
-  };
-
   const stateInput = (value) => {
     setState(value);
   };
+
+  const handleSelectionChange = (choice) => {
+    setSelectedChoice(choice);
+  };
+
+  // Define your choices
+  const choices = ["Text", "Email", "Phone", "In-person visit"];
 
   return (
     <div>
@@ -258,7 +256,6 @@ export default function AddOrganizationModal({
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ STATE ~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
-              
               <StateFieldInput label={"State*"} stateInput={stateInput} />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -274,32 +271,33 @@ export default function AddOrganizationModal({
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ WEBSITE (needs router adjustment) ~~~~~~~~~~~~~~~ */}
+            <Grid item xs={12}>
+              <WebsiteInput label="Website (optional)" />
+            </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* <Divider sx={dividerMarginTop}  /> */}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* //////////////////////////////////// */}
             {/* ////////// CONTACT INFO //////////// */}
             {/* //////////////////////////////////// */}
             <Divider sx={dividerMarginTop} />
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                 Primary Contact
               </Typography>
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Website (optional)"
-                fullWidth
-                value={merchantWebsite}
-                onChange={handleWebsiteField}
-                error={!!websiteError}
-                helperText={websiteError}
+            {/* <Grid item xs={3}>
+              <RadioButtons
+                choices={choices}
+                onSelectionChange={handleSelectionChange}
               />
-            </Grid>
+            </Grid> */}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ FIRST NAME~~~~~~~~~~~~~ */}
             <Grid item xs={6}>
               <TextField
-                label="Contact First Name"
+                label="Contact First Name*"
                 fullWidth
                 value={contactFirstName}
                 onChange={(e) => setContactFirstName(e.target.value)}
@@ -341,7 +339,7 @@ export default function AddOrganizationModal({
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={12}>
-              <AddFileButton />
+              <AddFileButton onFileSelect={handleLogoSelection} />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~~ */}
