@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 // Styles
 import {
@@ -19,10 +19,13 @@ import OrgDetailsEdit from "../OrgDetailsEdit/OrgDetailsEdit";
 import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
 // Utils
 import { formatPhoneNumber } from "../Utils/helpers";
+import { useParams } from "react-router-dom";
 
-export default function OrgContactDetails({ info }) {
+export default function OrgContactDetails() {
   const dispatch = useDispatch();
-  const contactPhone = formatPhoneNumber(info[0].primary_contact_phone);
+  const id = Number(useParams().id);
+  const info = useSelector((store) => store.orgDetailsReducer)
+  const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
 
   const [isEditing, setIsEditing] = useState(false);
@@ -47,6 +50,13 @@ export default function OrgContactDetails({ info }) {
     dispatch({ type: "EDIT_ORG_DETAILS", payload: editedOrg });
   };
 
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_ORG_DETAILS",
+      payload: id,
+    });
+  }, [])
+
   return (
     <>
       <div className="org-details">
@@ -68,20 +78,26 @@ export default function OrgContactDetails({ info }) {
               </div>
             </center>
           </div>
-          <div className="org-address">
-            <div className="org-name-container">
-              <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                {info[0].organization_name}
-              </Typography>
-            </div>
-            <Typography>{info.address}</Typography>
-            <Typography>
-              {info[0].city}, {info[0].state} {info[0].zip}
-            </Typography>
-          </div>
-          <br />
-        </div>
 
+          {info.map(info => {
+            return (
+              <div className="org-address">
+                <div className="org-name-container">
+                  <Typography variant="h5" style={{ fontWeight: "bold" }}>
+                    {info.organization_name}
+                  </Typography>
+                </div>
+                <Typography>{info.address}</Typography>
+                <Typography>
+                  {info.city}, {info.state} {info.zip}
+                </Typography>
+              </div>
+            )
+          })}
+
+              < br />
+        </div>
+      
         {/* Organization Contact Details Card */}
         <Card
           elevation={5}

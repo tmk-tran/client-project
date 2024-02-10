@@ -23,35 +23,37 @@ import "react-toastify/dist/ReactToastify.css";
 export default function orgDetails() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const paramsObject = useParams();
+  const id = Number(useParams().id);
   const dispatch = useDispatch();
   // Store
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
   const groups = useSelector((store) => store.orgGroups);
   const notes = useSelector((store) => store.orgNotes);
+  console.log(id)
   // State
 
   useEffect(() => {
     dispatch({
       type: "FETCH_ORG_DETAILS",
-      payload: paramsObject.id,
-    });
+      payload: id,
+    });}, [])
+    useEffect(() => {
     dispatch({
       type: "FETCH_ORG_GROUPS",
-      payload: paramsObject.id,
+      payload: id,
     });
     dispatch({
       type: "FETCH_ORG_NOTES",
-      payload: paramsObject.id,
+      payload: id,
     });
     dispatch({
       type: "FETCH_ORGANIZATIONS",
     });
     dispatch({
       type: "FETCH_ORG_FUNDRAISERS",
-      payload: paramsObject.id,
+      payload: id,
     });
-  }, []);
+  }, [detailsOrg]);
 
   // // Create a map to store organization details and associated groups
   // const orgMap = new Map();
