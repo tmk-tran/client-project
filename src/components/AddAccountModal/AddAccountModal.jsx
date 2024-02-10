@@ -16,6 +16,8 @@ import AddFileButton from "../AddFileButton/AddFileButton";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
 import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { hoverAccept, primaryColor } from "../Utils/colors";
+// ~~~~~~~~~~~ Components ~~~~~~~~~~~
+import StateFieldInput from "./StateFieldInput";
 
 export default function AddOrganizationModal({
   open,
@@ -33,6 +35,7 @@ export default function AddOrganizationModal({
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
+  console.log(state);
   const [zip, setZip] = useState("");
   const [contactFirstName, setContactFirstName] = useState("");
   const [contactLastName, setContactLastName] = useState("");
@@ -40,6 +43,8 @@ export default function AddOrganizationModal({
   const [contactEmail, setContactEmail] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
   const [orgEarnings, setOrgEarnings] = useState(10);
+  const [merchantWebsite, setMerchantWebsite] = useState("");
+  const [websiteError, setWebsiteError] = useState("");
 
   // Save function to dispatch data for new organization
   const handleSave = () => {
@@ -138,6 +143,26 @@ export default function AddOrganizationModal({
     return value.charAt(0).toUpperCase() + value.slice(1);
   };
 
+  const handleWebsiteField = (event) => {
+    const value = event.target.value;
+    setMerchantWebsite(value);
+
+    // Validate website format
+    const websiteRegex =
+      /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
+    if (!websiteRegex.test(value)) {
+      setWebsiteError(
+        "Please enter a valid website format (e.g., www.example.com)"
+      );
+    } else {
+      setWebsiteError("");
+    }
+  };
+
+  const stateInput = (value) => {
+    setState(value);
+  };
+
   return (
     <div>
       <Modal
@@ -233,13 +258,8 @@ export default function AddOrganizationModal({
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ STATE ~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
-              <TextField
-                required
-                label="State"
-                fullWidth
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-              />
+              
+              <StateFieldInput label={"State*"} stateInput={stateInput} />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ ZIP ~~~~~~~~~~~~~~~~~~ */}
@@ -260,10 +280,20 @@ export default function AddOrganizationModal({
             {/* ////////// CONTACT INFO //////////// */}
             {/* //////////////////////////////////// */}
             <Divider sx={dividerMarginTop} />
-            <Grid item xs={8}>
+            <Grid item xs={6}>
               <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                 Primary Contact
               </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Website (optional)"
+                fullWidth
+                value={merchantWebsite}
+                onChange={handleWebsiteField}
+                error={!!websiteError}
+                helperText={websiteError}
+              />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ FIRST NAME~~~~~~~~~~~~~ */}
@@ -311,12 +341,6 @@ export default function AddOrganizationModal({
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={12}>
-              {/* <TextField
-                label="Logo URL (optional)"
-                fullWidth
-                value={logoUrl}
-                onChange={(e) => setLogoUrl(e.target.value)}
-              /> */}
               <AddFileButton />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}

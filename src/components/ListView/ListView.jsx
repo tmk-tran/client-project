@@ -16,6 +16,7 @@ import ImageRender from "../ImageRender/ImageRender";
 function ListView({ data, isMerchantList, onChange, editComplete }) {
   console.log(data);
   console.log(data.organization_logo_base64);
+  console.log(data.merchant_logo_base64);
   console.log(isMerchantList);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -31,68 +32,26 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
     onChange();
   };
 
-  // const renderLogoOrInitials = () => {
-
-  //   if (data.organization_logo) {
-  //     return (
-  //       <img
-  //         className="logoImage"
-  //         src={data.organization_logo}
-  //         alt="Organization Logo"
-  //       />
-  //     );
-  //   } else {
-  //     const initials =
-  //       data.organization_name !== undefined
-  //         ? data.organization_name
-  //             .split(" ")
-  //             .map((word) => word[0])
-  //             .join("")
-  //             .toUpperCase()
-  //         : null;
-
-  //     return <div className="initialsContainer">{initials}</div>;
-  //   }
-  // };
-
   const renderLogoOrInitials = () => {
-    if (!isMerchantList) {
-      // if (data.organization_logo) {
-      //   return (
-      //     <img
-      //       className="logoImage"
-      //       src={data.organization_logo}
-      //       alt="Organization Logo"
-      //     />
-      //   );
-      // } else {
-      //   const initials =
-      //     data.organization_name !== undefined
-      //       ? data.organization_name
-      //           .split(" ")
-      //           .map((word) => word[0])
-      //           .join("")
-      //           .toUpperCase()
-      //       : null;
-      if (data.organization_logo_base64) {
-        // Use the ImageComponent to render the logo
-        return <ImageRender base64Logo={data.organization_logo_base64} />;
-      } else {
-        const initials =
-          data.organization_name !== undefined
+    return !isMerchantList ? (
+      data.organization_logo_base64 ? (
+        <ImageRender base64Logo={data.organization_logo_base64} />
+      ) : (
+        <div className="initialsContainer">
+          {data.organization_name
             ? data.organization_name
                 .split(" ")
                 .map((word) => word[0])
                 .join("")
                 .toUpperCase()
-            : null;
-
-        return <div className="initialsContainer">{initials}</div>;
-      }
-    } else {
-      // Add logic here for merchant logos
-      return <div className="initialsContainer">Merchant Logo</div>; // Placeholder, replace with logic for merchant logos
-    }
+            : null}
+        </div>
+      )
+    ) : data.merchant_logo_base64 ? (
+      <ImageRender base64Logo={data.merchant_logo_base64} />
+    ) : (
+      <div className="initialsContainer">Merchant Logo</div>
+    );
   };
 
   const handleArchive = (dataId) => {

@@ -7,13 +7,15 @@ export default function AddFileButton({ filename, onFileSelect }) {
   console.log(filename);
   const [file, setFile] = useState(null);
   console.log(file);
-  //   console.log(file.name);
+  const [isDisabled, setIsDisabled] = useState(true);
+  console.log(isDisabled);
 
   const handleFileChange = (event) => {
     const uploadedFile = event.target.files[0];
     console.log(uploadedFile);
     setFile(uploadedFile);
     onFileSelect(uploadedFile);
+    setIsDisabled(false);
   };
 
   return (
@@ -27,27 +29,12 @@ export default function AddFileButton({ filename, onFileSelect }) {
         id="file-upload"
         onChange={handleFileChange}
       />
-      {/* <label htmlFor="file-upload">
-        <Button variant="contained" component="span" sx={{ height: "100%" }}>
-          <FileUploadIcon />
-          &nbsp;Logo
-        </Button>
-      </label> */}
-      {/* <TextField
-        disabled
-        fullWidth
-        value={file ? file.name : ""}
-        label="File Name"
-        variant="outlined"
-        margin="normal"
-      /> */}
       <TextField
-        disabled
+        // disabled
         fullWidth
-        value={file ? file.name : filename ? filename : "No uploaded logo"}
-        // onChange={(e) =>
-        //   handleChange("organization_logo", e.target.value)
-        // }
+        // value={file ? file.name : filename ? filename : "No uploaded logo"}
+        value={file ? file.name : isDisabled ? "Please upload a high resolution logo" : filename}
+        disabled={isDisabled}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

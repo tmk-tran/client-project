@@ -141,52 +141,6 @@ router.get("/", (req, res) => {
     });
 });
 
-// POST ROUTE
-// router.post("/", (req, res) => {
-//   const organization = req.body;
-//   console.log(req.body);
-//   console.log(req.user);
-//   const queryText = `
-//       INSERT INTO "organization" (
-//         "organization_name",
-//         "type",
-//         "address",
-//         "city",
-//         "state",
-//         "zip",
-//         "primary_contact_first_name",
-//         "primary_contact_last_name",
-//         "primary_contact_phone",
-//         "primary_contact_email",
-//         "organization_earnings",
-//         "organization_logo"
-//       )
-//       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
-
-//   pool
-//     .query(queryText, [
-//       organization.organization_name,
-//       organization.type,
-//       organization.address,
-//       organization.city,
-//       organization.state,
-//       organization.zip,
-//       organization.primary_contact_first_name,
-//       organization.primary_contact_last_name,
-//       organization.primary_contact_phone,
-//       organization.primary_contact_email,
-//       organization.organization_earnings,
-//       organization.organization_logo
-//     ])
-//     .then((response) => {
-//       res.sendStatus(201);
-//     })
-//     .catch((err) => {
-//       console.log("error in organizations POST route", err);
-//       res.sendStatus(500);
-//     });
-// });
-
 router.post("/", upload.single("organization_logo"), (req, res) => {
   const organization = req.body;
   const organizationLogo = req.file.buffer; // Get the file buffer from multer

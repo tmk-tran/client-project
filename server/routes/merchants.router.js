@@ -117,48 +117,71 @@ router.post("/", upload.single("merchant_logo"), (req, res) => {
     });
 });
 
-router.put("/:id", rejectUnauthenticated, (req, res) => {
-  const merchant = req.body;
-  const merchantId = req.params.id;
-  console.log("MERCHANT = ", merchant);
+router.put(
+  "/:id",
+  upload.single("merchant_logo"),
+  rejectUnauthenticated,
+  (req, res) => {
+    const merchant = req.body;
+    const merchantId = req.params.id;
+    console.log("MERCHANT = ", merchant);
+    const merchant_logo = req.file ? req.file.buffer : null;
 
-  // Merchant Details
-  const merchantName = merchant.merchant_name;
-  const address = merchant.address;
-  const city = merchant.city;
-  const state = merchant.state;
-  const zip = merchant.zip;
+    // Merchant Details
+    const merchantName = merchant.merchant_name;
+    const address = merchant.address;
+    const city = merchant.city;
+    const state = merchant.state;
+    const zip = merchant.zip;
 
-  // Merchant Contact Details
-  const firstName = merchant.primary_contact_first_name;
-  const lastName = merchant.primary_contact_last_name;
-  const phone = merchant.contact_phone_number;
-  const email = merchant.contact_email;
+    // Merchant Contact Details
+    const firstName = merchant.primary_contact_first_name;
+    const lastName = merchant.primary_contact_last_name;
+    const phone = merchant.contact_phone_number;
+    const email = merchant.contact_email;
+    const filename = merchant.filename;
 
-  // const user = req.user.id;
-  const queryText = `UPDATE "merchant" SET merchant_name = $1, address = $2, city = $3, state = $4, zip = $5, primary_contact_first_name = $6, primary_contact_last_name = $7, contact_phone_number = $8, contact_email = $9 WHERE id = $10;`;
-  pool
-    .query(queryText, [
-      merchantName,
-      address,
-      city,
-      state,
-      zip,
-      firstName,
-      lastName,
-      phone,
-      email,
-      merchantId,
-    ])
-    .then((response) => {
-      console.log("response from EDIT merchants.router: ", response.rows);
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log("error saving to database, from merchants.router", err);
-      res.sendStatus(500);
-    });
-});
+    // const user = req.user.id;
+    const queryText = `
+        UPDATE "merchant" 
+        SET 
+          merchant_name = $1, 
+          address = $2, 
+          city = $3, 
+          state = $4, 
+          zip = $5, 
+          primary_contact_first_name = $6, 
+          primary_contact_last_name = $7, 
+          contact_phone_number = $8, 
+          contact_email = $9,
+          merchant_logo = $10,
+          filename = $11
+        WHERE id = $12;`;
+    pool
+      .query(queryText, [
+        merchantName,
+        address,
+        city,
+        state,
+        zip,
+        firstName,
+        lastName,
+        phone,
+        email,
+        merchant_logo,
+        filename,
+        merchantId,
+      ])
+      .then((response) => {
+        console.log("response from EDIT merchants.router: ", response.rows);
+        res.sendStatus(200);
+      })
+      .catch((err) => {
+        console.log("error saving to database, from merchants.router", err);
+        res.sendStatus(500);
+      });
+  }
+);
 
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
