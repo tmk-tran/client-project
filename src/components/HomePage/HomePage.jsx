@@ -199,6 +199,9 @@ function HomePage() {
         >
           {!isMerchantList ? "Organization List" : "Merchant List"}
         </Typography>
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~ SEARCH BAR AND ADD BUTTON ~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div
             style={{

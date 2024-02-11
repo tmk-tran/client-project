@@ -143,7 +143,7 @@ router.get("/", (req, res) => {
 
 router.post("/", upload.single("organization_logo"), (req, res) => {
   const organization = req.body;
-  const organizationLogo = req.file.buffer; // Get the file buffer from multer
+  const organizationLogo = req.file ? req.file.buffer : null; // Get the file buffer from multer
 
   const queryText = `
       INSERT INTO "organization" (
@@ -177,7 +177,7 @@ router.post("/", upload.single("organization_logo"), (req, res) => {
       organization.primary_contact_email,
       organization.organization_earnings,
       organizationLogo, // Use the file buffer as the organization logo
-      organization.filename,
+      organization.filename ? organization.filename : null,
     ])
     .then((response) => {
       res.sendStatus(201);
