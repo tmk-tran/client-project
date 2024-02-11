@@ -38,6 +38,7 @@ export default function AddOrganizationModal({
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
+  const [merchantWebsite, setMerchantWebsite] = useState("");
   const [contactFirstName, setContactFirstName] = useState("");
   const [contactLastName, setContactLastName] = useState("");
   const [contactPhone, setContactPhone] = useState("");
@@ -85,7 +86,7 @@ export default function AddOrganizationModal({
             contact_phone_number: contactPhone,
             contact_email: contactEmail,
             merchant_logo: logoFile,
-            organization_earnings: orgEarnings,
+            website: merchantWebsite,
           },
         });
     // clear input fields
@@ -152,6 +153,10 @@ export default function AddOrganizationModal({
 
   const stateInput = (value) => {
     setState(value);
+  };
+
+  const websiteInput = (value) => {
+    setMerchantWebsite(value);
   };
 
   const handleSelectionChange = (choice) => {
@@ -277,7 +282,7 @@ export default function AddOrganizationModal({
             {/* ~~~~~~~~~~~~ WEBSITE (needs router adjustment) ~~~~~~~~~~~~~~~ */}
             {isMerchantList ? (
               <Grid item xs={12}>
-                <WebsiteInput label="Website (optional)" />
+                <WebsiteInput label="Website (optional)" onWebsiteChange={websiteInput} />
               </Grid>
             ) : null}
             {/* //////////////////////////////////// */}

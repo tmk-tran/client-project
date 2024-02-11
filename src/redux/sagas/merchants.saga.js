@@ -26,10 +26,51 @@ function* allMerchants() {
 function* addMerchantSaga(action) {
   try {
     console.log(action.payload);
-    yield axios.post("/api/merchants", action.payload);
-    yield put({ type: "FETCH_MERCHANTS" });
+    //     yield axios.post("/api/merchants", action.payload);
+    //     yield put({ type: "FETCH_MERCHANTS" });
+    //   } catch (error) {
+    //     console.log("error in addMerchantSaga", error);
+    //   }
+    // }
+    // Create a FormData object to send the file data
+    const formData = new FormData();
+    formData.append("merchant_name", action.payload.merchant_name);
+    formData.append("address", action.payload.address);
+    formData.append("city", action.payload.city);
+    formData.append("state", action.payload.state);
+    formData.append("zip", action.payload.zip);
+    formData.append(
+      "primary_contact_first_name",
+      action.payload.primary_contact_first_name
+    );
+    formData.append(
+      "primary_contact_last_name",
+      action.payload.primary_contact_last_name
+    );
+    formData.append(
+      "contact_phone_number",
+      action.payload.contact_phone_number
+    );
+    formData.append("contact_email", action.payload.contact_email);
+
+    // Check if a file is uploaded
+    if (action.payload.merchant_logo !== undefined && action.payload.merchant_logo !== null) {
+      formData.append("merchant_logo", action.payload.merchant_logo);
+      formData.append("filename", action.payload.merchant_logo.name);
+    }
+    formData.append("website", action.payload.website);
+
+    const response = yield axios.post(`/api/merchants`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Set content type to multipart/form-data for file upload
+      },
+    });
+
+    console.log("RESPONSE IS", response);
+
+    yield put({ type: "FETCH_MERCHANTS", payload: action.payload });
   } catch (error) {
-    console.log("error in addMerchantSaga", error);
+    console.log("error in merchant POST", error);
   }
 }
 
@@ -60,10 +101,7 @@ function* editMerchant(action) {
 
     // Create a FormData object to send the file data
     const formData = new FormData();
-    formData.append(
-      "merchant_name",
-      action.payload.merchant_name
-    );
+    formData.append("merchant_name", action.payload.merchant_name);
     formData.append("address", action.payload.address);
     formData.append("city", action.payload.city);
     formData.append("state", action.payload.state);
@@ -80,21 +118,12 @@ function* editMerchant(action) {
       "contact_phone_number",
       action.payload.contact_phone_number
     );
-    formData.append(
-      "contact_email",
-      action.payload.contact_email
-    );
+    formData.append("contact_email", action.payload.contact_email);
 
     // Check if a file is uploaded
     if (action.payload.uploadedFile) {
-      formData.append(
-        "merchant_logo",
-        action.payload.uploadedFile
-      );
-      formData.append(
-        "filename",
-        action.payload.uploadedFile.name
-      );
+      formData.append("merchant_logo", action.payload.uploadedFile);
+      formData.append("filename", action.payload.uploadedFile.name);
     }
 
     const response = yield axios.put(`/api/merchants/${merchantId}`, formData, {

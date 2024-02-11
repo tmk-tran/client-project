@@ -1,8 +1,10 @@
 import React from "react";
 import { List, ListItem, ListItemIcon, Typography } from "@mui/material";
+// ~~~~~~~~~~ Icons ~~~~~~~~~~
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import PublicIcon from '@mui/icons-material/Public';
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { capitalizeWords, centerStyle, centeredStyle } from "../Utils/helpers";
 import { primaryColor } from "../Utils/colors";
@@ -26,7 +28,7 @@ export default function ContactDetailsList({
         )} ${capitalizeWords(info.primary_contact_last_name)}`}</Typography>
       </ListItem>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {/* ~~~~~~~~~~ PHONE NUMBER ~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ PHONE NUMBER ~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <ListItem disablePadding style={centerStyle}>
         <ListItemIcon style={centeredStyle}>
@@ -35,7 +37,7 @@ export default function ContactDetailsList({
         <Typography>{contactPhone}</Typography>
       </ListItem>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {/* ~~~~~~~~~~ EMAIL ~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~ EMAIL ~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <ListItem disablePadding style={centerStyle}>
         <ListItemIcon style={centeredStyle}>
@@ -43,7 +45,11 @@ export default function ContactDetailsList({
         </ListItemIcon>
         {isMerchantTaskPage ? (
           <Typography style={{ maxWidth: "90%", overflowWrap: "break-word" }}>
-            <a href={`mailto:${info.contact_email}`}>{info.contact_email}</a>
+            {info.contact_email ? (
+              <a href={`mailto:${info.contact_email}`}>{info.contact_email}</a>
+            ) : (
+              <Typography>No Email Provided</Typography>
+            )}
           </Typography>
         ) : (
           <Typography>
@@ -53,12 +59,19 @@ export default function ContactDetailsList({
               </a>
             ) : (
               // Render this if no email is provided
-              <>
-                <Typography>No Email Provided</Typography>
-              </>
+              <Typography>No Email Provided</Typography>
             )}
           </Typography>
         )}
+      </ListItem>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~ EMAIL ~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      <ListItem disablePadding style={centerStyle}>
+        <ListItemIcon style={centeredStyle}>
+          <PublicIcon style={primaryColor} />
+        </ListItemIcon>
+        <Typography><a href={info.website} target="_blank" rel="noopener noreferrer">{info.website}</a></Typography>
       </ListItem>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
     </List>
