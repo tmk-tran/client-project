@@ -61,7 +61,9 @@ export default function ContactEdit({
   console.log(phoneError);
   // const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
   const [editedEmail, setEditedEmail] = useState(
-    !isMerchantTaskPage ? info.primary_contact_email || "" : info.contact_email || ""
+    !isMerchantTaskPage
+      ? info.primary_contact_email || ""
+      : info.contact_email || ""
   );
   console.log(editedEmail);
   const [emailError, setEmailError] = useState(false);

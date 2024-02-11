@@ -4,7 +4,7 @@ import { List, ListItem, ListItemIcon, Typography } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import PublicIcon from '@mui/icons-material/Public';
+import PublicIcon from "@mui/icons-material/Public";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { capitalizeWords, centerStyle, centeredStyle } from "../Utils/helpers";
 import { primaryColor } from "../Utils/colors";
@@ -65,14 +65,20 @@ export default function ContactDetailsList({
         )}
       </ListItem>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {/* ~~~~~~~~~~~~ EMAIL ~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~ WEBSITE ~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      <ListItem disablePadding style={centerStyle}>
-        <ListItemIcon style={centeredStyle}>
-          <PublicIcon style={primaryColor} />
-        </ListItemIcon>
-        <Typography><a href={info.website} target="_blank" rel="noopener noreferrer">{info.website}</a></Typography>
-      </ListItem>
+      {isMerchantTaskPage ? (
+        <ListItem disablePadding style={centerStyle}>
+          <ListItemIcon style={centeredStyle}>
+            <PublicIcon style={primaryColor} />
+          </ListItemIcon>
+          <Typography>
+            <a href={info.website} target="_blank" rel="noopener noreferrer">
+              {info.website}
+            </a>
+          </Typography>
+        </ListItem>
+      ) : null}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
     </List>
   );
