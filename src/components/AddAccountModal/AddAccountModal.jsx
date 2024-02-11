@@ -180,15 +180,17 @@ export default function AddOrganizationModal({
           <Typography variant="h6" sx={modalHeaderStyle}>
             {!isMerchantList ? "Add New Organization" : "Add New Merchant"}
           </Typography>
-          {/* ~~~~~~~~~~ END HEADER ~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~ END HEADER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Divider sx={headerDivider} />
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <Grid container spacing={2}>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          <Grid container spacing={1}>
             <Grid item xs={9}>
               <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                 Name / Location
               </Typography>
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~~ */}
             {!isMerchantList ? (
               <Grid item xs={3}>
                 <TextField
@@ -273,12 +275,11 @@ export default function AddOrganizationModal({
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ WEBSITE (needs router adjustment) ~~~~~~~~~~~~~~~ */}
-            <Grid item xs={12}>
-              <WebsiteInput label="Website (optional)" />
-            </Grid>
-            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            {/* <Divider sx={dividerMarginTop}  /> */}
-            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {isMerchantList ? (
+              <Grid item xs={12}>
+                <WebsiteInput label="Website (optional)" />
+              </Grid>
+            ) : null}
             {/* //////////////////////////////////// */}
             {/* ////////// CONTACT INFO //////////// */}
             {/* //////////////////////////////////// */}
@@ -288,12 +289,6 @@ export default function AddOrganizationModal({
                 Primary Contact
               </Typography>
             </Grid>
-            {/* <Grid item xs={3}>
-              <RadioButtons
-                choices={choices}
-                onSelectionChange={handleSelectionChange}
-              />
-            </Grid> */}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ FIRST NAME~~~~~~~~~~~~~ */}
             <Grid item xs={6}>
@@ -337,28 +332,21 @@ export default function AddOrganizationModal({
                 onChange={(e) => setContactEmail(e.target.value)}
               />
             </Grid>
+            <Grid
+              item
+              xs={12}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
+              <RadioButtons
+                choices={choices}
+                onSelectionChange={handleSelectionChange}
+              />
+            </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={12}>
               <AddFileButton onFileSelect={handleLogoSelection} />
             </Grid>
-            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~~ */}
-            {/* {!isMerchantList ? (
-              <Grid item xs={4}>
-                <TextField
-                  label="Organization Fee"
-                  fullWidth
-                  value={orgEarnings}
-                  onChange={(e) => setOrgEarnings(e.target.value)}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">$</InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-            ) : null} */}
           </Grid>
           <br />
           {/* <Button onClick={cancelAdd} variant="outlined" color="primary">

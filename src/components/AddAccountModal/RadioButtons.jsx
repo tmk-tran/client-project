@@ -12,24 +12,24 @@ const RadioButtons = ({ choices, onSelectionChange }) => {
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-    <RadioGroup
-      aria-label="contact-method"
-      name="contact-method"
-      value={selectedOption}
-      onChange={handleOptionChange}
-      row
-    >
-      {choices.map((choice) => (
-        <FormControlLabel
-          key={choice}
-          value={choice}
-          control={<Radio size="small" />}
-          label={choice}
-        />
-      ))}
-    </RadioGroup>
-    </div>
+    <>
+      <RadioGroup
+        aria-label="contact-method"
+        name="contact-method"
+        value={selectedOption}
+        onChange={handleOptionChange}
+        row
+      >
+        {choices.map((choice) => (
+          <FormControlLabel
+            key={choice}
+            value={choice}
+            control={<Radio size="small" />}
+            label={choice}
+          />
+        ))}
+      </RadioGroup>
+    </>
   );
 };
 
