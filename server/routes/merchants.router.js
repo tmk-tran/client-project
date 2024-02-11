@@ -13,8 +13,21 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   // const queryText = `SELECT * FROM merchant;`;
   const queryText = `
   SELECT 
-    *,
-    encode(merchant_logo, 'base64') AS merchant_logo_base64
+    id,
+    merchant_name,
+    address,
+    city,
+    state,
+    zip,
+    primary_contact_first_name,
+    primary_contact_last_name,
+    contact_phone_number,
+    contact_email,
+    is_deleted,
+    archive_reason,
+    encode(merchant_logo, 'base64') AS merchant_logo_base64,
+    filename,
+    website
   FROM 
     merchant 
   WHERE 
@@ -148,7 +161,7 @@ router.put(
     const phone = merchant.contact_phone_number;
     const email = merchant.contact_email;
     const filename = merchant.filename;
-    let website = merchant.website;
+    let website = merchant.website ? merchant.website : null;
 
     // Check if the website address already starts with "http://" or "https://"
     if (!website.startsWith("http://") && !website.startsWith("https://")) {

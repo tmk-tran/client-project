@@ -54,7 +54,10 @@ function* addMerchantSaga(action) {
     formData.append("contact_email", action.payload.contact_email);
 
     // Check if a file is uploaded
-    if (action.payload.merchant_logo !== undefined && action.payload.merchant_logo !== null) {
+    if (
+      action.payload.merchant_logo !== undefined &&
+      action.payload.merchant_logo !== null
+    ) {
       formData.append("merchant_logo", action.payload.merchant_logo);
       formData.append("filename", action.payload.merchant_logo.name);
     }
@@ -119,6 +122,7 @@ function* editMerchant(action) {
       action.payload.contact_phone_number
     );
     formData.append("contact_email", action.payload.contact_email);
+    formData.append("website", action.payload.website);
 
     // Check if a file is uploaded
     if (action.payload.uploadedFile) {
