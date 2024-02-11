@@ -79,7 +79,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
       elevation={6}
       className="details-view-card"
       onClick={() => {
-        history.push(`/coupon/${1}`);
+        history.push(`/coupon/${merchantId}`);
       }}
       // sx={{ height: "80%" }}
     >

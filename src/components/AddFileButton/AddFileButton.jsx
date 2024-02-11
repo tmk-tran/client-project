@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, InputAdornment } from "@mui/material";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import CheckIcon from "@mui/icons-material/Check";
 import { border } from "../Utils/colors";
 
 export default function AddFileButton({ filename, onFileSelect }) {
@@ -33,7 +34,13 @@ export default function AddFileButton({ filename, onFileSelect }) {
         // disabled
         fullWidth
         // value={file ? file.name : filename ? filename : "No uploaded logo"}
-        value={file ? file.name : isDisabled ? "Please upload a high resolution logo" : filename}
+        value={
+          file
+            ? file.name
+            : isDisabled
+            ? "Please upload a high resolution logo"
+            : filename
+        }
         disabled={isDisabled}
         InputProps={{
           startAdornment: (
@@ -48,6 +55,11 @@ export default function AddFileButton({ filename, onFileSelect }) {
                   &nbsp;Logo
                 </Button>
               </label>
+            </InputAdornment>
+          ),
+          endAdornment: file && (
+            <InputAdornment position="end">
+              <CheckIcon color="success" />
             </InputAdornment>
           ),
         }}

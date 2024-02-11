@@ -76,9 +76,10 @@ export default function Details({
     });
 
     dispatch({
-      type: isMerchantTaskPage || isMerchantDetails
-        ? "FETCH_MERCHANT_DETAILS"
-        : "FETCH_ORG_FUNDRAISERS",
+      type:
+        isMerchantTaskPage || isMerchantDetails
+          ? "FETCH_MERCHANT_DETAILS"
+          : "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
     });
     // // Fetch merchant comments if isMerchantTaskPage is true
@@ -116,6 +117,8 @@ export default function Details({
       goal: info.sum,
     });
   });
+
+  const locations = ["Location 1", "Location 2", "Location 3"];
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
@@ -157,7 +160,7 @@ export default function Details({
                 {/* ///////////////////////////////////// */}
                 {/* Check if it's a merchant details view */}
                 {/* ///////////////////////////////////// */}
-                {isMerchantDetails && 
+                {isMerchantDetails &&
                   merchantDetails.map((merchantInfo) => (
                     <NotesDisplay
                       key={merchantInfo.id}
@@ -226,9 +229,22 @@ export default function Details({
 
                 {isMerchantTaskPage && (
                   <>
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~ TASK SECTION ~~~~~~~~~~ */}
                     <DetailsTaskView caseType={"merchantView"} />
 
-                    {/* REMOVE AFTER COUPON CARD IS INSERTED */}
+                    <div>
+                      {locations.map((location, index) => (
+                        <Card key={index} elevation={2}>
+                          <CardContent>
+                            <Typography>{location}</Typography>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~ COUPON REVIEW CARDS ~~~~~ */}
                     <div className="MerchantDetailsCard-container">
                       {merchantDetails.map((merchant, i) => (
                         <CouponReviewCard
