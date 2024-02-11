@@ -187,22 +187,30 @@ export default function ContactEdit({
           gap: 2,
         }}
       >
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~ HEADER ~~~~~~~~ */}
         <Typography
           variant="h5"
           sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
         >
           Edit Contact Information
         </Typography>
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~ FIRST NAME ~~~~~~~~ */}
         <TextField
           label="First Name"
           value={editedFirstName}
           onChange={(e) => setEditedFirstName(e.target.value)}
         />
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~ LAST NAME ~~~~~~~~ */}
         <TextField
           label="Last Name"
           value={editedLastName}
           onChange={(e) => setEditedLastName(e.target.value)}
         />
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~ PHONE ~~~~~~~~~~~ */}
         <TextField
           label="Phone"
           type="tel"
@@ -218,6 +226,8 @@ export default function ContactEdit({
           error={phoneError}
           helperText={phoneError ? "Invalid phone number" : ""}
         />
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~ EMAIL ~~~~~~~~~~~ */}
         <TextField
           label="Email"
           type="email"
@@ -229,14 +239,9 @@ export default function ContactEdit({
           error={emailError}
           helperText={emailError ? "Invalid email format" : ""}
         />
-        <div
-          style={modalBtnStyle}
-          // style={{
-          //   display: "flex",
-          //   flexDirection: "row",
-          //   justifyContent: "space-between",
-          // }}
-        >
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~ BUTTONS ~~~~~~~~~ */}
+        <div style={modalBtnStyle}>
           <Button className="modal-cancel-btn" onClick={handleClose}>
             Cancel
           </Button>

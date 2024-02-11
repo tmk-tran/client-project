@@ -12,7 +12,7 @@ import "../ContactDetails/OrgContactDetails.css";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import EditNoteIcon from "@mui/icons-material/EditNote";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import OrgContactEdit from "../ContactEdit/ContactEdit";
+import ContactEdit from "../ContactEdit/ContactEdit";
 import OrgDetailsEdit from "../DetailsEdit/DetailsEdit";
 import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
@@ -109,7 +109,7 @@ export default function MerchantContactDetails({ info }) {
           <ContactDetailsList info={info} contactPhone={contactPhone} />
 
           <div style={{ marginBottom: "10px" }}>
-            <OrgContactEdit
+            <ContactEdit
               isOpen={isEditing}
               onClose={() => setIsEditing(false)}
               info={info}
