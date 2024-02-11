@@ -13,13 +13,14 @@ import Fuse from "fuse.js";
 import SearchIcon from "@mui/icons-material/Search";
 import ToggleOnIcon from "@mui/icons-material/ToggleOn";
 import ToggleOffIcon from "@mui/icons-material/ToggleOff";
-import AddIcon from '@mui/icons-material/Add';
+import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~
 import AddAccountModal from "../AddAccountModal/AddAccountModal.jsx";
 import ListView from "../ListView/ListView.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { allMerchants } from "../../hooks/reduxStore.js";
+import { border } from "../Utils/colors.js";
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -36,9 +37,11 @@ function HomePage() {
 
   // state for the search and modal and pagination
   const [query, setQuery] = useState(" ");
+  console.log(query);
   const [showInput, setShowInput] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  console.log(currentPage);
   const [editComplete, setEditComplete] = useState(false);
   console.log(editComplete);
   const itemsPerPage = 12;
@@ -69,16 +72,24 @@ function HomePage() {
   // };
 
   // fuzzy search information
-  const fuse = new Fuse(organizationsList, {
-    keys: ["organization_name"],
+  const listToSearch = !isMerchantList ? organizationsList : merchants;
+  console.log(listToSearch);
+  const keys = !isMerchantList ? ["organization_name"] : ["merchant_name"];
+  console.log(keys);
+
+  const fuse = new Fuse(listToSearch, {
+    keys: keys,
     includeScore: true,
     threshold: 0.3,
     minMatchCharLength: 2,
   });
   const results = fuse.search(query);
+  console.log(results);
   const searchResult = results.map((result) => result.item);
+  console.log(searchResult);
 
   const handleOnSearch = (value) => {
+    console.log(value);
     setQuery(value);
     if (!showInput) {
       setShowInput(true);
@@ -88,30 +99,39 @@ function HomePage() {
 
   // clears out the input field
   const clearInput = () => {
-    setQuery(" ");
-    setShowInput(false);
+    setQuery("");
+    // setShowInput(false);
     setCurrentPage(1); // Reset to the first page when clearing the search
   };
 
-  // opens the add org modal
-  const handleAddOrganizationClick = () => {
+  // Opens AddAccountModal
+  const handleAddAccountClick = () => {
     setModalOpen(true);
   };
-  // closes the modal
+  // Closes AddAccountModal
   const handleModalClose = () => {
     setModalOpen(false);
   };
 
-  // index of org for pagination
+  // Index for pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
   const currentItems =
     searchResult.length > 0
       ? searchResult.slice(indexOfFirstItem, indexOfLastItem)
+      : isMerchantList
+      ? merchants.slice(indexOfFirstItem, indexOfLastItem)
       : organizationsList.slice(indexOfFirstItem, indexOfLastItem);
 
+  console.log(currentItems);
+
   const totalItems =
-    searchResult.length > 0 ? searchResult.length : organizationsList.length;
+    searchResult.length > 0
+      ? searchResult.length
+      : !isMerchantList
+      ? organizationsList.length
+      : merchants.length;
   const pageCount = Math.ceil(totalItems / itemsPerPage);
 
   const handlePageChange = (event, value) => {
@@ -130,7 +150,7 @@ function HomePage() {
           {/* ~~~~~~~~~ TOGGLE VIEWS ~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Button
-            variant="outlined"
+            // variant="outlined"
             onClick={() => {
               setIsMerchantList(!isMerchantList);
             }}
@@ -152,13 +172,23 @@ function HomePage() {
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ SEARCH BAR ~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <div style={{ margin: 16 }}>
+          {/* <div style={{ margin: 16 }}>
             {!isMerchantList ? (
-              <SearchBar isOrganization={true} />
+              <SearchBar
+                isOrganization={true}
+                query={query}
+                onChange={handleOnSearch}
+                clearInput={clearInput}
+              />
             ) : (
-              <SearchBar isOrganization={false} />
+              <SearchBar
+                isOrganization={false}
+                query={query}
+                onChange={handleOnSearch}
+                clearInput={clearInput}
+              />
             )}
-          </div>
+          </div> */}
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ PAGE HEADER ~~~~~~~~~~~ */}
@@ -169,78 +199,50 @@ function HomePage() {
         >
           {!isMerchantList ? "Organization List" : "Merchant List"}
         </Typography>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "16px",
-          }}
-        >
-          <Button
-            style={{ marginBottom: "5px" }}
-            variant="outlined"
-            onClick={handleAddOrganizationClick}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              // justifyContent: "center",
+              justifyContent: "space-between",
+              marginTop: "16px",
+              width: "85%",
+            }}
           >
-            {!isMerchantList ? "Add Organization" : "Add Merchant"}
-          </Button>
-        </div>
-
-        {/* {showInput ? (
-              <>
-                <br />
-                <TextField
-                  style={{
-                    marginTop: "10px",
-                    marginLeft: "3%",
-                    borderRadius: "4px",
-                    width: "230px",
-                    backgroundColor: "white",
-                  }}
-                  variant="outlined"
-                  fullWidth
-                  size="small"
-                  label="Search By Organization"
-                  value={query}
-                  onChange={(e) => handleOnSearch(e.target.value)}
-                  InputProps={{
-                    startAdornment: (
-                      <SearchIcon
-                        color="primary"
-                        style={{ marginRight: "10px" }}
-                      />
-                    ),
-                  }}
-                />
-              </>
+            {!isMerchantList ? (
+              <SearchBar
+                isOrganization={true}
+                query={query}
+                onChange={handleOnSearch}
+                clearInput={clearInput}
+              />
             ) : (
-              <SearchIcon
-                color="primary"
-                style={{
-                  marginLeft: "3%",
-                  marginBottom: "-7px",
-                  cursor: "pointer",
-                }}
-                onClick={() => setShowInput(true)}
+              <SearchBar
+                isOrganization={false}
+                query={query}
+                onChange={handleOnSearch}
+                clearInput={clearInput}
               />
             )}
-            {showInput && (
-              <Button
-                style={{
-                  marginTop: "15px",
-                  marginLeft: "10px",
-                  backgroundColor: "#DAA226",
-                  height: "30px",
-                  color: "white",
-                  width: "0px",
-                  fontSize: "13px",
-                }}
-                variant="contained"
-                onClick={clearInput}
-              >
-                Clear
-              </Button>
-            )} */}
+            <Button
+              style={{ marginBottom: "5px" }}
+              variant="outlined"
+              onClick={handleAddAccountClick}
+            >
+              {!isMerchantList ? (
+                <>
+                  <AddBoxIcon sx={{ marginRight: "5px" }} />
+                  Organization
+                </>
+              ) : (
+                <>
+                  <AddBoxIcon sx={{ marginRight: "5px" }} />
+                  Merchant
+                </>
+              )}
+            </Button>
+          </div>
+        </div>
 
         <div className="organizationsContainer">
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -249,7 +251,7 @@ function HomePage() {
 
           {
             isMerchantList
-              ? merchants.map((merchant, index) => (
+              ? currentItems.map((merchant, index) => (
                   <ListView
                     key={index}
                     data={merchant}

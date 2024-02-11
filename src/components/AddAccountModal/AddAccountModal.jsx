@@ -332,31 +332,33 @@ export default function AddOrganizationModal({
                 onChange={(e) => setContactEmail(e.target.value)}
               />
             </Grid>
-            <Grid
-              item
-              xs={12}
-              sx={{ display: "flex", justifyContent: "center" }}
-            >
-              <RadioButtons
-                choices={choices}
-                onSelectionChange={handleSelectionChange}
-              />
-            </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~ PREFERED CONTACT METHOD ~~~~~~ */}
+            {isMerchantList ? (
+              <Grid
+                item
+                xs={12}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
+                <RadioButtons
+                  choices={choices}
+                  onSelectionChange={handleSelectionChange}
+                />
+              </Grid>
+            ) : null}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={12}>
               <AddFileButton onFileSelect={handleLogoSelection} />
             </Grid>
           </Grid>
-          <br />
-          {/* <Button onClick={cancelAdd} variant="outlined" color="primary">
-            Cancel
-          </Button>{" "} */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~~~~~ */}
           <Button
             onClick={handleSave}
             variant="contained"
             color="secondary"
-            sx={hoverAccept}
+            sx={{ mt: 2, ...hoverAccept }}
             fullWidth
           >
             {/* <AddBoxIcon sx={{ mr: 2 }} /> */}

@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Search, Clear } from "@mui/icons-material";
 
-const SearchBar = ({ isOrganization }) => {
-  console.log(isOrganization);
-  const [searchValue, setSearchValue] = useState("");
+const SearchBar = ({ isOrganization, query, onChange, clearInput }) => {
+  
+  const handleChange = (event) => {
+    const { value } = event.target;
+    onChange(value); // Call the onChange function passed from the parent
+  };
 
   const handleClearSearch = () => {
-    setSearchValue(""); // Clear the search value
+    clearInput();
   };
 
   return (
@@ -17,9 +20,8 @@ const SearchBar = ({ isOrganization }) => {
           label="Search Organizations"
           variant="outlined"
           size="small"
-          // value={query}
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+          value={query}
+          onChange={handleChange}
           InputProps={{
             startAdornment: (
               <Search
@@ -28,7 +30,7 @@ const SearchBar = ({ isOrganization }) => {
                 style={{ marginRight: 16 }}
               />
             ),
-            endAdornment: searchValue && (
+            endAdornment: query && (
               <Clear
                 color="action"
                 fontSize="small"
@@ -43,9 +45,8 @@ const SearchBar = ({ isOrganization }) => {
           label="Search Merchants"
           variant="outlined"
           size="small"
-          // value={query}
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+          value={query}
+          onChange={handleChange}
           InputProps={{
             startAdornment: (
               <Search
@@ -54,7 +55,7 @@ const SearchBar = ({ isOrganization }) => {
                 style={{ marginRight: 16 }}
               />
             ),
-            endAdornment: searchValue && (
+            endAdornment: query && (
               <Clear
                 color="action"
                 fontSize="small"

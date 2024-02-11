@@ -118,7 +118,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
                 }
                 onChange={(e) =>
                   handleChange(
-                    !isMerchantList ? "organization_name" : "merchant_name", // Use "merchant_name" if isMerchantList is true
+                    !isMerchantList ? "organization_name" : "merchant_name",
                     capitalize(e.target.value),
                     isMerchantList
                   )
