@@ -10,7 +10,12 @@ import {
 } from "@mui/material";
 import "./ContactEdit.css";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
-import { modalBtnStyle } from "../Utils/helpers";
+import {
+  modalBtnStyle,
+  validateEmail,
+  validatePhoneNumber,
+  validateWebsiteFormat,
+} from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import { showToast } from "../Utils/toasts";
 
@@ -56,12 +61,15 @@ export default function ContactEdit({
   console.log(phoneError);
   // const [editedEmail, setEditedEmail] = useState(info.primary_contact_email);
   const [editedEmail, setEditedEmail] = useState(
-    !isMerchantTaskPage ? info.primary_contact_email : info.contact_email
+    !isMerchantTaskPage ? info.primary_contact_email || "" : info.contact_email || ""
   );
   console.log(editedEmail);
   const [emailError, setEmailError] = useState(false);
   console.log(emailError);
   console.log(name);
+  const [editedWebsite, setEditedWebsite] = useState(info.website);
+  console.log(editedWebsite);
+  const [websiteError, setWebsiteError] = useState(false);
 
   useEffect(() => {
     setOrgType(info.type);
@@ -78,19 +86,6 @@ export default function ContactEdit({
   }, [info, isMerchantTaskPage, isOpen]);
 
   const handleSave = () => {
-    // Validate email before saving
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(editedEmail)) {
-      setEmailError(true);
-      return; // Do not proceed with saving if email is invalid
-    }
-
-    // Validate phone number before saving
-    if (!/^[0-9]*$/.test(editedPhone)) {
-      setPhoneError(true);
-      return;
-    }
-
     const contactInfo = {
       ...info,
     };
@@ -100,6 +95,26 @@ export default function ContactEdit({
     console.log(orgId);
     const merchantId = contactInfo.id;
     console.log(merchantId);
+
+    // Validate phone number before saving
+    // if (!/^[0-9]*$/.test(editedPhone)) {
+    //   setPhoneError(true);
+    //   return;
+    // }
+    if (!validatePhoneNumber(editedPhone)) {
+      setPhoneError(true);
+      return;
+    }
+
+    if (!validateEmail(editedEmail)) {
+      setEmailError(true);
+      return; // Do not proceed with saving if email is invalid
+    }
+
+    if (!validateWebsiteFormat(editedWebsite)) {
+      setWebsiteError(true);
+      return; // Do not proceed with saving if website is invalid
+    }
 
     const editedItem = !isMerchantTaskPage
       ? {
@@ -126,6 +141,7 @@ export default function ContactEdit({
           primary_contact_last_name: editedLastName,
           contact_phone_number: editedPhone,
           contact_email: editedEmail,
+          website: editedWebsite,
         };
 
     // from Utils
@@ -237,7 +253,27 @@ export default function ContactEdit({
             setEmailError(false); // Clear email error when typing
           }}
           error={emailError}
-          helperText={emailError ? "Invalid email format" : ""}
+          helperText={
+            emailError
+              ? "Please enter a valid format (e.g., example@email.com)"
+              : ""
+          }
+        />
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~ WEBSITE ~~~~~~~~~~ */}
+        <TextField
+          label="Website"
+          value={editedWebsite}
+          onChange={(e) => {
+            setEditedWebsite(e.target.value);
+            setWebsiteError(false);
+          }}
+          error={websiteError}
+          helperText={
+            websiteError
+              ? "Please enter a valid format (e.g., www.example.com)"
+              : ""
+          }
         />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~ BUTTONS ~~~~~~~~~ */}

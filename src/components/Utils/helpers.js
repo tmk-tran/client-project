@@ -156,3 +156,22 @@ export const hrStyle = {
 export const tabWidth = {
   width: "25vw",
 };
+
+// Validate phone number format
+export const validatePhoneNumber = (phoneNumber) => {
+  const phoneRegex = /^[0-9]*$/;
+  return phoneRegex.test(phoneNumber) && phoneNumber.length === 10;
+};
+
+// Validate email address format
+export const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return email === "" || emailRegex.test(email);
+};
+
+// Validate website address format
+export const validateWebsiteFormat = (website) => {
+  const websiteRegex =
+    /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
+  return websiteRegex.test(website);
+};
