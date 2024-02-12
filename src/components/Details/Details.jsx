@@ -27,7 +27,6 @@ import {
   mNotes,
   mComments,
 } from "../../hooks/reduxStore";
-import { leftSpace } from "./styleDetails";
 
 // ~~~~~~~~~~ May Use Later ~~~~~~~~~~
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
@@ -115,8 +114,6 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
       goal: info.sum,
     });
   });
-
-  const locations = ["Location 1", "Location 2", "Location 3"];
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>

@@ -10,8 +10,8 @@ export default function LocationsCard() {
   const locations = ["Location 1", "Location 2", "Location 3"];
 
   return (
-    <div style={{ marginTop: "8vh", ...border }}>
-      <Button sx={leftSpace}>
+    <div style={{ marginTop: "8vh" }}>
+      <Button sx={{ mb: 2, ...leftSpace }}>
         <AddBoxIcon sx={buttonIconSpacing} />
         Add Location
       </Button>

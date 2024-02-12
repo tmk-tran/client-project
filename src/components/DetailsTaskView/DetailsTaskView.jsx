@@ -53,6 +53,7 @@ export default function DetailsTaskView({ caseType }) {
             Tasks
           </Typography>
           <div
+          // style={{ height: "28vh" }}
             className={`task-display-container ${
               caseType === "merchantView" ? "merchant-task-view" : ""
             }`}
