@@ -15,6 +15,7 @@ import CouponReviewCard from "../CouponReviewCard/CouponReviewCard";
 import MerchantContactDetails from "../ContactDetails/MerchantContactDetails";
 import BackButton from "../Buttons/BackButton";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
+import LocationsCard from "../LocationsCard/LocationsCard";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { useAlert } from "../SuccessAlert/useAlert";
@@ -26,6 +27,7 @@ import {
   mNotes,
   mComments,
 } from "../../hooks/reduxStore";
+import { leftSpace } from "./styleDetails";
 
 // ~~~~~~~~~~ May Use Later ~~~~~~~~~~
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
@@ -33,13 +35,10 @@ import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
 // ~~~~~~~~~~ Toast ~~~~~~~~~~
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { border } from "../Utils/colors";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export default function Details({
-  isMerchantTaskPage,
-  isTaskPage,
-  isMerchantDetails,
-}) {
+export default function Details({ isMerchantTaskPage, isTaskPage }) {
   console.log(isMerchantTaskPage);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -62,7 +61,7 @@ export default function Details({
   console.log(groups);
   // const notes = oNotes();
   // const notes = !isMerchantTaskPage ? oNotes() : mNotes();
-  const notes = isMerchantDetails ? mNotes() : oNotes();
+  const notes = isMerchantTaskPage ? mNotes() : oNotes();
   console.log(notes);
   const merchantDetails = mDetails();
   console.log(merchantDetails);
@@ -76,10 +75,9 @@ export default function Details({
     });
 
     dispatch({
-      type:
-        isMerchantTaskPage || isMerchantDetails
-          ? "FETCH_MERCHANT_DETAILS"
-          : "FETCH_ORG_FUNDRAISERS",
+      type: isMerchantTaskPage
+        ? "FETCH_MERCHANT_DETAILS"
+        : "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
     });
     // // Fetch merchant comments if isMerchantTaskPage is true
@@ -133,7 +131,7 @@ export default function Details({
           <div className="detailsView-container">
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
-                {!isTaskPage && !isMerchantTaskPage && !isMerchantDetails && (
+                {!isTaskPage && !isMerchantTaskPage && (
                   <NotesDisplay notes={notes} orgDetails={orgDetails} />
                 )}
 
@@ -160,7 +158,7 @@ export default function Details({
                 {/* ///////////////////////////////////// */}
                 {/* Check if it's a merchant details view */}
                 {/* ///////////////////////////////////// */}
-                {isMerchantDetails &&
+                {/* {isMerchantDetails &&
                   merchantDetails.map((merchantInfo) => (
                     <NotesDisplay
                       key={merchantInfo.id}
@@ -168,7 +166,7 @@ export default function Details({
                       orgDetails={merchantInfo}
                       isMerchantTaskPage={true}
                     />
-                  ))}
+                  ))} */}
 
                 <center>
                   {isMerchantTaskPage ? (
@@ -232,17 +230,9 @@ export default function Details({
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     {/* ~~~~~~~~~~ TASK SECTION ~~~~~~~~~~ */}
                     <DetailsTaskView caseType={"merchantView"} />
-
-                    <div>
-                      {locations.map((location, index) => (
-                        <Card key={index} elevation={2}>
-                          <CardContent>
-                            <Typography>{location}</Typography>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~ LOCATION INFO ~~~~~~~~~ */}
+                    <LocationsCard />
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     {/* ~~~~~ COUPON REVIEW CARDS ~~~~~ */}
                     <div className="MerchantDetailsCard-container">
@@ -253,10 +243,6 @@ export default function Details({
                           onTaskUpdate={handleTaskUpdate}
                         />
                       ))}
-
-                      {/* <CouponReviewCard  /> */}
-                      {/* <CouponReviewCard />
-                      <CouponReviewCard /> */}
                     </div>
                   </>
                 )}

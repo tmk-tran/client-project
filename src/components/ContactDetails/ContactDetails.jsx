@@ -18,6 +18,7 @@ import ContactDetailsCard from "./ContactDetailsCard";
 import { capitalizeWords, formatPhoneNumber } from "../Utils/helpers";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
+import { border } from "../Utils/colors";
 
 export default function ContactDetails({ info, isMerchantTaskPage }) {
   console.log(info);
@@ -57,6 +58,7 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
   return (
     <>
       <div className="org-details">
+        
         <div className="org-address-container">
           <div>
             <center>

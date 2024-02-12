@@ -17,7 +17,7 @@ export default function ContactDetailsList({
   return (
     <List style={{ padding: "15px", width: "70%", marginTop: "5px" }}>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {/* ~~~~~~~~~~ CONTACT NAME ~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ CONTACT NAME ~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <ListItem disablePadding style={centerStyle}>
         <ListItemIcon style={centeredStyle}>
@@ -73,9 +73,13 @@ export default function ContactDetailsList({
             <PublicIcon style={primaryColor} />
           </ListItemIcon>
           <Typography>
-            <a href={info.website} target="_blank" rel="noopener noreferrer">
-              {info.website}
-            </a>
+            {info.website ? (
+              <a href={info.website} target="_blank" rel="noopener noreferrer">
+                {info.website}
+              </a>
+            ) : (
+              <Typography>No Website Provided</Typography>
+            )}
           </Typography>
         </ListItem>
       ) : null}

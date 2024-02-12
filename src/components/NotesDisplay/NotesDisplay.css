@@ -1,12 +1,13 @@
-.notes-card-container {
+/* .notes-card-container {
   position: relative;
-}
+} */
 
 .notes-card {
   position: absolute;
-  margin-left: 3vh;
+  /* margin-left: 3vh; */
+  margin-left: 1.5vw;
   width: 50vh;
-  /* border: 1px solid #273b91; */
+  /* border: 1px solid red; */
 }
 
 .orgNotes-container {

@@ -21,6 +21,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { border } from "../Utils/colors";
 
 export default function NotesDisplay({
   notes,
@@ -142,7 +143,7 @@ export default function NotesDisplay({
   
 
   return (
-    <div className="notes-card-container">
+    // <div style={border}>
       <Card
         elevation={3}
         className={`notes-card ${caseType === 1 ? "notes-card-task-view" : ""}`}
@@ -257,6 +258,6 @@ export default function NotesDisplay({
           </div>
         </CardContent>
       </Card>
-    </div>
+    // </div>
   );
 }

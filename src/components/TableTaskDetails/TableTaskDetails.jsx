@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -18,7 +17,6 @@ import { dueDateHighlight } from "../Utils/colors";
 export default function TableTaskDetails({ mId, caseType }) {
   console.log(mId);
   console.log(caseType);
-  const paramsObject = useParams();
   const dispatch = dispatchHook();
   const merchantTasks = mTasks();
   console.log(merchantTasks);
@@ -31,7 +29,9 @@ export default function TableTaskDetails({ mId, caseType }) {
   );
   console.log(toDoTasks);
 
-  const toDoTasksOrg = orgTasks.filter((task) => task.task_status !== "Complete");
+  const toDoTasksOrg = orgTasks.filter(
+    (task) => task.task_status !== "Complete"
+  );
   console.log(toDoTasksOrg);
 
   const fullWidth = {
@@ -135,12 +135,22 @@ export default function TableTaskDetails({ mId, caseType }) {
   };
 
   return (
-    <Table>
-      <TableBody>
-        {caseType === "orgTaskView"
-          ? toDoTasksOrg.map(renderTask)
-          : toDoTasks.map(renderTask)}
-      </TableBody>
-    </Table>
+    <>
+      {caseType === "orgTaskView" ? (
+        toDoTasksOrg.length === 0 ? (
+          <Typography sx={{ textAlign: "center" }}>No current tasks</Typography>
+        ) : (
+          <Table>
+            <TableBody>{toDoTasksOrg.map(renderTask)}</TableBody>
+          </Table>
+        )
+      ) : toDoTasks.length === 0 ? (
+        <Typography sx={{ textAlign: "center" }}>No current tasks</Typography>
+      ) : (
+        <Table>
+          <TableBody>{toDoTasks.map(renderTask)}</TableBody>
+        </Table>
+      )}
+    </>
   );
 }
