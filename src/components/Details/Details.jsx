@@ -63,6 +63,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   const comments = mComments();
   console.log(comments);
   const [alertCaseType, setAlertCaseType] = useState("NewTask");
+  console.log(alertCaseType);
   const locations = mLocations();
   console.log(locations);
 
@@ -230,6 +231,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                     <LocationsCard
                       locations={locations}
                       onLocationAdd={handleTaskUpdate}
+                      onLocationDelete={handleTaskUpdate}
                       handleCaseTypeChange={handleCaseTypeChange}
                     />
                     ) : (

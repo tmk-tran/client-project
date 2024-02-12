@@ -29,9 +29,13 @@ export default function SuccessAlert({ isOpen, onClose, caseType }) {
         <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
           Task has been successfully archived!
         </Alert>
-      ) : caseType === "Location" ? (
+      ) : caseType === "New Location" ? (
         <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
           New location Added!
+        </Alert>
+      ) : caseType === "Delete Location" ? (
+        <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
+          Location Deleted!
         </Alert>
       ) : (
         <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>

@@ -70,13 +70,12 @@ export default function AddLocationModal({
   };
 
   const addLocation = () => {
-
     dispatch({
       type: "ADD_LOCATION",
       payload: newLocationPayload,
     });
 
-    handleCaseTypeChange("Location");
+    handleCaseTypeChange("New Location");
     onLocationAdd();
   };
 
