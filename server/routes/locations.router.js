@@ -93,4 +93,24 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+  const locationId = req.params.id;
+
+  pool
+    .query(
+      `UPDATE "location"
+      SET is_deleted = true
+      WHERE id = $1;`,
+      [locationId]
+    )
+    .then((response) => {
+      console.log(response.rows);
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Error with location DELETE route", error);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

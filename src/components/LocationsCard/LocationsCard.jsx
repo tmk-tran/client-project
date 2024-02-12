@@ -25,28 +25,30 @@ export default function LocationsCard({
         handleCaseTypeChange={handleCaseTypeChange}
       />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {locations.map((location, i) => (
-        <Card key={i} elevation={3} sx={{ width: "54vw", ...leftSpace, mb: 1 }}>
-          <CardContent>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              {/* <Typography>{location.location_name}</Typography>
-              <Typography>
-                Contact Number: {formatPhoneNumber(location.phone_number)}
-              </Typography>
-              <Typography>
-                Additional Details: {location.additional_details}
-              </Typography> */}
-              <LocationsCardTable data={location} />
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+      {locations
+        .filter((location) => !location.is_deleted)
+        .map((location, i) => (
+          <Card
+            key={i}
+            elevation={3}
+            sx={{ width: "54vw", ...leftSpace, mb: 1 }}
+          >
+            <CardContent>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
+                <LocationsCardTable data={location} />
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
     </div>
   );
 }
