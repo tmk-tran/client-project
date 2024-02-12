@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import "./Details.css";
-import { Typography, Card, CardContent } from "@mui/material";
+import { Button, Typography, Card, CardContent } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import ContactDetails from "../ContactDetails/ContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
@@ -27,14 +28,10 @@ import {
   mNotes,
   mComments,
 } from "../../hooks/reduxStore";
-
-// ~~~~~~~~~~ May Use Later ~~~~~~~~~~
-import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
-import OrgNotesModal from "../OrgNotesModal/OrgNotesModal";
-// ~~~~~~~~~~ Toast ~~~~~~~~~~
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { border } from "../Utils/colors";
+import { leftSpace } from "./styleDetails";
+import { buttonIconSpacing } from "../Utils/helpers";
+import AddBox from "../AddBoxIcon/AddBoxIcon";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 export default function Details({ isMerchantTaskPage, isTaskPage }) {
@@ -55,10 +52,8 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   // ~~~~~~~~~~ Hooks ~~~~~~~~~~
   const dispatch = dispatchHook();
   const detailsOrg = oDetails();
-  // console.log(detailsOrg);
   const groups = oGroups();
   console.log(groups);
-  // const notes = oNotes();
   // const notes = !isMerchantTaskPage ? oNotes() : mNotes();
   const notes = isMerchantTaskPage ? mNotes() : oNotes();
   console.log(notes);
@@ -66,6 +61,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   console.log(merchantDetails);
   const comments = mComments();
   console.log(comments);
+  const [alertCaseType, setAlertCaseType] = useState("NewTask");
 
   useEffect(() => {
     dispatch({
@@ -115,9 +111,13 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
     });
   });
 
+  const handleCaseTypeChange = (newCaseType) => {
+    setAlertCaseType(newCaseType);
+  };
+
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
-      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
+      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} caseType={alertCaseType} />
       <div style={{ position: "relative" }}>
         <div style={{ position: "absolute", top: 0, left: 0 }}>
           <BackButton />
@@ -217,10 +217,13 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                     <DetailsTaskView caseType={"merchantView"} />
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     {/* ~~~~~~~~~~ LOCATION INFO ~~~~~~~~~ */}
-                    <LocationsCard />
+                    <LocationsCard onLocationAdd={handleTaskUpdate} handleCaseTypeChange={handleCaseTypeChange} />
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     {/* ~~~~~ COUPON REVIEW CARDS ~~~~~ */}
-                    <div className="MerchantDetailsCard-container">
+                    <div className="MerchantDetailsCard-container" style={border}>
+                      <div style={{ position: "absolute", left: 0, top: 0, ...leftSpace }}>
+                        <AddBox label="Coupon"/>
+                      </div>
                       {merchantDetails.map((merchant, i) => (
                         <CouponReviewCard
                           key={i}

@@ -96,7 +96,7 @@ export default function GroupDetailsCard({ group }) {
   return (
     <>
       <Card
-        elevation={6}
+        elevation={3}
         style={{
           display: "flex",
           flexDirection: "column",

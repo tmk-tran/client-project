@@ -76,7 +76,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
 
   return (
     <Card
-      elevation={6}
+      elevation={3}
       className="details-view-card"
       onClick={() => {
         history.push(`/coupon/${merchantId}`);
