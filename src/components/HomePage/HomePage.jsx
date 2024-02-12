@@ -21,6 +21,7 @@ import SearchBar from "../SearchBar/SearchBar.jsx";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { allMerchants } from "../../hooks/reduxStore.js";
 import { border } from "../Utils/colors.js";
+import { buttonIconSpacing } from "../Utils/helpers.js";
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -234,12 +235,12 @@ function HomePage() {
             >
               {!isMerchantList ? (
                 <>
-                  <AddBoxIcon sx={{ marginRight: "5px" }} />
+                  <AddBoxIcon sx={buttonIconSpacing} />
                   Organization
                 </>
               ) : (
                 <>
-                  <AddBoxIcon sx={{ marginRight: "5px" }} />
+                  <AddBoxIcon sx={buttonIconSpacing} />
                   Merchant
                 </>
               )}

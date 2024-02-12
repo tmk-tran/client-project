@@ -15,19 +15,15 @@ import {
   InputLabel,
 } from "@mui/material";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
-import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
-import CloseIcon from "@mui/icons-material/Close";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { border, hoverAccept } from "../Utils/colors";
-import { useAlert } from "../SuccessAlert/useAlert";
 import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
+import { capitalizeFirstWord } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import DatePicker from "../DatePicker/DatePicker";
 import SearchableSelect from "../NewTaskModal/SearchableSelect";
-import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import CloseButton from "../Buttons/CloseButton";
-import { capitalizeFirstWord } from "../Utils/helpers";
 
 const style = {
   position: "absolute",
@@ -228,7 +224,7 @@ export default function BasicModal({
           // <LibraryAddIcon />
           <AddBoxIcon />
         )}
-        {customText && <span>&nbsp;{customText}</span>}
+        {customText && <span style={{ marginLeft: "5px" }}>{customText}</span>}
       </Button>
 
       <Modal
@@ -357,7 +353,9 @@ export default function BasicModal({
             fullWidth
             sx={{ margin: "10px auto" }}
             value={additionalDetails}
-            onChange={(event) => setAdditionalDetails(capitalizeFirstWord(event.target.value))}
+            onChange={(event) =>
+              setAdditionalDetails(capitalizeFirstWord(event.target.value))
+            }
           />
           {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 

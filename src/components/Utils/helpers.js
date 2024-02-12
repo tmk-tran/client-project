@@ -175,3 +175,8 @@ export const validateWebsiteFormat = (website) => {
     /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
   return websiteRegex.test(website);
 };
+
+// Spacing for buttons with AddBoxIcons
+export const buttonIconSpacing = {
+  marginRight: "5px",
+};
