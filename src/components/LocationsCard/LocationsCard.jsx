@@ -1,10 +1,7 @@
 // ~~~~~~~~~~ Style ~~~~~~~~~~~~~~~~~~~~
-import { Button, Card, CardContent, Typography } from "@mui/material";
+import { Button, Card, CardContent } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
-import { border } from "../Utils/colors";
 import { leftSpace } from "../Details/styleDetails";
-import { formatPhoneNumber } from "../Utils/helpers";
-import { useAlert } from "../SuccessAlert/useAlert";
 import { dispatchHook } from "../../hooks/useDispatch";
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~
 import AddLocationModal from "./AddLocationModal";

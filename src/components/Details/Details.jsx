@@ -17,6 +17,7 @@ import MerchantContactDetails from "../ContactDetails/MerchantContactDetails";
 import BackButton from "../Buttons/BackButton";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import LocationsCard from "../LocationsCard/LocationsCard";
+import AddNewCouponModal from "../CouponReviewCard/AddNewCouponModal";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { useAlert } from "../SuccessAlert/useAlert";
@@ -66,7 +67,6 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   console.log(alertCaseType);
   const locations = mLocations();
   console.log(locations);
-
 
   useEffect(() => {
     dispatch({
@@ -228,15 +228,13 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     {/* ~~~~~~~~~~ LOCATION INFO ~~~~~~~~~ */}
                     {locations ? (
-                    <LocationsCard
-                      locations={locations}
-                      onLocationAdd={handleTaskUpdate}
-                      onLocationDelete={handleTaskUpdate}
-                      handleCaseTypeChange={handleCaseTypeChange}
-                    />
-                    ) : (
-                      null
-                    )}
+                      <LocationsCard
+                        locations={locations}
+                        onLocationAdd={handleTaskUpdate}
+                        onLocationDelete={handleTaskUpdate}
+                        handleCaseTypeChange={handleCaseTypeChange}
+                      />
+                    ) : null}
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     {/* ~~~~~ COUPON REVIEW CARDS ~~~~~ */}
                     <div
@@ -251,8 +249,12 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                           ...leftSpace,
                         }}
                       >
-                        <AddBox label="Coupon" />
+                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                        {/* ~~~~~~~~~~ ADD COUPON BUTTON ~~~~~~~~~~ */}
+                        <AddNewCouponModal onCouponAdd={handleTaskUpdate} handleCaseTypeChange={handleCaseTypeChange} />
                       </div>
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~ COUPON PREVIEW CARDS ~~~~~~~~~ */}
                       {merchantDetails.map((merchant, i) => (
                         <CouponReviewCard
                           key={i}
