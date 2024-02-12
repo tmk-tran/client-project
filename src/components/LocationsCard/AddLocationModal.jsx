@@ -79,6 +79,18 @@ export default function AddLocationModal({
     onLocationAdd();
   };
 
+  const resetForm = () => {
+    setLocationName("");
+    setPhoneNumber("");
+    setLocationAddress("");
+    setCity("");
+    setState("");
+    setZip("");
+    setAdditionalDetails("");
+
+    handleClose();
+  };
+
   return (
     <div>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -97,7 +109,7 @@ export default function AddLocationModal({
         <Box sx={style}>
           {/* //////////////////////////// */}
           {/* ///~~~ CLOSE BUTTON ~~~~~/// */}
-          <CloseButton handleClose={handleClose} />
+          <CloseButton handleClose={resetForm} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~ */}
           <Typography variant="h6" sx={modalHeaderStyle}>
