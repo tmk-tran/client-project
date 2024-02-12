@@ -152,18 +152,6 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                       isMerchantTaskPage={isMerchantTaskPage}
                     />
                   ))}
-                {/* ///////////////////////////////////// */}
-                {/* Check if it's a merchant details view */}
-                {/* ///////////////////////////////////// */}
-                {/* {isMerchantDetails &&
-                  merchantDetails.map((merchantInfo) => (
-                    <NotesDisplay
-                      key={merchantInfo.id}
-                      notes={notes}
-                      orgDetails={merchantInfo}
-                      isMerchantTaskPage={true}
-                    />
-                  ))} */}
 
                 <center>
                   {isMerchantTaskPage ? (

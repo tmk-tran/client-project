@@ -17,7 +17,7 @@ export default function ContactDetailsCard({
 }) {
   return (
     <Card
-      elevation={5}
+      elevation={3}
       sx={{
         maxWidth: 360,
         bgcolor: "background.paper",
