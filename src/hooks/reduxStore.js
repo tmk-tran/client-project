@@ -44,6 +44,10 @@ export const mComments = () => {
   return useSelector((store) => store.merchantComments);
 };
 
+export const mLocations = () => {
+  return useSelector((store) => store.locations);
+};
+
 export const pdfFile = () => {
   return useSelector((store) => store.pdf);
 };

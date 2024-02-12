@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import "./Details.css";
 import { Button, Typography, Card, CardContent } from "@mui/material";
@@ -27,6 +27,7 @@ import {
   mDetails,
   mNotes,
   mComments,
+  mLocations,
 } from "../../hooks/reduxStore";
 import { border } from "../Utils/colors";
 import { leftSpace } from "./styleDetails";
@@ -62,6 +63,9 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   const comments = mComments();
   console.log(comments);
   const [alertCaseType, setAlertCaseType] = useState("NewTask");
+  const locations = mLocations();
+  console.log(locations);
+
 
   useEffect(() => {
     dispatch({
@@ -75,12 +79,13 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
         : "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
     });
-    // // Fetch merchant comments if isMerchantTaskPage is true
-    // if (isMerchantTaskPage) {
-    //   // Assuming mComments is a function that fetches comments from your Redux store
-    //   const comments = mComments(paramsObject.id) || [];
-    //   setMerchantComments(comments);
-    // }
+    // Fetch locations if MerchantTaskPage is true
+    if (isMerchantTaskPage) {
+      dispatch({
+        type: "FETCH_MERCHANT_LOCATION",
+        payload: paramsObject.id,
+      });
+    }
 
     dispatch({
       type: "FETCH_ORGANIZATIONS",
@@ -117,7 +122,11 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
-      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} caseType={alertCaseType} />
+      <SuccessAlert
+        isOpen={isAlertOpen}
+        onClose={handleAlertClose}
+        caseType={alertCaseType}
+      />
       <div style={{ position: "relative" }}>
         <div style={{ position: "absolute", top: 0, left: 0 }}>
           <BackButton />
@@ -217,12 +226,30 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                     <DetailsTaskView caseType={"merchantView"} />
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     {/* ~~~~~~~~~~ LOCATION INFO ~~~~~~~~~ */}
-                    <LocationsCard onLocationAdd={handleTaskUpdate} handleCaseTypeChange={handleCaseTypeChange} />
+                    {locations ? (
+                    <LocationsCard
+                      locations={locations}
+                      onLocationAdd={handleTaskUpdate}
+                      handleCaseTypeChange={handleCaseTypeChange}
+                    />
+                    ) : (
+                      null
+                    )}
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     {/* ~~~~~ COUPON REVIEW CARDS ~~~~~ */}
-                    <div className="MerchantDetailsCard-container" style={border}>
-                      <div style={{ position: "absolute", left: 0, top: 0, ...leftSpace }}>
-                        <AddBox label="Coupon"/>
+                    <div
+                      className="MerchantDetailsCard-container"
+                      style={border}
+                    >
+                      <div
+                        style={{
+                          position: "absolute",
+                          left: 0,
+                          top: 0,
+                          ...leftSpace,
+                        }}
+                      >
+                        <AddBox label="Coupon" />
                       </div>
                       {merchantDetails.map((merchant, i) => (
                         <CouponReviewCard

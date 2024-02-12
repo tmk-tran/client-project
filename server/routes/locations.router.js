@@ -12,13 +12,13 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     FROM
         "location"
     ORDER BY
-        "id" DESC;
+        "id" ASC;
     `;
 
   pool
     .query(queryText)
     .then((result) => {
-      console.log("FROM location.router: ", result.rows);
+      console.log("FROM locations.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -27,36 +27,68 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.get("/:id", (req, res) => {
+  const merchantId = req.params.id;
+
+  const queryText = `
+    SELECT
+        *
+    FROM
+        "location"
+    WHERE
+        merchant_id = $1
+    ORDER BY
+        "id" ASC;
+    `;
+
+  pool
+    .query(queryText, [merchantId])
+    .then((result) => {
+      console.log("FROM locationsGET by ID.router: ", result.rows);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("error in the GET / request for location by ID info", err);
+      res.sendStatus(500);
+    });
+});
+
 router.post("/", rejectUnauthenticated, (req, res) => {
   const location = req.body;
   console.log("LOCATION IS: ", location);
   const locationName = location.location_name;
+  const phoneNumber = location.phone_number;
   const address = location.address;
   const city = location.city;
   const state = location.state;
   const zip = location.zip;
   const coordinates = location.coordinates;
   const regionId = location.region_id;
+  const merchantId = location.merchant_id;
+  const additionalDetails = location.additional_details;
 
-  const queryText = `INSERT INTO "location" ("location_name", "address", "city", "state", "zip", "coordinates", "region_id")
-                                        VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+  const queryText = `INSERT INTO "location" ("location_name", "phone_number", "address", "city", "state", "zip", "coordinates", "region_id", "merchant_id", "additional_details")
+                                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
 
   pool
     .query(queryText, [
       locationName,
+      phoneNumber,
       address,
       city,
       state,
       zip,
       coordinates,
       regionId,
+      merchantId,
+      additionalDetails,
     ])
     .then((response) => {
-      console.log("response from location.router: ", response.rows);
+      console.log("response from locations.router: ", response.rows);
       res.sendStatus(201);
     })
     .catch((err) => {
-      console.log("error in location POST route", err);
+      console.log("error in locations POST route", err);
       res.sendStatus(500);
     });
 });

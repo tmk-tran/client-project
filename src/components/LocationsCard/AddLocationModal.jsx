@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   Box,
   Button,
@@ -9,9 +10,11 @@ import {
 } from "@mui/material";
 import AddBox from "../AddBoxIcon/AddBoxIcon";
 import CloseButton from "../Buttons/CloseButton";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
 import { leftSpace } from "../Details/styleDetails";
 import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { hoverAccept } from "../Utils/colors";
+import { dispatchHook } from "../../hooks/useDispatch";
 
 const style = {
   position: "absolute",
@@ -25,19 +28,54 @@ const style = {
   p: 4,
 };
 
-export default function AddLocationModal({ onLocationAdd, handleCaseTypeChange }) {
+export default function AddLocationModal({
+  onLocationAdd,
+  handleCaseTypeChange,
+}) {
+  const dispatch = dispatchHook();
+  const paramsObject = useParams();
+  console.log(paramsObject);
+
   const [open, setOpen] = useState(false);
-  const [locationAddress, setLocationAddress] = useState("");
+  const [locationName, setLocationName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [locationAddress, setLocationAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [merchantId, setMerchantId] = useState(paramsObject.id);
   const [additionalDetails, setAdditionalDetails] = useState("");
-  console.log(locationAddress);
+  console.log(locationName);
   console.log(phoneNumber);
+  console.log(locationAddress);
+  console.log(city);
+  console.log(state);
+  console.log(zip);
+  console.log(merchantId);
   console.log(additionalDetails);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // NEED TO ADD COORDINATES AND REGION_ID AFTER TALKING TO JOE
+  const newLocationPayload = {
+    location_name: locationName,
+    phone_number: phoneNumber,
+    address: locationAddress,
+    city: city,
+    state: state,
+    zip: zip,
+    merchant_id: merchantId,
+    additional_details: additionalDetails,
+  };
+
   const addLocation = () => {
+
+    dispatch({
+      type: "ADD_LOCATION",
+      payload: newLocationPayload,
+    });
+
     handleCaseTypeChange("Location");
     onLocationAdd();
   };
@@ -68,11 +106,47 @@ export default function AddLocationModal({ onLocationAdd, handleCaseTypeChange }
           </Typography>
           <Divider sx={headerDivider} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~ NAME ~~~~~~~~~~~~~ */}
+          <TextField
+            label="Location Name"
+            value={locationName}
+            onChange={(e) => setLocationName(e.target.value)}
+            fullWidth
+            sx={{ mb: 2 }}
+          />
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ ADDRESS ~~~~~~~~~~ */}
           <TextField
             label="Location Address"
             value={locationAddress}
             onChange={(e) => setLocationAddress(e.target.value)}
+            fullWidth
+            sx={{ mb: 2 }}
+          />
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~ CITY ~~~~~~~~~~~~~ */}
+          <TextField
+            label="City"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            fullWidth
+            sx={{ mb: 2 }}
+          />
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~ STATE ~~~~~~~~~~~~ */}
+          <TextField
+            label="State"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            fullWidth
+            sx={{ mb: 2 }}
+          />
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~ ZIP ~~~~~~~~~~~~~~ */}
+          <TextField
+            label="Zip"
+            value={zip}
+            onChange={(e) => setZip(e.target.value)}
             fullWidth
             sx={{ mb: 2 }}
           />
