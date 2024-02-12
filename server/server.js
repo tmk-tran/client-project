@@ -27,6 +27,7 @@ const merchantTaskRouter = require("./routes/merchantTask.router");
 const allTasksMRouter = require("./routes/allTasksM.router");
 const allTasksORouter = require("./routes/allTasksO.router");
 const merchantCommentsRouter = require("./routes/merchantComments.router");
+const locationsRouter = require("./routes/locations.router");
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -60,6 +61,7 @@ app.use("/api/organizationTask", organizationTaskRouter);
 app.use("/api/tasks/merchants", allTasksMRouter);
 app.use("/api/tasks/organizations", allTasksORouter);
 app.use("/api/merchantComments", merchantCommentsRouter);
+app.use("/api/locations", locationsRouter);
 
 
 // Serve static files

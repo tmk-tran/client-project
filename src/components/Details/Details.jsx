@@ -86,7 +86,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
-  }, [paramsObject.id, isMerchantTaskPage, merchantDetails]);
+  }, [paramsObject.id, isMerchantTaskPage]);
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();

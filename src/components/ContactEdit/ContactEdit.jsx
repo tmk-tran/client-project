@@ -79,6 +79,8 @@ export default function ContactEdit({
     setCity(info.city);
     setState(info.state);
     setZip(info.zip);
+    setEditedFirstName(info.primary_contact_first_name);
+    setEditedLastName(info.primary_contact_last_name);
     !isMerchantTaskPage
       ? setEditedPhone(info.primary_contact_phone)
       : setEditedPhone(info.contact_phone_number);
@@ -89,7 +91,7 @@ export default function ContactEdit({
 
   const handleSave = () => {
     const contactInfo = {
-      ...info,
+      ...info
     };
     console.log(contactInfo);
 
@@ -113,7 +115,7 @@ export default function ContactEdit({
       return; // Do not proceed with saving if email is invalid
     }
 
-    if (!validateWebsiteFormat(editedWebsite)) {
+    if (editedWebsite && !validateWebsiteFormat(editedWebsite)) {
       setWebsiteError(true);
       return; // Do not proceed with saving if website is invalid
     }
@@ -263,20 +265,22 @@ export default function ContactEdit({
         />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~ WEBSITE ~~~~~~~~~~ */}
-        <TextField
-          label="Website"
-          value={editedWebsite}
-          onChange={(e) => {
-            setEditedWebsite(e.target.value);
-            setWebsiteError(false);
-          }}
-          error={websiteError}
-          helperText={
-            websiteError
-              ? "Please enter a valid format (e.g., www.example.com)"
-              : ""
-          }
-        />
+        {info.website ? (
+          <TextField
+            label="Website"
+            value={editedWebsite}
+            onChange={(e) => {
+              setEditedWebsite(e.target.value);
+              setWebsiteError(false);
+            }}
+            error={websiteError}
+            helperText={
+              websiteError
+                ? "Please enter a valid format (e.g., www.example.com)"
+                : ""
+            }
+          />
+        ) : null}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~ BUTTONS ~~~~~~~~~ */}
         <div style={modalBtnStyle}>

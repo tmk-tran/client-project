@@ -163,10 +163,17 @@ router.put(
     const filename = merchant.filename;
     let website = merchant.website ? merchant.website : null;
 
-    // Check if the website address already starts with "http://" or "https://"
-    if (!website.startsWith("http://") && !website.startsWith("https://")) {
+    // Check if the website address is not empty and does not start with "http://" or "https://"
+    if (
+      website &&
+      !website.startsWith("http://") &&
+      !website.startsWith("https://")
+    ) {
       // If it doesn't, prepend "https://"
       website = "https://" + website;
+    } else if (!website) {
+      // If website is empty, set it to null
+      website = null;
     }
 
     // const user = req.user.id;
