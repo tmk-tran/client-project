@@ -16,7 +16,7 @@ function* fetchFundraisersSaga(action) {
 // Fetches fundraiser data based on organization id
 function* fetchOrgFundraisersSaga(action) {
     try {
-        const response = yield axios.post(`/api/fundraisers/${action.payload}`)
+        const response = yield axios.post(`/api/fundraisers/${Number(action.payload)}`)
         yield put({ type: "SET_ORG_FUNDRAISERS", payload: response.data })
     } catch (err) {
         console.log("Error fetching ORG fundraisers ", err)

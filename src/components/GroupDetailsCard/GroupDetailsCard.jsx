@@ -20,6 +20,7 @@ import { modalBtnStyle } from "../Utils/helpers";
 
 //Function for the component, takes in the group prop for use
 export default function GroupDetailsCard({ group }) {
+  console.log(group)
   //Instanciates history and dispatch for use in the component
   const history = useHistory();
   const dispatch = useDispatch();
@@ -92,6 +93,26 @@ export default function GroupDetailsCard({ group }) {
     p: 4,
   };
 
+  const renderLogoOrInitials = () => {
+    if (group.group_photo) {
+      return (
+        <img
+          className="logoImage"
+          src={group.group_photo}
+          alt="Organization Logo"
+        />
+      );
+    } else {
+      // If no logo, display initials of organization name
+      const initials = group.group_nickname
+        .split(" ")
+        .map((word) => word[0])
+        .join("")
+        .toUpperCase();
+
+      return <div className="initialsContainer">{initials}</div>;
+    }
+  };
   //Elements and data used in the component. Displays the group card and the add fundraiser modal
   return (
     <>
@@ -107,17 +128,18 @@ export default function GroupDetailsCard({ group }) {
           margin: "auto",
         }}
       >
-        <CardMedia
+        <div
+
           style={{ objectFit: "cover", margin: "auto" }}
           className="cardMedia"
-          component="img"
-          image={group.group_photo}
-        />
+        >
+          {renderLogoOrInitials()}
+        </div>
         <div
           style={{ margin: "auto", textAlign: "center", marginBottom: "10px" }}
         >
           <Typography variant="h5">
-            {group.department} {group.sub_department}
+            {group.group_nickname}
           </Typography>
           <Typography>{group.group_description}</Typography>
         </div>
@@ -229,7 +251,7 @@ export default function GroupDetailsCard({ group }) {
               >
                 <Grid item xs={6}>
                   <TextField
-                   required
+                    required
                     fullWidth
                     style={{ margin: "5px" }}
                     label="Books Checked In"
@@ -241,7 +263,7 @@ export default function GroupDetailsCard({ group }) {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
-                   required
+                    required
                     fullWidth
                     style={{ margin: "5px" }}
                     label="Books Sold"
@@ -273,7 +295,7 @@ export default function GroupDetailsCard({ group }) {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
-                   required
+                    required
                     fullWidth
                     style={{ margin: "5px", marginRight: "0" }}
                     type="number"

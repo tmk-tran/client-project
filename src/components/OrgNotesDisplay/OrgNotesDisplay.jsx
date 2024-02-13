@@ -86,9 +86,12 @@ export default function OrgNotesDisplay() {
             Notes
           </Typography>
           <div className="orgNotes-container">
-            {notes ? (
+          {notes.map(note => {
+            return(
+              <>
+            {note ? (
               <div>
-                {notes.map((note) => (
+                
                     <div className="note-main-container" key={id}>
                       
                       <Typography sx={{ mt: 1 }} variant="caption">
@@ -129,7 +132,6 @@ export default function OrgNotesDisplay() {
                         style={{ width: "85%", border: "1px solid #273b91" }}
                       />
                     </div>
-                  ))}
               </div>
             ) : (
               <Typography
@@ -141,8 +143,12 @@ export default function OrgNotesDisplay() {
               >
                 None Available
               </Typography>
-            )}
+              )}
+              </>
+            )
+              })}
           </div>
+         
           <div>
             <TextField
               label="Add a note..."

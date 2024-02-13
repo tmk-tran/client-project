@@ -9,7 +9,6 @@ import "./OrgGroupInfo.css";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
-  const user = useSelector((store) => store.user);
   console.log(groupInfo)
  
 
@@ -17,7 +16,7 @@ export default function OrgGroupInfoCard({ groupInfo }) {
     <Card
       elevation={6}
       id="orgGroup-details-container"
-      onClick={() => history.push(`/group/${groupInfo.group_id}`)}
+      onClick={() => history.push(`/group/${groupInfo.id}`)}
     >
       <CardContent>
         <div>

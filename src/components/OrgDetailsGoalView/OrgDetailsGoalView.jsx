@@ -17,6 +17,7 @@ export default function OrgDetailsGoalView({ info }) {
     const goal = fundraiser.goal ? parseInt(fundraiser.goal, 10) : 0;
     return total + goal;
   }, 0);
+  console.log(totalGoals)
 
   // Money received
   const totalReceived = fundraiserInfo.reduce((total, fundraiser) => {

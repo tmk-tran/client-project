@@ -899,7 +899,7 @@ app.post("/api/fundraisers/groupfundraisers/:id", (req, res) => {
     .then((response) => response.json())
     .then((result) => {
       console.log( "group fundraiser result", result);
-      res.send(result)
+      res.send(result.data.fundraiser)
     })
     .catch((error) => {
       console.log("Error getting data from Devii", error)

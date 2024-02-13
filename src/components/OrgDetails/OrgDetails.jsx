@@ -125,7 +125,7 @@ export default function orgDetails() {
                       return(
                       groups !== null ? (
                       <OrgGroupInfo
-                        key={groupInfo.group_id}
+                        key={groupInfo.id}
                         groupInfo={groupInfo}
                         groupNumber={i + 1}
                       />
