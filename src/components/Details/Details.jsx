@@ -70,39 +70,78 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   const [groupAdded, setGroupAdded] = useState(false);
   console.log(groupAdded);
 
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "FETCH_ORG_DETAILS",
+  //     payload: paramsObject.id,
+  //   });
+
+  //   dispatch({
+  //     type: isMerchantTaskPage
+  //       ? "FETCH_MERCHANT_DETAILS"
+  //       : "FETCH_ORG_FUNDRAISERS",
+  //     payload: paramsObject.id,
+  //   });
+  //   // Fetch locations if MerchantTaskPage is true
+  //   if (isMerchantTaskPage) {
+  //     dispatch({
+  //       type: "FETCH_MERCHANT_LOCATION",
+  //       payload: paramsObject.id,
+  //     });
+  //   }
+
+  //   if (!isMerchantTaskPage) {
+  //     dispatch({
+  //       type: "FETCH_ORG_GROUPS",
+  //       payload: paramsObject.id,
+  //     });
+  //   };
+
+  //   dispatch({
+  //     type: "FETCH_ORGANIZATIONS",
+  //     payload: paramsObject.id,
+  //   });
+  //   setGroupAdded(false);
+  // }, [paramsObject.id, isMerchantTaskPage, groupAdded]);
+
   useEffect(() => {
+    console.log("Dispatching FETCH_ORG_DETAILS");
     dispatch({
       type: "FETCH_ORG_DETAILS",
       payload: paramsObject.id,
     });
-
+  
+    console.log("Dispatching FETCH_MERCHANT_DETAILS or FETCH_ORG_FUNDRAISERS");
     dispatch({
-      type: isMerchantTaskPage
-        ? "FETCH_MERCHANT_DETAILS"
-        : "FETCH_ORG_FUNDRAISERS",
+      type: isMerchantTaskPage ? "FETCH_MERCHANT_DETAILS" : "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
     });
+  
     // Fetch locations if MerchantTaskPage is true
     if (isMerchantTaskPage) {
+      console.log("Dispatching FETCH_MERCHANT_LOCATION");
       dispatch({
         type: "FETCH_MERCHANT_LOCATION",
         payload: paramsObject.id,
       });
     }
-
+  
     if (!isMerchantTaskPage) {
+      console.log("Dispatching FETCH_ORG_GROUPS");
       dispatch({
         type: "FETCH_ORG_GROUPS",
         payload: paramsObject.id,
       });
-    };
-
+    }
+  
+    console.log("Dispatching FETCH_ORGANIZATIONS");
     dispatch({
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
     setGroupAdded(false);
   }, [paramsObject.id, isMerchantTaskPage, groupAdded]);
+  
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();

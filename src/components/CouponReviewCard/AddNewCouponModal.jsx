@@ -57,6 +57,8 @@ export default function AddNewCouponModal({
   const [merchantId, setMerchantId] = useState(paramsObject.id);
   const [websiteError, setWebsiteError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
+  const [offerError, setOfferError] = useState(false);
+  console.log(phoneError);
   console.log(couponOffer);
   console.log(couponValue);
   console.log(exclusions);
@@ -87,16 +89,34 @@ export default function AddNewCouponModal({
     merchant_id: merchantId,
   };
 
-  const addCoupon = () => {
+  const addCoupon = (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    // Check if required fields are filled
+    if (!couponOffer || !phone || !website) {
+      // If any required field is empty, set error state or display error message
+      // You can set an error state for each required field and display error messages accordingly
+      setOfferError(!offerError);
+      setPhoneError(!phone);
+      setWebsiteError(!website);
+      // You can set error states for other required fields in a similar manner
+      return; // Prevent further execution of form submission
+    }
     // dispatch({
     //   type: "ADD_COUPON",
     //   payload: newCouponPayload,
     // });
 
-    if (!validatePhoneNumber(phone)) {
+    // Validate phone number before saving
+    if (!/^[0-9]*$/.test(phone) && phone.length == 10) {
       setPhoneError(true);
       return;
     }
+
+    // if (phone && !validatePhoneNumber(phone)) {
+    //   setPhoneError(true);
+    //   return;
+    // }
 
     if (website && !validateWebsiteFormat(website)) {
       setWebsiteError(true);
@@ -125,16 +145,12 @@ export default function AddNewCouponModal({
     <div>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~ */}
-      <AddBox
-        label="Coupon"
-        buttonStyle={{ mb: 2, ...leftSpace }}
-        onClick={handleOpen}
-      />
+      <AddBox label="Coupon" buttonStyle={{ mb: 2 }} onClick={handleOpen} />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <Modal
         open={open}
         // onClose={handleClose}
-        onClose={() => {}} 
+        onClose={() => {}}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -160,9 +176,16 @@ export default function AddNewCouponModal({
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ OFFER ~~~~~~~~~~~~ */}
               <TextField
-                label="Coupon Offer"
+                label="Coupon Offer*"
                 value={couponOffer}
-                onChange={(e) => setCouponOffer(e.target.value)}
+                onChange={(e) => {
+                  setCouponOffer(e.target.value);
+                  setOfferError(false);
+                }}
+                error={offerError}
+                helperText={
+                  offerError ? "Please enter coupon offer details" : ""
+                }
                 fullWidth
                 sx={{ mb: 2 }}
               />
@@ -194,11 +217,14 @@ export default function AddNewCouponModal({
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~ PHONE ~~~~~~~~~~~~ */}
               <TextField
-                label="Phone Number"
-                type="tel"
+                label="Phone Number*"
+                type="number"
                 inputProps={{
+                  minLength: 10,
+                  maxLength: 10,
                   pattern: "[0-9]*",
                   inputMode: "numeric",
+                  required: true,
                 }}
                 value={phone}
                 onChange={(e) => {
@@ -213,11 +239,14 @@ export default function AddNewCouponModal({
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~ WEBSITE ~~~~~~~~~~~~ */}
               <TextField
-                label="Website"
+                label="Website*"
                 value={website}
                 onChange={(e) => {
                   setWebsite(e.target.value);
                   setWebsiteError(false);
+                }}
+                inputProps={{
+                  required: true,
                 }}
                 error={websiteError}
                 helperText={

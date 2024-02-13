@@ -9,6 +9,9 @@ import {
   TextField,
 } from "@mui/material";
 import "./NotesDisplay.css";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import DeleteIcon from "@mui/icons-material/Delete";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
@@ -37,6 +40,8 @@ export default function NotesDisplay({
 
   const dispatch = dispatchHook();
   const paramsObject = useParams();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   // State for showing notes
   const [noteDelete, setNoteDelete] = useState(false);
@@ -143,7 +148,7 @@ export default function NotesDisplay({
   
 
   return (
-    // <div style={border}>
+    // <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
       <Card
         elevation={3}
         className={`notes-card ${caseType === 1 ? "notes-card-task-view" : ""}`}

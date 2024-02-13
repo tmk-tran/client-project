@@ -14,6 +14,7 @@ export default function LocationsCard({
   onLocationAdd,
   onLocationDelete,
   handleCaseTypeChange,
+  handleAddGroup,
 }) {
   console.log(locations);
   const dispatch = dispatchHook();

@@ -15,6 +15,7 @@ import { leftSpace } from "../Details/styleDetails";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { hoverAccept } from "../Utils/colors";
 import { dispatchHook } from "../../hooks/useDispatch";
+import { border } from "../Utils/colors";
 
 const style = {
   position: "absolute",
@@ -92,7 +93,7 @@ export default function AddLocationModal({
   };
 
   return (
-    <div>
+    <div style={{ height: "20vh", ...border }}>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~ */}
       <AddBox
@@ -103,7 +104,7 @@ export default function AddLocationModal({
       <Modal
         open={open}
         // onClose={handleClose}
-        onClose={() => {}} 
+        onClose={() => {}}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -120,7 +121,7 @@ export default function AddLocationModal({
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ NAME ~~~~~~~~~~~~~ */}
           <TextField
-            label="Location Name"
+            label="Location Name*"
             value={locationName}
             onChange={(e) => setLocationName(e.target.value)}
             fullWidth
@@ -129,7 +130,7 @@ export default function AddLocationModal({
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ ADDRESS ~~~~~~~~~~ */}
           <TextField
-            label="Location Address"
+            label="Location Address*"
             value={locationAddress}
             onChange={(e) => setLocationAddress(e.target.value)}
             fullWidth
@@ -144,24 +145,30 @@ export default function AddLocationModal({
             fullWidth
             sx={{ mb: 2 }}
           />
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~ STATE ~~~~~~~~~~~~ */}
-          <TextField
-            label="State"
-            value={state}
-            onChange={(e) => setState(e.target.value)}
-            fullWidth
-            sx={{ mb: 2 }}
-          />
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~ ZIP ~~~~~~~~~~~~~~ */}
-          <TextField
-            label="Zip"
-            value={zip}
-            onChange={(e) => setZip(e.target.value)}
-            fullWidth
-            sx={{ mb: 2 }}
-          />
+          <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ STATE ~~~~~~~~~~~~ */}
+            <TextField
+              label="State"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+              // fullWidth
+              sx={{ mb: 2 }}
+            />
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ ZIP ~~~~~~~~~~~~~~ */}
+            <TextField
+              label="Zip"
+              value={zip}
+              type="number"
+              inputProps={{
+                inputMode: "numeric",
+              }}
+              onChange={(e) => setZip(e.target.value)}
+              fullWidth
+              sx={{ mb: 2 }}
+            />
+          </div>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~ PHONE NUMBER ~~~~~~~~ */}
           <TextField

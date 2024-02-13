@@ -111,10 +111,10 @@ export default function ContactEdit({
     //   setPhoneError(true);
     //   return;
     // }
-    if (!validatePhoneNumber(editedPhone)) {
-      setPhoneError(true);
-      return;
-    }
+    // if (!validatePhoneNumber(editedPhone)) {
+    //   setPhoneError(true);
+    //   return;
+    // }
 
     if (!validateEmail(editedEmail)) {
       setEmailError(true);
@@ -244,7 +244,7 @@ export default function ContactEdit({
             pattern: "[0-9]*",
             inputMode: "numeric",
           }}
-          value={formatPhoneNumber(editedPhone)}
+          value={editedPhone}
           onChange={(e) => {
             setEditedPhone(e.target.value);
             setPhoneError(false);
