@@ -7,14 +7,14 @@ import "./OrgDetailsGoalView.css";
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 
-export default function OrgDetailsGoalView({ info, groups }) {
+export default function OrgDetailsGoalView({ info }) {
   const fundraiserInfo = useSelector((store) => store.orgFundraisers);
   console.log(fundraiserInfo);
 
   // Total number of goals for groups
-  const totalGoals = groups.reduce((total, group) => {
+  const totalGoals = fundraiserInfo.reduce((total, fundraiser) => {
     // Convert the goal to a number if it's not null
-    const goal = group.goal ? parseInt(group.goal, 10) : 0;
+    const goal = fundraiser.goal ? parseInt(fundraiser.goal, 10) : 0;
     return total + goal;
   }, 0);
 
@@ -25,6 +25,7 @@ export default function OrgDetailsGoalView({ info, groups }) {
       : 0;
     return total + moneyIn;
   }, 0);
+  console.log(totalReceived)
 
   // To prevent rendering multiple times
   const goalData = {
