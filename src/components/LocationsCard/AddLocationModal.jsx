@@ -102,7 +102,8 @@ export default function AddLocationModal({
       />
       <Modal
         open={open}
-        onClose={handleClose}
+        // onClose={handleClose}
+        onClose={() => {}} 
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >

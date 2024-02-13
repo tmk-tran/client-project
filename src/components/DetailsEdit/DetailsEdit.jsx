@@ -7,10 +7,14 @@ import {
   Typography,
   TextField,
   Button,
+  Divider,
 } from "@mui/material";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { showToast } from "../Utils/toasts";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
+import CloseButton from "../Buttons/CloseButton";
+import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
+import { capitalizeStateAbbr, capitalizeWords } from "../Utils/helpers";
 
 export default function DetailsEdit({
   isOpen,
@@ -150,30 +154,27 @@ export default function DetailsEdit({
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,
+          width: 400,
           p: 4,
           display: "flex",
           flexDirection: "column",
           gap: 2,
         }}
       >
+        <CloseButton handleClose={handleClose} />
         {!isMerchantTaskPage ? (
-          <Typography
-            variant="h5"
-            sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
-          >
+          <Typography variant="h6" sx={modalHeaderStyle}>
             Edit Organization Details
           </Typography>
         ) : (
-          <Typography
-            variant="h5"
-            sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
-          >
+          <Typography variant="h6" sx={modalHeaderStyle}>
             Edit Merchant Details
           </Typography>
         )}
+        <Divider sx={lineDivider} />
         <TextField
           label="Name"
-          value={editedName}
+          value={capitalizeWords(editedName)}
           onChange={(e) => setEditedName(e.target.value)}
         />
         {!isMerchantTaskPage ? (
@@ -185,18 +186,18 @@ export default function DetailsEdit({
         ) : null}
         <TextField
           label="Address"
-          value={editedAddress}
+          value={capitalizeWords(editedAddress)}
           onChange={(e) => setEditedAddress(e.target.value)}
         />
         {/* <div style={{ display: "flex", flexDirection: "row", gap: "3px" }}> */}
         <TextField
           label="City"
-          value={editedCity}
+          value={capitalizeWords(editedCity)}
           onChange={(e) => setEditedCity(e.target.value)}
         />
         <TextField
           label="State"
-          value={editedState}
+          value={capitalizeStateAbbr(editedState)}
           onChange={(e) => setEditedState(e.target.value)}
         />
         <TextField
@@ -211,7 +212,7 @@ export default function DetailsEdit({
           helperText={zipError ? "Invalid zip code" : ""}
         />
         {/* </div> */}
-        <div
+        {/* <div
           style={{
             display: "flex",
             flexDirection: "row",
@@ -220,9 +221,16 @@ export default function DetailsEdit({
         >
           <Button className="modal-cancel-btn" onClick={handleClose}>
             Cancel
-          </Button>
-          <Button onClick={handleSave}>Save</Button>
-        </div>
+          </Button> */}
+        <Button
+          onClick={handleSave}
+          variant="contained"
+          color="secondary"
+          fullWidth
+        >
+          Save
+        </Button>
+        {/* </div> */}
       </Box>
     </Modal>
   );

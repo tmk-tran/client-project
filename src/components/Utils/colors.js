@@ -22,6 +22,7 @@ export const hoverDeny = {
 export const hoverAccept = {
   "&:hover": {
     backgroundColor: "#22A422", // Lighter shade for Accept button
+    color: "white",
   },
 };
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -20,6 +20,7 @@ import { hoverAccept, primaryColor } from "../Utils/colors";
 import StateFieldInput from "./StateFieldInput";
 import WebsiteInput from "./WebsiteInput";
 import RadioButtons from "./RadioButtons";
+import { capitalizeWords } from "../Utils/helpers";
 
 export default function AddOrganizationModal({
   open,
@@ -170,7 +171,8 @@ export default function AddOrganizationModal({
     <div>
       <Modal
         open={open}
-        onClose={handleModalClose}
+        // onClose={handleModalClose}
+        onClose={() => {}}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -218,7 +220,9 @@ export default function AddOrganizationModal({
                 required
                 label={!isMerchantList ? "Organization Name" : "Merchant Name"}
                 fullWidth
-                value={!isMerchantList ? organizationName : merchantName}
+                value={capitalizeWords(
+                  !isMerchantList ? organizationName : merchantName
+                )}
                 onChange={(e) => {
                   !isMerchantList
                     ? setOrganizationName(capitalizeFirstLetter(e.target.value))
@@ -234,7 +238,7 @@ export default function AddOrganizationModal({
                   required
                   label="Organization Type"
                   fullWidth
-                  value={organizationType}
+                  value={capitalizeWords(organizationType)}
                   onChange={(e) => setOrganizationType(e.target.value)}
                 />
               </Grid>
@@ -246,7 +250,7 @@ export default function AddOrganizationModal({
                 required
                 label="Address"
                 fullWidth
-                value={address}
+                value={capitalizeWords(address)}
                 onChange={(e) => setAddress(e.target.value)}
               />
             </Grid>
@@ -257,7 +261,7 @@ export default function AddOrganizationModal({
                 required
                 label="City"
                 fullWidth
-                value={city}
+                value={capitalizeWords(city)}
                 onChange={(e) => setCity(e.target.value)}
               />
             </Grid>
@@ -282,7 +286,10 @@ export default function AddOrganizationModal({
             {/* ~~~~~~~~~~~~ WEBSITE (needs router adjustment) ~~~~~~~~~~~~~~~ */}
             {isMerchantList ? (
               <Grid item xs={12}>
-                <WebsiteInput label="Website (optional)" onWebsiteChange={websiteInput} />
+                <WebsiteInput
+                  label="Website (optional)"
+                  onWebsiteChange={websiteInput}
+                />
               </Grid>
             ) : null}
             {/* //////////////////////////////////// */}
@@ -300,7 +307,7 @@ export default function AddOrganizationModal({
               <TextField
                 label="Contact First Name*"
                 fullWidth
-                value={contactFirstName}
+                value={capitalizeWords(contactFirstName)}
                 onChange={(e) => setContactFirstName(e.target.value)}
               />
             </Grid>
@@ -311,7 +318,7 @@ export default function AddOrganizationModal({
                 required
                 label="Contact Last Name"
                 fullWidth
-                value={contactLastName}
+                value={capitalizeWords(contactLastName)}
                 onChange={(e) => setContactLastName(e.target.value)}
               />
             </Grid>

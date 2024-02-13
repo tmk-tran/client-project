@@ -17,9 +17,9 @@ import {
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { border, hoverAccept } from "../Utils/colors";
+import { border, hoverAccept, hoverDeny } from "../Utils/colors";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
-import { capitalizeFirstWord } from "../Utils/helpers";
+import { capitalizeFirstWord, modalBtnStyle } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import DatePicker from "../DatePicker/DatePicker";
 import SearchableSelect from "../NewTaskModal/SearchableSelect";
@@ -230,13 +230,13 @@ export default function BasicModal({
       <Modal
         open={open}
         onClose={handleClose}
-        // BackdropComponent={Backdrop}
-        // BackdropProps={{
-        //   // Disable closing on backdrop click
-        //   onClick: (event) => event.stopPropagation(),
-        //   // Disable the backdrop from being clickable
-        //   clickable: false,
-        // }}
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          // Disable closing on backdrop click
+          onClick: (event) => event.stopPropagation(),
+          // Disable the backdrop from being clickable
+          clickable: false,
+        }}
       >
         <Box sx={style}>
           {/* ////////////////////////// */}
@@ -358,7 +358,8 @@ export default function BasicModal({
             }
           />
           {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
-
+          {/* <div style={modalBtnStyle}>
+          <Button className="modal-cancel-btn" onClick={handleClose}>Cancel</Button> */}
           <Button
             variant="contained"
             color="secondary"
@@ -366,9 +367,9 @@ export default function BasicModal({
             sx={hoverAccept}
             fullWidth
           >
-            <AddBoxIcon sx={{ mr: 2 }} />
             Create Task
           </Button>
+          {/* </div> */}
         </Box>
       </Modal>
     </div>

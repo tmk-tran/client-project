@@ -84,7 +84,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
 
   return (
     <div>
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={open} onClose={() => {}} >
         <Box sx={style}>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~ MODAL HEADER ~~~~~~~~~~ */}

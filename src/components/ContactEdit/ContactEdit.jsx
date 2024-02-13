@@ -7,10 +7,13 @@ import {
   Typography,
   TextField,
   Button,
+  Divider,
 } from "@mui/material";
 import "./ContactEdit.css";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import {
+  capitalizeFirstWord,
+  formatPhoneNumber,
   modalBtnStyle,
   validateEmail,
   validatePhoneNumber,
@@ -18,6 +21,9 @@ import {
 } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import { showToast } from "../Utils/toasts";
+import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
+import CloseButton from "../Buttons/CloseButton";
+import { hoverAccept } from "../Utils/colors";
 
 export default function ContactEdit({
   isOpen,
@@ -91,7 +97,7 @@ export default function ContactEdit({
 
   const handleSave = () => {
     const contactInfo = {
-      ...info
+      ...info,
     };
     console.log(contactInfo);
 
@@ -201,32 +207,32 @@ export default function ContactEdit({
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,
-          p: 4,
+          width: 350,
+          p: 3,
           display: "flex",
           flexDirection: "column",
           gap: 2,
         }}
       >
+        <CloseButton handleClose={handleClose} />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~ HEADER ~~~~~~~~ */}
-        <Typography
-          variant="h5"
-          sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
-        >
-          Edit Contact Information
+        <Typography variant="h6" sx={modalHeaderStyle}>
+          Edit Contact Info
         </Typography>
+        <Divider sx={lineDivider} />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~ FIRST NAME ~~~~~~~~ */}
         <TextField
           label="First Name"
-          value={editedFirstName}
+          value={capitalizeFirstWord(editedFirstName)}
           onChange={(e) => setEditedFirstName(e.target.value)}
         />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~ LAST NAME ~~~~~~~~ */}
         <TextField
           label="Last Name"
-          value={editedLastName}
+          value={capitalizeFirstWord(editedLastName)}
           onChange={(e) => setEditedLastName(e.target.value)}
         />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -238,7 +244,7 @@ export default function ContactEdit({
             pattern: "[0-9]*",
             inputMode: "numeric",
           }}
-          value={editedPhone}
+          value={formatPhoneNumber(editedPhone)}
           onChange={(e) => {
             setEditedPhone(e.target.value);
             setPhoneError(false);
@@ -283,12 +289,20 @@ export default function ContactEdit({
         ) : null}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~ BUTTONS ~~~~~~~~~ */}
-        <div style={modalBtnStyle}>
+        {/* <div style={modalBtnStyle}>
           <Button className="modal-cancel-btn" onClick={handleClose}>
             Cancel
-          </Button>
-          <Button onClick={handleSave}>Save</Button>
-        </div>
+          </Button> */}
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleSave}
+          sx={hoverAccept}
+          fullWidth
+        >
+          Save
+        </Button>
+        {/* </div> */}
       </Box>
     </Modal>
   );

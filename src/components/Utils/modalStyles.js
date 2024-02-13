@@ -2,7 +2,7 @@ import { primaryColor } from "./colors";
 
 export const modalHeaderStyle = {
   textAlign: "center",
-  mb: 5,
+  mb: 2,
 };
 
 
