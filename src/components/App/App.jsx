@@ -90,10 +90,6 @@ function App() {
               <ArchivedOrganizations />
             </ProtectedRoute>
 
-            <ProtectedRoute exact path="/orgDetails/:id">
-              <Details />
-            </ProtectedRoute>
-
             <ProtectedRoute exact path="/group/:id">
               <GroupDetails user={user} />
             </ProtectedRoute>
@@ -113,14 +109,30 @@ function App() {
             {/* ProtectedRoute for /tasks with dynamic tab parameter */}
             <ProtectedRoute path="/tasks/:tab" component={TaskTabs} />
 
+            <ProtectedRoute exact path="/orgDetails/:id">
+              <Details
+                isMerchantTaskPage={false}
+                isTaskPage={false}
+                isMerchantDetails={false}
+              />
+            </ProtectedRoute>
+
             {/* UPDATE THIS WITH CORRECT ID IN OrgTaskDetails */}
             <ProtectedRoute exact path="/organizationTaskDetails/:id">
-              <Details isMerchantTaskPage={false} isTaskPage={true} />
+              <Details
+                isMerchantTaskPage={false}
+                isTaskPage={true}
+                isMerchantDetails={false}
+              />
             </ProtectedRoute>
 
             {/* UPDATE THIS WITH CORRECT ID IN MerchantTaskDetails */}
             <ProtectedRoute exact path="/merchantTaskDetails/:id">
-              <Details isMerchantTaskPage={true} />
+              <Details
+                isMerchantTaskPage={true}
+                isTaskPage={false}
+                isMerchantDetails={true}
+              />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/coupon/:id">

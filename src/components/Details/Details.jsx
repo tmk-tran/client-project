@@ -36,8 +36,13 @@ import { buttonIconSpacing } from "../Utils/helpers";
 import AddBox from "../AddBoxIcon/AddBoxIcon";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export default function Details({ isMerchantTaskPage, isTaskPage }) {
+export default function Details({
+  isMerchantTaskPage,
+  isTaskPage,
+  isMerchantDetails,
+}) {
   console.log(isMerchantTaskPage);
+  console.log(isMerchantDetails);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
@@ -48,7 +53,6 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   // Check if the user is on the task page
   // const isTaskPage = location.pathname.includes("/orgtaskdetails");
   // const isMerchantTaskPage = location.pathname.includes("/merchantTaskDetails");
-  console.log(isMerchantTaskPage);
   console.log(isTaskPage);
 
   // ~~~~~~~~~~ Hooks ~~~~~~~~~~
@@ -69,7 +73,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   console.log(locations);
   const [groupAdded, setGroupAdded] = useState(false);
   console.log(groupAdded);
-  const [ locationAdded, setLocationAdded ] = useState(false);
+  const [locationAdded, setLocationAdded] = useState(false);
   console.log(locationAdded);
 
   // useEffect(() => {
@@ -112,13 +116,24 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
       type: "FETCH_ORG_DETAILS",
       payload: paramsObject.id,
     });
-  
+
     console.log("Dispatching FETCH_MERCHANT_DETAILS or FETCH_ORG_FUNDRAISERS");
     dispatch({
-      type: isMerchantTaskPage ? "FETCH_MERCHANT_DETAILS" : "FETCH_ORG_FUNDRAISERS",
+      type: isMerchantTaskPage
+        ? "FETCH_MERCHANT_DETAILS"
+        : "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
     });
-  
+
+    const actionType = isMerchantTaskPage
+      ? "FETCH_MERCHANT_DETAILS"
+      : "FETCH_ORG_DETAILS";
+    console.log("Dispatching:", actionType);
+    dispatch({
+      type: actionType,
+      payload: paramsObject.id,
+    });
+
     // Fetch locations if MerchantTaskPage is true
     if (isMerchantTaskPage) {
       console.log("Dispatching FETCH_MERCHANT_LOCATION");
@@ -127,7 +142,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
         payload: paramsObject.id,
       });
     }
-  
+
     if (!isMerchantTaskPage) {
       console.log("Dispatching FETCH_ORG_GROUPS");
       dispatch({
@@ -135,7 +150,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
         payload: paramsObject.id,
       });
     }
-  
+
     console.log("Dispatching FETCH_ORGANIZATIONS");
     dispatch({
       type: "FETCH_ORGANIZATIONS",
@@ -145,7 +160,6 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
     setGroupAdded(false);
     setLocationAdded(false);
   }, [paramsObject.id, isMerchantTaskPage, groupAdded, locationAdded]);
-  
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();
@@ -250,7 +264,11 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                 {!isTaskPage && !isMerchantTaskPage && (
                   // Default content when not on the task page
                   <>
-                    <OrgDetailsGoalView info={orgDetails} groups={groups} handleAddGroup={handleAddGroup} />
+                    <OrgDetailsGoalView
+                      info={orgDetails}
+                      groups={groups}
+                      handleAddGroup={handleAddGroup}
+                    />
 
                     <div className="OrgDetailsCard-container">
                       {groups &&
@@ -313,7 +331,11 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                       >
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                         {/* ~~~~~~~~~~ ADD COUPON BUTTON ~~~~~~~~~~ */}
-                        <AddNewCouponModal onCouponAdd={handleTaskUpdate} handleCaseTypeChange={handleCaseTypeChange} locations={locations} />
+                        <AddNewCouponModal
+                          onCouponAdd={handleTaskUpdate}
+                          handleCaseTypeChange={handleCaseTypeChange}
+                          locations={locations}
+                        />
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       {/* ~~~~~~~~ COUPON PREVIEW CARDS ~~~~~~~~~ */}
