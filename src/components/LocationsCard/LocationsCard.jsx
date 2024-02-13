@@ -1,11 +1,13 @@
 // ~~~~~~~~~~ Style ~~~~~~~~~~~~~~~~~~~~
-import { Button, Card, CardContent } from "@mui/material";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
 import { leftSpace } from "../Details/styleDetails";
 import { dispatchHook } from "../../hooks/useDispatch";
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~
 import AddLocationModal from "./AddLocationModal";
 import LocationsCardTable from "./LocationsCardTable";
+import ActionsSpeedDial from "./ActionsSpeedDial";
+import { capitalizeWords } from "../Utils/helpers";
 
 export default function LocationsCard({
   locations,
@@ -57,17 +59,22 @@ export default function LocationsCard({
                 }}
               >
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
-                <LocationsCardTable data={location} />
+                {/* ~~~~~~~~~~ LOCATION NAME ~~~~~~~~~~ */}
+                <Typography variant="h6">
+                  {capitalizeWords(location.location_name)}
+                </Typography>
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~ ACTIONS SPEED DIAL ~~~~~~~ */}
+                <ActionsSpeedDial
+                  handleDelete={handleDelete}
+                  location={location}
+                />
               </div>
-              <Button
-                onClick={() => {
-                  handleDelete(location.id, location.merchant_id);
-                }}
-              >
-                Delete
-              </Button>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
+              <LocationsCardTable data={location} />
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* <ActionsSpeedDial handleDelete={handleDelete} location={location} /> */}
             </CardContent>
           </Card>
         ))}

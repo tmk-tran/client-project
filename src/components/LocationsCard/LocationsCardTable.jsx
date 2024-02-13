@@ -26,7 +26,7 @@ export default function MyTable({ data }) {
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell style={tableHeaderStyle}>Name</TableCell>
+          {/* <TableCell style={tableHeaderStyle}>Name</TableCell> */}
           <TableCell style={tableHeaderStyle}>Address</TableCell>
           <TableCell style={tableHeaderStyle}>Contact Number</TableCell>
           <TableCell style={tableHeaderStyle}>Additional Details</TableCell>
@@ -35,9 +35,9 @@ export default function MyTable({ data }) {
       <TableBody>
         <TableRow>
           {/* ~~~~~~~~~ NAME ~~~~~~~~~ */}
-          <TableCell style={tableCellStyle}>
+          {/* <TableCell style={tableCellStyle}>
             {capitalizeWords(data.location_name)}
-          </TableCell>
+          </TableCell> */}
           {/* ~~~~~~~~~ ADDRESS ~~~~~~~~~ */}
           <TableCell style={tableCellStyle}>
             {capitalizeWords(data.address)}

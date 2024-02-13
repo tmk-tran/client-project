@@ -13,12 +13,11 @@ import {
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import "./AddGroupPopover.css";
 // Utils
-import {
-  modalBtnStyle,
-  showToast,
-} from "../Utils/helpers";
+import { modalBtnStyle, showToast } from "../Utils/helpers";
 
-export default function BasicPopover({ info }) {
+export default function BasicPopover({ info, groups, onChange }) {
+  console.log(info);
+  console.log(groups);
   const dispatch = useDispatch();
   // state for the popover
   const [anchorEl, setAnchorEl] = useState(null);
@@ -28,6 +27,8 @@ export default function BasicPopover({ info }) {
   const [department, setDepartment] = useState("");
   const [subDepartment, setSubDepartment] = useState("");
   const [description, setDescription] = useState("");
+  const [groupLeadName, setGroupLeadName] = useState("");
+  const [groupLeadEmail, setGroupLeadEmail] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -60,6 +61,7 @@ export default function BasicPopover({ info }) {
     setDepartment("");
     setSubDepartment("");
     setDescription("");
+    onChange();
     handleClose();
   };
 
@@ -108,19 +110,19 @@ export default function BasicPopover({ info }) {
                 label="Group Name"
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
-              ></TextField>
+              />
               <TextField
                 fullWidth
                 label="Category"
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
-              ></TextField>
+              />
               <TextField
                 fullWidth
                 label="Sub-Category"
                 value={subDepartment}
                 onChange={(e) => setSubDepartment(e.target.value)}
-              ></TextField>
+              />
               <TextField
                 fullWidth
                 multiline
@@ -128,7 +130,21 @@ export default function BasicPopover({ info }) {
                 label="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-              ></TextField>
+              />
+              {/* ~~~~~~~~~~ GROUP LEAD NAME ~~~~~~~~~~ */}
+              <TextField
+                label="Group Leader Name"
+                fullWidth
+                value={groupLeadName}
+                onChange={(e) => setGroupLeadName(e.target.value)}
+              />
+              {/* ~~~~~~~~~~ GROUP LEAD EMAIL ~~~~~~~~~ */}
+              <TextField
+                label="Group Leader Email"
+                fullWidth
+                value={groupLeadEmail}
+                onChange={(e) => setGroupLeadEmail(e.target.value)}
+              />
             </div>
             <div style={modalBtnStyle}>
               <Button className="modal-cancel-btn" onClick={handleClose}>

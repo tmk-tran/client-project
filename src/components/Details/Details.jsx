@@ -67,6 +67,8 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   console.log(alertCaseType);
   const locations = mLocations();
   console.log(locations);
+  const [groupAdded, setGroupAdded] = useState(false);
+  console.log(groupAdded);
 
   useEffect(() => {
     dispatch({
@@ -88,11 +90,19 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
       });
     }
 
+    if (!isMerchantTaskPage) {
+      dispatch({
+        type: "FETCH_ORG_GROUPS",
+        payload: paramsObject.id,
+      });
+    };
+
     dispatch({
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
-  }, [paramsObject.id, isMerchantTaskPage]);
+    setGroupAdded(false);
+  }, [paramsObject.id, isMerchantTaskPage, groupAdded]);
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();
@@ -119,6 +129,10 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
 
   const handleCaseTypeChange = (newCaseType) => {
     setAlertCaseType(newCaseType);
+  };
+
+  const handleAddGroup = () => {
+    setGroupAdded(true);
   };
 
   return (
@@ -189,7 +203,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                 {!isTaskPage && !isMerchantTaskPage && (
                   // Default content when not on the task page
                   <>
-                    <OrgDetailsGoalView info={orgDetails} groups={groups} />
+                    <OrgDetailsGoalView info={orgDetails} groups={groups} handleAddGroup={handleAddGroup} />
 
                     <div className="OrgDetailsCard-container">
                       {groups &&

@@ -8,7 +8,7 @@ import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { oFundraisers } from "../../hooks/reduxStore";
 
-export default function OrgDetailsGoalView({ info, groups }) {
+export default function OrgDetailsGoalView({ info, groups, handleAddGroup }) {
   const fundraiserInfo = oFundraisers();
   console.log(fundraiserInfo);
 
@@ -79,7 +79,7 @@ export default function OrgDetailsGoalView({ info, groups }) {
             </center>
           </div>
           <div>
-            <AddGroupPopover info={info} />
+            <AddGroupPopover info={info} onChange={handleAddGroup} />
           </div>
         </CardContent>
       </Card>
