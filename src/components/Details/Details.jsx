@@ -69,6 +69,8 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
   console.log(locations);
   const [groupAdded, setGroupAdded] = useState(false);
   console.log(groupAdded);
+  const [ locationAdded, setLocationAdded ] = useState(false);
+  console.log(locationAdded);
 
   // useEffect(() => {
   //   dispatch({
@@ -139,8 +141,10 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
     });
+
     setGroupAdded(false);
-  }, [paramsObject.id, isMerchantTaskPage, groupAdded]);
+    setLocationAdded(false);
+  }, [paramsObject.id, isMerchantTaskPage, groupAdded, locationAdded]);
   
 
   // Create a map to store organization details and associated groups
@@ -172,6 +176,10 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
 
   const handleAddGroup = () => {
     setGroupAdded(true);
+  };
+
+  const handleAddLocation = () => {
+    setLocationAdded(true);
   };
 
   return (
@@ -286,6 +294,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                         onLocationAdd={handleTaskUpdate}
                         onLocationDelete={handleTaskUpdate}
                         handleCaseTypeChange={handleCaseTypeChange}
+                        handleAddLocation={handleAddLocation}
                       />
                     ) : null}
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}

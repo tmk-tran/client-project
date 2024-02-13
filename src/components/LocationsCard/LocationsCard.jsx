@@ -14,7 +14,7 @@ export default function LocationsCard({
   onLocationAdd,
   onLocationDelete,
   handleCaseTypeChange,
-  handleAddGroup,
+  handleAddLocation,
 }) {
   console.log(locations);
   const dispatch = dispatchHook();
@@ -41,6 +41,7 @@ export default function LocationsCard({
       <AddLocationModal
         onLocationAdd={onLocationAdd}
         handleCaseTypeChange={handleCaseTypeChange}
+        handleAddLocation={handleAddLocation}
       />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {locations

@@ -32,6 +32,7 @@ const style = {
 export default function AddLocationModal({
   onLocationAdd,
   handleCaseTypeChange,
+  handleAddLocation,
 }) {
   const dispatch = dispatchHook();
   const paramsObject = useParams();
@@ -78,6 +79,7 @@ export default function AddLocationModal({
 
     handleCaseTypeChange("New Location");
     onLocationAdd();
+    handleAddLocation();
   };
 
   const resetForm = () => {
