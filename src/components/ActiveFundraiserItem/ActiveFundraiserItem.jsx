@@ -465,6 +465,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                 TableCell
                 style={{ width: "50px", border: "2px solid black" }}
               >
+                
                 <Typography
                   style={{
                     fontSize: "15px",
@@ -472,7 +473,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                     padding: "0",
                   }}
                 >
-                  {fundraiser.year}
+                  {fundraiser.coupon_book.year}
                 </Typography>
               </TableCell>
               <TableCell
