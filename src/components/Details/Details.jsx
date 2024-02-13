@@ -251,7 +251,7 @@ export default function Details({ isMerchantTaskPage, isTaskPage }) {
                       >
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                         {/* ~~~~~~~~~~ ADD COUPON BUTTON ~~~~~~~~~~ */}
-                        <AddNewCouponModal onCouponAdd={handleTaskUpdate} handleCaseTypeChange={handleCaseTypeChange} />
+                        <AddNewCouponModal onCouponAdd={handleTaskUpdate} handleCaseTypeChange={handleCaseTypeChange} locations={locations} />
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       {/* ~~~~~~~~ COUPON PREVIEW CARDS ~~~~~~~~~ */}

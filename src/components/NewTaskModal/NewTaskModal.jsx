@@ -18,7 +18,7 @@ import {
 import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { border, hoverAccept } from "../Utils/colors";
-import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
+import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { capitalizeFirstWord } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import DatePicker from "../DatePicker/DatePicker";
@@ -248,7 +248,7 @@ export default function BasicModal({
           <Typography variant="h6" sx={modalHeaderStyle}>
             New Task
           </Typography>
-          <Divider sx={headerDivider} />
+          <Divider sx={lineDivider} />
 
           <div style={{ display: "flex", flexDirection: "column" }}>
             <InputLabel>Category:</InputLabel>

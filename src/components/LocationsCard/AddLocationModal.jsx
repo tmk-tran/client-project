@@ -12,7 +12,7 @@ import AddBox from "../AddBoxIcon/AddBoxIcon";
 import CloseButton from "../Buttons/CloseButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
 import { leftSpace } from "../Details/styleDetails";
-import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
+import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { hoverAccept } from "../Utils/colors";
 import { dispatchHook } from "../../hooks/useDispatch";
 
@@ -115,7 +115,7 @@ export default function AddLocationModal({
           <Typography variant="h6" sx={modalHeaderStyle}>
             Add Location
           </Typography>
-          <Divider sx={headerDivider} />
+          <Divider sx={lineDivider} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ NAME ~~~~~~~~~~~~~ */}
           <TextField

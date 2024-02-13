@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
 import { border, primaryColor } from "../Utils/colors";
-import { modalHeaderStyle, headerDivider } from "../Utils/modalStyles";
+import { modalHeaderStyle, lineDivider } from "../Utils/modalStyles";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~
 import CloseButton from "../Buttons/CloseButton";
 import {
@@ -78,7 +78,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   };
 
   const editHeaderStyle = {
-    ...headerDivider,
+    ...lineDivider,
     mb: 5,
   };
 

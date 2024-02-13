@@ -7,21 +7,26 @@ import {
   Modal,
   TextField,
   Divider,
+  Grid,
 } from "@mui/material";
+// ~~~~~~~~~~~ Components ~~~~~~~~~~~
 import AddBox from "../AddBoxIcon/AddBoxIcon";
 import CloseButton from "../Buttons/CloseButton";
+import SelectMenu from "./SelectMenu";
+import AddFileButton from "../AddFileButton/AddFileButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
 import { leftSpace } from "../Details/styleDetails";
-import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
+import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { hoverAccept } from "../Utils/colors";
 import { dispatchHook } from "../../hooks/useDispatch";
+import { validateWebsiteFormat, validatePhoneNumber } from "../Utils/helpers";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  //   width: 500,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -31,10 +36,12 @@ const style = {
 export default function AddNewCouponModal({
   onCouponAdd,
   handleCaseTypeChange,
+  locations,
 }) {
   const dispatch = dispatchHook();
   const paramsObject = useParams();
   console.log(paramsObject);
+  console.log(locations);
 
   const [open, setOpen] = useState(false);
   const [couponOffer, setCouponOffer] = useState("");
@@ -46,7 +53,10 @@ export default function AddNewCouponModal({
   const [zip, setZip] = useState("");
   const [phone, setPhone] = useState("");
   const [website, setWebsite] = useState("");
+  const [additionalInfo, setAdditionalInfo] = useState("");
   const [merchantId, setMerchantId] = useState(paramsObject.id);
+  const [websiteError, setWebsiteError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
   console.log(couponOffer);
   console.log(couponValue);
   console.log(exclusions);
@@ -56,6 +66,7 @@ export default function AddNewCouponModal({
   console.log(zip);
   console.log(phone);
   console.log(website);
+  console.log(additionalInfo);
   console.log(merchantId);
 
   const handleOpen = () => setOpen(true);
@@ -72,6 +83,7 @@ export default function AddNewCouponModal({
     zip: zip,
     phone: phone,
     website: website,
+    additional_info: additionalInfo,
     merchant_id: merchantId,
   };
 
@@ -80,6 +92,16 @@ export default function AddNewCouponModal({
     //   type: "ADD_COUPON",
     //   payload: newCouponPayload,
     // });
+
+    if (!validatePhoneNumber(phone)) {
+      setPhoneError(true);
+      return;
+    }
+
+    if (website && !validateWebsiteFormat(website)) {
+      setWebsiteError(true);
+      return;
+    }
 
     handleCaseTypeChange("New Coupon");
     onCouponAdd();
@@ -124,89 +146,100 @@ export default function AddNewCouponModal({
           <Typography variant="h6" sx={modalHeaderStyle}>
             Add Coupon
           </Typography>
-          <Divider sx={headerDivider} />
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~ OFFER ~~~~~~~~~~~~ */}
-          <TextField
-            label="Coupon Offer"
-            value={couponOffer}
-            onChange={(e) => setCouponOffer(e.target.value)}
-            fullWidth
-            sx={{ mb: 2 }}
-          />
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~ VALUE ~~~~~~~~~~~~ */}
-          <TextField
-            label="Coupon Value"
-            value={couponValue}
-            onChange={(e) => setCouponValue(e.target.value)}
-            fullWidth
-            sx={{ mb: 2 }}
-          />
+          <Divider sx={lineDivider} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~ EXCLUSIONS ~~~~~~~~~ */}
-          <TextField
-            label="Exclusions"
-            value={exclusions}
-            onChange={(e) => setExclusions(e.target.value)}
+          {/* ~~~~~~~ LOCATION SELECT ~~~~~~~ */}
+          <SelectMenu
+            label="Participating Location"
+            locations={locations}
             fullWidth
-            sx={{ mb: 2 }}
           />
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~ ADDRESS ~~~~~~~~~~~~ */}
-          <TextField
-            label="Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            fullWidth
-            sx={{ mb: 2 }}
-          />
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~ CITY ~~~~~~~~~~~~~~ */}
-          <TextField
-            label="City"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            fullWidth
-            sx={{ mb: 2 }}
-          />
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~ STATE ~~~~~~~~~~~ */}
-          <TextField
-            label="State"
-            value={state}
-            onChange={(e) => setState(e.target.value)}
-            fullWidth
-            sx={{ mb: 2 }}
-          />
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~ ZIP ~~~~~~~~~~~~ */}
-          <TextField
-            label="Additional Details..."
-            value={zip}
-            onChange={(e) => setZip(e.target.value)}
-            fullWidth
-            sx={{ mb: 2 }}
-          />
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~ PHONE ~~~~~~~~~~~~ */}
-          <TextField
-            label="Additional Details..."
-            type="number"
-            value={phone}
-            onChange={(e) => setPhone(Number(e.target.value))}
-            fullWidth
-            sx={{ mb: 2 }}
-          />
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~ WEBSITE ~~~~~~~~~~~~ */}
-          <TextField
-            label="Website"
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-            fullWidth
-            sx={{ mb: 2 }}
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~ OFFER ~~~~~~~~~~~~ */}
+              <TextField
+                label="Coupon Offer"
+                value={couponOffer}
+                onChange={(e) => setCouponOffer(e.target.value)}
+                fullWidth
+                sx={{ mb: 2 }}
+              />
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~ VALUE ~~~~~~~~~~~~ */}
+              <TextField
+                label="Coupon Value"
+                value={couponValue}
+                onChange={(e) => setCouponValue(e.target.value)}
+                fullWidth
+                sx={{ mb: 2 }}
+              />
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~ EXCLUSIONS ~~~~~~~~~ */}
+              <TextField
+                label="Exclusions"
+                value={exclusions}
+                onChange={(e) => setExclusions(e.target.value)}
+                fullWidth
+                sx={{ mb: 2 }}
+              />
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~ LOGO UPLOAD~~~~~~~~~ */}
+              <AddFileButton />
+            </Grid>
+            <Grid item xs={6}>
+              {/* <Divider sx={{ mt: 2, mb: 2, ...lineDivider}} /> */}
+
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~ PHONE ~~~~~~~~~~~~ */}
+              <TextField
+                label="Phone Number"
+                type="tel"
+                inputProps={{
+                  pattern: "[0-9]*",
+                  inputMode: "numeric",
+                }}
+                value={phone}
+                onChange={(e) => {
+                  setPhone(Number(e.target.value));
+                  setPhoneError(false);
+                }}
+                error={phoneError}
+                helperText={phoneError ? "Invalid phone number" : ""}
+                fullWidth
+                sx={{ mb: 2 }}
+              />
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~ WEBSITE ~~~~~~~~~~~~ */}
+              <TextField
+                label="Website"
+                value={website}
+                onChange={(e) => {
+                  setWebsite(e.target.value);
+                  setWebsiteError(false);
+                }}
+                error={websiteError}
+                helperText={
+                  websiteError
+                    ? "Please enter a valid format (e.g., www.example.com)"
+                    : ""
+                }
+                fullWidth
+                sx={{ mb: 2 }}
+              />
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~ ADDITIONAL INFO ~~~~~~~~ */}
+              <TextField
+                label="Additional Information..."
+                value={additionalInfo}
+                onChange={(e) => setAdditionalInfo(e.target.value)}
+                fullWidth
+                multiline
+                rows={3.6}
+                sx={{ mb: 2 }}
+              />
+            </Grid>
+          </Grid>
           <Button
             variant="contained"
             color="secondary"

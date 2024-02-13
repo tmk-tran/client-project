@@ -14,7 +14,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import CloseButton from "../Buttons/CloseButton";
 import AddFileButton from "../AddFileButton/AddFileButton";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
-import { headerDivider, modalHeaderStyle } from "../Utils/modalStyles";
+import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { hoverAccept, primaryColor } from "../Utils/colors";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~
 import StateFieldInput from "./StateFieldInput";
@@ -140,7 +140,7 @@ export default function AddOrganizationModal({
   };
 
   const dividerMarginTop = {
-    ...headerDivider,
+    ...lineDivider,
     mt: 3,
     ml: 2,
     width: "98%",
@@ -186,7 +186,7 @@ export default function AddOrganizationModal({
             {!isMerchantList ? "Add New Organization" : "Add New Merchant"}
           </Typography>
           {/* ~~~~~~~~~~ END HEADER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <Divider sx={headerDivider} />
+          <Divider sx={lineDivider} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Grid container spacing={1}>
             <Grid item xs={9}>

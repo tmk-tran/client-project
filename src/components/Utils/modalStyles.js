@@ -6,7 +6,7 @@ export const modalHeaderStyle = {
 };
 
 
-export const headerDivider = {
+export const lineDivider = {
     width: "100%",
     height: 1,
     mb: 3,
