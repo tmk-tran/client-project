@@ -120,19 +120,22 @@ export default function orgDetails() {
 
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
-                  {groups && groups.some((group) => group.group_id !== null) ? (
-                    groups.map((groupInfo, i) => (
+                  
+                    {groups.map((groupInfo, i) => {
+                      return(
+                      groups !== null ? (
                       <OrgGroupInfo
                         key={groupInfo.group_id}
                         groupInfo={groupInfo}
                         groupNumber={i + 1}
                       />
-                    ))
-                  ) : (
+                    ) : (
                     <div style={{ height: "200px" }}>
                       <Typography variant="h6">No Groups Assigned</Typography>
                     </div>
-                  )}
+                    )
+                    )
+                    })}
                 </div>
               {/* // </React.Fragment> */}
               </>
