@@ -41,6 +41,10 @@ export default function SuccessAlert({ isOpen, onClose, caseType }) {
         <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
           New Coupon Added!
         </Alert>
+      ) : caseType === "Edit Location" ? (
+        <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
+          Location Edited!
+        </Alert>
       ) : (
         <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
           Task status has been successfully changed!

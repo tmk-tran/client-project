@@ -71,17 +71,6 @@ export default function AddLocationModal({
     additional_details: additionalDetails,
   };
 
-  const addLocation = () => {
-    dispatch({
-      type: "ADD_LOCATION",
-      payload: newLocationPayload,
-    });
-
-    handleCaseTypeChange("New Location");
-    onLocationAdd();
-    handleAddLocation();
-  };
-
   const resetForm = () => {
     setLocationName("");
     setPhoneNumber("");
@@ -92,6 +81,18 @@ export default function AddLocationModal({
     setAdditionalDetails("");
 
     handleClose();
+  };
+
+  const addLocation = () => {
+    dispatch({
+      type: "ADD_LOCATION",
+      payload: newLocationPayload,
+    });
+
+    handleCaseTypeChange("New Location");
+    onLocationAdd();
+    handleAddLocation();
+    resetForm();
   };
 
   return (

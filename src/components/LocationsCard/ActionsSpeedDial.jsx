@@ -9,9 +9,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
-    // position: "absolute",
-    // top: 0,
-    // right: 0,
+  // position: "absolute",
+  // top: 0,
+  // right: 0,
   "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
     bottom: theme.spacing(2),
     right: theme.spacing(2),
@@ -35,14 +35,23 @@ const actions = [
   { icon: <DeleteIcon />, name: "Delete" },
 ];
 
-export default function PlaygroundSpeedDial({ handleDelete, location }) {
-    console.log(location);
+export default function PlaygroundSpeedDial({
+  handleDelete,
+  handleEdit,
+  location,
+}) {
+  console.log(location);
+  console.log(location.id);
   const [direction, setDirection] = React.useState("left");
   console.log(direction);
   const [hidden, setHidden] = React.useState(false);
 
   const deleteClick = () => {
     handleDelete(location.id, location.merchant_id);
+  };
+
+  const editClick = () => {
+    handleEdit(location.id, location.merchant_id);
   };
 
   return (
@@ -59,7 +68,13 @@ export default function PlaygroundSpeedDial({ handleDelete, location }) {
               key={action.name}
               icon={action.icon}
               tooltipTitle={action.name}
-              onClick={action.name === "Delete" ? deleteClick : null}
+              onClick={
+                action.name === "Delete"
+                  ? deleteClick
+                  : action.name === "Edit"
+                  ? editClick
+                  : null
+              }
             />
           ))}
         </StyledSpeedDial>

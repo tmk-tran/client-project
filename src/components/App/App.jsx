@@ -26,6 +26,7 @@ import Footer2 from "../Footer2/Footer2";
 import Footer3 from "../Footer3/Footer3";
 import TaskTabs from "../TaskTabs/TaskTabs";
 import CouponReviewDetails from "../CouponReviewDetails/CouponReviewDetails";
+import CheckoutPage from "../CheckoutPage/CheckoutPage";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -137,6 +138,10 @@ function App() {
 
             <ProtectedRoute exact path="/coupon/:id">
               <CouponReviewDetails />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/checkout">
+              <CheckoutPage />
             </ProtectedRoute>
 
             <Route exact path="/login">

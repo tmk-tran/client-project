@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -22,6 +22,9 @@ const tableCellStyle = {
 };
 
 export default function MyTable({ data }) {
+  const [isEditing, setIsEditing] = useState(false);
+  console.log(isEditing);
+
   return (
     <Table>
       <TableHead>

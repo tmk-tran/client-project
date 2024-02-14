@@ -309,8 +309,7 @@ export default function Details({
                     {locations ? (
                       <LocationsCard
                         locations={locations}
-                        onLocationAdd={handleTaskUpdate}
-                        onLocationDelete={handleTaskUpdate}
+                        handleTaskUpdate={handleTaskUpdate}
                         handleCaseTypeChange={handleCaseTypeChange}
                         handleAddLocation={handleAddLocation}
                       />

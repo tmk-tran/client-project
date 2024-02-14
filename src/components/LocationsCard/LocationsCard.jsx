@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~~~~~~~~~~~
 import { Button, Card, CardContent, Typography } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
@@ -11,13 +12,25 @@ import { capitalizeWords } from "../Utils/helpers";
 
 export default function LocationsCard({
   locations,
-  onLocationAdd,
-  onLocationDelete,
+  handleTaskUpdate,
   handleCaseTypeChange,
   handleAddLocation,
 }) {
   console.log(locations);
   const dispatch = dispatchHook();
+  const [isEditing, setIsEditing] = useState(false);
+  console.log(isEditing);
+
+  const [editingLocation, setEditingLocation] = useState(null); // State to store the location being edited
+  console.log(editingLocation);
+
+  const handleEditToggle = (index) => {
+    console.log(index);
+    setIsEditing(!isEditing);
+    if (index !== undefined) {
+      setEditingLocation(locations[index]); // Set the location being edited
+    }
+  };
 
   const handleDelete = (locationId, merchantId) => {
     console.log(locationId);
@@ -30,8 +43,25 @@ export default function LocationsCard({
         merchantId,
       },
     });
-    onLocationDelete();
+    handleTaskUpdate();
     handleCaseTypeChange("Delete Location");
+  };
+
+  // START HERE ON RETURN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CREATE EDIT ROUTER, AND SAGA
+  const handleEdit = (locationId, merchantId) => {
+    console.log(locationId);
+    console.log(merchantId);
+
+    // dispatch({ 
+    //   type: "EDIT_LOCATION",
+    //   payload: {
+    //     locationId,
+    //     merchantId,
+    //   },
+    // });
+    // onLocationEdit();
+    handleTaskUpdate();
+    handleCaseTypeChange("Edit Location");
   };
 
   return (
@@ -39,7 +69,7 @@ export default function LocationsCard({
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~ */}
       <AddLocationModal
-        onLocationAdd={onLocationAdd}
+        onLocationAdd={handleTaskUpdate}
         handleCaseTypeChange={handleCaseTypeChange}
         handleAddLocation={handleAddLocation}
       />
@@ -69,17 +99,27 @@ export default function LocationsCard({
                 {/* ~~~~~~~~ ACTIONS SPEED DIAL ~~~~~~~ */}
                 <ActionsSpeedDial
                   handleDelete={handleDelete}
+                  handleEdit={handleEdit}
                   location={location}
+                  i={i}
+                  toggleEdit={handleEditToggle}
+
                 />
               </div>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
-              <LocationsCardTable data={location} />
+              <LocationsCardTable data={location} isEditing={isEditing} />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* <ActionsSpeedDial handleDelete={handleDelete} location={location} /> */}
             </CardContent>
           </Card>
         ))}
+
+      {/* Render the AddLocationModal component if isEditing is true */}
+      {/* {isEditing && (
+        <AddLocationModal
+        />
+      )} */}
     </div>
   );
 }
