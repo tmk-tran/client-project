@@ -140,9 +140,9 @@ function App() {
               <CouponReviewDetails />
             </ProtectedRoute>
 
-            <ProtectedRoute exact path="/checkout">
+            <Route exact path="/checkout">
               <CheckoutPage />
-            </ProtectedRoute>
+            </Route>
 
             <Route exact path="/login">
               {user.id ? (

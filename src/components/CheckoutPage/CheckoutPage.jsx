@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect, useRef } from "react";
 import {
   Container,
   Typography,
@@ -13,6 +12,8 @@ import {
 } from "@mui/material";
 import CustomerInfoForm from "./CustomerInfoForm";
 import { border } from "../Utils/colors";
+import { initPayPalButton } from "./PayPal";
+import PayPalButton from "./PayPalButtons";
 
 const steps = [
   "Customer Information",
@@ -41,6 +42,24 @@ function StepThree() {
 export default function CheckoutPage() {
   const [activeStep, setActiveStep] = useState(0);
 
+    // useEffect(() => {
+    //   initPayPalButton();
+    // }, []);
+
+  const [isPayPalInitialized, setIsPayPalInitialized] = useState(false);
+  console.log(isPayPalInitialized);
+
+//   useEffect(() => {
+//     if (!isPayPalInitialized) {
+//       initPayPalButton();
+//       setIsPayPalInitialized(true);
+//     }
+
+//     return () => {
+//       // Clean up any PayPal-related resources if needed
+//     };
+//   }, []);
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -54,7 +73,7 @@ export default function CheckoutPage() {
       case 0:
         return <CustomerInfoForm />;
       case 1:
-        return <StepTwo />;
+        return <PayPalButton />;
       case 2:
         return <StepThree />;
       default:
