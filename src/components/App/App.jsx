@@ -27,6 +27,7 @@ import Footer3 from "../Footer3/Footer3";
 import TaskTabs from "../TaskTabs/TaskTabs";
 import CouponReviewDetails from "../CouponReviewDetails/CouponReviewDetails";
 import CheckoutPage from "../CheckoutPage/CheckoutPage";
+import OrderPage from "../CheckoutPage/OrderPage";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -134,6 +135,10 @@ function App() {
                 isTaskPage={false}
                 isMerchantDetails={true}
               />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/order">
+              <OrderPage />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/coupon/:id">
