@@ -44,6 +44,7 @@ function PayPalButton() {
               });
 
               const orderData = await response.json();
+              console.log(orderData);
 
               if (orderData.id) {
                 return orderData.id;
@@ -57,6 +58,7 @@ function PayPalButton() {
               }
             } catch (error) {
               console.error(error);
+              console.log(error);
               setMessage(`Could not initiate PayPal Checkout...${error}`);
             }
           }}
