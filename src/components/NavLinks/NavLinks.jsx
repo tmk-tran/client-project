@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Typography,
@@ -32,7 +33,13 @@ const theme = createTheme({
 });
 
 export default function NavLinks() {
+  const location = useLocation();
   const user = User();
+
+  // Hide NavLinks component on the checkout page
+  if (location.pathname === "/checkout") {
+    return null;
+  }
 
   return (
     <ThemeProvider theme={theme}>

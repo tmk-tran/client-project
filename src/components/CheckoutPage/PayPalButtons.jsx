@@ -8,7 +8,8 @@ function Message({ content }) {
 
 function PayPalButton() {
   const initialOptions = {
-    "client-id": "AXW1Fk6t36VzplCt2ev6VRwygaNynFd4tz4KBWicOhfvFrPLenoFFcwIbgih38FpabvP9I6RXFfyZ_Nx",
+    "client-id":
+      "AXW1Fk6t36VzplCt2ev6VRwygaNynFd4tz4KBWicOhfvFrPLenoFFcwIbgih38FpabvP9I6RXFfyZ_Nx",
     "enable-funding": "paylater,venmo,card",
     "disable-funding": "",
     "data-sdk-integration-source": "integrationbuilder_sc",
@@ -17,7 +18,7 @@ function PayPalButton() {
   const [message, setMessage] = useState("");
 
   return (
-    <div className="PayPalButton">
+    <div className="PayPalButton" style={{ marginTop: "10%", width: "50%" }}>
       <PayPalScriptProvider options={initialOptions}>
         <PayPalButtons
           style={{

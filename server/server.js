@@ -85,7 +85,7 @@ const app = express();
 const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
 
-// Route includes
+// Route includes //
 const userRouter = require("./routes/user.router");
 const groupRouter = require("./routes/group.details.router");
 const orgDetailsRouter = require("./routes/orgDetails.router");
@@ -107,18 +107,18 @@ const allTasksORouter = require("./routes/allTasksO.router");
 const merchantCommentsRouter = require("./routes/merchantComments.router");
 const locationsRouter = require("./routes/locations.router");
 
-// Body parser middleware
+// Body parser middleware //
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Passport Session Configuration //
 app.use(sessionMiddleware);
 
-// start up passport sessions
+// Start up passport sessions //
 app.use(passport.initialize());
 app.use(passport.session());
 
-/* Routes */
+// Routes //
 app.use("/api/user", userRouter);
 app.use("/api/group", groupRouter);
 app.use("/api/orgnotes", orgNotesRouter);
@@ -141,17 +141,17 @@ app.use("/api/tasks/organizations", allTasksORouter);
 app.use("/api/merchantComments", merchantCommentsRouter);
 app.use("/api/locations", locationsRouter);
 
-// Serve static files
+// Serve static files //
 app.use(express.static("build"));
 
 // App Set //
 const PORT = process.env.PORT || 5000;
 
-// PayPal integration
+// PayPal integration //
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 
-// Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs
+// Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs //
 const generateAccessToken = async () => {
   try {
     if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
@@ -160,9 +160,9 @@ const generateAccessToken = async () => {
     const auth = Buffer.from(
       PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET
     ).toString("base64");
-    // ADDED FOR FETCH
-    const fetch = (await import('node-fetch')).default; // Dynamic import for node-fetch
-    
+    // ADDED FOR FETCH, since 'import' and 'require' didn't work, --> ECMA script confict?? //
+    const fetch = (await import("node-fetch")).default; // Dynamic import for node-fetch
+
     const response = await fetch(`${base}/v1/oauth2/token`, {
       method: "POST",
       body: "grant_type=client_credentials",
@@ -178,7 +178,7 @@ const generateAccessToken = async () => {
   }
 };
 
-// Create an order to start the transaction
+// Create an order to start the transaction //
 const createOrder = async (cart) => {
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders`;
@@ -206,7 +206,7 @@ const createOrder = async (cart) => {
   return handleResponse(response);
 };
 
-// Capture payment for the created order to complete the transaction
+// Capture payment for the created order to complete the transaction //
 const captureOrder = async (orderID) => {
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders/${orderID}/capture`;
@@ -257,12 +257,12 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
   }
 });
 
-// Serve index.html
+// Serve index.html //
 app.get("/", (req, res) => {
   res.sendFile(path.resolve(__dirname, "build", "index.html"));
 });
 
-/** Listen * */
+// Listen //
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });

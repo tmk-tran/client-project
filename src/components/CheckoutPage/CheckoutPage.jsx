@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import {
+  Box,
   Container,
   Typography,
   Grid,
@@ -12,53 +13,44 @@ import {
 } from "@mui/material";
 import CustomerInfoForm from "./CustomerInfoForm";
 import { border } from "../Utils/colors";
-import { initPayPalButton } from "./PayPal";
 import PayPalButton from "./PayPalButtons";
 
-const steps = [
-  "Customer Information",
-  "Shipping and Payment",
-  "Order Confirmation",
-];
+export const containerStyle = {
+  width: "50vw",
+  minHeight: "50vh",
+};
+
+const steps = ["Information", "Payment", "Order Confirmation"];
 
 function StepTwo() {
   return (
-    <Paper>
-      <Typography variant="h6">Step Two Content</Typography>
-      {/* Add your form fields and other content for step two */}
-    </Paper>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <PayPalButton />
+    </Box>
   );
 }
 
 function StepThree() {
   return (
-    <Paper>
-      <Typography variant="h6">Step Three Content</Typography>
+    <div>
+      <Typography variant="h6" sx={{ ml: 3, mt: 3 }}>
+        Review
+      </Typography>
       {/* Add your form fields and other content for step three */}
-    </Paper>
+    </div>
   );
 }
 
 export default function CheckoutPage() {
   const [activeStep, setActiveStep] = useState(0);
 
-    // useEffect(() => {
-    //   initPayPalButton();
-    // }, []);
-
   const [isPayPalInitialized, setIsPayPalInitialized] = useState(false);
   console.log(isPayPalInitialized);
-
-//   useEffect(() => {
-//     if (!isPayPalInitialized) {
-//       initPayPalButton();
-//       setIsPayPalInitialized(true);
-//     }
-
-//     return () => {
-//       // Clean up any PayPal-related resources if needed
-//     };
-//   }, []);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -73,7 +65,7 @@ export default function CheckoutPage() {
       case 0:
         return <CustomerInfoForm />;
       case 1:
-        return <PayPalButton />;
+        return <StepTwo />;
       case 2:
         return <StepThree />;
       default:
@@ -82,15 +74,12 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div style={{ height: "80vh", ...border }}>
+    <div style={{ minHeight: "85vh" }}>
       <Container
         maxWidth="lg"
-        style={{ display: "flex", flexDirection: "column" }}
+        style={{ display: "flex", flexDirection: "column", marginTop: 12 }}
       >
-        <Typography variant="h4" gutterBottom>
-          Checkout
-        </Typography>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", width: "100%" }}>
           <div style={{ flexGrow: 1 }}>
             <Stepper activeStep={activeStep}>
               {steps.map((label) => (
@@ -101,13 +90,15 @@ export default function CheckoutPage() {
             </Stepper>
             <Grid container spacing={3}>
               <Grid item xs={12} md={8}>
-                <Paper>
+                <Paper sx={containerStyle}>
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~  Customer Info ~~~~~~~~~~ */}
                   {getStepContent(activeStep)}
                 </Paper>
               </Grid>
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ CHECKOUT NAV BUTTONS ~~~~~~~~~~ */}
             <Button disabled={activeStep === 0} onClick={handleBack}>
               Back
             </Button>
@@ -116,8 +107,15 @@ export default function CheckoutPage() {
             </Button>
           </div>
           <div style={{ width: "30%", marginLeft: "20px" }}>
-            <Paper>
-              <Typography variant="h6" gutterBottom>
+            <Paper
+              style={{
+                width: "25vw",
+                minHeight: "50vh",
+                marginTop: "30px",
+                ...border,
+              }}
+            >
+              <Typography variant="h6" gutterBottom sx={{ p: 3 }}>
                 Order Summary
               </Typography>
               {/* Display order summary here */}
