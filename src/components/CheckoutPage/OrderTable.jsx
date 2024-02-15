@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Table,
   TableHead,
@@ -10,22 +11,55 @@ import {
 } from "@mui/material";
 import { border } from "../Utils/colors";
 
-export default function OrderTable({ rows, selectedRows, handleRowSelect, handleQuantityChange }) {
+export default function OrderTable({
+  rows,
+  selectedRows,
+  handleRowSelect,
+  handleQuantityChange,
+  handlePayment,
+  customDonation,
+  setCustomDonation,
+  clearDonation,
+}) {
   console.log(rows);
+
+//   const [customDonation, setCustomDonation] = useState(0);
+//   console.log(customDonation);
 
   const quantityChange = (e, row) => {
     const newQuantity = parseInt(e.target.value, 10);
-    console.log(newQuantity);
     const updatedRows = rows.map((r) => {
       if (r.id === row.id) {
         return { ...r, quantity: newQuantity };
       }
       return r;
     });
+
+    if (row.bookType === "Donate") {
+      const updatedRow = { ...row, quantity: newQuantity };
+      const donationIndex = updatedRows.findIndex((r) => r.id === row.id);
+      updatedRows.splice(donationIndex, 1, updatedRow);
+    }
     console.log(updatedRows);
+
     handleQuantityChange(updatedRows);
+
+    const totalAmount = updatedRows.reduce(
+      (acc, r) => acc + r.price * r.quantity,
+      0
+    );
+    console.log(totalAmount);
+
+    const withDonation = customDonation + totalAmount;
+    console.log(withDonation);
   };
-  
+
+  const subtotal =
+    rows.reduce((acc, row) => acc + row.price * row.quantity, 0) +
+    customDonation;
+  console.log(subtotal);
+  handlePayment(subtotal);
+
   return (
     <Table>
       <TableHead>
@@ -47,16 +81,41 @@ export default function OrderTable({ rows, selectedRows, handleRowSelect, handle
               />
             </TableCell>
             <TableCell>{row.bookType}</TableCell>
-            <TableCell>$ {row.price}</TableCell>
             <TableCell>
-              <TextField
-                type="number"
-                value={row.quantity}
-                onChange={(e) => quantityChange(e, row)}
-                InputProps={{ inputProps: { min: 1 } }}
-              />
+              {row.bookType === "Donate" ? (
+                <Typography>-</Typography>
+              ) : (
+                `$ ${row.price}`
+              )}
             </TableCell>
-            <TableCell sx={border}>$ {row.price * row.quantity}</TableCell>
+
+            <TableCell>
+              {row.bookType === "Donate" ? (
+                <TextField
+                  label="Custom Donation"
+                  type="number"
+                  value={customDonation}
+                  onChange={(e) =>
+                    setCustomDonation(parseInt(e.target.value, 10))
+                  }
+                  InputProps={{ inputProps: { min: 0 } }}
+                />
+              ) : (
+                <TextField
+                  type="number"
+                  value={row.quantity}
+                  onChange={(e) => quantityChange(e, row)}
+                  InputProps={{ inputProps: { min: 1 } }}
+                />
+              )}
+            </TableCell>
+            <TableCell sx={border}>
+              {row.bookType !== "Donate" ? (
+                <>$ {row.price * row.quantity}</>
+              ) : (
+                <>$ {customDonation}</>
+              )}
+            </TableCell>
           </TableRow>
         ))}
         <TableRow>
@@ -67,9 +126,7 @@ export default function OrderTable({ rows, selectedRows, handleRowSelect, handle
             </Typography>
           </TableCell>
           <TableCell align="left" sx={{ border: "none" }}>
-            <Typography variant="h6">
-              ${rows.reduce((acc, row) => acc + row.price * row.quantity, 0)}
-            </Typography>
+            <Typography variant="h6">${subtotal}</Typography>
           </TableCell>
         </TableRow>
       </TableBody>
