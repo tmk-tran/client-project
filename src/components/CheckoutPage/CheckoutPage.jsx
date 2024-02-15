@@ -18,6 +18,8 @@ import PayPalButton from "./PayPalButtons";
 export const containerStyle = {
   width: "50vw",
   minHeight: "50vh",
+  mt: 3,
+  mb: 5,
 };
 
 const steps = ["Information", "Payment", "Order Confirmation"];
@@ -38,9 +40,10 @@ function StepTwo() {
 function StepThree() {
   return (
     <div>
-      <Typography variant="h6" sx={{ ml: 3, mt: 3 }}>
+      <Typography variant="h6" sx={{ ml: 6, pt: 4 }}>
         Review
       </Typography>
+      <hr style={{ width: "90%" }} />
       {/* Add your form fields and other content for step three */}
     </div>
   );
@@ -89,10 +92,10 @@ export default function CheckoutPage() {
               ))}
             </Stepper>
             <Grid container spacing={3}>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~ RENDERED STEPPER CONTENT ~~~~~~~ */}
               <Grid item xs={12} md={8}>
-                <Paper sx={containerStyle}>
-                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                  {/* ~~~~~~~~~~  Customer Info ~~~~~~~~~~ */}
+                <Paper elevation={2} sx={containerStyle}>
                   {getStepContent(activeStep)}
                 </Paper>
               </Grid>
@@ -105,20 +108,23 @@ export default function CheckoutPage() {
             <Button variant="contained" color="primary" onClick={handleNext}>
               {activeStep === steps.length - 1 ? "Place Order" : "Next"}
             </Button>
+            <Button>Return to Store</Button>
           </div>
           <div style={{ width: "30%", marginLeft: "20px" }}>
             <Paper
+              elevation={4}
               style={{
                 width: "25vw",
                 minHeight: "50vh",
-                marginTop: "30px",
-                ...border,
+                marginTop: "53px",
+                backgroundColor: "#f5f5f5",
               }}
             >
               <Typography variant="h6" gutterBottom sx={{ p: 3 }}>
                 Order Summary
               </Typography>
               {/* Display order summary here */}
+              {/* <Typography></Typography> */}
             </Paper>
           </div>
         </div>
