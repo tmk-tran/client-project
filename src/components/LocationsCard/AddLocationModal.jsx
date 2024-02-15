@@ -16,6 +16,8 @@ import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { hoverAccept } from "../Utils/colors";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { border } from "../Utils/colors";
+import { saveBtnWidth } from "../Utils/helpers";
+import ModalButtons from "../Modals/ModalButtons";
 
 const style = {
   position: "absolute",
@@ -112,9 +114,6 @@ export default function AddLocationModal({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* //////////////////////////// */}
-          {/* ///~~~ CLOSE BUTTON ~~~~~/// */}
-          <CloseButton handleClose={resetForm} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~ */}
           <Typography variant="h6" sx={modalHeaderStyle}>
@@ -193,15 +192,11 @@ export default function AddLocationModal({
             onChange={(e) => setAdditionalDetails(e.target.value)}
             sx={{ mb: 2 }}
           />
-          <Button
-            variant="contained"
-            color="secondary"
-            sx={hoverAccept}
-            fullWidth
-            onClick={addLocation}
-          >
-            Add
-          </Button>
+          <ModalButtons
+            label="Add"
+            onSave={addLocation}
+            onCancel={handleClose}
+          />
         </Box>
       </Modal>
     </div>

@@ -24,6 +24,8 @@ import { showToast } from "../Utils/toasts";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import CloseButton from "../Buttons/CloseButton";
 import { hoverAccept } from "../Utils/colors";
+import { saveBtnWidth } from "../Utils/helpers";
+import ModalButtons from "../Modals/ModalButtons";
 
 export default function ContactEdit({
   isOpen,
@@ -214,7 +216,7 @@ export default function ContactEdit({
           gap: 2,
         }}
       >
-        <CloseButton handleClose={handleClose} />
+        {/* <CloseButton handleClose={handleClose} /> */}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~ HEADER ~~~~~~~~ */}
         <Typography variant="h6" sx={modalHeaderStyle}>
@@ -289,20 +291,7 @@ export default function ContactEdit({
         ) : null}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~ BUTTONS ~~~~~~~~~ */}
-        {/* <div style={modalBtnStyle}>
-          <Button className="modal-cancel-btn" onClick={handleClose}>
-            Cancel
-          </Button> */}
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handleSave}
-          sx={hoverAccept}
-          fullWidth
-        >
-          Save
-        </Button>
-        {/* </div> */}
+        <ModalButtons label="Save" onSave={handleSave} onCancel={onClose} />
       </Box>
     </Modal>
   );

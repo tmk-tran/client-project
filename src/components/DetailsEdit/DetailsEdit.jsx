@@ -12,9 +12,13 @@ import {
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { showToast } from "../Utils/toasts";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
-import CloseButton from "../Buttons/CloseButton";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
-import { capitalizeStateAbbr, capitalizeWords } from "../Utils/helpers";
+import {
+  capitalizeStateAbbr,
+  capitalizeWords,
+  saveBtnWidth,
+} from "../Utils/helpers";
+import ModalButtons from "../Modals/ModalButtons";
 
 export default function DetailsEdit({
   isOpen,
@@ -161,7 +165,6 @@ export default function DetailsEdit({
           gap: 2,
         }}
       >
-        <CloseButton handleClose={handleClose} />
         {!isMerchantTaskPage ? (
           <Typography variant="h6" sx={modalHeaderStyle}>
             Edit Organization Details
@@ -212,25 +215,11 @@ export default function DetailsEdit({
           helperText={zipError ? "Invalid zip code" : ""}
         />
         {/* </div> */}
-        {/* <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Button className="modal-cancel-btn" onClick={handleClose}>
-            Cancel
-          </Button> */}
-        <Button
-          onClick={handleSave}
-          variant="contained"
-          color="secondary"
-          fullWidth
-        >
-          Save
-        </Button>
-        {/* </div> */}
+        <ModalButtons
+          label="Save"
+          onSave={handleSave}
+          onCancel={handleClose}
+        />
       </Box>
     </Modal>
   );

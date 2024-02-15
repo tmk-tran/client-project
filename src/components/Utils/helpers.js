@@ -184,3 +184,8 @@ export const validateWebsiteFormat = (website) => {
 export const buttonIconSpacing = {
   marginRight: "5px",
 };
+
+// Button width for save button in modals
+export const saveBtnWidth = {
+  width: "60%",
+};

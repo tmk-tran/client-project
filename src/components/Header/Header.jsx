@@ -24,7 +24,6 @@ export default function Header() {
             display: "flex",
             justifyContent: "space-between",
             position: "relative",
-            ...border,
           }}
         >
           <img
@@ -39,7 +38,6 @@ export default function Header() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              ...border,
             }}
           >
             {/* If a user is logged in, show these links */}

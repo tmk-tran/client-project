@@ -19,11 +19,16 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { border, hoverAccept, hoverDeny } from "../Utils/colors";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
-import { capitalizeFirstWord, modalBtnStyle } from "../Utils/helpers";
+import {
+  capitalizeFirstWord,
+  modalBtnStyle,
+  saveBtnWidth,
+} from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import DatePicker from "../DatePicker/DatePicker";
 import SearchableSelect from "../NewTaskModal/SearchableSelect";
 import CloseButton from "../Buttons/CloseButton";
+import ModalButtons from "../Modals/ModalButtons";
 
 const style = {
   position: "absolute",
@@ -239,10 +244,6 @@ export default function BasicModal({
         }}
       >
         <Box sx={style}>
-          {/* ////////////////////////// */}
-          {/* ///~~~ CLOSE BUTTON ~~~/// */}
-          {/* ////////////////////////// */}
-          <CloseButton handleClose={resetForm} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~ HEADER ~~~~~~~~~~~~~~~~~~ */}
           <Typography variant="h6" sx={modalHeaderStyle}>
@@ -358,18 +359,11 @@ export default function BasicModal({
             }
           />
           {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
-          {/* <div style={modalBtnStyle}>
-          <Button className="modal-cancel-btn" onClick={handleClose}>Cancel</Button> */}
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={addNewTask}
-            sx={hoverAccept}
-            fullWidth
-          >
-            Create Task
-          </Button>
-          {/* </div> */}
+          <ModalButtons
+            label="Create Task"
+            onSave={addNewTask}
+            onCancel={handleClose}
+          />
         </Box>
       </Modal>
     </div>

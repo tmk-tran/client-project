@@ -20,6 +20,7 @@ import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { hoverAccept } from "../Utils/colors";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { validateWebsiteFormat, validatePhoneNumber } from "../Utils/helpers";
+import ModalButtons from "../Modals/ModalButtons";
 
 const style = {
   position: "absolute",
@@ -155,9 +156,6 @@ export default function AddNewCouponModal({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* //////////////////////////// */}
-          {/* ///~~~ CLOSE BUTTON ~~~~~/// */}
-          <CloseButton handleClose={resetForm} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~ */}
           <Typography variant="h6" sx={modalHeaderStyle}>
@@ -270,15 +268,12 @@ export default function AddNewCouponModal({
               />
             </Grid>
           </Grid>
-          <Button
-            variant="contained"
-            color="secondary"
-            sx={hoverAccept}
-            fullWidth
-            onClick={addCoupon}
-          >
-            Add
-          </Button>
+          <ModalButtons
+            label="Add"
+            onSave={addCoupon}
+            onCancel={resetForm}
+            width="50%"
+          />
         </Box>
       </Modal>
     </div>

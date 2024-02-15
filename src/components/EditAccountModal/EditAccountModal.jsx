@@ -24,6 +24,7 @@ import {
 import CloseButton from "../Buttons/CloseButton";
 import AddFileButton from "../AddFileButton/AddFileButton";
 import StateSelector from "../StateSelector/StateSelector";
+import ModalButtons from "../Modals/ModalButtons";
 
 const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const dispatch = useDispatch();
@@ -243,16 +244,9 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
           </Grid>
           <br />
           {/* ///////////////////////// */}
-          {/* ///~~~ SAVE BUTTON ~~~/// */}
+          {/* ///~~~ BUTTONS ~~~/// */}
           {/* ///////////////////////// */}
-          <Button
-            onClick={() => handleEditSave(editedAccount)}
-            variant="contained"
-            color="secondary"
-            fullWidth
-          >
-            Save
-          </Button>
+          <ModalButtons label="Save" onSave={handleEditSave} onCancel={handleClose} />
         </Box>
       </Modal>
     </div>
