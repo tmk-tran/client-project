@@ -1,16 +1,13 @@
-import React from "react";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Checkbox,
-  TextField,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Button } from "@mui/material";
+import { border } from "../Utils/colors";
+import OrderTable from "./OrderTable";
+import { historyHook } from "../../hooks/useHistory";
 
 export default function OrderPage() {
-  const [selectedRows, setSelectedRows] = React.useState([]);
+  const history = historyHook();
+  const [selectedRows, setSelectedRows] = useState([]);
+  console.log(selectedRows);
 
   const handleRowSelect = (rowId) => {
     if (selectedRows.includes(rowId)) {
@@ -28,40 +25,16 @@ export default function OrderPage() {
   ];
 
   return (
-    <div style={{ minHeight: "80vh" }}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Select</TableCell>
-            <TableCell>Book Type</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Quantity</TableCell>
-            <TableCell>Total</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>
-                <Checkbox
-                  checked={selectedRows.includes(row.id)}
-                  onChange={() => handleRowSelect(row.id)}
-                />
-              </TableCell>
-              <TableCell>{row.bookType}</TableCell>
-              <TableCell>{row.price}</TableCell>
-              <TableCell>
-                <TextField
-                  type="number"
-                  defaultValue={row.quantity}
-                  InputProps={{ inputProps: { min: 1 } }}
-                />
-              </TableCell>
-              <TableCell>{row.price * row.quantity}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+    <div style={{ minHeight: "80vh", width: "70%", margin: "0 auto" }}>
+      <OrderTable
+        rows={rows}
+        selectedRows={selectedRows}
+        handleRowSelect={handleRowSelect}
+      />
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        {/* <Button variant="contained" sx={{ mr: 20 }}>Pay Now</Button> */}
+        <Button variant="contained" onClick={() => history.push("/checkout")}>Pay Now</Button>
+      </div>
     </div>
   );
 }

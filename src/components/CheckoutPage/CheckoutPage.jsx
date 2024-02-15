@@ -14,6 +14,7 @@ import {
 import CustomerInfoForm from "./CustomerInfoForm";
 import { border } from "../Utils/colors";
 import PayPalButton from "./PayPalButtons";
+import { historyHook } from "../../hooks/useHistory";
 
 export const containerStyle = {
   width: "50vw",
@@ -50,6 +51,7 @@ function StepThree() {
 }
 
 export default function CheckoutPage() {
+  const history = historyHook();
   const [activeStep, setActiveStep] = useState(0);
 
   const [isPayPalInitialized, setIsPayPalInitialized] = useState(false);
@@ -108,7 +110,7 @@ export default function CheckoutPage() {
             <Button variant="contained" color="primary" onClick={handleNext}>
               {activeStep === steps.length - 1 ? "Place Order" : "Next"}
             </Button>
-            <Button>Return to Store</Button>
+            <Button onClick={() => history.goBack()}>Return to Store</Button>
           </div>
           <div style={{ width: "30%", marginLeft: "20px" }}>
             <Paper
