@@ -60,7 +60,6 @@ export default function CustomerInfoForm() {
               label="Apt, Unit, Suite"
               variant="outlined"
               fullWidth
-              required
             />
           </Grid>
           {/* ~~~~~~~~~~ City  ~~~~~~~~~~~~~~~~ */}

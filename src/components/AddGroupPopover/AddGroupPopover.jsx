@@ -132,19 +132,19 @@ export default function BasicPopover({ info, groups, onChange }) {
                 onChange={(e) => setDescription(e.target.value)}
               />
               {/* ~~~~~~~~~~ GROUP LEAD NAME ~~~~~~~~~~ */}
-              <TextField
+              {/* <TextField
                 label="Group Leader Name"
                 fullWidth
                 value={groupLeadName}
                 onChange={(e) => setGroupLeadName(e.target.value)}
-              />
+              /> */}
               {/* ~~~~~~~~~~ GROUP LEAD EMAIL ~~~~~~~~~ */}
-              <TextField
+              {/* <TextField
                 label="Group Leader Email"
                 fullWidth
                 value={groupLeadEmail}
                 onChange={(e) => setGroupLeadEmail(e.target.value)}
-              />
+              /> */}
             </div>
             <div style={modalBtnStyle}>
               <Button className="modal-cancel-btn" onClick={handleClose}>

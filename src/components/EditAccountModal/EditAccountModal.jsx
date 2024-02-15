@@ -14,26 +14,31 @@ import InputAdornment from "@mui/material/InputAdornment";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
 import { border, primaryColor } from "../Utils/colors";
 import { modalHeaderStyle, lineDivider } from "../Utils/modalStyles";
-// ~~~~~~~~~~~ Components ~~~~~~~~~~~
-import CloseButton from "../Buttons/CloseButton";
 import {
   capitalizeWords,
   capitalizeFirstWord,
   capitalizeStateAbbr,
   capitalize,
 } from "../Utils/helpers";
+// ~~~~~~~~~~~ Components ~~~~~~~~~~~
+import CloseButton from "../Buttons/CloseButton";
 import AddFileButton from "../AddFileButton/AddFileButton";
+import StateSelector from "../StateSelector/StateSelector";
 
 const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const dispatch = useDispatch();
   const [editedAccount, setEditedAccount] = useState(data);
   console.log(editedAccount);
+  
+  const [selectedState, setSelectedState] = useState(data.state);
+  console.log(selectedState);
 
   useEffect(() => {
     setEditedAccount(data);
   }, [data]);
 
   const handleChange = (field, value, isMerchant) => {
+    console.log(field, value, isMerchant);
     setEditedAccount((prev) => ({
       ...prev,
       [isMerchant ? "merchant_name" : field]: value,
@@ -84,7 +89,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
 
   return (
     <div>
-      <Modal open={open} onClose={() => {}} >
+      <Modal open={open} onClose={() => {}}>
         <Box sx={style}>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~ MODAL HEADER ~~~~~~~~~~ */}
@@ -164,12 +169,13 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ STATE ~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
-              <TextField
+              {/* <TextField
                 label="State"
                 fullWidth
                 value={capitalizeStateAbbr(editedAccount.state)}
                 onChange={(e) => handleChange("state", e.target.value)}
-              />
+              /> */}
+              <StateSelector onChange={handleChange} />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~~ ZIP ~~~~~~~~~~~~~~ */}
@@ -209,7 +215,10 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
                   ),
                 }}
               /> */}
-              <AddFileButton filename={editedAccount.filename} onFileSelect={handleFileSelection}  />
+              <AddFileButton
+                filename={editedAccount.filename}
+                onFileSelect={handleFileSelection}
+              />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~ */}

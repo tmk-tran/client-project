@@ -156,6 +156,18 @@ export default function NavLinks() {
                 Checkout
               </MuiLink>
             </Typography>
+
+            <Typography>
+              <MuiLink
+                component={Link}
+                className="main-navlink"
+                to="/order"
+                underline="hover"
+              >
+                Order
+              </MuiLink>
+            </Typography>
+
           </>
         )}
       </div>

@@ -7,9 +7,11 @@ import "./Header.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { User } from "../../hooks/reduxStore";
 import { border } from "../Utils/colors";
+import { historyHook } from "../../hooks/useHistory";
 
 export default function Header() {
   const user = User();
+  const history = historyHook();
 
   return (
     <>
@@ -29,6 +31,8 @@ export default function Header() {
             className="main-logo"
             src="../images/main-logo.jpg"
             alt="Preferred Saving Guide logo in colors blue and gold"
+            onClick={() => history.push("/home")}
+            style={{ cursor: "pointer" }}
           />
           <div
             style={{
@@ -51,7 +55,10 @@ export default function Header() {
         </div>
         {/* <div style={{ flexGrow: 1, ...border, height: "25px" }}></div> */}
         <div style={{ position: "absolute", right: "10%", top: "3%" }}>
-        <ShoppingCartIcon sx={{ color: "ghostwhite" }} onClick={ () => console.log("Cart Clicked!!")} />
+          <ShoppingCartIcon
+            sx={{ color: "ghostwhite", cursor: "pointer" }}
+            onClick={() => history.push("/checkout")}
+          />
         </div>
       </div>
       <div className="NavLinks-container">
@@ -61,8 +68,8 @@ export default function Header() {
   );
 }
 
-
-{/* <>
+{
+  /* <>
     <div style={{ height: "88px", backgroundColor: "#273B91" }}>
       <div
         style={{
@@ -92,4 +99,5 @@ export default function Header() {
     </div>
   </>
 );
-} */}
+} */
+}

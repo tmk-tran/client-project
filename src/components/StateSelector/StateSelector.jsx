@@ -54,7 +54,7 @@ const states = [
   { name: "Wyoming", abbreviation: "WY" },
 ];
 
-export default function StateSelector() {
+export default function StateSelector({ onChange }) {
   const [state, setState] = useState("");
 
   const handleChange = (event) => {
@@ -63,6 +63,7 @@ export default function StateSelector() {
     const newState = states.find((state) => state.abbreviation === selectedAbbreviation);
     console.log(newState);
     setState(newState);
+    onChange("state", newState.abbreviation);
   };
 
   return (
