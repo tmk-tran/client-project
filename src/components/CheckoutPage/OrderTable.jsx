@@ -109,7 +109,7 @@ export default function OrderTable({
                 />
               )}
             </TableCell>
-            <TableCell sx={border}>
+            <TableCell>
               {row.bookType !== "Donate" ? (
                 <>$ {row.price * row.quantity}</>
               ) : (

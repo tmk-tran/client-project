@@ -36,51 +36,51 @@ function* deleteOrganizationSaga(action) {
 function* editOrganizationSaga(action) {
   try {
     console.log("ACTION PAYLOAD IS", action.payload);
-    console.log(action.payload.editedAccount);
-    const orgId = action.payload.editedAccount.id;
+    console.log(action.payload);
+    const orgId = action.payload.id;
     console.log(orgId);
 
     // Create a FormData object to send the file data
     const formData = new FormData();
     formData.append(
       "organization_name",
-      action.payload.editedAccount.organization_name
+      action.payload.organization_name
     );
-    formData.append("type", action.payload.editedAccount.type);
-    formData.append("address", action.payload.editedAccount.address);
-    formData.append("city", action.payload.editedAccount.city);
-    formData.append("state", action.payload.editedAccount.state);
-    formData.append("zip", action.payload.editedAccount.zip);
+    formData.append("type", action.payload.type);
+    formData.append("address", action.payload.address);
+    formData.append("city", action.payload.city);
+    formData.append("state", action.payload.state);
+    formData.append("zip", action.payload.zip);
     formData.append(
       "primary_contact_first_name",
-      action.payload.editedAccount.primary_contact_first_name
+      action.payload.primary_contact_first_name
     );
     formData.append(
       "primary_contact_last_name",
-      action.payload.editedAccount.primary_contact_last_name
+      action.payload.primary_contact_last_name
     );
     formData.append(
       "primary_contact_phone",
-      action.payload.editedAccount.primary_contact_phone
+      action.payload.primary_contact_phone
     );
     formData.append(
       "primary_contact_email",
-      action.payload.editedAccount.primary_contact_email
+      action.payload.primary_contact_email
     );
     formData.append(
       "organization_earnings",
-      action.payload.editedAccount.organization_earnings
+      action.payload.organization_earnings
     );
 
     // Check if a file is uploaded
-    if (action.payload.editedAccount.uploadedFile) {
+    if (action.payload.uploadedFile) {
       formData.append(
         "organization_logo",
-        action.payload.editedAccount.uploadedFile
+        action.payload.uploadedFile
       );
       formData.append(
         "filename",
-        action.payload.editedAccount.uploadedFile.name
+        action.payload.uploadedFile.name
       );
     }
 

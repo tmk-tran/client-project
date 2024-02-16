@@ -6,6 +6,10 @@ export default function ModalButtons({ label, onSave, onCancel, width }) {
     width: width === "50%" ? "50%" : "auto",
   };
 
+  const handleSave = () => {
+    onSave();
+  };
+
   return (
     <div style={modalBtnStyle}>
       <Button
@@ -16,7 +20,7 @@ export default function ModalButtons({ label, onSave, onCancel, width }) {
         Cancel
       </Button>
       <Button
-        onClick={onSave}
+        onClick={handleSave}
         variant="contained"
         color="secondary"
         // sx={saveBtnWidth}

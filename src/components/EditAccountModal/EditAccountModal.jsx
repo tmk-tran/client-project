@@ -52,12 +52,16 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   };
 
   const handleEditSave = (editedAccount) => {
+    console.log(editedAccount);
     if (!isMerchantList) {
-      const payload = { editedAccount };
+      // const payload = { editedAccount };
+      const payload = editedAccount;
       console.log(payload);
-      dispatch({ type: "EDIT_ORGANIZATION", payload });
+      dispatch({ type: "EDIT_ORGANIZATION", payload: editedAccount });
       dispatch({ type: "FETCH_ORGANIZATIONS" });
     } else {
+      const payload = editedAccount;
+      console.log(payload);
       dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedAccount });
       dispatch({ type: "FETCH_MERCHANTS" });
     }
@@ -246,7 +250,15 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
           {/* ///////////////////////// */}
           {/* ///~~~ BUTTONS ~~~/// */}
           {/* ///////////////////////// */}
-          <ModalButtons label="Save" onSave={handleEditSave} onCancel={handleClose} />
+          {/* <ModalButtons label="Save" onSave={handleEditSave} onCancel={handleClose} /> */}
+          <Button
+            onClick={() => handleEditSave(editedAccount)}
+            variant="contained"
+            color="secondary"
+            fullWidth
+          >
+            Save
+          </Button>
         </Box>
       </Modal>
     </div>
