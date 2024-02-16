@@ -22,7 +22,7 @@ export default function CouponDesign() {
     dispatch({
       type: "FETCH_COUPON_FILES",
     });
-  }, [dispatch]);
+  }, []); // deleted dispatch from dependencies
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>

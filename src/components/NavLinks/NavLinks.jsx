@@ -35,6 +35,7 @@ const theme = createTheme({
 export default function NavLinks() {
   const location = useLocation();
   const user = User();
+  console.log(user);
 
   // Hide NavLinks component on the checkout page
   if (location.pathname === "/checkout") {

@@ -19,7 +19,6 @@ export default function OrderTable({
   handlePayment,
   customDonation,
   setCustomDonation,
-  clearDonation,
 }) {
   console.log(rows);
   console.log(selectedRows);
@@ -61,6 +60,9 @@ export default function OrderTable({
   console.log(subtotal);
   handlePayment(subtotal);
 
+  const productSelected = selectedRows;
+  console.log(productSelected);
+
   return (
     <Table>
       <TableHead>
@@ -100,6 +102,7 @@ export default function OrderTable({
                       setCustomDonation(parseInt(e.target.value, 10))
                     }
                     InputProps={{ inputProps: { min: 0 } }}
+                    sx={{ width: "35%" }}
                   />
                 ) : (
                   <TextField
@@ -107,6 +110,7 @@ export default function OrderTable({
                     value={row.quantity}
                     onChange={(e) => quantityChange(e, row)}
                     InputProps={{ inputProps: { min: 1 } }}
+                    sx={{ width: "20%" }}
                   />
                 )
               ) : (
@@ -115,6 +119,7 @@ export default function OrderTable({
                   type="number"
                   value={row.quantity}
                   InputProps={{ inputProps: { min: 1 } }}
+                  sx={{ width: "20%" }}
                 />
               )}
             </TableCell>

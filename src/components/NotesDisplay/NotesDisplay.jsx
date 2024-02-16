@@ -84,7 +84,7 @@ export default function NotesDisplay({
 
     // Reset noteAdded after fetching data
     setNoteAdded(false);
-  }, [dispatch, paramsObject.id, noteAdded, isMerchantTaskPage]);
+  }, [paramsObject.id, noteAdded, isMerchantTaskPage]); // Deleted dispatch from dependencies
 
   const handleSave = () => {
     // Format the date as "mm/dd/yyyy"

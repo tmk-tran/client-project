@@ -50,7 +50,7 @@ export default function TableTaskDetails({ mId, caseType }) {
       type: "FETCH_MERCHANT_TASKS",
       payload: mId,
     });
-  }, [dispatch, mId]);
+  }, [mId]); // Deleted dispatch from dependencies
 
   const renderTask = (task, index) => {
     const taskComments = comments.filter(

@@ -11,25 +11,6 @@ export default function OrderPage() {
   const [customDonation, setCustomDonation] = useState(0);
   console.log(customDonation);
 
-  const handleRowSelect = (rowId) => {
-    console.log(rowId);
-    if (selectedRows.includes(rowId)) {
-      setSelectedRows(selectedRows.filter((id) => id !== rowId));
-    } else {
-      setSelectedRows([...selectedRows, rowId]);
-    }
-  };
-
-  const clearTotal = () => {
-    const updatedRows = rows.map((row) => ({ ...row, quantity: 0 }));
-    setRows(updatedRows);
-    clearDonation();
-  };
-
-  const clearDonation = () => {
-    setCustomDonation(0);
-  };
-
   // UPDATE WITH ACTUAL STORE DATA ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const [rows, setRows] = useState([
     { id: 1, bookType: "Print Paper Coupon", price: 25, quantity: 0 },
@@ -43,14 +24,42 @@ export default function OrderPage() {
     { id: 4, bookType: "Donate", price: 0, quantity: 0 },
   ]);
 
+  const clearTotal = () => {
+    const updatedRows = rows.map((row) => ({ ...row, quantity: 0 }));
+    setRows(updatedRows);
+    clearDonation();
+  };
+
+  const clearDonation = () => {
+    setCustomDonation(0);
+  };
+
+  const handleRowSelect = (rowId) => {
+    console.log(rowId);
+    if (selectedRows.includes(rowId)) {
+      setSelectedRows(selectedRows.filter((id) => id !== rowId));
+    } else {
+      setSelectedRows([...selectedRows, rowId]);
+    }
+  };
+
+  const selectedProducts = selectedRows.map(rowId => rows.find(row => row.id === rowId));
+  console.log(selectedProducts);
+
   const handleQuantityChange = (newRows) => {
     setRows(newRows);
   };
 
-  const handlePayment = (subtotal, addDonationTotal) => {
+  const handlePayment = (subtotal) => {
     // Implement payment logic here
     console.log("Subtotal being sent for payment:", subtotal);
-    console.log("Add Donation Total being sent for payment:", addDonationTotal);
+  };
+  
+  const addToCart = () => {
+    history.push({
+        pathname: "/checkout",
+        state: { selectedProducts },
+      });
   };
 
   return (
@@ -68,7 +77,7 @@ export default function OrderPage() {
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         {/* <Button variant="contained" sx={{ mr: 20 }}>Pay Now</Button> */}
         <Button onClick={clearTotal}>Clear</Button>
-        <Button variant="contained" onClick={() => history.push("/checkout")}>
+        <Button variant="contained" onClick={addToCart}>
           Add to Cart
         </Button>
       </div>

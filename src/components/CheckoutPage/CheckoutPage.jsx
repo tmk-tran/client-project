@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   Box,
   Container,
@@ -11,7 +12,10 @@ import {
   Button,
   Paper,
 } from "@mui/material";
+// ~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~~~~~~
 import CustomerInfoForm from "./CustomerInfoForm";
+import OrderSummaryTable from "./OrderSummaryTable";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { border } from "../Utils/colors";
 import PayPalButton from "./PayPalButtons";
 import { historyHook } from "../../hooks/useHistory";
@@ -51,6 +55,17 @@ function StepThree() {
 }
 
 export default function CheckoutPage() {
+  const location = useLocation();
+//   const { selectedProducts } = location.state;
+//   // Now you can access selectedProducts and use it in your component
+//   console.log(
+//     "Selected Products in CheckoutPage:",
+//     selectedProducts ? selectedProducts : "No selectedProducts..."
+//   );
+  const selectedProducts = location.state?.selectedProducts ?? [];
+  // Now you can access selectedProducts and use it in your component
+  console.log("Selected Products in CheckoutPage:", selectedProducts);
+
   const history = historyHook();
   const [activeStep, setActiveStep] = useState(0);
 
@@ -160,7 +175,26 @@ export default function CheckoutPage() {
                 Order Summary
               </Typography>
               {/* Display order summary here */}
-              {/* <Typography></Typography> */}
+              {selectedProducts ? (
+                selectedProducts.map((product, i) => (
+                  <div key={i}>
+                    {/* <Typography sx={{ p: 3 }}>
+                      {product.bookType}
+                    </Typography>
+                    <Typography gutterBottom sx={{ p: 3 }}>
+                      ${product.price}
+                    </Typography>
+                    <Typography gutterBottom sx={{ p: 3 }}>
+                      Quantity: {product.quantity}
+                    </Typography> */}
+                    <OrderSummaryTable selectedProducts={selectedProducts} />
+                  </div>
+                ))
+              ) : (
+                <Typography variant="h6" gutterBottom sx={{ p: 3 }}>
+                  No products selected.
+                </Typography>
+              )}
             </Paper>
           </div>
         </div>

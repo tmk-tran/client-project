@@ -79,7 +79,7 @@ export default function CouponReviewDetails() {
     }
     dispatch({ type: "FETCH_COUPON_FILES", payload: merchantId });
     setUploadedFiles(false);
-  }, [dispatch, merchantId, commentAdded, uploadedFiles]);
+  }, [merchantId, commentAdded, uploadedFiles]); //Deleted dispatch from dependencies
 
   const files = pdfFile() || [];
   console.log(files);

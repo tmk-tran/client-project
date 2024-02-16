@@ -40,7 +40,7 @@ export default function DetailsTaskView({ caseType }) {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: mId });
       dispatch({ type: "FETCH_MERCHANT_TASKS", payload: mId });
     }
-  }, [dispatch, mId, caseType]);
+  }, [mId, caseType]); // Deleted dispatch from dependencies
   
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>

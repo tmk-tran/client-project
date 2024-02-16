@@ -57,21 +57,23 @@ const theme = createTheme({
 function App() {
   const dispatch = dispatchHook();
   const user = User();
+  console.log(user);
+
+  // useEffect(() => {
+  //   dispatch({ type: "FETCH_USER" });
+  // }, [dispatch]);
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch({ type: "FETCH_COUPON_BOOKS" });
-  }, [user]);
+    // dispatch({ type: "FETCH_COUPON_BOOKS" });
+  }, []);
 
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <div>
           {/* <Nav /> */}
-          <Header />
+          <Header user={user} />
           <MenuLinks />
           <Switch>
             <Redirect exact from="/" to="/home" />

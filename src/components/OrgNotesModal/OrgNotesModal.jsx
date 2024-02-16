@@ -43,7 +43,7 @@ export default function NotesPopover({ info }) {
 
     // Reset noteAdded after fetching data
     setNoteAdded(false);
-  }, [dispatch, paramsObject.id, noteAdded]);
+  }, [paramsObject.id, noteAdded]); // Deleted dispatch from dependencies
 
   const handleSave = () => {
     // Format the date as "mm/dd/yyyy"
