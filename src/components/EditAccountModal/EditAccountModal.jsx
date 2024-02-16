@@ -99,11 +99,6 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~ MODAL HEADER ~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ////////////////////////// */}
-          {/* ///~~~ CLOSE BUTTON ~~~/// */}
-          {/* ////////////////////////// */}
-          <CloseButton handleClose={handleClose} />
-          {/* ////////////////////////// */}
           <Typography variant="h6" sx={modalHeaderStyle}>
             {!isMerchantList ? (
               <span>Edit Organization</span>
