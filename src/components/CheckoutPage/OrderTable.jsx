@@ -22,9 +22,10 @@ export default function OrderTable({
   clearDonation,
 }) {
   console.log(rows);
+  console.log(selectedRows);
 
-//   const [customDonation, setCustomDonation] = useState(0);
-//   console.log(customDonation);
+  //   const [customDonation, setCustomDonation] = useState(0);
+  //   console.log(customDonation);
 
   const quantityChange = (e, row) => {
     const newQuantity = parseInt(e.target.value, 10);
@@ -88,23 +89,31 @@ export default function OrderTable({
                 `$ ${row.price}`
               )}
             </TableCell>
-
             <TableCell>
-              {row.bookType === "Donate" ? (
-                <TextField
-                  label="Custom Donation"
-                  type="number"
-                  value={customDonation}
-                  onChange={(e) =>
-                    setCustomDonation(parseInt(e.target.value, 10))
-                  }
-                  InputProps={{ inputProps: { min: 0 } }}
-                />
+              {selectedRows.includes(row.id) ? (
+                row.bookType === "Donate" ? (
+                  <TextField
+                    label="Custom Donation"
+                    type="number"
+                    value={customDonation}
+                    onChange={(e) =>
+                      setCustomDonation(parseInt(e.target.value, 10))
+                    }
+                    InputProps={{ inputProps: { min: 0 } }}
+                  />
+                ) : (
+                  <TextField
+                    type="number"
+                    value={row.quantity}
+                    onChange={(e) => quantityChange(e, row)}
+                    InputProps={{ inputProps: { min: 1 } }}
+                  />
+                )
               ) : (
                 <TextField
+                  disabled
                   type="number"
                   value={row.quantity}
-                  onChange={(e) => quantityChange(e, row)}
                   InputProps={{ inputProps: { min: 1 } }}
                 />
               )}
