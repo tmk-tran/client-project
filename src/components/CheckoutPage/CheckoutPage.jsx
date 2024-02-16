@@ -19,10 +19,12 @@ import OrderSummaryTable from "./OrderSummaryTable";
 import { border } from "../Utils/colors";
 import PayPalButton from "./PayPalButtons";
 import { historyHook } from "../../hooks/useHistory";
+import OrderSummary from "./OrderSummary";
 
 export const containerStyle = {
   width: "50vw",
-  minHeight: "50vh",
+  minHeight: "94%",
+//   minHeight: "50vh",
   mt: 3,
   mb: 5,
 };
@@ -56,12 +58,6 @@ function StepThree() {
 
 export default function CheckoutPage() {
   const location = useLocation();
-//   const { selectedProducts } = location.state;
-//   // Now you can access selectedProducts and use it in your component
-//   console.log(
-//     "Selected Products in CheckoutPage:",
-//     selectedProducts ? selectedProducts : "No selectedProducts..."
-//   );
   const selectedProducts = location.state?.selectedProducts ?? [];
   // Now you can access selectedProducts and use it in your component
   console.log("Selected Products in CheckoutPage:", selectedProducts);
@@ -131,7 +127,7 @@ export default function CheckoutPage() {
         maxWidth="lg"
         style={{ display: "flex", flexDirection: "column", marginTop: 12 }}
       >
-        <div style={{ display: "flex", width: "100%" }}>
+        <div style={{ display: "flex", ...border }}>
           <div style={{ flexGrow: 1 }}>
             <Stepper activeStep={activeStep}>
               {steps.map((label) => (
@@ -140,7 +136,7 @@ export default function CheckoutPage() {
                 </Step>
               ))}
             </Stepper>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} sx={{ mb: 5 }}>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~ RENDERED STEPPER CONTENT ~~~~~~~ */}
               <Grid item xs={12} md={8}>
@@ -161,41 +157,9 @@ export default function CheckoutPage() {
               Return to Store
             </Button>
           </div>
-          <div style={{ width: "30%", marginLeft: "20px" }}>
-            <Paper
-              elevation={4}
-              style={{
-                width: "25vw",
-                minHeight: "50vh",
-                marginTop: "53px",
-                backgroundColor: "#f5f5f5",
-              }}
-            >
-              <Typography variant="h6" gutterBottom sx={{ p: 3 }}>
-                Order Summary
-              </Typography>
-              {/* Display order summary here */}
-              {selectedProducts ? (
-                selectedProducts.map((product, i) => (
-                  <div key={i}>
-                    {/* <Typography sx={{ p: 3 }}>
-                      {product.bookType}
-                    </Typography>
-                    <Typography gutterBottom sx={{ p: 3 }}>
-                      ${product.price}
-                    </Typography>
-                    <Typography gutterBottom sx={{ p: 3 }}>
-                      Quantity: {product.quantity}
-                    </Typography> */}
-                    <OrderSummaryTable selectedProducts={selectedProducts} />
-                  </div>
-                ))
-              ) : (
-                <Typography variant="h6" gutterBottom sx={{ p: 3 }}>
-                  No products selected.
-                </Typography>
-              )}
-            </Paper>
+          <div style={{ display: "flex", width: "100%", ...border }}>
+          {/* ~~~~~~~~~~ Order Summary ~~~~~~~~~~~~~~~~~~~~ */}      
+          <OrderSummary selectedProducts={selectedProducts} />
           </div>
         </div>
       </Container>

@@ -54,14 +54,21 @@ export default function OrderTable({
     console.log(withDonation);
   };
 
-  const subtotal =
+  const total =
     rows.reduce((acc, row) => acc + row.price * row.quantity, 0) +
     customDonation;
-  console.log(subtotal);
-  handlePayment(subtotal);
+  console.log(total);
+  handlePayment(total);
 
-  const productSelected = selectedRows;
-  console.log(productSelected);
+  const mapSelectedRowsToProducts = () => {
+    return selectedRows.map((selectedId) => {
+      return rows.find((row) => row.id === selectedId);
+    });
+  };
+  
+  const selectedProducts = mapSelectedRowsToProducts();
+  console.log("Selected Products:", selectedProducts);
+  
 
   return (
     <Table>
@@ -71,7 +78,7 @@ export default function OrderTable({
           <TableCell>Book Type</TableCell>
           <TableCell>Price</TableCell>
           <TableCell>Quantity</TableCell>
-          <TableCell>Total</TableCell>
+          <TableCell>Subtotal</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -136,11 +143,11 @@ export default function OrderTable({
           <TableCell colSpan={3} sx={{ border: "none" }} />
           <TableCell align="right" sx={{ border: "none" }}>
             <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              Subtotal:
+              Total:
             </Typography>
           </TableCell>
           <TableCell align="left" sx={{ border: "none" }}>
-            <Typography variant="h6">${subtotal}</Typography>
+            <Typography variant="h6">${total}</Typography>
           </TableCell>
         </TableRow>
       </TableBody>

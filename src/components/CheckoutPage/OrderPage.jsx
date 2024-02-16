@@ -6,6 +6,7 @@ import { historyHook } from "../../hooks/useHistory";
 
 export default function OrderPage() {
   const history = historyHook();
+
   const [selectedRows, setSelectedRows] = useState([]);
   console.log(selectedRows);
   const [customDonation, setCustomDonation] = useState(0);
@@ -43,24 +44,33 @@ export default function OrderPage() {
     }
   };
 
-  const selectedProducts = selectedRows.map(rowId => rows.find(row => row.id === rowId));
-  console.log(selectedProducts);
-
   const handleQuantityChange = (newRows) => {
     setRows(newRows);
   };
 
-  const handlePayment = (subtotal) => {
+  //   const selectedProducts = selectedRows.map(rowId => rows.find(row => row.id === rowId));
+  //   console.log(selectedProducts);
+
+  const mapSelectedRowsToProducts = () => {
+    return selectedRows.map((selectedId) => {
+      return rows.find((row) => row.id === selectedId);
+    });
+  };
+
+  const selectedProducts = mapSelectedRowsToProducts();
+  console.log("Selected Products:", selectedProducts);
+
+  const handlePayment = (total) => {
     // Implement payment logic here
-    console.log("Subtotal being sent for payment:", subtotal);
+    console.log("Subtotal being sent for payment:", total);
   };
-  
-  const addToCart = () => {
-    history.push({
-        pathname: "/checkout",
-        state: { selectedProducts },
-      });
-  };
+
+    const addToCart = () => {
+      history.push({
+          pathname: "/ordersummary",
+          state: { rows, selectedProducts },
+        });
+    };
 
   return (
     <div style={{ minHeight: "80vh", width: "70%", margin: "0 auto" }}>

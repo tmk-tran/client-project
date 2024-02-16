@@ -28,6 +28,7 @@ import TaskTabs from "../TaskTabs/TaskTabs";
 import CouponReviewDetails from "../CouponReviewDetails/CouponReviewDetails";
 import CheckoutPage from "../CheckoutPage/CheckoutPage";
 import OrderPage from "../CheckoutPage/OrderPage";
+import OrderSummary from "../CheckoutPage/OrderSummary";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -139,17 +140,21 @@ function App() {
               />
             </ProtectedRoute>
 
-            <ProtectedRoute exact path="/order">
-              <OrderPage />
-            </ProtectedRoute>
-
             <ProtectedRoute exact path="/coupon/:id">
               <CouponReviewDetails />
             </ProtectedRoute>
 
-            <Route exact path="/checkout">
+            <ProtectedRoute exact path="/order">
+              <OrderPage />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/ordersummary">
+              <OrderSummary />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/checkout">
               <CheckoutPage />
-            </Route>
+            </ProtectedRoute>
 
             <Route exact path="/login">
               {user.id ? (
