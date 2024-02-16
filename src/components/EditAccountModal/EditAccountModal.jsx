@@ -247,18 +247,9 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             </Grid>
           </Grid>
           <br />
-          {/* ///////////////////////// */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ///~~~ BUTTONS ~~~/// */}
-          {/* ///////////////////////// */}
-          {/* <ModalButtons label="Save" onSave={handleEditSave} onCancel={handleClose} /> */}
-          <Button
-            onClick={() => handleEditSave(editedAccount)}
-            variant="contained"
-            color="secondary"
-            fullWidth
-          >
-            Save
-          </Button>
+          <ModalButtons label="Save" editedAccount={editedAccount} onSave={handleEditSave} onCancel={handleClose} />
         </Box>
       </Modal>
     </div>

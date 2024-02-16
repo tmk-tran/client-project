@@ -1,13 +1,14 @@
 import { Button } from "@mui/material";
 import { modalBtnStyle, saveBtnWidth } from "../Utils/helpers";
 
-export default function ModalButtons({ label, onSave, onCancel, width }) {
+export default function ModalButtons({ label, editedAccount, onSave, onCancel, width }) {
+  console.log(editedAccount);
   const buttonSx = {
     width: width === "50%" ? "50%" : "auto",
   };
 
   const handleSave = () => {
-    onSave();
+    onSave(editedAccount);
   };
 
   return (
