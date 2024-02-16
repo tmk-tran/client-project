@@ -56,6 +56,18 @@ export default function CheckoutPage() {
 
   const [isPayPalInitialized, setIsPayPalInitialized] = useState(false);
   console.log(isPayPalInitialized);
+  const [stateSelected, setStateSelected] = useState(false);
+  console.log(stateSelected);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleStateChange = (state, value) => {
+    // Handle the state change in the parent component
+    console.log(state, value);
+    !state
+      ? alert("Please select a state.")
+      : console.log("READY FOR SUBMIT LOGIC HERE");
+    setStateSelected(value);
+  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -68,7 +80,13 @@ export default function CheckoutPage() {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <CustomerInfoForm />;
+        return (
+          <CustomerInfoForm
+            handleStateChange={handleStateChange}
+            stateSelected={stateSelected}
+            isSubmitted={isSubmitted}
+          />
+        );
       case 1:
         return <StepTwo />;
       case 2:
@@ -76,6 +94,20 @@ export default function CheckoutPage() {
       default:
         return "Unknown step";
     }
+  };
+
+  const handleSubmit = () => {
+    if (!stateSelected) {
+      // Handle error, e.g., display an error message
+      console.log("Please select a state.");
+      setIsSubmitted(true);
+      return;
+    }
+    // Continue with form submission
+    console.log("State selected:", selectedState);
+    setIsSubmitted(false);
+    handleNext();
+    console.log(isSubmitted);
   };
 
   return (
@@ -107,10 +139,12 @@ export default function CheckoutPage() {
             <Button disabled={activeStep === 0} onClick={handleBack}>
               Back
             </Button>
-            <Button variant="contained" color="primary" onClick={handleNext}>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
               {activeStep === steps.length - 1 ? "Place Order" : "Next"}
             </Button>
-            <Button onClick={() => history.goBack()}>Return to Store</Button>
+            <Button onClick={() => history.push("/order")}>
+              Return to Store
+            </Button>
           </div>
           <div style={{ width: "30%", marginLeft: "20px" }}>
             <Paper

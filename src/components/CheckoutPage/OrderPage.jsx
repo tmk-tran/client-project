@@ -33,7 +33,12 @@ export default function OrderPage() {
   // UPDATE WITH ACTUAL STORE DATA ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const [rows, setRows] = useState([
     { id: 1, bookType: "Print Paper Coupon", price: 25, quantity: 0 },
-    { id: 2, bookType: "Fargo - Moorhead (Digital Coupon)", price: 25, quantity: 0 },
+    {
+      id: 2,
+      bookType: "Fargo - Moorhead (Digital Coupon)",
+      price: 25,
+      quantity: 0,
+    },
     { id: 3, bookType: "Grand Forks (Digital Coupon)", price: 25, quantity: 0 },
     { id: 4, bookType: "Donate", price: 0, quantity: 0 },
   ]);
@@ -46,7 +51,7 @@ export default function OrderPage() {
     // Implement payment logic here
     console.log("Subtotal being sent for payment:", subtotal);
     console.log("Add Donation Total being sent for payment:", addDonationTotal);
-  };  
+  };
 
   return (
     <div style={{ minHeight: "80vh", width: "70%", margin: "0 auto" }}>
@@ -64,7 +69,7 @@ export default function OrderPage() {
         {/* <Button variant="contained" sx={{ mr: 20 }}>Pay Now</Button> */}
         <Button onClick={clearTotal}>Clear</Button>
         <Button variant="contained" onClick={() => history.push("/checkout")}>
-          Pay Now
+          Add to Cart
         </Button>
       </div>
     </div>

@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 
 const states = [
   { name: "Alabama", abbreviation: "AL" },
@@ -54,26 +60,48 @@ const states = [
   { name: "Wyoming", abbreviation: "WY" },
 ];
 
-export default function StateSelector({ onChange }) {
+export default function StateSelector({
+  onChange,
+  stateSelected,
+  isSubmitted,
+}) {
+  console.log(stateSelected);
+  console.log(isSubmitted);
   const [state, setState] = useState("");
+  const [error, setError] = useState(false);
+
+  // useEffect(() => {
+  //   setError(!stateSelected); // Set error to true if stateSelected is false
+  // }, [stateSelected]);
+
+  useEffect(() => {
+    if (isSubmitted && !stateSelected) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [isSubmitted, stateSelected]);
 
   const handleChange = (event) => {
     const selectedAbbreviation = event.target.value;
     console.log(selectedAbbreviation);
-    const newState = states.find((state) => state.abbreviation === selectedAbbreviation);
+    const newState = states.find(
+      (state) => state.abbreviation === selectedAbbreviation
+    );
     console.log(newState);
     setState(newState);
-    onChange("state", newState.abbreviation);
+    onChange(newState, newState.abbreviation);
+    setError(false);
   };
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth error={error}>
       <InputLabel id="state-label">State</InputLabel>
       <Select
         labelId="state-label"
         id="state"
         // value={state}
-        value={state ? state.abbreviation : ''}
+        value={state ? state.abbreviation : ""}
         label="State"
         onChange={handleChange}
       >
@@ -83,6 +111,7 @@ export default function StateSelector({ onChange }) {
           </MenuItem>
         ))}
       </Select>
+      {error && <FormHelperText>Please select a state</FormHelperText>}
     </FormControl>
   );
 }

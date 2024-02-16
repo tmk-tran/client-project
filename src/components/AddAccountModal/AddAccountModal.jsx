@@ -21,6 +21,7 @@ import StateFieldInput from "./StateFieldInput";
 import WebsiteInput from "./WebsiteInput";
 import RadioButtons from "./RadioButtons";
 import { capitalizeWords } from "../Utils/helpers";
+import ModalButtons from "../Modals/ModalButtons";
 
 export default function AddOrganizationModal({
   open,
@@ -180,17 +181,13 @@ export default function AddOrganizationModal({
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~ HEADER ~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ///~~~~~~~~~~~~~~~~~~/// */}
-          {/* ///~~ CLOSE BUTTON ~~/// */}
-          <CloseButton handleClose={cancelAdd} />
-          {/* ///~~~~~~~~~~~~~~~~~~/// */}
           <Typography variant="h6" sx={modalHeaderStyle}>
             {!isMerchantList ? "Add New Organization" : "Add New Merchant"}
           </Typography>
           {/* ~~~~~~~~~~ END HEADER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           <Divider sx={lineDivider} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <Grid container spacing={1}>
+          <Grid container spacing={1} sx={{ mb: 3 }}>
             <Grid item xs={9}>
               <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                 Name / Location
@@ -366,16 +363,7 @@ export default function AddOrganizationModal({
           </Grid>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~~~~~ */}
-          <Button
-            onClick={handleSave}
-            variant="contained"
-            color="secondary"
-            sx={{ mt: 2, ...hoverAccept }}
-            fullWidth
-          >
-            {/* <AddBoxIcon sx={{ mr: 2 }} /> */}
-            Add
-          </Button>
+          <ModalButtons label="Add" onSave={handleSave} onCancel={cancelAdd} />
         </Box>
       </Modal>
     </div>
