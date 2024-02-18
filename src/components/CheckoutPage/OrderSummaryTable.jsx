@@ -23,15 +23,16 @@ export default function OrderSummaryTable({ selectedProducts }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {selectedProducts.map((product, index) => (
-            <TableRow key={index}>
-              <TableCell>{product.bookType}</TableCell>
-              <TableCell>${product.price}</TableCell>
-              <TableCell>{product.quantity}</TableCell>
-              <TableCell>${product.price * product.quantity}</TableCell>
-            </TableRow>
-          ))}
-          {selectedProducts.length === 0 && (
+          {selectedProducts ? (
+            selectedProducts.map((product, index) => (
+              <TableRow key={index}>
+                <TableCell>{product.bookType}</TableCell>
+                <TableCell>${product.price}</TableCell>
+                <TableCell>{product.quantity}</TableCell>
+                <TableCell>${product.price * product.quantity}</TableCell>
+              </TableRow>
+            ))
+          ) : (
             <TableRow>
               <TableCell colSpan={4}>
                 <Typography variant="h6" gutterBottom>

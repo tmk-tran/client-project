@@ -19,7 +19,7 @@ import OrderSummaryTable from "./OrderSummaryTable";
 import { border } from "../Utils/colors";
 import PayPalButton from "./PayPalButtons";
 import { historyHook } from "../../hooks/useHistory";
-import OrderSummary from "./OrderSummary";
+import OrderSummaryDisplay from "./OrderSummaryDisplay";
 
 export const containerStyle = {
   width: "50vw",
@@ -157,10 +157,10 @@ export default function CheckoutPage() {
               Return to Store
             </Button>
           </div>
-          <div style={{ display: "flex", width: "100%", ...border }}>
+          {/* <div style={{ display: "flex", width: "100%", ...border }}> */}
           {/* ~~~~~~~~~~ Order Summary ~~~~~~~~~~~~~~~~~~~~ */}      
-          <OrderSummary selectedProducts={selectedProducts} />
-          </div>
+          {/* <OrderSummaryDisplay selectedProducts={selectedProducts} /> */}
+          {/* </div> */}
         </div>
       </Container>
     </div>

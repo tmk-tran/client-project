@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "@mui/material";
-import { border } from "../Utils/colors";
 import OrderTable from "./OrderTable";
 import { historyHook } from "../../hooks/useHistory";
+import { containerStyle } from "./OrderSummary";
+import { border } from "../Utils/colors";
 
 export default function OrderPage() {
   const history = historyHook();
@@ -73,7 +74,7 @@ export default function OrderPage() {
     };
 
   return (
-    <div style={{ minHeight: "80vh", width: "70%", margin: "0 auto" }}>
+    <div style={containerStyle}>
       <OrderTable
         rows={rows}
         selectedRows={selectedRows}

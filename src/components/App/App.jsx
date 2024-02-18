@@ -28,6 +28,7 @@ import TaskTabs from "../TaskTabs/TaskTabs";
 import CouponReviewDetails from "../CouponReviewDetails/CouponReviewDetails";
 import CheckoutPage from "../CheckoutPage/CheckoutPage";
 import OrderPage from "../CheckoutPage/OrderPage";
+import OrderSummaryTable from "../CheckoutPage/OrderSummaryTable";
 import OrderSummary from "../CheckoutPage/OrderSummary";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
