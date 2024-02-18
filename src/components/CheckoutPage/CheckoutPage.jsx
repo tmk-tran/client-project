@@ -24,7 +24,7 @@ import OrderSummaryDisplay from "./OrderSummaryDisplay";
 export const containerStyle = {
   width: "50vw",
   minHeight: "94%",
-//   minHeight: "50vh",
+  //   minHeight: "50vh",
   mt: 3,
   mb: 5,
 };
@@ -61,6 +61,8 @@ export default function CheckoutPage() {
   const selectedProducts = location.state?.selectedProducts ?? [];
   // Now you can access selectedProducts and use it in your component
   console.log("Selected Products in CheckoutPage:", selectedProducts);
+  const orderTotal = location.state?.orderTotal?? 0;
+  console.log(orderTotal);
 
   const history = historyHook();
   const [activeStep, setActiveStep] = useState(0);
@@ -123,45 +125,40 @@ export default function CheckoutPage() {
 
   return (
     <div style={{ minHeight: "85vh" }}>
-      <Container
-        maxWidth="lg"
-        style={{ display: "flex", flexDirection: "column", marginTop: 12 }}
-      >
-        <div style={{ display: "flex", ...border }}>
-          <div style={{ flexGrow: 1 }}>
-            <Stepper activeStep={activeStep}>
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-            <Grid container spacing={3} sx={{ mb: 5 }}>
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~ RENDERED STEPPER CONTENT ~~~~~~~ */}
-              <Grid item xs={12} md={8}>
-                <Paper elevation={2} sx={containerStyle}>
-                  {getStepContent(activeStep)}
-                </Paper>
-              </Grid>
+      <Container sx={{ display: "flex", justifyContent: "center" }}>
+        <div>
+          <Stepper activeStep={activeStep}>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <Grid container spacing={3} sx={{ mb: 5 }}>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~ RENDERED STEPPER CONTENT ~~~~~~~ */}
+            <Grid item xs={12} md={8}>
+              <Paper elevation={2} sx={containerStyle}>
+                {getStepContent(activeStep)}
+              </Paper>
             </Grid>
-            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            {/* ~~~~~~~~~~ CHECKOUT NAV BUTTONS ~~~~~~~~~~ */}
-            <Button disabled={activeStep === 0} onClick={handleBack}>
-              Back
-            </Button>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              {activeStep === steps.length - 1 ? "Place Order" : "Next"}
-            </Button>
-            <Button onClick={() => history.push("/order")}>
-              Return to Store
-            </Button>
-          </div>
-          {/* <div style={{ display: "flex", width: "100%", ...border }}> */}
-          {/* ~~~~~~~~~~ Order Summary ~~~~~~~~~~~~~~~~~~~~ */}      
-          {/* <OrderSummaryDisplay selectedProducts={selectedProducts} /> */}
-          {/* </div> */}
+          </Grid>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~ CHECKOUT NAV BUTTONS ~~~~~~~~~~ */}
+          <Button disabled={activeStep === 0} onClick={handleBack}>
+            Back
+          </Button>
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            {activeStep === steps.length - 1 ? "Place Order" : "Next"}
+          </Button>
+          <Button onClick={() => history.push("/order")}>
+            Return to Store
+          </Button>
         </div>
+        {/* <div style={{ display: "flex", width: "100%", ...border }}> */}
+        {/* ~~~~~~~~~~ Order Summary ~~~~~~~~~~~~~~~~~~~~ */}
+        {/* <OrderSummaryDisplay selectedProducts={selectedProducts} /> */}
+        {/* </div> */}
       </Container>
     </div>
   );

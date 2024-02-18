@@ -4,6 +4,7 @@ import OrderTable from "./OrderTable";
 import { historyHook } from "../../hooks/useHistory";
 import { containerStyle } from "./OrderSummary";
 import { border } from "../Utils/colors";
+import CustomButton from "../CustomButton/CustomButton";
 
 export default function OrderPage() {
   const history = historyHook();
@@ -66,12 +67,12 @@ export default function OrderPage() {
     console.log("Subtotal being sent for payment:", total);
   };
 
-    const addToCart = () => {
-      history.push({
-          pathname: "/ordersummary",
-          state: { rows, selectedProducts },
-        });
-    };
+  const addToCart = () => {
+    history.push({
+      pathname: "/ordersummary",
+      state: { rows, selectedProducts },
+    });
+  };
 
   return (
     <div style={containerStyle}>
@@ -86,11 +87,12 @@ export default function OrderPage() {
         clearDonation={clearDonation}
       />
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        {/* <Button variant="contained" sx={{ mr: 20 }}>Pay Now</Button> */}
-        <Button onClick={clearTotal}>Clear</Button>
-        <Button variant="contained" onClick={addToCart}>
-          Add to Cart
-        </Button>
+        <CustomButton label="Clear" onClick={clearTotal} />
+        <CustomButton
+          label="Add to Cart"
+          onClick={addToCart}
+          variant="contained"
+        />
       </div>
     </div>
   );

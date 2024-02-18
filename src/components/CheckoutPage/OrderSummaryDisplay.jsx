@@ -5,10 +5,11 @@ import OrderSummaryTable from "./OrderSummaryTable";
 export default function OrderSummaryDisplay() {
   const location = useLocation();
   const selectedProducts = location.state?.selectedProducts ?? [];
-  // Now you can access selectedProducts and use it in your component
+  // Access to selectedProducts and use in component
   console.log("Selected Products in CheckoutPage:", selectedProducts);
   const products = location.state?.rows ?? [];
   console.log("Products from previous page: ", products);
+  
   return (
     <div style={{ width: "30%", marginLeft: "20px" }}>
       <Paper
