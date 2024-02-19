@@ -273,7 +273,7 @@ export default function ContactEdit({
         />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~ WEBSITE ~~~~~~~~~~ */}
-        {info.website ? (
+        {isMerchantTaskPage ? (
           <TextField
             label="Website"
             value={editedWebsite}
