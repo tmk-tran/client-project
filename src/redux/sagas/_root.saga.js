@@ -20,6 +20,7 @@ import merchantTaskSaga from "./merchantTask.saga";
 import organizationTaskSaga from "./organizationTask.saga";
 import merchantCommentsSaga from "./merchantComments.saga";
 import locationsSaga from "./locations.saga";
+import sellersSaga from "./sellers.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -50,5 +51,6 @@ export default function* rootSaga() {
     organizationTaskSaga(),
     merchantCommentsSaga(),
     locationsSaga(),
+    sellersSaga(),
   ]);
 }

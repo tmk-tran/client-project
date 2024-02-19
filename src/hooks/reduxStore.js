@@ -48,6 +48,10 @@ export const mLocations = () => {
   return useSelector((store) => store.locations);
 };
 
+export const oSellers = () => {
+  return useSelector((store) => store.sellers);
+};
+
 export const pdfFile = () => {
   return useSelector((store) => store.pdf);
 };
