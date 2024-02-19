@@ -35,7 +35,11 @@ export default function AddLocationModal({
   onLocationAdd,
   handleCaseTypeChange,
   handleAddLocation,
+  isEditing,
+  handleOpenModal,
+  handleCloseModal,
 }) {
+  console.log(isEditing);
   const dispatch = dispatchHook();
   const paramsObject = useParams();
   console.log(paramsObject);
@@ -58,8 +62,17 @@ export default function AddLocationModal({
   console.log(merchantId);
   console.log(additionalDetails);
 
+  useEffect(() => {
+    if (isEditing) {
+      handleOpen();
+    }
+  }, [isEditing]);
+
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    handleCloseModal();
+  };
 
   // NEED TO ADD COORDINATES AND REGION_ID AFTER TALKING TO JOE
   const newLocationPayload = {

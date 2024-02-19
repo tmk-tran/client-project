@@ -24,6 +24,8 @@ export default function LocationsCard({
 
   const [editingLocation, setEditingLocation] = useState(null); // State to store the location being edited
   console.log(editingLocation);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  console.log(isModalOpen);
 
   const handleEditToggle = (index) => {
     console.log(index);
@@ -62,7 +64,7 @@ export default function LocationsCard({
     console.log(merchantId);
     setIsEditing(true);
 
-    // dispatch({ 
+    // dispatch({
     //   type: "EDIT_LOCATION",
     //   payload: {
     //     locationId,
@@ -82,7 +84,13 @@ export default function LocationsCard({
         onLocationAdd={handleTaskUpdate}
         handleCaseTypeChange={handleCaseTypeChange}
         handleAddLocation={handleAddLocation}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        handleOpenModal={handleOpenModal}
+        handleCloseModal={handleCloseModal}
       />
+      {/* <EditLocationModal isOpen={isEditing} onClose={handleCloseModal} /> */}
+
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {locations
         .filter((location) => !location.is_deleted)
@@ -114,10 +122,8 @@ export default function LocationsCard({
                   location={location}
                   i={i}
                   toggleEdit={handleEditToggle}
-
                 />
               </div>
-              <EditLocationModal isOpen={isEditing} onClose={handleCloseModal}  />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
               <LocationsCardTable data={location} isEditing={isEditing} />
