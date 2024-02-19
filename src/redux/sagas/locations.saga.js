@@ -32,7 +32,10 @@ function* addLocations(action) {
     console.log(action.payload);
     console.log(action.payload.merchant_id);
     yield axios.post(`/api/locations/`, action.payload);
-    yield put({ type: "FETCH_MERCHANT_LOCATIONS", payload: action.payload.merchant_id});
+    yield put({
+      type: "FETCH_MERCHANT_LOCATIONS",
+      payload: action.payload.merchant_id,
+    });
   } catch (error) {
     console.log("error in addLocations Saga", error);
     yield put({ type: "SET_ERROR", payload: error });

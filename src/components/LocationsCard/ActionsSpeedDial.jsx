@@ -1,9 +1,7 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import SpeedDial from "@mui/material/SpeedDial";
-import SpeedDialIcon from "@mui/material/SpeedDialIcon";
-import SpeedDialAction from "@mui/material/SpeedDialAction";
+import { Box, SpeedDial, SpeedDialAction } from "@mui/material";
+// ~~~~~~~~~~~ Icons ~~~~~~~~~~~~~~~~~~~~
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -36,21 +34,19 @@ const actions = [
   { icon: <DeleteIcon />, name: "Delete" },
 ];
 
-export default function PlaygroundSpeedDial({
+export default function ActionsSpeedDial({
   handleDelete,
   handleEdit,
   location,
   handleOpenModal,
 }) {
-  console.log(location);
-  console.log(location.id);
   const [direction, setDirection] = React.useState("left");
   console.log(direction);
   const [hidden, setHidden] = React.useState(false);
 
   const deleteClick = () => {
     showDeleteSweetAlert(() => {
-    handleDelete(location.id, location.merchant_id);
+      handleDelete(location.id, location.merchant_id);
     });
   };
 

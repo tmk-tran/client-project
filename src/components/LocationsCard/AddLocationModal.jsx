@@ -8,16 +8,20 @@ import {
   TextField,
   Divider,
 } from "@mui/material";
+// ~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~
 import AddBox from "../AddBoxIcon/AddBoxIcon";
+import ModalButtons from "../Modals/ModalButtons";
 import CloseButton from "../Buttons/CloseButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
 import { leftSpace } from "../Details/styleDetails";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
-import { hoverAccept } from "../Utils/colors";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { border } from "../Utils/colors";
-import { saveBtnWidth } from "../Utils/helpers";
-import ModalButtons from "../Modals/ModalButtons";
+import {
+  capitalizeFirstWord,
+  capitalizeStateAbbr,
+  capitalizeWords,
+} from "../Utils/helpers";
 
 const style = {
   position: "absolute",
@@ -38,23 +42,36 @@ export default function AddLocationModal({
   isEditing,
   handleCloseModal,
   editId,
-  onSubmit,
+  locationToEdit,
 }) {
   console.log(isEditing);
   console.log(editId);
+  console.log(locationToEdit);
   const dispatch = dispatchHook();
   const paramsObject = useParams();
   console.log(paramsObject);
 
   const [open, setOpen] = useState(false);
-  const [locationName, setLocationName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [locationAddress, setLocationAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
+  const [locationName, setLocationName] = useState(
+    isEditing ? capitalizeWords(locationToEdit.location_name) : ""
+  );
+  const [phoneNumber, setPhoneNumber] = useState(
+    isEditing ? locationToEdit.phone_number : ""
+  );
+  const [locationAddress, setLocationAddress] = useState(
+    isEditing ? capitalizeWords(locationToEdit.address) : ""
+  );
+  const [city, setCity] = useState(
+    isEditing ? capitalizeWords(locationToEdit.city) : ""
+  );
+  const [state, setState] = useState(
+    isEditing ? capitalizeStateAbbr(locationToEdit.state) : ""
+  );
+  const [zip, setZip] = useState(isEditing ? locationToEdit.zip : "");
   const [merchantId, setMerchantId] = useState(paramsObject.id);
-  const [additionalDetails, setAdditionalDetails] = useState("");
+  const [additionalDetails, setAdditionalDetails] = useState(
+    isEditing ? capitalizeFirstWord(locationToEdit.additional_details) : ""
+  );
   console.log(locationName);
   console.log(phoneNumber);
   console.log(locationAddress);
@@ -71,6 +88,7 @@ export default function AddLocationModal({
   }, [isEditing]);
 
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => {
     setOpen(false);
     handleCloseModal();
@@ -84,7 +102,6 @@ export default function AddLocationModal({
     setState("");
     setZip("");
     setAdditionalDetails("");
-
     handleClose();
   };
 
@@ -101,7 +118,7 @@ export default function AddLocationModal({
   };
 
   const addLocation = () => {
-    console.log('Clicked addLocation');
+    console.log("Clicked addLocation");
     // dispatch({
     //   type: "ADD_LOCATION",
     //   payload: newLocationPayload,
@@ -114,21 +131,14 @@ export default function AddLocationModal({
   };
 
   const editLocation = () => {
-    console.log("Clicked edit location");
-    // dispatch({
-    //   type: "EDIT_LOCATION",
-    //   payload: { editId, ...newLocationPayload },
-    // });
-
     const action = {
       type: "EDIT_LOCATION",
       payload: { editId, ...newLocationPayload },
     };
     console.log("Dispatching action:", action);
     dispatch(action);
-    
 
-    onSubmit(newLocationPayload);
+    // onSubmit(newLocationPayload);
     handleCaseTypeChange("Edit Location");
     onLocationAdd();
     resetForm();
@@ -154,9 +164,9 @@ export default function AddLocationModal({
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~ */}
           {!isEditing ? (
-          <Typography variant="h6" sx={modalHeaderStyle}>
-            Add Location
-          </Typography>
+            <Typography variant="h6" sx={modalHeaderStyle}>
+              Add Location
+            </Typography>
           ) : (
             <Typography variant="h6" sx={modalHeaderStyle}>
               Edit Location
@@ -237,7 +247,7 @@ export default function AddLocationModal({
           />
           <ModalButtons
             label={!isEditing ? "Add" : "Update"}
-            onSave={!isEditing ?  addLocation : editLocation}
+            onSave={!isEditing ? addLocation : editLocation}
             onCancel={handleClose}
           />
         </Box>

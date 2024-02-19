@@ -9,7 +9,6 @@ import AddLocationModal from "./AddLocationModal";
 import LocationsCardTable from "./LocationsCardTable";
 import ActionsSpeedDial from "./ActionsSpeedDial";
 import { capitalizeWords } from "../Utils/helpers";
-import EditLocationModal from "./EditLocationModal";
 
 export default function LocationsCard({
   locations,
@@ -28,6 +27,8 @@ export default function LocationsCard({
   console.log(isModalOpen);
   const [editId, setEditId] = useState(null);
   console.log(editId);
+  const [locationToEdit, setLocationToEdit] = useState(null);
+  console.log(locationToEdit);
 
   const handleEditToggle = (index) => {
     console.log(index);
@@ -60,25 +61,14 @@ export default function LocationsCard({
     setIsEditing(false);
   };
 
-  // START HERE ON RETURN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CREATE EDIT ROUTER, AND SAGA
   const handleEdit = (locationId, merchantId) => {
     console.log(locationId);
     console.log(merchantId);
     setEditId(locationId);
-
-    // dispatch({
-    //   type: "EDIT_LOCATION",
-    //   payload: {
-    //     locationId,
-    //     merchantId,
-    //   },
-    // });
-    // onLocationEdit();
-    // handleTaskUpdate();
-    // handleCaseTypeChange("Edit Location");
   };
-  const handleEditPayload = (payload) => {
-    console.log(payload);
+
+  const editState = (data) => {
+    setLocationToEdit(data);
   };
 
   return (
@@ -93,10 +83,8 @@ export default function LocationsCard({
         setIsEditing={setIsEditing}
         handleCloseModal={handleCloseModal}
         editId={editId}
-        onSubmit={handleEditPayload}
+        locationToEdit={locationToEdit}
       />
-      {/* <EditLocationModal isOpen={isEditing} onClose={handleCloseModal} /> */}
-
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {locations
         .filter((location) => !location.is_deleted)
@@ -132,7 +120,7 @@ export default function LocationsCard({
               </div>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
-              <LocationsCardTable data={location} isEditing={isEditing} />
+              <LocationsCardTable data={location} isEditing={isEditing} editState={editState} />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* <ActionsSpeedDial handleDelete={handleDelete} location={location} /> */}
             </CardContent>

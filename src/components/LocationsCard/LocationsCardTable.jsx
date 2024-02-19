@@ -21,9 +21,12 @@ const tableCellStyle = {
   minWidth: 150,
 };
 
-export default function MyTable({ data }) {
-  const [isEditing, setIsEditing] = useState(false);
+export default function MyTable({ data, isEditing, editState }) {
+  console.log(data);
+  // const [isEditing, setIsEditing] = useState(false);
   console.log(isEditing);
+
+  isEditing ? editState(data) : null;
 
   return (
     <Table>
