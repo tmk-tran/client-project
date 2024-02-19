@@ -40,6 +40,7 @@ export default function PlaygroundSpeedDial({
   handleDelete,
   handleEdit,
   location,
+  handleOpenModal,
 }) {
   console.log(location);
   console.log(location.id);
@@ -55,6 +56,7 @@ export default function PlaygroundSpeedDial({
 
   const editClick = () => {
     handleEdit(location.id, location.merchant_id);
+    handleOpenModal();
   };
 
   return (

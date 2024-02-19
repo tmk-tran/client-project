@@ -9,6 +9,7 @@ import AddLocationModal from "./AddLocationModal";
 import LocationsCardTable from "./LocationsCardTable";
 import ActionsSpeedDial from "./ActionsSpeedDial";
 import { capitalizeWords } from "../Utils/helpers";
+import EditLocationModal from "./EditLocationModal";
 
 export default function LocationsCard({
   locations,
@@ -47,10 +48,19 @@ export default function LocationsCard({
     handleCaseTypeChange("Delete Location");
   };
 
+  const handleOpenModal = () => {
+    setIsEditing(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsEditing(false);
+  };
+
   // START HERE ON RETURN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ CREATE EDIT ROUTER, AND SAGA
   const handleEdit = (locationId, merchantId) => {
     console.log(locationId);
     console.log(merchantId);
+    setIsEditing(true);
 
     // dispatch({ 
     //   type: "EDIT_LOCATION",
@@ -100,12 +110,14 @@ export default function LocationsCard({
                 <ActionsSpeedDial
                   handleDelete={handleDelete}
                   handleEdit={handleEdit}
+                  handleOpenModal={handleOpenModal}
                   location={location}
                   i={i}
                   toggleEdit={handleEditToggle}
 
                 />
               </div>
+              <EditLocationModal isOpen={isEditing} onClose={handleCloseModal}  />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
               <LocationsCardTable data={location} isEditing={isEditing} />

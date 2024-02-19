@@ -109,7 +109,18 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   const merchantId = location.merchant_id;
   const additionalDetails = location.additional_details;
 
-  const queryText = `UPDATE "location" SET "location_name" = $1, "phone_number" = $2, "address" = $3, "city" = $4, "state" = $5, "zip" = $6, "merchant_id" = $7, "additional_details" = $8 WHERE id = $9;`;
+  const queryText = `
+    UPDATE "location" 
+    SET "location_name" = $1, 
+        "phone_number" = $2, 
+        "address" = $3, 
+        "city" = $4, 
+        "state" = $5, 
+        "zip" = $6, 
+        "merchant_id" = $7, 
+        "additional_details" = $8 
+    WHERE id = $9;
+    `;
 
   pool
     .query(queryText, [
@@ -128,7 +139,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
       res.sendStatus(200);
     })
     .catch((error) => {
-      console.log("Error with location UPDATE route", error);
+      console.log("Error with location PUT route", error);
       res.sendStatus(500);
     });
 });
