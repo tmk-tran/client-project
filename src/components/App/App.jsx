@@ -28,7 +28,7 @@ import TaskTabs from "../TaskTabs/TaskTabs";
 import CouponReviewDetails from "../CouponReviewDetails/CouponReviewDetails";
 import CheckoutPage from "../CheckoutPage/CheckoutPage";
 import OrderPage from "../CheckoutPage/OrderPage";
-import OrderSummaryTable from "../CheckoutPage/OrderSummaryTable";
+import OrgSellers from "../OrgSellers/OrgSellers";
 import ShoppingCart from "../CheckoutPage/ShoppingCart";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -147,6 +147,10 @@ function App() {
 
             <ProtectedRoute exact path="/order">
               <OrderPage />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/sellers">
+              <OrgSellers />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/ordersummary">
