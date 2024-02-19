@@ -6,9 +6,7 @@ export default function TotalUpdate({
   customDonation,
   onChange,
 }) {
-  console.log(selectedProducts);
-  console.log(customDonation);
-
+  
   const total = selectedProducts.reduce(
     (acc, product) =>
       product.id === 4 || product.bookType === "Donate"

@@ -8,16 +8,17 @@ import {
   Step,
   StepLabel,
   TextField,
-  Button,
   Paper,
 } from "@mui/material";
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~~~~~~
 import CustomerInfoForm from "./CustomerInfoForm";
+import OrderSummaryDisplay from "./OrderSummaryDisplay";
 import Typography from "../Typography/Typography";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { border } from "../Utils/colors";
 import PayPalButton from "./PayPalButtons";
 import { historyHook } from "../../hooks/useHistory";
+import CustomButton from "../CustomButton/CustomButton";
 
 export const containerStyle = {
   width: "50vw",
@@ -45,7 +46,11 @@ function StepTwo() {
 function StepThree() {
   return (
     <div>
-      <Typography label="Order Confirmation" variant="h6" sx={{ ml: 6, pt: 4 }} />
+      <Typography
+        label="Order Confirmation"
+        variant="h6"
+        sx={{ ml: 6, pt: 4 }}
+      />
       <hr style={{ width: "90%" }} />
       {/* Add your form fields and other content for step three */}
     </div>
@@ -57,17 +62,15 @@ export default function CheckoutPage() {
   const selectedProducts = location.state?.selectedProducts ?? [];
   // Now you can access selectedProducts and use it in your component
   console.log("Selected Products in CheckoutPage:", selectedProducts);
-  const orderTotal = location.state?.orderTotal?? 0;
+  const orderTotal = location.state?.orderTotal ?? 0;
   console.log(orderTotal);
 
   const history = historyHook();
   const [activeStep, setActiveStep] = useState(0);
-
-  const [isPayPalInitialized, setIsPayPalInitialized] = useState(false);
-  console.log(isPayPalInitialized);
   const [stateSelected, setStateSelected] = useState(false);
   console.log(stateSelected);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  console.log(isSubmitted);
 
   const handleStateChange = (state, value) => {
     // Handle the state change in the parent component
@@ -141,20 +144,25 @@ export default function CheckoutPage() {
           </Grid>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ CHECKOUT NAV BUTTONS ~~~~~~~~~~ */}
-          <Button disabled={activeStep === 0} onClick={handleBack}>
-            Back
-          </Button>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            {activeStep === steps.length - 1 ? "Place Order" : "Next"}
-          </Button>
-          <Button onClick={() => history.push("/order")}>
-            Return to Store
-          </Button>
+          <CustomButton
+            label="Back"
+            disabled={activeStep === 0}
+            onClick={handleBack}
+          />
+          <CustomButton
+            label={activeStep === steps.length - 1 ? "Place Order" : "Next"}
+            onClick={handleSubmit}
+            variant="contained"
+          />
+          <CustomButton
+            label="Return to Store"
+            onClick={() => history.push("/order")}
+          />
         </div>
-        {/* <div style={{ display: "flex", width: "100%", ...border }}> */}
-        {/* ~~~~~~~~~~ Order Summary ~~~~~~~~~~~~~~~~~~~~ */}
-        {/* <OrderSummaryDisplay selectedProducts={selectedProducts} /> */}
-        {/* </div> */}
+        <div style={{ display: "flex", width: "100%", ...border }}>
+          {/* ~~~~~~~~~~ Order Summary ~~~~~~~~~~~~~~~~~~~~ */}
+          <OrderSummaryDisplay selectedProducts={selectedProducts} />
+        </div>
       </Container>
     </div>
   );

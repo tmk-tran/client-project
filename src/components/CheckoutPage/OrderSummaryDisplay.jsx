@@ -11,7 +11,7 @@ export default function OrderSummaryDisplay() {
   console.log("Products from previous page: ", products);
   
   return (
-    <div style={{ width: "30%", marginLeft: "20px" }}>
+    <div style={{ width: "30%" }}>
       <Paper
         elevation={4}
         style={{
