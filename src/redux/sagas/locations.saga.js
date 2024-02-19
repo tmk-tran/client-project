@@ -42,8 +42,9 @@ function* addLocations(action) {
 function* updateLocation(action) {
   try {
     console.log(action.payload);
-    const locationId = action.payload.locationId;
-    const merchantId = action.payload.merchantId;
+    // const locationId = action.payload.locationId;
+    const locationId = action.payload.editId;
+    const merchantId = action.payload.merchant_id;
     yield axios.put(`/api/locations/${locationId}`, action.payload);
     yield put({ type: "FETCH_MERCHANT_LOCATION", payload: merchantId });
   } catch (error) {

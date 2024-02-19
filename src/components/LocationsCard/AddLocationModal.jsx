@@ -36,10 +36,12 @@ export default function AddLocationModal({
   handleCaseTypeChange,
   handleAddLocation,
   isEditing,
-  handleOpenModal,
   handleCloseModal,
+  editId,
+  onSubmit,
 }) {
   console.log(isEditing);
+  console.log(editId);
   const dispatch = dispatchHook();
   const paramsObject = useParams();
   console.log(paramsObject);
@@ -74,18 +76,6 @@ export default function AddLocationModal({
     handleCloseModal();
   };
 
-  // NEED TO ADD COORDINATES AND REGION_ID AFTER TALKING TO JOE
-  const newLocationPayload = {
-    location_name: locationName,
-    phone_number: phoneNumber,
-    address: locationAddress,
-    city: city,
-    state: state,
-    zip: zip,
-    merchant_id: merchantId,
-    additional_details: additionalDetails,
-  };
-
   const resetForm = () => {
     setLocationName("");
     setPhoneNumber("");
@@ -98,15 +88,49 @@ export default function AddLocationModal({
     handleClose();
   };
 
+  // NEED TO ADD COORDINATES AND REGION_ID AFTER TALKING TO JOE
+  const newLocationPayload = {
+    location_name: locationName,
+    phone_number: phoneNumber,
+    address: locationAddress,
+    city: city,
+    state: state,
+    zip: zip,
+    merchant_id: merchantId,
+    additional_details: additionalDetails,
+  };
+
   const addLocation = () => {
-    dispatch({
-      type: "ADD_LOCATION",
-      payload: newLocationPayload,
-    });
+    console.log('Clicked addLocation');
+    // dispatch({
+    //   type: "ADD_LOCATION",
+    //   payload: newLocationPayload,
+    // });
 
     handleCaseTypeChange("New Location");
     onLocationAdd();
     handleAddLocation();
+    resetForm();
+  };
+
+  const editLocation = () => {
+    console.log("Clicked edit location");
+    // dispatch({
+    //   type: "EDIT_LOCATION",
+    //   payload: { editId, ...newLocationPayload },
+    // });
+
+    const action = {
+      type: "EDIT_LOCATION",
+      payload: { editId, ...newLocationPayload },
+    };
+    console.log("Dispatching action:", action);
+    dispatch(action);
+    
+
+    onSubmit(newLocationPayload);
+    handleCaseTypeChange("Edit Location");
+    onLocationAdd();
     resetForm();
   };
 
@@ -129,9 +153,15 @@ export default function AddLocationModal({
         <Box sx={style}>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~ */}
+          {!isEditing ? (
           <Typography variant="h6" sx={modalHeaderStyle}>
             Add Location
           </Typography>
+          ) : (
+            <Typography variant="h6" sx={modalHeaderStyle}>
+              Edit Location
+            </Typography>
+          )}
           <Divider sx={lineDivider} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ NAME ~~~~~~~~~~~~~ */}
@@ -206,8 +236,8 @@ export default function AddLocationModal({
             sx={{ mb: 2 }}
           />
           <ModalButtons
-            label="Add"
-            onSave={addLocation}
+            label={!isEditing ? "Add" : "Update"}
+            onSave={!isEditing ?  addLocation : editLocation}
             onCancel={handleClose}
           />
         </Box>
