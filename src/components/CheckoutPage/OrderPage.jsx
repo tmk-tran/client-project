@@ -38,12 +38,28 @@ export default function OrderPage() {
   };
 
   const handleRowSelect = (rowId) => {
-    console.log(rowId);
-    if (selectedRows.includes(rowId)) {
-      setSelectedRows(selectedRows.filter((id) => id !== rowId));
+    let newRows = [...rows];
+    let newSelectedRows = [...selectedRows];
+
+    // Toggle selection
+    if (newSelectedRows.includes(rowId)) {
+      // Deselect row
+      newSelectedRows = newSelectedRows.filter((id) => id !== rowId);
+      // Reset quantity to 0
+      newRows = newRows.map((row) =>
+        row.id === rowId ? { ...row, quantity: 0 } : row
+      );
     } else {
-      setSelectedRows([...selectedRows, rowId]);
+      // Select row
+      newSelectedRows.push(rowId);
+      // Reset quantity to 1
+      newRows = newRows.map((row) =>
+        row.id === rowId ? { ...row, quantity: 1 } : row
+      );
     }
+
+    setSelectedRows(newSelectedRows);
+    setRows(newRows);
   };
 
   const handleQuantityChange = (newRows) => {
