@@ -13,59 +13,35 @@ import {
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~~~~~~
 import CustomerInfoForm from "./CustomerInfoForm";
 import OrderSummaryDisplay from "./OrderSummaryDisplay";
+import PayPalButton from "./PayPalButtons";
 import Typography from "../Typography/Typography";
+import CustomButton from "../CustomButton/CustomButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { border } from "../Utils/colors";
-import PayPalButton from "./PayPalButtons";
 import { historyHook } from "../../hooks/useHistory";
-import CustomButton from "../CustomButton/CustomButton";
 
 export const containerStyle = {
   width: "50vw",
-  minHeight: "94%",
-  //   minHeight: "50vh",
+  // minHeight: "94%",
+  minHeight: "50vh",
   mt: 3,
   mb: 5,
 };
 
 const steps = ["Information", "Payment", "Order Confirmation"];
 
-function StepTwo() {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <PayPalButton />
-    </Box>
-  );
-}
-
-function StepThree() {
-  return (
-    <div>
-      <Typography
-        label="Order Confirmation"
-        variant="h6"
-        sx={{ ml: 6, pt: 4 }}
-      />
-      <hr style={{ width: "90%" }} />
-      {/* Add your form fields and other content for step three */}
-    </div>
-  );
-}
-
 export default function CheckoutPage() {
-  const location = useLocation();
-  const selectedProducts = location.state?.selectedProducts ?? [];
-  // Now you can access selectedProducts and use it in your component
-  console.log("Selected Products in CheckoutPage:", selectedProducts);
-  const orderTotal = location.state?.orderTotal ?? 0;
-  console.log(orderTotal);
-
   const history = historyHook();
+  const location = useLocation();
+  console.log(location.state);
+  // Access state from URL and use it in component
+  const selectedProducts = location.state?.selectedProducts ?? [];
+  const orderTotal = location.state?.orderTotal ?? 0;
+  const customDonation = location.state?.customDonation ?? 0;
+  console.log("Selected Products in CheckoutPage:", selectedProducts);
+  console.log(orderTotal);
+  console.log(customDonation);
+
   const [activeStep, setActiveStep] = useState(0);
   const [stateSelected, setStateSelected] = useState(false);
   console.log(stateSelected);
@@ -100,9 +76,28 @@ export default function CheckoutPage() {
           />
         );
       case 1:
-        return <StepTwo />;
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <PayPalButton />
+          </Box>
+        );
       case 2:
-        return <StepThree />;
+        return (
+          <div>
+            <Typography
+              label="Order Confirmation"
+              variant="h6"
+              sx={{ ml: 6, pt: 4 }}
+            />
+            <hr style={{ width: "90%" }} />
+            <OrderSummaryDisplay customDonation={customDonation} />
+          </div>
+        );
       default:
         return "Unknown step";
     }
@@ -137,6 +132,7 @@ export default function CheckoutPage() {
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~ RENDERED STEPPER CONTENT ~~~~~~~ */}
             <Grid item xs={12} md={8}>
+              {/* ~~~~~ Container for content ~~~~~ */}
               <Paper elevation={2} sx={containerStyle}>
                 {getStepContent(activeStep)}
               </Paper>
@@ -158,10 +154,6 @@ export default function CheckoutPage() {
             label="Return to Store"
             onClick={() => history.push("/order")}
           />
-        </div>
-        <div style={{ display: "flex", width: "100%", ...border }}>
-          {/* ~~~~~~~~~~ Order Summary ~~~~~~~~~~~~~~~~~~~~ */}
-          <OrderSummaryDisplay selectedProducts={selectedProducts} />
         </div>
       </Container>
     </div>

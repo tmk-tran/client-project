@@ -17,8 +17,10 @@ export default function OrderSummaryTable({
   customDonation,
   setCustomDonation,
   onUpdateQuantity,
+  caseType,
 }) {
   console.log(selectedProducts);
+  console.log(caseType);
   const [localQuantities, setLocalQuantities] = useState(
     selectedProducts.reduce((quantities, product) => {
       quantities[product.id] = product.quantity;
@@ -74,7 +76,7 @@ export default function OrderSummaryTable({
                     `$ ${product.price}`
                   )}
                 </TableCell>
-                <TableCell align="right" sx={{ width: "10%" }}>
+                {/* <TableCell align="right" sx={{ width: "10%" }}>
                   {product.bookType === "Donate" ? (
                     <TextField
                       type="number"
@@ -88,6 +90,27 @@ export default function OrderSummaryTable({
                     <TextField
                       type="number"
                       value={localQuantities[product.id]}
+                      onChange={(e) =>
+                        handleQuantityChange(product.id, e.target.value)
+                      }
+                      InputProps={{ inputProps: { min: 1 } }}
+                    />
+                  )}
+                </TableCell> */}
+
+                <TableCell align="right" sx={{ width: "10%" }}>
+                  {caseType === "Summary" && product.bookType === "Donate" ? (
+                    customDonation
+                  ) : caseType === "Summary" ? (
+                    localQuantities[product.id]
+                  ) : (
+                    <TextField
+                      type="number"
+                      value={
+                        product.bookType === "Donate"
+                          ? customDonation
+                          : localQuantities[product.id]
+                      }
                       onChange={(e) =>
                         handleQuantityChange(product.id, e.target.value)
                       }

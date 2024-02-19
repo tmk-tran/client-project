@@ -50,7 +50,7 @@ export default function ShoppingCart() {
     // history.push("/checkout");
     history.push({
       pathname: "/checkout",
-      state: { selectedProducts, orderTotal },
+      state: { selectedProducts, orderTotal, customDonation },
     });
   };
 
