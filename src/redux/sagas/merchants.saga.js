@@ -138,7 +138,7 @@ function* editMerchant(action) {
 
     console.log("RESPONSE IS", response);
 
-    yield put({ type: "FETCH_MERCHANTS", payload: action.payload });
+    yield put({ type: "FETCH_MERCHANT_DETAILS", payload: merchantId });
   } catch (error) {
     console.log("error in edit invoice", error);
   }

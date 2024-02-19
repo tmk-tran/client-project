@@ -99,7 +99,7 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
           <br />
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        {/* Organization Contact Details Card */}
+        {/* ~~~~~ Contact Details Card ~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <ContactDetailsCard
           contactPhone={contactPhone}
