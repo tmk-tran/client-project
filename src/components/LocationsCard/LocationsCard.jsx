@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~~~~~~~~~~~
-import { Button, Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
 import { leftSpace } from "../Details/styleDetails";
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -120,18 +120,16 @@ export default function LocationsCard({
               </div>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
-              <LocationsCardTable data={location} isEditing={isEditing} editState={editState} />
+              <LocationsCardTable
+                data={location}
+                isEditing={isEditing}
+                editState={editState}
+              />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* <ActionsSpeedDial handleDelete={handleDelete} location={location} /> */}
             </CardContent>
           </Card>
         ))}
-
-      {/* Render the AddLocationModal component if isEditing is true */}
-      {/* {isEditing && (
-        <AddLocationModal
-        />
-      )} */}
     </div>
   );
 }

@@ -119,10 +119,10 @@ export default function AddLocationModal({
 
   const addLocation = () => {
     console.log("Clicked addLocation");
-    // dispatch({
-    //   type: "ADD_LOCATION",
-    //   payload: newLocationPayload,
-    // });
+    dispatch({
+      type: "ADD_LOCATION",
+      payload: newLocationPayload,
+    });
 
     handleCaseTypeChange("New Location");
     onLocationAdd();
@@ -138,14 +138,13 @@ export default function AddLocationModal({
     console.log("Dispatching action:", action);
     dispatch(action);
 
-    // onSubmit(newLocationPayload);
     handleCaseTypeChange("Edit Location");
     onLocationAdd();
     resetForm();
   };
 
   return (
-    <div style={{ height: "20vh", ...border }}>
+    <div>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~ */}
       <AddBox
