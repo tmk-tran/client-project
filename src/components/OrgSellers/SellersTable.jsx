@@ -1,16 +1,26 @@
-import * as React from "react";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+// ~~~~~~~~~~ Style ~~~~~~~~~~
+import {
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+} from "@mui/material";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
+import { oSellers } from "../../hooks/reduxStore";
+// ~~~~~~~~~~ Component ~~~~~~~~~~
+import AddSellerForm from "./AddSellerForm";
 
 const columns = [
-  { id: "refId", label: "Referral ID"},
-  { id: "lastname", label: "Last Name"},
+  { id: "refId", label: "Referral ID" },
+  { id: "lastname", label: "Last Name" },
   {
     id: "firstname",
     label: "First Name",
@@ -91,24 +101,60 @@ const rows = [
   createData("Brazil", "BR", 210147125, 8515767),
 ];
 
-function generateRefId(firstName, lastName) {
+function generateRefId(firstName, lastName, teacher) {
   const firstInitial = firstName.charAt(0).toUpperCase();
   const lastInitial = lastName.charAt(0).toUpperCase();
-  const randomString = Math.random().toString(36).substring(7); // Generate a random string
+  const teacherInitials = teacher
+    .split(" ")
+    .map((name) => name.charAt(0).toUpperCase())
+    .join("");
+  const randomDigits = Math.floor(1000 + Math.random() * 9000); // Generate random 4-digit number
 
-  return `${firstInitial}${lastInitial}${randomString}`;
+  return `${firstInitial}${lastInitial}${teacherInitials}${randomDigits}`;
 }
 
 // Example usage
 const firstName = "John";
 const lastName = "Doe";
-const refId = generateRefId(firstName, lastName);
+const teacher = "Jane Smith";
+const refId = generateRefId(firstName, lastName, teacher);
 console.log(refId);
 
-
 export default function StickyHeadTable() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const dispatch = dispatchHook();
+  const paramsObject = useParams();
+  console.log(paramsObject);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_SELLERS", payload: paramsObject.id });
+  }, []);
+
+  const sellers = oSellers() || [];
+  console.log(sellers);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleAddSeller = (formData) => {
+    console.log(formData);
+
+    // dispatch({ type: "ADD_SELLER", payload: formData });
+    const action = {
+      type: "ADD_SELLER",
+      payload: formData,
+    };
+    console.log("Dispatching action:", action);
+    // dispatch(action);
+    handleClose();
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -137,13 +183,13 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {sellers
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+              .map((seller) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={seller.id}>
                     {columns.map((column) => {
-                      const value = row[column.id];
+                      const value = seller[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
                           {column.format && typeof value === "number"
@@ -158,6 +204,12 @@ export default function StickyHeadTable() {
           </TableBody>
         </Table>
       </TableContainer>
+      <div>
+      <Button variant="contained" onClick={handleOpen}>
+        Add Seller
+      </Button>
+      <AddSellerForm columns={columns} open={open} handleClose={handleClose} handleAddSeller={handleAddSeller} />
+      </div>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"

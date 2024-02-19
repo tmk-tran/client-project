@@ -18,6 +18,7 @@ import BackButton from "../Buttons/BackButton";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import LocationsCard from "../LocationsCard/LocationsCard";
 import AddNewCouponModal from "../CouponReviewCard/AddNewCouponModal";
+import SellersTable from "../OrgSellers/SellersTable";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { useAlert } from "../SuccessAlert/useAlert";
@@ -245,7 +246,7 @@ export default function Details({
                         key={info.id}
                         info={info}
                         isMerchantTaskPage={isMerchantTaskPage}
-                        
+
                       />
                     ))
                   ) : (
@@ -349,6 +350,7 @@ export default function Details({
                     </div>
                   </>
                 )}
+                <SellersTable />
               </React.Fragment>
             ))}
           </div>
