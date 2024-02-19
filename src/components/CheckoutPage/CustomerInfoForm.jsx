@@ -1,5 +1,6 @@
-import { Typography, Grid, Paper, TextField, Divider } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import StateSelector from "../StateSelector/StateSelector";
+import Typography from "../Typography/Typography";
 import { border } from "../Utils/colors";
 
 export default function CustomerInfoForm({
@@ -10,9 +11,7 @@ export default function CustomerInfoForm({
   return (
     <div style={{ width: "90%", margin: "0 auto", padding: 5 }}>
       {/* ~~~~~~~~~~ Header ~~~~~~~~~~~~~~ */}
-      <Typography variant="h6" sx={{ mt: 2 }}>
-        Customer Information
-      </Typography>
+      <Typography label="Customer Information" variant="h6" sx={{ mt: 2 }} />
       <hr />
       <form style={{ marginTop: 22 }}>
         <Grid container spacing={2}>
@@ -50,7 +49,7 @@ export default function CustomerInfoForm({
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ Shipping Address ~~~~~~~~~~ */}
           <Grid item xs={12}>
-            <Typography variant="h6">Address</Typography>
+            <Typography label="Address" variant="h6" />
             <hr />
           </Grid>
           {/* <Divider sx={{ ml: 3, ...lineDivider}} /> */}

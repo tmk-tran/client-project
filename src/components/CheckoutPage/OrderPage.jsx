@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import OrderTable from "./OrderTable";
 import { historyHook } from "../../hooks/useHistory";
-import { containerStyle } from "./OrderSummary";
+import { containerStyle } from "./ShoppingCart";
 import { border } from "../Utils/colors";
 import CustomButton from "../CustomButton/CustomButton";
 import Typography from "../Typography/Typography";

@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import {
   Box,
   Container,
-  Typography,
   Grid,
   Stepper,
   Step,
@@ -14,12 +13,11 @@ import {
 } from "@mui/material";
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~~~~~~
 import CustomerInfoForm from "./CustomerInfoForm";
-import OrderSummaryTable from "./OrderSummaryTable";
+import Typography from "../Typography/Typography";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { border } from "../Utils/colors";
 import PayPalButton from "./PayPalButtons";
 import { historyHook } from "../../hooks/useHistory";
-import OrderSummaryDisplay from "./OrderSummaryDisplay";
 
 export const containerStyle = {
   width: "50vw",
@@ -47,9 +45,7 @@ function StepTwo() {
 function StepThree() {
   return (
     <div>
-      <Typography variant="h6" sx={{ ml: 6, pt: 4 }}>
-        Review
-      </Typography>
+      <Typography label="Order Confirmation" variant="h6" sx={{ ml: 6, pt: 4 }} />
       <hr style={{ width: "90%" }} />
       {/* Add your form fields and other content for step three */}
     </div>
@@ -117,7 +113,7 @@ export default function CheckoutPage() {
       return;
     }
     // Continue with form submission
-    console.log("State selected:", selectedState);
+    console.log("State selected:", stateSelected);
     setIsSubmitted(false);
     handleNext();
     console.log(isSubmitted);

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Paper, Typography } from "@mui/material";
+import { Paper } from "@mui/material";
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~~~~~~
 import OrderSummaryTable from "./OrderSummaryTable";
 import TotalUpdate from "./TotalUpdate";
 import CustomButton from "../CustomButton/CustomButton";
-import OrderSummaryDisplay from "./OrderSummaryDisplay";
+import Typography from "../Typography/Typography";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
 import { border } from "../Utils/colors";
@@ -16,7 +16,7 @@ export const containerStyle = {
   margin: "0 auto",
 };
 
-export default function OrderSummary() {
+export default function ShoppingCart() {
   const location = useLocation();
   console.log(location.state);
   const history = historyHook();
@@ -26,9 +26,10 @@ export default function OrderSummary() {
   console.log("Selected Products in CheckoutPage:", selectedProducts);
   const [orderTotal, setOrderTotal] = useState(0);
   console.log(orderTotal);
-  const [customDonation, setCustomDonation] = useState(location.state?.customDonation?? 0);
+  const [customDonation, setCustomDonation] = useState(
+    location.state?.customDonation ?? 0
+  );
   console.log(customDonation);
-
 
   const handleUpdateQuantity = (updatedQuantities) => {
     // Update the state passed through the URL with updatedQuantities
@@ -55,10 +56,20 @@ export default function OrderSummary() {
 
   return (
     <div style={{ ...containerStyle }}>
-      <div style={{ marginTop: "53px", marginBottom: "20px", backgroundColor: "#f5f5f5", }}>
-        <Typography variant="h5" sx={{pt: 2, mb: 5, fontWeight: "bold" }}>
-          Shopping Cart
-        </Typography>
+      <div
+        style={{
+          marginTop: "53px",
+          marginBottom: "20px",
+          backgroundColor: "#f5f5f5",
+        }}
+      >
+        {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~~~~ */}
+        <Typography
+          label="Shopping Cart"
+          variant="h5"
+          sx={{ pt: 2, mb: 5, fontWeight: "bold" }}
+        />
+        {/* ~~~~~~~~~~ ORDER ~~~~~~~~~~~~~ */}
         {selectedProducts.length > 0 ? (
           <OrderSummaryTable
             selectedProducts={selectedProducts}
@@ -67,7 +78,7 @@ export default function OrderSummary() {
             onUpdateQuantity={handleUpdateQuantity}
           />
         ) : (
-          <Typography>No items in cart</Typography>
+          <Typography label="No items in cart" />
         )}
 
         <div

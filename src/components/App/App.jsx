@@ -29,7 +29,7 @@ import CouponReviewDetails from "../CouponReviewDetails/CouponReviewDetails";
 import CheckoutPage from "../CheckoutPage/CheckoutPage";
 import OrderPage from "../CheckoutPage/OrderPage";
 import OrderSummaryTable from "../CheckoutPage/OrderSummaryTable";
-import OrderSummary from "../CheckoutPage/OrderSummary";
+import ShoppingCart from "../CheckoutPage/ShoppingCart";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -150,7 +150,7 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/ordersummary">
-              <OrderSummary />
+              <ShoppingCart />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/checkout">
