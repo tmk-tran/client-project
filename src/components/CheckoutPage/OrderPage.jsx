@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
 import OrderTable from "./OrderTable";
 import { historyHook } from "../../hooks/useHistory";
 import { containerStyle } from "./OrderSummary";
 import { border } from "../Utils/colors";
 import CustomButton from "../CustomButton/CustomButton";
+import Typography from "../Typography/Typography";
 
 export default function OrderPage() {
   const history = historyHook();
@@ -26,16 +26,6 @@ export default function OrderPage() {
     { id: 3, bookType: "Grand Forks (Digital Coupon)", price: 25, quantity: 0 },
     { id: 4, bookType: "Donate", price: 0, quantity: 0 },
   ]);
-
-  const clearTotal = () => {
-    const updatedRows = rows.map((row) => ({ ...row, quantity: 0 }));
-    setRows(updatedRows);
-    clearDonation();
-  };
-
-  const clearDonation = () => {
-    setCustomDonation(0);
-  };
 
   const handleRowSelect = (rowId) => {
     let newRows = [...rows];
@@ -66,9 +56,6 @@ export default function OrderPage() {
     setRows(newRows);
   };
 
-  //   const selectedProducts = selectedRows.map(rowId => rows.find(row => row.id === rowId));
-  //   console.log(selectedProducts);
-
   const mapSelectedRowsToProducts = () => {
     return selectedRows.map((selectedId) => {
       return rows.find((row) => row.id === selectedId);
@@ -90,8 +77,24 @@ export default function OrderPage() {
     });
   };
 
+  const clearTotal = () => {
+    const updatedRows = rows.map((row) => ({ ...row, quantity: 0 }));
+    setRows(updatedRows);
+    clearDonation();
+  };
+
+  const clearDonation = () => {
+    setCustomDonation(0);
+  };
+
   return (
     <div style={containerStyle}>
+      <Typography
+        label="Order Books"
+        variant="h5"
+        sx={{ textAlign: "center", fontWeight: "bold", py: 5 }}
+      />
+
       <OrderTable
         rows={rows}
         selectedRows={selectedRows}
