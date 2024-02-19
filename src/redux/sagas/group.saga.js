@@ -5,7 +5,7 @@ import { takeEvery, put } from "redux-saga/effects";
 function* fetchGroupSaga(action) {
     try {
         console.log(action.payload)
-        const response = yield axios.post(`/api/group/${action.payload}`)
+        const response = yield axios.post(`/api/group/fetchgroup/${action.payload}`)
         yield put({ type: "SET_GROUP_DETAILS", payload: response.data })
     } catch (err) {
         console.log("Error fetching group details", err)
@@ -23,10 +23,10 @@ function* fetchOrgGroupsSaga(action) {
     }
 }
 //Saga used to add a new group to an organization, will then fetch the organization details
-function* addGroupSaga(action) {
+function*  addGroupSaga(action)  {
     try {
         console.log(action.payload)
-        yield axios.post("/api/group/", action.payload)
+        yield axios.post("/api/group/newGroup", action.payload)
         yield put({ type: "FETCH_ORG_GROUPS", payload: Number(action.payload.organization_id) })
         console.log("org id in saga  = ", Number(action.payload.organization_id));
     } catch (err) {

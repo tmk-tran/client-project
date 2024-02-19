@@ -3,11 +3,11 @@ import { takeEvery, put } from "redux-saga/effects";
 
 function* fetchArchivedOrganizationsSaga() {
     try {
-      const response = yield axios.get("/api/archivedOrganizations");
+      const response = yield axios.post("/api/archivedOrganizations");
       console.log("FETCH request fetchArchivedOrganizationsSaga");
       yield put({ type: "SET_ARCHIVED_ORGANIZATIONS", payload: response.data });
-    } catch {
-      console.log("error in fetchArchivedOrganizationsSaga");
+    } catch(error) {
+      console.log("error in fetchArchivedOrganizationsSaga", error);
     }
   }
 

@@ -46,18 +46,18 @@ export default function GroupDetailsCard({ group }) {
   const submitFundraiser = (e) => {
     e.preventDefault;
     const newFundraiser = {
-      group_id: group.id,
+      group_id: Number(group.id),
       title: title,
       description: description,
-      requested_book_quantity: booksRequested,
-      book_quantity_checked_out: booksCheckedOut,
-      book_quantity_checked_in: booksCheckedIn,
-      books_sold: booksSold,
-      goal: goal,
-      money_received: moneyReceived,
+      requested_book_quantity: Number(booksRequested),
+      book_quantity_checked_out: Number(booksCheckedOut),
+      book_quantity_checked_in: Number(booksCheckedIn),
+      books_sold: Number(booksSold),
+      goal: Number(goal),
+      money_received: Number(moneyReceived),
       start_date: startDate,
       end_date: endDate,
-      coupon_book_id: couponBookId,
+      coupon_book_id: Number(couponBookId),
     };
     console.log(newFundraiser);
     Swal.fire(
@@ -144,10 +144,10 @@ export default function GroupDetailsCard({ group }) {
           <Typography>{group.group_description}</Typography>
         </div>
         <div style={modalBtnStyle}>
-          <Button variant="outlined" onClick={() => history.goBack()}>
+          <Button type="button" variant="outlined" onClick={() => history.goBack()}>
             <Typography style={{ fontSize: "15px" }}>Back</Typography>
           </Button>{" "}
-          <Button variant="outlined" onClick={handleOpen}>
+          <Button type="button" variant="outlined" onClick={handleOpen}>
             <Typography style={{ fontSize: "15px" }}>Add Fundraiser</Typography>
           </Button>
         </div>
@@ -401,6 +401,7 @@ export default function GroupDetailsCard({ group }) {
               </Grid>
             </div>
             <Button
+              type="button"
               style={{ margin: "5px" }}
               variant="outlined"
               onClick={() => setOpen(false)}

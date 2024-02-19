@@ -501,80 +501,10 @@ app.post("api/orgnotes/update/:id", (req, res) => {
 
 //ARCHIVED ORGANIZATIONS QUERIES:
 //fetch archived orgs :
-app.get("/api/archivedOrganizations", (req, res) => {
+app.post("/api/archivedOrganizations", (req, res) => {
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
-  const query = `{\r\n      organization (ordering: "group_collection.organization_id" filter: "is_deleted = true"){\r\n
-      id\r\n
-      organization_name\r\n
-      type\r\n
-      address\r\n
-      city\r\n
-      state\r\n
-      zip\r\n
-      primary_contact_first_name\r\n
-      primary_contact_last_name\r\n
-      primary_contact_phone\r\n
-      primary_contact_email\r\n
-      organization_logo\r\n
-      is_deleted\r\n
-      organization_earnings\r\n
-      organization_notes_collection {\r\n
-        organization_id\r\n
-        note_date\r\n
-        note_content\r\n
-        is_deleted\r\n
-      }\r\n
-      group_collection {\r\n
-        organization_id\r\n
-        department\r\n
-        sub_department\r\n
-        group_nickname\r\n
-        group_description\r\n
-        is_deleted\r\n
-        fundraiser_collection{\r\n
-          id\r\n
-          group_id\r\n
-          title\r\n
-          description\r\n
-          requested_book_quantity\r\n
-          book_quantity_checked_out\r\n
-          book_checked_out_total_value\r\n
-          book_quantity_checked_in\r\n
-          books_sold\r\n
-          money_received\r\n
-          start_date\r\n
-          end_date\r\n
-          coupon_book_id\r\n
-          outstanding_balance\r\n
-          is_deleted\r\n
-          closed\r\n
-          goal\r\n
-        }\r\n
-        }\r\n
-        }\r\n
-    Aggregates{\r\n
-      total_groups: count(subquery: "query{group{id organization_id}}")\r\n
-       total_fundraisers: count(subquery: "query{fundraiser{id group_id}}" ordering: "group_id")\r\n
-      total_open_fundraisers: count(subquery: "query{group{organization_id{fundraiser_collection{group_id}}}" \r\n
-        filter: " fundraiser_collection.closed=false"  ordering: "group_id")\r\n
-      total_closed_fundraisers: count(subquery: "query{group{organization_id fundraiser_collection{group_id}}}" \r\n
-        filter: " fundraiser_collection.closed=true" 
-        ordering: "group_id")\r\n
-      total_books_sold: sum(subquery: "query{fundraiser{books_sold group_id}}" 
-        ordering: "id") \r\n
-       total_outstanding_balance: sum(subquery: "query{fundraiser{outstanding_balance group_id}}" 
-        ordering: "id")\r\n
-      total_books_checked_out: count
-      (subquery: "query{group{organization_id fundraiser_collection{group_id book_quantity_checked_out}}}" \r\n
-        filter: " fundraiser_collection.closed=false" 
-        ordering: "group_id")\r\n
-       total_books_checked_in: count
-      (subquery: "query{group{ organization_id fundraiser_collection{group_id book_quantity_checked_in}}}" \r\n
-        filter: " fundraiser_collection.closed=false" 
-        ordering: "group_id")\r\n
-    }\r\n
-  \r\n}`;
+  const query = `{\r\n organization(ordering: "group_collection.organization_id", filter: "is_deleted = true"){\r\n id\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n organization_notes_collection {\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n group_collection {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_description\r\n is_deleted\r\n fundraiser_collection{\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n}\r\n}`;
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
@@ -594,8 +524,8 @@ app.get("/api/archivedOrganizations", (req, res) => {
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result)
-      res.sendStatus(200)
+    console.log("Archived orgs response", result.data.organization)
+    res.send(result.data.organization)
     })
     .catch((error) => {
       console.log("Error getting data from Devii", error)
@@ -701,7 +631,7 @@ app.post("/api/allGroups/", (req, res) => {
     });
 });
 //group details fetch filtered by group_id:
-app.post('/api/group/:id', (req, res) => {
+app.post('/api/group/fetchgroup/:id', (req, res) => {
   const id = Number(req.params.id)
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
@@ -759,7 +689,7 @@ app.post("/api/group/orggroups/:id", (req, res) => {
   fetch(QUERY_URL, requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log("org groups result", result);
+      console.log("org groups result", result.data.group);
       res.send(result.data.group)
     })
     .catch((error) => {
@@ -769,12 +699,13 @@ app.post("/api/group/orggroups/:id", (req, res) => {
 });
 
 //create a new group:
-app.post("/api/group/newgroup", (req, res) => {
+app.post("/api/group/newGroup", (req, res) => {
   const newGroup = req.body;
+  console.log("Adding new group", newGroup)
   //May need to ask if this format is correct for creating stuff
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
-  const query = `{\r\n  mutation{\r\n create_group(\r\n input: {\r\n organization_id: ${newGroup.organization_id}\r\n department: ${newGroup.department}\r\n sub_department: ${newGroup.sub_department}\r\n group_nickname: ${newGroup.group_nickname}\r\n group_photo: ${newGroup.group_photo}\r\n group_description: ${newGroup.group_description}\r\n is_deleted: false\r\n}\r\n) {\r\n id\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted}}\r\n}`;
+  const query = `{\r\n  create_group(\r\n input: {\r\n organization_id: ${newGroup.organization_id}\r\n department: ${newGroup.department}\r\n sub_department: ${newGroup.sub_department}\r\n group_nickname: ${newGroup.group_nickname}\r\n group_photo: ${newGroup.group_photo}\r\n group_description: ${newGroup.group_description}\r\n}\r\n){\r\n id\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n}\r\n}\r\n}`;
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
@@ -839,7 +770,7 @@ app.post("/api/group/update/:id", (req, res) => {
 });
 // FUNDRAISER QUERIES:
 //get fundraisers filtered by group.organization_id:
-app.post("/api/fundraisers/:id", (req, res) => {
+app.post("/api/fundraisers/fetch/:id", (req, res) => {
   const orgId = req.params.id;
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
@@ -910,9 +841,10 @@ app.post("/api/fundraisers/groupfundraisers/:id", (req, res) => {
 //create a new fundraiser
 app.post("/api/fundraisers", (req, res) => {
   const newFundraiser = req.body;
+  console.log(newFundraiser);
   const ACCESS_TOKEN = auth_response.access_token;
   const QUERY_URL = "https://api.devii.io/query";
-  const query = `{\r\n  mutation{\r\n create_fundraiser(\r\n input:{\r\n group_id: ${newFundraiser.group_id}\r\n title: ${newFundraiser.title}\r\n description: ${newFundraiser.description}\r\n requested_book_quantity: ${newFundraiser.requested_book_quantity}\r\n book_quantity_checked_out: ${newFundraiser.book_quantity_checked_out}\r\n book_quantity_checked_in: ${newFundraiser.book_quantity_checked_in}\r\n books_sold: ${newFundraiser.books_sold}\r\n money_received: ${newFundraiser.money_received}\r\n start_date: ${newFundraiser.start_date}\r\n end_date: ${newFundraiser.end_data}\r\n coupon_book_id: ${newFundraiser.coupon_book_id}\r\n goal: ${newFundraiser.goal}\r\n }\r\n ){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}`;
+  const query = `{\r\n  mutation{\r\n create_fundraiser(\r\n input:{\r\n group_id: ${newFundraiser.group_id}\r\n title: ${newFundraiser.title}\r\n description: ${newFundraiser.description}\r\n requested_book_quantity: ${newFundraiser.requested_book_quantity}\r\n book_quantity_checked_out: ${newFundraiser.book_quantity_checked_out}\r\n book_quantity_checked_in: ${newFundraiser.book_quantity_checked_in}\r\n books_sold: ${newFundraiser.books_sold}\r\n goal:${newFundraiser.goal}\r\n money_received: ${newFundraiser.money_received}\r\n start_date: ${newFundraiser.start_date}\r\n end_date: ${newFundraiser.end_date}\r\n coupon_book_id: ${newFundraiser.coupon_book_id}\r\n}\r\n){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}`;
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);

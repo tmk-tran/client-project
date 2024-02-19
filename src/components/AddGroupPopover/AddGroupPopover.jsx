@@ -20,10 +20,11 @@ import {
 
 export default function BasicPopover({ info }) {
   const dispatch = useDispatch();
+  console.log(info)
   // state for the popover
   const [anchorEl, setAnchorEl] = useState(null);
   // state for the add group form
-  const [orgId, setOrgId] = useState(info.organization_id);
+  const [orgId, setOrgId] = useState(info.id);
   const [groupName, setGroupName] = useState("");
   const [department, setDepartment] = useState("");
   const [subDepartment, setSubDepartment] = useState("");
@@ -44,7 +45,7 @@ export default function BasicPopover({ info }) {
 
   const handleSave = () => {
     const groupInfo = {
-      organization_id: orgId,
+      organization_id: Number(orgId),
       department: department,
       sub_department: subDepartment,
       group_nickname: groupName,

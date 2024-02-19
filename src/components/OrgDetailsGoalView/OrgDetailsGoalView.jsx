@@ -80,7 +80,11 @@ export default function OrgDetailsGoalView({ info }) {
             </center>
           </div>
           <div>
+            {info.map(info =>{ 
+              return(
             <AddGroupPopover info={info} />
+              )
+          })}
           </div>
         </CardContent>
       </Card>
