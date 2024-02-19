@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import { primaryColor } from "./colors";
 
 // Sweet Alert in OrgDetails
 export const showDeleteSweetAlert = (deleteCall) => {
@@ -6,7 +7,7 @@ export const showDeleteSweetAlert = (deleteCall) => {
     title: "Are you sure?",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
+    confirmButtonColor: primaryColor.color,
     cancelButtonColor: "#d33",
     confirmButtonText: "Yes, delete it!",
   }).then((result) => {

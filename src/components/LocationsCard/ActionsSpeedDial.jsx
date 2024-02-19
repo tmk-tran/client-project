@@ -7,6 +7,7 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MenuIcon from "@mui/icons-material/Menu";
+import { showDeleteSweetAlert } from "../Utils/sweetAlerts";
 
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   // position: "absolute",
@@ -47,7 +48,9 @@ export default function PlaygroundSpeedDial({
   const [hidden, setHidden] = React.useState(false);
 
   const deleteClick = () => {
+    showDeleteSweetAlert(() => {
     handleDelete(location.id, location.merchant_id);
+    });
   };
 
   const editClick = () => {
