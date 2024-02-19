@@ -70,7 +70,7 @@ export default function OrderPage() {
   const addToCart = () => {
     history.push({
       pathname: "/ordersummary",
-      state: { rows, selectedProducts },
+      state: { rows, selectedProducts, customDonation },
     });
   };
 
