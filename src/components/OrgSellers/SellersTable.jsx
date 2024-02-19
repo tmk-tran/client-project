@@ -9,28 +9,62 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
 const columns = [
-  { id: "name", label: "Name", minWidth: 170 },
-  { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
+  { id: "refId", label: "Referral ID"},
+  { id: "lastname", label: "Last Name"},
   {
-    id: "population",
-    label: "Population",
-    minWidth: 170,
+    id: "firstname",
+    label: "First Name",
     align: "right",
-    format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "size",
-    label: "Size\u00a0(km\u00b2)",
-    minWidth: 170,
+    id: "level",
+    label: "Level / Grade",
     align: "right",
-    format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "density",
-    label: "Density",
-    minWidth: 170,
+    id: "teacher",
+    label: "Lead / Teacher",
     align: "right",
-    format: (value) => value.toFixed(2),
+  },
+  {
+    id: "initialbooks",
+    label: "Initial Book Count",
+    align: "right",
+  },
+  {
+    id: "additionalbooks",
+    label: "Additional Books Count",
+    align: "right",
+  },
+  {
+    id: "booksreturned",
+    label: "Books Returned",
+    align: "right",
+  },
+  {
+    id: "cash",
+    label: "Cash",
+    align: "right",
+  },
+  {
+    id: "checks",
+    label: "Checks",
+    align: "right",
+  },
+  {
+    id: "digital",
+    label: "Digital Payments",
+    align: "right",
+  },
+  {
+    id: "donations",
+    label: "Donations",
+    align: "right",
+  },
+  {
+    id: "notes",
+    label: "Notes",
+    align: "right",
   },
 ];
 
@@ -56,6 +90,21 @@ const rows = [
   createData("Nigeria", "NG", 200962417, 923768),
   createData("Brazil", "BR", 210147125, 8515767),
 ];
+
+function generateRefId(firstName, lastName) {
+  const firstInitial = firstName.charAt(0).toUpperCase();
+  const lastInitial = lastName.charAt(0).toUpperCase();
+  const randomString = Math.random().toString(36).substring(7); // Generate a random string
+
+  return `${firstInitial}${lastInitial}${randomString}`;
+}
+
+// Example usage
+const firstName = "John";
+const lastName = "Doe";
+const refId = generateRefId(firstName, lastName);
+console.log(refId);
+
 
 export default function StickyHeadTable() {
   const [page, setPage] = React.useState(0);
