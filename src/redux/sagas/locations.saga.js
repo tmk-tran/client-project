@@ -39,6 +39,18 @@ function* addLocations(action) {
   }
 }
 
+function* updateLocation(action) {
+  try {
+    console.log(action.payload);
+    console.log(action.payload.merchant_id);
+    yield axios.put(`/api/locations/${action.payload.id}`, action.payload);
+    yield put({ type: "FETCH_MERCHANT_LOCATION", payload: action.payload.merchant_id});
+  } catch (error) {
+    console.log("error in updateLocation Saga", error);
+    yield put({ type: "SET_ERROR", payload: error });
+  }
+}
+
 function* deleteLocation(action) {
   console.log(action.payload);
   const locationId = action.payload.locationId;
@@ -62,5 +74,6 @@ export default function* merchantCommentsSaga() {
   yield takeEvery("FETCH_LOCATIONS", fetchLocations);
   yield takeEvery("FETCH_MERCHANT_LOCATION", fetchMerchantLocation);
   yield takeEvery("ADD_LOCATION", addLocations);
+  yield takeEvery("UPDATE_LOCATION", updateLocation);
   yield takeEvery("DELETE_LOCATION", deleteLocation);
 }

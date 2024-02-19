@@ -93,6 +93,46 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.put("/:id", rejectUnauthenticated, (req, res) => {
+  const location = req.body;
+  console.log("LOCATION IS: ", location);
+  const locationId = req.params.id;
+
+  const locationName = location.location_name;
+  const phoneNumber = location.phone_number;
+  const address = location.address;
+  const city = location.city;
+  const state = location.state;
+  const zip = location.zip;
+  // const coordinates = location.coordinates;
+  // const regionId = location.region_id;
+  const merchantId = location.merchant_id;
+  const additionalDetails = location.additional_details;
+
+  const queryText = `UPDATE "location" SET "location_name" = $1, "phone_number" = $2, "address" = $3, "city" = $4, "state" = $5, "zip" = $6, "merchant_id" = $7, "additional_details" = $8 WHERE id = $9;`;
+
+  pool
+    .query(queryText, [
+      locationName,
+      phoneNumber,
+      address,
+      city,
+      state,
+      zip,
+      merchantId,
+      additionalDetails,
+      locationId,
+    ])
+    .then((response) => {
+      console.log(response.rows);
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Error with location UPDATE route", error);
+      res.sendStatus(500);
+    });
+});
+
 router.delete("/:id", (req, res) => {
   const locationId = req.params.id;
 
