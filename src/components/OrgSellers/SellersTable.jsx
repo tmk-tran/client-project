@@ -17,6 +17,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { oSellers } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Component ~~~~~~~~~~
 import AddSellerForm from "./AddSellerForm";
+import CustomButton from "../CustomButton/CustomButton";
 
 const columns = [
   { id: "refId", label: "Referral ID" },
@@ -37,17 +38,17 @@ const columns = [
     align: "right",
   },
   {
-    id: "initialbooks",
+    id: "initial_books",
     label: "Initial Book Count",
     align: "right",
   },
   {
-    id: "additionalbooks",
+    id: "additional_books",
     label: "Additional Books Count",
     align: "right",
   },
   {
-    id: "booksreturned",
+    id: "books_returned",
     label: "Books Returned",
     align: "right",
   },
@@ -147,62 +148,85 @@ export default function StickyHeadTable() {
   };
 
   return (
-    <Paper elevation={3} sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {sellers
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((seller) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={seller.id}>
-                    {columns.map((column) => {
-                      const value = seller[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align} sx={{ border: '1px solid #e0e0e0', padding: '8px' }}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+    <>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ Add Seller Button ~~~~~~~~ */}
       <div>
-      <Button variant="contained" onClick={handleOpen}>
-        Add Seller
-      </Button>
-      <AddSellerForm columns={columns} open={open} handleClose={handleClose} handleAddSeller={handleAddSeller} />
+        <CustomButton
+          label="Add New"
+          variant="contained"
+          onClick={handleOpen}
+        />
+        <AddSellerForm
+          columns={columns}
+          open={open}
+          handleClose={handleClose}
+          handleAddSeller={handleAddSeller}
+        />
       </div>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={sellers.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */}
+      {/* ~~~~~~~~~~ Seller Table ~~~~~~~~~~ */}
+      <Paper elevation={3} sx={{ width: "100%", overflow: "hidden" }}>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {sellers
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((seller) => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={seller.id}
+                    >
+                      {columns.map((column) => {
+                        const value = seller[column.id];
+                        return (
+                          <TableCell
+                            key={column.id}
+                            align={column.align}
+                            sx={{ border: "1px solid #e0e0e0", padding: "8px" }}
+                          >
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={sellers.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </>
   );
 }
 
-
-{/* sx={{ '&:last-child td': { border: 0 } }} -- for line 191 */}
+{
+  /* sx={{ '&:last-child td': { border: 0 } }} -- for line 191 */
+}
