@@ -209,8 +209,9 @@ export default function Details({
           <BackButton />
         </div>
       </div>
-      <Card className="details-card" elevation={3}>
-        <CardContent>
+      {/* <Card className="details-card" elevation={3}>
+        <CardContent> */}
+        <div className="details-card" style={border}>
           <div className="detailsView-container">
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
@@ -354,8 +355,9 @@ export default function Details({
               </React.Fragment>
             ))}
           </div>
-        </CardContent>
-      </Card>
+        {/* </CardContent>
+      </Card> */}
+      </div>
     </div>
   );
 }
