@@ -169,7 +169,7 @@ export default function NotesDisplay({
             }`}
           >
             {notes && notes.length > 0 ? (
-              <div style={{ ...border, height: "40vh" }}>
+              <div style={{ height: "40vh" }}>
                 {notes
                   .filter((note) => !note.is_deleted) // Filter out deleted notes
                   .map((note, i) => (
@@ -237,10 +237,7 @@ export default function NotesDisplay({
               >
                 <Typography
                   variant="h6"
-                  sx={{
-                    textAlign: "center",
-                    // backgroundColor: "rgb(243, 243, 243)",
-                  }}
+                  sx={{ textAlign: "center" }}
                 >
                   Notes Empty
                 </Typography>

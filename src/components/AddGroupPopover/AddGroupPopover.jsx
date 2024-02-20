@@ -14,6 +14,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import "./AddGroupPopover.css";
 // Utils
 import { modalBtnStyle, showToast } from "../Utils/helpers";
+import ModalButtons from "../Modals/ModalButtons";
 
 export default function BasicPopover({ info, groups, onChange }) {
   console.log(info);
@@ -146,12 +147,13 @@ export default function BasicPopover({ info, groups, onChange }) {
                 onChange={(e) => setGroupLeadEmail(e.target.value)}
               /> */}
             </div>
-            <div style={modalBtnStyle}>
-              <Button className="modal-cancel-btn" onClick={handleClose}>
-                Cancel
-              </Button>
-              <Button onClick={handleSave}>Save</Button>
-            </div>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ Buttons ~~~~~~~~~~ */}
+            <ModalButtons
+              label="Save"
+              onSave={handleSave}
+              onCancel={handleClose}
+            />
           </div>
         </Box>
       </Popover>

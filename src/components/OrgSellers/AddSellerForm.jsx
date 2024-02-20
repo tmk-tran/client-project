@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Box, Button, Modal, TextField, Grid } from "@mui/material";
+import { Box, Button, Modal, TextField, Typography, Grid, Divider } from "@mui/material";
+import { lineDivider } from "../Utils/modalStyles";
+import ModalButtons from "../Modals/ModalButtons";
 
 const style = {
   position: "absolute",
@@ -25,7 +27,12 @@ const generateRefId = (firstName, lastName, teacher) => {
   return `${firstInitial}${lastInitial}${teacherInitials}${randomDigits}`;
 };
 
-export default function AddSellerForm({ columns, open, handleClose, handleAddSeller }) {
+export default function AddSellerForm({
+  columns,
+  open,
+  handleClose,
+  handleAddSeller,
+}) {
   const initialFormState = columns.reduce((acc, column) => {
     acc[column.id] = "";
     return acc;
@@ -58,6 +65,10 @@ export default function AddSellerForm({ columns, open, handleClose, handleAddSel
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
+        <Typography variant="h6" sx={{ textAlign: "center", mb: 2 }}>
+          New Seller
+        </Typography>
+        <Divider sx={lineDivider} />
         <form>
           <Grid container spacing={2}>
             {filteredColumns.map((column) => (
@@ -79,10 +90,11 @@ export default function AddSellerForm({ columns, open, handleClose, handleAddSel
             onClick={handleFormSubmit}
             sx={{ mt: 2 }}
           >
-            Add Seller
+            Add
           </Button>
+          <ModalButtons label="Add" variant="contained" color="primary" onSave={handleFormSubmit} onCancel={handleClose} sx={{ mt: 2 }} />
         </form>
       </Box>
     </Modal>
   );
-};
+}

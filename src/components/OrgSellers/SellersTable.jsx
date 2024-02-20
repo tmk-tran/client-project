@@ -122,12 +122,15 @@ export default function StickyHeadTable() {
   };
 
   const handleAddSeller = (formData) => {
-    console.log(formData);
+    const formDataWithId = {
+      ...formData,
+      organization_id: paramsObject.id,
+    };
+    console.log(formDataWithId);
 
-    // dispatch({ type: "ADD_SELLER", payload: formData });
     const action = {
       type: "ADD_SELLER",
-      payload: formData,
+      payload: formDataWithId,
     };
     console.log("Dispatching action:", action);
     // dispatch(action);
