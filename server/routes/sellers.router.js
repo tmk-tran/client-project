@@ -14,7 +14,10 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
     FROM
       sellers
     WHERE
-      organization_id = $1;`;
+      organization_id = $1
+    ORDER BY
+      lastname ASC     
+    ;`;
 
   pool
     .query(queryText, [orgId])

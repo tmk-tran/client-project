@@ -41,16 +41,19 @@ const columns = [
     id: "initial_books",
     label: "Initial Book Count",
     align: "right",
+    width: 100,
   },
   {
     id: "additional_books",
-    label: "Additional Books Count",
+    label: "Additional Books",
     align: "right",
+    width: 100,
   },
   {
     id: "books_returned",
-    label: "Books Returned",
+    label: "Returned Books",
     align: "right",
+    width: 100,
   },
   {
     id: "cash",
@@ -64,7 +67,7 @@ const columns = [
   },
   {
     id: "digital",
-    label: "Digital Payments",
+    label: "Digital",
     align: "right",
   },
   {
@@ -175,7 +178,14 @@ export default function StickyHeadTable() {
                   <TableCell
                     key={column.id}
                     align={column.align}
-                    style={{ minWidth: column.minWidth }}
+                    sx={{
+                      minWidth: column.minWidth,
+                      width: column.width,
+                      height: 50,
+                      overflow: "hidden",
+                      // wordWrap: "break-word",
+                      overflowWrap: "break-word",
+                    }}
                   >
                     {column.label}
                   </TableCell>
@@ -199,7 +209,17 @@ export default function StickyHeadTable() {
                           <TableCell
                             key={column.id}
                             align={column.align}
-                            sx={{ border: "1px solid #e0e0e0", padding: "8px" }}
+                            sx={{
+                              border: "1px solid #e0e0e0",
+                              padding: "8px",
+                              ...(column.id === "notes" && {
+                                maxWidth: "250px",
+                                maxHeight: "50px",
+                                // overflow: "hidden",
+                                overflowWrap: "break-word",
+                                // textOverflow: "ellipsis",
+                              }),
+                            }}
                           >
                             {column.format && typeof value === "number"
                               ? column.format(value)
