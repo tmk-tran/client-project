@@ -12,6 +12,8 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import ArchiveIcon from '@mui/icons-material/Archive';
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { oSellers } from "../../hooks/reduxStore";
@@ -78,6 +80,11 @@ const columns = [
   {
     id: "notes",
     label: "Notes",
+    align: "right",
+  },
+  {
+    id: "actions",
+    label: "Actions",
     align: "right",
   },
 ];
@@ -150,6 +157,14 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
+  const handleArchive = (id) => {
+    console.log(id);
+  };
+
+  const handleEdit = (id) => {
+    console.log(id);
+  };
+
   return (
     <>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -182,9 +197,9 @@ export default function StickyHeadTable() {
                       minWidth: column.minWidth,
                       width: column.width,
                       height: 50,
-                      overflow: "hidden",
-                      // wordWrap: "break-word",
-                      overflowWrap: "break-word",
+                      wordWrap: "break-word",
+                      border: "1px solid #ddd",
+                      backgroundColor: "#f5f5f5"
                     }}
                   >
                     {column.label}
@@ -221,9 +236,28 @@ export default function StickyHeadTable() {
                               }),
                             }}
                           >
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
+                            {column.id === "actions" ? (
+                  <>
+                    {/* <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => handleEdit(seller.id)} // Add your edit logic here
+                    > */}
+                      <EditNoteIcon onClick={() => handleEdit(seller.id)} />
+                    {/* </Button> */}
+                    {/* <Button
+                      variant="outlined"
+                      color="secondary"
+                      onClick={() => handleDelete(seller.id)} // Add your delete logic here
+                    > */}
+                      <ArchiveIcon onClick={() => handleArchive(seller.id)} />
+                    {/* </Button> */}
+                  </>
+                ) : (
+                  column.format && typeof value === "number"
+                    ? column.format(value)
+                    : value
+                )}
                           </TableCell>
                         );
                       })}
