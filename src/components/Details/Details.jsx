@@ -211,7 +211,7 @@ export default function Details({
       </div>
       {/* <Card className="details-card" elevation={3}>
         <CardContent> */}
-        <div className="details-card" style={border}>
+        <div className="details-card" style={{ marginTop: 40 }}>
           <div className="detailsView-container">
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>

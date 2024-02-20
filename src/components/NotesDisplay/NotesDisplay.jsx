@@ -44,7 +44,6 @@ export default function NotesDisplay({
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   // State for showing notes
-  const [noteDelete, setNoteDelete] = useState(false);
   const [inputValue, setInputValue] = useState("");
   // State from popover
   // const [orgId, setOrgId] = useState(orgDetails.organization_id);
@@ -124,16 +123,16 @@ export default function NotesDisplay({
       handleDelete(noteId, entityId);
     });
   };
-  
+
   const handleDelete = (noteId, entityId) => {
     console.log(noteId);
     console.log(entityId);
-  
+
     // Assuming you're using Redux for state management
     const actionType = isMerchantTaskPage
       ? "DELETE_MERCHANT_NOTE"
       : "DELETE_ORG_NOTE";
-  
+
     dispatch({
       type: actionType,
       payload: {
@@ -141,128 +140,138 @@ export default function NotesDisplay({
         entityId,
       },
     });
-  
+
     // Call the function to show the confirmation modal
     showDeleteConfirmation(noteId, entityId);
   };
-  
 
   return (
-    // <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
-      <Card
-        elevation={3}
-        className={`notes-card ${caseType === 1 ? "notes-card-task-view" : ""}`}
-      >
-        <CardContent>
-          <Typography
-            variant="h6"
-            sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}
-          >
-            Notes
-          </Typography>
+    <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
+    <Card
+      elevation={3}
+      className={`notes-card ${caseType === 1 ? "notes-card-task-view" : ""}`}
+    >
+      <CardContent>
+        <Typography
+          variant="h6"
+          sx={{ textAlign: "center", mb: 1, fontWeight: "bold" }}
+        >
+          Notes
+        </Typography>
 
-          <div
-            className={`orgNotes-container ${
-              caseType === 1
-                ? "orgNotes-container-task-view"
-                : caseType === 2
-                ? "additional-style-2"
-                : ""
-            }`}
-          >
-            {notes && notes.length > 0 ? (
-              <div style={{ height: "40vh" }}>
-                {notes
-                  .filter((note) => !note.is_deleted) // Filter out deleted notes
-                  .map((note, i) => (
-                    <div className="note-main-container" key={i}>
-                      <Typography sx={{ mt: 1 }} variant="caption">
-                        {formatDate(note.note_date)}
-                      </Typography>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
+        <div
+          className={`orgNotes-container ${
+            caseType === 1
+              ? "orgNotes-container-task-view"
+              : caseType === 2
+              ? "additional-style-2"
+              : ""
+          }`}
+        >
+          {notes && notes.length > 0 ? (
+            <div style={{ ...border, height: "40vh" }}>
+              {notes
+                .filter((note) => !note.is_deleted) // Filter out deleted notes
+                .map((note, i) => (
+                  <div className="note-main-container" key={i}>
+                    <Typography sx={{ mt: 1 }} variant="caption">
+                      {formatDate(note.note_date)}
+                    </Typography>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <li style={{ marginLeft: "10%" }}>
+                        {note.note_content &&
+                          note.note_content
+                            .split(" ")
+                            .map(
+                              (word) =>
+                                word.charAt(0).toUpperCase() + word.slice(1)
+                            )
+                            .join(" ")}
+                      </li>
+
+                      <Button
+                        className="notes-delete-btn"
+                        onClick={() => {
+                          if (isMerchantTaskPage) {
+                            console.log(
+                              "Merchant Task Page - Note ID:",
+                              note.id,
+                              "Merchant ID:",
+                              note.merchant_id
+                            );
+                            showDeleteConfirmation(note.id, note.merchant_id);
+                          } else {
+                            console.log(
+                              "Organization Task Page - Note ID:",
+                              note.id,
+                              "Organization ID:",
+                              note.organization_id
+                            );
+                            showDeleteConfirmation(
+                              note.id,
+                              note.organization_id
+                            );
+                          }
                         }}
                       >
-                        <li style={{ marginLeft: "10%" }}>
-                          {note.note_content &&
-                            note.note_content
-                              .split(" ")
-                              .map(
-                                (word) =>
-                                  word.charAt(0).toUpperCase() + word.slice(1)
-                              )
-                              .join(" ")}
-                        </li>
-
-                        <Button
-                          className="notes-delete-btn"
-                          onClick={() => {
-                            if (isMerchantTaskPage) {
-                              console.log(
-                                "Merchant Task Page - Note ID:",
-                                note.id,
-                                "Merchant ID:",
-                                note.merchant_id
-                              );
-                              showDeleteConfirmation(note.id, note.merchant_id);
-                            } else {
-                              console.log(
-                                "Organization Task Page - Note ID:",
-                                note.id,
-                                "Organization ID:",
-                                note.organization_id
-                              );
-                              showDeleteConfirmation(note.id, note.organization_id);
-                            }
-                          }}
-                        >
-                          <DeleteIcon style={{ fontSize: "20px" }} />
-                        </Button>
-                      </div>
-                      <br />
-                      <hr style={hrStyle} />
+                        <DeleteIcon style={{ fontSize: "20px" }} />
+                      </Button>
                     </div>
-                  ))}
-              </div>
-            ) : (
+                    <br />
+                    <hr style={hrStyle} />
+                  </div>
+                ))}
+            </div>
+          ) : (
+            <div
+              style={{
+                minHeight: "25vh",
+                backgroundColor: "rgb(243, 243, 243)",
+                padding: "20%",
+              }}
+            >
               <Typography
-                variant="body1"
+                variant="h6"
                 sx={{
                   textAlign: "center",
-                  backgroundColor: "rgb(243, 243, 243)",
+                  // backgroundColor: "rgb(243, 243, 243)",
                 }}
               >
                 None Available
               </Typography>
-            )}
-          </div>
-          <div>
-            <TextField
-              label="Add a note..."
-              value={inputValue}
-              variant="standard"
-              onChange={(e) => setInputValue(e.target.value)}
-              multiline
+            </div>
+          )}
+        </div>
+        <div>
+          <TextField
+            label="Add a note..."
+            value={inputValue}
+            variant="standard"
+            onChange={(e) => setInputValue(e.target.value)}
+            multiline
+            fullWidth
+            sx={{ mt: 1 }}
+          />
+          {inputValue && (
+            <Button
+              // variant="contained"
+              color="primary"
+              onClick={handleSave}
+              // style={{ flexGrow: 1 }}
+              style={{ marginTop: "10px" }}
               fullWidth
-              sx={{ mt: 1 }}
-            />
-            {inputValue && (
-              <Button
-                // variant="contained"
-                color="primary"
-                onClick={handleSave}
-                // style={{ flexGrow: 1 }}
-                style={{ marginTop: "10px" }}
-                fullWidth
-              >
-                Add
-              </Button>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-    // </div>
+            >
+              Add
+            </Button>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+    </div>
   );
 }
