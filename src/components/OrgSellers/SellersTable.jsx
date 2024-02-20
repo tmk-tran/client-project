@@ -133,7 +133,7 @@ export default function StickyHeadTable() {
       payload: formDataWithId,
     };
     console.log("Dispatching action:", action);
-    // dispatch(action);
+    dispatch(action);
     handleClose();
   };
 

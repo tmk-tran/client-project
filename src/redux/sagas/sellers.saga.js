@@ -13,20 +13,20 @@ function* fetchSellers(action) {
   }
 }
 
-// function* addLocations(action) {
-//   try {
-//     console.log(action.payload);
-//     console.log(action.payload.merchant_id);
-//     yield axios.post(`/api/locations/`, action.payload);
-//     yield put({
-//       type: "FETCH_MERCHANT_LOCATIONS",
-//       payload: action.payload.merchant_id,
-//     });
-//   } catch (error) {
-//     console.log("error in addLocations Saga", error);
-//     yield put({ type: "SET_ERROR", payload: error });
-//   }
-// }
+function* addSeller(action) {
+  try {
+    console.log(action.payload);
+    console.log(action.payload.organization_id);
+    yield axios.post(`/api/sellers/`, action.payload);
+    yield put({
+      type: "FETCH_SELLERS",
+      payload: action.payload.organization_id,
+    });
+  } catch (error) {
+    console.log("error in addSeller Saga", error);
+    yield put({ type: "SET_ERROR", payload: error });
+  }
+}
 
 // function* updateLocation(action) {
 //   try {
@@ -63,8 +63,7 @@ function* fetchSellers(action) {
 
 export default function* merchantCommentsSaga() {
   yield takeEvery("FETCH_SELLERS", fetchSellers);
-  //   yield takeEvery("FETCH_MERCHANT_LOCATION", fetchMerchantLocation);
-  //   yield takeEvery("ADD_LOCATION", addLocations);
+  yield takeEvery("ADD_SELLER", addSeller);
   //   yield takeEvery("EDIT_LOCATION", updateLocation);
   //   yield takeEvery("DELETE_LOCATION", deleteLocation);
 }

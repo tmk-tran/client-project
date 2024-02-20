@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Box, Button, Modal, TextField, Typography, Grid, Divider } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  TextField,
+  Typography,
+  Grid,
+  Divider,
+} from "@mui/material";
 import { lineDivider } from "../Utils/modalStyles";
 import ModalButtons from "../Modals/ModalButtons";
 
@@ -33,12 +41,15 @@ export default function AddSellerForm({
   handleClose,
   handleAddSeller,
 }) {
+  console.log(columns);
+
   const initialFormState = columns.reduce((acc, column) => {
-    acc[column.id] = "";
+    acc[column.id] = ["initialbooks", "additionalbooks", "booksreturned", "cash", "checks", "digital", "donations"].includes(column.id) ? 0 : "";
     return acc;
   }, {});
-
+  
   const [formData, setFormData] = useState(initialFormState);
+  console.log(formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,6 +84,14 @@ export default function AddSellerForm({
           <Grid container spacing={2}>
             {filteredColumns.map((column) => (
               <Grid item xs={12} sm={6} key={column.id}>
+                {/* <TextField
+                  name={column.id}
+                  label={column.label}
+                  value={formData[column.id]}
+                  onChange={handleChange}
+                  fullWidth
+                  size="small"
+                /> */}
                 <TextField
                   name={column.id}
                   label={column.label}
@@ -80,19 +99,34 @@ export default function AddSellerForm({
                   onChange={handleChange}
                   fullWidth
                   size="small"
+                  type={
+                    [
+                      "initialbooks",
+                      "additionalbooks",
+                      "booksreturned",
+                      "cash",
+                      "checks",
+                      "digital",
+                      "donations",
+                    ].includes(column.id)
+                      ? "number"
+                      : "text"
+                  }
                 />
               </Grid>
             ))}
           </Grid>
-          <Button
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~ Buttons ~~~~~~~~~~ */}
+          <ModalButtons
+            label="Add"
             variant="contained"
             color="primary"
-            onClick={handleFormSubmit}
+            onSave={handleFormSubmit}
+            onCancel={handleClose}
             sx={{ mt: 2 }}
-          >
-            Add
-          </Button>
-          <ModalButtons label="Add" variant="contained" color="primary" onSave={handleFormSubmit} onCancel={handleClose} sx={{ mt: 2 }} />
+            width="50%"
+          />
         </form>
       </Box>
     </Modal>

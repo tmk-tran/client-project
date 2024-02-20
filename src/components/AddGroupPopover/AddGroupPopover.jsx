@@ -15,6 +15,7 @@ import "./AddGroupPopover.css";
 // Utils
 import { modalBtnStyle, showToast } from "../Utils/helpers";
 import ModalButtons from "../Modals/ModalButtons";
+import { border } from "../Utils/colors";
 
 export default function BasicPopover({ info, groups, onChange }) {
   console.log(info);
@@ -153,6 +154,8 @@ export default function BasicPopover({ info, groups, onChange }) {
               label="Save"
               onSave={handleSave}
               onCancel={handleClose}
+              sx={{ mt: 2 }}
+              width="50%"
             />
           </div>
         </Box>
