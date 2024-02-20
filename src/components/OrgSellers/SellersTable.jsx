@@ -108,7 +108,8 @@ function generateRefId(firstName, lastName, teacher) {
     .split(" ")
     .map((name) => name.charAt(0).toUpperCase())
     .join("");
-  const randomDigits = Math.floor(1000 + Math.random() * 9000); // Generate random 4-digit number
+  // const randomDigits = Math.floor(1000 + Math.random() * 9000); // Generate random 4-digit number
+  const randomDigits = Math.floor(100000 + Math.random() * 900000); // Generate random 6-digit number
 
   return `${firstInitial}${lastInitial}${teacherInitials}${randomDigits}`;
 }
