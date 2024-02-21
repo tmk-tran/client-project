@@ -24,7 +24,7 @@ export default function ModalButtons({
       <Button
         className="modal-cancel-btn"
         onClick={onCancel}
-        sx={{ marginRight: "10px" }}
+        sx={{ marginRight: "10px", ...sx }}
       >
         Cancel
       </Button>

@@ -4,6 +4,7 @@ import { lineDivider } from "../Utils/modalStyles";
 import { primaryColor } from "../Utils/colors";
 import ModalButtons from "../Modals/ModalButtons";
 import Typography from "../Typography/Typography";
+import { capitalizeWords } from "../Utils/helpers";
 
 const style = {
   position: "absolute",
@@ -75,13 +76,27 @@ export default function SellerForm({
     }
   }, [mode, sellerToEdit]);
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   console.log(name, value);
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     [name]: value,
+  //   }));
+  // };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const capitalizeValue = name === 'firstname' || name === 'lastname' || name === 'level' || name === 'teacher' || name === 'notes'
+      ? capitalizeWords(value)
+      : value;
+    console.log(name, capitalizeValue);
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value,
+      [name]: capitalizeValue,
     }));
   };
+  
 
   const handleFormSubmit = () => {
     let updatedFormData = { ...formData };
