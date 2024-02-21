@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Typography from "../Typography/Typography";
-import SellerPageTable from "./SellerPageTable";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { sellerPageInfo } from "../../hooks/reduxStore";
+// ~~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~ //
+import Typography from "../Typography/Typography";
+import SellerPageTable from "./SellerPageTable";
+import CashUpdateModal from "./CashUpdateModal";
 
 export default function SellerPage() {
   const dispatch = dispatchHook();
@@ -18,6 +20,26 @@ export default function SellerPage() {
   const sellerInfo = sellerPageInfo() || [];
   console.log(sellerInfo);
 
+  const updateCash = (cashAmount) => {
+    console.log(cashAmount);
+    const amountToUpdate = Number(cashAmount) || 0;
+    console.log(amountToUpdate);
+    const sellerId = sellerInfo[0].id;
+    console.log(sellerId);
+    console.log(refId);
+
+    const updateAction = {
+      type: "UPDATE_CASH",
+      payload: {
+        id: sellerId,
+        refId: refId,
+        cash: amountToUpdate,
+      },
+    };
+    console.log("Dispatching action:", updateAction);
+    dispatch(updateAction);
+  };
+
   return (
     <div style={{ minHeight: "80vh" }}>
       <Typography
@@ -25,8 +47,16 @@ export default function SellerPage() {
         variant="h6"
         sx={{ textAlign: "center" }}
       />
-      <div>
-      <SellerPageTable sellerInfo={sellerInfo} />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <SellerPageTable sellerInfo={sellerInfo} />
+        <CashUpdateModal updateCash={updateCash} />
       </div>
     </div>
   );

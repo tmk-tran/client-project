@@ -29,23 +29,22 @@ router.get("/:refId", (req, res) => {
 
 router.put("/:id", (req, res) => {
   const sellerInfo = req.body;
-  const refId = req.params.id;
+  const sellerId = req.params.id;
   console.log("Req.body from sellers = ", sellerInfo);
 
   const queryText = `
           UPDATE 
             "sellers"
           SET
-            "cash" = $1
+            "cash" = "cash" + $1
           WHERE 
-            "refId" = $2;`;
+            "id" = $2;`;
 
-  const values = [sellerInfo.cash, refId];
+  const values = [sellerInfo.cash, sellerId];
 
   pool
     .query(queryText, values)
     .then((response) => {
-      console.log("response from PUT sellerPage.router: ", response.rows);
       res.sendStatus(200);
     })
     .catch((err) => {

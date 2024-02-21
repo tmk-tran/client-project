@@ -10,6 +10,7 @@ import {
   Button,
 } from "@mui/material";
 import { columns } from "../OrgSellers/SellersTable";
+import CashUpdateModal from "./CashUpdateModal";
 
 export default function SellerPageTable({ sellerInfo }) {
   console.log(sellerInfo);
@@ -29,7 +30,9 @@ export default function SellerPageTable({ sellerInfo }) {
           <TableHead>
             <TableRow>
               {columns
-                .filter((column) => column.id !== "notes") // Exclude the "notes" column
+                .filter(
+                  (column) => column.id !== "notes" && column.id !== "actions"
+                ) // Exclude the "notes" and "actions" column
                 .map((column) => (
                   <TableCell
                     key={column.id}
@@ -53,14 +56,12 @@ export default function SellerPageTable({ sellerInfo }) {
             {sellerInfo.map((seller, i) => (
               <TableRow key={i}>
                 {columns
-                  .filter((column) => column.id !== "notes") // Exclude the "notes" column
+                  .filter(
+                    (column) => column.id !== "notes" && column.id !== "actions"
+                  ) // Exclude the "notes" and "actions" column
                   .map((column) => (
                     <TableCell key={column.id} align={column.align}>
-                      {column.id === "actions" ? (
-                        <Button>Cash</Button>
-                      ) : (
-                        seller[column.id]
-                      )}
+                      {seller[column.id]}
                     </TableCell>
                   ))}
               </TableRow>
