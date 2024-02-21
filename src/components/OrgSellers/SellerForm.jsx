@@ -1,16 +1,9 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Modal,
-  TextField,
-  Typography,
-  Grid,
-  Divider,
-} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Button, Modal, TextField, Grid, Divider } from "@mui/material";
 import { lineDivider } from "../Utils/modalStyles";
-import ModalButtons from "../Modals/ModalButtons";
 import { primaryColor } from "../Utils/colors";
+import ModalButtons from "../Modals/ModalButtons";
+import Typography from "../Typography/Typography";
 
 const style = {
   position: "absolute",
@@ -41,13 +34,17 @@ const generateRefId = (firstName, lastName, teacher) => {
   return `${firstInitial}${lastInitial}${teacherInitials}${randomDigits}`;
 };
 
-export default function AddSellerForm({
+export default function SellerForm({
   columns,
   open,
+  mode,
   handleClose,
   handleAddSeller,
+  sellerToEdit,
 }) {
   console.log(columns);
+  console.log(mode);
+  console.log(sellerToEdit);
 
   const initialFormState = columns.reduce((acc, column) => {
     acc[column.id] = [
@@ -67,7 +64,14 @@ export default function AddSellerForm({
 
   const [formData, setFormData] = useState(initialFormState);
   console.log(formData);
-  console.log(formData["notes"]);
+
+  useEffect(() => {
+    if (mode === "edit") {
+      setFormData(sellerToEdit);
+    } else {
+      setFormData(initialFormState);
+    }
+  }, [mode, sellerToEdit, initialFormState]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -94,11 +98,24 @@ export default function AddSellerForm({
   };
 
   return (
-    <Modal open={open} onClose={handleFormReset}>
+    <Modal open={open} mode={mode} onClose={handleFormReset}>
       <Box sx={style}>
-        <Typography variant="h6" sx={{ textAlign: "center", mb: 2 }}>
-          New Seller
-        </Typography>
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~ Header ~~~~~~~~~~ */}
+        {mode === "add" && (
+          <Typography
+            label="New Seller"
+            variant="h6"
+            sx={{ textAlign: "center", mb: 2 }}
+          />
+        )}
+        {mode === "edit" && (
+          <Typography
+            label="Edit Seller"
+            variant="h6"
+            sx={{ textAlign: "center", mb: 2 }}
+          />
+        )}
         <Divider sx={lineDivider} />
         <form>
           <Grid container spacing={2}>
@@ -153,9 +170,9 @@ export default function AddSellerForm({
               <Grid container spacing={2}>
                 <Grid item xs={4}>
                   <TextField
-                    name="initialbooks"
+                    name="initial_books"
                     label="Initial Book Count"
-                    value={formData["initialbooks"]}
+                    value={formData["initial_books"]}
                     onChange={handleChange}
                     fullWidth
                     size="small"
@@ -164,9 +181,9 @@ export default function AddSellerForm({
                 </Grid>
                 <Grid item xs={4}>
                   <TextField
-                    name="additionalbooks"
+                    name="additional_books"
                     label="Additional Books"
-                    value={formData["additionalbooks"]}
+                    value={formData["additional_books"]}
                     onChange={handleChange}
                     fullWidth
                     size="small"
@@ -175,9 +192,9 @@ export default function AddSellerForm({
                 </Grid>
                 <Grid item xs={4}>
                   <TextField
-                    name="booksreturned"
+                    name="books_returned"
                     label="Books Returned"
-                    value={formData["booksreturned"]}
+                    value={formData["books_returned"]}
                     onChange={handleChange}
                     fullWidth
                     size="small"

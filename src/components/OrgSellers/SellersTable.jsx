@@ -20,11 +20,12 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { oSellers } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Component ~~~~~~~~~~
-import AddSellerForm from "./AddSellerForm";
+import SellerForm from "./SellerForm";
 import CustomButton from "../CustomButton/CustomButton";
+import Typography from "../Typography/Typography";
+import ActionIcons from "./ActionIcons";
 import { errorColor, primaryColor } from "../Utils/colors";
 import { border } from "../Utils/colors";
-import Typography from "../Typography/Typography";
 
 const columns = [
   { id: "refId", label: "Referral ID", width: 90 },
@@ -126,6 +127,9 @@ export default function StickyHeadTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState("add");
+  console.log(mode);
+  const [sellerToEdit, setSellerToEdit] = useState(null);
 
   useEffect(() => {
     dispatch({ type: "FETCH_SELLERS", payload: paramsObject.id });
@@ -134,7 +138,8 @@ export default function StickyHeadTable() {
   const sellers = oSellers() || [];
   console.log(sellers);
 
-  const handleOpen = () => {
+  const handleOpen = (mode) => {
+    setMode(mode);
     setOpen(true);
   };
 
@@ -171,8 +176,17 @@ export default function StickyHeadTable() {
     console.log(id);
   };
 
-  const handleEdit = (id) => {
+  const handleEdit = (id, mode) => {
     console.log(id);
+    console.log(mode);
+
+    const sellerToEdit = sellers.find((seller) => seller.id === id);
+    console.log(sellerToEdit);
+    if (sellerToEdit) {
+      setSellerToEdit(sellerToEdit);
+      setMode(mode);
+      setOpen(true);
+    }
   };
 
   let isEvenRow = true;
@@ -186,14 +200,17 @@ export default function StickyHeadTable() {
         <CustomButton
           label="New Seller"
           variant="contained"
-          onClick={handleOpen}
+          // onClick={handleOpen}
+          onClick={() => handleOpen("add")}
           icon={<AddIcon />}
         />
-        <AddSellerForm
+        <SellerForm
           columns={columns}
           open={open}
+          mode={mode}
           handleClose={handleClose}
           handleAddSeller={handleAddSeller}
+          sellerToEdit={sellerToEdit}
         />
       </div>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */}
@@ -221,6 +238,8 @@ export default function StickyHeadTable() {
                 ))}
               </TableRow>
             </TableHead>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~ Table Body ~~~~~~~~~~ */}
             <TableBody>
               {sellers
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -256,35 +275,14 @@ export default function StickyHeadTable() {
                               }),
                             }}
                           >
+                            {/* ~~~~~ Action Icons ~~~~~ */}
                             {column.id === "actions" ? (
-                              <>
-                                <EditNoteIcon
-                                  sx={{
-                                    "&:hover": {
-                                      color: "#325CAB",
-                                      transition: "transform 0.2s",
-                                    },
-                                    color: primaryColor.color,
-                                  }}
-                                  onClick={() => handleEdit(seller.id)}
-                                  onMouseOver={(e) =>
-                                    (e.currentTarget.style.transform =
-                                      "scale(1.1)")
-                                  }
-                                  onMouseOut={(e) =>
-                                    (e.currentTarget.style.transform =
-                                      "scale(1)")
-                                  }
-                                />
-
-                                <ArchiveIcon
-                                  sx={{
-                                    "&:hover": { color: errorColor.color },
-                                    color: primaryColor.color,
-                                  }}
-                                  onClick={() => handleArchive(seller.id)}
-                                />
-                              </>
+                              <ActionIcons
+                                seller={seller}
+                                // handleEdit={handleEdit}
+                                onEdit={(id) => handleEdit(id, "edit")}
+                                handleArchive={handleArchive}
+                              />
                             ) : column.format && typeof value === "number" ? (
                               column.format(value)
                             ) : (
