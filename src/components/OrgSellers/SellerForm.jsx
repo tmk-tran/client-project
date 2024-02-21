@@ -4,7 +4,7 @@ import { lineDivider } from "../Utils/modalStyles";
 import { primaryColor } from "../Utils/colors";
 import ModalButtons from "../Modals/ModalButtons";
 import Typography from "../Typography/Typography";
-import { capitalizeWords } from "../Utils/helpers";
+import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
 
 const style = {
   position: "absolute",
@@ -76,27 +76,24 @@ export default function SellerForm({
     }
   }, [mode, sellerToEdit]);
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   console.log(name, value);
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     [name]: value,
-  //   }));
-  // };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const capitalizeValue = name === 'firstname' || name === 'lastname' || name === 'level' || name === 'teacher' || name === 'notes'
-      ? capitalizeWords(value)
-      : value;
+    const capitalizeValue =
+      name === "firstname" ||
+      name === "lastname" ||
+      name === "level" ||
+      name === "teacher"
+        ? capitalizeWords(value)
+        : name === "notes"
+        ? capitalizeFirstWord(value)
+        : value;
+
     console.log(name, capitalizeValue);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: capitalizeValue,
     }));
   };
-  
 
   const handleFormSubmit = () => {
     let updatedFormData = { ...formData };
@@ -302,7 +299,7 @@ export default function SellerForm({
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ Buttons ~~~~~~~~~~ */}
           <ModalButtons
-            label={mode === "add"? "Add" : "Update"}
+            label={mode === "add" ? "Add" : "Update"}
             variant="contained"
             color="primary"
             onSave={handleFormSubmit}
