@@ -143,6 +143,19 @@ export default function StickyHeadTable() {
     setOpen(true);
   };
 
+  const handleEditOpen = (id, mode) => {
+    console.log(id);
+    console.log(mode);
+
+    const sellerToEdit = sellers.find((seller) => seller.id === id);
+    console.log(sellerToEdit);
+    if (sellerToEdit) {
+      setSellerToEdit(sellerToEdit);
+      setMode(mode);
+      setOpen(true);
+    }
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -159,8 +172,35 @@ export default function StickyHeadTable() {
       payload: formDataWithId,
     };
     console.log("Dispatching action:", action);
-    dispatch(action);
+    // dispatch(action);
     handleClose();
+  };
+
+  const handleEditSeller = (editedSeller) => {
+    console.log(editedSeller);
+    console.log(editedSeller.id);
+
+    const editAction = {
+      type: "EDIT_SELLER",
+      payload: editedSeller,
+    };
+    console.log("Dispatching action:", editAction);
+    dispatch(editAction);
+    // handleClose();
+  };
+
+  const handleArchive = (sellerId) => {
+    console.log(sellerId);
+    const orgId = paramsObject.id;
+    console.log(orgId);
+
+    const archiveAction = {
+      type: "ARCHIVE_SELLER",
+      payload: { sellerId, orgId },
+    };
+    console.log("Dispatching action:", archiveAction);
+    dispatch(archiveAction);
+    // handleClose();
   };
 
   const handleChangePage = (event, newPage) => {
@@ -170,23 +210,6 @@ export default function StickyHeadTable() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-  };
-
-  const handleArchive = (id) => {
-    console.log(id);
-  };
-
-  const handleEdit = (id, mode) => {
-    console.log(id);
-    console.log(mode);
-
-    const sellerToEdit = sellers.find((seller) => seller.id === id);
-    console.log(sellerToEdit);
-    if (sellerToEdit) {
-      setSellerToEdit(sellerToEdit);
-      setMode(mode);
-      setOpen(true);
-    }
   };
 
   let isEvenRow = true;
@@ -210,6 +233,7 @@ export default function StickyHeadTable() {
           mode={mode}
           handleClose={handleClose}
           handleAddSeller={handleAddSeller}
+          handleEditSeller={handleEditSeller}
           sellerToEdit={sellerToEdit}
         />
       </div>
@@ -242,6 +266,7 @@ export default function StickyHeadTable() {
             {/* ~~~~~ Table Body ~~~~~~~~~~ */}
             <TableBody>
               {sellers
+                .filter((seller) => !seller.is_deleted) // Filter out deleted sellers
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((seller, index) => {
                   isEvenRow = !isEvenRow; // Toggle the variable for each row
@@ -279,8 +304,7 @@ export default function StickyHeadTable() {
                             {column.id === "actions" ? (
                               <ActionIcons
                                 seller={seller}
-                                // handleEdit={handleEdit}
-                                onEdit={(id) => handleEdit(id, "edit")}
+                                onEdit={(id) => handleEditOpen(id, "edit")}
                                 handleArchive={handleArchive}
                               />
                             ) : column.format && typeof value === "number" ? (

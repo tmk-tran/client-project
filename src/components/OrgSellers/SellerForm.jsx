@@ -34,16 +34,18 @@ const generateRefId = (firstName, lastName, teacher) => {
   return `${firstInitial}${lastInitial}${teacherInitials}${randomDigits}`;
 };
 
+const sample = generateRefId("susie", "larson", "ms jones");
+console.log(sample);
+
 export default function SellerForm({
   columns,
   open,
   mode,
   handleClose,
   handleAddSeller,
+  handleEditSeller,
   sellerToEdit,
 }) {
-  console.log(columns);
-  console.log(mode);
   console.log(sellerToEdit);
 
   const initialFormState = columns.reduce((acc, column) => {
@@ -71,7 +73,7 @@ export default function SellerForm({
     } else {
       setFormData(initialFormState);
     }
-  }, [mode, sellerToEdit, initialFormState]);
+  }, [mode, sellerToEdit]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -82,12 +84,32 @@ export default function SellerForm({
   };
 
   const handleFormSubmit = () => {
-    const refId = generateRefId(
-      formData["firstname"],
-      formData["lastname"],
-      formData["teacher"]
-    );
-    handleAddSeller({ ...formData, refId });
+    let updatedFormData = { ...formData };
+    console.log(updatedFormData);
+
+    if (mode === "edit") {
+      // Remove refId from the edited form data if it exists
+      if (updatedFormData.hasOwnProperty("refId")) {
+        delete updatedFormData["refId"];
+      }
+    } else {
+      // Generate refId for new seller only if it doesn't exist
+      if (!updatedFormData.hasOwnProperty("refId")) {
+        const refId = generateRefId(
+          formData["firstname"],
+          formData["lastname"],
+          formData["teacher"]
+        );
+        updatedFormData = { ...updatedFormData, refId };
+      }
+    }
+
+    console.log(updatedFormData);
+    // handleEditSeller(updatedFormData);
+    // handleAddSeller({ ...formData, refId });
+    mode === "add"
+      ? handleAddSeller(updatedFormData)
+      : handleEditSeller(updatedFormData);
     setFormData(initialFormState);
     handleClose();
   };
@@ -263,7 +285,7 @@ export default function SellerForm({
                 onChange={handleChange}
                 fullWidth
                 multiline
-                rows={4}
+                rows={2}
                 size="small"
               />
             </Grid>

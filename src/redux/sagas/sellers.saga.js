@@ -28,42 +28,41 @@ function* addSeller(action) {
   }
 }
 
-// function* updateLocation(action) {
-//   try {
-//     console.log(action.payload);
-//     // const locationId = action.payload.locationId;
-//     const locationId = action.payload.editId;
-//     const merchantId = action.payload.merchant_id;
-//     yield axios.put(`/api/locations/${locationId}`, action.payload);
-//     yield put({ type: "FETCH_MERCHANT_LOCATION", payload: merchantId });
-//   } catch (error) {
-//     console.log("error in updateLocation Saga", error);
-//     yield put({ type: "SET_ERROR", payload: error });
-//   }
-// }
+function* updateSeller(action) {
+  try {
+    console.log(action.payload);
+    const sellerId = action.payload.id;
+    const orgId = action.payload.organization_id;
+    yield axios.put(`/api/sellers/${sellerId}`, action.payload);
+    yield put({ type: "FETCH_SELLERS", payload: orgId });
+  } catch (error) {
+    console.log("error in updateSeller Saga", error);
+    yield put({ type: "SET_ERROR", payload: error });
+  }
+}
 
-// function* deleteLocation(action) {
-//   console.log(action.payload);
-//   const locationId = action.payload.locationId;
-//   console.log(locationId);
-//   const merchantId = action.payload.merchantId;
-//   console.log(merchantId);
+function* archiveSeller(action) {
+  console.log(action.payload);
+  const sellerId = action.payload.sellerId;
+  console.log(sellerId);
+  const orgId = action.payload.orgId;
+  console.log(orgId);
 
-//   try {
-//     const response = yield axios.delete(`/api/locations/${locationId}`);
-//     console.log(
-//       "DELETE request from locations.saga, response FOR DELETE = ",
-//       response
-//     );
-//     yield put({ type: "FETCH_MERCHANT_LOCATION", payload: merchantId });
-//   } catch (error) {
-//     console.log("error with deleteLocation request", error);
-//   }
-// }
+  try {
+    const response = yield axios.delete(`/api/sellers/${sellerId}`);
+    console.log(
+      "DELETE request from sellers.saga, response FOR DELETE = ",
+      response
+    );
+    yield put({ type: "FETCH_SELLERS", payload: orgId });
+  } catch (error) {
+    console.log("error with deleteSeller request", error);
+  }
+}
 
 export default function* merchantCommentsSaga() {
   yield takeEvery("FETCH_SELLERS", fetchSellers);
   yield takeEvery("ADD_SELLER", addSeller);
-  //   yield takeEvery("EDIT_LOCATION", updateLocation);
-  //   yield takeEvery("DELETE_LOCATION", deleteLocation);
+  yield takeEvery("EDIT_SELLER", updateSeller);
+  yield takeEvery("ARCHIVE_SELLER", archiveSeller);
 }

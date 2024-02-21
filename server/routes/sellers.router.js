@@ -97,4 +97,74 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.put("/:id", rejectUnauthenticated, (req, res) => {
+  const seller = req.body;
+  const sellerId = req.body.id;
+  console.log("Req.body from sellers = ", seller);
+
+  const queryText = `
+        UPDATE "sellers"
+        SET
+          "lastname" = $1,
+          "firstname" = $2,
+          "level" = $3,
+          "teacher" = $4,
+          "initial_books" = $5,
+          "additional_books" = $6,
+          "books_returned" = $7,
+          "cash" = $8,
+          "checks" = $9,
+          "digital" = $10,
+          "donations" = $11,
+          "notes" = $12
+        WHERE "id" = $13;`;
+
+  const values = [
+    seller.lastname,
+    seller.firstname,
+    seller.level,
+    seller.teacher,
+    seller.initial_books,
+    seller.additional_books,
+    seller.books_returned,
+    seller.cash,
+    seller.checks,
+    seller.digital,
+    seller.donations,
+    seller.notes,
+    sellerId,
+  ];
+
+  pool
+    .query(queryText, values)
+    .then((response) => {
+      console.log("response from PUT sellers.router: ", response.rows);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error with sellers PUT route", err);
+      res.sendStatus(500);
+    });
+});
+
+router.delete("/:id", (req, res) => {
+  const sellerId = req.params.id;
+  console.log(sellerId);
+  pool
+    .query(
+      `UPDATE 
+        "sellers"
+        SET is_deleted = true
+        WHERE id = $1;`,
+      [sellerId]
+    )
+    .then((response) => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Error with sellers DELETE route", error);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
