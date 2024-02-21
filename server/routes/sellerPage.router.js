@@ -31,6 +31,8 @@ router.put("/:id", (req, res) => {
   const sellerInfo = req.body;
   const sellerId = req.params.id;
   console.log("Req.body from sellers = ", sellerInfo);
+  const refId = sellerInfo.refId;
+  console.log("refId from sellers = ", refId);
 
   const queryText = `
           UPDATE 
