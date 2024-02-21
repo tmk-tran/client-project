@@ -1,20 +1,23 @@
 import Swal from "sweetalert2";
-import { primaryColor } from "./colors";
+import { primaryColor, successColor } from "./colors";
 
-// Sweet Alert in OrgDetails
 export const showDeleteSweetAlert = (deleteCall) => {
   Swal.fire({
     title: "Are you sure?",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: primaryColor.color,
+    confirmButtonColor: successColor.color,
     cancelButtonColor: "#d33",
     confirmButtonText: "Yes, delete it!",
   }).then((result) => {
     if (result.isConfirmed) {
       // Execute the callback if the user confirms
       deleteCall && deleteCall();
-      Swal.fire("Deleted!");
+      Swal.fire({
+        title: "Deleted!",
+        icon: "success",
+        confirmButtonColor: primaryColor.color,
+      });
     }
   });
 };
@@ -22,5 +25,9 @@ export const showDeleteSweetAlert = (deleteCall) => {
 // Sweet Alert in OrgContactDetailsEdit
 export const showSaveSweetAlert = (saveCall) => {
   saveCall && saveCall();
-  Swal.fire("Saved!");
+  Swal.fire({
+    title: "Saved!",
+    icon: "success",
+    confirmButtonColor: primaryColor.color,
+  });
 };

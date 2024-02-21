@@ -3,7 +3,6 @@ import { put, takeEvery } from "redux-saga/effects";
 
 function* fetchSellers(action) {
   try {
-    console.log(action.payload);
     const items = yield axios.get(`/api/sellers/${action.payload}`);
     console.log("FETCH request from sellers.saga, ITEMS = ", items.data);
     yield put({ type: "SET_SELLERS", payload: items.data });
@@ -14,13 +13,15 @@ function* fetchSellers(action) {
 }
 
 function* addSeller(action) {
+  console.log(action.payload);
+  console.log(action.payload.organization_id);
+  const orgId = action.payload.organization_id;
+
   try {
-    console.log(action.payload);
-    console.log(action.payload.organization_id);
     yield axios.post(`/api/sellers/`, action.payload);
     yield put({
       type: "FETCH_SELLERS",
-      payload: action.payload.organization_id,
+      payload: orgId,
     });
   } catch (error) {
     console.log("error in addSeller Saga", error);
@@ -29,10 +30,10 @@ function* addSeller(action) {
 }
 
 function* updateSeller(action) {
+  const sellerId = action.payload.id;
+  const orgId = action.payload.organization_id;
+
   try {
-    console.log(action.payload);
-    const sellerId = action.payload.id;
-    const orgId = action.payload.organization_id;
     yield axios.put(`/api/sellers/${sellerId}`, action.payload);
     yield put({ type: "FETCH_SELLERS", payload: orgId });
   } catch (error) {
@@ -42,11 +43,8 @@ function* updateSeller(action) {
 }
 
 function* archiveSeller(action) {
-  console.log(action.payload);
   const sellerId = action.payload.sellerId;
-  console.log(sellerId);
   const orgId = action.payload.orgId;
-  console.log(orgId);
 
   try {
     const response = yield axios.delete(`/api/sellers/${sellerId}`);

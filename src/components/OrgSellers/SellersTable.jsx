@@ -26,6 +26,7 @@ import Typography from "../Typography/Typography";
 import ActionIcons from "./ActionIcons";
 import { errorColor, primaryColor } from "../Utils/colors";
 import { border } from "../Utils/colors";
+import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 const columns = [
   { id: "refId", label: "Referral ID", width: 90 },
@@ -143,6 +144,10 @@ export default function StickyHeadTable() {
     setOpen(true);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleEditOpen = (id, mode) => {
     console.log(id);
     console.log(mode);
@@ -154,10 +159,6 @@ export default function StickyHeadTable() {
       setMode(mode);
       setOpen(true);
     }
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   const handleAddSeller = (formData) => {
@@ -172,8 +173,8 @@ export default function StickyHeadTable() {
       payload: formDataWithId,
     };
     console.log("Dispatching action:", action);
-    // dispatch(action);
-    handleClose();
+    dispatch(action);
+    showSaveSweetAlert();
   };
 
   const handleEditSeller = (editedSeller) => {
@@ -186,21 +187,23 @@ export default function StickyHeadTable() {
     };
     console.log("Dispatching action:", editAction);
     dispatch(editAction);
-    // handleClose();
+    showSaveSweetAlert();
   };
 
   const handleArchive = (sellerId) => {
     console.log(sellerId);
     const orgId = paramsObject.id;
     console.log(orgId);
-
-    const archiveAction = {
-      type: "ARCHIVE_SELLER",
-      payload: { sellerId, orgId },
-    };
-    console.log("Dispatching action:", archiveAction);
-    dispatch(archiveAction);
-    // handleClose();
+  
+    // Use showDeleteSweetAlert and pass a callback function to execute upon confirmation
+    showDeleteSweetAlert(() => {
+      const archiveAction = {
+        type: "ARCHIVE_SELLER",
+        payload: { sellerId, orgId },
+      };
+      console.log("Dispatching action:", archiveAction);
+      dispatch(archiveAction);
+    });
   };
 
   const handleChangePage = (event, newPage) => {

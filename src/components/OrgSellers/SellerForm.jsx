@@ -85,31 +85,25 @@ export default function SellerForm({
 
   const handleFormSubmit = () => {
     let updatedFormData = { ...formData };
-    console.log(updatedFormData);
 
-    if (mode === "edit") {
-      // Remove refId from the edited form data if it exists
-      if (updatedFormData.hasOwnProperty("refId")) {
-        delete updatedFormData["refId"];
-      }
-    } else {
-      // Generate refId for new seller only if it doesn't exist
-      if (!updatedFormData.hasOwnProperty("refId")) {
+    if (mode === "add") {
+      // Check if refId is an empty string or does not exist
+      if (!updatedFormData.refId) {
         const refId = generateRefId(
-          formData["firstname"],
-          formData["lastname"],
-          formData["teacher"]
+          updatedFormData["firstname"],
+          updatedFormData["lastname"],
+          updatedFormData["teacher"]
         );
-        updatedFormData = { ...updatedFormData, refId };
+        updatedFormData.refId = refId; // Assign the new refId
       }
+      handleAddSeller(updatedFormData);
+    } else if (mode === "edit") {
+      // Edit logic remains the same
+      // No need to generate or alter refId for editing
+      handleEditSeller(updatedFormData);
     }
 
     console.log(updatedFormData);
-    // handleEditSeller(updatedFormData);
-    // handleAddSeller({ ...formData, refId });
-    mode === "add"
-      ? handleAddSeller(updatedFormData)
-      : handleEditSeller(updatedFormData);
     setFormData(initialFormState);
     handleClose();
   };
@@ -293,7 +287,7 @@ export default function SellerForm({
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ Buttons ~~~~~~~~~~ */}
           <ModalButtons
-            label="Add"
+            label={mode === "add"? "Add" : "Update"}
             variant="contained"
             color="primary"
             onSave={handleFormSubmit}
