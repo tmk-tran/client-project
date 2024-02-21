@@ -52,6 +52,10 @@ export const oSellers = () => {
   return useSelector((store) => store.sellers);
 };
 
+export const sellerPageInfo = () => {
+  return useSelector((store) => store.sellerPage);
+};
+
 export const pdfFile = () => {
   return useSelector((store) => store.pdf);
 };

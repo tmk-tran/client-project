@@ -29,7 +29,7 @@ import { border } from "../Utils/colors";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
 import SellerLink from "../SellerPage/SellerLink";
 
-const columns = [
+export const columns = [
   { id: "refId", label: "Referral ID", width: 90 },
   { id: "lastname", label: "Last Name", width: 100 },
   {
@@ -195,7 +195,7 @@ export default function SellersTable() {
     console.log(sellerId);
     const orgId = paramsObject.id;
     console.log(orgId);
-  
+
     // Use showDeleteSweetAlert and pass a callback function to execute upon confirmation
     showDeleteSweetAlert(() => {
       const archiveAction = {
@@ -307,12 +307,12 @@ export default function SellersTable() {
                             {/* ~~~~~ Action Icons ~~~~~ */}
                             {column.id === "actions" ? (
                               <>
-                              <ActionIcons
-                                seller={seller}
-                                onEdit={(id) => handleEditOpen(id, "edit")}
-                                handleArchive={handleArchive}
-                              />
-                              <SellerLink seller={seller} />
+                                <ActionIcons
+                                  seller={seller}
+                                  onEdit={(id) => handleEditOpen(id, "edit")}
+                                  handleArchive={handleArchive}
+                                />
+                                <SellerLink seller={seller} />
                               </>
                             ) : column.format && typeof value === "number" ? (
                               column.format(value)

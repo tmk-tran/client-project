@@ -1,34 +1,58 @@
 import {
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody,
-    Typography,
-  } from "@mui/material";
-  
-  export default function SellerPageTable() {
-    return (
-        <Table>
-          {/* ~~~~~~~~~~ HEAD ~~~~~~~~~~ */}
-          <TableHead>
-            <TableRow>
-              <TableCell>Header 1</TableCell>
-              <TableCell>Header 2</TableCell>
-              <TableCell>Header 3</TableCell>
-              <TableCell>Header 4</TableCell>
-            </TableRow>
-          </TableHead>
-          {/* ~~~~~~~~~~ BODY ~~~~~~~~~~ */}
-          <TableBody>
-            <TableRow>
-              <TableCell>Row 1, Col 1</TableCell>
-              <TableCell>Row 1, Col 2</TableCell>
-              <TableCell>Row 1, Col 3</TableCell>
-              <TableCell>Row 1, Col 4</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-    );
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Typography,
+} from "@mui/material";
+import { columns } from "../OrgSellers/SellersTable";
+
+export default function SellerPageTable({ sellerInfo }) {
+  console.log(sellerInfo);
+  if (!sellerInfo || sellerInfo.length === 0) {
+    return <Typography>No data available</Typography>;
   }
-  
+
+  const info = Object.keys(sellerInfo[0]);
+
+  return (
+    <Table>
+      {/* ~~~~~~~~~~ HEAD ~~~~~~~~~~ */}
+      <TableHead>
+        <TableRow>
+          {columns
+            .filter((column) => column.id !== "notes") // Exclude the "notes" column
+            .map((column) => (
+              <TableCell
+                key={column.id}
+                align={column.align}
+                sx={{
+                  minWidth: column.minWidth,
+                  width: column.width,
+                  height: 50,
+                  wordWrap: "break-word",
+                  border: "1px solid #f0f0f0",
+                  backgroundColor: "#d9d9d9",
+                }}
+              >
+                {column.label}
+              </TableCell>
+            ))}
+        </TableRow>
+      </TableHead>
+      {/* ~~~~~~~~~~ BODY ~~~~~~~~~~ */}
+      <TableBody>
+        {sellerInfo.map((seller, i) => (
+          <TableRow key={i}>
+            {info.map((field) => {
+              return field !== "id" && field !== "organization_id" ? (
+                <TableCell key={field}>{seller[field]}</TableCell>
+              ) : null;
+            })}
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
