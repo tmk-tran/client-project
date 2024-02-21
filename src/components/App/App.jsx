@@ -30,6 +30,7 @@ import CheckoutPage from "../CheckoutPage/CheckoutPage";
 import OrderPage from "../CheckoutPage/OrderPage";
 import OrgSellers from "../OrgSellers/OrgSellers";
 import ShoppingCart from "../CheckoutPage/ShoppingCart";
+import SellerPage from "../SellerPage/SellerPage";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -152,6 +153,10 @@ function App() {
             <ProtectedRoute exact path="/sellers">
               <OrgSellers />
             </ProtectedRoute>
+
+            <Route exact path="/seller/:refId">
+              <SellerPage />
+            </Route>
 
             <ProtectedRoute exact path="/ordersummary">
               <ShoppingCart />

@@ -162,6 +162,17 @@ export default function NavLinks() {
               <MuiLink
                 component={Link}
                 className="main-navlink"
+                to="/seller"
+                underline="hover"
+              >
+                Seller
+              </MuiLink>
+            </Typography>
+
+            <Typography>
+              <MuiLink
+                component={Link}
+                className="main-navlink"
                 to="/about"
                 underline="hover"
               >

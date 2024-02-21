@@ -27,6 +27,7 @@ import ActionIcons from "./ActionIcons";
 import { errorColor, primaryColor } from "../Utils/colors";
 import { border } from "../Utils/colors";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
+import SellerLink from "../SellerPage/SellerLink";
 
 const columns = [
   { id: "refId", label: "Referral ID", width: 90 },
@@ -121,7 +122,7 @@ const teacher = "Jane Smith";
 const refId = generateRefId(firstName, lastName, teacher);
 console.log(refId);
 
-export default function StickyHeadTable() {
+export default function SellersTable() {
   const dispatch = dispatchHook();
   const paramsObject = useParams();
   console.log(paramsObject);
@@ -305,11 +306,14 @@ export default function StickyHeadTable() {
                           >
                             {/* ~~~~~ Action Icons ~~~~~ */}
                             {column.id === "actions" ? (
+                              <>
                               <ActionIcons
                                 seller={seller}
                                 onEdit={(id) => handleEditOpen(id, "edit")}
                                 handleArchive={handleArchive}
                               />
+                              <SellerLink seller={seller} />
+                              </>
                             ) : column.format && typeof value === "number" ? (
                               column.format(value)
                             ) : (
