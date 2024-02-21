@@ -237,9 +237,20 @@ export default function SellerForm({
               <Grid container spacing={2}>
                 <Grid item xs={3}>
                   <TextField
-                    name="cash"
-                    label="Cash"
-                    value={formData["cash"]}
+                    name="digital"
+                    label="Digital Payments"
+                    value={formData["digital"]}
+                    onChange={handleChange}
+                    fullWidth
+                    size="small"
+                    type="number"
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    name="donations"
+                    label="Donations"
+                    value={formData["donations"]}
                     onChange={handleChange}
                     fullWidth
                     size="small"
@@ -259,20 +270,9 @@ export default function SellerForm({
                 </Grid>
                 <Grid item xs={3}>
                   <TextField
-                    name="digital"
-                    label="Digital Payments"
-                    value={formData["digital"]}
-                    onChange={handleChange}
-                    fullWidth
-                    size="small"
-                    type="number"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    name="donations"
-                    label="Donations"
-                    value={formData["donations"]}
+                    name="cash"
+                    label="Cash"
+                    value={formData["cash"]}
                     onChange={handleChange}
                     fullWidth
                     size="small"

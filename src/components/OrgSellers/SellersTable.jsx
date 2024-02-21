@@ -67,8 +67,13 @@ export const columns = [
     width: 75,
   },
   {
-    id: "cash",
-    label: "Cash",
+    id: "digital",
+    label: "Digital",
+    align: "right",
+  },
+  {
+    id: "donations",
+    label: "Donations",
     align: "right",
   },
   {
@@ -77,13 +82,8 @@ export const columns = [
     align: "right",
   },
   {
-    id: "digital",
-    label: "Digital",
-    align: "right",
-  },
-  {
-    id: "donations",
-    label: "Donations",
+    id: "cash",
+    label: "Cash",
     align: "right",
   },
   {

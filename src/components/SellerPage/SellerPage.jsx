@@ -25,7 +25,9 @@ export default function SellerPage() {
         variant="h6"
         sx={{ textAlign: "center" }}
       />
+      <div>
       <SellerPageTable sellerInfo={sellerInfo} />
+      </div>
     </div>
   );
 }
