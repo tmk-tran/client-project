@@ -12,22 +12,28 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
-import EditNoteIcon from '@mui/icons-material/EditNote';
-import ArchiveIcon from '@mui/icons-material/Archive';
+import AddIcon from "@mui/icons-material/Add";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import EditIcon from "@mui/icons-material/Edit";
+import ArchiveIcon from "@mui/icons-material/Archive";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { oSellers } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Component ~~~~~~~~~~
 import AddSellerForm from "./AddSellerForm";
 import CustomButton from "../CustomButton/CustomButton";
+import { errorColor, primaryColor } from "../Utils/colors";
+import { border } from "../Utils/colors";
+import Typography from "../Typography/Typography";
 
 const columns = [
-  { id: "refId", label: "Referral ID" },
-  { id: "lastname", label: "Last Name" },
+  { id: "refId", label: "Referral ID", width: 90 },
+  { id: "lastname", label: "Last Name", width: 100 },
   {
     id: "firstname",
     label: "First Name",
     align: "right",
+    width: 100,
   },
   {
     id: "level",
@@ -43,19 +49,19 @@ const columns = [
     id: "initial_books",
     label: "Initial Book Count",
     align: "right",
-    width: 100,
+    width: 75,
   },
   {
     id: "additional_books",
     label: "Additional Books",
     align: "right",
-    width: 100,
+    width: 75,
   },
   {
     id: "books_returned",
     label: "Returned Books",
     align: "right",
-    width: 100,
+    width: 75,
   },
   {
     id: "cash",
@@ -88,6 +94,10 @@ const columns = [
     align: "right",
   },
 ];
+
+const evenRowColor = {
+  backgroundColor: "#fbfbfb",
+};
 
 function generateRefId(firstName, lastName, teacher) {
   const firstInitial = firstName.charAt(0).toUpperCase();
@@ -165,15 +175,19 @@ export default function StickyHeadTable() {
     console.log(id);
   };
 
+  let isEvenRow = true;
+
   return (
     <>
+      <Typography label="Sellers" variant="h6" sx={{ textAlign: "center" }} />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ Add Seller Button ~~~~~~~~ */}
-      <div>
+      <div style={{ marginBottom: 10 }}>
         <CustomButton
-          label="Add New"
+          label="New Seller"
           variant="contained"
           onClick={handleOpen}
+          icon={<AddIcon />}
         />
         <AddSellerForm
           columns={columns}
@@ -198,8 +212,8 @@ export default function StickyHeadTable() {
                       width: column.width,
                       height: 50,
                       wordWrap: "break-word",
-                      border: "1px solid #ddd",
-                      backgroundColor: "#f5f5f5"
+                      border: "1px solid #f0f0f0",
+                      backgroundColor: "#d9d9d9",
                     }}
                   >
                     {column.label}
@@ -210,13 +224,19 @@ export default function StickyHeadTable() {
             <TableBody>
               {sellers
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((seller) => {
+                .map((seller, index) => {
+                  isEvenRow = !isEvenRow; // Toggle the variable for each row
                   return (
                     <TableRow
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      key={seller.id}
+                      key={index}
+                      sx={{
+                        ...(isEvenRow
+                          ? { backgroundColor: evenRowColor }
+                          : null),
+                      }}
                     >
                       {columns.map((column) => {
                         const value = seller[column.id];
@@ -237,27 +257,39 @@ export default function StickyHeadTable() {
                             }}
                           >
                             {column.id === "actions" ? (
-                  <>
-                    {/* <Button
-                      variant="outlined"
-                      color="primary"
-                      onClick={() => handleEdit(seller.id)} // Add your edit logic here
-                    > */}
-                      <EditNoteIcon onClick={() => handleEdit(seller.id)} />
-                    {/* </Button> */}
-                    {/* <Button
-                      variant="outlined"
-                      color="secondary"
-                      onClick={() => handleDelete(seller.id)} // Add your delete logic here
-                    > */}
-                      <ArchiveIcon onClick={() => handleArchive(seller.id)} />
-                    {/* </Button> */}
-                  </>
-                ) : (
-                  column.format && typeof value === "number"
-                    ? column.format(value)
-                    : value
-                )}
+                              <>
+                                <EditNoteIcon
+                                  sx={{
+                                    "&:hover": {
+                                      color: "#325CAB",
+                                      transition: "transform 0.2s",
+                                    },
+                                    color: primaryColor.color,
+                                  }}
+                                  onClick={() => handleEdit(seller.id)}
+                                  onMouseOver={(e) =>
+                                    (e.currentTarget.style.transform =
+                                      "scale(1.1)")
+                                  }
+                                  onMouseOut={(e) =>
+                                    (e.currentTarget.style.transform =
+                                      "scale(1)")
+                                  }
+                                />
+
+                                <ArchiveIcon
+                                  sx={{
+                                    "&:hover": { color: errorColor.color },
+                                    color: primaryColor.color,
+                                  }}
+                                  onClick={() => handleArchive(seller.id)}
+                                />
+                              </>
+                            ) : column.format && typeof value === "number" ? (
+                              column.format(value)
+                            ) : (
+                              value
+                            )}
                           </TableCell>
                         );
                       })}
