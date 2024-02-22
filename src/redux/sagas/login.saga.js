@@ -32,15 +32,15 @@ function* loginUser(action) {
       const role_pbac_endpoint = response.data.routes.roles_pbac;
       // Save off auth object
       yield put ({type: "SET_AUTH", payload: response});
+      yield put({ type: 'FETCH_USER', payload: response.data });
       
     } catch (error) {
       console.log("Error in auth fetch request", error);
     }
     
-    
     // after the user has logged in
     // get the user information from the server
-    yield put({ type: 'FETCH_USER' });
+    
   } catch (error) {
     console.log('Error with user login:', error);
     if (error) {

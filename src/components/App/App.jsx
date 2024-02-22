@@ -89,13 +89,13 @@ function App() {
                 <PublicOrgDetails />
               </Route>
 
-              {/* <ProtectedRoute
+              <ProtectedRoute
                 // logged in shows UserPage else shows LoginPage
                 
-              > */}
+              >
                 <UserPage exact
                 path="/user" />
-              {/* </ProtectedRoute> */}
+              </ProtectedRoute>
 
               <ProtectedRoute
                 // logged in shows UserPage else shows LoginPage
