@@ -11,7 +11,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 700,
+  width: 900,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -39,6 +39,7 @@ const sample = generateRefId("susie", "larson", "ms jones");
 console.log(sample);
 
 export default function SellerForm({
+  user,
   columns,
   open,
   mode,
@@ -47,6 +48,7 @@ export default function SellerForm({
   handleEditSeller,
   sellerToEdit,
 }) {
+  console.log(user);
   console.log(sellerToEdit);
 
   const initialFormState = columns.reduce((acc, column) => {
@@ -58,6 +60,7 @@ export default function SellerForm({
       "checks",
       "digital",
       "donations",
+      "digital_donations",
     ].includes(column.id)
       ? 0
       : "";
@@ -232,11 +235,12 @@ export default function SellerForm({
               </Grid>
             </Grid>
             {/* ~~~~~ Third Section ~~~~~ */}
-            <Grid item xs={12}>
+            <Grid item xs={15}>
               <Divider sx={dividerStyle} />
-              <Grid container spacing={2}>
-                <Grid item xs={3}>
+              <Grid container spacing={1}>
+                <Grid item xs={2}>
                   <TextField
+                    disabled={user.is_admin ? false : true}
                     name="digital"
                     label="Digital Payments"
                     value={formData["digital"]}
@@ -249,7 +253,7 @@ export default function SellerForm({
                 <Grid item xs={3}>
                   <TextField
                     name="donations"
-                    label="Donations"
+                    label="Donations (Cash)"
                     value={formData["donations"]}
                     onChange={handleChange}
                     fullWidth
@@ -258,6 +262,18 @@ export default function SellerForm({
                   />
                 </Grid>
                 <Grid item xs={3}>
+                  <TextField
+                    disabled={user.is_admin ? false : true}
+                    name="donations"
+                    label="Donations (Digital)"
+                    value={formData["digital_donations"]}
+                    onChange={handleChange}
+                    fullWidth
+                    size="small"
+                    type="number"
+                  />
+                </Grid>
+                <Grid item xs={2}>
                   <TextField
                     name="checks"
                     label="Checks"
@@ -268,7 +284,7 @@ export default function SellerForm({
                     type="number"
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                   <TextField
                     name="cash"
                     label="Cash"
@@ -296,18 +312,18 @@ export default function SellerForm({
               />
             </Grid>
           </Grid>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~ Buttons ~~~~~~~~~~ */}
-          <ModalButtons
-            label={mode === "add" ? "Add" : "Update"}
-            variant="contained"
-            color="primary"
-            onSave={handleFormSubmit}
-            onCancel={handleFormReset}
-            sx={{ mt: 2 }}
-            width="50%"
-          />
         </form>
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~ Buttons ~~~~~~~~~~ */}
+        <ModalButtons
+          label={mode === "add" ? "Add" : "Update"}
+          variant="contained"
+          color="primary"
+          onSave={handleFormSubmit}
+          onCancel={handleFormReset}
+          sx={{ mt: 2 }}
+          width="50%"
+        />
       </Box>
     </Modal>
   );

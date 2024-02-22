@@ -103,7 +103,8 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   console.log("Req.body from sellers = ", seller);
 
   const queryText = `
-        UPDATE "sellers"
+        UPDATE 
+          "sellers"
         SET
           "lastname" = $1,
           "firstname" = $2,
@@ -116,7 +117,8 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
           "checks" = $9,
           "digital" = $10,
           "donations" = $11,
-          "notes" = $12
+          "notes" = $12,
+          "digital_donations" = $13
         WHERE "id" = $13;`;
 
   const values = [
@@ -132,6 +134,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     seller.digital,
     seller.donations,
     seller.notes,
+    seller.digital_donations,
     sellerId,
   ];
 

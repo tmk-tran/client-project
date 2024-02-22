@@ -13,17 +13,16 @@ import {
   TableRow,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import EditIcon from "@mui/icons-material/Edit";
-import ArchiveIcon from "@mui/icons-material/Archive";
+import LaunchIcon from "@mui/icons-material/Launch";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
-import { oSellers } from "../../hooks/reduxStore";
+import { User, oSellers } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Component ~~~~~~~~~~
 import SellerForm from "./SellerForm";
 import CustomButton from "../CustomButton/CustomButton";
 import Typography from "../Typography/Typography";
 import ActionIcons from "./ActionIcons";
+import ViewUrl from "./ViewUrl";
 import { errorColor, primaryColor } from "../Utils/colors";
 import { border } from "../Utils/colors";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
@@ -42,6 +41,7 @@ export const columns = [
     id: "level",
     label: "Level / Grade",
     align: "right",
+    width: 75,
   },
   {
     id: "teacher",
@@ -52,28 +52,30 @@ export const columns = [
     id: "initial_books",
     label: "Initial Book Count",
     align: "right",
-    width: 75,
   },
   {
     id: "additional_books",
     label: "Additional Books",
     align: "right",
-    width: 75,
   },
   {
     id: "books_returned",
     label: "Returned Books",
     align: "right",
-    width: 75,
   },
   {
     id: "digital",
-    label: "Digital",
+    label: "Digital Payments",
     align: "right",
   },
   {
     id: "donations",
-    label: "Donations",
+    label: "Donations (Cash)",
+    align: "right",
+  },
+  {
+    id: "digital_donations",
+    label: "Donations (Digital)",
     align: "right",
   },
   {
@@ -85,11 +87,13 @@ export const columns = [
     id: "cash",
     label: "Cash",
     align: "right",
+    width: 75,
   },
   {
     id: "notes",
     label: "Notes",
     align: "right",
+    width: 150,
   },
   {
     id: "actions",
@@ -129,9 +133,12 @@ export default function SellersTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [open, setOpen] = useState(false);
+  console.log(open);
   const [mode, setMode] = useState("add");
   console.log(mode);
   const [sellerToEdit, setSellerToEdit] = useState(null);
+  const [showSellerUrl, setShowSellerUrl] = useState(false);
+  console.log(showSellerUrl);
 
   useEffect(() => {
     dispatch({ type: "FETCH_SELLERS", payload: paramsObject.id });
@@ -139,7 +146,10 @@ export default function SellersTable() {
 
   const sellers = oSellers() || [];
   console.log(sellers);
+  const user = User() || [];
+  console.log(user);
 
+  // ~~~~~~ Open / Close Seller Form ~~~~~~ //
   const handleOpen = (mode) => {
     setMode(mode);
     setOpen(true);
@@ -148,6 +158,7 @@ export default function SellersTable() {
   const handleClose = () => {
     setOpen(false);
   };
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
   const handleEditOpen = (id, mode) => {
     console.log(id);
@@ -167,7 +178,6 @@ export default function SellersTable() {
       ...formData,
       organization_id: paramsObject.id,
     };
-    console.log(formDataWithId);
 
     const action = {
       type: "ADD_SELLER",
@@ -179,9 +189,6 @@ export default function SellersTable() {
   };
 
   const handleEditSeller = (editedSeller) => {
-    console.log(editedSeller);
-    console.log(editedSeller.id);
-
     const editAction = {
       type: "EDIT_SELLER",
       payload: editedSeller,
@@ -192,10 +199,7 @@ export default function SellersTable() {
   };
 
   const handleArchive = (sellerId) => {
-    console.log(sellerId);
     const orgId = paramsObject.id;
-    console.log(orgId);
-
     // Use showDeleteSweetAlert and pass a callback function to execute upon confirmation
     showDeleteSweetAlert(() => {
       const archiveAction = {
@@ -207,6 +211,7 @@ export default function SellersTable() {
     });
   };
 
+  // ~~~~~ Pagination ~~~~~~~~~~~~~~~~~~~~~~~~ //
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -215,6 +220,18 @@ export default function SellersTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+
+  // ~~~~~ Open / Close URL modal ~~~~~ //
+  const handleViewUrl = () => {
+    console.log();
+    setShowSellerUrl(true);
+  };
+
+  const handleCloseViewUrl = () => {
+    setShowSellerUrl(false);
+  };
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
   let isEvenRow = true;
 
@@ -232,6 +249,7 @@ export default function SellersTable() {
           icon={<AddIcon />}
         />
         <SellerForm
+          user={user}
           columns={columns}
           open={open}
           mode={mode}
@@ -240,6 +258,7 @@ export default function SellersTable() {
           handleEditSeller={handleEditSeller}
           sellerToEdit={sellerToEdit}
         />
+        <ViewUrl open={showSellerUrl} close={handleCloseViewUrl} />
       </div>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */}
       {/* ~~~~~~~~~~ Seller Table ~~~~~~~~~~ */}
@@ -304,6 +323,37 @@ export default function SellersTable() {
                               }),
                             }}
                           >
+                            {column.id === "refId" && (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "flex-end",
+                                }}
+                              >
+                                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                                {/* ~~~~~ View URL Icon ~~~~~ */}
+                                <LaunchIcon
+                                  onClick={() => handleViewUrl()}
+                                  sx={{
+                                    fontSize: "larger",
+                                    color: primaryColor.color,
+                                    "&:hover": {
+                                      color: "#325CAB",
+                                      transition: "transform 0.2s",
+                                    },
+                                  }}
+                                  onMouseOver={(e) =>
+                                    (e.currentTarget.style.transform =
+                                      "scale(1.1)")
+                                  }
+                                  onMouseOut={(e) =>
+                                    (e.currentTarget.style.transform =
+                                      "scale(1)")
+                                  }
+                                />
+                              </div>
+                            )}
                             {/* ~~~~~ Action Icons ~~~~~ */}
                             {column.id === "actions" ? (
                               <>
@@ -312,7 +362,7 @@ export default function SellersTable() {
                                   onEdit={(id) => handleEditOpen(id, "edit")}
                                   handleArchive={handleArchive}
                                 />
-                                <SellerLink seller={seller} />
+                                {/* <SellerLink seller={seller} /> */}
                               </>
                             ) : column.format && typeof value === "number" ? (
                               column.format(value)
