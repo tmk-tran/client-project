@@ -50,7 +50,8 @@ export default function SellerPage() {
       payload: {
         id: sellerId,
         refId: refId,
-        [updateType.toLowerCase()]: amountToUpdate,
+        [updateType.toLowerCase()]: Number(amountToUpdate),
+        updateType: updateType.toLowerCase(),
       },
     };
     console.log("Dispatching action:", updateAction);

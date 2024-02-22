@@ -41,8 +41,13 @@ export default function CashUpdateModal({ caseType, updateSellerInfo }) {
   };
 
   const handleSubmit = () => {
-    console.log("Amounts submitted:", cashAmount, checksAmount, donationsAmount);
-  
+    console.log(
+      "Amounts submitted:",
+      cashAmount,
+      checksAmount,
+      donationsAmount
+    );
+
     switch (caseType) {
       case "Cash":
         updateSellerInfo(caseType, cashAmount);
@@ -56,11 +61,10 @@ export default function CashUpdateModal({ caseType, updateSellerInfo }) {
       default:
         break;
     }
-  
+
     resetForm();
     handleClose(); // Close the modal after submission
   };
-  
 
   return (
     <div>
@@ -120,7 +124,15 @@ export default function CashUpdateModal({ caseType, updateSellerInfo }) {
                 : ""
             }
             variant="outlined"
-            value={cashAmount}
+            value={
+              caseType === "Cash"
+                ? cashAmount
+                : caseType === "Checks"
+                ? checksAmount
+                : caseType === "Donations"
+                ? donationsAmount
+                : ""
+            }
             onChange={
               caseType === "Cash"
                 ? handleCashAmountChange
