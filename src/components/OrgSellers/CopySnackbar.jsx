@@ -3,7 +3,8 @@ import { Button, Snackbar, IconButton } from "@mui/material";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { primaryColor } from "../Utils/colors";
 
-export default function CopyToClipboardExample({ copyToClipboard }) {
+export default function CopyToClipboardExample({ copyToClipboard, caseType }) {
+  console.log(caseType);
   const [open, setOpen] = useState(false);
 
   const handleCopy = () => {
@@ -28,6 +29,12 @@ export default function CopyToClipboardExample({ copyToClipboard }) {
         message="Text copied to clipboard"
         sx={{
           top: 10,
+          ...(caseType === "Display" && { 
+            // top: "10%",
+            // right: "50%",
+            // left: "20%",
+            transform: "translate(240%, -3%)", // Center the Snackbar
+ })
         }}
       />
     </>

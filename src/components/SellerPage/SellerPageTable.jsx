@@ -36,7 +36,9 @@ export default function SellerPageTable({ sellerInfo }) {
                     column.id !== "actions" &&
                     column.id !== "initial_books" &&
                     column.id !== "additional_books" &&
-                    column.id !== "books_returned"
+                    column.id !== "digital" &&
+                    column.id !== "books_returned" &&
+                    column.id !== "digital_donations"
                 ) // Exclude the "notes", "actions", "initial books", "additional books", and "returned books" column
                 .map((column) => (
                   <TableCell
@@ -67,7 +69,9 @@ export default function SellerPageTable({ sellerInfo }) {
                       column.id !== "actions" &&
                       column.id !== "initial_books" &&
                       column.id !== "additional_books" &&
-                      column.id !== "books_returned"
+                      column.id !== "digital" &&
+                      column.id !== "books_returned" &&
+                      column.id !== "digital_donations"
                   ) // Exclude the "notes", "actions", "initial books", "additional books", and "returned books" column
                   .map((column) => (
                     <TableCell key={column.id} align={column.align}>

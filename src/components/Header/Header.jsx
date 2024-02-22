@@ -47,16 +47,14 @@ export default function Header({ user }) {
                   <AccountMenu />
                 </>
               )}
-              {/* <ShoppingCartIcon sx={{ position: "absolute", right: 1, top: 0 }} /> */}
             </div>
           </div>
         </div>
-        {/* <div style={{ flexGrow: 1, ...border, height: "25px" }}></div> */}
         <div style={{ position: "absolute", right: "10%", top: "3%" }}>
-          <ShoppingCartIcon
+          {/* <ShoppingCartIcon
             sx={{ color: "ghostwhite", cursor: "pointer" }}
             onClick={() => history.push("/checkout")}
-          />
+          /> */}
         </div>
       </div>
       <div className="NavLinks-container">

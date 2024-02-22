@@ -67,10 +67,10 @@ export default function CashUpdateModal({ caseType, updateSellerInfo }) {
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <Button
         variant="contained"
-        sx={{ mt: 3, width: "300px" }}
+        sx={{ margin: ".5rem 0", width: "300px" }}
         onClick={handleOpen}
       >
         {(() => {

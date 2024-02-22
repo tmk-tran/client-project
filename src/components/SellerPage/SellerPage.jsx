@@ -2,12 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { sellerPageInfo } from "../../hooks/reduxStore";
+import { useTheme, useMediaQuery } from "@mui/material";
 // ~~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~ //
 import Typography from "../Typography/Typography";
 import SellerPageTable from "./SellerPageTable";
 import CashUpdateModal from "./CashUpdateModal";
+import UrlDisplay from "./UrlDisplay";
+import { centerDiv } from "../Utils/helpers";
+import { border } from "../Utils/colors";
+
+const divStyle = {
+  ...centerDiv,
+  flexDirection: "column",
+};
 
 export default function SellerPage() {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = dispatchHook();
   const { refId } = useParams();
 
@@ -65,18 +76,39 @@ export default function SellerPage() {
         variant="h6"
         sx={{ textAlign: "center" }}
       />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
+      <div style={divStyle}>
         <SellerPageTable sellerInfo={sellerInfo} />
-        <CashUpdateModal updateSellerInfo={updateSellerInfo} caseType="Cash" />
-        <CashUpdateModal updateSellerInfo={updateSellerInfo} caseType="Checks" />
-        <CashUpdateModal updateSellerInfo={updateSellerInfo} caseType="Donations" />
+        <div
+          style={{
+            display: "flex",
+            gap: 100,
+            flexDirection: isSmallScreen ? "column" : "row",
+            marginTop: 25,
+          }}
+        >
+          <div
+            style={{
+              ...divStyle,
+              padding: 25,
+            }}
+          >
+            <UrlDisplay sellerRefId={refId} />
+          </div>
+          <div>
+            <CashUpdateModal
+              updateSellerInfo={updateSellerInfo}
+              caseType="Cash"
+            />
+            <CashUpdateModal
+              updateSellerInfo={updateSellerInfo}
+              caseType="Checks"
+            />
+            <CashUpdateModal
+              updateSellerInfo={updateSellerInfo}
+              caseType="Donations"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
