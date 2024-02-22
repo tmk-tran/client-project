@@ -6,20 +6,44 @@ function* loginUser(action) {
   try {
     // clear any existing error on the login page
     yield put({ type: 'CLEAR_LOGIN_ERROR' });
-
-    
-
     // send the action.payload as the body
     // the config includes credentials which
     // allow the server session to recognize the user
-    yield axios.post('/api/user/login', action.payload);
-
+    try {
+      // Login to Devii
+      const config = {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      };
+    
+      const AUTH_URL = "https://api.devii.io/auth";
+    
+      const params = new URLSearchParams();
+      params.append("login", action.payload.username);
+      params.append("password", action.payload.password);
+      params.append("tenantid", "10121");
+    
+      const response = yield axios.post(AUTH_URL, params, config);
+      console.log(response);
+      
+      const access_token = response.data.access_token;
+      const query_endpoint = response.data.routes.query;
+      const role_pbac_endpoint = response.data.routes.roles_pbac;
+      // Save off auth object
+      yield put ({type: "SET_AUTH", payload: response});
+      
+    } catch (error) {
+      console.log("Error in auth fetch request", error);
+    }
+    
+    
     // after the user has logged in
     // get the user information from the server
     yield put({ type: 'FETCH_USER' });
   } catch (error) {
     console.log('Error with user login:', error);
-    if (error.response.status === 401) {
+    if (error) {
       // The 401 is the error status sent from passport
       // if user isn't in the database or
       // if the username and password don't match in the database

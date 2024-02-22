@@ -1,13 +1,26 @@
 import axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
 
-function* fetchOrganizationsSaga() {
-  try {
-    const response = yield axios.post("/api/organizations");
+async function* fetchOrganizationsSaga() {
+  try {const ACCESS_TOKEN = auth_response.access_token;
+    const QUERY_URL = auth_response.routes.query;
+    const query = "{\r\n  user {\r\n    id\r\n    username\r\n  }\r\n}";
+    
+    const queryConfig = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    };
+    
+    const data = new FormData();
+    data.append("query", query);
+    data.append("variables", `{}`);
+    const response = await axios.post(QUERY_URL, data, queryConfig);
     console.log("FETCH request fetchOrganizationsSaga");
     yield put({ type: "SET_ORGANIZATIONS", payload: response.data });
-  } catch {
-    console.log("error in fetchOrganizationsSaga");
+  } catch(error) {
+    console.log("error in fetchOrganizationsSaga", error);
   }
 }
 

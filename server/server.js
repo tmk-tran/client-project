@@ -47,7 +47,7 @@ app.use(passport.session());
 // app.use('/api/allUsers', allUsersRouter);
 // app.use('/api/business', businessRouter);
 
-let auth_response = '';
+export let auth_response = '';
 app.post("/api/user/login", (req, res) => {
   const user = req.body;
   const AUTH_URL = "https://api.devii.io/auth";

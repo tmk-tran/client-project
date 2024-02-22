@@ -12,17 +12,79 @@ import SearchIcon from "@mui/icons-material/Search";
 import "./UserPage.css";
 import AddOrganizationModal from "../AddOrganizationModal/AddOrganizationModal.jsx";
 import { useHistory } from "react-router-dom";
+import {auth_response, allOrgs} from "../Utils/queries"
+import {ApolloClient, InMemoryCache, gql, useQuery} from "@apollo/client"
 import OrgListView from "../OrgListView/OrgListView.jsx";
+import OrganizationCard from "../OrganizationCard/OrganizationCard"
+
+
+//  const orgList = () => {
+//       const {loading, data} = useQuery(fetchAllOrgs())
+//         if (loading) return <p>Loading Organizations</p>
+  
+//       return data.organizations.map((organization) =>{
+//         <OrgListView key={organization.id}
+//           organization={{
+//             ...organization
+//           }}
+//         />
+//       })
+//       }
 
 function UserPage() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch({ type: "FETCH_ORGANIZATIONS" });
-  }, []);
-  const history = useHistory();
-  const user = useSelector((store) => store.user);
-  const organizationsList = useSelector((store) => store.organizations);
 
+  
+  // const fetchAllOrgs = () => {
+  //   const ACCESS_TOKEN = auth_response.access_token;
+  //   const QUERY_URL = "https://api.devii.io/query";
+  //   const query = `organization(ordering: "group_collection.organization_id"){\r\n id\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n organization_notes_collection {\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n group_collection{\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_description\r\n is_deleted\r\n fundraiser_collection{\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n}`;
+  
+    
+  //   const client = new ApolloClient({
+  //     uri: QUERY_URL,
+  //     headers: {
+  //       Authorization: `Bearer ${ACCESS_TOKEN}`,
+  //     },
+  //     cache: new InMemoryCache(),
+  //   });
+    
+  //   client
+  //     .query({
+  //       query: gql`
+  //         query organization{
+  //           ${query}
+  //         }
+  //       `,
+  //       variables: {},
+  //     })
+  //     .then((result) => {
+  //       console.log(result);
+  //       return {
+  //         data: result.data.organization
+  //       };
+  //     })
+  //     .catch((error) => {
+  //       throw new Error(error);
+  //     });
+  //   }
+  
+  useEffect(() => {
+    allOrgs();
+  }, []);
+  // const dispatch = useDispatch();
+ 
+  const history = useHistory();
+  // const user = useSelector((store) => store.user);
+ 
+
+  // const organizationsList = {result}
+  
+ 
+  const organizationsList = {data: ""};
+  console.log(organizationsList)
+  
+  
+ 
   // state for the search and modal and pagination
   const [query, setQuery] = useState(" ");
   const [showInput, setShowInput] = useState(false);
@@ -69,8 +131,8 @@ function UserPage() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems =
     searchResult.length > 0
-      ? searchResult.slice(indexOfFirstItem, indexOfLastItem)
-      : organizationsList.slice(indexOfFirstItem, indexOfLastItem);
+      searchResult.slice(indexOfFirstItem, indexOfLastItem)
+      ;
 
   const totalItems =
     searchResult.length > 0 ? searchResult.length : organizationsList.length;
@@ -80,7 +142,12 @@ function UserPage() {
     setCurrentPage(value);
   };
 
+
+  
+
   return (
+
+
     <div className="organizationsContainer">
       <Paper elevation={3} style={{ width: "90%", margin: "0 auto" }}>
         <br />
@@ -159,10 +226,9 @@ function UserPage() {
           )}
         </center>
         <div className="organizationsContainer">
-          {currentItems.map((organization, index) => (
-            <OrgListView key={index} organization={organization} />
-            // <OrganizationCard key={index} organization={organization} />
-          ))}
+          {/* {organizationsList.data.organization.map((organization, index) => (  */}
+           {/* <OrgListView /> */}
+          {/* ))} */}
         </div>
         <AddOrganizationModal
           open={isModalOpen}
@@ -170,12 +236,12 @@ function UserPage() {
         />
         <br />
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Pagination
+          {/* <Pagination
             count={pageCount}
             shape="rounded"
             page={currentPage}
             onChange={handlePageChange}
-          />
+          /> */}
         </div>
 
         <br />

@@ -6,13 +6,15 @@ import "./OrgListView.css";
 import Swal from "sweetalert2";
 import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
 
-function OrgListView({ organization }) {
+
+function OrgListView(organization) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const [isHovered, setIsHovered] = useState(false);
   // const organizationsList = useSelector((store) => store.organizations);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
+
 
   // sets edit to true to open the modal
   const handleEdit = () => {
@@ -25,26 +27,26 @@ function OrgListView({ organization }) {
   };
 
   // renders either the logo or initials of organization depending if a photo is available, same as archived page
-  const renderLogoOrInitials = () => {
-    if (organization.organization_logo) {
-      return (
-        <img
-          className="logoImage"
-          src={organization.organization_logo}
-          alt="Organization Logo"
-        />
-      );
-    } else {
-      // If no logo, display initials of organization name
-      const initials = organization.organization_name
-        .split(" ")
-        .map((word) => word[0])
-        .join("")
-        .toUpperCase();
+  // const renderLogoOrInitials = () => {
+  //   if (organization.organization_logo) {
+  //     return (
+  //       <img
+  //         className="logoImage"
+  //         src={organization.organization_logo}
+  //         alt="Organization Logo"
+  //       />
+  //     );
+  //   } else {
+  //     // If no logo, display initials of organization name
+  //     const initials = organization.organization_name
+  //       .split(" ")
+  //       .map((word) => word[0])
+  //       .join("")
+  //       .toUpperCase();
 
-      return <div className="initialsContainer">{initials}</div>;
-    }
-  };
+  //     return <div className="initialsContainer">{initials}</div>;
+  //   }
+  // };
 
   // archives the organization- "soft delete"
   const handleArchive = (organizationId) => {
@@ -63,23 +65,25 @@ function OrgListView({ organization }) {
       }
     });
   };
+
+
   // history.push to org details page
   function goToDetails() {
     history.push(`/orgDetails/${organization.id}`);
   }
   // formats the money amount to have a comma over $1000
-  const totalOrgEarnings = parseFloat(organization.total_org_earnings);
-  const formattedEarnings = totalOrgEarnings.toLocaleString();
-  const outstandingBalance = parseFloat(organization.total_outstanding_balance);
-  const formattedOutstandingBalance = isNaN(outstandingBalance)
-    ? "N/A"
-    : outstandingBalance.toLocaleString();
-  // variables for the book amounts to be able to do the quick math here
-  const totalCheckedOutBooks = organization.total_checked_out_books;
-  const totalCheckedInBooks = organization.total_checked_in_books;
-  const totalBooksSold = organization.total_books_sold;
-  const totalStandingBooks =
-    totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
+  // const totalOrgEarnings = parseFloat(organization.total_org_earnings);
+  // const formattedEarnings = totalOrgEarnings.toLocaleString();
+  // const outstandingBalance = parseFloat(organization.total_outstanding_balance);
+  // const formattedOutstandingBalance = isNaN(outstandingBalance)
+  //   ? "N/A"
+  //   : outstandingBalance.toLocaleString();
+  // // variables for the book amounts to be able to do the quick math here
+  // const totalCheckedOutBooks = organization.total_checked_out_books;
+  // const totalCheckedInBooks = organization.total_checked_in_books;
+  // const totalBooksSold = organization.total_books_sold;
+  // const totalStandingBooks =
+  //   totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
 
   return (
     <>
@@ -87,7 +91,7 @@ function OrgListView({ organization }) {
         <CardContent>
           <div className="organizationClickable" onClick={goToDetails}>
             <div className="organizationHeader">
-              {renderLogoOrInitials()}
+              {/* {renderLogoOrInitials()} */}
               <div className="organizationDetails">
                 <Typography
                   className="media-header"
@@ -98,7 +102,7 @@ function OrgListView({ organization }) {
                 </Typography>
                 <div className="detailsContainer">
                   <div className="column">
-                    <Typography variant="body2">
+                    {/* <Typography variant="body2">
                       Organization Fee: ${organization.organization_earnings}
                     </Typography>
                     <Typography variant="body2">
@@ -124,7 +128,7 @@ function OrgListView({ organization }) {
                         organization.total_books_sold * 25 -
                         organization.total_org_earnings
                       ).toLocaleString()}
-                    </Typography>
+                    </Typography> 
                   </div>
                 </div>
               </div>
