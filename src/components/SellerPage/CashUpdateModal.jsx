@@ -14,14 +14,25 @@ const style = {
   p: 4,
 };
 
-export default function CashUpdateModal({ updateCash }) {
+export default function CashUpdateModal({ caseType, updateSellerInfo }) {
+  console.log(caseType);
   const [open, setOpen] = useState(false);
   const [cashAmount, setCashAmount] = useState(0);
+  const [checksAmount, setChecksAmount] = useState(0);
+  const [donationsAmount, setDonationsAmount] = useState(0);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleCashAmountChange = (event) => {
-    setCashAmount(event.target.value);
+  const handleCashAmountChange = (e) => {
+    setCashAmount(e.target.value);
+  };
+
+  const handleChecksUpdate = (e) => {
+    setChecksAmount(e.target.value);
+  };
+
+  const handleDonationsUpdate = (e) => {
+    setDonationsAmount(e.target.value);
   };
 
   const resetForm = () => {
@@ -30,32 +41,95 @@ export default function CashUpdateModal({ updateCash }) {
   };
 
   const handleSubmit = () => {
-    console.log("Cash amount submitted:", cashAmount);
-    updateCash(cashAmount); // Pass to parent component
+    console.log("Amounts submitted:", cashAmount, checksAmount, donationsAmount);
+  
+    switch (caseType) {
+      case "Cash":
+        updateSellerInfo(caseType, cashAmount);
+        break;
+      case "Checks":
+        updateSellerInfo(caseType, checksAmount);
+        break;
+      case "Donations":
+        updateSellerInfo(caseType, donationsAmount);
+        break;
+      default:
+        break;
+    }
+  
     resetForm();
     handleClose(); // Close the modal after submission
   };
+  
 
   return (
     <div>
-      <Button variant="contained" sx={{ mt: 3 }} onClick={handleOpen}>
-        Update Cash
+      <Button
+        variant="contained"
+        sx={{ mt: 3, width: "300px" }}
+        onClick={handleOpen}
+      >
+        {(() => {
+          switch (caseType) {
+            case "Cash":
+              return "Update Cash";
+            case "Checks":
+              return "Update Checks";
+            case "Donations":
+              return "Update Donations";
+            default:
+              return "";
+          }
+        })()}
       </Button>
       <Modal open={open} onClose={() => {}}>
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Cash Collected
+            {(() => {
+              switch (caseType) {
+                case "Cash":
+                  return "Cash Collected";
+                case "Checks":
+                  return "Checks Collected";
+                case "Donations":
+                  return "Donations Collected";
+                default:
+                  return "";
+              }
+            })()}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Please enter the amount of cash collected for coupon book sale
+            {caseType === "Cash" &&
+              "Please enter the amount of cash collected for coupon book sale"}
+            {caseType === "Checks" &&
+              "Please enter the amount of checks collected for coupon book sale"}
+            {caseType === "Donations" &&
+              "Please enter the amount of donations collected for coupon book sale"}
           </Typography>
+
           <TextField
             type="number"
             inputProps={{ min: "0" }}
-            label="Cash Amount"
+            label={
+              caseType === "Cash"
+                ? "Cash Amount"
+                : caseType === "Checks"
+                ? "Checks Amount"
+                : caseType === "Donations"
+                ? "Donations Amount"
+                : ""
+            }
             variant="outlined"
             value={cashAmount}
-            onChange={handleCashAmountChange}
+            onChange={
+              caseType === "Cash"
+                ? handleCashAmountChange
+                : caseType === "Checks"
+                ? handleChecksUpdate
+                : caseType === "Donations"
+                ? handleDonationsUpdate
+                : null
+            }
             fullWidth
             sx={{ mt: 2 }}
           />

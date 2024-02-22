@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Button,
-  Modal,
-  Typography,
-  IconButton,
-  Divider,
-} from "@mui/material";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
+import { Box, Modal, Divider } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~
-import { generateSellerUrl } from "../SellerPage/sellerUtils";
+import { orderUrl, transactionsUrl } from "../SellerPage/sellerUtils";
+import { lineDivider } from "../Utils/modalStyles";
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~
 import CopySnackBar from "./CopySnackbar";
-import { lineDivider } from "../Utils/modalStyles";
+import Typography from "../Typography/Typography";
 
 const style = {
   position: "absolute",
@@ -30,10 +23,13 @@ export default function ViewUrl({ open, close, sellerRefId }) {
   console.log(sellerRefId);
   const [sellerUrl, setSellerUrl] = useState("");
   console.log(sellerUrl);
+  const [urlForOrder, setUrlForOrder] = useState("");
+  console.log(urlForOrder);
 
   useEffect(() => {
     if (sellerRefId) {
-      setSellerUrl(generateSellerUrl(sellerRefId));
+      setSellerUrl(transactionsUrl(sellerRefId));
+      setUrlForOrder(orderUrl(sellerRefId));
     }
   }, [sellerRefId]);
 
@@ -45,30 +41,52 @@ export default function ViewUrl({ open, close, sellerRefId }) {
     navigator.clipboard.writeText(sellerUrl);
   };
 
+  const copyOrderUrl = () => {
+    navigator.clipboard.writeText(urlForOrder);
+  };
+
   return (
     <div>
       <Modal open={open} onClose={onClose}>
         <Box sx={style}>
-          <Typography variant="h6" component="h2">
-            Seller URL
-          </Typography>
-          <Typography variant="caption" sx={{ textAlign: "center" }}>
-            Please use this URL to update seller transactions
-          </Typography>
+          <Typography label="Seller URL" variant="h6" />
           <Divider sx={lineDivider} />
+          <Typography
+            label="Please use this URL to update seller transactions:"
+            variant="caption"
+            sx={{ textAlign: "center" }}
+          />
           {sellerUrl ? (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: 10,
-              }}
-            >
-              <Typography sx={{ mt: 1 }}>{sellerUrl}</Typography>
-              <CopySnackBar copyToClipboard={copyToClipboard} />
-            </div>
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: 10,
+                }}
+              >
+                <Typography label={`${sellerUrl}`} sx={{ mt: 1 }} />
+                <CopySnackBar copyToClipboard={copyToClipboard} />
+              </div>
+              <Divider sx={lineDivider} />
+              <Typography
+                label="To place an order for this seller:"
+                variant="caption"
+                sx={{ textAlign: "center" }}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: 10,
+                }}
+              >
+                <Typography label={`${urlForOrder}`} sx={{ mt: 1 }} />
+                <CopySnackBar copyToClipboard={copyOrderUrl} />
+              </div>
+            </>
           ) : (
-            <Typography sx={{ mt: 2 }}>No URL</Typography>
+            <Typography label="No URL" sx={{ mt: 2 }} />
           )}
           <Divider sx={lineDivider} />
         </Box>

@@ -1,9 +1,9 @@
 import React from 'react';
-import { generateSellerUrl } from './sellerUtils';
+import { transactionsUrl } from './sellerUtils';
 
 const SellerLink = ({ seller }) => {
     console.log(seller);
-  const sellerUrl = generateSellerUrl(seller.refId);
+  const sellerUrl = transactionsUrl(seller.refId);
   console.log(sellerUrl);
 
   return (

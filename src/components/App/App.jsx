@@ -154,8 +154,12 @@ function App() {
               <OrgSellers />
             </ProtectedRoute>
 
-            <Route exact path="/seller/:refId">
+            <Route exact path="/seller/:refId/cash">
               <SellerPage />
+            </Route>
+
+            <Route exact path="/seller/:refId/">
+              <OrderPage />
             </Route>
 
             <ProtectedRoute exact path="/ordersummary">

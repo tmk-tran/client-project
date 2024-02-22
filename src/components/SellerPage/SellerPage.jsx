@@ -20,20 +20,37 @@ export default function SellerPage() {
   const sellerInfo = sellerPageInfo() || [];
   console.log(sellerInfo);
 
-  const updateCash = (cashAmount) => {
-    console.log(cashAmount);
-    const amountToUpdate = Number(cashAmount) || 0;
+  //   const updateCash = (cashAmount) => {
+  //     console.log(cashAmount);
+  //     const amountToUpdate = Number(cashAmount) || 0;
+  //     console.log(amountToUpdate);
+  //     const sellerId = sellerInfo[0].id;
+  //     console.log(sellerId);
+  //     console.log(refId);
+
+  //     const updateAction = {
+  //       type: "UPDATE_CASH",
+  //       payload: {
+  //         id: sellerId,
+  //         refId: refId,
+  //         cash: amountToUpdate,
+  //       },
+  //     };
+  //     console.log("Dispatching action:", updateAction);
+  //     dispatch(updateAction);
+  //   };
+
+  const updateSellerInfo = (updateType, amountToUpdate) => {
+    console.log(updateType);
     console.log(amountToUpdate);
     const sellerId = sellerInfo[0].id;
     console.log(sellerId);
-    console.log(refId);
-
     const updateAction = {
-      type: "UPDATE_CASH",
+      type: `UPDATE_${updateType.toUpperCase()}`,
       payload: {
         id: sellerId,
         refId: refId,
-        cash: amountToUpdate,
+        [updateType.toLowerCase()]: amountToUpdate,
       },
     };
     console.log("Dispatching action:", updateAction);
@@ -56,7 +73,9 @@ export default function SellerPage() {
         }}
       >
         <SellerPageTable sellerInfo={sellerInfo} />
-        <CashUpdateModal updateCash={updateCash} />
+        <CashUpdateModal updateSellerInfo={updateSellerInfo} caseType="Cash" />
+        <CashUpdateModal updateSellerInfo={updateSellerInfo} caseType="Checks" />
+        <CashUpdateModal updateSellerInfo={updateSellerInfo} caseType="Donations" />
       </div>
     </div>
   );
