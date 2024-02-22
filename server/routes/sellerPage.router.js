@@ -40,9 +40,12 @@ router.put("/:id", (req, res) => {
           SET
             "cash" = "cash" + $1
           WHERE 
-            "id" = $2;`;
+            "id" = $2
+          AND
+            "refId" = $3
+          ;`;
 
-  const values = [sellerInfo.cash, sellerId];
+  const values = [sellerInfo.cash, sellerId, refId];
 
   pool
     .query(queryText, values)
