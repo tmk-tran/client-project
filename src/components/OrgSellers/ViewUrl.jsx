@@ -20,7 +20,7 @@ export default function ViewUrl({ open, close }) {
       <Modal open={open} onClose={close}>
         <Box sx={style}>
           <Typography variant="h6" component="h2">
-            Text in a modal
+            URL:
           </Typography>
           <Typography sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.

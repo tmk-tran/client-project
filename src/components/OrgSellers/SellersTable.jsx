@@ -258,7 +258,9 @@ export default function SellersTable() {
           handleEditSeller={handleEditSeller}
           sellerToEdit={sellerToEdit}
         />
+        {/* ~~~~~~~~~~~ View URL modal ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <ViewUrl open={showSellerUrl} close={handleCloseViewUrl} />
+        
       </div>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */}
       {/* ~~~~~~~~~~ Seller Table ~~~~~~~~~~ */}
