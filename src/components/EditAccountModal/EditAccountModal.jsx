@@ -30,7 +30,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const dispatch = useDispatch();
   const [editedAccount, setEditedAccount] = useState(data);
   console.log(editedAccount);
-  
+
   const [selectedState, setSelectedState] = useState(data.state);
   console.log(selectedState);
 
@@ -94,7 +94,12 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
 
   return (
     <div>
-      <Modal open={open} onClose={() => {}}>
+      <Modal
+        open={open}
+        onClose={() => {}}
+        aria-labelledby="edit-account-modal"
+        aria-describedby="form to edit account information"
+      >
         <Box sx={style}>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~ MODAL HEADER ~~~~~~~~~~ */}
@@ -244,7 +249,12 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
           <br />
           {/* ~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ///~~~ BUTTONS ~~~/// */}
-          <ModalButtons label="Save" editedAccount={editedAccount} onSave={handleEditSave} onCancel={handleClose} />
+          <ModalButtons
+            label="Save"
+            editedAccount={editedAccount}
+            onSave={handleEditSave}
+            onCancel={handleClose}
+          />
         </Box>
       </Modal>
     </div>

@@ -133,8 +133,8 @@ export default function GroupDetailsCard({ group }) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="title"
-        aria-describedby="form"
+        aria-labelledby="group-details-modal"
+        aria-describedby="displays group details"
       >
         <Box sx={style}>
           <Typography
@@ -229,7 +229,7 @@ export default function GroupDetailsCard({ group }) {
               >
                 <Grid item xs={6}>
                   <TextField
-                   required
+                    required
                     fullWidth
                     style={{ margin: "5px" }}
                     label="Books Checked In"
@@ -241,7 +241,7 @@ export default function GroupDetailsCard({ group }) {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
-                   required
+                    required
                     fullWidth
                     style={{ margin: "5px" }}
                     label="Books Sold"
@@ -273,7 +273,7 @@ export default function GroupDetailsCard({ group }) {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
-                   required
+                    required
                     fullWidth
                     style={{ margin: "5px", marginRight: "0" }}
                     type="number"

@@ -129,7 +129,13 @@ export default function SellerForm({
   };
 
   return (
-    <Modal open={open} mode={mode} onClose={handleFormReset}>
+    <Modal
+      open={open}
+      mode={mode}
+      onClose={handleFormReset}
+      aria-labelledby="new-seller-form"
+      aria-describedby="form for adding and editing a seller"
+    >
       <Box sx={style}>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~ Header ~~~~~~~~~~ */}

@@ -139,6 +139,8 @@ export default function SellersTable() {
   const [sellerToEdit, setSellerToEdit] = useState(null);
   const [showSellerUrl, setShowSellerUrl] = useState(false);
   console.log(showSellerUrl);
+  const [sellerRefId, setSellerRefId] = useState(null);
+  console.log(sellerRefId);
 
   useEffect(() => {
     dispatch({ type: "FETCH_SELLERS", payload: paramsObject.id });
@@ -223,9 +225,10 @@ export default function SellersTable() {
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
   // ~~~~~ Open / Close URL modal ~~~~~ //
-  const handleViewUrl = () => {
-    console.log();
+  const handleViewUrl = (value) => {
+    console.log(value);
     setShowSellerUrl(true);
+    setSellerRefId(value);
   };
 
   const handleCloseViewUrl = () => {
@@ -237,7 +240,11 @@ export default function SellersTable() {
 
   return (
     <>
-      <Typography label="Sellers" variant="h6" sx={{ textAlign: "center" }} />
+      <Typography
+        label="Participating Sellers"
+        variant="h6"
+        sx={{ textAlign: "center" }}
+      />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ Add Seller Button ~~~~~~~~ */}
       <div style={{ marginBottom: 10 }}>
@@ -259,12 +266,15 @@ export default function SellersTable() {
           sellerToEdit={sellerToEdit}
         />
         {/* ~~~~~~~~~~~ View URL modal ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        <ViewUrl open={showSellerUrl} close={handleCloseViewUrl} />
-        
+        <ViewUrl
+          open={showSellerUrl}
+          close={handleCloseViewUrl}
+          sellerRefId={sellerRefId}
+        />
       </div>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */}
       {/* ~~~~~~~~~~ Seller Table ~~~~~~~~~~ */}
-      <Paper elevation={3} sx={{ width: "100%", overflow: "hidden" }}>
+      <Paper elevation={3} sx={{ width: "100%" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -336,13 +346,14 @@ export default function SellersTable() {
                                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                                 {/* ~~~~~ View URL Icon ~~~~~ */}
                                 <LaunchIcon
-                                  onClick={() => handleViewUrl()}
+                                  onClick={() => handleViewUrl(value)}
                                   sx={{
                                     fontSize: "larger",
                                     color: primaryColor.color,
                                     "&:hover": {
                                       color: "#325CAB",
                                       transition: "transform 0.2s",
+                                      cursor: "pointer",
                                     },
                                   }}
                                   onMouseOver={(e) =>
