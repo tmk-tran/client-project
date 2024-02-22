@@ -45,6 +45,18 @@ export default function SuccessAlert({ isOpen, onClose, caseType }) {
         <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
           Location Edited!
         </Alert>
+      ) : caseType === "Cash" ? (
+        <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
+          Cash Updated!
+        </Alert>
+      ) : caseType === "Checks" ? (
+        <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
+          Checks Updated!
+        </Alert>
+      ) : caseType === "Donations" ? (
+        <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
+          Donations Updated!
+        </Alert>
       ) : (
         <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
           Task status has been successfully changed!

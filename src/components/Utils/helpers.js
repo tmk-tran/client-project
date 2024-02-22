@@ -189,3 +189,8 @@ export const buttonIconSpacing = {
 export const saveBtnWidth = {
   width: "60%",
 };
+
+// Handle caseType change
+export const handleCaseTypeChange = (newValue) => {
+  setCaseType(newValue);
+};

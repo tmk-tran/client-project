@@ -14,7 +14,7 @@ const style = {
   p: 4,
 };
 
-export default function CashUpdateModal({ caseType, updateSellerInfo }) {
+export default function CashUpdateModal({ caseType, updateSellerInfo, handleCaseTypeChange, onUpdate }) {
   console.log(caseType);
   const [open, setOpen] = useState(false);
   const [cashAmount, setCashAmount] = useState(0);
@@ -61,7 +61,8 @@ export default function CashUpdateModal({ caseType, updateSellerInfo }) {
       default:
         break;
     }
-
+    handleCaseTypeChange(caseType);
+    onUpdate();
     resetForm();
     handleClose(); // Close the modal after submission
   };
