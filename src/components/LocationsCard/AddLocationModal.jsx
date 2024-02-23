@@ -141,7 +141,7 @@ export default function AddLocationModal({
       {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~ */}
       <AddBox
         label="Location"
-        buttonStyle={{ mb: 2, ...leftSpace }}
+        buttonStyle={{ mb: 2 }}
         onClick={handleOpen}
       />
       <Modal

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import "./Details.css";
-import { Button, Typography, Card, CardContent } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -32,16 +32,14 @@ import {
   mLocations,
 } from "../../hooks/reduxStore";
 import { border } from "../Utils/colors";
-import { leftSpace } from "./styleDetails";
 import { useCaseType } from "../Utils/useCaseType";
-import { buttonIconSpacing } from "../Utils/helpers";
-import AddBox from "../AddBoxIcon/AddBoxIcon";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 export default function Details({
   isMerchantTaskPage,
   isTaskPage,
   isMerchantDetails,
+  isOrgAdminPage,
 }) {
   console.log(isMerchantTaskPage);
   console.log(isMerchantDetails);
@@ -49,6 +47,9 @@ export default function Details({
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
   console.log(paramsObject);
+  const location = useLocation();
+  const isOrgDetailsPage = location.pathname.includes("/orgDetails");
+  console.log(isOrgDetailsPage);
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
   const { caseType, handleCaseTypeChange } = useCaseType("default");
@@ -160,7 +161,14 @@ export default function Details({
 
     setGroupAdded(false);
     setLocationAdded(false);
-  }, [paramsObject.id, isMerchantTaskPage, groupAdded, locationAdded]);
+  }, [
+    paramsObject.id,
+    isMerchantTaskPage,
+    isTaskPage,
+    isOrgDetailsPage,
+    groupAdded,
+    locationAdded,
+  ]);
 
   // Create a map to store organization details and associated groups
   const orgMap = new Map();
@@ -316,13 +324,12 @@ export default function Details({
                   ) : null}
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   {/* ~~~~~ COUPON REVIEW CARDS ~~~~~ */}
-                  <div className="MerchantDetailsCard-container" style={border}>
+                  <div className="MerchantDetailsCard-container">
                     <div
                       style={{
                         position: "absolute",
                         left: 0,
                         top: 0,
-                        ...leftSpace,
                       }}
                     >
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -345,7 +352,9 @@ export default function Details({
                   </div>
                 </>
               )}
-              <SellersTable />
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~ Sellers Table ~~~~~~~~~~ */}
+              {(isTaskPage || isOrgDetailsPage) && <SellersTable />}
             </React.Fragment>
           ))}
         </div>

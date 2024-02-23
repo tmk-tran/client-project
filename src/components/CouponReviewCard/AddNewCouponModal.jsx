@@ -15,9 +15,7 @@ import CloseButton from "../Buttons/CloseButton";
 import SelectMenu from "./SelectMenu";
 import AddFileButton from "../AddFileButton/AddFileButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
-import { leftSpace } from "../Details/styleDetails";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
-import { hoverAccept } from "../Utils/colors";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { validateWebsiteFormat, validatePhoneNumber } from "../Utils/helpers";
 import ModalButtons from "../Modals/ModalButtons";

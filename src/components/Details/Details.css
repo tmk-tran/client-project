@@ -18,7 +18,10 @@
   gap: 50px;
   align-items: center;
   margin-top: 25px;
-  border: 1px solid #19338E;
+}
+
+.OrgDetailsCard-container {
+  border: 1px solid #19338e;
   border-radius: 5px;
 }
 

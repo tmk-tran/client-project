@@ -15,10 +15,16 @@ import {
 
 const tableHeaderStyle = {
   minWidth: 150,
+  padding: "8px",
+  lineHeight: "1.2", // Adjust the line height
+  fontSize: "1.1rem", // Adjust the font size
 };
 const tableCellStyle = {
   whiteSpace: "normal",
   minWidth: 150,
+  padding: "8px",
+  lineHeight: "1.2", // Adjust the line height
+  fontSize: "1rem", // Adjust the font size
 };
 
 export default function MyTable({ data, isEditing }) {
@@ -51,7 +57,7 @@ export default function MyTable({ data, isEditing }) {
           {/* ~~~~~~~~~ ADDITIONAL DETAILS ~~~~~~~~~ */}
           <TableCell
             style={{
-              whiteSpace: "normal",
+              ...tableCellStyle,
               minWidth: 200,
               maxWidth: 200,
             }}

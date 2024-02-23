@@ -2,13 +2,13 @@ import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~~~~~~~~~~~
 import { Card, CardContent, Typography } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
-import { leftSpace } from "../Details/styleDetails";
 import { dispatchHook } from "../../hooks/useDispatch";
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~
 import AddLocationModal from "./AddLocationModal";
 import LocationsCardTable from "./LocationsCardTable";
 import ActionsSpeedDial from "./ActionsSpeedDial";
 import { capitalizeWords } from "../Utils/helpers";
+import { border } from "../Utils/colors";
 
 export default function LocationsCard({
   locations,
@@ -85,7 +85,7 @@ export default function LocationsCard({
           <Card
             key={i}
             elevation={3}
-            sx={{ width: "54vw", ...leftSpace, mb: 1 }}
+            sx={{ width: "56vw", mb: 1 }}
           >
             <CardContent>
               <div
@@ -93,11 +93,12 @@ export default function LocationsCard({
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "space-between",
+                  ...border,
                 }}
               >
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~ LOCATION NAME ~~~~~~~~~~ */}
-                <Typography variant="h6">
+                <Typography sx={{ fontWeight: "bold" }}>
                   {capitalizeWords(location.location_name)}
                 </Typography>
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
