@@ -51,9 +51,7 @@ export default function AddLocationModal({
   console.log(paramsObject);
 
   const [open, setOpen] = useState(false);
-  // const [locationName, setLocationName] = useState(
-  //   isEditing ? capitalizeWords(locationToEdit.location_name) : ""
-  // );
+
   const [locationName, setLocationName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [locationAddress, setLocationAddress] = useState("");

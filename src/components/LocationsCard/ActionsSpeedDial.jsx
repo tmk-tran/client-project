@@ -39,7 +39,6 @@ export default function ActionsSpeedDial({
   handleEdit,
   handleOpenModal,
   location,
-  // i,
   toggleEdit,
 }) {
   console.log(location);

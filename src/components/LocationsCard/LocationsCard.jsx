@@ -20,9 +20,6 @@ export default function LocationsCard({
   const dispatch = dispatchHook();
   const [isEditing, setIsEditing] = useState(false);
   console.log(isEditing);
-
-  // const [editingLocation, setEditingLocation] = useState(null); // State to store the location being edited
-  // console.log(editingLocation);
   const [isModalOpen, setIsModalOpen] = useState(false);
   console.log(isModalOpen);
   const [editId, setEditId] = useState(null);
@@ -30,11 +27,11 @@ export default function LocationsCard({
   const [locationToEdit, setLocationToEdit] = useState(null);
   console.log(locationToEdit);
 
-  const handleEditToggle = (location) => {
-    console.log(location);
+  const handleEditToggle = (locationFromSpeedDial) => {
+    console.log(locationFromSpeedDial);
     setIsEditing(!isEditing);
-    if (location !== null) {
-      setLocationToEdit(location); // Set the location being edited
+    if (locationFromSpeedDial !== null) {
+      setLocationToEdit(locationFromSpeedDial); // Set the location being edited
     }
   };
 
@@ -65,11 +62,6 @@ export default function LocationsCard({
     console.log(locationId);
     console.log(merchantId);
     setEditId(locationId);
-  };
-
-  const editState = (data) => {
-    console.log(data);
-    // setLocationToEdit(data);
   };
 
   return (
@@ -115,17 +107,12 @@ export default function LocationsCard({
                   handleEdit={handleEdit}
                   handleOpenModal={handleOpenModal}
                   location={location}
-                  i={i}
                   toggleEdit={handleEditToggle}
                 />
               </div>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
-              <LocationsCardTable
-                data={location}
-                isEditing={isEditing}
-                editState={editState}
-              />
+              <LocationsCardTable data={location} isEditing={isEditing} />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* <ActionsSpeedDial handleDelete={handleDelete} location={location} /> */}
             </CardContent>
