@@ -11,7 +11,11 @@ export default function UrlDisplay({ sellerRefId }) {
   console.log(sellerUrl);
   const [urlForOrder, setUrlForOrder] = useState("");
   console.log(urlForOrder);
+//   const [pathForLink, setPathForLink] = useState(urlForOrder ? urlForOrder.split("")[1] : "");
+//   console.log(pathForLink);
+// const pathForLink = "/seller/AAA8473";
 
+  // Set the url for the order
   useEffect(() => {
     if (sellerRefId) {
       setSellerUrl(transactionsUrl(sellerRefId));
@@ -19,10 +23,15 @@ export default function UrlDisplay({ sellerRefId }) {
     }
   }, [sellerRefId]);
 
+  // Set the path for the clickable link
+//   useEffect(() => {
+//     setPathForLink(urlForOrder ? urlForOrder.split("#/")[1] : "");
+//   }, [urlForOrder]);
+
   const copyOrderUrl = () => {
     navigator.clipboard.writeText(urlForOrder);
   };
-  
+
   return (
     <>
       <Typography
@@ -37,7 +46,8 @@ export default function UrlDisplay({ sellerRefId }) {
           marginTop: 10,
         }}
       >
-        <Typography label={`${urlForOrder}`} sx={{ mt: 1 }} />
+        {/* to={`${pathForLink}`} */}
+        <Typography label={`${urlForOrder}`} newTab sx={{ mt: 1 }} />
         <CopySnackBar copyToClipboard={copyOrderUrl} caseType="Display" />
       </div>
     </>
