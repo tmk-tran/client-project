@@ -7,6 +7,7 @@ import { sellerPageInfo } from "../../hooks/reduxStore";
 import { centerDiv } from "../Utils/helpers";
 import { useAlert } from "../SuccessAlert/useAlert";
 import { border } from "../Utils/colors";
+import { useCaseType } from "../Utils/useCaseType";
 // ~~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~ //
 import Typography from "../Typography/Typography";
 import SellerPageTable from "./SellerPageTable";
@@ -24,8 +25,8 @@ export default function SellerPage() {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = dispatchHook();
   const { refId } = useParams();
-  const [caseType, setCaseType] = useState("");
-  console.log(caseType);
+//   const [caseType, setCaseType] = useState("");
+//   console.log(caseType);
 
   useEffect(() => {
     const fetchAction = { type: "FETCH_SELLER_PAGEINFO", payload: refId };
@@ -37,10 +38,10 @@ export default function SellerPage() {
   console.log(sellerInfo);
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
-
-  const handleCaseTypeChange = (newValue) => {
-    setCaseType(newValue);
-  };
+  const { caseType, handleCaseTypeChange } = useCaseType("default");
+//   const handleCaseTypeChange = (newValue) => {
+//     setCaseType(newValue);
+//   };
 
   //   const updateCash = (cashAmount) => {
   //     console.log(cashAmount);
@@ -81,7 +82,6 @@ export default function SellerPage() {
   };
 
   return (
-    // <div style={{ minHeight: "76vh" }}>
     <div>
       <Typography
         label={`Code: ${refId}`}

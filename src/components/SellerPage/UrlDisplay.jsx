@@ -19,17 +19,14 @@ export default function UrlDisplay({ sellerRefId }) {
     }
   }, [sellerRefId]);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(sellerUrl);
-  };
-
   const copyOrderUrl = () => {
     navigator.clipboard.writeText(urlForOrder);
   };
+  
   return (
     <>
       <Typography
-        label="Give this link to customers to purchase a book from you:"
+        label="Give this link to customers to purchase a book from your fundraiser:"
         variant="caption"
         sx={{ textAlign: "center" }}
       />
