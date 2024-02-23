@@ -165,7 +165,7 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
                       </Typography>
                     </div>
 
-                    <div className="column" style={border}>
+                    <div className="column">
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       {/* ~~~~~~~~~~~~ GROUPS ~~~~~~~~~~~~~ */}
                       <Typography variant="body2">
@@ -195,7 +195,6 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
                   <div
                     style={{
                       display: "flex",
-                      ...border,
                       flexDirection: "column",
                     }}
                   >
