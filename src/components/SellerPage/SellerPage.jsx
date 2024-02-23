@@ -81,11 +81,12 @@ export default function SellerPage() {
   };
 
   return (
-    <div style={{ minHeight: "80vh" }}>
+    // <div style={{ minHeight: "76vh" }}>
+    <div>
       <Typography
         label={`Code: ${refId}`}
         variant="h6"
-        sx={{ textAlign: "center" }}
+        sx={{ mt: 5, textAlign: "center" }}
       />
       <SuccessAlert
         isOpen={isAlertOpen}

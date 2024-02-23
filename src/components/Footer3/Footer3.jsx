@@ -1,4 +1,4 @@
-import { Typography, ThemeProvider, createTheme } from "@mui/material";
+import { Box, Typography, ThemeProvider, createTheme } from "@mui/material";
 import LinksSocial from "../LinksSocial/LinksSocial";
 import Footer from "../Footer/Footer";
 
@@ -21,14 +21,24 @@ const theme = createTheme({
 export default function Footer3() {
   return (
     <ThemeProvider theme={theme}>
-      <div
+      {/* <div
         style={{
           height: "48px",
           backgroundColor: "#273B91",
           bottom: 0, // Stick it to the bottom of the screen
           width: "100%", // Take up the full width
         }}
-      >
+      > */}
+      <Box
+      component="footer"
+      sx={{
+        p: 2,
+        mt: 'auto',
+        backgroundColor: '#273B91',
+        color: 'white',
+        textAlign: 'center',
+      }}
+    >
         <div className="footer-container">
           <div>
             <Typography variant="body1">
@@ -44,7 +54,8 @@ export default function Footer3() {
             <Typography variant="body1">ALL SALES ARE FINAL</Typography>
           </div>
         </div>
-      </div>
+      {/* </div> */}
+      </Box>
     </ThemeProvider>
   );
 }

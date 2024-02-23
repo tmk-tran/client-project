@@ -18,9 +18,8 @@ export default function CopyToClipboardExample({ copyToClipboard, caseType }) {
 
   return (
     <>
-      {/* <Button onClick={handleCopy}>Copy Text</Button> */}
       <IconButton onClick={handleCopy} aria-label="copy to clipboard">
-        <FileCopyIcon sx={{ color: primaryColor.color }} />
+        <FileCopyIcon sx={{ fontSize: "25px", color: primaryColor.color }} />
       </IconButton>
       <Snackbar
         open={open}
@@ -33,7 +32,7 @@ export default function CopyToClipboardExample({ copyToClipboard, caseType }) {
             // top: "10%",
             // right: "50%",
             // left: "20%",
-            transform: "translate(240%, -3%)", // Center the Snackbar
+            transform: "translate(173%, -3%)",
  })
         }}
       />

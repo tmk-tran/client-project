@@ -74,9 +74,10 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '92vh' }}>
           {/* <Nav /> */}
           <Header user={user} />
+          <div style={{ flex: '1 0 auto', padding: '20px' }}>
           <MenuLinks />
           <Switch>
             <Redirect exact from="/" to="/home" />
@@ -201,9 +202,10 @@ function App() {
               <h1>404</h1>
             </Route>
           </Switch>
-        </div>
+          </div>
         {/* <Footer /> */}
         {/* <Footer2 /> */}
+        </div>
         <Footer3 />
       </ThemeProvider>
     </Router>
