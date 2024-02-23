@@ -3,8 +3,6 @@ import { Alert, Snackbar } from "@mui/material";
 
 export default function SuccessAlert({ isOpen, onClose, caseType }) {
   console.log(caseType);
-  // isOpen: whether the alert is open or not
-  // onClose: callback to handle closing the alert
 
   return (
     <Snackbar

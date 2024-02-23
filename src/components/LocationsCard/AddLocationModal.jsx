@@ -75,7 +75,6 @@ export default function AddLocationModal({
       setAdditionalDetails(
         capitalizeFirstWord(locationToEdit.additional_details)
       );
-      // Add other state updates if needed
       handleOpen(); // Open the modal after setting the state
     }
   }, [locationToEdit]); // Trigger the effect when locationToEdit changes
