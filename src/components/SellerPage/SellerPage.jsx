@@ -6,8 +6,8 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { sellerPageInfo } from "../../hooks/reduxStore";
 import { centerDiv } from "../Utils/helpers";
 import { useAlert } from "../SuccessAlert/useAlert";
-import { border } from "../Utils/colors";
 import { useCaseType } from "../Utils/useCaseType";
+import { border } from "../Utils/colors";
 // ~~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~ //
 import Typography from "../Typography/Typography";
 import SellerPageTable from "./SellerPageTable";
@@ -25,8 +25,6 @@ export default function SellerPage() {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = dispatchHook();
   const { refId } = useParams();
-//   const [caseType, setCaseType] = useState("");
-//   console.log(caseType);
 
   useEffect(() => {
     const fetchAction = { type: "FETCH_SELLER_PAGEINFO", payload: refId };
@@ -39,29 +37,6 @@ export default function SellerPage() {
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
   const { caseType, handleCaseTypeChange } = useCaseType("default");
-//   const handleCaseTypeChange = (newValue) => {
-//     setCaseType(newValue);
-//   };
-
-  //   const updateCash = (cashAmount) => {
-  //     console.log(cashAmount);
-  //     const amountToUpdate = Number(cashAmount) || 0;
-  //     console.log(amountToUpdate);
-  //     const sellerId = sellerInfo[0].id;
-  //     console.log(sellerId);
-  //     console.log(refId);
-
-  //     const updateAction = {
-  //       type: "UPDATE_CASH",
-  //       payload: {
-  //         id: sellerId,
-  //         refId: refId,
-  //         cash: amountToUpdate,
-  //       },
-  //     };
-  //     console.log("Dispatching action:", updateAction);
-  //     dispatch(updateAction);
-  //   };
 
   const updateSellerInfo = (updateType, amountToUpdate) => {
     console.log(updateType);

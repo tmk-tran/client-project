@@ -10,5 +10,3 @@ export const useCaseType = (initialCaseType) => {
 
   return { caseType, handleCaseTypeChange };
 };
-
-// export default useCaseType;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -26,7 +26,12 @@ export default function MyTable({ data, isEditing, editState }) {
   // const [isEditing, setIsEditing] = useState(false);
   console.log(isEditing);
 
-  isEditing ? editState(data) : null;
+  // isEditing ? editState(data) : null;
+  // useEffect(() => {
+  //   if (isEditing) {
+  //     editState(data);
+  //   }
+  // }, [isEditing, data, editState]);
 
   return (
     <Table>

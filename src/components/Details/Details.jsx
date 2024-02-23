@@ -33,6 +33,7 @@ import {
 } from "../../hooks/reduxStore";
 import { border } from "../Utils/colors";
 import { leftSpace } from "./styleDetails";
+import { useCaseType } from "../Utils/useCaseType";
 import { buttonIconSpacing } from "../Utils/helpers";
 import AddBox from "../AddBoxIcon/AddBoxIcon";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,6 +51,7 @@ export default function Details({
   console.log(paramsObject);
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
+  // const { caseType, handleCaseTypeChange } = useCaseType("default");
 
   // Check if the user is on the task page
   // const isTaskPage = location.pathname.includes("/orgtaskdetails");

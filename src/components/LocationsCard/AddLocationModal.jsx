@@ -51,26 +51,18 @@ export default function AddLocationModal({
   console.log(paramsObject);
 
   const [open, setOpen] = useState(false);
-  const [locationName, setLocationName] = useState(
-    isEditing ? capitalizeWords(locationToEdit.location_name) : ""
-  );
-  const [phoneNumber, setPhoneNumber] = useState(
-    isEditing ? locationToEdit.phone_number : ""
-  );
-  const [locationAddress, setLocationAddress] = useState(
-    isEditing ? capitalizeWords(locationToEdit.address) : ""
-  );
-  const [city, setCity] = useState(
-    isEditing ? capitalizeWords(locationToEdit.city) : ""
-  );
-  const [state, setState] = useState(
-    isEditing ? capitalizeStateAbbr(locationToEdit.state) : ""
-  );
-  const [zip, setZip] = useState(isEditing ? locationToEdit.zip : "");
+  // const [locationName, setLocationName] = useState(
+  //   isEditing ? capitalizeWords(locationToEdit.location_name) : ""
+  // );
+  const [locationName, setLocationName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [locationAddress, setLocationAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
   const [merchantId, setMerchantId] = useState(paramsObject.id);
-  const [additionalDetails, setAdditionalDetails] = useState(
-    isEditing ? capitalizeFirstWord(locationToEdit.additional_details) : ""
-  );
+  const [additionalDetails, setAdditionalDetails] = useState("");
+  
   console.log(locationName);
   console.log(phoneNumber);
   console.log(locationAddress);
@@ -81,10 +73,19 @@ export default function AddLocationModal({
   console.log(additionalDetails);
 
   useEffect(() => {
-    if (isEditing) {
-      handleOpen();
+    if (locationToEdit) {
+      setLocationName(locationToEdit.location_name);
+      setPhoneNumber(locationToEdit.phone_number);
+      setLocationAddress(capitalizeWords(locationToEdit.address));
+      setCity(capitalizeWords(locationToEdit.city));
+      setState(capitalizeStateAbbr(locationToEdit.state));
+      setZip(locationToEdit.zip);
+      setAdditionalDetails(capitalizeFirstWord(locationToEdit.additional_details));
+      // Add other state updates if needed
+      handleOpen(); // Open the modal after setting the state
     }
-  }, [isEditing]);
+  }, [locationToEdit]); // Trigger the effect when locationToEdit changes
+  
 
   const handleOpen = () => setOpen(true);
 

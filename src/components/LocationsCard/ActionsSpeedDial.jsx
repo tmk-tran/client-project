@@ -37,9 +37,12 @@ const actions = [
 export default function ActionsSpeedDial({
   handleDelete,
   handleEdit,
-  location,
   handleOpenModal,
+  location,
+  // i,
+  toggleEdit,
 }) {
+  console.log(location);
   const [direction, setDirection] = React.useState("left");
   console.log(direction);
   const [hidden, setHidden] = React.useState(false);
@@ -52,6 +55,7 @@ export default function ActionsSpeedDial({
 
   const editClick = () => {
     handleEdit(location.id, location.merchant_id);
+    toggleEdit(location);
     handleOpenModal();
   };
 

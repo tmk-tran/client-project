@@ -21,8 +21,8 @@ export default function LocationsCard({
   const [isEditing, setIsEditing] = useState(false);
   console.log(isEditing);
 
-  const [editingLocation, setEditingLocation] = useState(null); // State to store the location being edited
-  console.log(editingLocation);
+  // const [editingLocation, setEditingLocation] = useState(null); // State to store the location being edited
+  // console.log(editingLocation);
   const [isModalOpen, setIsModalOpen] = useState(false);
   console.log(isModalOpen);
   const [editId, setEditId] = useState(null);
@@ -30,11 +30,11 @@ export default function LocationsCard({
   const [locationToEdit, setLocationToEdit] = useState(null);
   console.log(locationToEdit);
 
-  const handleEditToggle = (index) => {
-    console.log(index);
+  const handleEditToggle = (location) => {
+    console.log(location);
     setIsEditing(!isEditing);
-    if (index !== undefined) {
-      setEditingLocation(locations[index]); // Set the location being edited
+    if (location !== null) {
+      setLocationToEdit(location); // Set the location being edited
     }
   };
 
@@ -68,7 +68,8 @@ export default function LocationsCard({
   };
 
   const editState = (data) => {
-    setLocationToEdit(data);
+    console.log(data);
+    // setLocationToEdit(data);
   };
 
   return (
