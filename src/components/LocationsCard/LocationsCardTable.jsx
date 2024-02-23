@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Table,
   TableBody,
@@ -23,7 +23,6 @@ const tableCellStyle = {
 
 export default function MyTable({ data, isEditing }) {
   console.log(data);
-  // const [isEditing, setIsEditing] = useState(false);
   console.log(isEditing);
 
   return (
@@ -38,10 +37,6 @@ export default function MyTable({ data, isEditing }) {
       </TableHead>
       <TableBody>
         <TableRow>
-          {/* ~~~~~~~~~ NAME ~~~~~~~~~ */}
-          {/* <TableCell style={tableCellStyle}>
-            {capitalizeWords(data.location_name)}
-          </TableCell> */}
           {/* ~~~~~~~~~ ADDRESS ~~~~~~~~~ */}
           <TableCell style={tableCellStyle}>
             {capitalizeWords(data.address)}
