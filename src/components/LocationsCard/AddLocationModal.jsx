@@ -134,7 +134,7 @@ export default function AddLocationModal({
       payload: { editId, ...newLocationPayload },
     };
     console.log("Dispatching action:", action);
-    dispatch(action);
+    // dispatch(action);
 
     handleCaseTypeChange("Edit Location");
     onLocationAdd();

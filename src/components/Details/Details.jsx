@@ -51,7 +51,7 @@ export default function Details({
   console.log(paramsObject);
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
-  // const { caseType, handleCaseTypeChange } = useCaseType("default");
+  const { caseType, handleCaseTypeChange } = useCaseType("default");
 
   // Check if the user is on the task page
   // const isTaskPage = location.pathname.includes("/orgtaskdetails");
@@ -187,9 +187,9 @@ export default function Details({
     });
   });
 
-  const handleCaseTypeChange = (newCaseType) => {
-    setAlertCaseType(newCaseType);
-  };
+  // const handleCaseTypeChange = (newCaseType) => {
+  //   setAlertCaseType(newCaseType);
+  // };
 
   const handleAddGroup = () => {
     setGroupAdded(true);
@@ -204,7 +204,7 @@ export default function Details({
       <SuccessAlert
         isOpen={isAlertOpen}
         onClose={handleAlertClose}
-        caseType={alertCaseType}
+        caseType={caseType}
       />
       <div style={{ position: "relative" }}>
         <div style={{ position: "absolute", top: 0, left: 0 }}>
