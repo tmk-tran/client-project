@@ -70,8 +70,6 @@ export default function Details({
   console.log(merchantDetails);
   const comments = mComments();
   console.log(comments);
-  const [alertCaseType, setAlertCaseType] = useState("NewTask");
-  console.log(alertCaseType);
   const locations = mLocations();
   console.log(locations);
   const [groupAdded, setGroupAdded] = useState(false);

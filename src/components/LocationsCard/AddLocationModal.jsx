@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Box,
-  Typography,
-  Modal,
-  TextField,
-  Divider,
-} from "@mui/material";
+import { Box, Typography, Modal, TextField, Divider } from "@mui/material";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~
 import AddBox from "../AddBoxIcon/AddBoxIcon";
 import ModalButtons from "../Modals/ModalButtons";
@@ -15,7 +9,7 @@ import CloseButton from "../Buttons/CloseButton";
 import { leftSpace } from "../Details/styleDetails";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { border } from "../Utils/colors";
+
 import {
   capitalizeFirstWord,
   capitalizeStateAbbr,
@@ -60,7 +54,7 @@ export default function AddLocationModal({
   const [zip, setZip] = useState("");
   const [merchantId, setMerchantId] = useState(paramsObject.id);
   const [additionalDetails, setAdditionalDetails] = useState("");
-  
+
   console.log(locationName);
   console.log(phoneNumber);
   console.log(locationAddress);
@@ -72,18 +66,19 @@ export default function AddLocationModal({
 
   useEffect(() => {
     if (locationToEdit) {
-      setLocationName(locationToEdit.location_name);
+      setLocationName(capitalizeWords(locationToEdit.location_name));
       setPhoneNumber(locationToEdit.phone_number);
       setLocationAddress(capitalizeWords(locationToEdit.address));
       setCity(capitalizeWords(locationToEdit.city));
       setState(capitalizeStateAbbr(locationToEdit.state));
       setZip(locationToEdit.zip);
-      setAdditionalDetails(capitalizeFirstWord(locationToEdit.additional_details));
+      setAdditionalDetails(
+        capitalizeFirstWord(locationToEdit.additional_details)
+      );
       // Add other state updates if needed
       handleOpen(); // Open the modal after setting the state
     }
   }, [locationToEdit]); // Trigger the effect when locationToEdit changes
-  
 
   const handleOpen = () => setOpen(true);
 
@@ -134,7 +129,7 @@ export default function AddLocationModal({
       payload: { editId, ...newLocationPayload },
     };
     console.log("Dispatching action:", action);
-    // dispatch(action);
+    dispatch(action);
 
     handleCaseTypeChange("Edit Location");
     onLocationAdd();
@@ -243,7 +238,7 @@ export default function AddLocationModal({
           <ModalButtons
             label={!isEditing ? "Add" : "Update"}
             onSave={!isEditing ? addLocation : editLocation}
-            onCancel={handleClose}
+            onCancel={resetForm}
           />
         </Box>
       </Modal>
