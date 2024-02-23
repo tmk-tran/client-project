@@ -29,9 +29,6 @@ export default function CopyToClipboardExample({ copyToClipboard, caseType }) {
         sx={{
           top: 10,
           ...(caseType === "Display" && { 
-            // top: "10%",
-            // right: "50%",
-            // left: "20%",
             transform: "translate(173%, -3%)",
  })
         }}

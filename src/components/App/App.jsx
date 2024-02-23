@@ -6,7 +6,6 @@ import {
   Switch,
 } from "react-router-dom";
 
-import Nav from "../Nav/Nav";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import UserProfile from "../UserProfile/UserProfile";
 import AboutPage from "../AboutPage/AboutPage";
@@ -75,7 +74,6 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <div style={{ display: 'flex', flexDirection: 'column', minHeight: '92vh' }}>
-          {/* <Nav /> */}
           <Header user={user} />
           <div style={{ flex: '1 0 auto', padding: '20px' }}>
           <MenuLinks />
