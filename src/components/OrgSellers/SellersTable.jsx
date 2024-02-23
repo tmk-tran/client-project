@@ -275,7 +275,7 @@ export default function SellersTable() {
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */}
       {/* ~~~~~~~~~~ Seller Table ~~~~~~~~~~ */}
       <Paper elevation={3} sx={{ width: "100%" }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{ maxHeight: 600 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>

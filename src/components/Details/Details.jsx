@@ -283,7 +283,7 @@ export default function Details({
                         />
                       ))
                     ) : (
-                      <div style={{ height: "200px" }}>
+                      <div style={{ height: "100px" }}>
                         <Typography variant="h6">No Groups Assigned</Typography>
                       </div>
                     )}
