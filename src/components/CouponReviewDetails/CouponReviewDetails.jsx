@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Typography, Card, CardContent, Button } from "@mui/material";
+import { Typography, Card, CardContent, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { border } from "../Utils/colors";
@@ -86,8 +86,7 @@ export default function CouponReviewDetails() {
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
-      <Card className="details-card" elevation={3}>
-        <CardContent>
+      <Box className="details-card">
           <div className="detailsView-container">
             <div
               style={{
@@ -225,8 +224,7 @@ export default function CouponReviewDetails() {
             </Card>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           </div>
-        </CardContent>
-      </Card>
+      </Box>
     </div>
   );
 }
