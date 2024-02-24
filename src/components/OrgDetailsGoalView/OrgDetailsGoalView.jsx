@@ -73,7 +73,7 @@ export default function OrgDetailsGoalView({ info, groups, handleAddGroup }) {
                 />
               ) : (
                 <div className="no-fundraisers-container">
-                  <Typography variant="h6">No Fundraisers Available</Typography>
+                  <Typography>No Fundraisers Available</Typography>
                 </div>
               )}
             </center>
