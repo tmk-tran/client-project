@@ -4,7 +4,7 @@ import { takeEvery, put } from "redux-saga/effects";
 function* fetchOrganizationsSaga() {
   try {
     const response = yield axios.get("/api/organizations");
-    console.log("FETCH request fetchOrganizationsSaga");
+    console.log("FETCH request fetchOrganizationsSaga", response.data);
     yield put({ type: "SET_ORGANIZATIONS", payload: response.data });
   } catch {
     console.log("error in fetchOrganizationsSaga");
