@@ -13,6 +13,8 @@ export default function OrderPage() {
   console.log(selectedRows);
   const [customDonation, setCustomDonation] = useState(0);
   console.log(customDonation);
+  const [orderTotal, setOrderTotal] = useState(0);
+  console.log(orderTotal);
 
   // UPDATE WITH ACTUAL STORE DATA ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const [rows, setRows] = useState([
@@ -68,12 +70,13 @@ export default function OrderPage() {
   const handlePayment = (total) => {
     // Implement payment logic here
     console.log("Subtotal being sent for payment:", total);
+    setOrderTotal(total);
   };
 
   const addToCart = () => {
     history.push({
       pathname: "/ordersummary",
-      state: { rows, selectedProducts, customDonation },
+      state: { rows, selectedProducts, customDonation, orderTotal },
     });
   };
 

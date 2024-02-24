@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~~~~~~~~~~~
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Divider, Typography } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~
@@ -9,6 +9,7 @@ import LocationsCardTable from "./LocationsCardTable";
 import ActionsSpeedDial from "./ActionsSpeedDial";
 import { capitalizeWords } from "../Utils/helpers";
 import { border } from "../Utils/colors";
+import { lineDivider } from "../Utils/modalStyles";
 
 export default function LocationsCard({
   locations,
@@ -82,23 +83,18 @@ export default function LocationsCard({
       {locations
         .filter((location) => !location.is_deleted)
         .map((location, i) => (
-          <Card
-            key={i}
-            elevation={3}
-            sx={{ width: "56vw", mb: 1 }}
-          >
+          <Card key={i} elevation={3} sx={{ width: "56vw", mb: 1 }}>
             <CardContent>
               <div
                 style={{
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "space-between",
-                  ...border,
                 }}
               >
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~ LOCATION NAME ~~~~~~~~~~ */}
-                <Typography sx={{ fontWeight: "bold" }}>
+                <Typography sx={{ fontWeight: "bold", pt: 1.5 }}>
                   {capitalizeWords(location.location_name)}
                 </Typography>
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -111,6 +107,7 @@ export default function LocationsCard({
                   toggleEdit={handleEditToggle}
                 />
               </div>
+              <Divider sx={{ ...lineDivider, mb: 1 }} />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
               <LocationsCardTable data={location} isEditing={isEditing} />

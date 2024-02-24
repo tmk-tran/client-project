@@ -292,7 +292,10 @@ export default function Details({
                       ))
                     ) : (
                       <div style={{ height: "100px" }}>
-                        <Typography variant="h6">No Groups Assigned</Typography>
+                        <Typography variant="h6" sx={{ mt: 2, p: 1 }}>
+                          No Groups Assigned
+                        </Typography>
+                        <hr />
                       </div>
                     )}
                   </div>

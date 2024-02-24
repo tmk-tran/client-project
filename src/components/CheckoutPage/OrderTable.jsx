@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableHead,
@@ -23,8 +23,14 @@ export default function OrderTable({
   console.log(rows);
   console.log(selectedRows);
 
-  //   const [customDonation, setCustomDonation] = useState(0);
-  //   console.log(customDonation);
+  const total =
+    rows.reduce((acc, row) => acc + row.price * row.quantity, 0) +
+    customDonation;
+  console.log(total);
+
+  useEffect(() => {
+    handlePayment(total);
+  }, [rows, customDonation]);
 
   const quantityChange = (e, row) => {
     const newQuantity = parseInt(e.target.value, 10);
@@ -54,21 +60,20 @@ export default function OrderTable({
     console.log(withDonation);
   };
 
-  const total =
-    rows.reduce((acc, row) => acc + row.price * row.quantity, 0) +
-    customDonation;
-  console.log(total);
-  handlePayment(total);
+  // const total =
+  //   rows.reduce((acc, row) => acc + row.price * row.quantity, 0) +
+  //   customDonation;
+  // console.log(total);
+  // handlePayment(total);
 
   const mapSelectedRowsToProducts = () => {
     return selectedRows.map((selectedId) => {
       return rows.find((row) => row.id === selectedId);
     });
   };
-  
+
   const selectedProducts = mapSelectedRowsToProducts();
   console.log("Selected Products:", selectedProducts);
-  
 
   return (
     <Table>

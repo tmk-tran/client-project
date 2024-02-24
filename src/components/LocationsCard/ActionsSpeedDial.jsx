@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MenuIcon from "@mui/icons-material/Menu";
 import { showDeleteSweetAlert } from "../Utils/sweetAlerts";
+import { border } from "../Utils/colors";
 
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   // position: "absolute",
@@ -25,7 +26,7 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
     height: "36px",
   },
   "& .MuiSvgIcon-root": {
-    fontSize: "28px", // Adjust the icon size
+    fontSize: "25px", // Adjust the icon size
   },
 }));
 
@@ -62,7 +63,7 @@ export default function ActionsSpeedDial({
     <Box>
       <Box sx={{ position: "relative" }}>
         <StyledSpeedDial
-          ariaLabel="SpeedDial playground example"
+          ariaLabel="SpeedDial for edit and delete actions"
           hidden={hidden}
           icon={<MenuIcon />}
           direction={direction}

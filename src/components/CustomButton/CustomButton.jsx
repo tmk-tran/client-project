@@ -8,6 +8,7 @@ export default function CustomButton({
   variant,
   sx,
   disabled,
+  fullWidth,
 }) {
   return (
     <Button
@@ -16,6 +17,7 @@ export default function CustomButton({
       onClick={onClick}
       sx={sx}
       disabled={disabled}
+      fullWidth={fullWidth}
     >
       {label}
     </Button>

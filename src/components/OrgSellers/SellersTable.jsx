@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
-  Button,
+  Box,
   Paper,
   Table,
   TableBody,
@@ -104,6 +104,11 @@ export const columns = [
 
 const evenRowColor = {
   backgroundColor: "#fbfbfb",
+};
+
+const sellersBorder = {
+  border: `1px solid ${primaryColor.color}`,
+  borderRadius: "5px",
 };
 
 function generateRefId(firstName, lastName, teacher) {
@@ -239,15 +244,18 @@ export default function SellersTable() {
   let isEvenRow = true;
 
   return (
-    <>
-      <Typography
-        label="Participating Sellers"
-        variant="h6"
-        sx={{ textAlign: "center" }}
-      />
-      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {/* ~~~~~~~~~~ Add Seller Button ~~~~~~~~ */}
-      <div style={{ marginBottom: 10 }}>
+    <Box sx={{ mt: 3 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          mb: 1,
+          ...sellersBorder,
+        }}
+      >
+        <Typography label="Participating Sellers" variant="h6" sx={{ p: 1 }} />
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~ Add Seller Button ~~~~~~~~ */}
         <CustomButton
           label="New Seller"
           variant="contained"
@@ -255,23 +263,25 @@ export default function SellersTable() {
           onClick={() => handleOpen("add")}
           icon={<AddIcon />}
         />
-        <SellerForm
-          user={user}
-          columns={columns}
-          open={open}
-          mode={mode}
-          handleClose={handleClose}
-          handleAddSeller={handleAddSeller}
-          handleEditSeller={handleEditSeller}
-          sellerToEdit={sellerToEdit}
-        />
-        {/* ~~~~~~~~~~~ View URL modal ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        <ViewUrl
-          open={showSellerUrl}
-          close={handleCloseViewUrl}
-          sellerRefId={sellerRefId}
-        />
-      </div>
+      </Box>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~ Modals for Seller Table ~~~~~ */}
+      <SellerForm
+        user={user}
+        columns={columns}
+        open={open}
+        mode={mode}
+        handleClose={handleClose}
+        handleAddSeller={handleAddSeller}
+        handleEditSeller={handleEditSeller}
+        sellerToEdit={sellerToEdit}
+      />
+      {/* ~~~~~~~~~~~ View URL modal ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      <ViewUrl
+        open={showSellerUrl}
+        close={handleCloseViewUrl}
+        sellerRefId={sellerRefId}
+      />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */}
       {/* ~~~~~~~~~~ Seller Table ~~~~~~~~~~ */}
       <Paper elevation={3} sx={{ width: "100%" }}>
@@ -401,7 +411,7 @@ export default function SellersTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-    </>
+    </Box>
   );
 }
 

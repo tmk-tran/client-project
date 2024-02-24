@@ -1,12 +1,40 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
+// import React from "react";
+// import Typography from "@mui/material/Typography";
+
+// export default function TotalUpdate({
+//   selectedProducts,
+//   customDonation,
+//   onChange,
+// }) {
+
+//   const total = selectedProducts.reduce(
+//     (acc, product) =>
+//       product.id === 4 || product.bookType === "Donate"
+//         ? acc + Number(customDonation)
+//         : acc + product.price * product.quantity,
+//     0
+//   );
+
+//   onChange(total);
+
+//   return (
+//     <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold" }}>
+//       Order Total: ${total}
+//     </Typography>
+//   );
+// }
+
+import React, { useEffect } from "react";
+import { Typography } from "@mui/material";
 
 export default function TotalUpdate({
   selectedProducts,
   customDonation,
-  onChange,
+  onChange = () => {},
+  caseType,
 }) {
-  
+  console.log(caseType);
+
   const total = selectedProducts.reduce(
     (acc, product) =>
       product.id === 4 || product.bookType === "Donate"
@@ -15,7 +43,9 @@ export default function TotalUpdate({
     0
   );
 
-  onChange(total);
+  useEffect(() => {
+    onChange(total);
+  }, [selectedProducts, customDonation, onChange]);
 
   return (
     <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold" }}>

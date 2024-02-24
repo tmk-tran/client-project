@@ -230,7 +230,7 @@ function HomePage() {
             )}
             <Button
               style={{ marginBottom: "5px" }}
-              variant="outlined"
+              // variant="outlined"
               onClick={handleAddAccountClick}
             >
               {!isMerchantList ? (
