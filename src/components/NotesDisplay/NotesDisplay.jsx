@@ -24,7 +24,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { border } from "../Utils/colors";
+import { border, disabledColor } from "../Utils/colors";
 
 export default function NotesDisplay({
   notes,
@@ -231,14 +231,11 @@ export default function NotesDisplay({
               <div
                 style={{
                   minHeight: "25vh",
-                  backgroundColor: "#f5f5f5",
+                  backgroundColor: disabledColor.color,
                   padding: "20%",
                 }}
               >
-                <Typography
-                  variant="h6"
-                  sx={{ textAlign: "center" }}
-                >
+                <Typography sx={{ textAlign: "center" }}>
                   Notes Empty
                 </Typography>
               </div>

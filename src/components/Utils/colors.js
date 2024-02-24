@@ -10,6 +10,8 @@ export const backgroundColor = { color: "#273B91" };
 
 export const border = { border: "1px solid red" };
 
+export const disabledColor = { color: "#F5F5F5" };
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // For Buttons in Coupon Review components
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -12,7 +12,7 @@ import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import { mTasks, mComments, oTasks } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { capitalizeWords, formatDate } from "../Utils/helpers";
-import { dueDateHighlight } from "../Utils/colors";
+import { disabledColor, dueDateHighlight } from "../Utils/colors";
 
 export default function TableTaskDetails({ mId, caseType }) {
   console.log(mId);
@@ -146,13 +146,13 @@ export default function TableTaskDetails({ mId, caseType }) {
         )
       ) : toDoTasks.length === 0 ? (
         <div
-                style={{
-                  minHeight: "80px",
-                  backgroundColor: "#f5f5f5",
-                  padding: "20%",
-                }}
-              >
-        <Typography sx={{ textAlign: "center" }}>No current tasks</Typography>
+          style={{
+            minHeight: "80px",
+            backgroundColor: disabledColor.color,
+            padding: "20%",
+          }}
+        >
+          <Typography sx={{ textAlign: "center" }}>No current tasks</Typography>
         </div>
       ) : (
         <Table>
