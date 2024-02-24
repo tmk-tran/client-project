@@ -231,7 +231,7 @@ export default function NotesDisplay({
               <div
                 style={{
                   minHeight: "25vh",
-                  backgroundColor: "rgb(243, 243, 243)",
+                  backgroundColor: "#f5f5f5",
                   padding: "20%",
                 }}
               >

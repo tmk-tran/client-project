@@ -10,6 +10,11 @@ import ActionsSpeedDial from "./ActionsSpeedDial";
 import { capitalizeWords } from "../Utils/helpers";
 import { border } from "../Utils/colors";
 import { lineDivider } from "../Utils/modalStyles";
+import NoLocationsCard from "./NoLocationsCard";
+
+export const locationsCardWidth = {
+  width: "56vw",
+};
 
 export default function LocationsCard({
   locations,
@@ -80,42 +85,46 @@ export default function LocationsCard({
         locationToEdit={locationToEdit}
       />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {locations
-        .filter((location) => !location.is_deleted)
-        .map((location, i) => (
-          <Card key={i} elevation={3} sx={{ width: "56vw", mb: 1 }}>
-            <CardContent>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
+      {locations.length === 0 ? (
+        <NoLocationsCard />
+      ) : (
+        locations
+          .filter((location) => !location.is_deleted)
+          .map((location, i) => (
+            <Card key={i} elevation={2} sx={{ ...locationsCardWidth, mb: 1}}>
+              <CardContent>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~~ LOCATION NAME ~~~~~~~~~~ */}
+                  <Typography sx={{ fontWeight: "bold", pt: 1.5 }}>
+                    {capitalizeWords(location.location_name)}
+                  </Typography>
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~ ACTIONS SPEED DIAL ~~~~~~~ */}
+                  <ActionsSpeedDial
+                    handleDelete={handleDelete}
+                    handleEdit={handleEdit}
+                    handleOpenModal={handleOpenModal}
+                    location={location}
+                    toggleEdit={handleEditToggle}
+                  />
+                </div>
+                <Divider sx={{ ...lineDivider, mb: 1 }} />
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                {/* ~~~~~~~~~~ LOCATION NAME ~~~~~~~~~~ */}
-                <Typography sx={{ fontWeight: "bold", pt: 1.5 }}>
-                  {capitalizeWords(location.location_name)}
-                </Typography>
+                {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
+                <LocationsCardTable data={location} isEditing={isEditing} />
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                {/* ~~~~~~~~ ACTIONS SPEED DIAL ~~~~~~~ */}
-                <ActionsSpeedDial
-                  handleDelete={handleDelete}
-                  handleEdit={handleEdit}
-                  handleOpenModal={handleOpenModal}
-                  location={location}
-                  toggleEdit={handleEditToggle}
-                />
-              </div>
-              <Divider sx={{ ...lineDivider, mb: 1 }} />
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~ LOCATION DATA ~~~~~~~~~~ */}
-              <LocationsCardTable data={location} isEditing={isEditing} />
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* <ActionsSpeedDial handleDelete={handleDelete} location={location} /> */}
-            </CardContent>
-          </Card>
-        ))}
+                {/* <ActionsSpeedDial handleDelete={handleDelete} location={location} /> */}
+              </CardContent>
+            </Card>
+          ))
+      )}
     </div>
   );
 }

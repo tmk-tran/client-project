@@ -69,10 +69,9 @@ const AccountMenu = () => {
           history.push("/home");
         }}
       >
-        Organizations
+        Accounts
       </MenuItem>
-      <MenuItem value="merchants">Merchants</MenuItem>
-      <MenuItem value="coupons">Coupons</MenuItem>
+      {/* <MenuItem value="coupons">Coupons</MenuItem> */}
       <hr style={{ width: "90%" }} />
       <MenuItem value="logout" onClick={() => dispatch({ type: "LOGOUT" })}>Logout</MenuItem>
     </Select>

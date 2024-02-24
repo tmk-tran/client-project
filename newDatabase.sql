@@ -85,6 +85,12 @@ ON sellers
 FOR EACH ROW
 EXECUTE FUNCTION log_seller_changes();
 
+------------ Region Table --------------------------------
+CREATE TABLE "region" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"region_name" varchar(150) NOT NULL,
+	"geospatial_map" point
+);
 
 ------------ Location Table --------------------------------
 CREATE TABLE location (
@@ -123,7 +129,7 @@ ALTER TABLE merchant ADD COLUMN merchant_logo bytea;
 ALTER TABLE organization DROP COLUMN IF EXISTS organization_logo;
 
 -- Then, add the merchant_logo column with the bytea data type
-ALTER TABLE organization ADD COLUMN organzization_logo bytea;
+ALTER TABLE organization ADD COLUMN organization_logo bytea;
 
 
 
@@ -158,6 +164,22 @@ CREATE TABLE merchant_comments (
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
+----------------------------------------------------
+----------- Function / Trigger for comments --------
+CREATE FUNCTION before_insert_merchant_comments()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.created_at = COALESCE(NEW.created_at, CURRENT_TIMESTAMP);
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER before_insert_merchant_comments
+BEFORE INSERT ON merchant_comments
+FOR EACH ROW
+EXECUTE FUNCTION before_insert_merchant_comments();
+----------------------------------------------------
+
 
 -------------------- Merchant Tasks --------------------------------
 CREATE TABLE merchant_tasks (
@@ -171,6 +193,20 @@ CREATE TABLE merchant_tasks (
     description character varying(300),
     task_status character varying(100) NOT NULL,
     coupon_details character varying(200),
+    is_deleted boolean DEFAULT false
+);
+
+------------------ Organization Tasks ----------------------------
+CREATE TABLE organization_tasks (
+    id SERIAL PRIMARY KEY,
+    category character varying(200),
+    task character varying(200),
+    organization_id integer,
+    organization_name character varying(75),
+    assign character varying(100) NOT NULL,
+    due_date date NOT NULL,
+    description character varying(300),
+    task_status character varying(100) NOT NULL,
     is_deleted boolean DEFAULT false
 );
 
@@ -192,20 +228,6 @@ CREATE TABLE organization (
     organization_earnings numeric DEFAULT 10,
     organization_logo bytea,
     filename character varying(255)
-);
-
------------------- Organization Tasks ----------------------------
-CREATE TABLE organization_tasks (
-    id SERIAL PRIMARY KEY,
-    category character varying(200),
-    task character varying(200),
-    organization_id integer,
-    organization_name character varying(75),
-    assign character varying(100) NOT NULL,
-    due_date date NOT NULL,
-    description character varying(300),
-    task_status character varying(100) NOT NULL,
-    is_deleted boolean DEFAULT false
 );
 
 ----------------- Sellers -----------------------------
