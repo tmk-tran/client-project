@@ -145,7 +145,15 @@ export default function TableTaskDetails({ mId, caseType }) {
           </Table>
         )
       ) : toDoTasks.length === 0 ? (
+        <div
+                style={{
+                  minHeight: "80px",
+                  backgroundColor: "#f5f5f5",
+                  padding: "20%",
+                }}
+              >
         <Typography sx={{ textAlign: "center" }}>No current tasks</Typography>
+        </div>
       ) : (
         <Table>
           <TableBody>{toDoTasks.map(renderTask)}</TableBody>
