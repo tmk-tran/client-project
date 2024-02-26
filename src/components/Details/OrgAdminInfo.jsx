@@ -5,7 +5,7 @@ export default function OrgAdminInfo() {
     <Box sx={{ position: "absolute", ml: 3, width: "30vw" }}>
       <Typography>
         To start a new fundraiser:
-        <ul>
+        <ol>
           <li>
             <Typography variant="body2">
               Add a group using the Details section to the right
@@ -16,7 +16,7 @@ export default function OrgAdminInfo() {
               Click on the group card below to add a new fundraiser
             </Typography>
           </li>
-        </ul>
+        </ol>
       </Typography>
       <Typography>
         To request more books for your fundraiser:
