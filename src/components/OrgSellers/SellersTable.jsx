@@ -27,6 +27,7 @@ import { errorColor, primaryColor } from "../Utils/colors";
 import { border } from "../Utils/colors";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
 import SellerLink from "../SellerPage/SellerLink";
+import ViewUrlButton from "./ViewUrlButton";
 
 export const columns = [
   { id: "refId", label: "Referral ID", width: 90 },
@@ -254,7 +255,18 @@ export default function SellersTable() {
           ...sellersBorder,
         }}
       >
-        <Typography label="Participating Sellers" variant="h6" sx={{ p: 1 }} />
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <Typography
+            label="Participating Sellers"
+            variant="h6"
+            sx={{ p: 1 }}
+          />
+          <Typography
+            label="URL can be viewed using the button in the Refferel ID column "
+            variant="caption"
+            sx={{ mt: 2.5 }}
+          />
+        </Box>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Add Seller Button ~~~~~~~~ */}
         <CustomButton
@@ -356,17 +368,10 @@ export default function SellersTable() {
                               >
                                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                                 {/* ~~~~~ View URL Icon ~~~~~ */}
-                                <LaunchIcon
+                                <ViewUrlButton
+                                  title="View URLs"
+                                  Icon={LaunchIcon}
                                   onClick={() => handleViewUrl(value)}
-                                  sx={{
-                                    fontSize: "larger",
-                                    color: primaryColor.color,
-                                    "&:hover": {
-                                      color: "#325CAB",
-                                      transition: "transform 0.2s",
-                                      cursor: "pointer",
-                                    },
-                                  }}
                                   onMouseOver={(e) =>
                                     (e.currentTarget.style.transform =
                                       "scale(1.1)")
