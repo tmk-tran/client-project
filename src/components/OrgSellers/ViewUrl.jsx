@@ -21,7 +21,7 @@ const style = {
 };
 
 const dividerMargin = {
-    mt: 1,
+  mt: 1,
 };
 
 export default function ViewUrl({ open, close, sellerRefId }) {
@@ -73,10 +73,13 @@ export default function ViewUrl({ open, close, sellerRefId }) {
                 }}
               >
                 {/* <Typography label={`${sellerUrl}`} sx={{ mt: 1 }} /> */}
-                <UrlLinkTypography sx={{ mt: 1 }} urlForOrder={`www.${sellerUrl}`} />
+                <UrlLinkTypography
+                  sx={{ mt: 1 }}
+                  urlForOrder={sellerUrl}
+                />
                 <CopySnackBar copyToClipboard={copyToClipboard} />
               </div>
-              <Divider sx={{ ...dividerMargin, ...lineDivider}} />
+              <Divider sx={{ ...dividerMargin, ...lineDivider }} />
               <Typography
                 label="To place an order for this seller:"
                 variant="caption"
@@ -91,14 +94,14 @@ export default function ViewUrl({ open, close, sellerRefId }) {
                   marginTop: 10,
                 }}
               >
-                <UrlLinkTypography urlForOrder={`www.${urlForOrder}`} />
+                <UrlLinkTypography urlForOrder={urlForOrder} />
                 <CopySnackBar copyToClipboard={copyOrderUrl} />
               </div>
             </>
           ) : (
             <Typography label="No URL" sx={{ mt: 2 }} />
           )}
-          <Divider sx={{ ...dividerMargin, ...lineDivider}} />
+          <Divider sx={{ ...dividerMargin, ...lineDivider }} />
         </Box>
       </Modal>
     </div>

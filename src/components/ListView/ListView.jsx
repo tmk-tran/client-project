@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./ListView.css";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import Swal from "sweetalert2";
 import EditAccountModal from "../EditAccountModal/EditAccountModal";
 import {
@@ -11,6 +12,8 @@ import {
   primaryColor,
   successColor,
 } from "../Utils/colors";
+import { User } from "../../hooks/reduxStore";
+// ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import ImageRender from "../ImageRender/ImageRender";
 
 function ListView({
@@ -24,6 +27,8 @@ function ListView({
   console.log(data.organization_logo_base64);
   console.log(data.merchant_logo_base64);
   console.log(isMerchantList);
+  const user = User() || {};
+  console.log(user);
   const history = useHistory();
   const dispatch = useDispatch();
   const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -155,7 +160,9 @@ function ListView({
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       {/* ~~~~~~~~~~~ EARNINGS ~~~~~~~~~~~~ */}
                       <Typography variant="body2">
-                        Organization Fee: ${data.organization_earnings}
+                        {!user.org_admin
+                          ? `Organization Fee: $${data.organization_earnings}`
+                          : null}
                       </Typography>
 
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -187,13 +194,14 @@ function ListView({
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       {/* ~~~~~~~~~~ PSG EARNINGS ~~~~~~~~~ */}
                       <Typography variant="body2">
-                        PSG Earnings: $
-                        {(
-                          data.total_books_sold * 25 -
-                          (data.total_org_earnings !== undefined
-                            ? parseFloat(data.total_org_earnings)
-                            : 0)
-                        ).toLocaleString()}
+                        {!user.org_admin
+                          ? `PSG Earnings: $${(
+                            data.total_books_sold * 25 -
+                            (data.total_org_earnings !== undefined
+                              ? parseFloat(data.total_org_earnings)
+                              : 0)
+                          ).toLocaleString()}`
+                        : null}
                       </Typography>
                     </div>
                   </div>
