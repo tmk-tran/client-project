@@ -43,6 +43,7 @@ export default function Details({
 }) {
   console.log(isMerchantTaskPage);
   console.log(isMerchantDetails);
+  console.log(isOrgAdminPage);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
@@ -223,11 +224,11 @@ export default function Details({
         <div className="detailsView-container">
           {[...orgMap.values()].map(({ orgDetails, groups }) => (
             <React.Fragment key={orgDetails.organization_id}>
-              {!isTaskPage && !isMerchantTaskPage && (
+              {!isTaskPage && !isMerchantTaskPage && !isOrgAdminPage && (
                 <NotesDisplay notes={notes} orgDetails={orgDetails} />
               )}
 
-              {isTaskPage && (
+              {isTaskPage && !isOrgAdminPage && (
                 <NotesDisplay
                   notes={notes}
                   orgDetails={orgDetails}
@@ -238,6 +239,7 @@ export default function Details({
               {/* Check if it's a merchant task page */}
               {/* ////////////////////////////////// */}
               {isMerchantTaskPage &&
+                !isOrgAdminPage &&
                 // Map over merchantDetails and pass each object to NotesDisplay
                 merchantDetails.map((merchantInfo) => (
                   <NotesDisplay
@@ -259,7 +261,7 @@ export default function Details({
                   ))
                 ) : (
                   // <OrgContactDetails info={orgDetails} isMerchantTaskPage={isMerchantTaskPage} />
-                  <ContactDetails info={orgDetails} />
+                  <ContactDetails info={orgDetails} isOrgAdminPage={isOrgAdminPage} />
                 )}
                 <br />
               </center>
@@ -271,7 +273,7 @@ export default function Details({
                 </div> */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
-              {!isTaskPage && !isMerchantTaskPage && (
+              {!isTaskPage && !isMerchantTaskPage && !isOrgAdminPage && (
                 // Default content when not on the task page
                 <>
                   <OrgDetailsGoalView
@@ -302,7 +304,7 @@ export default function Details({
                 </>
               )}
 
-              {isTaskPage && (
+              {isTaskPage && !isOrgAdminPage && (
                 // Show task-related content on the task page
                 <>
                   <DetailsTaskView caseType="orgTaskView" />
@@ -310,7 +312,7 @@ export default function Details({
                 </>
               )}
 
-              {isMerchantTaskPage && (
+              {isMerchantTaskPage && !isOrgAdminPage && (
                 <>
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~ TASK SECTION ~~~~~~~~~~ */}

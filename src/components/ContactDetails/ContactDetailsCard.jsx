@@ -14,6 +14,7 @@ export default function ContactDetailsCard({
   isMerchantTaskPage,
   isSmallScreen,
   setIsEditing,
+  isOrgAdminPage,
 }) {
   return (
     <Card
@@ -32,9 +33,11 @@ export default function ContactDetailsCard({
         </Typography>
 
         <div className="contact-info-edit-btn">
-          <Button onClick={handleEditContact} sx={{ fontSize: "16px" }}>
-            Edit
-          </Button>
+          {!isOrgAdminPage && (
+            <Button onClick={handleEditContact} sx={{ fontSize: "16px" }}>
+              Edit
+            </Button>
+          )}
         </div>
       </div>
       <hr style={{ width: "80%" }} />

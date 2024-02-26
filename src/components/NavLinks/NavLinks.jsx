@@ -45,8 +45,8 @@ export default function NavLinks() {
   return (
     <ThemeProvider theme={theme}>
       <div className="NavLinks-container">
-        {/* If no user is logged in, show these links */}
-        {!user.id && (
+        {/* If no user is logged in or user is an org admin, show these links */}
+        {!user.id || user.org_admin ? (
           <>
             {/* <Typography>
             <MuiLink
@@ -79,9 +79,8 @@ export default function NavLinks() {
               </MuiLink>
             </Typography>
           </>
-        )}
-        {/* If a user is logged in, show these links */}
-        {user.id && (
+        ) : (
+          // If a user is logged in and not an org admin, show these links
           <>
             <Typography>
               <MuiLink
@@ -157,7 +156,6 @@ export default function NavLinks() {
                 About
               </MuiLink>
             </Typography>
-
           </>
         )}
       </div>

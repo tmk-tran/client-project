@@ -20,9 +20,14 @@ import { capitalizeWords, formatPhoneNumber } from "../Utils/helpers";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { border } from "../Utils/colors";
 
-export default function ContactDetails({ info, isMerchantTaskPage }) {
+export default function ContactDetails({
+  info,
+  isMerchantTaskPage,
+  isOrgAdminPage,
+}) {
   console.log(info);
   console.log(isMerchantTaskPage);
+  console.log(isOrgAdminPage);
   const dispatch = dispatchHook();
   const contactPhone = isMerchantTaskPage
     ? formatPhoneNumber(info.contact_phone_number)
@@ -58,15 +63,16 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
   return (
     <>
       <div className="org-details">
-        
         <div className="org-address-container">
           <div>
             <center>
               <div className="org-details-header">
                 <div className="edit-icon-btn">
-                  <Button onClick={handleEditOrg}>
-                    <EditNoteIcon className="edit-note-icon" />
-                  </Button>
+                  {!isOrgAdminPage && (
+                    <Button onClick={handleEditOrg}>
+                      <EditNoteIcon className="edit-note-icon" />
+                    </Button>
+                  )}
                 </div>
                 <DetailsEdit
                   isOpen={isEditingOrgDetails}
@@ -110,6 +116,7 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
           isMerchantTaskPage={isMerchantTaskPage}
           isSmallScreen={isSmallScreen}
           setIsEditing={setIsEditing}
+          isOrgAdminPage={isOrgAdminPage}
         />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <Box sx={{ flexGrow: 1 }}></Box>

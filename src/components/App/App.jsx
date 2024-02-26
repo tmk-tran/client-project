@@ -73,136 +73,152 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={theme}>
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '92vh' }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "92vh",
+          }}
+        >
           <Header user={user} />
-          <div style={{ flex: '1 0 auto', padding: '20px' }}>
-          <MenuLinks />
-          <Switch>
-            <Redirect exact from="/" to="/home" />
+          <div style={{ flex: "1 0 auto", padding: "20px" }}>
+            <MenuLinks />
+            <Switch>
+              <Redirect exact from="/" to="/home" />
 
-            <Route exact path="/about">
-              <AboutPage />
-            </Route>
+              <Route exact path="/about">
+                <AboutPage />
+              </Route>
 
-            <ProtectedRoute exact path="/user">
-              <HomePage />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/user">
+                <HomePage />
+              </ProtectedRoute>
 
-            <ProtectedRoute exact path="/userProfile/:id">
-              <UserProfile />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/userProfile/:id">
+                <UserProfile />
+              </ProtectedRoute>
 
-            <ProtectedRoute exact path="/archivedOrganizations">
-              <ArchivedOrganizations />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/archivedOrganizations">
+                <ArchivedOrganizations />
+              </ProtectedRoute>
 
-            <ProtectedRoute exact path="/group/:id">
-              <GroupDetails user={user} />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/group/:id">
+                <GroupDetails user={user} />
+              </ProtectedRoute>
 
-            <ProtectedRoute exact path="/newFundraiser">
-              <GlobalFundraiserInput />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/newFundraiser">
+                <GlobalFundraiserInput />
+              </ProtectedRoute>
 
-            <ProtectedRoute exact path="/coupon">
-              <CouponDesign />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/coupon">
+                <CouponDesign />
+              </ProtectedRoute>
 
-            <ProtectedRoute exact path="/tasks">
-              <TaskTabs />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/tasks">
+                <TaskTabs />
+              </ProtectedRoute>
 
-            {/* ProtectedRoute for /tasks with dynamic tab parameter */}
-            <ProtectedRoute path="/tasks/:tab" component={TaskTabs} />
+              {/* ProtectedRoute for /tasks with dynamic tab parameter */}
+              <ProtectedRoute path="/tasks/:tab" component={TaskTabs} />
 
-            <ProtectedRoute exact path="/orgDetails/:id">
-              <Details
-                isMerchantTaskPage={false}
-                isTaskPage={false}
-                isMerchantDetails={false}
-              />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/orgDetails/:id">
+                {!user.org_admin ? (
+                  <Details
+                    isMerchantTaskPage={false}
+                    isTaskPage={false}
+                    isMerchantDetails={false}
+                    isOrgAdminPage={false}
+                  />
+                ) : (
+                  <Details
+                    isMerchantTaskPage={false}
+                    isTaskPage={false}
+                    isMerchantDetails={false}
+                    isOrgAdminPage={true}
+                  />
+                )}
+              </ProtectedRoute>
 
-            {/* UPDATE THIS WITH CORRECT ID IN OrgTaskDetails */}
-            <ProtectedRoute exact path="/organizationTaskDetails/:id">
-              <Details
-                isMerchantTaskPage={false}
-                isTaskPage={true}
-                isMerchantDetails={false}
-              />
-            </ProtectedRoute>
+              {/* UPDATE THIS WITH CORRECT ID IN OrgTaskDetails */}
+              <ProtectedRoute exact path="/organizationTaskDetails/:id">
+                <Details
+                  isMerchantTaskPage={false}
+                  isTaskPage={true}
+                  isMerchantDetails={false}
+                />
+              </ProtectedRoute>
 
-            {/* UPDATE THIS WITH CORRECT ID IN MerchantTaskDetails */}
-            <ProtectedRoute exact path="/merchantTaskDetails/:id">
-              <Details
-                isMerchantTaskPage={true}
-                isTaskPage={false}
-                isMerchantDetails={true}
-              />
-            </ProtectedRoute>
+              {/* UPDATE THIS WITH CORRECT ID IN MerchantTaskDetails */}
+              <ProtectedRoute exact path="/merchantTaskDetails/:id">
+                <Details
+                  isMerchantTaskPage={true}
+                  isTaskPage={false}
+                  isMerchantDetails={true}
+                />
+              </ProtectedRoute>
 
-            <ProtectedRoute exact path="/coupon/:id">
-              <CouponReviewDetails />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/coupon/:id">
+                <CouponReviewDetails />
+              </ProtectedRoute>
 
-            <ProtectedRoute exact path="/order">
-              <OrderPage />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/order">
+                <OrderPage />
+              </ProtectedRoute>
 
-            <ProtectedRoute exact path="/sellers">
-              <OrgSellers />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/sellers">
+                <OrgSellers />
+              </ProtectedRoute>
 
-            <Route exact path="/seller/:refId/cash">
-              <SellerPage />
-            </Route>
+              <Route exact path="/seller/:refId/cash">
+                <SellerPage />
+              </Route>
 
-            <Route exact path="/seller/:refId/">
-              <OrderPage />
-            </Route>
+              <Route exact path="/seller/:refId/">
+                <OrderPage />
+              </Route>
 
-            <ProtectedRoute exact path="/ordersummary">
-              <ShoppingCart />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/ordersummary">
+                <ShoppingCart />
+              </ProtectedRoute>
 
-            <ProtectedRoute exact path="/checkout">
-              <CheckoutPage />
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/checkout">
+                <CheckoutPage />
+              </ProtectedRoute>
 
-            <Route exact path="/login">
-              {user.id ? (
-                // If the user is already logged in,
-                // redirect to the /user page
-                <Redirect to="/user" />
-              ) : (
-                // Otherwise, show the login page
-                <LoginPage />
-              )}
-            </Route>
+              <Route exact path="/login">
+                {user.id ? (
+                  // If the user is already logged in,
+                  // redirect to the /user page
+                  <Redirect to="/user" />
+                ) : (
+                  // Otherwise, show the login page
+                  <LoginPage />
+                )}
+              </Route>
 
-            <Route exact path="/registration">
-              {user.id ? (
-                // If the user is already logged in,
-                // redirect them to the /user page
-                <Redirect to="/user" />
-              ) : (
-                // Otherwise, show the registration page
-                <RegisterPage />
-              )}
-            </Route>
+              <Route exact path="/registration">
+                {user.id ? (
+                  // If the user is already logged in,
+                  // redirect them to the /user page
+                  <Redirect to="/user" />
+                ) : (
+                  // Otherwise, show the registration page
+                  <RegisterPage />
+                )}
+              </Route>
 
-            <Route exact path="/home">
-              {user.id ? <Redirect to="/user" /> : <LoginPage />}
-            </Route>
+              <Route exact path="/home">
+                {user.id ? <Redirect to="/user" /> : <LoginPage />}
+              </Route>
 
-            {/* If none of the other routes matched, we will show a 404. */}
-            <Route>
-              <h1>404</h1>
-            </Route>
-          </Switch>
+              {/* If none of the other routes matched, we will show a 404. */}
+              <Route>
+                <h1>404</h1>
+              </Route>
+            </Switch>
           </div>
-        {/* <Footer /> */}
-        {/* <Footer2 /> */}
+          {/* <Footer /> */}
+          {/* <Footer2 /> */}
         </div>
         <Footer3 />
       </ThemeProvider>
