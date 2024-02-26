@@ -33,15 +33,6 @@ export const showSaveSweetAlert = (saveCall) => {
 };
 
 // Sweet Alert for RequestBooks.jsx
-// export const requestBooksSweetAlert = (saveCall) => {
-//   saveCall && saveCall();
-//   Swal.fire({
-//     title: "Books Requested!",
-//     icon: "success",
-//     confirmButtonColor: primaryColor.color,
-//   });
-// };
-
 export const requestBooksSweetAlert = (saveCall) => {
   console.log(saveCall);
   Swal.fire({

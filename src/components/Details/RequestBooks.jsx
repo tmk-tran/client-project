@@ -44,6 +44,8 @@ export default function RequestBooks() {
     setOpen(false);
   };
 
+  // ADD DISPATCH LOGIC WHEN WE FIGURE OUT LINKING TO TASKS CREATION...
+  // NEED A NEW COLUMN TO TIE THIS TO A NEW TASK
   const handleSave = () => {
     console.log(inputValue);
     const requestAction = {
