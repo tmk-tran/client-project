@@ -27,7 +27,7 @@ import { errorColor, primaryColor } from "../Utils/colors";
 import { border } from "../Utils/colors";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
 import SellerLink from "../SellerPage/SellerLink";
-import ViewUrlButton from "./ViewUrlButton";
+import ActionButton from "./ActionButton";
 
 export const columns = [
   { id: "refId", label: "Referral ID", width: 90 },
@@ -368,9 +368,10 @@ export default function SellersTable() {
                               >
                                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                                 {/* ~~~~~ View URL Icon ~~~~~ */}
-                                <ViewUrlButton
+                                <ActionButton
                                   title="View URLs"
                                   Icon={LaunchIcon}
+                                  sx={{ fontSize: "25px" }}
                                   onClick={() => handleViewUrl(value)}
                                   onMouseOver={(e) =>
                                     (e.currentTarget.style.transform =

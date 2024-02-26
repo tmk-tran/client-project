@@ -3,7 +3,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { primaryColor } from "../Utils/colors";
 
-const ViewUrlButton = ({ title, Icon, onClick, onMouseOver, onMouseOut }) => {
+const ActionButton = ({ title, Icon, sx, onClick, onMouseOver, onMouseOut }) => {
   return (
     <Tooltip title={title}>
     <IconButton
@@ -24,10 +24,10 @@ const ViewUrlButton = ({ title, Icon, onClick, onMouseOver, onMouseOut }) => {
       }}
     >
       {/* <LaunchIcon sx={{ fontSize: "25px" }} /> */}
-      <Icon sx={{ fontSize: "25px" }} />
+      <Icon sx={sx} />
     </IconButton>
     </Tooltip>
   );
 };
 
-export default ViewUrlButton;
+export default ActionButton;
