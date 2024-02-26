@@ -371,7 +371,7 @@ export default function SellersTable() {
                                 <ActionButton
                                   title="View URLs"
                                   Icon={LaunchIcon}
-                                  sx={{ fontSize: "25px" }}
+                                  iconSx={{ fontSize: "25px" }}
                                   onClick={() => handleViewUrl(value)}
                                   onMouseOver={(e) =>
                                     (e.currentTarget.style.transform =
