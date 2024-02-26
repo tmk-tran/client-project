@@ -50,6 +50,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const donations = data.donations;
   const notes = data.notes;
   const organizationId = data.organization_id;
+  const digitalDonations = data.digital_donations;
 
   const queryText = `
         INSERT INTO "sellers" (
@@ -66,9 +67,10 @@ router.post("/", rejectUnauthenticated, (req, res) => {
           "digital",
           "donations",
           "notes",
-          "organization_id"
+          "organization_id",
+          "digital_donations"
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);`;
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15);`;
 
   pool
     .query(queryText, [
@@ -86,6 +88,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       donations,
       notes,
       organizationId,
+      digitalDonations,
     ])
     .then((response) => {
       console.log("response from POST sellers.router: ", response.rows);
@@ -119,7 +122,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
           "donations" = $11,
           "notes" = $12,
           "digital_donations" = $13
-        WHERE "id" = $13;`;
+        WHERE "id" = $14;`;
 
   const values = [
     seller.lastname,

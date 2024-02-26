@@ -50,6 +50,7 @@ export default function SellerForm({
 }) {
   console.log(user);
   console.log(sellerToEdit);
+  console.log(mode);
 
   const initialFormState = columns.reduce((acc, column) => {
     acc[column.id] = [
@@ -80,6 +81,7 @@ export default function SellerForm({
   }, [mode, sellerToEdit]);
 
   const handleChange = (e) => {
+    console.log(e.target.name);
     const { name, value } = e.target;
     const capitalizeValue =
       name === "firstname" ||
@@ -270,7 +272,7 @@ export default function SellerForm({
                 <Grid item xs={3}>
                   <TextField
                     disabled={user.is_admin ? false : true}
-                    name="donations"
+                    name="digital_donations"
                     label="Donations (Digital)"
                     value={formData["digital_donations"]}
                     onChange={handleChange}

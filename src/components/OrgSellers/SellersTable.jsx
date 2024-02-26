@@ -164,6 +164,7 @@ export default function SellersTable() {
 
   const handleClose = () => {
     setOpen(false);
+    setMode("add");
   };
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
