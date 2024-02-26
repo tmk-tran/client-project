@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import "./Details.css";
-import { Typography } from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import ContactDetails from "../ContactDetails/ContactDetails";
 import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
@@ -18,7 +17,9 @@ import BackButton from "../Buttons/BackButton";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import LocationsCard from "../LocationsCard/LocationsCard";
 import AddNewCouponModal from "../CouponReviewCard/AddNewCouponModal";
+import OrgAdminButtons from "./OrgAdminButtons";
 import SellersTable from "../OrgSellers/SellersTable";
+import OrgAdminInfo from "./OrgAdminInfo";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { useAlert } from "../SuccessAlert/useAlert";
@@ -249,6 +250,9 @@ export default function Details({
                     isMerchantTaskPage={isMerchantTaskPage}
                   />
                 ))}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~ Instructions for User ~~~~~~~~~~~ */}
+              {isOrgAdminPage && <OrgAdminInfo />}
 
               <center>
                 {isMerchantTaskPage ? (
@@ -261,10 +265,16 @@ export default function Details({
                   ))
                 ) : (
                   // <OrgContactDetails info={orgDetails} isMerchantTaskPage={isMerchantTaskPage} />
-                  <ContactDetails info={orgDetails} isOrgAdminPage={isOrgAdminPage} />
+                  <ContactDetails
+                    info={orgDetails}
+                    isOrgAdminPage={isOrgAdminPage}
+                  />
                 )}
                 <br />
               </center>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~ Buttons for OrgAdmin ~~~~~~~~~~ */}
+              {isOrgAdminPage && <OrgAdminButtons />}
 
               {/* ~~~~~~~~~~ May use later, disabled for now ~~~~~~~~~~ */}
               {/* <div>
@@ -273,7 +283,7 @@ export default function Details({
                 </div> */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
-              {!isTaskPage && !isMerchantTaskPage && !isOrgAdminPage && (
+              {!isTaskPage && !isMerchantTaskPage && (
                 // Default content when not on the task page
                 <>
                   <OrgDetailsGoalView

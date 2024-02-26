@@ -13,7 +13,13 @@ import {
 } from "../Utils/colors";
 import ImageRender from "../ImageRender/ImageRender";
 
-function ListView({ data, isMerchantList, onChange, editComplete }) {
+function ListView({
+  data,
+  isMerchantList,
+  onChange,
+  editComplete,
+  isOrgAdmin,
+}) {
   console.log(data);
   console.log(data.organization_logo_base64);
   console.log(data.merchant_logo_base64);
@@ -217,17 +223,19 @@ function ListView({ data, isMerchantList, onChange, editComplete }) {
                 data.total_active_fundraisers <= 0 ? "-115px" : "-85px",
             }}
           >
-            <Button
-              style={{ marginRight: "14px" }}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleEdit(data.id);
-              }}
-            >
-              Edit
-            </Button>
+            {!isOrgAdmin && (
+              <Button
+                style={{ marginRight: "14px" }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEdit(data.id);
+                }}
+              >
+                Edit
+              </Button>
+            )}
 
-            {data.total_active_fundraisers <= 0 && (
+            {data.total_active_fundraisers <= 0 && !isOrgAdmin && (
               <Button
                 onClick={(e) => {
                   e.stopPropagation();

@@ -68,6 +68,19 @@ export default function NavLinks() {
                 Login / Register
               </MuiLink>
             </Typography>
+            {/* Add the /home link for org admins */}
+            {user.org_admin && (
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/home"
+                  underline="hover"
+                >
+                  Organizations
+                </MuiLink>
+              </Typography>
+            )}
             <Typography>
               <MuiLink
                 component={Link}

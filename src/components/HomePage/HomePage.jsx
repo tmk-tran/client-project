@@ -23,7 +23,7 @@ import { allMerchants } from "../../hooks/reduxStore.js";
 import { border } from "../Utils/colors.js";
 import { buttonIconSpacing } from "../Utils/helpers.js";
 
-function HomePage() {
+function HomePage({ isOrgAdmin }) {
   const dispatch = useDispatch();
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
@@ -150,25 +150,27 @@ function HomePage() {
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~ TOGGLE VIEWS ~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <Button
-            // variant="outlined"
-            onClick={() => {
-              setIsMerchantList(!isMerchantList);
-            }}
-            sx={{ margin: 2 }}
-          >
-            {!isMerchantList ? (
-              <>
-                <ToggleOnIcon />
-                &nbsp;Merchants
-              </>
-            ) : (
-              <>
-                <ToggleOffIcon />
-                &nbsp;Organizations
-              </>
-            )}
-          </Button>
+          {!isOrgAdmin && (
+            <Button
+              // variant="outlined"
+              onClick={() => {
+                setIsMerchantList(!isMerchantList);
+              }}
+              sx={{ margin: 2 }}
+            >
+              {!isMerchantList ? (
+                <>
+                  <ToggleOnIcon />
+                  &nbsp;Merchants
+                </>
+              ) : (
+                <>
+                  <ToggleOffIcon />
+                  &nbsp;Organizations
+                </>
+              )}
+            </Button>
+          )}
 
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ SEARCH BAR ~~~~~~~~~~~ */}
@@ -196,7 +198,11 @@ function HomePage() {
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <Typography
           variant="h5"
-          sx={{ fontWeight: "bold", textAlign: "center" }}
+          sx={{
+            fontWeight: "bold",
+            textAlign: "center",
+            mt: isOrgAdmin ? 3 : 0,
+          }}
         >
           {!isMerchantList ? "Organization List" : "Merchant List"}
         </Typography>
@@ -228,23 +234,27 @@ function HomePage() {
                 clearInput={clearInput}
               />
             )}
-            <Button
-              style={{ marginBottom: "5px" }}
-              // variant="outlined"
-              onClick={handleAddAccountClick}
-            >
-              {!isMerchantList ? (
-                <>
-                  <AddBoxIcon sx={buttonIconSpacing} />
-                  Organization
-                </>
-              ) : (
-                <>
-                  <AddBoxIcon sx={buttonIconSpacing} />
-                  Merchant
-                </>
-              )}
-            </Button>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ Add Account Button ~~~~~~~~~~ */}
+            {!isOrgAdmin && (
+              <Button
+                style={{ marginBottom: "5px" }}
+                // variant="outlined"
+                onClick={handleAddAccountClick}
+              >
+                {!isMerchantList ? (
+                  <>
+                    <AddBoxIcon sx={buttonIconSpacing} />
+                    Organization
+                  </>
+                ) : (
+                  <>
+                    <AddBoxIcon sx={buttonIconSpacing} />
+                    Merchant
+                  </>
+                )}
+              </Button>
+            )}
           </div>
         </div>
 
@@ -273,6 +283,7 @@ function HomePage() {
                     onChange={handleEdit}
                     editComplete={editComplete}
                     setEditComplete={setEditComplete}
+                    isOrgAdmin={isOrgAdmin}
                   />
                 ))
             // <div>Not Merchant List</div>

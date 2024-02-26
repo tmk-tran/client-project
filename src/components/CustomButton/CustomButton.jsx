@@ -9,6 +9,7 @@ export default function CustomButton({
   sx,
   disabled,
   fullWidth,
+  Icon,
 }) {
   return (
     <Button
@@ -19,7 +20,7 @@ export default function CustomButton({
       disabled={disabled}
       fullWidth={fullWidth}
     >
-      {label}
+      {label}{Icon && Icon}
     </Button>
   );
 }

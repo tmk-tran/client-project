@@ -91,7 +91,11 @@ function App() {
               </Route>
 
               <ProtectedRoute exact path="/user">
-                <HomePage />
+                {!user.org_admin ? (
+                  <HomePage isOrgAdmin={false} />
+                ) : (
+                  <HomePage isOrgAdmin={true} />
+                )}
               </ProtectedRoute>
 
               <ProtectedRoute exact path="/userProfile/:id">
