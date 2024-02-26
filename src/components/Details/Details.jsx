@@ -272,6 +272,7 @@ export default function Details({
                 )}
                 <br />
               </center>
+              
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ Buttons for OrgAdmin ~~~~~~~~~~ */}
               {isOrgAdminPage && <OrgAdminButtons />}

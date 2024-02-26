@@ -31,3 +31,35 @@ export const showSaveSweetAlert = (saveCall) => {
     confirmButtonColor: primaryColor.color,
   });
 };
+
+// Sweet Alert for RequestBooks.jsx
+// export const requestBooksSweetAlert = (saveCall) => {
+//   saveCall && saveCall();
+//   Swal.fire({
+//     title: "Books Requested!",
+//     icon: "success",
+//     confirmButtonColor: primaryColor.color,
+//   });
+// };
+
+export const requestBooksSweetAlert = (saveCall) => {
+  console.log(saveCall);
+  Swal.fire({
+    title: "Are you sure?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: successColor.color,
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Request Books",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Execute the callback if the user confirms
+      saveCall && saveCall();
+      Swal.fire({
+        title: "Books Requested!",
+        icon: "success",
+        confirmButtonColor: primaryColor.color,
+      });
+    }
+  });
+};
