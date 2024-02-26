@@ -262,7 +262,7 @@ export default function SellersTable() {
             sx={{ p: 1 }}
           />
           <Typography
-            label="URL can be viewed using the button in the Refferel ID column "
+            label="URL can be viewed using the button in the Refferal ID column "
             variant="caption"
             sx={{ mt: 2.5 }}
           />
