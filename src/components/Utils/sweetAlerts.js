@@ -8,13 +8,13 @@ export const showDeleteSweetAlert = (deleteCall) => {
     showCancelButton: true,
     confirmButtonColor: successColor.color,
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
+    confirmButtonText: "Yes, archive it!",
   }).then((result) => {
     if (result.isConfirmed) {
       // Execute the callback if the user confirms
       deleteCall && deleteCall();
       Swal.fire({
-        title: "Deleted!",
+        title: "Archived!",
         icon: "success",
         confirmButtonColor: primaryColor.color,
       });

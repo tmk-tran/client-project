@@ -79,14 +79,14 @@ export default function RequestBooks() {
       >
         <Box sx={style}>
           <Typography id="paper-coupon-request" variant="h6">
-            Paper Coupon Request
+            Request Paper Books
           </Typography>
           <Divider sx={lineDivider} />
           <Typography
             id="Please enter the quantity of books you would like to request"
             sx={{ mt: 2 }}
           >
-            Please enter the quantity of books you would like to request
+            Please enter the quantity of books you would like to request:
           </Typography>
           <TextField
             label="Quantity"
