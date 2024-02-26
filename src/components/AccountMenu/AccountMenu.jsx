@@ -54,26 +54,32 @@ const AccountMenu = () => {
       >
         Profile
       </MenuItem>
-      <hr style={{ width: "90%" }} />
-      <MenuItem
-        value="tasks"
-        onClick={() => {
-          history.push("/tasks");
-        }}
-      >
-        Tasks
-      </MenuItem>
-      <MenuItem
-        value="organizations"
-        onClick={() => {
-          history.push("/home");
-        }}
-      >
-        Accounts
-      </MenuItem>
+      {!user.org_admin && (
+        <>
+          <hr style={{ width: "90%" }} />
+          <MenuItem
+            value="tasks"
+            onClick={() => {
+              history.push("/tasks");
+            }}
+          >
+            Tasks
+          </MenuItem>
+          <MenuItem
+            value="organizations"
+            onClick={() => {
+              history.push("/home");
+            }}
+          >
+            Accounts
+          </MenuItem>
+        </>
+      )}
       {/* <MenuItem value="coupons">Coupons</MenuItem> */}
       <hr style={{ width: "90%" }} />
-      <MenuItem value="logout" onClick={() => dispatch({ type: "LOGOUT" })}>Logout</MenuItem>
+      <MenuItem value="logout" onClick={() => dispatch({ type: "LOGOUT" })}>
+        Logout
+      </MenuItem>
     </Select>
   );
 };
