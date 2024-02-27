@@ -27,37 +27,6 @@ router.get("/:refId", (req, res) => {
     });
 });
 
-// router.put("/:id", (req, res) => {
-//   const sellerInfo = req.body;
-//   const sellerId = req.params.id;
-//   console.log("Req.body from sellers = ", sellerInfo);
-//   const refId = sellerInfo.refId;
-//   console.log("refId from sellers = ", refId);
-
-//   const queryText = `
-//           UPDATE
-//             "sellers"
-//           SET
-//             "cash" = "cash" + $1
-//           WHERE
-//             "id" = $2
-//           AND
-//             "refId" = $3
-//           ;`;
-
-//   const values = [sellerInfo.cash, sellerId, refId];
-
-//   pool
-//     .query(queryText, values)
-//     .then((response) => {
-//       res.sendStatus(200);
-//     })
-//     .catch((err) => {
-//       console.log("error with sellerPage PUT route", err);
-//       res.sendStatus(500);
-//     });
-// });
-
 router.put("/:id", (req, res) => {
   const sellerId = req.params.id;
   const sellerInfo = req.body;

@@ -11,9 +11,6 @@ export default function UrlDisplay({ sellerRefId }) {
   console.log(sellerUrl);
   const [urlForOrder, setUrlForOrder] = useState("");
   console.log(urlForOrder);
-//   const [pathForLink, setPathForLink] = useState(urlForOrder ? urlForOrder.split("")[1] : "");
-//   console.log(pathForLink);
-// const pathForLink = "/seller/AAA8473";
 
   // Set the url for the order
   useEffect(() => {
@@ -22,11 +19,6 @@ export default function UrlDisplay({ sellerRefId }) {
       setUrlForOrder(orderUrl(sellerRefId));
     }
   }, [sellerRefId]);
-
-  // Set the path for the clickable link
-//   useEffect(() => {
-//     setPathForLink(urlForOrder ? urlForOrder.split("#/")[1] : "");
-//   }, [urlForOrder]);
 
   const copyOrderUrl = () => {
     navigator.clipboard.writeText(urlForOrder);

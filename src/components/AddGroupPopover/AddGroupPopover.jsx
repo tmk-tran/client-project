@@ -12,10 +12,12 @@ import {
 } from "@mui/material/";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import "./AddGroupPopover.css";
-// Utils
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { modalBtnStyle, showToast } from "../Utils/helpers";
-import ModalButtons from "../Modals/ModalButtons";
 import { border } from "../Utils/colors";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
+// ~~~~~~~~~~ Components ~~~~~~~~~~ //
+import ModalButtons from "../Modals/ModalButtons";
 
 export default function BasicPopover({ info, groups, onChange }) {
   console.log(info);
@@ -64,6 +66,7 @@ export default function BasicPopover({ info, groups, onChange }) {
     setSubDepartment("");
     setDescription("");
     onChange();
+    showSaveSweetAlert();
     handleClose();
   };
 

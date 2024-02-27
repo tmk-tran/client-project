@@ -73,10 +73,7 @@ export default function ViewUrl({ open, close, sellerRefId }) {
                 }}
               >
                 {/* <Typography label={`${sellerUrl}`} sx={{ mt: 1 }} /> */}
-                <UrlLinkTypography
-                  sx={{ mt: 1 }}
-                  urlForOrder={sellerUrl}
-                />
+                <UrlLinkTypography sx={{ mt: 1 }} urlForOrder={sellerUrl} />
                 <CopySnackBar copyToClipboard={copyToClipboard} />
               </div>
               <Divider sx={{ ...dividerMargin, ...lineDivider }} />

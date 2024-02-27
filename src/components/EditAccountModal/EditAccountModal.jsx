@@ -92,7 +92,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
     mb: 5,
   };
 
-  // NNED TO ADD THE LOGO TO THE STATE OF THE MODAL SO IT DOESNT ERASE WHEN EDITING
+  // NEED TO ADD THE LOGO TO THE STATE OF THE MODAL SO IT DOESNT ERASE WHEN EDITING
   return (
     <div>
       <Modal

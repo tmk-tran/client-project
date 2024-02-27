@@ -48,16 +48,6 @@ export default function NavLinks() {
         {/* If no user is logged in or user is an org admin, show these links */}
         {!user.id || user.org_admin ? (
           <>
-            {/* <Typography>
-            <MuiLink
-              component={Link}
-              className="main-navlink"
-              to="/publicOrgs"
-              underline="hover"
-            >
-              View Organizations
-            </MuiLink>
-          </Typography> */}
             <Typography>
               <MuiLink
                 component={Link}
