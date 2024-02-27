@@ -26,8 +26,9 @@ export default function orgDetails() {
   const id = Number(useParams().id);
   const dispatch = useDispatch();
   // Store
+  const auth = useSelector((store) => store.auth)
   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
-  const groups = useSelector((store) => store.orgGroups);
+  const group = useSelector((store) => store.orgGroups);
   const notes = useSelector((store) => store.orgNotes);
   console.log(id)
   // State
@@ -35,64 +36,66 @@ export default function orgDetails() {
   useEffect(() => {
     dispatch({
       type: "FETCH_ORG_DETAILS",
-      payload: id,
-    });}, [])
-    useEffect(() => {
+      payload: { id: id, auth: auth },
+    });
+  }, [])
+  useEffect(() => {
     dispatch({
       type: "FETCH_ORG_GROUPS",
-      payload: id,
+      payload: { id: id, auth: auth },
     });
     dispatch({
       type: "FETCH_ORG_NOTES",
-      payload: id,
+      payload: { id: id, auth: auth },
     });
     dispatch({
       type: "FETCH_ORGANIZATIONS",
+      payload: auth,
     });
     dispatch({
       type: "FETCH_ORG_FUNDRAISERS",
-      payload: id,
+      payload: { id: id, auth: auth },
     });
   }, [detailsOrg]);
 
   // // Create a map to store organization details and associated groups
-  // const orgMap = new Map();
+  const orgMap = new Map();
 
-  // // Populate the map with unique organizations and associated groups
-  // detailsOrg.forEach((info) => {
-  //   const orgId = info.organization_id;
+  // Populate the map with unique organizations and associated groups
+  detailsOrg.forEach((info) => {
+    const orgId = info.organization_id;
 
-  //   if (!orgMap.has(orgId)) {
-  //     orgMap.set(orgId, { orgDetails: info, groups: [] });
-  //   }
 
-  //   // Add group details to the associated organization
-  //   orgMap.get(orgId).groups.push({
-  //     group_id: info.group_id,
-  //     department: info.department,
-  //     sub_department: info.sub_department,
-  //     group_nickname: info.group_nickname,
-  //     group_photo: info.group_photo,
-  //     group_description: info.group_description,
-  //     goal: info.sum,
-  //   });
-  // });
+    if (!orgMap.has(orgId)) {
+      orgMap.set(orgId, { orgDetails: info, groups: [] });
+    }
+
+     // Add group details to the associated organization
+    orgMap.get(orgId).groups.push({
+      group_id: info.group_id,
+      department: info.department,
+      sub_department: info.sub_department,
+      group_nickname: info.group_nickname,
+      group_photo: info.group_photo,
+      group_description: info.group_description,
+      goal: info.sum,
+    });
+  });
 
   return (
     <div
-      className={`OrgDetails-container ${isSmallScreen ? "small-screen" : ""}`}
+      className={`details-container ${isSmallScreen ? "small-screen" : ""}`}
     >
-      <Card className="OrgDetails-card" elevation={3}>
+      <Card className="details-card" elevation={3}>
         <CardContent>
           <div className="detailsOrg-container">
             {/* Iterate over the unique organizations in the map */}
-            {/* {notes.map(( notes ) => ( */}
-              {/* // <React.Fragment key={orgDetails.organization_id}> */}
-              <>
-                <OrgNotesDisplay notes={notes} info={detailsOrg} />
+            {[...orgMap.values()].map(({ orgDetails, groups }) => (
+              <React.Fragment key={orgDetails.organization_id}>
+                <OrgNotesDisplay notes={notes} orgDetails={orgDetails} />
                 {/* Display organization details once */}
                 <center>
-                  <OrgContactDetails info={detailsOrg} />
+                  <OrgContactDetails info={orgDetails} />
                   <br />
                 </center>
 
@@ -107,39 +110,36 @@ export default function orgDetails() {
 
                 {/* Add Buttons */}
                 <div>
-                  {/* Notes Section */}
-                  {/* <OrgNotesModal
+                  {/* Notes Section
+                  <OrgNotesModal
                     info={orgDetails}
-                  /> */}
+                  /> 
                   {/* Add Groups */}
-                  {/* <AddGroupPopover info={orgDetails} /> */}
+                  {/*<AddGroupPopover info={orgDetails} /> */}
                 </div>
 
-                {/* <OrgDetailsGoalView /> */}
-                <OrgDetailsGoalView  groups={groups} info={detailsOrg}/>
+                {/* <OrgDetailsGoalView />  */}
+                <OrgDetailsGoalView groups={groups} info={detailsOrg} />
 
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
-                  
-                    {groups.map((groupInfo, i) => {
-                      return(
-                      groups !== null ? (
+                  {groups && groups.some((group) => group.group_id !== null) ? (
+                    group.map((groupInfo, i) => (
                       <OrgGroupInfo
-                        key={groupInfo.id}
+                        key={groupInfo.group_id}
                         groupInfo={groupInfo}
                         groupNumber={i + 1}
                       />
-                    ) : (
+                    ))
+                  ) : (
                     <div style={{ height: "200px" }}>
                       <Typography variant="h6">No Groups Assigned</Typography>
                     </div>
-                    )
-                    )
-                    })}
+                  )}
                 </div>
-              {/* // </React.Fragment> */}
-              </>
-           
+              </React.Fragment>
+            ))}
+
           </div>
         </CardContent>
       </Card>

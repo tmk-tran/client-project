@@ -4,11 +4,28 @@ import { put, takeEvery } from "redux-saga/effects";
 function* orgNotes(action) {
   console.log(action.payload);
   try {
-    const items = yield axios.post(`/api/orgnotes/${action.payload}`);
-    console.log("FETCH request from orgNotes.saga, ITEMS = ", items.data);
-    yield put({ type: "SET_ORG_NOTES", payload: items.data });
-  } catch {
-    console.log("error in orgNotes Saga");
+    const auth_response = action.payload.auth
+        const ACCESS_TOKEN = auth_response.data.access_token;
+        const QUERY_URL = auth_response.data.routes.query;
+        const query = `{\r\n    organization_notes(filter: "organization_id = ${action.payload.id}") {\r\n id\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n}`
+
+        const queryConfig = {
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${ACCESS_TOKEN}`,
+          },
+      };
+
+      const data = new FormData();
+      data.append("query", query);
+      data.append("variables", `{}`);
+
+      const response = yield axios.post(QUERY_URL, data, queryConfig);
+      console.log(response)
+    console.log("FETCH request from orgNotes.saga, ITEMS = ", response.data);
+    yield put({ type: "SET_ORG_NOTES", payload: response.data.organization_notes });
+  } catch(error) {
+    console.log("error in orgNotes Saga", error);
   }
 }
 

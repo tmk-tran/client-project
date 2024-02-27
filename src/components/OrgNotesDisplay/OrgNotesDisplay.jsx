@@ -22,6 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function OrgNotesDisplay() {
   const notes = useSelector((store) => store.orgNotes)
+  const auth = useSelector((store) => store.auth)
   const id = notes.id
   const dispatch = useDispatch();
   const paramsObject = useParams();
@@ -38,7 +39,7 @@ export default function OrgNotesDisplay() {
     // Fetch org notes whenever noteAdded changes
     dispatch({
       type: "FETCH_ORG_NOTES",
-      payload: paramsObject.id,
+      payload: {id: paramsObject.id, auth: auth}
     });
 
     // Reset noteAdded after fetching data
@@ -86,14 +87,12 @@ export default function OrgNotesDisplay() {
             Notes
           </Typography>
           <div className="orgNotes-container">
-          {notes.map(note => {
-            return(
-              <>
-            {note ? (
+            {notes && notes.length > 0 ? (
               <div>
-                
-                    <div className="note-main-container" key={id}>
-                      
+                {notes
+                  .filter((note) => !note.is_deleted) // Filter out deleted notes
+                  .map((note, i) => (
+                    <div className="note-main-container" key={i}>
                       <Typography sx={{ mt: 1 }} variant="caption">
                         {formatDate(note.note_date)}
                       </Typography>
@@ -103,6 +102,7 @@ export default function OrgNotesDisplay() {
                           justifyContent: "space-between",
                         }}
                       >
+                        
                         {/* <li style={{ marginLeft: "10%" }}>
                           {note.note_content.charAt(0).toUpperCase() +
                             note.note_content.slice(1).toLowerCase()}
@@ -117,7 +117,7 @@ export default function OrgNotesDisplay() {
                               )
                               .join(" ")}
                         </li>
-                        
+
                         <Button
                           className="notes-delete-btn"
                           onClick={() =>
@@ -132,6 +132,7 @@ export default function OrgNotesDisplay() {
                         style={{ width: "85%", border: "1px solid #273b91" }}
                       />
                     </div>
+                  ))}
               </div>
             ) : (
               <Typography
@@ -143,12 +144,8 @@ export default function OrgNotesDisplay() {
               >
                 None Available
               </Typography>
-              )}
-              </>
-            )
-              })}
+            )}
           </div>
-         
           <div>
             <TextField
               label="Add a note..."

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./OrgListView.css";
@@ -9,6 +9,9 @@ import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
 function OrgListView({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
+  // const aggs = useSelector((store) => store.organizations.
+  // Aggregate)
+  // console.log(aggs)
   // const organizationsList = useSelector((store) => store.organizations);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
@@ -63,19 +66,20 @@ function OrgListView({ organization }) {
   };
   // history.push to org details page
   function goToDetails() {
-    history.push(`/orgDetails/${organization.id}`);
+    history.push(`/OrgDetails/${organization.id}`);
   }
-  // formats the money amount to have a comma over $1000
-  const totalOrgEarnings = parseFloat(organization.total_org_earnings);
-  const formattedEarnings = totalOrgEarnings.toLocaleString();
 
-  // variables for the book amounts to be able to do the quick math here
-  const totalCheckedOutBooks = organization.total_checked_out_books;
-  const totalCheckedInBooks = organization.total_checked_in_books;
-  const totalBooksSold = organization.total_books_sold;
-  const totalStandingBooks =
-    totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
+  // // formats the money amount to have a comma over $1000
+  // const totalOrgEarnings = parseFloat(organization.total_org_earnings);
+  // const formattedEarnings = totalOrgEarnings.toLocaleString();
 
+  // // variables for the book amounts to be able to do the quick math here
+  // const totalCheckedOutBooks = organization.total_checked_out_books;
+  // const totalCheckedInBooks = organization.total_checked_in_books;
+  // const totalBooksSold = organization.total_books_sold;
+  // const totalStandingBooks =
+  //   totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
+  
   return (
     <>
       <Card className="organizationListContainer">
@@ -89,7 +93,7 @@ function OrgListView({ organization }) {
                 </Typography>
                 <div className="detailsContainer">
                   <div className="column">
-                    <Typography variant="body2">
+                    {/* <Typography variant="body2">
                       Organization Fee: ${organization.organization_earnings}
                     </Typography>
                     <Typography variant="body2">
@@ -105,7 +109,7 @@ function OrgListView({ organization }) {
                     </Typography>
                     <Typography variant="body2">
                       Total Outstanding Books: {totalStandingBooks}
-                    </Typography>
+                    </Typography> */}
                     <Typography variant="body2">
                       PSG Earnings: $
                       {(

@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import LogoPSG from "../LogoPSG/LogoPSG";
 import NavLinks from "../NavLinks/NavLinks";
-import { ApolloClient, InMemoryCache, gql, useQuery } from "@apollo/client"
 
 import {
   Button,

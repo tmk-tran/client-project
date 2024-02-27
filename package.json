@@ -7,7 +7,6 @@
     "node": "18.x"
   },
   "dependencies": {
-    "@apollo/client": "^3.9.5",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.16",
@@ -18,7 +17,6 @@
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "fuse.js": "^7.0.0",
-    "graphql": "^16.8.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pg": "^8.5.1",

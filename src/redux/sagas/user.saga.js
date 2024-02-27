@@ -5,6 +5,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchUser(action) {
   try {
     const auth_response = action.payload
+    
     // the config includes credentials which
     // allow the server session to recognize the user
     // If a user is logged in, this will return their information
