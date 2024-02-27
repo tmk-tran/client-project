@@ -5,8 +5,27 @@ import { takeEvery, put } from "redux-saga/effects";
 function* fetchGroupSaga(action) {
     try {
         console.log(action.payload)
-        const response = yield axios.post(`/api/group/fetchgroup/${action.payload}`)
-        yield put({ type: "SET_GROUP_DETAILS", payload: response.data })
+        const auth_response = action.payload.auth
+        const ACCESS_TOKEN = auth_response.data.access_token;
+        const QUERY_URL = auth_response.data.routes.query;
+        const query = `{\r\n  group (filter: "id = ${action.payload.id}"){\r\n id\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n fundraiser_collection{\r\n id\r\n group_id\r\n title\r\n description\r\n  requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n}`;
+        
+        
+        
+        const queryConfig = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${ACCESS_TOKEN}`,
+            },
+        };
+
+        const data = new FormData();
+        data.append("query", query);
+        data.append("variables", `{}`);
+
+        const response = yield axios.post(QUERY_URL, data, queryConfig);
+        console.log(response)
+        yield put({ type: "SET_GROUP_DETAILS", payload: response.data.group })
     } catch (err) {
         console.log("Error fetching group details", err)
     }

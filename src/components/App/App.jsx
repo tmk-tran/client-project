@@ -50,9 +50,9 @@ console.log(user)
     dispatch({ type: "FETCH_USER", payload: auth });
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch({ type: "FETCH_COUPON_BOOKS" })
-  // }, [user]);
+  useEffect(() => {
+    dispatch({ type: "FETCH_COUPON_BOOKS", payload: auth})
+  }, [user]);
 
   return (
 

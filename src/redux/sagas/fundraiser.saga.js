@@ -5,8 +5,27 @@ import { takeEvery, put } from "redux-saga/effects";
 //Fetches fundraiser data based on the group id
 function* fetchFundraisersSaga(action) {
     try {
-        const response = yield axios.post(`/api/fundraisers/groupfundraisers/${Number(action.payload)}`)
-        yield put({ type: "SET_FUNDRAISERS", payload: response.data })
+        const auth_response = action.payload.auth
+        const ACCESS_TOKEN = auth_response.data.access_token;
+        const QUERY_URL = auth_response.data.routes.query;
+        const query = `{\r\n   fundraiser (filter: "group_id = ${action.payload.id}"){\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}coupon_book {\r\n id\r\n year\r\n}\r\n}\r\n}`
+        
+        
+        
+        const queryConfig = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${ACCESS_TOKEN}`,
+            },
+        };
+
+        const data = new FormData();
+        data.append("query", query);
+        data.append("variables", `{}`);
+
+        const response = yield axios.post(QUERY_URL, data, queryConfig);
+        console.log(response)
+        yield put({ type: "SET_FUNDRAISERS", payload: response.data.fundraiser })
         console.log(response.data);
     } catch (err) {
         console.log("Error fetching fundraisers ", err)

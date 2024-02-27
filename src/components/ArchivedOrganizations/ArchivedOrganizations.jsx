@@ -15,8 +15,9 @@ import { useHistory } from "react-router-dom";
 
 export default function ArchivedOrganizations() {
   const dispatch = useDispatch();
+  const auth = useSelector((store) => store.auth)
   useEffect(() => {
-    dispatch({ type: "FETCH_ARCHIVED_ORGANIZATIONS" });
+    dispatch({ type: "FETCH_ARCHIVED_ORGANIZATIONS", payload: auth });
   }, []);
   // how many items you want to see each page
   const itemsPerPage = 12;
@@ -25,7 +26,7 @@ export default function ArchivedOrganizations() {
   const [query, setQuery] = useState(" ");
   const [showInput, setShowInput] = useState(false);
   const user = useSelector((store) => store.user);
-  const archivedList = useSelector((store) => store.archivedOrganizations.organization);
+  const archivedList = useSelector((store) => store.archivedOrganizations);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -56,14 +57,14 @@ export default function ArchivedOrganizations() {
   // find index of item for the pagination stuff
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // const currentItems =
-  //   // searchResult.length > 0
-  //   //   ? searchResult.slice(indexOfFirstItem, indexOfLastItem);
-  //     // : archivedList.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems =
+    searchResult.length > 0
+      ? searchResult.slice(indexOfFirstItem, indexOfLastItem)
+      : archivedList.slice(indexOfFirstItem, indexOfLastItem);
 
-  // const totalItems =
-  //   searchResult.length > 0 ? searchResult.length : archivedList.length;
-  // const pageCount = Math.ceil(totalItems / itemsPerPage);
+  const totalItems =
+    searchResult.length > 0 ? searchResult.length : archivedList.length;
+  const pageCount = Math.ceil(totalItems / itemsPerPage);
 
   // on page change it sets the current page
   const handlePageChange = (event, value) => {
@@ -156,12 +157,12 @@ export default function ArchivedOrganizations() {
         </div>
         <br />
         <div style={{ display: "flex", justifyContent: "center" }}>
-          {/* <Pagination
+          <Pagination
             count={pageCount}
             shape="rounded"
             page={currentPage}
             onChange={handlePageChange}
-          /> */}
+          />
         </div>
         <br />
       </Paper>
