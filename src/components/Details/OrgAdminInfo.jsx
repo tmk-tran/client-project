@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 export default function OrgAdminInfo() {
   return (
     <Box sx={{ position: "absolute", ml: 3, width: "30vw" }}>
-      <Typography>
+      {/* <Typography>
         To start a new fundraiser:
         <ol>
           <li>
@@ -27,7 +27,7 @@ export default function OrgAdminInfo() {
             </Typography>
           </li>
         </ul>
-      </Typography>
+      </Typography> */}
       <Typography sx={{ fontWeight: "bold" }}>
         Participating sellers are listed in the table under groups
         <ul>

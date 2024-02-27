@@ -30,19 +30,19 @@ import SellerLink from "../SellerPage/SellerLink";
 import ActionButton from "./ActionButton";
 
 export const columns = [
-  { id: "refId", label: "Referral ID", width: 90 },
-  { id: "lastname", label: "Last Name", width: 100 },
+  { id: "refId", label: "Referral ID", minWidth: 100 },
+  { id: "lastname", label: "Last Name", minWidth: 90 },
   {
     id: "firstname",
     label: "First Name",
     align: "right",
-    width: 100,
+    minWidth: 90,
   },
   {
     id: "level",
     label: "Level / Grade",
     align: "right",
-    width: 75,
+    minWidth: 75,
   },
   {
     id: "teacher",
@@ -88,7 +88,7 @@ export const columns = [
     id: "cash",
     label: "Cash",
     align: "right",
-    width: 75,
+    // width: 75,
   },
   {
     id: "notes",
@@ -313,6 +313,8 @@ export default function SellersTable() {
                       wordWrap: "break-word",
                       border: "1px solid #f0f0f0",
                       backgroundColor: "#d9d9d9",
+                      lineHeight: 1,
+                      fontSize: "1.1rem",
                     }}
                   >
                     {column.label}
@@ -364,8 +366,12 @@ export default function SellersTable() {
                                   display: "flex",
                                   alignItems: "center",
                                   justifyContent: "flex-end",
+                                  ...border,
+                                  // position: 'absolute',
+                                  // bottom: 0,
                                 }}
                               >
+                                {value}
                                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                                 {/* ~~~~~ View URL Icon ~~~~~ */}
                                 <ActionButton
@@ -385,20 +391,21 @@ export default function SellersTable() {
                               </div>
                             )}
                             {/* ~~~~~ Action Icons ~~~~~ */}
-                            {column.id === "actions" ? (
-                              <>
-                                <ActionIcons
-                                  seller={seller}
-                                  onEdit={(id) => handleEditOpen(id, "edit")}
-                                  handleArchive={handleArchive}
-                                />
-                                {/* <SellerLink seller={seller} /> */}
-                              </>
-                            ) : column.format && typeof value === "number" ? (
-                              column.format(value)
-                            ) : (
-                              value
-                            )}
+                            {column.id !== "refId" &&
+                              (column.id === "actions" ? (
+                                <>
+                                  <ActionIcons
+                                    seller={seller}
+                                    onEdit={(id) => handleEditOpen(id, "edit")}
+                                    handleArchive={handleArchive}
+                                  />
+                                  {/* <SellerLink seller={seller} /> */}
+                                </>
+                              ) : column.format && typeof value === "number" ? (
+                                column.format(value)
+                              ) : (
+                                value
+                              ))}
                           </TableCell>
                         );
                       })}
