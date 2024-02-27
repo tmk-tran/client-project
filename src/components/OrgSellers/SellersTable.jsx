@@ -364,11 +364,7 @@ export default function SellersTable() {
                               <div
                                 style={{
                                   display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "flex-end",
-                                  ...border,
-                                  // position: 'absolute',
-                                  // bottom: 0,
+                                  justifyContent: "space-between",
                                 }}
                               >
                                 {value}
