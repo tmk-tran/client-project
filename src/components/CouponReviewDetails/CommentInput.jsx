@@ -4,7 +4,6 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { User } from "../../hooks/reduxStore";
-import CouponDesign from "../CouponDesign/CouponDesign";
 import { border } from "../Utils/colors";
 import FilePreview from "./FilePreview";
 import { capitalizeFirstWord } from "../Utils/helpers";

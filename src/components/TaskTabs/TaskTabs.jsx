@@ -92,98 +92,99 @@ export default function BasicTabs() {
   };
 
   return (
-    <Card className="details-card" elevation={3}>
-      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} caseType="NewTask" />
-
-      <CardContent>
+    <>
+      <SuccessAlert
+        isOpen={isAlertOpen}
+        onClose={handleAlertClose}
+        caseType="NewTask"
+      />
+      <Box
+        sx={{
+          width: "60vw",
+          margin: "0 auto",
+          // height: "80vh",
+          padding: "35px",
+        }}
+      >
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~ Page Header ~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        <Typography
+          variant="h5"
+          sx={{ textAlign: "center", ...styleTaskHeaders }}
+        >
+          Task Management
+        </Typography>
+        {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
         <Box
           sx={{
-            width: "60vw",
-            margin: "0 auto",
-            height: "80vh",
-            padding: "35px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "divider",
+            marginBottom: 3,
+            paddingY: 2,
           }}
         >
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~ Page Header ~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~ Tab Headers ~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <Typography
-            variant="h5"
-            sx={{ textAlign: "center", ...styleTaskHeaders }}
+          <Tabs
+            value={value}
+            // value={currentTab}
+            onChange={handleChange}
+            aria-label="basic tabs example"
           >
-            Task Management
-          </Typography>
-          {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "divider",
-              marginBottom: 3,
-              paddingY: 2,
-            }}
-          >
-            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            {/* ~~~~~~~~~~~~~~ Tab Headers ~~~~~~~~~~~~~~ */}
-            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            <Tabs
-              value={value}
-              // value={currentTab}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-            >
-              <Tab
-                label="Organization"
-                {...a11yProps(0)}
-                sx={tabWidth}
-                // onClick={() => setMerchantTab(false)}
-                onClick={() => setActiveTab("organization")}
-              />
-              <Tab
-                label="Merchant"
-                {...a11yProps(1)}
-                // onClick={() => setMerchantTab(true)}
-                onClick={handleMerchantTab}
-                sx={tabWidth}
-              />
-              {/* <Tab label="Coupons" {...a11yProps(2)} /> */}
-            </Tabs>
-            <NewTaskModal
-              customIcon={<AddBoxIcon />}
-              customText="Task"
-              merchantTab={merchantTab}
-              onChange={handleTaskUpdate}
+            <Tab
+              label="Organization"
+              {...a11yProps(0)}
+              sx={tabWidth}
+              // onClick={() => setMerchantTab(false)}
+              onClick={() => setActiveTab("organization")}
             />
-            {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
-
-            {/* <div style={{ flexGrow: 0.3 }}></div> */}
-            {/* <SearchBar /> */}
-          </Box>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~ Tab Body ~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <TabPanel value={value} index={0}>
-            <TaskListOrg />
-            {/* <TaskList taskType={type} /> */}
-          </TabPanel>
-
-          <TabPanel value={value} index={1}>
-            <TaskListMerchant />
-            {/* <TaskList taskType={type} /> */}
-          </TabPanel>
+            <Tab
+              label="Merchant"
+              {...a11yProps(1)}
+              // onClick={() => setMerchantTab(true)}
+              onClick={handleMerchantTab}
+              sx={tabWidth}
+            />
+            {/* <Tab label="Coupons" {...a11yProps(2)} /> */}
+          </Tabs>
+          <NewTaskModal
+            customIcon={<AddBoxIcon />}
+            customText="Task"
+            merchantTab={merchantTab}
+            onChange={handleTaskUpdate}
+          />
           {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~ Coupon Tab (unused) ~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* <TabPanel value={value} index={2}>
+          {/* <div style={{ flexGrow: 0.3 }}></div> */}
+          {/* <SearchBar /> */}
+        </Box>
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~ Tab Body ~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        <TabPanel value={value} index={0}>
+          <TaskListOrg />
+          {/* <TaskList taskType={type} /> */}
+        </TabPanel>
+
+        <TabPanel value={value} index={1}>
+          <TaskListMerchant />
+          {/* <TaskList taskType={type} /> */}
+        </TabPanel>
+        {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
+
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~ Coupon Tab (unused) ~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* <TabPanel value={value} index={2}>
         Review / Publish info here
       </TabPanel> */}
-          {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
-        </Box>
-      </CardContent>
-    </Card>
+        {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
+      </Box>
+    </>
   );
 }
