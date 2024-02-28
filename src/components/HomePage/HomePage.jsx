@@ -18,6 +18,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import AddAccountModal from "../AddAccountModal/AddAccountModal.jsx";
 import ListView from "../ListView/ListView.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
+import ToggleButton from "../ToggleButton/ToggleButton.jsx";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { allMerchants } from "../../hooks/reduxStore.js";
 import { border } from "../Utils/colors.js";
@@ -151,25 +152,34 @@ function HomePage({ isOrgAdmin }) {
           {/* ~~~~~~~~~ TOGGLE VIEWS ~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {!isOrgAdmin && (
-            <Button
-              // variant="outlined"
-              onClick={() => {
-                setIsMerchantList(!isMerchantList);
-              }}
-              sx={{ margin: 2 }}
-            >
-              {!isMerchantList ? (
-                <>
-                  <ToggleOnIcon />
-                  &nbsp;Merchants
-                </>
-              ) : (
-                <>
-                  <ToggleOffIcon />
-                  &nbsp;Organizations
-                </>
-              )}
-            </Button>
+            // <Button
+            //   // variant="outlined"
+            //   onClick={() => {
+            //     setIsMerchantList(!isMerchantList);
+            //   }}
+            //   sx={{ margin: 2 }}
+            // >
+            //   {!isMerchantList ? (
+            //     <>
+            //       <ToggleOnIcon sx={{ mr: 1 }} />
+            //       Merchants
+            //     </>
+            //   ) : (
+            //     <>
+            //       <ToggleOffIcon sx={{ mr: 1 }} />
+            //       Organizations
+            //     </>
+            //   )}
+            // </Button>
+            <ToggleButton
+              sxButton={{ margin: 2 }}
+              sxIcon={{ mr: 1 }}
+              onClick={() => setIsMerchantList(!isMerchantList)}
+              label1="Merchants"
+              label2="Organizations"
+              isMerchantList={isMerchantList}
+
+            />
           )}
 
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
