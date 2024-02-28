@@ -15,6 +15,7 @@ import orgNotes from "./orgNotes.reducer.js";
 import allUsers from './allUsers.reducer.js';
 import groupAdmin from "./groupAdmin.reducer"
 import auth from "./auth.reducer";
+import roles from "./roles.reducer"
 
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
   groupAdmin,
   orgNotes,
   allUsers,
-  auth
+  auth,
+  roles
 });
 
 export default rootReducer;

@@ -4,11 +4,10 @@ import { takeEvery, put } from "redux-saga/effects";
 function* fetchCouponBooksSaga(action) {
     try {
         const auth_response = action.payload
-        const ACCESS_TOKEN = auth_response.data.access_token;
-        const QUERY_URL = auth_response.data.routes.query;
+        console.log(auth_response)
+        const ACCESS_TOKEN = auth_response.access_token;
+        const QUERY_URL = auth_response.routes.query;
         const query = "{\r\n coupon_book{\r\n id\r\n year\r\n}\r\n}";
-        
-        
         
         const queryConfig = {
             headers: {

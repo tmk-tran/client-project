@@ -8,13 +8,14 @@ import {
   Typography,
   InputAdornment,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import "./ActiveFundraiserItem.css";
 //Function for the component
 export default function ActiveFundraiserItem({ fundraiser }) {
   //Instanciates dispatch for use in component
   const dispatch = useDispatch();
+  const auth = useSelector((store)=> store.auth)
   //State used to update fundraiser information
   let [booksSold, setBooksSold] = useState(fundraiser.books_sold);
   let [booksCheckedOut, setBooksCheckedOut] = useState(
@@ -42,23 +43,42 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     const updatedAmount = {
       id: Number(fundraiser.id),
       title: editTitle,
+      description: fundraiser.description,
+      requested_book_quantity: fundraiser.requested_book_quantity,
       newBooksSold: Number(booksSold),
       newBooksCheckedOut: Number(booksCheckedOut),
       newBooksCheckedIn: Number(booksCheckedIn),
       newMoneyReceived: Number(moneyReceived),
       newGoal: Number(goal),
       group_id: Number(fundraiser.group_id),
+      coupon_book_id: fundraiser.coupon_book_id,
+      start_date: fundraiser.start_date,
+      end_date: fundraiser.end_date
     };
     Swal.fire(
       "Updated!",
       "The fundraiser amounts have been updated.",
       "success"
     );
-    dispatch({ type: "UPDATE_FUNDRAISER_AMOUNTS", payload: updatedAmount });
+    dispatch({ type: "UPDATE_FUNDRAISER_AMOUNTS", payload:{ updatedAmount: updatedAmount, auth: auth} });
     setEditMode(false);
   };
 //Function that runs on click of close button. A sweetalert will pop up prompting the user to confirm that the fundraiser is to be closed. Will then send the dispatch and payload to update a fundraiser to closed.
   const handleCloseFundraiser = () => {
+    const closedFundraiser = {id: Number(fundraiser.id),
+      group_id: Number(fundraiser.group_id),
+      title: fundraiser.title,
+      description: fundraiser.description,
+      requested_book_quantity: fundraiser.requested_book_quantity,
+      book_quantity_checked_out: fundraiser.book_quantity_checked_out,
+      book_quantity_checked_in: fundraiser.book_quantity_checked_in,
+      books_sold: fundraiser.books_sold,
+      money_received: fundraiser.money_received,
+      start_date: fundraiser.start_date,
+      end_date: fundraiser.end_date,
+      coupon_book_id: fundraiser.coupon_book_id,
+      goal: fundraiser.goal,
+      closed: true}
     Swal.fire({
       title: "Are you sure?",
       text: "This fundraiser will be closed.",
@@ -69,10 +89,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
         Swal.fire("Closed!", "The fundraiser has been closed.", "success");
         dispatch({
           type: "CLOSE_FUNDRAISER",
-          payload: {
-            id: Number(fundraiser.id),
-            group_id: Number(fundraiser.group_id),
-          },
+          payload: {closedFundraiser: closedFundraiser, auth: auth},
         });
       }
     });

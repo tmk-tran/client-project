@@ -26,6 +26,7 @@ export default function GroupDetailsCard({ group }) {
   const dispatch = useDispatch();
   //Selector for the coupon books. Used to grab the year of the coupon book in the dropdown menu
   const couponBooks = useSelector((store) => store.couponBooks);
+  const auth = useSelector((store) => store.auth)
   //State used for the modal add fundraiser form
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -43,8 +44,7 @@ export default function GroupDetailsCard({ group }) {
   const [endDate, setEndDate] = useState("");
   const [couponBookId, setCouponBookId] = useState("");
   //Function that runs on click of the submit button in add fundraiser form. This creates a new objcet that is sent to the back end to be added to the database and resets the state of the inputs in the form and closes the modal. Also fires sweetalert to let user know that the fundraiser has been added.
-  const submitFundraiser = (e) => {
-    e.preventDefault;
+  const submitFundraiser = () => {
     const newFundraiser = {
       group_id: Number(group.id),
       title: title,
@@ -65,7 +65,7 @@ export default function GroupDetailsCard({ group }) {
       "Your fundraiser has been created!",
       "success"
     );
-    dispatch({ type: "ADD_FUNDRAISER", payload: newFundraiser });
+    dispatch({ type: "ADD_FUNDRAISER", payload:{ newFundraiser: newFundraiser, auth: auth }});
     setTitle("");
     setDescription("");
     setBooksRequested("");
@@ -170,7 +170,7 @@ export default function GroupDetailsCard({ group }) {
             Add A Fundraiser
           </Typography>
 
-          <form onSubmit={submitFundraiser}>
+          {/* <form onSubmit={submitFundraiser}> */}
             <div>
               <Grid
                 container
@@ -408,10 +408,10 @@ export default function GroupDetailsCard({ group }) {
             >
               Cancel
             </Button>
-            <Button type="submit" variant="contained" style={{ margin: "5px" }}>
+            <Button onClick={() => submitFundraiser()} variant="contained" style={{ margin: "5px" }}>
               Submit
             </Button>
-          </form>
+          {/* </form> */}
         </Box>
       </Modal>
     </>

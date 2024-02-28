@@ -33,6 +33,7 @@ function* loginUser(action) {
       // Save off auth object
       yield put ({type: "SET_AUTH", payload: response});
       yield put({ type: 'FETCH_USER', payload: response.data });
+      yield put ({type: "FETCH_ROLES", payload: response.data})
       
     } catch (error) {
       console.log("Error in auth fetch request", error);
