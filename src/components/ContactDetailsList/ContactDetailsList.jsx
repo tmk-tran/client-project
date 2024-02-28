@@ -6,7 +6,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import PublicIcon from "@mui/icons-material/Public";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
-import { capitalizeWords, centerStyle, centeredStyle } from "../Utils/helpers";
+import { capitalizeWords, centerStyle } from "../Utils/helpers";
+import { centeredStyle } from "../Utils/pageStyles";
 import { primaryColor } from "../Utils/colors";
 
 export default function ContactDetailsList({

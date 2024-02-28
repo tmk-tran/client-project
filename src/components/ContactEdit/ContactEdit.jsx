@@ -14,7 +14,6 @@ import "./ContactEdit.css";
 import {
   capitalizeFirstWord,
   formatPhoneNumber,
-  modalBtnStyle,
   validateEmail,
   validatePhoneNumber,
   validateWebsiteFormat,

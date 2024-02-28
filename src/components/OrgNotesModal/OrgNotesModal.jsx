@@ -13,11 +13,11 @@ import {
 import "./OrgNotesModal.css";
 // Icons
 import EditIcon from "@mui/icons-material/Edit";
-// Utils
-import { modalBtnStyle } from "../Utils/helpers";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~ //
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 // For Toast (INACTIVE)
 import { showToast } from "../Utils/toasts";
+import { flexRowSpace } from "../Utils/pageStyles";
 
 export default function NotesPopover({ info }) {
   const dispatch = useDispatch();
@@ -115,7 +115,7 @@ export default function NotesPopover({ info }) {
                 onChange={(e) => setNewNote(e.target.value)}
               ></TextField>
             </div>
-            <div style={modalBtnStyle}>
+            <div style={flexRowSpace}>
               <Button className="modal-cancel-btn" onClick={handleClose}>
                 Cancel
               </Button>

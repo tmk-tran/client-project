@@ -21,7 +21,6 @@ import { border, hoverAccept, hoverDeny } from "../Utils/colors";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import {
   capitalizeFirstWord,
-  modalBtnStyle,
   saveBtnWidth,
 } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Button } from "@mui/material";
 import { errorColor, successColor } from "../Utils/colors";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { modalBtnStyle } from "../Utils/helpers";
 import { border } from "../Utils/colors";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import CheckIcon from "@mui/icons-material/Check";
@@ -11,6 +10,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import { useAlert } from "../SuccessAlert/useAlert";
+import { flexRowSpace } from "../Utils/pageStyles";
 export default function CouponReviewButtons({
   onDenyButtonClick,
   isTaskUpdate,
@@ -61,7 +61,7 @@ export default function CouponReviewButtons({
   };
 
   return (
-    <div style={modalBtnStyle}>
+    <div style={flexRowSpace}>
       <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} caseType="CompletedCoupon" />
 
       {isTaskUpdate ? (

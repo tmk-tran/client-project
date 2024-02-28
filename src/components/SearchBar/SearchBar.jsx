@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Search, Clear } from "@mui/icons-material";
 
-const SearchBar = ({ isOrganization, query, onChange, clearInput }) => {
+const SearchBar = ({ isOrganization, isCoupon, query, onChange, clearInput }) => {
+  console.log(isOrganization);
+  console.log(isCoupon);
   
   const handleChange = (event) => {
     const { value } = event.target;
@@ -15,7 +17,7 @@ const SearchBar = ({ isOrganization, query, onChange, clearInput }) => {
 
   return (
     <>
-      {isOrganization ? (
+      {isOrganization && !isCoupon ? (
         <TextField
           label="Search Organizations"
           variant="outlined"
@@ -42,7 +44,7 @@ const SearchBar = ({ isOrganization, query, onChange, clearInput }) => {
         />
       ) : (
         <TextField
-          label="Search Merchants"
+          label={isCoupon ? "Search Coupons" : "Search Merchants"}
           variant="outlined"
           size="small"
           value={query}

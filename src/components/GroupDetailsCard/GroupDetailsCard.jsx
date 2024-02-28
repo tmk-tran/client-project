@@ -16,7 +16,7 @@ import {
   MenuItem,
   Grid,
 } from "@mui/material";
-import { modalBtnStyle } from "../Utils/helpers";
+import { flexRowSpace } from "../Utils/pageStyles";
 
 //Function for the component, takes in the group prop for use
 export default function GroupDetailsCard({ group }) {
@@ -121,7 +121,7 @@ export default function GroupDetailsCard({ group }) {
           </Typography>
           <Typography>{group.group_description}</Typography>
         </div>
-        <div style={modalBtnStyle}>
+        <div style={flexRowSpace}>
           <Button variant="outlined" onClick={() => history.goBack()}>
             <Typography style={{ fontSize: "15px" }}>Back</Typography>
           </Button>{" "}

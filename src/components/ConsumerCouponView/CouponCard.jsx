@@ -9,7 +9,7 @@ const couponPreviewStyle = {
 
 export default function CouponCard() {
   return (
-    <Card elevation={3} sx={{ mb: 2 }}>
+    <Card elevation={3} sx={{ mb: 2, width: "75%" }}>
       <CardContent>
         <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
           <Box sx={{ ...couponPreviewStyle, ...centerDiv, ...border }}>

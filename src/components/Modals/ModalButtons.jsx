@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
-import { modalBtnStyle, saveBtnWidth } from "../Utils/helpers";
+import { saveBtnWidth } from "../Utils/helpers";
+import { flexRowSpace } from "../Utils/pageStyles";
 
 export default function ModalButtons({
   label,
@@ -20,7 +21,7 @@ export default function ModalButtons({
   };
 
   return (
-    <div style={modalBtnStyle}>
+    <div style={flexRowSpace}>
       <Button
         className="modal-cancel-btn"
         onClick={onCancel}

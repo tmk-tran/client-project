@@ -109,12 +109,6 @@ export const style = {
   },
 };
 
-export const centeredStyle = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-};
-
 export const styleFlexBox = {
   display: "flex",
   justifyContent: "center",
@@ -127,13 +121,6 @@ export const styleImage = {
   width: "400px",
   height: "220px",
   objectFit: "contain",
-};
-
-// Flexbox style for buttons in modals OrgDetails component
-export const modalBtnStyle = {
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
 };
 
 // Center style for table cells, and list items in OrgContactDetails component
