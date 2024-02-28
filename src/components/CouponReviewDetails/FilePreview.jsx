@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { border } from "../Utils/colors";
+import PdfThumbnail from "../PdfThumbnail/PdfThumbnail";
 
 const FilePreview = ({
   pdfBlob,
@@ -55,6 +56,9 @@ const FilePreview = ({
             {showFrontViewFiles && file.frontViewBlob && (
               <>
                 {file.filename}{" "}
+                <div style={border}>
+                <PdfThumbnail pdfUrl={file.frontViewBlob} style={{ width: '100px', height: '100px' }} />
+                </div>
                 <button onClick={() => handleButtonClick(file, i, "frontView")}>
                   View Front View
                 </button>
