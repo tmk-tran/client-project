@@ -17,55 +17,52 @@ const fetchPdf = (pdfBlob) => ({
   payload: pdfBlob,
 });
 
-const fetchPdfFailure = (error) => ({
-  type: "FETCH_PDF_FAILURE",
-  payload: error,
-});
-
-// function* couponFiles(action) {
-//   console.log(action);
-
-//   try {
-//     const response = yield axios.get(`/api/coupon`);
-//     console.log("FETCH request from couponPDF.saga, RESPONSE = ", response.data);
-
-//     // Dispatch the successful results to the Redux store
-//     const pdfData = response.data;
-//     console.log("PDF DATA = ", pdfData);
-//     const pdfDataArray = response.data.map((coupon) => ({
-//       pdf_data: coupon.pdf_data.data,
-//       filename: coupon.filename,
-//     })); // Added, REMOVE IF NEEDED
-//     console.log("PDF DATA ARRAY = ", pdfDataArray); // Added, REMOVE IF NEEDED
-//     // yield put(setCouponFiles(pdfData));
-//     // yield put({ type: "SET_COUPON_FILES", payload: pdfData });
-//     yield put({ type: "SET_COUPON_FILES", payload: pdfDataArray }); // Added, REMOVE IF NEEDED
-//     console.log("PDF DATA = ", pdfDataArray);
-//   } catch (error) {
-//     console.log("Error in couponPDF.saga: ", error);
-//     yield put(fetchCouponFilesFailure(error.message));
-//     // yield put(fetchPdfFailure(error.message)); // Added
-//   }
-// }
-
 function* couponFiles(action) {
   console.log(action);
 
   try {
     const response = yield axios.get(`/api/coupon`);
-    console.log("FETCH request from couponPDF.saga, RESPONSE = ", response.data);
+    console.log(
+      "FETCH request from couponPDF.saga, RESPONSE = ",
+      response.data
+    );
 
     // Dispatch the successful results to the Redux store
     const files = response.data;
 
-    // Convert Buffer to Blob
-    const blobify = (buffer, type) => new Blob([buffer], { type });
-
     // Map the data received from the server
-    const formattedFiles = files.map((coupon) => ({
-      pdfBlob: new Blob([Uint8Array.from(coupon.pdf_data.data)], { type: 'application/pdf' }),
-      filename: coupon.filename,
-    }));
+    const formattedFiles = files.map((coupon) => {
+      const formattedFile = {
+        pdfBlob: null,
+        filename: coupon.filename,
+        frontViewBlob: null,
+        backViewBlob: null,
+      };
+
+      if (coupon.pdf_data && coupon.pdf_data.data) {
+        formattedFile.pdfBlob = new Blob(
+          [Uint8Array.from(coupon.pdf_data.data)],
+          { type: "application/pdf" }
+        );
+      }
+
+      if (coupon.front_view_pdf && coupon.front_view_pdf.data) {
+        formattedFile.frontViewBlob = new Blob(
+          [Uint8Array.from(coupon.front_view_pdf.data)],
+          { type: "application/pdf" }
+        );
+      }
+
+      if (coupon.back_view_pdf && coupon.back_view_pdf.data) {
+        formattedFile.backViewBlob = new Blob(
+          [Uint8Array.from(coupon.back_view_pdf.data)],
+          { type: "application/pdf" }
+        );
+      }
+
+      return formattedFile;
+    });
+
     console.log("FORMATTED FILES = ", formattedFiles);
 
     // Dispatch the formatted data to the Redux store
@@ -76,26 +73,56 @@ function* couponFiles(action) {
   }
 }
 
-
 function* pdfFile(action) {
   console.log(action);
   const couponId = action.payload;
   console.log(couponId);
 
   try {
-    const response = yield axios.get(`/api/coupon/${couponId}`, {
-      responseType: "arraybuffer",
-    });
+    const response = yield axios.get(`/api/coupon/${couponId}`);
     console.log("FETCH request from coupon.saga, RESPONSE = ", response.data);
 
-    // Dispatch success action with PDF blob data
-    yield put({
-      type: "GET_PDF",
-      payload: new Blob([response.data], { type: "application/pdf" }),
+    // Dispatch the successful results to the Redux store
+    const files = response.data;
+
+    // Map the data received from the server
+    const formattedFiles = files.map((coupon) => {
+      const formattedFile = {
+        pdfBlob: null,
+        filename: coupon.filename,
+        frontViewBlob: null,
+        backViewBlob: null,
+      };
+
+      if (coupon.pdf_data && coupon.pdf_data.data) {
+        formattedFile.pdfBlob = new Blob(
+          [Uint8Array.from(coupon.pdf_data.data)],
+          { type: "application/pdf" }
+        );
+      }
+
+      if (coupon.front_view_pdf && coupon.front_view_pdf.data) {
+        formattedFile.frontViewBlob = new Blob(
+          [Uint8Array.from(coupon.front_view_pdf.data)],
+          { type: "application/pdf" }
+        );
+      }
+
+      if (coupon.back_view_pdf && coupon.back_view_pdf.data) {
+        formattedFile.backViewBlob = new Blob(
+          [Uint8Array.from(coupon.back_view_pdf.data)],
+          { type: "application/pdf" }
+        );
+      }
+
+      return formattedFile;
     });
+
+    console.log("FORMATTED FILES = ", formattedFiles);
+
+    yield put({ type: "SET_COUPON_FILES", payload: formattedFiles });
   } catch (error) {
-    console.log(error);
-    yield put(fetchPdfFailure(error.message));
+    console.log("Error in GET for couponPDF by merchantId", error);
   }
 }
 

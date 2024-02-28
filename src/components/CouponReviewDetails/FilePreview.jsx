@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
+import { border } from "../Utils/colors";
 
 const FilePreview = ({ pdfBlob, merchantId }) => {
   console.log(merchantId);
@@ -40,7 +41,7 @@ const FilePreview = ({ pdfBlob, merchantId }) => {
   };
 
   return (
-    <div>
+    <div style={border}>
       {pdfUrl ? (
         <button onClick={handleOpenPdf}>Open PDF</button>
       ) : pdfBlob.length > 0 ? (

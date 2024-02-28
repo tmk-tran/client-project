@@ -11,7 +11,12 @@ router.get("/", (req, res) => {
   console.log("filename = ", filename);
   // Assuming you have the PDF data stored in some way
   const pdfData = req.params.pdf_data;
+  const frontViewPdf = req.params.front_view_pdf;
+  const backViewPdf = req.params.back_view_pdf;
   console.log("pdfData = ", pdfData);
+  console.log("frontViewPdf = ", frontViewPdf);
+  console.log("backViewPdf = ", backViewPdf);
+
   const queryText = "SELECT * FROM coupon";
 
   pool
@@ -85,54 +90,94 @@ router.get("/", (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const merchantId = req.params.id;
-
-  try {
-    const result = await pool.query(
-      "SELECT pdf_data, filename FROM coupon WHERE merchant_id = $1",
-      [merchantId]
-    );
-
-    if (result.rows.length > 0) {
-      const files = result.rows.map((row) => ({
-        pdfBlob: Buffer.from(row.pdf_data, "base64"),
-        filename: row.filename,
-      }));
-
-      res.send(files);
-      console.log("files = ", files);
-    } else {
-      res.status(404).send("No files found for the given merchant");
-    }
-  } catch (error) {
-    console.error("Error retrieving files:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-
-router.post("/", upload.single("pdf"), (req, res) => {
-  console.log(req.body);
-
-  const pdfData = req.file.buffer;
-  console.log("pdfData = ", pdfData);
-  const filename = req.file.originalname;
+  const filename = req.params.filename;
   console.log("filename = ", filename);
-  // After successful upload
-  const fileUrl = `/api/coupon/pdf/${filename}`;
+  // Assuming you have the PDF data stored in some way
+  const pdfData = req.params.pdf_data;
+  const frontViewPdf = req.params.front_view_pdf;
+  const backViewPdf = req.params.back_view_pdf;
+  console.log("pdfData = ", pdfData);
+  console.log("frontViewPdf = ", frontViewPdf);
+  console.log("backViewPdf = ", backViewPdf);
 
-  // Handle PDF data as needed (e.g., store in the database)
+  const queryText =
+    "SELECT pdf_data, filename, front_view_pdf, back_view_pdf FROM coupon WHERE merchant_id = $1";
+
   pool
-    .query("INSERT INTO coupon (pdf_data, filename) VALUES ($1, $2)", [
-      pdfData,
-      filename,
-    ])
-    .then(() => {
-      res.status(200).send({ message: "PDF uploaded successfully!", fileUrl });
+    .query(queryText, [merchantId])
+    .then((result) => {
+      console.log("FROM couponPDFs.router: ", result.rows);
+      res.send(result.rows);
     })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Error uploading PDF");
+    .catch((err) => {
+      console.log("error in the GET / request for couponPDFs", err);
+      res.sendStatus(500);
     });
 });
+
+// router.post("/", upload.single("pdf"), (req, res) => {
+//   console.log(req.body);
+
+//   const pdfData = req.file.buffer;
+//   console.log("pdfData = ", pdfData);
+//   const filename = req.file.originalname;
+//   console.log("filename = ", filename);
+//   const frontViewPdf = req.body.front_view_pdf;
+//   console.log("frontViewPdf = ", frontViewPdf);
+//   const backViewPdf = req.body.back_view_pdf;
+//   console.log("backViewPdf = ", backViewPdf);
+//   // After successful upload
+//   const fileUrl = `/api/coupon/pdf/${filename}`;
+
+//   // Handle PDF data as needed (e.g., store in the database)
+//   pool
+//     .query("INSERT INTO coupon (pdf_data, filename, front_view_pdf, back_view_pdf) VALUES ($1, $2)", [
+//       pdfData,
+//       filename,
+//       frontViewPdf,
+//       backViewPdf,
+//     ])
+//     .then(() => {
+//       res.status(200).send({ message: "PDF uploaded successfully!", fileUrl });
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//       res.status(500).send("Error uploading PDF");
+//     });
+// });
+
+router.post(
+  "/",
+  upload.fields([
+    { name: "pdf", maxCount: 1 },
+    { name: "front_view_pdf", maxCount: 1 },
+    { name: "back_view_pdf", maxCount: 1 },
+  ]),
+  (req, res) => {
+    const pdfData = req.files["pdf"][0].buffer;
+    const filename = req.files["pdf"][0].originalname;
+    const frontViewPdf = req.files["front_view_pdf"][0].buffer;
+    const backViewPdf = req.files["back_view_pdf"][0].buffer;
+
+    // After successful upload
+    const fileUrl = `/api/coupon/pdf/${filename}`;
+
+    // Handle PDF data as needed (e.g., store in the database)
+    pool
+      .query(
+        "INSERT INTO coupon (pdf_data, filename, front_view_pdf, back_view_pdf) VALUES ($1, $2, $3, $4)",
+        [pdfData, filename, frontViewPdf, backViewPdf]
+      )
+      .then(() => {
+        res
+          .status(200)
+          .send({ message: "PDF uploaded successfully!", fileUrl });
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error uploading PDF");
+      });
+  }
+);
 
 module.exports = router;

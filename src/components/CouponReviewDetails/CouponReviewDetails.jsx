@@ -56,12 +56,12 @@ export default function CouponReviewDetails() {
   };
 
   const handleChangeRequest = (newValue) => {
-    setChangesRequested(newValue);
+    // setChangesRequested(newValue);
     console.log("Changes requested: ", changesRequested);
   };
 
   const handleCompletedCoupon = () => {
-    setCompletedCoupon(true);
+    // setCompletedCoupon(true);
     console.log("Completed coupon: ", completedCoupon);
   };
 
@@ -77,7 +77,9 @@ export default function CouponReviewDetails() {
     if (merchantId) {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
     }
-    dispatch({ type: "FETCH_COUPON_FILES", payload: merchantId });
+    // dispatch({ type: "FETCH_COUPON_FILES", payload: merchantId });
+    dispatch({ type: "FETCH_PDF_FILE", payload: merchantId });
+
     setUploadedFiles(false);
   }, [merchantId, commentAdded, uploadedFiles]); //Deleted dispatch from dependencies
 
@@ -139,10 +141,11 @@ export default function CouponReviewDetails() {
                           }}
                         >
                           <Typography
-                            sx={{ textAlign: "center", lineHeight: "15vh" }}
+                            sx={{ textAlign: "center" }}
                           >
                             Front of Coupon
                           </Typography>
+                          <FilePreview pdfBlob={files} merchantId={merchantId} />
                         </div>
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       </div>
