@@ -132,7 +132,7 @@ export default function CommentInput({
           onChange={handleFileChange}
           style={{ display: "none" }}
         />
-        <IconButton color="primary" onClick={handleFileUploadClick}>
+        <IconButton color="primary" onClick={handleFileUploadClick} title="Upload PDF" >
           <AttachFileIcon />
         </IconButton>
 

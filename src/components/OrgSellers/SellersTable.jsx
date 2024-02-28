@@ -30,80 +30,6 @@ import SellerLink from "../SellerPage/SellerLink";
 import ActionButton from "./ActionButton";
 import SellersTableHeader from "./SellersTableHeader";
 
-// export const columns = [
-//   { id: "refId", label: "Referral ID", minWidth: 100 },
-//   { id: "lastname", label: "Last Name", minWidth: 90 },
-//   {
-//     id: "firstname",
-//     label: "First Name",
-//     align: "right",
-//     minWidth: 90,
-//   },
-//   {
-//     id: "level",
-//     label: "Level / Grade",
-//     align: "right",
-//     minWidth: 75,
-//   },
-//   {
-//     id: "teacher",
-//     label: "Lead / Teacher",
-//     align: "right",
-//   },
-//   {
-//     id: "initial_books",
-//     label: "Initial Book Count",
-//     align: "right",
-//   },
-//   {
-//     id: "additional_books",
-//     label: "Additional Books",
-//     align: "right",
-//   },
-//   {
-//     id: "books_returned",
-//     label: "Returned Books",
-//     align: "right",
-//   },
-//   {
-//     id: "digital",
-//     label: "Digital Payments",
-//     align: "right",
-//   },
-//   {
-//     id: "donations",
-//     label: "Donations (Cash)",
-//     align: "right",
-//   },
-//   {
-//     id: "digital_donations",
-//     label: "Donations (Digital)",
-//     align: "right",
-//   },
-//   {
-//     id: "checks",
-//     label: "Checks",
-//     align: "right",
-//   },
-//   {
-//     id: "cash",
-//     label: "Cash",
-//     align: "right",
-//     // width: 75,
-//   },
-//   {
-//     id: "notes",
-//     label: "Notes",
-//     align: "right",
-//     width: 150,
-//   },
-//   {
-//     id: "actions",
-//     label: "Actions",
-//     align: "right",
-//   },
-// ];
-
 const evenRowColor = {
   backgroundColor: "#fbfbfb",
 };
@@ -258,7 +184,10 @@ export default function SellersTable() {
       >
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
-        <SellersTableHeader viewUrlTable={viewUrlTable} setViewUrlTable={setViewUrlTable} />
+        <SellersTableHeader
+          viewUrlTable={viewUrlTable}
+          setViewUrlTable={setViewUrlTable}
+        />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Add Seller Button ~~~~~~~~ */}
         <CustomButton
@@ -291,117 +220,122 @@ export default function SellersTable() {
       {/* ~~~~~~~~~~ Seller Table ~~~~~~~~~~ */}
       <Paper elevation={3} sx={{ width: "100%" }}>
         <TableContainer sx={{ maxHeight: 600 }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    sx={{
-                      minWidth: column.minWidth,
-                      width: column.width,
-                      height: 50,
-                      wordWrap: "break-word",
-                      border: "1px solid #f0f0f0",
-                      backgroundColor: "#d9d9d9",
-                      lineHeight: 1,
-                      fontSize: "1.1rem",
-                    }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            {/* ~~~~~ Table Body ~~~~~~~~~~ */}
-            <TableBody>
-              {sellers
-                .filter((seller) => !seller.is_deleted) // Filter out deleted sellers
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((seller, index) => {
-                  isEvenRow = !isEvenRow; // Toggle the variable for each row
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={index}
+          {!viewUrlTable ? (
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
                       sx={{
-                        ...(isEvenRow
-                          ? { backgroundColor: evenRowColor }
-                          : null),
+                        minWidth: column.minWidth,
+                        width: column.width,
+                        height: 50,
+                        wordWrap: "break-word",
+                        border: "1px solid #f0f0f0",
+                        backgroundColor: "#d9d9d9",
+                        lineHeight: 1,
+                        fontSize: "1.1rem",
                       }}
                     >
-                      {columns.map((column) => {
-                        const value = seller[column.id];
-                        return (
-                          <TableCell
-                            key={column.id}
-                            align={column.align}
-                            sx={{
-                              border: "1px solid #e0e0e0",
-                              padding: "8px",
-                              ...(column.id === "notes" && {
-                                maxWidth: "250px",
-                                maxHeight: "50px",
-                                // overflow: "hidden",
-                                overflowWrap: "break-word",
-                                // textOverflow: "ellipsis",
-                              }),
-                            }}
-                          >
-                            {column.id === "refId" && (
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                }}
-                              >
-                                {value}
-                                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                                {/* ~~~~~ View URL Icon ~~~~~ */}
-                                <ActionButton
-                                  title="View URLs"
-                                  Icon={LaunchIcon}
-                                  iconSx={{ fontSize: "25px" }}
-                                  onClick={() => handleViewUrl(value)}
-                                  onMouseOver={(e) =>
-                                    (e.currentTarget.style.transform =
-                                      "scale(1.3)")
-                                  }
-                                  onMouseOut={(e) =>
-                                    (e.currentTarget.style.transform =
-                                      "scale(1)")
-                                  }
-                                />
-                              </div>
-                            )}
-                            {/* ~~~~~ Action Icons ~~~~~ */}
-                            {column.id !== "refId" &&
-                              (column.id === "actions" ? (
-                                <>
-                                  <ActionIcons
-                                    seller={seller}
-                                    onEdit={(id) => handleEditOpen(id, "edit")}
-                                    handleArchive={handleArchive}
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~ Table Body ~~~~~~~~~~ */}
+              <TableBody>
+                {sellers
+                  .filter((seller) => !seller.is_deleted) // Filter out deleted sellers
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((seller, index) => {
+                    isEvenRow = !isEvenRow; // Toggle the variable for each row
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={index}
+                        sx={{
+                          ...(isEvenRow
+                            ? { backgroundColor: evenRowColor }
+                            : null),
+                        }}
+                      >
+                        {columns.map((column) => {
+                          const value = seller[column.id];
+                          return (
+                            <TableCell
+                              key={column.id}
+                              align={column.align}
+                              sx={{
+                                border: "1px solid #e0e0e0",
+                                padding: "8px",
+                                ...(column.id === "notes" && {
+                                  maxWidth: "250px",
+                                  maxHeight: "50px",
+                                  // overflow: "hidden",
+                                  overflowWrap: "break-word",
+                                  // textOverflow: "ellipsis",
+                                }),
+                              }}
+                            >
+                              {column.id === "refId" && (
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                  }}
+                                >
+                                  {value}
+                                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                                  {/* ~~~~~ View URL Icon ~~~~~ */}
+                                  <ActionButton
+                                    title="View URLs"
+                                    Icon={LaunchIcon}
+                                    iconSx={{ fontSize: "25px" }}
+                                    onClick={() => handleViewUrl(value)}
+                                    onMouseOver={(e) =>
+                                      (e.currentTarget.style.transform =
+                                        "scale(1.3)")
+                                    }
+                                    onMouseOut={(e) =>
+                                      (e.currentTarget.style.transform =
+                                        "scale(1)")
+                                    }
                                   />
-                                  {/* <SellerLink seller={seller} /> */}
-                                </>
-                              ) : column.format && typeof value === "number" ? (
-                                column.format(value)
-                              ) : (
-                                value
-                              ))}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
+                                </div>
+                              )}
+                              {/* ~~~~~ Action Icons ~~~~~ */}
+                              {column.id !== "refId" &&
+                                (column.id === "actions" ? (
+                                  <>
+                                    <ActionIcons
+                                      seller={seller}
+                                      onEdit={(id) =>
+                                        handleEditOpen(id, "edit")
+                                      }
+                                      handleArchive={handleArchive}
+                                    />
+                                    {/* <SellerLink seller={seller} /> */}
+                                  </>
+                                ) : column.format &&
+                                  typeof value === "number" ? (
+                                  column.format(value)
+                                ) : (
+                                  value
+                                ))}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          ) : null}
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}

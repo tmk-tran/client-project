@@ -91,7 +91,7 @@ export default function LocationsCard({
         locations
           .filter((location) => !location.is_deleted)
           .map((location, i) => (
-            <Card key={i} elevation={2} sx={{ ...locationsCardWidth, mb: 1}}>
+            <Card key={i} elevation={3} sx={{ ...locationsCardWidth, mb: 1}}>
               <CardContent>
                 <div
                   style={{
