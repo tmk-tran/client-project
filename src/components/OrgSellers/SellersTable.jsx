@@ -28,6 +28,7 @@ import { border } from "../Utils/colors";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
 import SellerLink from "../SellerPage/SellerLink";
 import ActionButton from "./ActionButton";
+import ToggleButton from "../ToggleButton/ToggleButton";
 
 export const columns = [
   { id: "refId", label: "Referral ID", minWidth: 100 },
@@ -261,6 +262,7 @@ export default function SellersTable() {
             variant="h6"
             sx={{ p: 1 }}
           />
+          <ToggleButton label1="View All URLs" label2="View Seller Info" />
           <Typography
             label="URL can be viewed using the button in the Refferal ID column "
             variant="caption"

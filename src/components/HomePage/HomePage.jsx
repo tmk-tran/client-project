@@ -152,33 +152,13 @@ function HomePage({ isOrgAdmin }) {
           {/* ~~~~~~~~~ TOGGLE VIEWS ~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {!isOrgAdmin && (
-            // <Button
-            //   // variant="outlined"
-            //   onClick={() => {
-            //     setIsMerchantList(!isMerchantList);
-            //   }}
-            //   sx={{ margin: 2 }}
-            // >
-            //   {!isMerchantList ? (
-            //     <>
-            //       <ToggleOnIcon sx={{ mr: 1 }} />
-            //       Merchants
-            //     </>
-            //   ) : (
-            //     <>
-            //       <ToggleOffIcon sx={{ mr: 1 }} />
-            //       Organizations
-            //     </>
-            //   )}
-            // </Button>
             <ToggleButton
               sxButton={{ margin: 2 }}
               sxIcon={{ mr: 1 }}
               onClick={() => setIsMerchantList(!isMerchantList)}
               label1="Merchants"
               label2="Organizations"
-              isMerchantList={isMerchantList}
-
+              toggleState={isMerchantList}
             />
           )}
 

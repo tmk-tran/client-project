@@ -8,7 +8,7 @@ export default function ToggleButton({
   sxIcon,
   label1,
   label2,
-  isMerchantList,
+  toggleState,
 }) {
   return (
     <Button
@@ -16,7 +16,7 @@ export default function ToggleButton({
       onClick={onClick}
       sx={sxButton}
     >
-      {!isMerchantList ? (
+      {!toggleState ? (
         <>
           <ToggleOnIcon sx={sxIcon} />
           {label1}
