@@ -18,3 +18,15 @@ export const flexRowSpace = {
   flexDirection: "row",
   justifyContent: "space-between",
 };
+
+export const flexColumnSpace = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+};
+
+export const flexCenter = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};

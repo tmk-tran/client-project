@@ -54,3 +54,27 @@ export const requestBooksSweetAlert = (saveCall) => {
     }
   });
 };
+
+// Sweet Alert for CouponCard.jsx
+export const redeemCouponSweetAlert = (saveCall) => {
+  console.log(saveCall);
+  Swal.fire({
+    title: "Are you sure?",
+    text: "This action cannot be undone!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: successColor.color,
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, Redeem Coupon",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Execute the callback if the user confirms
+      saveCall && saveCall();
+      Swal.fire({
+        title: "Coupon Redeemed!",
+        icon: "success",
+        confirmButtonColor: primaryColor.color,
+      });
+    }
+  });
+};

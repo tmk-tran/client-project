@@ -8,7 +8,7 @@ import {
   border,
 } from "../Utils/colors";
 // ~~~~~~~~~~ Helpers ~~~~~~~~~~
-import { centerDiv } from "../Utils/helpers";
+import { flexCenter } from "../Utils/pageStyles";
 import { hoverAccept, hoverDeny } from "../Utils/colors";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
@@ -16,8 +16,8 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 const DenyProofForm = ({ onClose }) => {
   return (
     <div style={{ height: "100%" }}>
-      <div style={{ height: "40%", ...centerDiv }}>
-        <div style={centerDiv}>
+      <div style={{ height: "40%", ...flexCenter }}>
+        <div style={flexCenter}>
           <ErrorOutlineIcon sx={{ fontSize: "100px", color: secondaryColor }} />
         </div>
       </div>

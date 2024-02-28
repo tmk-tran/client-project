@@ -4,7 +4,7 @@ import { useTheme, useMediaQuery } from "@mui/material";
 // ~~~~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
 import { sellerPageInfo } from "../../hooks/reduxStore";
-import { centerDiv } from "../Utils/helpers";
+import { flexCenter } from "../Utils/pageStyles";
 import { useAlert } from "../SuccessAlert/useAlert";
 import { useCaseType } from "../Utils/useCaseType";
 import { border } from "../Utils/colors";
@@ -16,7 +16,7 @@ import UrlDisplay from "./UrlDisplay";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 
 const divStyle = {
-  ...centerDiv,
+  ...flexCenter,
   flexDirection: "column",
 };
 

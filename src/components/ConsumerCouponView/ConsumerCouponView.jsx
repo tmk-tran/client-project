@@ -19,9 +19,9 @@ export default function ConsumerCouponView() {
         Consumer Coupon View
       </Typography>
       <br />
-      <Box sx={{ width: "75%", ...border, ...flexRowSpace }}>
+      <Box sx={{ mb: 2, width: "75%", ...flexRowSpace }}>
         <SearchBar isCoupon isOrganization={false} />
-        <Typography>Coupons valid mm/yy - mm/yy</Typography>
+        <Typography variant="body2" sx={{ mt: 2 }}>Coupons valid mm/yy - mm/yy</Typography>
       </Box>
       {/* <Grid container spacing={2}>
         <Grid item xs={6}> */}
