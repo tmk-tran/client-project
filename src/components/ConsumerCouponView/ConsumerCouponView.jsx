@@ -9,22 +9,31 @@ export default function ConsumerCouponView() {
         Consumer Coupon View
       </Typography>
       <br />
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
+      {/* <Grid container spacing={2}>
+        <Grid item xs={6}> */}
           {/* First column */}
-          <CouponCard />
+          {/* <CouponCard />
           <CouponCard />
           <CouponCard />
           <CouponCard />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6}> */}
           {/* Second column */}
-          <CouponCard />
+          {/* <CouponCard />
           <CouponCard />
           <CouponCard />
           <CouponCard />
         </Grid>
       </Grid>
+    </Box> */}
+    <CouponCard />
+    <CouponCard />
+    <CouponCard />
+    <CouponCard />
+    <CouponCard />
+    <CouponCard />
+    <CouponCard />
+    <CouponCard />
     </Box>
   );
 }

@@ -20,16 +20,18 @@ export default function CouponCard() {
           </Box>
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
+              // display: "flex",
+              // alignItems: "center",
               flexGrow: 1,
               ...border,
             }}
           >
-            <Typography variant="body2">Coupon details here</Typography>
+            <Typography variant="body2">Merchant Name</Typography>
+            <Typography variant="body2" sx={{ fontWeight: "bold" }}>Coupon Details</Typography>
+            <Typography variant="caption">Expires: mm/dd/yyyy</Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", ml: "auto" }}>
-            <Button variant="outlined">Redeem</Button>
+            <Button variant="contained" color="secondary">Redeem</Button>
           </Box>
         </Box>
       </CardContent>

@@ -117,7 +117,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div style={{ minHeight: "85vh" }}>
+    <div>
       <Container sx={{ display: "flex", justifyContent: "center" }}>
         <div>
           <Stepper activeStep={activeStep}>

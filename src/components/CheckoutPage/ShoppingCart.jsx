@@ -11,7 +11,7 @@ import { historyHook } from "../../hooks/useHistory";
 import { border } from "../Utils/colors";
 
 export const containerStyle = {
-  minHeight: "80vh",
+  // minHeight: "80vh",
   width: "70%",
   margin: "0 auto",
 };
