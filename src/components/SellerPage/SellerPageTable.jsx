@@ -9,7 +9,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { columns } from "../OrgSellers/SellersTable";
+import { columns } from "../OrgSellers/sellerTableColumns";
 import CashUpdateModal from "./CashUpdateModal";
 
 export default function SellerPageTable({ sellerInfo }) {
