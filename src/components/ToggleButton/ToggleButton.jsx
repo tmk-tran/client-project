@@ -4,11 +4,11 @@ import ToggleOffIcon from "@mui/icons-material/ToggleOff";
 
 export default function ToggleButton({
   onClick,
-  sxButton,
-  sxIcon,
+  toggleState,
   label1,
   label2,
-  toggleState,
+  sxButton,
+  sxIcon,
 }) {
   return (
     <Button

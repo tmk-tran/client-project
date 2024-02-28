@@ -29,6 +29,7 @@ import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
 import SellerLink from "../SellerPage/SellerLink";
 import ActionButton from "./ActionButton";
 import ToggleButton from "../ToggleButton/ToggleButton";
+import SellersTableHeader from "./SellersTableHeader";
 
 export const columns = [
   { id: "refId", label: "Referral ID", minWidth: 100 },
@@ -136,11 +137,9 @@ console.log(refId);
 export default function SellersTable() {
   const dispatch = dispatchHook();
   const paramsObject = useParams();
-  console.log(paramsObject);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [open, setOpen] = useState(false);
-  console.log(open);
   const [mode, setMode] = useState("add");
   console.log(mode);
   const [sellerToEdit, setSellerToEdit] = useState(null);
@@ -148,6 +147,8 @@ export default function SellersTable() {
   console.log(showSellerUrl);
   const [sellerRefId, setSellerRefId] = useState(null);
   console.log(sellerRefId);
+  const [viewUrlTable, setViewUrlTable] = useState(false);
+  console.log(viewUrlTable);
 
   useEffect(() => {
     dispatch({ type: "FETCH_SELLERS", payload: paramsObject.id });
@@ -256,19 +257,9 @@ export default function SellersTable() {
           ...sellersBorder,
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography
-            label="Participating Sellers"
-            variant="h6"
-            sx={{ p: 1 }}
-          />
-          <ToggleButton label1="View All URLs" label2="View Seller Info" />
-          <Typography
-            label="URL can be viewed using the button in the Refferal ID column "
-            variant="caption"
-            sx={{ mt: 2.5 }}
-          />
-        </Box>
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
+        <SellersTableHeader viewUrlTable={viewUrlTable} setViewUrlTable={setViewUrlTable} />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Add Seller Button ~~~~~~~~ */}
         <CustomButton
@@ -425,8 +416,4 @@ export default function SellersTable() {
       </Paper>
     </Box>
   );
-}
-
-{
-  /* sx={{ '&:last-child td': { border: 0 } }} -- for line 191 */
 }
