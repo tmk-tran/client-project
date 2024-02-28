@@ -29,7 +29,7 @@ export default function ActionIcons({ seller, onEdit, handleArchive }) {
         buttonSx={{ mr: 3 }}
         iconSx={editIconStyle}
         onClick={() => onEdit(seller.id)}
-        onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+        onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.3)")}
         onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
       />
 
@@ -38,6 +38,8 @@ export default function ActionIcons({ seller, onEdit, handleArchive }) {
         Icon={ArchiveIcon}
         iconSx={archiveIconStyle}
         onClick={() => handleArchive(seller.id)}
+        onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+        onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
       />
     </>
   );

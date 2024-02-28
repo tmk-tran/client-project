@@ -8,11 +8,11 @@ export default function ConsumerCouponView() {
       <Typography variant="h5" sx={{ fontWeight: "bold", textAlign: "center" }}>Consumer Coupon View</Typography>
       <Grid container spacing={2}>
       <Grid item xs={6}>
-        {/* Content for the first column */}
+        {/* First column */}
         <CouponList />
       </Grid>
       <Grid item xs={6}>
-        {/* Content for the second column */}
+        {/* Second column */}
         <CouponList />
       </Grid>
     </Grid>

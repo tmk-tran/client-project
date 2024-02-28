@@ -377,7 +377,7 @@ export default function SellersTable() {
                                   onClick={() => handleViewUrl(value)}
                                   onMouseOver={(e) =>
                                     (e.currentTarget.style.transform =
-                                      "scale(1.1)")
+                                      "scale(1.3)")
                                   }
                                   onMouseOut={(e) =>
                                     (e.currentTarget.style.transform =
