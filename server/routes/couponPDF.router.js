@@ -115,69 +115,77 @@ router.get("/:id", async (req, res) => {
     });
 });
 
-// router.post("/", upload.single("pdf"), (req, res) => {
-//   console.log(req.body);
+router.post("/", upload.single("pdf"), (req, res) => {
+  console.log(req.body);
 
-//   const pdfData = req.file.buffer;
-//   console.log("pdfData = ", pdfData);
-//   const filename = req.file.originalname;
-//   console.log("filename = ", filename);
-//   const frontViewPdf = req.body.front_view_pdf;
-//   console.log("frontViewPdf = ", frontViewPdf);
-//   const backViewPdf = req.body.back_view_pdf;
-//   console.log("backViewPdf = ", backViewPdf);
-//   // After successful upload
-//   const fileUrl = `/api/coupon/pdf/${filename}`;
+  const pdfData = req.file.buffer;
+  console.log("pdfData = ", pdfData);
+  const filename = req.file.originalname;
+  console.log("filename = ", filename);
+  const frontViewPdf = req.body.front_view_pdf;
+  console.log("frontViewPdf = ", frontViewPdf);
+  const backViewPdf = req.body.back_view_pdf;
+  console.log("backViewPdf = ", backViewPdf);
+  // After successful upload
+  const fileUrl = `/api/coupon/pdf/${filename}`;
 
-//   // Handle PDF data as needed (e.g., store in the database)
-//   pool
-//     .query("INSERT INTO coupon (pdf_data, filename, front_view_pdf, back_view_pdf) VALUES ($1, $2)", [
-//       pdfData,
-//       filename,
-//       frontViewPdf,
-//       backViewPdf,
-//     ])
-//     .then(() => {
-//       res.status(200).send({ message: "PDF uploaded successfully!", fileUrl });
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       res.status(500).send("Error uploading PDF");
-//     });
-// });
+  // Handle PDF data as needed (e.g., store in the database)
+  pool
+    .query("INSERT INTO coupon (pdf_data, filename) VALUES ($1, $2)", [
+      pdfData,
+      filename,
+    ])
+    .then(() => {
+      res.status(200).send({ message: "PDF uploaded successfully!", fileUrl });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error uploading PDF");
+    });
+});
 
-router.post(
-  "/",
-  upload.fields([
-    { name: "pdf", maxCount: 1 },
-    { name: "front_view_pdf", maxCount: 1 },
-    { name: "back_view_pdf", maxCount: 1 },
-  ]),
-  (req, res) => {
-    const pdfData = req.files["pdf"][0].buffer;
-    const filename = req.files["pdf"][0].originalname;
-    const frontViewPdf = req.files["front_view_pdf"][0].buffer;
-    const backViewPdf = req.files["back_view_pdf"][0].buffer;
+// POST route for uploading front view PDF
+router.post("/front/:id", upload.single("pdf"), (req, res) => {
+  const merchantId = req.params.id;
+  const frontViewPdf = req.file.buffer;
+  const filename = req.file.originalname;
 
-    // After successful upload
-    const fileUrl = `/api/coupon/pdf/${filename}`;
+  // Insert the filename and merchantId into the database
+  pool
+    .query(
+      "INSERT INTO coupon (filename, merchant_id, front_view_pdf) VALUES ($1, $2, $3)",
+      [filename, merchantId, frontViewPdf]
+    )
+    .then(() => {
+      res
+        .status(200)
+        .send({ message: "Front view PDF uploaded successfully!" });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error uploading front view PDF");
+    });
+});
 
-    // Handle PDF data as needed (e.g., store in the database)
-    pool
-      .query(
-        "INSERT INTO coupon (pdf_data, filename, front_view_pdf, back_view_pdf) VALUES ($1, $2, $3, $4)",
-        [pdfData, filename, frontViewPdf, backViewPdf]
-      )
-      .then(() => {
-        res
-          .status(200)
-          .send({ message: "PDF uploaded successfully!", fileUrl });
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send("Error uploading PDF");
-      });
-  }
-);
+// POST route for uploading back view PDF
+router.post("/back/:id", upload.single("pdf"), (req, res) => {
+  const merchantId = req.params.id;
+  const backViewPdf = req.file.buffer;
+  const filename = req.file.originalname;
+
+  // Insert the filename and merchantId into the database
+  pool
+    .query(
+      "INSERT INTO coupon (filename, merchant_id, back_view_pdf) VALUES ($1, $2, $3)",
+      [filename, merchantId, backViewPdf]
+    )
+    .then(() => {
+      res.status(200).send({ message: "Back view PDF uploaded successfully!" });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error uploading back view PDF");
+    });
+});
 
 module.exports = router;

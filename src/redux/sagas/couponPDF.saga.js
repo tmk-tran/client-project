@@ -142,9 +142,29 @@ function* pdfUpload(action) {
     // Dispatch a success action if needed
     yield put({ type: "UPLOAD_PDF_SUCCESS", payload: uploadedPdfInfo });
   } catch (error) {
-    console.error("Error uploading PDF:", error);
+    console.log("Error uploading PDF:", error);
     // Dispatch a failure action if needed
     yield put({ type: "UPLOAD_PDF_FAILURE", payload: "Error uploading PDF" });
+  }
+}
+
+function* frontViewUpload(action) {
+  const { selectedFile, merchantId } = action.payload;
+  console.log(selectedFile);
+
+  try {
+    const formData = new FormData();
+    formData.append("front_view_pdf", selectedFile);
+
+    const response = yield axios.post(`/api/coupon/front/${merchantId}`, formData);
+    console.log("RESPONSE from uploadPdf = ", response.data);
+
+    const uploadedPdfInfo = response.data;
+
+    // Dispatch a success action if needed
+    yield put({ type: "FETCH_PDF_FILE", payload: uploadedPdfInfo });
+  } catch (error) {
+    console.log("Error uploading PDF:", error);
   }
 }
 
@@ -152,6 +172,7 @@ export default function* couponPDFSaga() {
   yield takeEvery("FETCH_COUPON_FILES", couponFiles); // this call will come from Coupon component
   yield takeEvery("FETCH_PDF_FILE", pdfFile); // place this call in the component that is viewed after clicking on the file (with its id)
   yield takeEvery("UPLOAD_PDF_REQUEST", pdfUpload);
+  yield takeEvery("UPLOAD_FRONT_VIEW_PDF", frontViewUpload);
 }
 
 export { fetchPdfRequest };

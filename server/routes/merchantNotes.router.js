@@ -34,7 +34,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 
   pool
     .query(queryText, [merchantId, date, content])
-    .then((response) => {
+    .then((res) => {
       res.sendStatus(201);
     })
     .catch((err) => {
