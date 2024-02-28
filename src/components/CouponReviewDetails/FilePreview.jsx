@@ -4,57 +4,77 @@ import { Button } from "@mui/material";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { border } from "../Utils/colors";
 
-const FilePreview = ({ pdfBlob, merchantId }) => {
+const FilePreview = ({
+  pdfBlob,
+  merchantId,
+  showFrontViewFiles,
+  showBackViewFiles,
+}) => {
   console.log(merchantId);
+  console.log(showFrontViewFiles);
+  console.log(showBackViewFiles);
   const dispatch = dispatchHook();
   const [pdfUrl, setPdfUrl] = useState(null);
   console.log(pdfBlob);
   console.log(pdfUrl);
   const [isUploading, setIsUploading] = useState(false);
   console.log(isUploading);
+  const [frontViewUrl, setFrontViewUrl] = useState(null);
+  console.log(frontViewUrl);
+  const [backViewUrl, setBackViewUrl] = useState(null);
+  console.log(backViewUrl);
 
-  // START HERE, NEED TO SET UP STATE FOR SHOWING ALL FILES, AND RESET TO SHOW
-  // FILES AFTER VIEWING
+  const handleButtonClick = (file, i, type) => {
+    let blob = null;
 
-  useEffect(() => {
-    if (pdfBlob instanceof Blob) {
-      console.log(pdfBlob instanceof Blob);
-      // Create a URL for the Blob object
-      setPdfUrl(URL.createObjectURL(pdfBlob));
+    switch (type) {
+      case "pdf":
+        blob = file.pdfBlob;
+        break;
+      case "frontView":
+        blob = file.frontViewBlob;
+        break;
+      case "backView":
+        blob = file.backViewBlob;
+        break;
+      default:
+        break;
     }
-  }, [pdfBlob]);
 
-  const handleOpenPdf = () => {
-    if (pdfUrl) {
-      // Open the PDF file in a new tab
-      window.open(pdfUrl, "_blank");
+    if (blob instanceof Blob) {
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
     }
-  };
-
-  const handleButtonClick = (file) => {
-    console.log(file);
-    console.log(file.pdfBlob);
-
-    const url = URL.createObjectURL(file.pdfBlob);
-    console.log(url);
-    window.open(url, "_blank");
   };
 
   return (
     <div style={border}>
-      {pdfUrl ? (
-        <button onClick={handleOpenPdf}>Open PDF</button>
-      ) : pdfBlob.length > 0 ? (
+      {pdfBlob.length > 0 ? (
         pdfBlob.map((file, i) => (
           <div key={i}>
-            {file.filename}{" "}
-            <button onClick={() => handleButtonClick(file, i)}>View PDF</button>
+            {showFrontViewFiles && file.frontViewBlob && (
+              <>
+                {file.filename}{" "}
+                <button onClick={() => handleButtonClick(file, i, "frontView")}>
+                  View Front View
+                </button>
+                <br />
+              </>
+            )}
+            {showBackViewFiles && file.backViewBlob && (
+              <>
+                {file.filename}{" "}
+                <button onClick={() => handleButtonClick(file, i, "backView")}>
+                  View Back View
+                </button>
+                <br />
+              </>
+            )}
           </div>
         ))
       ) : (
-        <p>No PDF files available</p>
+        <p>No files available</p>
       )}
-      {/* You can also display other content or components here */}
     </div>
   );
 };

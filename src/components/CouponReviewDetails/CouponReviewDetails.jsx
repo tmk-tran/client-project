@@ -37,6 +37,10 @@ export default function CouponReviewDetails() {
   console.log(completedCoupon);
   const [uploadedFiles, setUploadedFiles] = useState(false);
   console.log(uploadedFiles);
+  const [frontViewFile, setFrontViewFile] = useState(null);
+  const [frontViewFilename, setFrontViewFilename] = useState("");
+  const [backViewFile, setBackViewFile] = useState(null);
+  const [backViewFilename, setBackViewFilename] = useState("");
 
   const handleDenyButtonClick = () => {
     // Open the modal when Deny button is clicked
@@ -90,10 +94,77 @@ export default function CouponReviewDetails() {
   // ~~~~~~~~~~ FRONT VIEW UPLOAD FUNCTIONS ~~~~~~~~~~ //
   const handleFrontViewUpload = (selectedFile, addedFileName) => {
     console.log(selectedFile, addedFileName);
+
+    setFrontViewFile(selectedFile);
+    setFrontViewFilename(addedFileName);
+    console.log(frontViewFile);
+    console.log(frontViewFilename);
   };
+
+  const handleFrontUpload = () => {
+    if (frontViewFile) {
+      // Check if the selected file is a PDF
+      if (frontViewFile.type === "application/pdf") {
+        // Dispatch the action for uploading PDF
+        console.log(frontViewFile);
+        console.log(frontViewFilename);
+        const frontViewAction = {
+          type: "UPLOAD_FRONT_VIEW_PDF",
+          payload: {
+            frontViewFile: frontViewFile,
+            frontViewFileName: frontViewFilename,
+            merchantId: merchantId,
+          },
+        };
+        console.log(frontViewAction);
+        dispatch(frontViewAction);
+        setFrontViewFile(null);
+        // onUploadFile();
+      } else {
+        // Alert the user if the selected file is not a PDF
+        alert("Please select a PDF file");
+      }
+    } else {
+      // Alert the user if no file is selected
+      alert("No file selected");
+    }
+  };
+
   // ~~~~~~~~~~ BACK VIEW UPLOAD FUNCTIONS ~~~~~~~~~~ //
   const handleBackViewUpload = (selectedFile, addedFileName) => {
     console.log(selectedFile, addedFileName);
+
+    setBackViewFile(selectedFile);
+    setBackViewFilename(addedFileName);
+  };
+
+  const handleBackUpload = () => {
+    if (backViewFile) {
+      // Check if the selected file is a PDF
+      if (backViewFile.type === "application/pdf") {
+        // Dispatch the action for uploading PDF
+        console.log(backViewFile);
+        console.log(backViewFilename);
+        const backViewAction = {
+          type: "UPLOAD_BACK_VIEW_PDF",
+          payload: {
+            backViewFile: backViewFile,
+            backViewFileName: backViewFilename,
+            merchantId: merchantId,
+          },
+        };
+        console.log(backViewAction);
+        dispatch(backViewAction);
+        setBackViewFile(null);
+        // onUploadFile();
+      } else {
+        // Alert the user if the selected file is not a PDF
+        alert("Please select a PDF file");
+      }
+    } else {
+      // Alert the user if no file is selected
+      alert("No file selected");
+    }
   };
 
   return (
@@ -153,7 +224,20 @@ export default function CouponReviewDetails() {
                         <Typography sx={{ textAlign: "center" }}>
                           Front of Coupon
                         </Typography>
-                        <FilePreview pdfBlob={files} merchantId={merchantId} />
+                        {/* {files.map((file, i) => (
+                          <FilePreview
+                            key={i}
+                            pdfBlob={file.frontViewBlob}
+                          />
+                        ))} */}
+                        <FilePreview pdfBlob={files} showFrontViewFiles={true} showBackViewFiles={false} />
+
+                        {frontViewFile && (
+                          <div>
+                            <p>Selected File: {frontViewFile.name}</p>
+                            <button onClick={handleFrontUpload}>Upload</button>
+                          </div>
+                        )}
                         <UploadFileButton
                           onFileSelect={handleFrontViewUpload}
                         />
@@ -171,14 +255,17 @@ export default function CouponReviewDetails() {
                           backgroundColor: "#D9D9D9",
                         }}
                       >
-                        <Typography
-                          sx={{ textAlign: "center" }}
-                        >
+                        <Typography sx={{ textAlign: "center" }}>
                           Back of Coupon
                         </Typography>
-                        <UploadFileButton
-                          onFileSelect={handleBackViewUpload}
-                        />
+                        <FilePreview pdfBlob={files} showBackViewFiles={true} showFrontViewFiles={false} />
+                        {backViewFile && (
+                          <div>
+                            <p>Selected File: {backViewFile.name}</p>
+                            <button onClick={handleBackUpload}>Upload</button>
+                          </div>
+                        )}
+                        <UploadFileButton onFileSelect={handleBackViewUpload} />
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     </div>

@@ -146,19 +146,19 @@ router.post("/", upload.single("pdf"), (req, res) => {
 
 // POST route for uploading front view PDF
 router.post("/front/:id", upload.single("pdf"), (req, res) => {
-  const merchantId = req.params.id;
   const frontViewPdf = req.file.buffer;
   const filename = req.file.originalname;
+  const merchantId = req.params.id;
 
   // Insert the filename and merchantId into the database
   pool
     .query(
-      "INSERT INTO coupon (filename, merchant_id, front_view_pdf) VALUES ($1, $2, $3)",
-      [filename, merchantId, frontViewPdf]
+      "INSERT INTO coupon (filename, front_view_pdf, merchant_id) VALUES ($1, $2, $3)",
+      [filename, frontViewPdf, merchantId]
     )
     .then(() => {
       res
-        .status(200)
+        .status(201)
         .send({ message: "Front view PDF uploaded successfully!" });
     })
     .catch((error) => {
@@ -180,7 +180,7 @@ router.post("/back/:id", upload.single("pdf"), (req, res) => {
       [filename, merchantId, backViewPdf]
     )
     .then(() => {
-      res.status(200).send({ message: "Back view PDF uploaded successfully!" });
+      res.status(201).send({ message: "Back view PDF uploaded successfully!" });
     })
     .catch((error) => {
       console.error(error);

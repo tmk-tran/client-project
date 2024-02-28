@@ -149,12 +149,18 @@ function* pdfUpload(action) {
 }
 
 function* frontViewUpload(action) {
-  const { selectedFile, merchantId } = action.payload;
+  console.log(action.payload);
+  const selectedFile = action.payload.frontViewFile;
   console.log(selectedFile);
+  const selectedFileName = action.payload.frontViewFileName;
+  console.log(selectedFileName);
+  const merchantId = action.payload.merchantId;
+  console.log(merchantId);
 
   try {
     const formData = new FormData();
-    formData.append("front_view_pdf", selectedFile);
+    formData.append("pdf", selectedFile);
+    console.log("formData = ", formData);
 
     const response = yield axios.post(`/api/coupon/front/${merchantId}`, formData);
     console.log("RESPONSE from uploadPdf = ", response.data);
@@ -162,7 +168,33 @@ function* frontViewUpload(action) {
     const uploadedPdfInfo = response.data;
 
     // Dispatch a success action if needed
-    yield put({ type: "FETCH_PDF_FILE", payload: uploadedPdfInfo });
+    yield put({ type: "UPLOAD_SUCCESS", payload: uploadedPdfInfo });
+  } catch (error) {
+    console.log("Error uploading PDF:", error);
+  }
+}
+
+function* backViewUpload(action) {
+  console.log(action.payload);
+  const selectedFile = action.payload.backViewFile;
+  console.log(selectedFile);
+  const selectedFileName = action.payload.backViewFileName;
+  console.log(selectedFileName);
+  const merchantId = action.payload.merchantId;
+  console.log(merchantId);
+
+  try {
+    const formData = new FormData();
+    formData.append("pdf", selectedFile);
+    console.log("formData = ", formData);
+
+    const response = yield axios.post(`/api/coupon/back/${merchantId}`, formData);
+    console.log("RESPONSE from uploadPdf = ", response.data);
+
+    const uploadedPdfInfo = response.data;
+
+    // Dispatch a success action if needed
+    yield put({ type: "UPLOAD_SUCCESS", payload: uploadedPdfInfo });
   } catch (error) {
     console.log("Error uploading PDF:", error);
   }
@@ -173,6 +205,7 @@ export default function* couponPDFSaga() {
   yield takeEvery("FETCH_PDF_FILE", pdfFile); // place this call in the component that is viewed after clicking on the file (with its id)
   yield takeEvery("UPLOAD_PDF_REQUEST", pdfUpload);
   yield takeEvery("UPLOAD_FRONT_VIEW_PDF", frontViewUpload);
+  yield takeEvery("UPLOAD_BACK_VIEW_PDF", backViewUpload);
 }
 
 export { fetchPdfRequest };

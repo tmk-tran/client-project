@@ -96,10 +96,10 @@ export default function CommentInput({
         height: "fit-content",
       }}
     >
-      <div>
+      {/* <div>
         Files Uploaded, Viewed Here
         <FilePreview pdfBlob={files} merchantId={merchantId} />
-      </div>
+      </div> */}
 
       {/* Display the selected file name */}
       {selectedFile && (
