@@ -1,10 +1,11 @@
 import { Box, Grid, Typography } from "@mui/material";
 import CouponCard from "./CouponCard";
 import { border } from "../Utils/colors";
+import { containerStyle } from "../Utils/pageStyles";
 
 export default function ConsumerCouponView() {
   return (
-    <Box>
+    <Box sx={containerStyle}>
       <Typography variant="h5" sx={{ fontWeight: "bold", textAlign: "center" }}>
         Consumer Coupon View
       </Typography>

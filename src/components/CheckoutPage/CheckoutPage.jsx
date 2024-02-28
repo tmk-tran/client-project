@@ -117,44 +117,42 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div>
-      <Container sx={{ display: "flex", justifyContent: "center" }}>
-        <div>
-          <Stepper activeStep={activeStep}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <Grid container spacing={3} sx={{ mb: 5 }}>
-            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            {/* ~~~~~~~ RENDERED STEPPER CONTENT ~~~~~~~ */}
-            <Grid item xs={12} md={8}>
-              {/* ~~~~~ Container for content ~~~~~ */}
-              <Paper elevation={2} sx={containerStyle}>
-                {getStepContent(activeStep)}
-              </Paper>
-            </Grid>
+    <Container sx={{ display: "flex", justifyContent: "center" }}>
+      <div>
+        <Stepper activeStep={activeStep}>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <Grid container spacing={3} sx={{ mb: 5 }}>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~ RENDERED STEPPER CONTENT ~~~~~~~ */}
+          <Grid item xs={12} md={8}>
+            {/* ~~~~~ Container for content ~~~~~ */}
+            <Paper elevation={2} sx={containerStyle}>
+              {getStepContent(activeStep)}
+            </Paper>
           </Grid>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~ CHECKOUT NAV BUTTONS ~~~~~~~~~~ */}
-          <CustomButton
-            label="Back"
-            disabled={activeStep === 0}
-            onClick={handleBack}
-          />
-          <CustomButton
-            label={activeStep === steps.length - 1 ? "Place Order" : "Next"}
-            onClick={handleSubmit}
-            variant="contained"
-          />
-          <CustomButton
-            label="Return to Store"
-            onClick={() => history.push("/order")}
-          />
-        </div>
-      </Container>
-    </div>
+        </Grid>
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~ CHECKOUT NAV BUTTONS ~~~~~~~~~~ */}
+        <CustomButton
+          label="Back"
+          disabled={activeStep === 0}
+          onClick={handleBack}
+        />
+        <CustomButton
+          label={activeStep === steps.length - 1 ? "Place Order" : "Next"}
+          onClick={handleSubmit}
+          variant="contained"
+        />
+        <CustomButton
+          label="Return to Store"
+          onClick={() => history.push("/order")}
+        />
+      </div>
+    </Container>
   );
 }

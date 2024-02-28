@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import OrderTable from "./OrderTable";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
-import { containerStyle } from "./ShoppingCart";
+import { containerStyle } from "../Utils/pageStyles";
 import { border } from "../Utils/colors";
+// ~~~~~~~~~~ Components ~~~~~~~~~ //
 import CustomButton from "../CustomButton/CustomButton";
 import Typography from "../Typography/Typography";
+import OrderTable from "./OrderTable";
 
 export default function OrderPage() {
   const history = historyHook();

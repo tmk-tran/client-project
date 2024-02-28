@@ -8,13 +8,8 @@ import CustomButton from "../CustomButton/CustomButton";
 import Typography from "../Typography/Typography";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
+import { containerStyle } from "../Utils/pageStyles";
 import { border } from "../Utils/colors";
-
-export const containerStyle = {
-  // minHeight: "80vh",
-  width: "70%",
-  margin: "0 auto",
-};
 
 export default function ShoppingCart() {
   const location = useLocation();
@@ -47,7 +42,6 @@ export default function ShoppingCart() {
   };
 
   const toCheckout = () => {
-    // history.push("/checkout");
     history.push({
       pathname: "/checkout",
       state: { selectedProducts, orderTotal, customDonation },
@@ -55,7 +49,7 @@ export default function ShoppingCart() {
   };
 
   return (
-    <div style={{ ...containerStyle }}>
+    <div style={containerStyle}>
       <div
         style={{
           marginTop: "53px",
