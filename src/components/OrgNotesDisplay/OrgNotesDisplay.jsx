@@ -57,7 +57,7 @@ export default function OrgNotesDisplay() {
     };
 
     const saveCall = () => {
-      dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
+      dispatch({ type: "ADD_ORG_NOTES", payload: {sendNote: sendNote, auth: auth }});
       setNoteAdded(true);
     };
 
@@ -68,8 +68,15 @@ export default function OrgNotesDisplay() {
   };
 
   const handleDelete = (id, organization_id) => {
+    const deletedNote = {
+      id: id,
+      organization_id: organization_id,
+      note_date: note_date,
+      note_content: note_content,
+      is_deleted: true
+    }
     const deleteCall = () => {
-      dispatch({ type: "DELETE_ORG_NOTE", payload: { id, organization_id } });
+      dispatch({ type: "DELETE_ORG_NOTE", payload: { deletedNote: deletedNote, auth: auth } });
       setNoteDelete(true);
     };
     // from Utils

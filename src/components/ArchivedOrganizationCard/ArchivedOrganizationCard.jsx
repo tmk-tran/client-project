@@ -9,10 +9,26 @@ function ArchivedOrganizationCard({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const auth = useSelectore((store) => store.auth)
 
   // function to re activate organization and dispatch the data
   // sweet alert to confirm
   function unArchive(organizationId) {
+    const resetOrg = {  
+      id: organizationId
+      organization_name: organization.organization_name,
+      type: organization.type,
+      address: organization.address,
+      city: organization.city,
+      state: organization.state,
+      zip: organization.zip,
+      primary_contact_first_name: organization.primary_contact_first_name,
+      primary_contact_last_name: organization.primary_contact_last_name,
+      primary_contact_phone: organization.primary_contact_phone,
+      primary_contact_email: contactEmail,
+      organization_logo: logoUrl,
+      organization_earnings: orgEarnings,
+      is_delete: false};
     Swal.fire({
       title: "Are you sure you want to Un-Archive this Organization?",
       icon: "warning",
@@ -22,9 +38,9 @@ function ArchivedOrganizationCard({ organization }) {
       confirmButtonText: "Yes, Un-Archive It",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch({ type: "RESET_ORGANIZATION", payload: organizationId });
-        dispatch({ type: "FETCH_ORGANIZATIONS" });
-        dispatch({ type: "FETCH_ARCHIVED_ORGANIZATIONS" });
+        dispatch({ type: "RESET_ORGANIZATION", payload: {resetOrg: resetOrg, auth:auth } });
+        dispatch({ type: "FETCH_ORGANIZATIONS", payload: auth });
+        dispatch({ type: "FETCH_ARCHIVED_ORGANIZATIONS", payload: auth });
         Swal.fire("Organization Successfully Un-Archived!");
       }
     });

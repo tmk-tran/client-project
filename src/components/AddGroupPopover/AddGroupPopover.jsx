@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // Style
 import {
   Box,
@@ -20,6 +20,7 @@ import {
 
 export default function BasicPopover({ info }) {
   const dispatch = useDispatch();
+  const auth = useSelector((store) => store.auth)
   console.log(info)
   // state for the popover
   const [anchorEl, setAnchorEl] = useState(null);
@@ -55,7 +56,7 @@ export default function BasicPopover({ info }) {
     // from Utils
     // showToast();
 
-    dispatch({ type: "ADD_GROUP", payload: groupInfo });
+    dispatch({ type: "ADD_GROUP", payload: {newGroup: groupInfo, auth: auth}});
 
     setGroupName("");
     setDepartment("");

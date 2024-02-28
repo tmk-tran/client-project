@@ -53,8 +53,28 @@ function* fetchArchivedOrganizationsSaga(action) {
 
   function* resetOrganizationSaga(action) {
     try {
-      yield axios.delete(`/api/archivedOrganizations/${action.payload}`);
-      yield put({ type: "FETCH_ARCHIVED_ORGANIZATIONS" });
+      const resetOrg = action.payload.resetOrg
+    const auth_response = action.payload.auth
+    const ACCESS_TOKEN = auth_response.data.access_token;
+    const QUERY_URL = auth_response.data.routes.query;
+    console.log(auth_response)
+  const query = `{\r\n mutation ($input: organizationInput){\r\n update_organization(input: $input, id: ${resetOrg.id})\r\n {\r\n id\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}`;
+
+    const queryConfig = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    };
+    
+    const data = new FormData();
+    data.append("query", query);
+    data.append("variables", ` {\r\n "input":{\r\n "organization_name": ${resetOrg.organization_name},\r\n "type": ${resetOrg.type},\r\n "address": ${resetOrg.address},\r\n "city": ${resetOrg.city},\r\n "state": ${resetOrg.state},\r\n "zip": ${resetOrg.zip},\r\n "primary_contact_first_name": ${resetOrg.primary_contact_first_name},\r\n "primary_contact_last_name": ${resetOrg.primary_contact_last_name},\r\n "primary_contact_phone": ${resetOrg.primary_contact_phone},\r\n "primary_contact_email": ${resetOrg.primary_contact_email} "organization_logo": ${resetOrg.organization_logo},\r\n "organization_earnings": ${resetOrg.organization_earnings}, "is_deleted": ${resetOrg.is_deleted}\r\n}\r\n}`);
+
+    const response = yield axios.post(QUERY_URL, data, queryConfig);
+    console.log(response)
+    yield put({ type: "FETCH_ORGANIZATIONS", payload: auth_response });
+      yield put({ type: "FETCH_ARCHIVED_ORGANIZATIONS", payload: auth_response });
     } catch (error) {
       console.log("error with deleteOrganizationSaga request", error);
     }

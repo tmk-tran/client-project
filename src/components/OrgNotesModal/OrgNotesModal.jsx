@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 // Style
 import {
@@ -22,6 +22,7 @@ import { showToast } from "../Utils/toasts";
 export default function NotesPopover({ info }) {
   const dispatch = useDispatch();
   const paramsObject = useParams();
+  const auth = useSelector((store) => store.auth)
   // state for the popover
   const [anchorEl, setAnchorEl] = useState(null);
   // state for the add group form
@@ -56,7 +57,7 @@ export default function NotesPopover({ info }) {
     };
 
     const saveCall = () => {
-      dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
+      dispatch({ type: "ADD_ORG_NOTES", payload: {sendNote: sendNote, auth: auth }});
       setNoteAdded(true);
     };
 

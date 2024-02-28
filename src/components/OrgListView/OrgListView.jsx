@@ -9,6 +9,7 @@ import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
 function OrgListView({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const auth = useSelector((store) => store.auth)
   // const aggs = useSelector((store) => store.organizations.
   // Aggregate)
   // console.log(aggs)
@@ -49,6 +50,21 @@ function OrgListView({ organization }) {
 
   // archives the organization- "soft delete"
   const handleArchive = (organizationId) => {
+    const archivedOrg = {
+      id: organizationId,
+      organization_name: organization.organization_name,
+      type: organization.type,
+      address: organization.address,
+      city: organization.city,
+      state: organization.state,
+      zip: organization.zip,
+      primary_contact_first_name: organization.primary_contact_first_name,
+      primary_contact_last_name: organization.primary_contact_last_name,
+      primary_contact_phone: organization.primary_contact_phone,
+      primary_contact_email: contactEmail,
+      organization_logo: logoUrl,
+      organization_earnings: orgEarnings,
+      is_delete: true}
     Swal.fire({
       title: "Are you sure you want to Archive this Organization?",
       icon: "warning",
@@ -58,7 +74,7 @@ function OrgListView({ organization }) {
       confirmButtonText: "Yes, Archive It",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch({ type: "DELETE_ORGANIZATION", payload: organizationId });
+        dispatch({ type: "DELETE_ORGANIZATION", payload: {archivedOrg: archivedOrg, auth: auth}});
         dispatch({ type: "FETCH_ORGANIZATIONS" });
         Swal.fire("Organization Successfully Archived!");
       }

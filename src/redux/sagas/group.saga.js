@@ -63,8 +63,26 @@ function* fetchOrgGroupsSaga(action) {
 function*  addGroupSaga(action)  {
     try {
         console.log(action.payload)
-        yield axios.post("/api/group/newGroup", action.payload)
-        yield put({ type: "FETCH_ORG_GROUPS", payload: Number(action.payload.organization_id) })
+        const newGroup = action.payload.newGroup
+        const auth_response = action.payload.auth
+        const ACCESS_TOKEN = auth_response.data.access_token;
+        const QUERY_URL = auth_response.data.routes.query;
+        const query =`{\r\n mutation ($input: groupInput){\r\n  create_group(input: $input){\r\n id\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n}\r\n}}`
+         
+        const queryConfig = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${ACCESS_TOKEN}`,
+            },
+        };
+
+        const data = new FormData();
+        data.append("query", query);
+        data.append("variables", `{\r\n{\r\n    "input": {\r\n "organization_id": ${newGroup.organization_id} ,\r\n "department": "${newGroup.department},\r\n "sub_department": ${newGroup.sub_department},\r\n "group_nickname": ${newGroup.group_nickname},\r\n "group_description": ${newGroup.group_description}\r\n}\r\n}`);
+
+        const response = yield axios.post(QUERY_URL, data, queryConfig);
+        console.log(response)
+        yield put({ type: "FETCH_ORG_GROUPS", payload: { id: Number(action.payload.organization_id), auth: auth_response }})
         console.log("org id in saga  = ", Number(action.payload.organization_id));
     } catch (err) {
         console.log("Error adding a new group", err)

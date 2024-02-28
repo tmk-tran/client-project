@@ -25,6 +25,7 @@ export default function OrgContactDetails() {
   const dispatch = useDispatch();
   const id = Number(useParams().id);
   const info = useSelector((store) => store.orgDetailsReducer)
+  const auth = useSelector((store) => store.auth)
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
 
@@ -53,7 +54,7 @@ export default function OrgContactDetails() {
   useEffect(() => {
     dispatch({
       type: "FETCH_ORG_DETAILS",
-      payload: id,
+      payload: {id: id, auth: auth},
     });
   }, [])
 
