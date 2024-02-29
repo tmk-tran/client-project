@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Box } from "@mui/material"; 
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
 import { containerStyle } from "../Utils/pageStyles";
@@ -7,6 +8,7 @@ import { border } from "../Utils/colors";
 import CustomButton from "../CustomButton/CustomButton";
 import Typography from "../Typography/Typography";
 import OrderTable from "./OrderTable";
+import { navButtonStyle } from "./checkoutStyles";
 
 export default function OrderPage() {
   const history = historyHook();
@@ -110,14 +112,14 @@ export default function OrderPage() {
         setCustomDonation={setCustomDonation}
         clearDonation={clearDonation}
       />
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      <Box sx={navButtonStyle}>
         <CustomButton label="Clear" onClick={clearTotal} />
         <CustomButton
           label="Add to Cart"
           onClick={addToCart}
           variant="contained"
         />
-      </div>
+      </Box>
     </div>
   );
 }

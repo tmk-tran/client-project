@@ -36,16 +36,6 @@ export default function GlobalFundraiserInput() {
   const [couponBookId, setCouponBookId] = useState("");
   const [isCancelButtonDisabled, setCancelButtonDisabled] = useState(true);
 
-  // const handleOrganizationChange = (event) => {
-  //   setSelectedOrganizationId(event.target.value);
-  //   setCancelButtonDisabled(event.target.value === "");
-  // };
-
-  // const handleGroupChange = (event) => {
-  //   setSelectedGroup(event.target.value);
-  //   setCancelButtonDisabled(event.target.value === "");
-  // };
-
   // filter groups based off of organization id
   const filteredGroups = groupList.filter(
     (group) => group.organization_id === selectedOrganizationId

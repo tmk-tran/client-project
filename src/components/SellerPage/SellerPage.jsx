@@ -59,7 +59,7 @@ export default function SellerPage() {
   return (
     <div>
       <Typography
-        label={`Code: ${refId}`}
+        label={`Referral ID: ${refId}`}
         variant="h6"
         sx={{ mt: 5, textAlign: "center" }}
       />

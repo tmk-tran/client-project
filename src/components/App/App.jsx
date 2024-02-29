@@ -35,7 +35,6 @@ import "./App.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { User } from "../../hooks/reduxStore";
-import UrlTableView from "../OrgSellers/UrlTableView";
 
 // ~~~~~ Theme establishing global color for MUI ~~~~~
 const theme = createTheme({
@@ -170,7 +169,7 @@ function App() {
               </ProtectedRoute>
 
               <ProtectedRoute exact path="/dev">
-                <UrlTableView />
+                <SellerPage />
               </ProtectedRoute>
 
               <ProtectedRoute exact path="/sellers">

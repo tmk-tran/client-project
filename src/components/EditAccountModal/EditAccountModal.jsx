@@ -118,7 +118,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
           <Grid container spacing={2}>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~ ACCOUNT NAME ~~~~~~~~~~ */}
-            <Grid item xs={!isMerchantList ? 6 : 12}>
+            <Grid item xs={!isMerchantList ? 5.5 : 12}>
               <TextField
                 label={!isMerchantList ? "Organization Name" : "Merchant Name"}
                 fullWidth
@@ -138,13 +138,33 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~ ACCOUNT TYPE ORG ONLY) ~~~~~~~~~~ */}
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               {!isMerchantList && (
                 <TextField
                   label="Organization Type"
                   fullWidth
                   value={editedAccount.type}
                   onChange={(e) => handleChange("type", e.target.value)}
+                />
+              )}
+            </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~ */}
+            <Grid item xs={2.5}>
+              {!isMerchantList && (
+                <TextField
+                  type="number"
+                  label="Fee"
+                  fullWidth
+                  value={editedAccount.organization_earnings}
+                  onChange={(e) =>
+                    handleChange("organization_earnings", e.target.value)
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">$</InputAdornment>
+                    ),
+                  }}
                 />
               )}
             </Grid>
@@ -196,55 +216,11 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~ */}
-            <Grid item xs={!isMerchantList ? 8 : 12}>
-              {/* <TextField
-                label="Logo URL (optional)"
-                fullWidth
-                value={editedAccount.organization_logo}
-                onChange={(e) =>
-                  handleChange("organization_logo", e.target.value)
-                }
-              /> */}
-              {/* <TextField
-                disabled
-                // label="Logo (optional)"
-                fullWidth
-                value={editedAccount.filename ? editedAccount.filename : "No Current Logo"}
-                onChange={(e) =>
-                  handleChange("organization_logo", e.target.value)
-                }
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <AddFileButton />
-                    </InputAdornment>
-                  ),
-                }}
-              /> */}
+            <Grid item xs={12}>
               <AddFileButton
                 filename={editedAccount.filename}
                 onFileSelect={handleFileSelection}
               />
-            </Grid>
-            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            {/* ~~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~~ */}
-            <Grid item xs={4}>
-              {!isMerchantList && (
-                <TextField
-                  type="number"
-                  label="Organization Fee"
-                  fullWidth
-                  value={editedAccount.organization_earnings}
-                  onChange={(e) =>
-                    handleChange("organization_earnings", e.target.value)
-                  }
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">$</InputAdornment>
-                    ),
-                  }}
-                />
-              )}
             </Grid>
           </Grid>
           <br />

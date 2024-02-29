@@ -9,7 +9,7 @@ import { User } from "../../hooks/reduxStore";
 import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
 
-export default function Header({ user }) { 
+export default function Header({ user }) {
   console.log(user);
   const history = historyHook();
 

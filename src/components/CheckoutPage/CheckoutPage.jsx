@@ -18,6 +18,7 @@ import CustomButton from "../CustomButton/CustomButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
+import { navButtonStyle } from "./checkoutStyles";
 
 export const containerStyle = {
   width: "50vw",
@@ -138,20 +139,22 @@ export default function CheckoutPage() {
         </Grid>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ CHECKOUT NAV BUTTONS ~~~~~~~~~~ */}
-        <CustomButton
-          label="Back"
-          disabled={activeStep === 0}
-          onClick={handleBack}
-        />
-        <CustomButton
-          label={activeStep === steps.length - 1 ? "Place Order" : "Next"}
-          onClick={handleSubmit}
-          variant="contained"
-        />
-        <CustomButton
-          label="Return to Store"
-          onClick={() => history.push("/order")}
-        />
+        <Box sx={navButtonStyle}>
+          {/* <CustomButton
+            label="Back"
+            disabled={activeStep === 0}
+            onClick={handleBack}
+          /> */}
+          <CustomButton
+            label="Return to Store"
+            onClick={() => history.push("/order")}
+          />
+          <CustomButton
+            label={activeStep === steps.length - 1 ? "Place Order" : "Continue"}
+            onClick={handleSubmit}
+            variant="contained"
+          />
+        </Box>
       </div>
     </Container>
   );
