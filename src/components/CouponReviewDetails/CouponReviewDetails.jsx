@@ -234,7 +234,7 @@ export default function CouponReviewDetails() {
                             pdfBlob={file.frontViewBlob}
                           />
                         ))} */}
-                        <Box
+                        {/* <Box
                           sx={{
                             border: "1px solid blue",
                             position: "relative",
@@ -253,12 +253,12 @@ export default function CouponReviewDetails() {
                               </button>
                             </div>
                           )}
-                          {/* <Box style={bottomBoxStyle}> */}
                             <UploadFileButton
                               onFileSelect={handleFrontViewUpload}
-                            />
+                              />
+                        </Box> */}
+                              {/* <Box style={bottomBoxStyle}> */}
                           {/* </Box> */}
-                        </Box>
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     </div>
@@ -276,7 +276,7 @@ export default function CouponReviewDetails() {
                         <Typography variant="body2" sx={{ textAlign: "center" }}>
                           Back of Coupon
                         </Typography>
-                        <Box sx={{ position: "relative" }}>
+                        {/* <Box sx={{ position: "relative" }}>
                           <FilePreview
                             pdfBlob={files}
                             showBackViewFiles={true}
@@ -293,7 +293,7 @@ export default function CouponReviewDetails() {
                               onFileSelect={handleBackViewUpload}
                             />
                           </Box>
-                        </Box>
+                        </Box> */}
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     </div>
