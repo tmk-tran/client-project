@@ -9,16 +9,17 @@ import {
   Divider,
   Grid,
 } from "@mui/material";
-// ~~~~~~~~~~~ Components ~~~~~~~~~~~
+// ~~~~~~~~~~~ Components ~~~~~~~~~~~ //
 import AddBox from "../AddBoxIcon/AddBoxIcon";
 import CloseButton from "../Buttons/CloseButton";
 import SelectMenu from "./SelectMenu";
 import AddFileButton from "../AddFileButton/AddFileButton";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { validateWebsiteFormat, validatePhoneNumber } from "../Utils/helpers";
 import ModalButtons from "../Modals/ModalButtons";
+import { border } from "../Utils/colors";
 
 const style = {
   position: "absolute",
@@ -169,6 +170,9 @@ export default function AddNewCouponModal({
           />
           <Grid container spacing={2}>
             <Grid item xs={6}>
+              <Typography sx={{ mb: 3, mt: 3 }}>
+                Choice of 'Accepted at all locations'
+              </Typography>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ OFFER ~~~~~~~~~~~~ */}
               <TextField
@@ -185,8 +189,10 @@ export default function AddNewCouponModal({
                 fullWidth
                 sx={{ mb: 2 }}
               />
+              {/* </Grid> */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ VALUE ~~~~~~~~~~~~ */}
+              {/* <Grid item={6}> */}
               <TextField
                 label="Coupon Value"
                 value={couponValue}
@@ -203,10 +209,8 @@ export default function AddNewCouponModal({
                 fullWidth
                 sx={{ mb: 2 }}
               />
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~ LOGO UPLOAD~~~~~~~~~ */}
-              <AddFileButton />
             </Grid>
+
             <Grid item xs={6}>
               {/* <Divider sx={{ mt: 2, mb: 2, ...lineDivider}} /> */}
 
@@ -265,7 +269,10 @@ export default function AddNewCouponModal({
                 sx={{ mb: 2 }}
               />
             </Grid>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ LOGO UPLOAD~~~~~~~~~ */}
           </Grid>
+          <AddFileButton />
           <ModalButtons
             label="Add"
             onSave={addCoupon}

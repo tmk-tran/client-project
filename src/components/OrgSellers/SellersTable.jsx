@@ -11,6 +11,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  ToolTip,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import LaunchIcon from "@mui/icons-material/Launch";
@@ -279,6 +280,7 @@ export default function SellersTable() {
                                   // overflow: "hidden",
                                   overflowWrap: "break-word",
                                   // textOverflow: "ellipsis",
+                                  // whiteSpace: "no-wrap",
                                 }),
                               }}
                             >
