@@ -144,7 +144,7 @@ export default function SellersTable() {
       };
       console.log("Dispatching action:", archiveAction);
       dispatch(archiveAction);
-    });
+    }, "archiveStudent");
   };
 
   // ~~~~~ Pagination ~~~~~~~~~~~~~~~~~~~~~~~~ //

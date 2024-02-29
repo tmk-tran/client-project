@@ -50,7 +50,7 @@ export default function ActionsSpeedDial({
   const deleteClick = () => {
     showDeleteSweetAlert(() => {
       handleDelete(location.id, location.merchant_id);
-    });
+    }, "removeLocation");
   };
 
   const editClick = () => {

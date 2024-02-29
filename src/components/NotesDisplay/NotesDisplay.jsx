@@ -121,7 +121,7 @@ export default function NotesDisplay({
     showDeleteSweetAlert(() => {
       // If the user confirms, call the handleDelete function
       handleDelete(noteId, entityId);
-    });
+    }, "delete" );
   };
 
   const handleDelete = (noteId, entityId) => {

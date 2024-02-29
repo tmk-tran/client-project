@@ -1,14 +1,41 @@
 import Swal from "sweetalert2";
 import { primaryColor, successColor } from "./colors";
 
-export const showDeleteSweetAlert = (deleteCall) => {
+export const showDeleteSweetAlert = (deleteCall, caseType) => {
+  console.log(caseType);
+  let title = "";
+  let confirmButtonText = "";
+  switch (caseType) {
+    case "archive":
+      title = "Are you sure?";
+      confirmButtonText = "Yes, archive it!";
+      break;
+    case "archiveStudent":
+      title = "Archive seller?";
+      confirmButtonText = "Confirm";
+      break;
+    case "delete":
+      title = "Delete note?";
+      confirmButtonText = "Yes, delete it!";
+      break;
+    case "removeLocation":
+      title = "Remove location?";
+      confirmButtonText = "Confirm";
+      break;
+    default:
+      title = "Are you sure?";
+      confirmButtonText = "Yes, confirm it!";
+      break;
+  }
   Swal.fire({
-    title: "Are you sure?",
+    // title: "Are you sure?",
+    title: title,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: successColor.color,
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, archive it!",
+    // confirmButtonText: "Yes, archive it!",
+    confirmButtonText: confirmButtonText,
   }).then((result) => {
     if (result.isConfirmed) {
       // Execute the callback if the user confirms
