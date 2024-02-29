@@ -14,7 +14,7 @@ const PdfThumbnail = ({ pdfUrl, style }) => {
   return (
     <div style={{ ...style, overflow: "hidden", position: "relative" }}>
       <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={1} width={100} />
+        <Page pageNumber={1} width={150} />
       </Document>
       {loading && (
         <div

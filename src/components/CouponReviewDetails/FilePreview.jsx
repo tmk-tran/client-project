@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { border } from "../Utils/colors";
 import PdfThumbnail from "../PdfThumbnail/PdfThumbnail";
+
+const boxStyle = {
+  display: "flex",
+  justifyContent: "center",
+  position: "relative",
+  zIndex: 1,
+};
 
 const FilePreview = ({
   pdfBlob,
@@ -49,29 +56,44 @@ const FilePreview = ({
   };
 
   return (
-    <div style={border}>
+    <div>
       {pdfBlob.length > 0 ? (
         pdfBlob.map((file, i) => (
           <div key={i}>
             {showFrontViewFiles && file.frontViewBlob && (
               <>
-                {file.filename}{" "}
-                <div style={border}>
-                <PdfThumbnail pdfUrl={file.frontViewBlob} style={{ width: '100px', height: '100px' }} />
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <PdfThumbnail
+                    pdfUrl={file.frontViewBlob}
+                    style={{ width: "150px", height: "150px" }}
+                  />
                 </div>
-                <button onClick={() => handleButtonClick(file, i, "frontView")}>
-                  View Front View
-                </button>
-                <br />
+                <Box sx={boxStyle}>
+                  {/* {file.filename}{" "} */}
+                  <Button
+                    onClick={() => handleButtonClick(file, i, "frontView")}
+                  >
+                    View Front
+                  </Button>
+                </Box>
               </>
             )}
             {showBackViewFiles && file.backViewBlob && (
               <>
-                {file.filename}{" "}
-                <button onClick={() => handleButtonClick(file, i, "backView")}>
-                  View Back View
-                </button>
-                <br />
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <PdfThumbnail
+                    pdfUrl={file.backViewBlob}
+                    style={{ width: "150px", height: "150px" }}
+                  />
+                </div>
+                <Box sx={boxStyle}>
+                  {/* {file.filename}{" "} */}
+                  <Button
+                    onClick={() => handleButtonClick(file, i, "backView")}
+                  >
+                    View Back
+                  </Button>
+                </Box>
               </>
             )}
           </div>

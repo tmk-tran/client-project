@@ -17,6 +17,14 @@ import UploadFileButton from "./UploadFileButton";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { pdfFile } from "../../hooks/reduxStore";
 
+const bottomBoxStyle = {
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  right: 0,
+  zIndex: 0,
+};
+
 export default function CouponReviewDetails() {
   const dispatch = dispatchHook();
   const params = useParams();
@@ -197,10 +205,7 @@ export default function CouponReviewDetails() {
           </div>
 
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <Card
-            style={{ width: "50vw", height: "64vh", margin: "0 auto" }}
-            elevation={3}
-          >
+          <Card style={{ width: "50vw", margin: "0 auto" }} elevation={3}>
             <CardContent>
               <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
                 <div style={{ width: "25vw" }}>
@@ -217,11 +222,10 @@ export default function CouponReviewDetails() {
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       <div
                         style={{
-                          height: "18vh",
                           backgroundColor: "#D9D9D9",
                         }}
                       >
-                        <Typography sx={{ textAlign: "center" }}>
+                        <Typography variant="body2" sx={{ textAlign: "center" }}>
                           Front of Coupon
                         </Typography>
                         {/* {files.map((file, i) => (
@@ -230,17 +234,32 @@ export default function CouponReviewDetails() {
                             pdfBlob={file.frontViewBlob}
                           />
                         ))} */}
-                        <FilePreview pdfBlob={files} showFrontViewFiles={true} showBackViewFiles={false} />
-
-                        {frontViewFile && (
-                          <div>
-                            <p>Selected File: {frontViewFile.name}</p>
-                            <button onClick={handleFrontUpload}>Upload</button>
-                          </div>
-                        )}
-                        <UploadFileButton
-                          onFileSelect={handleFrontViewUpload}
-                        />
+                        <Box
+                          sx={{
+                            // border: "1px solid blue",
+                            position: "relative",
+                            zIndex: 0
+                          }}
+                        >
+                          <FilePreview
+                            pdfBlob={files}
+                            showFrontViewFiles={true}
+                            showBackViewFiles={false}
+                          />
+                          {frontViewFile && (
+                            <div>
+                              <p>Selected File: {frontViewFile.name}</p>
+                              <button onClick={handleFrontUpload}>
+                                Upload
+                              </button>
+                            </div>
+                          )}
+                          <Box style={bottomBoxStyle}>
+                            <UploadFileButton
+                              onFileSelect={handleFrontViewUpload}
+                            />
+                          </Box>
+                        </Box>
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     </div>
@@ -251,21 +270,31 @@ export default function CouponReviewDetails() {
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       <div
                         style={{
-                          height: "18vh",
+                          // height: "18vh",
                           backgroundColor: "#D9D9D9",
                         }}
                       >
-                        <Typography sx={{ textAlign: "center" }}>
+                        <Typography variant="body2" sx={{ textAlign: "center" }}>
                           Back of Coupon
                         </Typography>
-                        <FilePreview pdfBlob={files} showBackViewFiles={true} showFrontViewFiles={false} />
-                        {backViewFile && (
-                          <div>
-                            <p>Selected File: {backViewFile.name}</p>
-                            <button onClick={handleBackUpload}>Upload</button>
-                          </div>
-                        )}
-                        <UploadFileButton onFileSelect={handleBackViewUpload} />
+                        <Box sx={{ position: "relative", zIndex: 1 }}>
+                          <FilePreview
+                            pdfBlob={files}
+                            showBackViewFiles={true}
+                            showFrontViewFiles={false}
+                          />
+                          {backViewFile && (
+                            <div>
+                              <p>Selected File: {backViewFile.name}</p>
+                              <button onClick={handleBackUpload}>Upload</button>
+                            </div>
+                          )}
+                          <Box sx={bottomBoxStyle}>
+                            <UploadFileButton
+                              onFileSelect={handleBackViewUpload}
+                            />
+                          </Box>
+                        </Box>
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     </div>
@@ -273,7 +302,7 @@ export default function CouponReviewDetails() {
                     <div>
                       <div
                         style={{
-                          height: "15vh",
+                          // height: "15vh",
                           backgroundColor: "rgba(96, 96, 96, 0.1)",
                         }}
                       >
