@@ -363,7 +363,7 @@ export default function AddOrganizationModal({
           </Grid>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~~~~~ */}
-          <ModalButtons label="Add" onSave={handleSave} onCancel={cancelAdd} />
+          <ModalButtons label="Add" onSave={handleSave} onCancel={cancelAdd} width="50%" />
         </Box>
       </Modal>
     </div>
