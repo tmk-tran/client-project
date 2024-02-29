@@ -8,16 +8,31 @@ const {
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const orgId = req.params.id;
 
+  // const queryText = `
+  //   SELECT
+  //     *
+  //   FROM
+  //     sellers
+  //   WHERE
+  //     organization_id = $1
+  //   ORDER BY
+  //     lastname ASC     
+  //   ;`;
+
   const queryText = `
-    SELECT
-      *
-    FROM
-      sellers
-    WHERE
-      organization_id = $1
-    ORDER BY
-      lastname ASC     
-    ;`;
+  SELECT
+      s.*,
+      o.organization_name,
+      o.address,
+      o.city,
+      o.state,
+      o.zip
+  FROM
+      sellers s
+  INNER JOIN
+      organization o ON s.organization_id = o.id
+  WHERE
+      s.organization_id = $1;`;
 
   pool
     .query(queryText, [orgId])
