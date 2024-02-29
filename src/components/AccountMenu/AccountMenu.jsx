@@ -46,18 +46,20 @@ const AccountMenu = () => {
         </Typography>
       )}
     >
-      <MenuItem
-        value="profile"
-        onClick={() => {
-          history.push(`/userProfile/${user.id}`);
-        }}
-      >
-        Profile
-      </MenuItem>
-      {!user.org_admin && (
-        <>
-          <hr style={{ width: "90%" }} />
+      {[
+        <MenuItem
+          key="profile"
+          value="profile"
+          onClick={() => {
+            history.push(`/userProfile/${user.id}`);
+          }}
+        >
+          Profile
+        </MenuItem>,
+        <hr key="divider" style={{ width: "90%" }} />,
+        !user.org_admin && (
           <MenuItem
+            key="tasks"
             value="tasks"
             onClick={() => {
               history.push("/tasks");
@@ -65,7 +67,10 @@ const AccountMenu = () => {
           >
             Tasks
           </MenuItem>
+        ),
+        !user.org_admin && (
           <MenuItem
+            key="organizations"
             value="organizations"
             onClick={() => {
               history.push("/home");
@@ -73,13 +78,16 @@ const AccountMenu = () => {
           >
             Accounts
           </MenuItem>
-        </>
-      )}
-      {/* <MenuItem value="coupons">Coupons</MenuItem> */}
-      <hr style={{ width: "90%" }} />
-      <MenuItem value="logout" onClick={() => dispatch({ type: "LOGOUT" })}>
-        Logout
-      </MenuItem>
+        ),
+        <hr key="divider2" style={{ width: "90%" }} />,
+        <MenuItem
+          key="logout"
+          value="logout"
+          onClick={() => dispatch({ type: "LOGOUT" })}
+        >
+          Logout
+        </MenuItem>,
+      ]}
     </Select>
   );
 };

@@ -43,9 +43,7 @@ export default function Header({ user }) {
             {/* If a user is logged in, show these links */}
             <div>
               {user.id && (
-                <>
                   <AccountMenu />
-                </>
               )}
             </div>
           </div>

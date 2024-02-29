@@ -30,3 +30,8 @@ export const flexCenter = {
   justifyContent: "center",
   alignItems: "center",
 };
+
+export const flexEnd = {
+  display: "flex",
+  justifyContent: "flex-end",
+};
