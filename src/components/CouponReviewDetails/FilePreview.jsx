@@ -8,8 +8,7 @@ import PdfThumbnail from "../PdfThumbnail/PdfThumbnail";
 const boxStyle = {
   display: "flex",
   justifyContent: "center",
-  position: "relative",
-  zIndex: 1,
+  // position: "relative"
 };
 
 const FilePreview = ({

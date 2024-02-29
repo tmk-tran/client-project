@@ -112,12 +112,11 @@ export default function BasicModal({
     setAdditionalDetails("");
     setCouponDetails("");
     setAdditionalDetails("");
-    handleClose();
   };
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    // resetForm();
+    resetForm();
     setOpen(false);
   };
   const handleFirstMenuChange = (event) => {

@@ -12,11 +12,15 @@ export default function GlobalFundraiserInput() {
   const organizations = useSelector((store) => store.organizations);
   const groupList = useSelector((store) => store.allGroups);
   const couponBooks = useSelector((store) => store.couponBooks);
+  console.log(couponBooks);
 
   useEffect(() => {
     dispatch({ type: "FETCH_ORGANIZATIONS" });
     dispatch({
       type: "FETCH_ALL_GROUPS",
+    });
+    dispatch({
+      type: "FETCH_COUPON_BOOKS",
     });
   }, []);
   // set state for organization id and group id

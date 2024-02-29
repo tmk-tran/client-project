@@ -8,7 +8,6 @@ import {
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import UserProfile from "../UserProfile/UserProfile";
-import AboutPage from "../AboutPage/AboutPage";
 import HomePage from "../HomePage/HomePage";
 import Details from "../Details/Details";
 import LandingPage from "../LandingPage/LandingPage";
@@ -87,9 +86,9 @@ function App() {
             <Switch>
               <Redirect exact from="/" to="/home" />
 
-              <Route exact path="/about">
-                <AboutPage />
-              </Route>
+              {/* <Route exact path="/about">
+
+              </Route> */}
 
               <ProtectedRoute exact path="/user">
                 {!user.org_admin ? (

@@ -20,14 +20,14 @@ export default function OrderPage() {
 
   // UPDATE WITH ACTUAL STORE DATA ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const [rows, setRows] = useState([
-    { id: 1, bookType: "Print Paper Coupon", price: 25, quantity: 0 },
+    { id: 1, bookType: "Physical Coupon Book", price: 25, quantity: 0 },
     {
       id: 2,
-      bookType: "Fargo - Moorhead (Digital Coupon)",
+      bookType: "Fargo - Moorhead (Digital Coupon Book)",
       price: 25,
       quantity: 0,
     },
-    { id: 3, bookType: "Grand Forks (Digital Coupon)", price: 25, quantity: 0 },
+    { id: 3, bookType: "Grand Forks (Digital Coupon Book)", price: 25, quantity: 0 },
     { id: 4, bookType: "Donate", price: 0, quantity: 0 },
   ]);
 

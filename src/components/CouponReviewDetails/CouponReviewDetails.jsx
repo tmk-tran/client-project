@@ -18,11 +18,11 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { pdfFile } from "../../hooks/reduxStore";
 
 const bottomBoxStyle = {
-  position: "absolute",
+  // position: "absolute",
   bottom: 0,
   left: 0,
   right: 0,
-  zIndex: 0,
+  ...border,
 };
 
 export default function CouponReviewDetails() {
@@ -236,9 +236,8 @@ export default function CouponReviewDetails() {
                         ))} */}
                         <Box
                           sx={{
-                            // border: "1px solid blue",
+                            border: "1px solid blue",
                             position: "relative",
-                            zIndex: 0
                           }}
                         >
                           <FilePreview
@@ -254,11 +253,11 @@ export default function CouponReviewDetails() {
                               </button>
                             </div>
                           )}
-                          <Box style={bottomBoxStyle}>
+                          {/* <Box style={bottomBoxStyle}> */}
                             <UploadFileButton
                               onFileSelect={handleFrontViewUpload}
                             />
-                          </Box>
+                          {/* </Box> */}
                         </Box>
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -277,7 +276,7 @@ export default function CouponReviewDetails() {
                         <Typography variant="body2" sx={{ textAlign: "center" }}>
                           Back of Coupon
                         </Typography>
-                        <Box sx={{ position: "relative", zIndex: 1 }}>
+                        <Box sx={{ position: "relative" }}>
                           <FilePreview
                             pdfBlob={files}
                             showBackViewFiles={true}

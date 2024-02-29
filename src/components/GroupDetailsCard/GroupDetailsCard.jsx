@@ -1,5 +1,5 @@
 //Imports used for component
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -25,6 +25,7 @@ export default function GroupDetailsCard({ group }) {
   const dispatch = useDispatch();
   //Selector for the coupon books. Used to grab the year of the coupon book in the dropdown menu
   const couponBooks = useSelector((store) => store.couponBooks);
+  console.log(couponBooks);
   //State used for the modal add fundraiser form
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -41,6 +42,11 @@ export default function GroupDetailsCard({ group }) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [couponBookId, setCouponBookId] = useState("");
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_COUPON_BOOKS" });
+  }, []);
+
   //Function that runs on click of the submit button in add fundraiser form. This creates a new objcet that is sent to the back end to be added to the database and resets the state of the inputs in the form and closes the modal. Also fires sweetalert to let user know that the fundraiser has been added.
   const submitFundraiser = (e) => {
     e.preventDefault;

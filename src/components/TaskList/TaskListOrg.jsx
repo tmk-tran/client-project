@@ -17,6 +17,18 @@ export default function TaskListOrg() {
   });
   const [caseType, setCaseType] = useState("");
   console.log(caseType);
+  const [isNewTasksMenuOpen, setIsNewTasksMenuOpen] = useState(false);
+  console.log(isNewTasksMenuOpen);
+  const [newTasksExist, setNewTasksExist] = useState(false); // Track if there are new tasks
+
+  const handleNewTaskAdded = (task) => {
+    setNewTasksExist(true); // Set newTasksExist to true when a new task is added
+  };
+
+  const handleMenuOpen = () => {
+    setIsNewTasksMenuOpen(false); // Remove the flag when the menu is opened
+    setNewTasksExist(false); // Reset newTasksExist when the menu is opened
+  };
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
@@ -65,6 +77,14 @@ export default function TaskListOrg() {
             {`(${sortedNewTasks.length})`}
           </Typography>
         )}
+        // renderValue={() => (
+        //   <Typography fontWeight={!isNewTasksMenuOpen ? "bold" : "normal"}>
+        //     {"New"}&nbsp;
+        //     {`(${sortedNewTasks.length})`}
+        //     {isNewTasksMenuOpen && <span style={{ marginLeft: "5px" }}>New!</span>}
+        //   </Typography>
+        // )}
+        // onOpen={handleMenuOpen}
         MenuProps={{ disableAutoFocusItem: true }}
       >
         {sortedNewTasks.map((task, i) => (

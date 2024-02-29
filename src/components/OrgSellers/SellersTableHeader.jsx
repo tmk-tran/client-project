@@ -7,15 +7,15 @@ export default function SellersTableHeader({ viewUrlTable, setViewUrlTable }) {
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       <Typography label="Participating Sellers" variant="h6" sx={{ p: 1 }} />
-      <ToggleButton
+      {/* <ToggleButton
         onClick={() => setViewUrlTable(!viewUrlTable)}
         toggleState={viewUrlTable}
         label1="View URL Table"
         label2="View Seller Info"
         sxButton={{ mr: 1 }}
-      />
+      /> */}
       <Typography
-        label="URL can also be viewed using the button in the Refferal ID column "
+        label="URL can also be viewed using the button in the Referral ID column "
         variant="caption"
         sx={{ mt: 2.5 }}
       />
