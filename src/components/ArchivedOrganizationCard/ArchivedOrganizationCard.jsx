@@ -15,7 +15,7 @@ function ArchivedOrganizationCard({ organization }) {
   // sweet alert to confirm
   function unArchive(organizationId) {
     const resetOrg = {  
-      id: organizationId
+      id: organizationId,
       organization_name: organization.organization_name,
       type: organization.type,
       address: organization.address,

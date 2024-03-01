@@ -27,7 +27,7 @@ export default function ArchivedOrganizations() {
   const [showInput, setShowInput] = useState(false);
   const user = useSelector((store) => store.user);
   const archivedList = useSelector((store) => store.archivedOrganizations);
-  const auth = useSelector((store) => store.auth)
+ 
 
   const [currentPage, setCurrentPage] = useState(1);
 

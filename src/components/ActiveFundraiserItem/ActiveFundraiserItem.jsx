@@ -256,7 +256,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                 >
                   $
                   {fundraiser.books_sold * 25 -
-                    fundraiser.books_sold * fundraiser.organization_earnings}
+                    fundraiser.books_sold * fundraiser.group.organization.organization_earnings}
                 </Typography>
               </TableCell>
               <TableCell style={{ width: "50px", border: "2px solid black" }}>

@@ -63,12 +63,32 @@ function* fetchOrgFundraisersSaga(action) {
 //Saga used to add a fundraiser, will then fetch the updated list of fundraisers
 function* addFundraiserSaga(action) {
     try {
-        console.log(action.payload)
         const newFundraiser = action.payload.newFundraiser
         const auth_response = action.payload.auth
         const ACCESS_TOKEN = auth_response.data.access_token;
         const QUERY_URL = auth_response.data.routes.query;
-        const query = `{\r\n    mutation($input: fundraiserInput){\r\n create_fundraiser(input: $input){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n}`
+
+        const query = `mutation($input: fundraiserInput!) {
+            create_fundraiser(input: $input){
+                id 
+                group_id
+                title
+                description
+                photo
+                requested_book_quantity
+                book_quantity_checked_out
+                book_quantity_checked_in
+                books_sold
+                money_received
+                start_date
+                end_date
+                coupon_book_id
+                outstanding_balance
+                is_deleted
+                closed
+                goal
+                }
+        }`;
 
         const queryConfig = {
             headers: {
@@ -76,16 +96,35 @@ function* addFundraiserSaga(action) {
                 Authorization: `Bearer ${ACCESS_TOKEN}`,
             },
         };
-
         const data = new FormData();
         data.append("query", query);
-        data.append("variables", `{"input":{\r\n "group_id": ${Number(newFundraiser.group_id)},\r\n "title": ${newFundraiser.title},\r\n "description": ${newFundraiser.description},\r\n "requested_book_quantity": ${Number(newFundraiser.requested_book_quantity)},\r\n "book_quantity_checked_out": ${Number(newFundraiser.book_quantity_checked_out)},\r\n "book_quantity_checked_in": ${Number(newFundraiser.book_quantity_checked_in)},\r\n "books_sold": ${Number(newFundraiser.books_sold)},\r\n "money_received": ${Number(newFundraiser.money_received)},\r\n "start_date": ${Date(newFundraiser.start_date)},\r\n "end_date": ${Date(newFundraiser.end_date)},\r\n "coupon_book_id": ${Number(newFundraiser.coupon_book_id)},\r\n "goal": ${Number(newFundraiser.goal)}\r\n}}`);
-        console.log(data)
+
+        data.append("variables", JSON.stringify({
+            "input": {
+                "group_id": Number(newFundraiser.group_id),
+                "title": newFundraiser.title,
+                "description": newFundraiser.description,
+                "requested_book_quantity": Number(newFundraiser.requested_book_quantity),
+                "book_quantity_checked_out": Number(newFundraiser.book_quantity_checked_out),
+                "book_quantity_checked_in": Number(newFundraiser.book_quantity_checked_in),
+                "books_sold": Number(newFundraiser.books_sold),
+                "money_received": Number(newFundraiser.money_received),
+                "start_date": newFundraiser.start_date,
+                "end_date": newFundraiser.end_date,
+                "coupon_book_id": Number(newFundraiser.coupon_book_id),
+                "goal": Number(newFundraiser.goal)
+            }
+        }));
+
+        console.log(data);
 
         yield axios.post(QUERY_URL, data, queryConfig);
-        yield put({ type: "FETCH_FUNDRAISERS", payload: { id: Number(newFundraiser.newFundraisergroup_id), auth: auth_response } })
+        yield put({
+            type: "FETCH_FUNDRAISERS", payload:
+                { id: Number(newFundraiser.group_id), auth: auth_response }
+        });
     } catch (error) {
-        console.log("Unable to add fundraiser", error)
+        console.log("Unable to add fundraiser", error);
     }
 }
 
@@ -93,11 +132,33 @@ function* addFundraiserSaga(action) {
 function* updatedFundraiserAmountsSaga(action) {
     try {
         console.log(action.payload)
-        const updatedFundraiser = action.payload.updatedFundraiser
+        const updatedFundraiser = action.payload.updatedAmount
+        console.log(updatedFundraiser)
         const auth_response = action.payload.auth
         const ACCESS_TOKEN = auth_response.data.access_token;
         const QUERY_URL = auth_response.data.routes.query;
-        const query = `{\r\n    mutation($input: fundraiserInput, id: ${updatedFundraiser.id}){\r\n create_fundraiser(input:$input\r\n id: ){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n}`
+        const query = ` mutation ($input: fundraiserInput , $id: ID!){
+             update_fundraiser(input:$input id: $id)
+             {
+             id
+             group_id
+             title
+             description
+             photo
+             requested_book_quantity
+             book_quantity_checked_out
+             book_quantity_checked_in
+             books_sold
+             money_received
+             start_date
+             end_date
+             coupon_book_id
+             outstanding_balance
+             is_deleted
+             closed
+             goal
+        }
+    }`
 
         const queryConfig = {
             headers: {
@@ -108,11 +169,27 @@ function* updatedFundraiserAmountsSaga(action) {
 
         const data = new FormData();
         data.append("query", query);
-        data.append("variables", `{\r\n     "input":{\r\n "group_id": ${Number(updatedFundraiser.group_id)},\r\n "title": ${updatedFundraiser.title},\r\n "description": ${updatedFundraiser.description},\r\n "requested_book_quantity": ${Number(updatedFundraiser.requested_book_quantity)},\r\n "book_quantity_checked_out": ${Number(updatedFundraiser.newBooksCheckedOut)},\r\n "book_quantity_checked_in": ${Number(updatedFundraiser.NewBooksCheckedIn)},\r\n "books_sold": ${Number(updatedFundraiser.newBooksSold)},\r\n "money_received": ${Number(updatedFundraiser.newMoneyReceived)},\r\n "start_date": ${updatedFundraiser.start_date},\r\n "end_date": ${updatedFundraiser.end_date},\r\n "coupon_book_id": ${Number(updatedFundraiser.coupon_book_id)},\r\n "goal": ${Number(updatedFundraiser.newGoal)},"" \r\n}\r\n}`);
+        data.append("variables", JSON.stringify({
+            "input": {
+                "group_id": Number(updatedFundraiser.group_id),
+                "title": updatedFundraiser.title,
+                "description": updatedFundraiser.description,
+                "requested_book_quantity": Number(updatedFundraiser.requested_book_quantity),
+                "book_quantity_checked_out": Number(updatedFundraiser.newBooksCheckedOut),
+                "book_quantity_checked_in": Number(updatedFundraiser.newBooksCheckedIn),
+                "books_sold": Number(updatedFundraiser.newBooksSold),
+                "money_received": Number(updatedFundraiser.newMoneyReceived),
+                "start_date": updatedFundraiser.start_date,
+                "end_date": updatedFundraiser.end_date,
+                "coupon_book_id": Number(updatedFundraiser.coupon_book_id),
+                "goal": Number(updatedFundraiser.newGoal)
+            },
+                "id": updatedFundraiser.id
+        }));
         console.log(data)
 
         yield axios.post(QUERY_URL, data, queryConfig);
-        yield put({ type: "FETCH_FUNDRAISERS", payload: { group_id: Number(action.payload.updatedFundraiser.group_id), auth: auth } })
+        yield put({ type: "FETCH_FUNDRAISERS", payload: { id: Number(updatedFundraiser.group_id), auth: auth_response } })
     } catch (err) {
         console.log("Unable to update amounts for fundraisers", err)
     }
@@ -125,7 +202,28 @@ function* closeFundraiserSaga(action) {
         const auth_response = action.payload.auth
         const ACCESS_TOKEN = auth_response.data.access_token;
         const QUERY_URL = auth_response.data.routes.query;
-        const query = `{\r\n    mutation($input: fundraiserInput, id: ${closedFundraiser.id}){\r\n update_fundraiser(input:$input\r\n id: ){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n}`
+        const query = ` mutation ($input: fundraiserInput , $id: ID!){
+            update_fundraiser(input:$input
+            id: $id){
+            id
+            group_id
+            title
+            description
+            photo
+            requested_book_quantity
+            book_quantity_checked_out
+            book_quantity_checked_in
+            books_sold
+            money_received
+            start_date
+            end_date
+            coupon_book_id
+            outstanding_balance
+            is_deleted
+            closed
+            goal
+       }
+   }`
 
         const queryConfig = {
             headers: {
@@ -136,7 +234,24 @@ function* closeFundraiserSaga(action) {
 
         const data = new FormData();
         data.append("query", query);
-        data.append("variables", `{\r\n     "input":{\r\n "group_id": ${Number(closedFundraiser.group_id)},\r\n "title": ${closedFundraiser.title},\r\n "description": ${closedFundraiser.description},\r\n "requested_book_quantity": ${Number(closedFundraiser.requested_book_quantity)},\r\n "book_quantity_checked_out": ${Number(closedFundraiser.book_quantity_checked_out)},\r\n "book_quantity_checked_in": ${Number(closedFundraiser.book_quantity_checked_in)},\r\n "books_sold": ${Number(closedFundraiser.books_sold)},\r\n "money_received": ${Number(closedFundraiser.money_received)},\r\n "start_date": ${closedFundraiser.start_date},\r\n "end_date": ${closedFundraiser.end_date},\r\n "coupon_book_id": ${Number(closedFundraiser.coupon_book_id)},\r\n "goal": ${Number(closedFundraiser.goal)}, "closed": ${closedFundraiser.closed}\r\n}\r\n}`);
+        data.append("variables", JSON.stringify({
+            "input": {
+                "group_id": Number(closedFundraiser.group_id),
+                "title": closedFundraiser.title,
+                "description": closedFundraiser.description,
+                "requested_book_quantity": Number(closedFundraiser.requested_book_quantity),
+                "book_quantity_checked_out": Number(closedFundraiser.book_quantity_checked_out),
+                "book_quantity_checked_in": Number(closedFundraiser.book_quantity_checked_in),
+                "books_sold": Number(closedFundraiser.books_sold),
+                "money_received": Number(closedFundraiser.money_received),
+                "start_date": closedFundraiser.start_date,
+                "end_date": closedFundraiser.end_date,
+                "coupon_book_id": Number(closedFundraiser.coupon_book_id),
+                "goal": Number(closedFundraiser.goal),
+                "closed": Boolean(closedFundraiser.closed)
+            },
+            "id": closedFundraiser.id
+        }));
         console.log(data)
 
         yield axios.post(QUERY_URL, data, queryConfig);
@@ -148,38 +263,76 @@ function* closeFundraiserSaga(action) {
 //Saga used to update a fundraiser to open, will then fetch updated fundraisers data
 function* openFundraiserSaga(action) {
     try {
-        
-            console.log(action.payload)
-            const openedFundraiser = action.payload.openedFundraiser
-            const auth_response = action.payload.auth
-            const ACCESS_TOKEN = auth_response.data.access_token;
-            const QUERY_URL = auth_response.data.routes.query;
-            const query = `{\r\n    mutation($input: fundraiserInput, id: ${openedFundraiser.id}){\r\n update_fundraiser(input:$input\r\n id: ){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n}`
 
-            const queryConfig = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${ACCESS_TOKEN}`,
-                },
-            };
-
-            const data = new FormData();
-            data.append("query", query);
-            data.append("variables", `{\r\n     "input":{\r\n "group_id": ${Number(openedFundraiser.group_id)},\r\n "title": ${openedFundraiser.title},\r\n "description": ${openedFundraiser.description},\r\n "requested_book_quantity": ${Number(openedFundraiser.requested_book_quantity)},\r\n "book_quantity_checked_out": ${Number(openedFundraiser.book_quantity_checked_out)},\r\n "book_quantity_checked_in": ${Number(openedFundraiser.book_quantity_checked_in)},\r\n "books_sold": ${Number(openedFundraiser.books_sold)},\r\n "money_received": ${Number(openedFundraiser.money_received)},\r\n "start_date": ${openedFundraiser.start_date},\r\n "end_date": ${openedFundraiser.end_date},\r\n "coupon_book_id": ${Number(openedFundraiser.coupon_book_id)},\r\n "goal": ${Number(openedFundraiser.goal)}, "closed": ${openedFundraiser.closed}\r\n}\r\n}`);
-
-            yield axios.post(QUERY_URL, data, queryConfig);
-            yield put({ type: "FETCH_FUNDRAISERS", payload: { id: Number(openedFundraiser.group_id), auth: auth_response } })
-        } catch (err) {
-            console.log("Error setting fundraiser to closed", err)
+        console.log(action.payload)
+        const openedFundraiser = action.payload.openedFundraiser
+        const auth_response = action.payload.auth
+        const ACCESS_TOKEN = auth_response.data.access_token;
+        const QUERY_URL = auth_response.data.routes.query;
+        const query = `mutation($input: fundraiserInput, $id: ID!){
+            update_fundraiser(input:$input
+            id: $id){
+            id
+            group_id
+            title
+            description
+            photo
+            requested_book_quantity
+            book_quantity_checked_out
+            book_quantity_checked_in
+            books_sold
+            money_received
+            start_date
+            end_date
+            coupon_book_id
+            outstanding_balance
+            is_deleted
+            closed
+            goal
         }
+        }`
+
+        const queryConfig = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${ACCESS_TOKEN}`,
+            },
+        };
+
+        const data = new FormData();
+        data.append("query", query);
+        data.append("variables", JSON.stringify({
+            "input": {
+                "group_id": Number(openedFundraiser.group_id),
+                "title": openedFundraiser.title,
+                "description": openedFundraiser.description,
+                "requested_book_quantity": Number(openedFundraiser.requested_book_quantity),
+                "book_quantity_checked_out": Number(openedFundraiser.book_quantity_checked_out),
+                "book_quantity_checked_in": Number(openedFundraiser.book_quantity_checked_in),
+                "books_sold": Number(openedFundraiser.books_sold),
+                "money_received": Number(openedFundraiser.money_received),
+                "start_date": openedFundraiser.start_date,
+                "end_date": openedFundraiser.end_date,
+                "coupon_book_id": Number(openedFundraiser.coupon_book_id),
+                "goal": Number(openedFundraiser.goal),
+                "closed": Boolean(openedFundraiser.closed)
+            },
+            "id": Number(openedFundraiser.id)
+        }));
+
+        yield axios.post(QUERY_URL, data, queryConfig);
+        yield put({ type: "FETCH_FUNDRAISERS", payload: { id: Number(openedFundraiser.group_id), auth: auth_response } })
+    } catch (err) {
+        console.log("Error setting fundraiser to closed", err)
     }
+}
 
 //Watcher saga that exports all sagas to for use in the root saga
 export default function* fundraiserSaga() {
-        yield takeEvery("FETCH_FUNDRAISERS", fetchFundraisersSaga);
-        yield takeEvery("FETCH_ORG_FUNDRAISERS", fetchOrgFundraisersSaga);
-        yield takeEvery("ADD_FUNDRAISER", addFundraiserSaga);
-        yield takeEvery("CLOSE_FUNDRAISER", closeFundraiserSaga);
-        yield takeEvery("OPEN_FUNDRAISER", openFundraiserSaga);
-        yield takeEvery("UPDATE_FUNDRAISER_AMOUNTS", updatedFundraiserAmountsSaga);
-    }
+    yield takeEvery("FETCH_FUNDRAISERS", fetchFundraisersSaga);
+    yield takeEvery("FETCH_ORG_FUNDRAISERS", fetchOrgFundraisersSaga);
+    yield takeEvery("ADD_FUNDRAISER", addFundraiserSaga);
+    yield takeEvery("CLOSE_FUNDRAISER", closeFundraiserSaga);
+    yield takeEvery("OPEN_FUNDRAISER", openFundraiserSaga);
+    yield takeEvery("UPDATE_FUNDRAISER_AMOUNTS", updatedFundraiserAmountsSaga);
+}

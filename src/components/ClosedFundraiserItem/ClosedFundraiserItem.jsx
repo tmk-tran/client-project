@@ -95,7 +95,7 @@ export default function ClosedFundraiserItem({ fundraiser }) {
                 padding: "0",
               }}
             >
-              ${fundraiser.books_sold * fundraiser.organization_earnings}
+              ${fundraiser.books_sold * fundraiser.group.organization.organization_earnings}
             </Typography>
           </TableCell>
           <TableCell
