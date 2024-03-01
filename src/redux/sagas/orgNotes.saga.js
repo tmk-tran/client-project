@@ -5,26 +5,26 @@ function* orgNotes(action) {
   console.log(action.payload);
   try {
     const auth_response = action.payload.auth
-        const ACCESS_TOKEN = auth_response.data.access_token;
-        const QUERY_URL = auth_response.data.routes.query;
-        const query = `{\r\n    organization_notes(filter: "organization_id = ${action.payload.id}") {\r\n id\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n}`
+    const ACCESS_TOKEN = auth_response.data.access_token;
+    const QUERY_URL = auth_response.data.routes.query;
+    const query = `{\r\n    organization_notes(filter: "organization_id = ${action.payload.id}") {\r\n id\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n}`
 
-        const queryConfig = {
-          headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${ACCESS_TOKEN}`,
-          },
-      };
+    const queryConfig = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    };
 
-      const data = new FormData();
-      data.append("query", query);
-      data.append("variables", `{}`);
+    const data = new FormData();
+    data.append("query", query);
+    data.append("variables", `{}`);
 
-      const response = yield axios.post(QUERY_URL, data, queryConfig);
-      console.log(response)
+    const response = yield axios.post(QUERY_URL, data, queryConfig);
+    console.log(response)
     console.log("FETCH request from orgNotes.saga, ITEMS = ", response.data);
     yield put({ type: "SET_ORG_NOTES", payload: response.data.organization_notes });
-  } catch(error) {
+  } catch (error) {
     console.log("error in orgNotes Saga", error);
   }
 }
@@ -35,22 +35,36 @@ function* addNotes(action) {
     const auth_response = action.payload.auth
     const ACCESS_TOKEN = auth_response.data.access_token;
     const QUERY_URL = auth_response.data.routes.query;
-    const query = `{\r\n    mutation ($input: organization_notesInput){\r\n create_organization_notes(input: $input){\r\n id\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n}\r\n}`
+    const query = `mutation ($input: organization_notesInput){
+       create_organization_notes(input: $input){
+       id
+       organization_id
+       note_date
+       note_content
+       is_deleted
+    }
+  }`
 
     const queryConfig = {
       headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
-  };
+    };
 
-  const data = new FormData();
-  data.append("query", query);
-  data.append("variables", `{\r\n "input":{\r\n "organization_id": ${newNote.organization_id},\r\n "note_date": ${newNote.note_date},\r\n "note_content": ${newNote.note_content}\r\n}\r\n}`);
+    const data = new FormData();
+    data.append("query", query);
+    data.append("variables", JSON.stringify({
+      "input": {
+        "organization_id": Number(newNote.organization_id),
+        "note_date": newNote.note_date,
+        "note_content": newNote.note_content
+      }
+    }));
 
-  const response = yield axios.post(QUERY_URL, data, queryConfig);
-  console.log(response)
-    yield put({ type: "FETCH_ORG_NOTES", payload: {id: newNote.organization_id, auth: auth_response} });
+    const response = yield axios.post(QUERY_URL, data, queryConfig);
+    console.log(response)
+    yield put({ type: "FETCH_ORG_NOTES", payload: { id: newNote.organization_id, auth: auth_response } });
   } catch (error) {
     console.log("error in addNotes Saga", error);
   }
@@ -83,22 +97,37 @@ function* deleteOrgNote(action) {
     const auth_response = action.payload.auth
     const ACCESS_TOKEN = auth_response.data.access_token;
     const QUERY_URL = auth_response.data.routes.query;
-    const query = `{\r\n    mutation ($input: organization_notesInput){\r\n update_organization_notes(input: $input, id: ${deletedNote.id}){\r\n id\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n}\r\n}`
+    const query = ` mutation ($input: organization_notesInput, $id: ID!){
+       update_organization_notes(input: $input id: $id){
+       id
+       organization_id
+       note_date
+       note_content
+       is_deleted
+    }
+  }`
 
     const queryConfig = {
       headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
-  };
+    };
 
-  const data = new FormData();
-  data.append("query", query);
-  data.append("variables", `{\r\n "input":{\r\n "organization_id": ${deletedNote.organization_id},\r\n "note_date": ${deletedNote.note_date},\r\n "note_content": ${deletedNote.note_content},\r\n "is_deleted": ${deletedNote.is_deleted}}\r\n}`);
+    const data = new FormData();
+    data.append("query", query);
+    data.append("variables", JSON.stringify({
+      "input": {
+        "organization_id": Number(deletedNote.organization_id),
+        "note_date": deletedNote.note_date,
+        "note_content": deletedNote.note_content
+      },
+      "is_deleted": deletedNote.is_deleted
+    }));
 
-  const response = yield axios.post(QUERY_URL, data, queryConfig);
-  console.log(response)
-    yield put({ type: "FETCH_ORG_NOTES", payload: {id: deletedNote.organization_id, auth: auth_response }});
+    const response = yield axios.post(QUERY_URL, data, queryConfig);
+    console.log(response)
+    yield put({ type: "FETCH_ORG_NOTES", payload: { id: deletedNote.organization_id, auth: auth_response } });
   } catch (error) {
     console.log("error with deleteOrgNotes request", error);
   }

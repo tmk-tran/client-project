@@ -42,13 +42,13 @@ export default function OrgContactDetails() {
 
   const handleSaveContact = (editedItem) => {
     console.log("New Contact Info:", editedItem);
-    dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
+    dispatch({ type: "EDIT_ORG_DETAILS", payload: {editedOrg: editedItem, auth: auth }});
     setIsEditing(false);
   };
 
   const handleSaveOrgDetails = (editedOrg) => {
     console.log("New Org Details:", editedOrg);
-    dispatch({ type: "EDIT_ORG_DETAILS", payload: editedOrg });
+    dispatch({ type: "EDIT_ORG_DETAILS", payload: {editedOrg: editedOrg, auth: auth }});
   };
 
   useEffect(() => {

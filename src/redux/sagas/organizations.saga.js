@@ -7,7 +7,7 @@ function* fetchOrganizationsSaga(action) {
     const ACCESS_TOKEN = auth_response.data.access_token;
     const QUERY_URL = auth_response.data.routes.query;
     console.log(auth_response)
-  const query = `{\r\n organization(ordering: "group_collection.organization_id"){\r\n id\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n organization_notes_collection {\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n group_collection {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_description\r\n is_deleted\r\n fundraiser_collection{\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n} Aggregates{\r\n
+    const query = `{\r\n organization(ordering: "group_collection.organization_id"){\r\n id\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n organization_notes_collection {\r\n organization_id\r\n note_date\r\n note_content\r\n is_deleted\r\n}\r\n group_collection {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_description\r\n is_deleted\r\n fundraiser_collection{\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n} Aggregates{\r\n
     total_groups: count(subquery: "query{group{id organization_id}}")\r\n
      total_fundraisers: count(subquery: "query{group{ id organization_id fundraiser_collection{id  group_id}}}" 
       ordering: "group_id")\r\n
@@ -36,7 +36,7 @@ function* fetchOrganizationsSaga(action) {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
     };
-    
+
     const data = new FormData();
     data.append("query", query);
     data.append("variables", `{}`);
@@ -46,7 +46,7 @@ function* fetchOrganizationsSaga(action) {
     console.log("FETCH request fetchOrganizationsSaga");
 
     yield put({ type: "SET_ORGANIZATIONS", payload: response.data.organization });
-  } catch(error) {
+  } catch (error) {
     console.log("error in fetchOrganizationsSaga", error);
   }
 }
@@ -58,7 +58,23 @@ function* addOrganizationSaga(action) {
     const ACCESS_TOKEN = auth_response.data.access_token;
     const QUERY_URL = auth_response.data.routes.query;
     console.log(auth_response)
-  const query = `{\r\n mutation ($input: organizationInput){\r\n create_organization(input: $input)\r\n {\r\n id\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}`;
+    const query = ` mutation ($input: organizationInput){create_organization(input: $input){
+    id
+    organization_name
+    type
+    address
+    city
+    state
+    zip
+    primary_contact_first_name
+    primary_contact_last_name
+    primary_contact_phone
+    primary_contact_email
+    organization_logo
+    is_deleted
+    organization_earnings
+  }
+}`;
 
     const queryConfig = {
       headers: {
@@ -66,10 +82,25 @@ function* addOrganizationSaga(action) {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
     };
-    
+
     const data = new FormData();
     data.append("query", query);
-    data.append("variables", ` {\r\n "input":{\r\n "organization_name": ${newOrg.organization_name},\r\n "type": ${newOrg.type},\r\n "address": ${newOrg.address},\r\n "city": ${newOrg.city},\r\n "state": ${newOrg.state},\r\n "zip": ${newOrg.zip},\r\n "primary_contact_first_name": ${newOrg.primary_contact_first_name},\r\n "primary_contact_last_name": ${newOrg.primary_contact_last_name},\r\n "primary_contact_phone": ${newOrg.primary_contact_phone},\r\n "primary_contact_email": ${newOrg.primary_contact_email} "organization_logo": ${newOrg.organization_logo},\r\n "organization_earnings": ${newOrg.organization_earnings}\r\n}\r\n}`);
+    data.append("variables", JSON.stringify({
+      "input": {
+        "organization_name": newOrg.organization_name,
+        "type": newOrg.type,
+        "address": newOrg.type,
+        "city": newOrg.city,
+        "state": newOrg.state,
+        "zip": Number(newOrg.zip),
+        "primary_contact_first_name": newOrg.primary_contact_first_name,
+        "primary_contact_last_name": newOrg.primary_contact_last_name,
+        "primary_contact_phone": Number(newOrg.primary_contact_phone),
+        "primary_contact_email": newOrg.primary_contact_email,
+        "organization_logo": newOrg.organization_logo,
+        "organization_earnings": Number(newOrg.organization_earnings)
+      },
+    }));
 
     const response = yield axios.post(QUERY_URL, data, queryConfig);
     console.log(response)
@@ -86,7 +117,25 @@ function* deleteOrganizationSaga(action) {
     const ACCESS_TOKEN = auth_response.data.access_token;
     const QUERY_URL = auth_response.data.routes.query;
     console.log(auth_response)
-  const query = `{\r\n mutation ($input: organizationInput){\r\n update_organization(input: $input, id: ${archivedOrg.id})\r\n {\r\n id\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}`;
+    const query = `mutation ($input: organizationInput, $id: ID!){
+     update_organization(input: $input, id: $id)
+   {
+     id
+     organization_name
+     type
+     address
+     city
+     state
+     zip
+     primary_contact_first_name
+     primary_contact_last_name
+     primary_contact_phone
+     primary_contact_email
+     organization_logo
+     is_deleted
+     organization_earnings
+  }
+}`;
 
     const queryConfig = {
       headers: {
@@ -94,10 +143,25 @@ function* deleteOrganizationSaga(action) {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
     };
-    
+
     const data = new FormData();
     data.append("query", query);
-    data.append("variables", ` {\r\n "input":{\r\n "organization_name": ${archivedOrg.organization_name},\r\n "type": ${archivedOrg.type},\r\n "address": ${archivedOrg.address},\r\n "city": ${archivedOrg.city},\r\n "state": ${archivedOrg.state},\r\n "zip": ${archivedOrg.zip},\r\n "primary_contact_first_name": ${archivedOrg.primary_contact_first_name},\r\n "primary_contact_last_name": ${archivedOrg.primary_contact_last_name},\r\n "primary_contact_phone": ${archivedOrg.primary_contact_phone},\r\n "primary_contact_email": ${archivedOrg.primary_contact_email} "organization_logo": ${archivedOrg.organization_logo},\r\n "organization_earnings": ${archivedOrg.organization_earnings}, "is_deleted": ${archivedOrg.is_deleted}\r\n}\r\n}`);
+    data.append("variables", JSON.stringify({
+      "input": {
+        "organization_name": archivedOrg.organization_name,
+        "type": archivedOrg.type,
+        "address": archivedOrg.type,
+        "city": archivedOrg.city,
+        "state": archivedOrg.state,
+        "zip": Number(archivedOrg.zip),
+        "primary_contact_first_name": archivedOrg.primary_contact_first_name,
+        "primary_contact_last_name": archivedOrg.primary_contact_last_name,
+        "primary_contact_phone": Number(archivedOrg.primary_contact_phone),
+        "primary_contact_email": archivedOrg.primary_contact_email,
+        "is_deleted": Boolean(archivedOrg.is_deleted)
+      },
+      "id": Number(archivedOrg.id)
+    }));;
 
     const response = yield axios.post(QUERY_URL, data, queryConfig);
     console.log(response)
@@ -115,7 +179,24 @@ function* editOrganizationSaga(action) {
     const ACCESS_TOKEN = auth_response.data.access_token;
     const QUERY_URL = auth_response.data.routes.query;
     console.log(auth_response)
-  const query = `{\r\n mutation ($input: organizationInput){\r\n update_organization(input: $input, id: ${editedOrg.id})\r\n {\r\n id\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}`;
+    const query = `{mutation ($input: organizationInput, $id: ID!){ update_organization(input: $input id: $id)
+   {
+     id
+     organization_name
+     type
+     address
+     city
+     state
+     zip
+     primary_contact_first_name
+     primary_contact_last_name
+     primary_contact_phone
+     primary_contact_email
+     organization_logo
+     is_deleted
+     organization_earnings
+  }
+}`;
 
     const queryConfig = {
       headers: {
@@ -123,10 +204,25 @@ function* editOrganizationSaga(action) {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
     };
-    
+
     const data = new FormData();
     data.append("query", query);
-    data.append("variables", ` {\r\n "input":{\r\n "organization_name": ${editedOrg.organization_name},\r\n "type": ${editedOrg.type},\r\n "address": ${editedOrg.address},\r\n "city": ${editedOrg.city},\r\n "state": ${editedOrg.state},\r\n "zip": ${editedOrg.zip},\r\n "primary_contact_first_name": ${editedOrg.primary_contact_first_name},\r\n "primary_contact_last_name": ${editedOrg.primary_contact_last_name},\r\n "primary_contact_phone": ${editedOrg.primary_contact_phone},\r\n "primary_contact_email": ${editedOrg.primary_contact_email} "organization_logo": ${editedOrg.organization_logo},\r\n "organization_earnings": ${editedOrg.organization_earnings}, "is_deleted": ${editedOrg.is_deleted}\r\n}\r\n}`);
+    data.append("variables", JSON.stringify({
+      "input": {
+        "organization_name": editedOrg.organization_name,
+        "type": editedOrg.type,
+        "address": editedOrg.type,
+        "city": editedOrg.city,
+        "state": editedOrg.state,
+        "zip": Number(editedOrg.zip),
+        "primary_contact_first_name": editedOrg.primary_contact_first_name,
+        "primary_contact_last_name": editedOrg.primary_contact_last_name,
+        "primary_contact_phone": Number(editedOrg.primary_contact_phone),
+        "primary_contact_email": editedOrg.primary_contact_email,
+        "is_deleted": Boolean(editedOrg.is_deleted)
+      },
+      "id": Number(editedOrg.id)
+    }));;
 
     const response = yield axios.post(QUERY_URL, data, queryConfig);
     console.log(response)

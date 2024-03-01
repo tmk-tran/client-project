@@ -67,7 +67,18 @@ function*  addGroupSaga(action)  {
         const auth_response = action.payload.auth
         const ACCESS_TOKEN = auth_response.data.access_token;
         const QUERY_URL = auth_response.data.routes.query;
-        const query =`{\r\n mutation ($input: groupInput){\r\n  create_group(input: $input){\r\n id\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n}\r\n}}`
+        const query =` mutation ($input: groupInput){
+              create_group(input: $input){
+             id
+             organization_id
+             department
+             sub_department
+             group_nickname
+             group_photo
+             group_description
+             is_deleted
+        }
+    }}`;
          
         const queryConfig = {
             headers: {
@@ -78,7 +89,14 @@ function*  addGroupSaga(action)  {
 
         const data = new FormData();
         data.append("query", query);
-        data.append("variables", `{\r\n{\r\n    "input": {\r\n "organization_id": ${newGroup.organization_id} ,\r\n "department": "${newGroup.department},\r\n "sub_department": ${newGroup.sub_department},\r\n "group_nickname": ${newGroup.group_nickname},\r\n "group_description": ${newGroup.group_description}\r\n}\r\n}`);
+        data.append("variables", JSON.stringify({ "input": {
+         "organization_id": Number(newGroup.organization_id),
+         "department": newGroup.department,
+         "sub_department": newGroup.sub_department,
+         "group_nickname": newGroup.group_nickname,
+         "group_description": newGroup.group_description
+        }
+    }));
 
         const response = yield axios.post(QUERY_URL, data, queryConfig);
         console.log(response)
