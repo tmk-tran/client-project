@@ -41,11 +41,7 @@ export default function Header({ user }) {
             }}
           >
             {/* If a user is logged in, show these links */}
-            <div>
-              {user.id && (
-                  <AccountMenu />
-              )}
-            </div>
+            <div>{user.id && <AccountMenu />}</div>
           </div>
         </div>
         <div style={{ position: "absolute", right: "10%", top: "3%" }}>

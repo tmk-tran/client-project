@@ -18,23 +18,21 @@ export default function PaymentMenu({ onPaymentSelect }) {
 
   return (
     <Box sx={{ minWidth: 120, width: "50%" }}>
-      {/* <div> */}
-        {/* <Typography>Please choose a method of payment:</Typography> */}
-        <FormControl fullWidth>
-          <InputLabel id="payment-menu-label">Payment</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="payment-select"
-            value={payment}
-            label="Payment"
-            onChange={handleChange}
-          >
-            <MenuItem value="Cash">Cash / Check</MenuItem>
-            <MenuItem value="Check">PayPal</MenuItem>
-            <MenuItem value="Donation">Credit / Debit Card</MenuItem>
-          </Select>
-        </FormControl>
-      {/* </div> */}
+      <Typography>Please choose a method of payment:</Typography>
+      <FormControl fullWidth>
+        <InputLabel id="payment-menu-label">Payment</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="payment-select"
+          value={payment}
+          label="Payment"
+          onChange={handleChange}
+        >
+          <MenuItem value="Cash">Cash / Check</MenuItem>
+          <MenuItem value="Check">PayPal</MenuItem>
+          <MenuItem value="Donation">Credit / Debit Card</MenuItem>
+        </Select>
+      </FormControl>
     </Box>
   );
 }

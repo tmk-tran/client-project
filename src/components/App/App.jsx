@@ -179,6 +179,7 @@ function App() {
 
               <Route exact path="/seller/:refId/cash">
                 <SellerPage />
+                <SellerLandingPage />
               </Route>
 
               <Route exact path="/seller/:refId/">
