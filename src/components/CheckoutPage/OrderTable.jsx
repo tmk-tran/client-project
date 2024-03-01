@@ -117,13 +117,30 @@ export default function OrderTable({
                     sx={{ width: "35%" }}
                   />
                 ) : (
-                  <TextField
-                    type="number"
-                    value={row.quantity}
-                    onChange={(e) => quantityChange(e, row)}
-                    InputProps={{ inputProps: { min: 1 } }}
-                    sx={{ width: "20%" }}
-                  />
+                  <>
+                    {(row.bookType ===
+                      "Fargo - Moorhead (Digital Coupon Book)" ||
+                      row.bookType === "Grand Forks (Digital Coupon Book)") && (
+                      <TextField
+                        disabled
+                        type="number"
+                        value={1} // Set quantity to 1 for these bookTypes
+                        InputProps={{ inputProps: { min: 1 } }}
+                        sx={{ width: "20%" }}
+                      />
+                    )}
+                    {row.bookType !==
+                      "Fargo - Moorhead (Digital Coupon Book)" &&
+                      row.bookType !== "Grand Forks (Digital Coupon Book)" && (
+                        <TextField
+                          type="number"
+                          value={row.quantity}
+                          onChange={(e) => quantityChange(e, row)}
+                          InputProps={{ inputProps: { min: 1 } }}
+                          sx={{ width: "20%" }}
+                        />
+                      )}
+                  </>
                 )
               ) : (
                 <TextField
@@ -135,6 +152,7 @@ export default function OrderTable({
                 />
               )}
             </TableCell>
+
             <TableCell>
               {row.bookType !== "Donate" ? (
                 <>$ {row.price * row.quantity}</>
