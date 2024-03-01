@@ -2,38 +2,6 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-//New user query with Devii api call
-router.post("/", (req, res) => {
-  const ACCESS_TOKEN = auth_response.access_token;
-  const QUERY_URL = "https://api.devii.io/query";
-  const query = "{\r\n    user {\r\n id\r\n username\r\n password\r\n is_admin\r\n is_deleted\r\n user_group_collection{\r\n id\r\n group_id\r\n user_id\r\n group_admin\r\n}\r\n}\r\n}";
-
-  var myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
-  myHeaders.append("Content-Type", "application/json");
-
-  var graphql = JSON.stringify({
-    query: query,
-    variables: {},
-  });
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: graphql,
-    redirect: "follow",
-  };
-
-  fetch(QUERY_URL, requestOptions)
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result);
-      res.sendStatus(200)
-    })
-    .catch((error) => {
-      console.log("Error getting data from Devii", error)
-      res.sendStatus(500)
-    });
-})
 
 
 //Origional get route for users
