@@ -10,11 +10,20 @@ import Typography from "../Typography/Typography";
 import { historyHook } from "../../hooks/useHistory";
 import { containerStyle } from "../Utils/pageStyles";
 import { border } from "../Utils/colors";
+import { submitPaymentSweetAlert } from "../Utils/sweetAlerts";
 
 export default function ShoppingCart() {
   const location = useLocation();
-  console.log(location.state);
+  console.log(location);
   const history = historyHook();
+  const seller = location.state?.seller ?? [];
+  console.log(seller);
+  const sellerId = location.state?.sellerId ?? "";
+  console.log(sellerId);
+  const refId = seller.refId ?? "";
+  console.log(refId);
+  const caseType = location.state?.caseType ?? [];
+  console.log(caseType);
   const [selectedProducts, setSelectedProducts] = useState(
     location.state?.selectedProducts ?? []
   );
@@ -46,6 +55,26 @@ export default function ShoppingCart() {
       pathname: "/checkout",
       state: { selectedProducts, orderTotal, customDonation },
     });
+  };
+
+  const submitOrder = (caseType) => {
+    console.log(caseType);
+
+    const saveCall = () => {
+      const updateAction = {
+        type: `UPDATE_${caseType.toUpperCase()}`,
+        payload: {
+          id: sellerId,
+          refId: refId,
+          [caseType.toLowerCase()]: Number(orderTotal),
+          updateType: caseType.toLowerCase(),
+        },
+      };
+      console.log("Dispatching action:", updateAction);
+      // dispatch(updateAction);
+    };
+
+    submitPaymentSweetAlert(saveCall);
   };
 
   return (
@@ -95,11 +124,19 @@ export default function ShoppingCart() {
       </div>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <CustomButton label="Back" onClick={goBack} />
-        <CustomButton
-          label="Proceed to Checkout"
-          onClick={toCheckout}
-          variant="contained"
-        />
+        {!caseType ? (
+          <CustomButton
+            label="Proceed to Checkout"
+            onClick={toCheckout}
+            variant="contained"
+          />
+        ) : (
+          <CustomButton
+            label="Submit Order"
+            onClick={() => submitOrder(caseType)}
+            variant="contained"
+          />
+        )}
       </div>
     </div>
   );

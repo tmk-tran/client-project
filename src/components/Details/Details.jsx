@@ -17,7 +17,6 @@ import BackButton from "../Buttons/BackButton";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import LocationsCard from "../LocationsCard/LocationsCard";
 import AddNewCouponModal from "../CouponReviewCard/AddNewCouponModal";
-import OrgAdminButtons from "./OrgAdminButtons";
 import SellersTable from "../OrgSellers/SellersTable";
 import OrgAdminInfo from "./OrgAdminInfo";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
@@ -272,10 +271,6 @@ export default function Details({
                 )}
                 <br />
               </center>
-
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~ Buttons for OrgAdmin ~~~~~~~~~~ */}
-              {/* {isOrgAdminPage && <OrgAdminButtons />} */}
 
               {/* ~~~~~~~~~~ May use later, disabled for now ~~~~~~~~~~ */}
               {/* <div>

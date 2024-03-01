@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Divider } from "@mui/material";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~ //
 import { centeredStyle, containerStyle, flexEnd } from "../Utils/pageStyles";
 import { borderPrimaryColor } from "../Utils/colors";
@@ -34,6 +34,9 @@ export default function SellerLandingPage() {
 
   const sellerData = sellerPageInfo() || [];
   console.log(sellerData);
+  // Extract the seller ID //
+  const [firstSeller] = sellerData;
+  const sellerId = firstSeller ? firstSeller.id : null;
 
   // Props to PaymentMenu //
   const handlePaymentSelect = (paymentType) => {
@@ -43,7 +46,7 @@ export default function SellerLandingPage() {
   };
 
   const navigateTo = () => {
-    history.push(`/seller/${paramsObject.refId}/${paymentType}`);
+    history.push(`/seller/${paramsObject.refId}/${paymentType}`)
   };
 
   return (
@@ -52,15 +55,18 @@ export default function SellerLandingPage() {
         <Box key={seller.id} sx={centeredStyle}>
           <OrgDetailsSection seller={seller} />
           <br />
-          <Box sx={{ width: "40%", borderRadius: "4px", ...borderPrimaryColor }}>
+          <Box sx={{ ...flexCenter, width: "40%", borderRadius: "4px" }}>
             <RefIdDisplay seller={seller} />
           </Box>
+          <Divider />
           <br />
           <PaymentMenu onPaymentSelect={handlePaymentSelect} />
           <br />
           {showGoButton && (
             <Box sx={{ width: "40%", ...flexEnd }}>
-              <Button variant="contained" onClick={navigateTo}>Go</Button>
+              <Button variant="contained" onClick={navigateTo}>
+                Go
+              </Button>
             </Box>
           )}
           {/* <CustomerNameInfo /> */}

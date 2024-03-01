@@ -182,6 +182,10 @@ function App() {
                 {/* <SellerLandingPage /> */}
               </Route>
 
+              <Route exact path="/seller/:refId/cash/cart">
+                <ShoppingCart />
+              </Route>
+
               <Route exact path="/seller/:refId/">
                 {/* <OrderPage /> */}
                 <SellerLandingPage />

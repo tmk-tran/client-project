@@ -1,4 +1,6 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
+import { primaryColor } from "../Utils/colors";
+import { border } from "../Utils/colors";
 
 const cardStyle = {
   width: "40%",
@@ -9,7 +11,18 @@ export default function OrgDetailsSection({ seller }) {
   return (
     <Card elevation={3} sx={cardStyle}>
       <CardContent>
-        Organization info
+        <Box sx={{ width: "25%", margin: "0 auto" }}>
+          <Typography
+            variant="body2"
+            sx={{
+              mb: 1,
+              borderBottom: `1px solid ${primaryColor.color}`,
+              textAlign: "center",
+            }}
+          >
+            Organization:
+          </Typography>
+        </Box>
         <Typography variant="h6" sx={{ textAlign: "center" }}>
           {seller.organization_name}
         </Typography>
@@ -17,8 +30,6 @@ export default function OrgDetailsSection({ seller }) {
         <Typography sx={{ textAlign: "center" }}>
           {seller.city}, {seller.state} {seller.zip}
         </Typography>
-        {/* <Typography>{seller.state}</Typography>
-        <Typography>{seller.zip}</Typography> */}
       </CardContent>
     </Card>
   );

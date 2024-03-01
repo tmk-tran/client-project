@@ -60,21 +60,22 @@ export const showSaveSweetAlert = (saveCall) => {
 };
 
 // Sweet Alert for RequestBooks.jsx
-export const requestBooksSweetAlert = (saveCall) => {
+export const submitPaymentSweetAlert = (saveCall) => {
   console.log(saveCall);
   Swal.fire({
-    title: "Are you sure?",
+    title: "Cash or check received?",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: successColor.color,
     cancelButtonColor: "#d33",
-    confirmButtonText: "Request Books",
+    cancelButtonText: "No",
+    confirmButtonText: "Yes",
   }).then((result) => {
     if (result.isConfirmed) {
       // Execute the callback if the user confirms
       saveCall && saveCall();
       Swal.fire({
-        title: "Books Requested!",
+        title: "Sale Complete!",
         icon: "success",
         confirmButtonColor: primaryColor.color,
       });

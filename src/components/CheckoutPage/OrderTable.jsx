@@ -12,7 +12,6 @@ import {
 import { border } from "../Utils/colors";
 
 export default function OrderTable({
-  caseType,
   rows,
   selectedRows,
   handleRowSelect,
@@ -21,7 +20,6 @@ export default function OrderTable({
   customDonation,
   setCustomDonation,
 }) {
-  console.log(caseType);
   console.log(rows);
   console.log(selectedRows);
 

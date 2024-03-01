@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material"; 
+import { useParams } from "react-router-dom";
+import { Box } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
 import { containerStyle } from "../Utils/pageStyles";
@@ -9,9 +10,16 @@ import CustomButton from "../CustomButton/CustomButton";
 import Typography from "../Typography/Typography";
 import OrderTable from "./OrderTable";
 import { navButtonStyle } from "./checkoutStyles";
+import CustomerInfoForm from "./CustomerInfoForm";
+import CustomerNameInfo from "../SellerPage/CustomerNameInfo";
+import RefIdDisplay from "../SellerPage/RefIdDisplay";
+import { sellerPageInfo } from "../../hooks/reduxStore";
 
 export default function OrderPage({ caseType }) {
   console.log(caseType);
+  const seller = useParams();
+  console.log(seller);
+
   const history = historyHook();
 
   const [selectedRows, setSelectedRows] = useState([]);
@@ -20,6 +28,14 @@ export default function OrderPage({ caseType }) {
   console.log(customDonation);
   const [orderTotal, setOrderTotal] = useState(0);
   console.log(orderTotal);
+
+  // Seller info from store //
+  const sellerData = sellerPageInfo() || [];
+  console.log(sellerData);
+  // Extract the seller ID //
+  const [firstSeller] = sellerData;
+  const sellerId = firstSeller ? firstSeller.id : null;
+  console.log(sellerId);
 
   // UPDATE WITH ACTUAL STORE DATA ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const [rows, setRows] = useState([
@@ -30,7 +46,12 @@ export default function OrderPage({ caseType }) {
       price: 25,
       quantity: 0,
     },
-    { id: 3, bookType: "Grand Forks (Digital Coupon Book)", price: 25, quantity: 0 },
+    {
+      id: 3,
+      bookType: "Grand Forks (Digital Coupon Book)",
+      price: 25,
+      quantity: 0,
+    },
     { id: 4, bookType: "Donate", price: 0, quantity: 0 },
   ]);
 
@@ -49,10 +70,10 @@ export default function OrderPage({ caseType }) {
           break;
       }
     };
-  
+
     setRowsBasedOnCaseType(caseType);
   }, [caseType]);
-  
+
   const handleRowSelect = (rowId) => {
     let newRows = [...rows];
     let newSelectedRows = [...selectedRows];
@@ -99,8 +120,16 @@ export default function OrderPage({ caseType }) {
 
   const addToCart = () => {
     history.push({
-      pathname: "/ordersummary",
-      state: { rows, selectedProducts, customDonation, orderTotal },
+      pathname: `/seller/${seller.refId}/${caseType}/cart`,
+      state: {
+        seller,
+        sellerId,
+        caseType,
+        rows,
+        selectedProducts,
+        customDonation,
+        orderTotal,
+      },
     });
   };
 
@@ -117,13 +146,34 @@ export default function OrderPage({ caseType }) {
   return (
     <div style={containerStyle}>
       <Typography
-        label="Order Books"
+        // label="Order Books"
+        label={
+          caseType === "cash"
+            ? "Cash / Check"
+            : caseType === "paypal"
+            ? "PayPal"
+            : caseType === "credit"
+            ? "Credit / Debit Card"
+            : "Order Books"
+        }
         variant="h5"
-        sx={{ textAlign: "center", fontWeight: "bold", py: 5 }}
+        sx={{ textAlign: "center", fontWeight: "bold", py: 3 }}
       />
-
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ Referral ID displayed here ~~~~~~~~~~ */}
+      <Box sx={{ mb: 1 }}>
+        <RefIdDisplay seller={seller} />
+      </Box>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ Customer info fields ~~~~~~~~~~ */}
+      {caseType === "cash" && (
+        <Box sx={{ mb: 2 }}>
+          <CustomerNameInfo />
+        </Box>
+      )}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ Order Table ~~~~~~~~~~ */}
       <OrderTable
-        caseType={caseType}
         rows={rows}
         selectedRows={selectedRows}
         handleRowSelect={handleRowSelect}
@@ -133,6 +183,8 @@ export default function OrderPage({ caseType }) {
         setCustomDonation={setCustomDonation}
         clearDonation={clearDonation}
       />
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ Buttons ~~~~~~~~~~ */}
       <Box sx={navButtonStyle}>
         <CustomButton label="Clear" onClick={clearTotal} />
         <CustomButton
