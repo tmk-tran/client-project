@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+
+import React, { useState } from "react";
+
 import LogoPSG from "../LogoPSG/LogoPSG";
 import NavLinks from "../NavLinks/NavLinks";
 
@@ -11,12 +11,15 @@ import {
   Typography,
   TextField,
 } from "@mui/material";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { Errors } from "../../hooks/reduxStore";
+import { dispatchHook } from "../../hooks/useDispatch";
 
 function LoginForm() {
+  const errors = Errors();
+  const dispatch = dispatchHook();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const errors = useSelector((store) => store.errors);
-  const dispatch = useDispatch();
 
   const login = (event) => {
     event.preventDefault();

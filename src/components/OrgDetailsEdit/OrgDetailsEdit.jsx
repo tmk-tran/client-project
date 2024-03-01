@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// Style
+// ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Backdrop,
   Modal,
@@ -8,7 +8,7 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-// Utils
+// ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { showToast } from "../Utils/toasts";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 

@@ -1,7 +1,8 @@
-import { all } from 'redux-saga/effects';
-import loginSaga from './login.saga';
-import registrationSaga from './registration.saga';
-import userSaga from './user.saga';
+import { all } from "redux-saga/effects";
+import loginSaga from "./login.saga";
+import registrationSaga from "./registration.saga";
+import userSaga from "./user.saga";
+
 
 import orgDetailsSaga from './orgDetails.saga';
 import organizationsSaga from './organizations.saga';
@@ -14,6 +15,8 @@ import groupAdminSaga from './groupAdmin.saga';
 import orgNotesSaga from './orgNotes.saga';
 import allUsersSaga from './allUsers.saga';
 import rolesSaga from './roles_pbac.saga';
+import filesSaga from "./files.saga";
+
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -38,5 +41,7 @@ export default function* rootSaga() {
     orgNotesSaga(),
     allUsersSaga(),
     rolesSaga()
+    filesSaga(),
+
   ]);
 }

@@ -1,7 +1,6 @@
 .active_header_cell {
   border: 2px solid black;
   height: 50px;
-  padding: 0;
   background-color: rgb(192, 190, 190);
   min-width: 65px;
 }
