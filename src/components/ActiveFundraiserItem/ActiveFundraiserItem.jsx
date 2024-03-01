@@ -244,7 +244,8 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                 </Typography>
               </TableCell>
 
-              {/* Group Earnings */}
+              {/* Group Earnings 
+              Updated to use the organization earnings for the math*/}
               <TableCell
                 TableCell
                 style={{ width: "50px", border: "2px solid black" }}
@@ -256,7 +257,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                     padding: "0",
                   }}
                 >
-                  ${fundraiser.books_sold * 10}
+                  ${fundraiser.books_sold * fundraiser.organization_earnings}
                 </Typography>
               </TableCell>
 
@@ -274,7 +275,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                 >
                   $
                   {fundraiser.books_sold * 25 -
-                    fundraiser.books_sold * fundraiser.organization_earnings}
+                    (fundraiser.books_sold * fundraiser.organization_earnings)}
                 </Typography>
               </TableCell>
               <TableCell style={{ width: "50px", border: "2px solid black" }}>
@@ -501,7 +502,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                 >
                   $
                   {fundraiser.books_sold * 25 -
-                    fundraiser.books_sold * fundraiser.organization_earnings}
+                    (fundraiser.books_sold * fundraiser.organization_earnings)}
                 </Typography>
               </TableCell>
               <TableCell style={{ width: "50px", border: "2px solid black" }}>
