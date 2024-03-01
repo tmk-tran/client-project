@@ -10,15 +10,16 @@ import {
 
 export default function PaymentMenu({ onPaymentSelect }) {
   const [payment, setPayment] = useState("");
+  console.log(payment);
 
   const handleChange = (event) => {
     setPayment(event.target.value);
-    onPaymentSelect();
+    onPaymentSelect(event.target.value);
   };
 
   return (
     <Box sx={{ minWidth: 120, width: "40%" }}>
-      <Typography>Please choose a method of payment:</Typography>
+      <Typography sx={{ mb: 1 }}>Please choose a method of payment:</Typography>
       <FormControl fullWidth>
         <InputLabel id="payment-menu-label">Payment</InputLabel>
         <Select
@@ -28,9 +29,9 @@ export default function PaymentMenu({ onPaymentSelect }) {
           label="Payment"
           onChange={handleChange}
         >
-          <MenuItem value="Cash">Cash / Check</MenuItem>
-          <MenuItem value="Check">PayPal</MenuItem>
-          <MenuItem value="Donation">Credit / Debit Card</MenuItem>
+          <MenuItem value="cash">Cash / Check</MenuItem>
+          <MenuItem value="payPal">PayPal</MenuItem>
+          <MenuItem value="credit">Credit / Debit</MenuItem>
         </Select>
       </FormControl>
     </Box>

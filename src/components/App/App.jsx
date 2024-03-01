@@ -178,12 +178,13 @@ function App() {
               </ProtectedRoute>
 
               <Route exact path="/seller/:refId/cash">
-                {/* <SellerPage /> */}
-                <SellerLandingPage />
+                <OrderPage caseType={"cash"} />
+                {/* <SellerLandingPage /> */}
               </Route>
 
               <Route exact path="/seller/:refId/">
-                <OrderPage />
+                {/* <OrderPage /> */}
+                <SellerLandingPage />
               </Route>
 
               <ProtectedRoute exact path="/ordersummary">

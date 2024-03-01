@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material"; 
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
@@ -10,7 +10,8 @@ import Typography from "../Typography/Typography";
 import OrderTable from "./OrderTable";
 import { navButtonStyle } from "./checkoutStyles";
 
-export default function OrderPage() {
+export default function OrderPage({ caseType }) {
+  console.log(caseType);
   const history = historyHook();
 
   const [selectedRows, setSelectedRows] = useState([]);
@@ -33,6 +34,25 @@ export default function OrderPage() {
     { id: 4, bookType: "Donate", price: 0, quantity: 0 },
   ]);
 
+  console.log(rows);
+
+  useEffect(() => {
+    const setRowsBasedOnCaseType = (caseType) => {
+      switch (caseType) {
+        case "cash":
+          setRows((prevRows) =>
+            prevRows.filter((row) => row.id === 1 || row.id === 4)
+          );
+          break;
+        // Add other case types if needed
+        default:
+          break;
+      }
+    };
+  
+    setRowsBasedOnCaseType(caseType);
+  }, [caseType]);
+  
   const handleRowSelect = (rowId) => {
     let newRows = [...rows];
     let newSelectedRows = [...selectedRows];
@@ -103,6 +123,7 @@ export default function OrderPage() {
       />
 
       <OrderTable
+        caseType={caseType}
         rows={rows}
         selectedRows={selectedRows}
         handleRowSelect={handleRowSelect}

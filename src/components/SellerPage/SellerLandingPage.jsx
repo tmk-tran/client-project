@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-// ~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~ //
 import { Box, Button } from "@mui/material";
+// ~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~ //
 import { centeredStyle, containerStyle, flexEnd } from "../Utils/pageStyles";
 import { borderPrimaryColor } from "../Utils/colors";
 import { sellerPageInfo } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
+import { historyHook } from "../../hooks/useHistory";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~~~~ //
 import CustomerNameInfo from "./CustomerNameInfo";
 import OrgDetailsSection from "./OrgDetailsSection";
@@ -19,10 +20,13 @@ const flexCenter = {
 
 export default function SellerLandingPage() {
   const dispatch = dispatchHook();
+  const history = historyHook();
   const paramsObject = useParams();
   console.log(paramsObject);
   const [showGoButton, setShowGoButton] = useState(false);
   console.log(showGoButton);
+  const [paymentType, setPaymentType] = useState("");
+  console.log(paymentType);
 
   useEffect(() => {
     dispatch({ type: "FETCH_SELLER_PAGEINFO", payload: paramsObject.refId });
@@ -32,8 +36,14 @@ export default function SellerLandingPage() {
   console.log(sellerData);
 
   // Props to PaymentMenu //
-  const handlePaymentSelect = () => {
+  const handlePaymentSelect = (paymentType) => {
     setShowGoButton(true);
+    console.log(paymentType);
+    setPaymentType(paymentType);
+  };
+
+  const navigateTo = () => {
+    history.push(`/seller/${paramsObject.refId}/${paymentType}`);
   };
 
   return (
@@ -50,7 +60,7 @@ export default function SellerLandingPage() {
           <br />
           {showGoButton && (
             <Box sx={{ width: "40%", ...flexEnd }}>
-              <Button variant="contained">Go</Button>
+              <Button variant="contained" onClick={navigateTo}>Go</Button>
             </Box>
           )}
           {/* <CustomerNameInfo /> */}
