@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
+// import { useDispatch, useSelector } from "react-redux";
+
+import { useDispatch } from "react-redux";
+
 import { useHistory } from "react-router-dom";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./OrgListView.css";
@@ -9,11 +13,13 @@ import EditOrganizationModal from "../EditOrgModal/EditOrganizationModal";
 function OrgListView({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
+
   const auth = useSelector((store) => store.auth)
   const aggs = useSelector((store) => store.organizations.
     aggs)
   console.log(aggs)
   console.log(organization)
+
   // const organizationsList = useSelector((store) => store.organizations);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 

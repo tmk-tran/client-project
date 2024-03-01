@@ -1,5 +1,5 @@
 //Imports used in the component
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   OutlinedInput,
@@ -21,6 +21,9 @@ export default function ActiveFundraiserItem({ fundraiser }) {
   let [booksCheckedOut, setBooksCheckedOut] = useState(
     fundraiser.book_quantity_checked_out
   );
+  // let [booksCheckedOut, setBooksCheckedOut] = useState(
+  //   fundraiser.requested_book_quantity - fundraiser.book_quantity_checked_in
+  // );
   let [booksCheckedIn, setBooksCheckedIn] = useState(
     fundraiser.book_quantity_checked_in
   );
@@ -28,6 +31,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
   let [goal, setGoal] = useState(fundraiser.goal);
   let [editMode, setEditMode] = useState(false);
   let [editTitle, setEditTitle] = useState(fundraiser.title);
+
   //Function that formats the date and removes the timestamp
   const formatDate = (dateString) => {
     if (!dateString) {
@@ -63,7 +67,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
     dispatch({ type: "UPDATE_FUNDRAISER_AMOUNTS", payload:{ updatedAmount: updatedAmount, auth: auth} });
     setEditMode(false);
   };
-//Function that runs on click of close button. A sweetalert will pop up prompting the user to confirm that the fundraiser is to be closed. Will then send the dispatch and payload to update a fundraiser to closed.
+  //Function that runs on click of close button. A sweetalert will pop up prompting the user to confirm that the fundraiser is to be closed. Will then send the dispatch and payload to update a fundraiser to closed.
   const handleCloseFundraiser = () => {
     const closedFundraiser = {id: Number(fundraiser.id),
       group_id: Number(fundraiser.group_id),
@@ -195,6 +199,19 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   >
                     {fundraiser.book_quantity_checked_in}
                   </OutlinedInput>
+                  {/* <OutlinedInput
+                    style={{ fontSize: "15px", width: "60px", height: "25px" }}
+                    value={booksCheckedIn}
+                    onChange={(e) => {
+                      const newBooksCheckedIn = e.target.value;
+                      setBooksCheckedIn(newBooksCheckedIn);
+
+                      // Update booksCheckedOut based on the new value of booksCheckedIn
+                      const newBooksCheckedOut =
+                        fundraiser.requested_book_quantity - newBooksCheckedIn;
+                      setBooksCheckedOut(newBooksCheckedOut);
+                    }}
+                  /> */}
                 </Typography>
               </TableCell>
               <TableCell
@@ -243,6 +260,25 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   </OutlinedInput>
                 </Typography>
               </TableCell>
+
+              {/* Group Earnings 
+              Updated to use the organization earnings for the math*/}
+              <TableCell
+                TableCell
+                style={{ width: "50px", border: "2px solid black" }}
+              >
+                <Typography
+                  style={{
+                    fontSize: "15px",
+                    textAlign: "center",
+                    padding: "0",
+                  }}
+                >
+                  ${fundraiser.books_sold * fundraiser.organization_earnings}
+                </Typography>
+              </TableCell>
+
+              {/* PSG Earnings */}
               <TableCell
                 TableCell
                 style={{ width: "50px", border: "2px solid black" }}
@@ -256,7 +292,9 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                 >
                   $
                   {fundraiser.books_sold * 25 -
+
                     fundraiser.books_sold * fundraiser.group.organization.organization_earnings}
+
                 </Typography>
               </TableCell>
               <TableCell style={{ width: "50px", border: "2px solid black" }}>
@@ -305,6 +343,8 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   </OutlinedInput>
                 </Typography>
               </TableCell>
+
+              {/* Need to visit SQL logic for outstanding_balance */}
               <TableCell style={{ width: "50px", border: "2px solid black" }}>
                 <Typography
                   style={{
@@ -390,7 +430,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                     padding: "0",
                   }}
                 >
-                  {fundraiser.book_quantity_checked_out}
+                  {booksCheckedOut}
                 </Typography>
               </TableCell>
               <TableCell
@@ -450,6 +490,24 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                   ${fundraiser.money_received}
                 </Typography>
               </TableCell>
+
+              {/* Group Earnings */}
+              <TableCell
+                TableCell
+                style={{ width: "50px", border: "2px solid black" }}
+              >
+                <Typography
+                  style={{
+                    fontSize: "15px",
+                    textAlign: "center",
+                    padding: "0",
+                  }}
+                >
+                  ${fundraiser.books_sold * 10}
+                </Typography>
+              </TableCell>
+
+              {/* PSG Earnings */}
               <TableCell
                 TableCell
                 style={{ width: "50px", border: "2px solid black" }}
@@ -463,7 +521,9 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                 >
                   $
                   {fundraiser.books_sold * 25 -
+
                     fundraiser.books_sold * fundraiser.group.organization.organization_earnings}
+
                 </Typography>
               </TableCell>
               <TableCell style={{ width: "50px", border: "2px solid black" }}>
@@ -514,10 +574,16 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                 </Typography>
               </TableCell>
 
-              <TableCell style={{ width: "50px", border: "2px solid black", backgroundColor:
+              <TableCell
+                style={{
+                  width: "50px",
+                  border: "2px solid black",
+                  backgroundColor:
                     fundraiser.outstanding_balance > 0
                       ? "#E3A29B"
-                      : "transparent", }}>
+                      : "transparent",
+                }}
+              >
                 <Typography
                   style={{
                     fontSize: "15px",

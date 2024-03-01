@@ -8,6 +8,7 @@ const sessionMiddleware = require('./modules/session-middleware');
 const passport = require('./strategies/user.strategy');
 
 // Route includes
+
 // const userRouter = require('./routes/user.router');
 // const groupRouter = require('./routes/group.details.router');
 // const orgDetailsRouter = require('./routes/orgDetails.router');
@@ -21,6 +22,7 @@ const passport = require('./strategies/user.strategy');
 // const allUsersRouter = require('./routes/allUsers.router');
 // const businessRouter = require('./routes/business.router')
 
+
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,6 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Routes */
+
 // app.use('/api/user', userRouter);
 // app.use('/api/group', groupRouter)
 // app.use('/api/orgnotes', orgNotesRouter);

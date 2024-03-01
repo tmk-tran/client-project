@@ -6,8 +6,10 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { User } from "../../hooks/reduxStore";
+import { historyHook } from "../../hooks/useHistory";
+import { dispatchHook } from "../../hooks/useDispatch";
 
 const customTheme = createTheme({
   breakpoints: {
@@ -22,16 +24,18 @@ const customTheme = createTheme({
 });
 
 export default function BasicMenu() {
-  const user = useSelector((store) => store.user);
+  const user = User();
+  const history = historyHook();
+  const dispatch = dispatchHook();
   const theme = useTheme();
-  const dispatch = useDispatch();
   const isSmallScreen = useMediaQuery(customTheme.breakpoints.down("md"));
-  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -50,6 +54,12 @@ export default function BasicMenu() {
     history.push("/user");
     handleClose();
   }
+
+  function coupon() {
+    history.push("/coupon");
+    handleClose();
+  }
+
   function aboutPage() {
     history.push("/about");
     handleClose();
@@ -104,6 +114,7 @@ export default function BasicMenu() {
         <MenuItem onClick={archivedOrganizations}>
           Archived Organizations
         </MenuItem>
+        <MenuItem onClick={coupon}>Coupon</MenuItem>
         <MenuItem onClick={aboutPage}>About</MenuItem>
         {/* <hr /> */}
         {/* <MenuItem onClick={logOut}>Logout</MenuItem> */}

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import LogoPSG from "../LogoPSG/LogoPSG";
 import "./LandingPage.css";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { historyHook } from "../../hooks/useHistory"; 
 
 // CUSTOM COMPONENTS
 import RegisterForm from "../RegisterForm/RegisterForm";
 
 function LandingPage() {
   const [heading, setHeading] = useState("Welcome");
-  const history = useHistory();
+  const history = historyHook();
 
   const onLogin = (event) => {
     history.push("/login");

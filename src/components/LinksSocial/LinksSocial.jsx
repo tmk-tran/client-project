@@ -5,7 +5,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import "./LinksSocial.css";
 
-export default function LinksSocial() {
+export default function LinksSocial({ colors = [] }) {
   return (
     <div className="links-social">
       <a
@@ -13,26 +13,29 @@ export default function LinksSocial() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <FacebookIcon id="fb-icon" style={{ color: "#1877f2" }} />
+        <FacebookIcon id="fb-icon" style={{ color: colors[0] || "#1877f2" }} />
       </a>
       <a
         href="https://www.instagram.com/thepreferredsavingsguide/"
         target="_blank"
         rel="noopener noreferrer"
       >
-      <InstagramIcon id="ig-icon" style={{ color: "#E4405F" }} /></a>
+        <InstagramIcon id="ig-icon" style={{ color: colors[1] || "#E4405F" }} />
+      </a>
       <a
         href="https://www.linkedin.com/company/the-preferred-savings-guide/"
         target="_blank"
         rel="noopener noreferrer"
       >
-      <LinkedInIcon id="li-icon" style={{ color: "#0077B5" }} /></a>
+        <LinkedInIcon id="li-icon" style={{ color: colors[2] || "#0077B5" }} />
+      </a>
       <a
         href="https://www.twitter.com/bluecouponbook"
         target="_blank"
         rel="noopener noreferrer"
       >
-      <TwitterIcon id="x-icon" style={{ color: "#1DA1F2" }} /></a>
+        <TwitterIcon id="x-icon" style={{ color: colors[3] || "#1DA1F2" }} />
+      </a>
     </div>
   );
 }
