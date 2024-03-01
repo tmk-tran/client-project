@@ -10,9 +10,10 @@ function OrgListView({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const auth = useSelector((store) => store.auth)
-  // const aggs = useSelector((store) => store.organizations.
-  // Aggregate)
-  // console.log(aggs)
+  const aggs = useSelector((store) => store.organizations.
+    aggs)
+  console.log(aggs)
+  console.log(organization)
   // const organizationsList = useSelector((store) => store.organizations);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
@@ -64,7 +65,8 @@ function OrgListView({ organization }) {
       primary_contact_email: contactEmail,
       organization_logo: logoUrl,
       organization_earnings: orgEarnings,
-      is_delete: true}
+      is_delete: true
+    }
     Swal.fire({
       title: "Are you sure you want to Archive this Organization?",
       icon: "warning",
@@ -74,7 +76,7 @@ function OrgListView({ organization }) {
       confirmButtonText: "Yes, Archive It",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch({ type: "DELETE_ORGANIZATION", payload: {archivedOrg: archivedOrg, auth: auth}});
+        dispatch({ type: "DELETE_ORGANIZATION", payload: { archivedOrg: archivedOrg, auth: auth } });
         dispatch({ type: "FETCH_ORGANIZATIONS" });
         Swal.fire("Organization Successfully Archived!");
       }
@@ -85,17 +87,17 @@ function OrgListView({ organization }) {
     history.push(`/OrgDetails/${organization.id}`);
   }
 
-  // // formats the money amount to have a comma over $1000
-  // const totalOrgEarnings = parseFloat(organization.total_org_earnings);
-  // const formattedEarnings = totalOrgEarnings.toLocaleString();
+  // formats the money amount to have a comma over $1000
+  const totalOrgEarnings = parseFloat(organization.total_org_earnings);
+  const formattedEarnings = totalOrgEarnings.toLocaleString();
 
-  // // variables for the book amounts to be able to do the quick math here
-  // const totalCheckedOutBooks = organization.total_checked_out_books;
-  // const totalCheckedInBooks = organization.total_checked_in_books;
-  // const totalBooksSold = organization.total_books_sold;
-  // const totalStandingBooks =
-  //   totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
-  
+  // variables for the book amounts to be able to do the quick math here
+  const totalCheckedOutBooks = organization.total_checked_out_books;
+  const totalCheckedInBooks = organization.total_checked_in_books;
+  const totalBooksSold = aggs.total_books_sold.sum;
+  const totalStandingBooks =
+    totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
+
   return (
     <>
       <Card className="organizationListContainer">
@@ -109,23 +111,35 @@ function OrgListView({ organization }) {
                 </Typography>
                 <div className="detailsContainer">
                   <div className="column">
-                    {/* <Typography variant="body2">
+                    <Typography variant="body2">
                       Organization Fee: ${organization.organization_earnings}
                     </Typography>
-                    <Typography variant="body2">
-                      Total Books Sold: {organization.total_books_sold}
-                    </Typography>
+                    {aggs.total_books_sold.map((totalBooksSold) => {
+                      if (totalBooksSold.group_organization_id == organization.id) {
+                        return (
+                          <Typography key={totalBooksSold.id} variant="body2">
+                            Total Books Sold: {totalBooksSold.sum}
+                          </Typography>
+                        );
+                        } 
+                    })}
                     <Typography variant="body2">
                       Organization Earnings: ${formattedEarnings}
                     </Typography>
                   </div>
                   <div className="column">
+                    {aggs.total_groups.map((total_groups) =>{
+                      if (total_groups.organization_id == organization.id) {
+                        return (
                     <Typography variant="body2">
-                      Total Groups: {organization.total_groups}
+                      Total Groups: {total_groups.count}
                     </Typography>
+                      );
+                    } 
+                })}
                     <Typography variant="body2">
                       Total Outstanding Books: {totalStandingBooks}
-                    </Typography> */}
+                    </Typography>
                     <Typography variant="body2">
                       PSG Earnings: $
                       {(
@@ -178,5 +192,4 @@ function OrgListView({ organization }) {
     </>
   );
 }
-
 export default OrgListView;

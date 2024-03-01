@@ -17,8 +17,8 @@ function* fetchOrganizationsSaga(action) {
     total_closed_fundraisers: count(subquery: "query{group{ id organization_id fundraiser_collection{group_id}}}" 
       filter: " fundraiser_collection.closed=true" 
       ordering: "group_id")\r\n
-    total_books_sold: sum(subquery: "query{group{id organization_id fundraiser_collection{books_sold group_id}}}" 
-      ordering: "id")\r\n 
+      total_books_sold: sum(ordering:["organization_id"] subquery: "query{fundraiser{books_sold group{organization_id}}}")
+      \r\n 
      total_outstanding_balance: sum(subquery: "query{group{id organization_id fundraiser_collection{outstanding_balance group_id}}}" 
       ordering: "id")\r\n
     total_books_checked_out: count
@@ -45,7 +45,7 @@ function* fetchOrganizationsSaga(action) {
     console.log(response)
     console.log("FETCH request fetchOrganizationsSaga");
 
-    yield put({ type: "SET_ORGANIZATIONS", payload: response.data.organization });
+    yield put({ type: "SET_ORGANIZATIONS", payload:{organization: response.data.organization, aggs: response.data.Aggregates }});
   } catch (error) {
     console.log("error in fetchOrganizationsSaga", error);
   }

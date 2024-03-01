@@ -23,7 +23,7 @@ function UserPage() {
   }, []);
   const history = useHistory();
   const user = useSelector((store) => store.user);
-  const organizationsList = useSelector((store) => store.organizations);
+  const organizationsList = useSelector((store) => store.organizations.organization);
   console.log(organizationsList)
 
   // state for the search and modal and pagination
@@ -34,6 +34,7 @@ function UserPage() {
   const itemsPerPage = 12;
 
   // fuzzy search information
+  if (organizationsList) {
   const fuse = new Fuse(organizationsList, {
     keys: ["organization_name"],
     includeScore: true,
@@ -42,7 +43,7 @@ function UserPage() {
   });
   const results = fuse.search(query);
   const searchResult = results.map((result) => result.item);
-
+  
   const handleOnSearch = (value) => {
     setQuery(value);
     if (!showInput) {
@@ -50,14 +51,14 @@ function UserPage() {
     }
     setCurrentPage(1); // Reset to the first page when searching
   };
-
+  
   // clears out the input field
   const clearInput = () => {
     setQuery(" ");
     setShowInput(false);
     setCurrentPage(1); // Reset to the first page when clearing the search
   };
-
+  
   // opens the add org modal
   const handleAddOrganizationClick = () => {
     setModalOpen(true);
@@ -181,6 +182,7 @@ function UserPage() {
       </Paper>
     </div>
   );
+}
 }
 
 export default UserPage;

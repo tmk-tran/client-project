@@ -78,7 +78,7 @@ function*  addGroupSaga(action)  {
              group_description
              is_deleted
         }
-    }}`;
+    }`;
          
         const queryConfig = {
             headers: {
@@ -100,8 +100,8 @@ function*  addGroupSaga(action)  {
 
         const response = yield axios.post(QUERY_URL, data, queryConfig);
         console.log(response)
-        yield put({ type: "FETCH_ORG_GROUPS", payload: { id: Number(action.payload.organization_id), auth: auth_response }})
-        console.log("org id in saga  = ", Number(action.payload.organization_id));
+        yield put({ type: "FETCH_ORG_GROUPS", payload: { id: Number(newGroup.organization_id), auth: auth_response }})
+        console.log("org id in saga  = ", Number(newGroup.organization_id));
     } catch (err) {
         console.log("Error adding a new group", err)
     }

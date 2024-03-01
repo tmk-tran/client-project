@@ -125,7 +125,7 @@ export default function ClosedFundraiserItem({ fundraiser }) {
             <Typography
               style={{ fontSize: "15px", width: "80px", textAlign: "center" }}
             >
-              {fundraiser.year}
+              {fundraiser.coupon_book.year}
             </Typography>
           </TableCell>
           <TableCell

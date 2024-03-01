@@ -20,6 +20,7 @@ import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import { showToast } from "../Utils/toasts";
 
 export default function NotesPopover({ info }) {
+  console.log(info)
   const dispatch = useDispatch();
   const paramsObject = useParams();
   const auth = useSelector((store) => store.auth)

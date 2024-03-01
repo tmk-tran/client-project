@@ -64,7 +64,7 @@ function* addNotes(action) {
 
     const response = yield axios.post(QUERY_URL, data, queryConfig);
     console.log(response)
-    yield put({ type: "FETCH_ORG_NOTES", payload: { id: newNote.organization_id, auth: auth_response } });
+    yield put({ type: "FETCH_ORG_NOTES", payload: { id: Number(newNote.organization_id), auth: auth_response } });
   } catch (error) {
     console.log("error in addNotes Saga", error);
   }
@@ -120,9 +120,10 @@ function* deleteOrgNote(action) {
       "input": {
         "organization_id": Number(deletedNote.organization_id),
         "note_date": deletedNote.note_date,
-        "note_content": deletedNote.note_content
+        "note_content": deletedNote.note_content,
+        "is_deleted": deletedNote.is_deleted
       },
-      "is_deleted": deletedNote.is_deleted
+        "id": Number(deletedNote.id)
     }));
 
     const response = yield axios.post(QUERY_URL, data, queryConfig);

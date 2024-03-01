@@ -20,12 +20,14 @@ import { showToast } from "../Utils/toasts";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function OrgNotesDisplay() {
-  const notes = useSelector((store) => store.orgNotes)
+export default function OrgNotesDisplay({notes}) {
+  
   const auth = useSelector((store) => store.auth)
   const id = notes.id
   const dispatch = useDispatch();
   const paramsObject = useParams();
+
+
 
   // State for showing notes
   const [noteDelete, setNoteDelete] = useState(false);
@@ -39,7 +41,7 @@ export default function OrgNotesDisplay() {
     // Fetch org notes whenever noteAdded changes
     dispatch({
       type: "FETCH_ORG_NOTES",
-      payload: {id: paramsObject.id, auth: auth}
+      payload: {id: id, auth: auth}
     });
 
     // Reset noteAdded after fetching data
@@ -48,10 +50,10 @@ export default function OrgNotesDisplay() {
 
   const handleSave = () => {
     // Format the date as "mm/dd/yyyy"
-    const formattedDate = noteDate.toLocaleDateString("en-US");
+    const formattedDate = noteDate.toISOString().split('T')[0];
 
     const sendNote = {
-      organization_id: orgId,
+      organization_id: paramsObject.id,
       note_date: formattedDate,
       note_content: inputValue,
     };
@@ -67,14 +69,15 @@ export default function OrgNotesDisplay() {
     setInputValue("");
   };
 
-  const handleDelete = (id, organization_id) => {
+  const handleDelete = (id, organization_id, note_date, note_content) => {
     const deletedNote = {
       id: id,
       organization_id: organization_id,
       note_date: note_date,
       note_content: note_content,
       is_deleted: true
-    }
+    };
+    console.log(deletedNote)
     const deleteCall = () => {
       dispatch({ type: "DELETE_ORG_NOTE", payload: { deletedNote: deletedNote, auth: auth } });
       setNoteDelete(true);
@@ -128,7 +131,12 @@ export default function OrgNotesDisplay() {
                         <Button
                           className="notes-delete-btn"
                           onClick={() =>
-                            handleDelete(note.id, note.organization_id)
+                            handleDelete(
+                              note.id,
+                              note.organization_id,
+                              note.note_date,
+                              note.note_content
+                            )
                           }
                         >
                           <DeleteIcon style={{ fontSize: "20px" }} />

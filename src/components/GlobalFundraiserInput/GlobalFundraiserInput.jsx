@@ -22,19 +22,26 @@ export default function GlobalFundraiserInput() {
   }, []);
   // set state for organization id and group id
   const [selectedOrganizationId, setSelectedOrganizationId] = useState("");
+  console.log(selectedOrganizationId)
   const [selectedGroup, setSelectedGroup] = useState("");
 
   const handleOrganizationChange = (event) => {
     setSelectedOrganizationId(event.target.value);
+    console.log(event.target.value)
   };
 
   const handleGroupChange = (event) => {
     setSelectedGroup(event.target.value);
   };
+  
   // filter groups based off of organization id
-  const filteredGroups = groupList.filter(
-    (group) => group.organization_id === selectedOrganizationId
-  );
+  const filteredGroups = Array.isArray(groupList.group)
+  ? groupList.group.filter((group) => Number(group.organization_id) === Number(selectedOrganizationId))
+  : [];
+  
+console.log(groupList)
+console.log(filteredGroups)
+  
   // state to create a new fundraiser- some state isnt used to its commented out
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -89,11 +96,14 @@ export default function GlobalFundraiserInput() {
         goal: goal,
         requested_book_quantity: booksRequested,
         book_quantity_checked_out: booksCheckedOut,
+        book_quantity_checked_in: 0,
+        books_sold: 0,
+        money_received: 0,
         start_date: startDate,
         end_date: endDate,
         coupon_book_id: couponBookId,
       };
-      dispatch({ type: "ADD_FUNDRAISER", payload: newFundraiser });
+      dispatch({ type: "ADD_FUNDRAISER", payload:{ newFundraiser: newFundraiser, auth: auth }});
       Swal.fire({
         title: "Fundraiser Added!",
         text: "Your fundraiser has been successfully added.",
@@ -148,8 +158,8 @@ export default function GlobalFundraiserInput() {
                 fullWidth
               >
                 {organizations
-                  .filter((organization) => organization.total_groups > 0)
-                  .map((organization, index) => (
+                  .filter((organization) => organization.group_collection.length > 0)
+                  .map((organization) => (
                     <MenuItem key={organization.id} value={organization.id}>
                       {organization.organization_name}
                     </MenuItem>
