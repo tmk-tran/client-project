@@ -125,38 +125,7 @@ router.post("/:id", (req, res) => {
 });
 
 //Get route for fundraisers with a specific group id
-router.post("/groupfundraisers/:id", (req, res) => {
-  const groupId = req.params.id;
-  const ACCESS_TOKEN = auth_response.access_token;
-  const QUERY_URL = "https://api.devii.io/query";
-  const query = `{\r\n   fundraiser (filter: "group_id = ${groupId}"{\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n
-  group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}\r\n}`;
 
-  var myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
-  myHeaders.append("Content-Type", "application/json");
-
-  var graphql = JSON.stringify({
-    query: query,
-    variables: {},
-  });
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: graphql,
-    redirect: "follow",
-  };
-
-  fetch(QUERY_URL, requestOptions)
-    .then((response) => response.text())
-    .then((result) => {
-      console.log(result);
-      res.sendStatus(200)
-    })
-    .catch((error) => {
-      console.log("Error getting data from Devii", error)
-      res.sendStatus(500)
-    });
   //   const queryText = `SELECT 
   //   "f".id, 
   //   "f".group_id, 
@@ -192,42 +161,11 @@ router.post("/groupfundraisers/:id", (req, res) => {
   //       console.log("Error in getting fundraisers", err);
   //       res.sendStatus(500);
   //     });
-});
+
 
 // New post route to create a new fundraiser with the Devii api
-router.post("/", (req, res) => {
-  const newFundraiser = req.body;
-  const ACCESS_TOKEN = auth_response.access_token;
-  const QUERY_URL = "https://api.devii.io/query";
-  const query = `{\r\n  mutation{\r\n create_fundraiser(\r\n input:{\r\n group_id: ${newFundraiser.group_id}\r\n title: ${newFundraiser.title}\r\n description: ${newFundraiser.description}\r\n requested_book_quantity: ${newFundraiser.requested_book_quantity}\r\n book_quantity_checked_out: ${newFundraiser.book_quantity_checked_out}\r\n book_quantity_checked_in: ${newFundraiser.book_quantity_checked_in}\r\n books_sold: ${newFundraiser.books_sold}\r\n money_received: ${newFundraiser.money_received}\r\n start_date: ${newFundraiser.start_date}\r\n end_date: ${newFundraiser.end_data}\r\n coupon_book_id: ${newFundraiser.coupon_book_id}\r\n goal: ${newFundraiser.goal}\r\n }\r\n ){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}`;
 
-  var myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
-  myHeaders.append("Content-Type", "application/json");
-
-  var graphql = JSON.stringify({
-    query: query,
-    variables: {},
-  });
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: graphql,
-    redirect: "follow",
-  };
-
-  fetch(QUERY_URL, requestOptions)
-    .then((response) => response.text())
-    .then((result) => {
-      console.log(result);
-      res.sendStatus(200)
-    })
-    .catch((error) => {
-      console.log("Error getting data from Devii", error)
-      res.sendStatus(500)
-    });
-});
-
+ 
 
 // Old post route to create a new fundraiser
 // //Post route for a new fundraiser, data comes from form inputs
@@ -248,39 +186,7 @@ router.post("/", (req, res) => {
 // });
 
 //New update route that uses Devii api, can be used for all updates
-router.post("/updatedfundraiser/:id", (req, res) => {
-  const id = req.params.id;
-  const updatedFundraiser = req.body;
-  const ACCESS_TOKEN = auth_response.access_token;
-  const QUERY_URL = "https://api.devii.io/query";
-  const query = `{\r\n  mutation{\r\n update_fundraiser(\r\n input:{\r\n  title: ${updatedFundraiser.newTitle}\r\n book_quantity_checked_out: ${updatedFundraiser.newBookCheckedOut}\r\n book_quantity_checked_in: ${updatedFundraiser.newBooksCheckedIn}\r\n books_sold: ${updatedFundraiser.newBooksSold}\r\n money_received: ${updatedFundraiser.newMoneyReceived}\r\n is_deleted: ${updatedFundraiser.is_deleted}\r\n closed: ${updatedFundraiser.closed}\r\n goal: ${updatedFundraiser.newGoal}\r\n}\r\n id: ${id}\r\n ){\r\n id\r\n group_id\r\n title\r\n description\r\n photo\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n}\r\n}\r\n}`;
 
-  var myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
-  myHeaders.append("Content-Type", "application/json");
-
-  var graphql = JSON.stringify({
-    query: query,
-    variables: {},
-  });
-  var requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: graphql,
-    redirect: "follow",
-  };
-
-  fetch(QUERY_URL, requestOptions)
-    .then((response) => response.text())
-    .then((result) => {
-      console.log(result);
-      res.sendStatus(200)
-    })
-    .catch((error) => {
-      console.log("Error getting data from Devii", error)
-      res.sendStatus(500)
-    });
-})
 
 // Origional put routes for updates
 
