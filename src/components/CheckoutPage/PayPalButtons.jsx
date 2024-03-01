@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { Typography } from "@mui/material";
 
 // Renders errors or successfull transactions on the screen.
 function Message({ content }) {
@@ -18,7 +19,9 @@ function PayPalButton() {
   const [message, setMessage] = useState("");
 
   return (
-    <div className="PayPalButton" style={{ marginTop: "10%", width: "50%" }}>
+    <div className="PayPalButton" style={{ marginTop: "5%", width: "50%" }}>
+      <Typography>Please select a payment method:</Typography>
+
       <PayPalScriptProvider options={initialOptions}>
         <PayPalButtons
           style={{

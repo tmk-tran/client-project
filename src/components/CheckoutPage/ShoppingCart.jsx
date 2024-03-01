@@ -52,7 +52,7 @@ export default function ShoppingCart() {
 
   const toCheckout = () => {
     history.push({
-      pathname: "/checkout",
+      pathname: `/seller/${refId}/${caseType}/checkout`,
       state: { selectedProducts, orderTotal, customDonation },
     });
   };
@@ -124,7 +124,7 @@ export default function ShoppingCart() {
       </div>
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <CustomButton label="Back" onClick={goBack} />
-        {!caseType ? (
+        {/* {!caseType ? (
           <CustomButton
             label="Proceed to Checkout"
             onClick={toCheckout}
@@ -136,6 +136,37 @@ export default function ShoppingCart() {
             onClick={() => submitOrder(caseType)}
             variant="contained"
           />
+        )} */}
+        {!caseType ? (
+          <CustomButton
+            label="Proceed to Checkout"
+            onClick={toCheckout}
+            variant="contained"
+          />
+        ) : (
+          <>
+            {caseType === "cash" && (
+              <CustomButton
+                label="Submit Order"
+                onClick={() => submitOrder("cash")}
+                variant="contained"
+              />
+            )}
+            {caseType === "paypal" && (
+              <CustomButton
+                label="Proceed to Checkout"
+                onClick={() => toCheckout()}
+                variant="contained"
+              />
+            )}
+            {caseType === "credit" && (
+              <CustomButton
+                label="Proceed to Checkout"
+                onClick={() => toCheckout()}
+                variant="contained"
+              />
+            )}
+          </>
         )}
       </div>
     </div>

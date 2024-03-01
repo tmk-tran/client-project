@@ -177,28 +177,46 @@ function App() {
                 <OrgSellers />
               </ProtectedRoute>
 
-              <Route exact path="/seller/:refId/cash">
-                <OrderPage caseType={"cash"} />
-                {/* <SellerLandingPage /> */}
-              </Route>
-
-              <Route exact path="/seller/:refId/cash/cart">
-                <ShoppingCart />
-              </Route>
-
               <Route exact path="/seller/:refId/">
                 {/* <OrderPage /> */}
                 <SellerLandingPage />
               </Route>
+              {/* ~~~~~~~~~~ CASH PAGE ~~~~~~~~~~ */}
+              <Route exact path="/seller/:refId/cash">
+                <OrderPage caseType="cash" />
+                {/* <SellerLandingPage /> */}
+              </Route>
 
-              <ProtectedRoute exact path="/ordersummary">
+              <Route exact path="/seller/:refId/cash/cart">
+                <ShoppingCart caseType="cash" />
+              </Route>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~ PAYPAL PAGE ~~~~~~~~ */}
+              <Route exact path="/seller/:refId/paypal">
+                <OrderPage caseType="paypal" />
+              </Route>
+
+              <Route exact path="/seller/:refId/paypal/cart">
                 <ShoppingCart />
-              </ProtectedRoute>
+              </Route>
+              {/* ~~~~~~~~~~ CHECKOUT PAGE ~~~~~~~~~ */}
+              <Route exact path="/seller/:refId/paypal/checkout">
+                <CheckoutPage caseType="paypal" />
+              </Route>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~ CREDIT PAGE ~~~~~~~~~~~ */}
+              <Route exact path="/seller/:refId/credit">
+                <OrderPage caseType="credit" />
+              </Route>
 
-              <ProtectedRoute exact path="/checkout">
-                <CheckoutPage />
-              </ProtectedRoute>
-
+              <Route exact path="/seller/:refId/credit/cart">
+                <ShoppingCart />
+              </Route>
+              {/* ~~~~~~~~~~ CHECKOUT PAGE ~~~~~~~~~ */}
+              <Route exact path="/seller/:refId/credit/checkout">
+                <CheckoutPage caseType="credit" />
+              </Route>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               <Route exact path="/login">
                 {user.id ? (
                   // If the user is already logged in,

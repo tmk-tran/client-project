@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import {
   Box,
   Container,
@@ -30,10 +30,15 @@ export const containerStyle = {
 
 const steps = ["Information", "Payment", "Order Confirmation"];
 
-export default function CheckoutPage() {
+export default function CheckoutPage({ caseType }) {
+  console.log(caseType);
   const history = historyHook();
   const location = useLocation();
   console.log(location.state);
+  const paramsObject = useParams();
+  console.log(paramsObject);
+  const refId = paramsObject.refId;
+  console.log(refId);
   // Access state from URL and use it in component
   const selectedProducts = location.state?.selectedProducts ?? [];
   const orderTotal = location.state?.orderTotal ?? 0;
@@ -147,7 +152,7 @@ export default function CheckoutPage() {
           /> */}
           <CustomButton
             label="Return to Store"
-            onClick={() => history.push("/order")}
+            onClick={() => history.push(`/seller/${refId}/${caseType}`)}
           />
           <CustomButton
             label={activeStep === steps.length - 1 ? "Place Order" : "Continue"}
