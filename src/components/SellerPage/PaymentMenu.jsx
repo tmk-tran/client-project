@@ -17,7 +17,7 @@ export default function PaymentMenu({ onPaymentSelect }) {
   };
 
   return (
-    <Box sx={{ minWidth: 120, width: "50%" }}>
+    <Box sx={{ minWidth: 120, width: "40%" }}>
       <Typography>Please choose a method of payment:</Typography>
       <FormControl fullWidth>
         <InputLabel id="payment-menu-label">Payment</InputLabel>

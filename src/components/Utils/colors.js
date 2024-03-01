@@ -10,6 +10,8 @@ export const backgroundColor = { color: "#273B91" };
 
 export const border = { border: "1px solid red" };
 
+export const borderPrimaryColor = { border: "1px solid #19338E" };
+
 export const disabledColor = { color: "#F5F5F5" };
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

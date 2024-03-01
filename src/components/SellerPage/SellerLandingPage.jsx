@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~ //
 import { Box, Button } from "@mui/material";
 import { centeredStyle, containerStyle, flexEnd } from "../Utils/pageStyles";
-import { border } from "../Utils/colors";
+import { borderPrimaryColor } from "../Utils/colors";
 import { sellerPageInfo } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~~~~ //
@@ -42,14 +42,14 @@ export default function SellerLandingPage() {
         <Box key={seller.id} sx={centeredStyle}>
           <OrgDetailsSection seller={seller} />
           <br />
-          <Box sx={{ width: "50%", ...border }}>
+          <Box sx={{ width: "40%", borderRadius: "4px", ...borderPrimaryColor }}>
             <RefIdDisplay seller={seller} />
           </Box>
           <br />
           <PaymentMenu onPaymentSelect={handlePaymentSelect} />
           <br />
           {showGoButton && (
-            <Box sx={{ width: "50%", ...flexEnd }}>
+            <Box sx={{ width: "40%", ...flexEnd }}>
               <Button variant="contained">Go</Button>
             </Box>
           )}

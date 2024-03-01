@@ -169,16 +169,16 @@ function App() {
                 <OrderPage />
               </ProtectedRoute>
 
-              <ProtectedRoute exact path="/dev">
-                <SellerLandingPage />
-              </ProtectedRoute>
+              {/* <ProtectedRoute exact path="/dev">
+                
+              </ProtectedRoute> */}
 
               <ProtectedRoute exact path="/sellers">
                 <OrgSellers />
               </ProtectedRoute>
 
               <Route exact path="/seller/:refId/cash">
-                <SellerPage />
+                {/* <SellerPage /> */}
                 <SellerLandingPage />
               </Route>
 

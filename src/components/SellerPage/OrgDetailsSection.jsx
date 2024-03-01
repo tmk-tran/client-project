@@ -1,7 +1,7 @@
 import { Card, CardContent, Typography } from "@mui/material";
 
 const cardStyle = {
-  width: "50%",
+  width: "40%",
 };
 
 export default function OrgDetailsSection({ seller }) {
