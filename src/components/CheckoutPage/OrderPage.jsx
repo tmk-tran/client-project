@@ -10,7 +10,6 @@ import CustomButton from "../CustomButton/CustomButton";
 import Typography from "../Typography/Typography";
 import OrderTable from "./OrderTable";
 import { navButtonStyle } from "./checkoutStyles";
-import CustomerInfoForm from "./CustomerInfoForm";
 import CustomerNameInfo from "../SellerPage/CustomerNameInfo";
 import RefIdDisplay from "../SellerPage/RefIdDisplay";
 import { sellerPageInfo } from "../../hooks/reduxStore";

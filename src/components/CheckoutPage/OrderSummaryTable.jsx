@@ -67,8 +67,10 @@ export default function OrderSummaryTable({
           {selectedProducts.length > 0 ? (
             selectedProducts.map((product, index) => (
               <TableRow key={index}>
-                <TableCell>{product.bookType}</TableCell>
-                {/* <TableCell>${product.price}</TableCell> */}
+                <TableCell>
+                  {product.bookType}
+                </TableCell>
+
                 <TableCell>
                   {product.bookType === "Donate" ? (
                     <Typography>-</Typography>
@@ -76,27 +78,6 @@ export default function OrderSummaryTable({
                     `$ ${product.price}`
                   )}
                 </TableCell>
-                {/* <TableCell align="right" sx={{ width: "10%" }}>
-                  {product.bookType === "Donate" ? (
-                    <TextField
-                      type="number"
-                      value={customDonation}
-                      onChange={(e) =>
-                        handleQuantityChange(product.id, e.target.value)
-                      }
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                  ) : (
-                    <TextField
-                      type="number"
-                      value={localQuantities[product.id]}
-                      onChange={(e) =>
-                        handleQuantityChange(product.id, e.target.value)
-                      }
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                  )}
-                </TableCell> */}
 
                 <TableCell align="right" sx={{ width: "10%" }}>
                   {/* ~~~~~~~~~~ Watch for multiple caseTypes ~~~~~~~~~ */}

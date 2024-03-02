@@ -233,7 +233,7 @@ CREATE TABLE organization (
 ----------------- Sellers -----------------------------
 CREATE TABLE sellers (
     id SERIAL PRIMARY KEY,
-    "refId" character varying(20),
+    "refId" character varying(20) UNIQUE,
     lastname character varying(255),
     firstname character varying(255),
     level character varying(255),

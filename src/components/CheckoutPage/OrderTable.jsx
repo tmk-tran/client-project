@@ -95,7 +95,20 @@ export default function OrderTable({
                 onChange={() => handleRowSelect(row.id)}
               />
             </TableCell>
-            <TableCell>{row.bookType}</TableCell>
+            <TableCell>
+              {row.bookType.includes("Fargo - Moorhead (Digital Coupon Book") ||
+              row.bookType.includes("Grand Forks (Digital Coupon Book)") ? (
+                <>
+                  {row.bookType}
+                  <br />
+                  <Typography variant="caption" sx={{ ml: 2 }}>
+                    *email is required for delivery
+                  </Typography>
+                </>
+              ) : (
+                <>{row.bookType}</>
+              )}
+            </TableCell>
             <TableCell>
               {row.bookType === "Donate" ? (
                 <Typography>-</Typography>
