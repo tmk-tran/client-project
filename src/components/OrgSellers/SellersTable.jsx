@@ -361,6 +361,7 @@ export default function SellersTable() {
                 sx={{ position: "sticky", bottom: 0, background: "white" }}
               >
                 <TableRow>
+                  {/* <TableCell>Total:</TableCell> */}
                   {columns.map((column) => {
                     const sum = calculateColumnSum(sellers, column.id);
                     const displaySum = !isNaN(sum); // Check if sum is a valid number and not zero
@@ -368,8 +369,11 @@ export default function SellersTable() {
                       column.id === "refId" ||
                       column.id === "lastname" ||
                       column.id === "firstname" ||
-                      column.id === "grade" ||
-                      column.id === "teacher"; // Add conditions to exclude columns
+                      column.id === "level" ||
+                      // column.id === "teacher" ||
+                      column.id === "notes" ||
+                      column.id === "actions"; // Add conditions to exclude columns
+                    const isTotalCell = column.id === "teacher"; // Specify the column to show 'Total'
 
                     return (
                       <React.Fragment key={column.id}>
@@ -389,7 +393,7 @@ export default function SellersTable() {
                               fontWeight: "bold",
                             }}
                           >
-                            {displaySum ? sum : ""}
+                            {isTotalCell ? "Totals:" : displaySum ? sum : null}
                           </TableCell>
                         ) : (
                           <TableCell
