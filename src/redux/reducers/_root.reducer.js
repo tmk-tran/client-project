@@ -25,6 +25,7 @@ import merchantComments from "./merchantComments.reducer";
 import locations from "./locations.reducer";
 import sellers from "./sellers.reducer";
 import sellerPage from "./sellerPage.reducer";
+const customers = "./customers.reducer.js";
 
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
@@ -53,6 +54,7 @@ const rootReducer = combineReducers({
   locations,
   sellers,
   sellerPage,
+  customers,
 });
 
 export default rootReducer;
