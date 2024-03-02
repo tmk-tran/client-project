@@ -3,22 +3,23 @@ import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
+import { dispatchHook } from "../../hooks/useDispatch";
 import { containerStyle } from "../Utils/pageStyles";
+import { navButtonStyle } from "./checkoutStyles";
+import { sellerPageInfo } from "../../hooks/reduxStore";
 import { border } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
 import CustomButton from "../CustomButton/CustomButton";
 import Typography from "../Typography/Typography";
 import OrderTable from "./OrderTable";
-import { navButtonStyle } from "./checkoutStyles";
 import CustomerNameInfo from "../SellerPage/CustomerNameInfo";
 import RefIdDisplay from "../SellerPage/RefIdDisplay";
-import { sellerPageInfo } from "../../hooks/reduxStore";
 
 export default function OrderPage({ caseType }) {
   console.log(caseType);
   const seller = useParams();
   console.log(seller);
-
+  const dispatch = dispatchHook();
   const history = historyHook();
 
   const [selectedRows, setSelectedRows] = useState([]);
@@ -35,6 +36,8 @@ export default function OrderPage({ caseType }) {
   const [firstSeller] = sellerData;
   const sellerId = firstSeller ? firstSeller.id : null;
   console.log(sellerId);
+  // const [formData, setFormData] = useState({});
+  // console.log(formData);
 
   // UPDATE WITH ACTUAL STORE DATA ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const [rows, setRows] = useState([
@@ -53,8 +56,6 @@ export default function OrderPage({ caseType }) {
     },
     { id: 4, bookType: "Donate", price: 0, quantity: 0 },
   ]);
-
-  console.log(rows);
 
   useEffect(() => {
     const setRowsBasedOnCaseType = (caseType) => {
@@ -117,7 +118,25 @@ export default function OrderPage({ caseType }) {
     setOrderTotal(total);
   };
 
+  const handleFormChange = (incomingData) => {
+    console.log(incomingData);
+
+    const dispatchAction = {
+      type: "ADD_CUSTOMER",
+      payload: incomingData,
+    };
+    console.log("Dispatching action:", dispatchAction);
+    dispatch(dispatchAction);
+  };
+
   const addToCart = () => {
+    // const dispatchAction = {
+    //   type: "ADD_CUSTOMER",
+    //   payload: formData,
+    // };
+    // console.log("Dispatching action:", dispatchAction);
+    // dispatch(dispatchAction);
+
     history.push({
       pathname: `/seller/${seller.refId}/${caseType}/cart`,
       state: {
@@ -167,7 +186,7 @@ export default function OrderPage({ caseType }) {
       {/* ~~~~~~~~~~ Customer info fields ~~~~~~~~~~ */}
       {caseType === "cash" && (
         <Box sx={{ mb: 2 }}>
-          <CustomerNameInfo />
+          <CustomerNameInfo onFormChange={handleFormChange} />
         </Box>
       )}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -188,6 +207,7 @@ export default function OrderPage({ caseType }) {
         <CustomButton label="Clear" onClick={clearTotal} />
         <CustomButton
           label="Add to Cart"
+          // onClick={addToCart}
           onClick={addToCart}
           variant="contained"
         />
