@@ -69,6 +69,24 @@ export default function OrderSummaryTable({
               <TableRow key={index}>
                 <TableCell>
                   {product.bookType}
+                  {/* ~~~~~~~~~~ HELPER TEXT FOR EMAIL ~~~~~~~~~ */}
+                  {/* {product.bookType.includes(
+                    "Fargo - Moorhead (Digital Coupon Book"
+                  ) ||
+                  product.bookType.includes("Grand Forks (Digital Coupon Book)") ? (
+                    <>
+                      {product.bookType}
+                      <br />
+                      <Typography
+                        variant="caption"
+                        sx={{ ml: 1, fontWeight: "bold" }}
+                      >
+                        *please enter email during checkout
+                      </Typography>
+                    </>
+                  ) : (
+                    <>{product.bookType}</>
+                  )} */}
                 </TableCell>
 
                 <TableCell>
@@ -127,17 +145,6 @@ export default function OrderSummaryTable({
               </TableCell>
             </TableRow>
           )}
-          {/* <TableRow>
-            <TableCell colSpan={3}></TableCell>
-            <TableCell sx={{ border: "none" }}>
-              <TotalUpdate
-                selectedProducts={selectedProducts}
-                onChange={(total) => {
-                  setOrderTotal(total);
-                }}
-              />
-            </TableCell>
-          </TableRow> */}
         </TableBody>
       </Table>
     </Paper>

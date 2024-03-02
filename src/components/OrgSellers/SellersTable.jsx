@@ -11,6 +11,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  TableFooter,
   ToolTip,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -172,6 +173,16 @@ export default function SellersTable() {
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
   let isEvenRow = true;
+
+  function calculateColumnSum(sellers, columnId) {
+    console.log(sellers);
+    console.log(columnId);
+    return sellers.reduce((acc, seller) => {
+      const value = seller[columnId];
+      const numericValue = Number(value);
+      return !isNaN(numericValue) ? acc + numericValue : acc;
+    }, 0);
+  }
 
   return (
     <Box sx={{ mt: 3 }}>
@@ -336,6 +347,71 @@ export default function SellersTable() {
                     );
                   })}
               </TableBody>
+              {/* <TableFooter>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell key={column.id}>
+                      Calculate and display sum for each column
+                      {calculateColumnSum(sellers, column.id)}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableFooter> */}
+              <TableFooter
+                sx={{ position: "sticky", bottom: 0, background: "white" }}
+              >
+                <TableRow>
+                  {columns.map((column) => {
+                    const sum = calculateColumnSum(sellers, column.id);
+                    const displaySum = !isNaN(sum); // Check if sum is a valid number and not zero
+                    const isExcludedColumn =
+                      column.id === "refId" ||
+                      column.id === "lastname" ||
+                      column.id === "firstname" ||
+                      column.id === "grade" ||
+                      column.id === "teacher"; // Add conditions to exclude columns
+
+                    return (
+                      <React.Fragment key={column.id}>
+                        {!isExcludedColumn ? (
+                          <TableCell
+                            key={column.id}
+                            sx={{
+                              minWidth: column.minWidth,
+                              width: column.width,
+                              height: 50,
+                              // wordWrap: "break-word",
+                              border: "1px solid #f0f0f0",
+                              backgroundColor: "#d9d9d9",
+                              lineHeight: 1,
+                              fontSize: "1.1rem",
+                              textAlign: "right",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {displaySum ? sum : ""}
+                          </TableCell>
+                        ) : (
+                          <TableCell
+                            sx={{
+                              minWidth: column.minWidth,
+                              width: column.width,
+                              height: 50,
+                              // wordWrap: "break-word",
+                              border: "1px solid #f0f0f0",
+                              backgroundColor: "#d9d9d9",
+                              lineHeight: 1,
+                              fontSize: "1.1rem",
+                              textAlign: "right",
+                              fontWeight: "bold",
+                            }}
+                          />
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </TableRow>
+              </TableFooter>
             </Table>
           ) : null}
         </TableContainer>

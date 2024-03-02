@@ -101,8 +101,8 @@ export default function OrderTable({
                 <>
                   {row.bookType}
                   <br />
-                  <Typography variant="caption" sx={{ ml: 2 }}>
-                    *email is required for delivery
+                  <Typography variant="caption" sx={{ ml: 1, fontWeight: "bold" }}>
+                    *email is required for purchase
                   </Typography>
                 </>
               ) : (

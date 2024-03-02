@@ -64,7 +64,7 @@ export default function SellerLandingPage() {
           <br />
           {showGoButton && (
             <Box sx={{ width: "40%", ...flexEnd }}>
-              <Button variant="contained" onClick={navigateTo}>
+              <Button variant="contained" onClick={navigateTo} fullWidth>
                 Go
               </Button>
             </Box>
