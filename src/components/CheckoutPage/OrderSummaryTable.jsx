@@ -99,24 +99,33 @@ export default function OrderSummaryTable({
                 </TableCell> */}
 
                 <TableCell align="right" sx={{ width: "10%" }}>
-                  {caseType === "Summary" && product.bookType === "Donate" ? (
-                    customDonation
-                  ) : caseType === "Summary" ? (
-                    localQuantities[product.id]
-                  ) : (
-                    <TextField
-                      type="number"
-                      value={
-                        product.bookType === "Donate"
-                          ? customDonation
-                          : localQuantities[product.id]
-                      }
-                      onChange={(e) =>
-                        handleQuantityChange(product.id, e.target.value)
-                      }
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                  )}
+                  {/* ~~~~~~~~~~ Watch for multiple caseTypes ~~~~~~~~~ */}
+                  {["Summary", "paypal", "credit"].includes(caseType) &&
+                    (product.bookType ===
+                      "Fargo - Moorhead (Digital Coupon Book)" ||
+                    product.bookType === "Grand Forks (Digital Coupon Book)" ? (
+                      // Render a disabled TextField with a value of 1 for these book types
+                      <TextField
+                        disabled
+                        type="number"
+                        value={1}
+                        InputProps={{ inputProps: { min: 1 } }}
+                      />
+                    ) : (
+                      // Render a normal TextField with the corresponding quantity
+                      <TextField
+                        type="number"
+                        value={
+                          product.bookType === "Donate"
+                            ? customDonation
+                            : localQuantities[product.id]
+                        }
+                        onChange={(e) =>
+                          handleQuantityChange(product.id, e.target.value)
+                        }
+                        InputProps={{ inputProps: { min: 1 } }}
+                      />
+                    ))}
                 </TableCell>
 
                 <TableCell align="right">

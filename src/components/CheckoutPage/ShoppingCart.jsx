@@ -93,12 +93,15 @@ export default function ShoppingCart() {
           sx={{ pt: 2, mb: 5, fontWeight: "bold" }}
         />
         {/* ~~~~~~~~~~ ORDER ~~~~~~~~~~~~~ */}
+        {/* START HERE ON RETURN , ADD PROPS HERE FOR CASETYPE */}
+        {/* TO SHOW CUSTOM INSTRUCTIONS FOR DIGITAL COUPON BOOKS, EMAIL ENTER */}
         {selectedProducts.length > 0 ? (
           <OrderSummaryTable
             selectedProducts={selectedProducts}
             customDonation={customDonation}
             setCustomDonation={setCustomDonation}
             onUpdateQuantity={handleUpdateQuantity}
+            caseType={caseType}
           />
         ) : (
           <Typography label="No items in cart" />
