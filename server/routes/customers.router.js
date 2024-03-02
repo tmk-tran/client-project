@@ -35,6 +35,12 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const firstName = customer.first_name;
   const phone = customer.phone;
 
+  // Check if the phone number is exactly 10 digits long
+  if (!/^\d{10}$/.test(phone)) {
+    console.log("Phone number is not 10 digits long");
+    return res.status(400).send("Phone number must be 10 digits long");
+  }
+
   const queryText = `
         INSERT INTO "customers" (
           "refId",
