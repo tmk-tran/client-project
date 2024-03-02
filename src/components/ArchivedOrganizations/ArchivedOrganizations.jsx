@@ -15,8 +15,9 @@ import { useHistory } from "react-router-dom";
 
 export default function ArchivedOrganizations() {
   const dispatch = useDispatch();
+  const auth = useSelector((store) => store.auth)
   useEffect(() => {
-    dispatch({ type: "FETCH_ARCHIVED_ORGANIZATIONS" });
+    dispatch({ type: "FETCH_ARCHIVED_ORGANIZATIONS", payload: auth });
   }, []);
   // how many items you want to see each page
   const itemsPerPage = 12;
@@ -26,6 +27,7 @@ export default function ArchivedOrganizations() {
   const [showInput, setShowInput] = useState(false);
   const user = useSelector((store) => store.user);
   const archivedList = useSelector((store) => store.archivedOrganizations);
+ 
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -150,7 +152,7 @@ export default function ArchivedOrganizations() {
           )}
         </center>
         <div className="organizationsContainer">
-          {currentItems.map((organization, index) => (
+          {archivedList.map((organization, index) => (
             <ArchivedOrganizationCard key={index} organization={organization} />
           ))}
         </div>

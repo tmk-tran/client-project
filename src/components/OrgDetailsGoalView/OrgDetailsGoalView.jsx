@@ -8,16 +8,21 @@ import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { oFundraisers } from "../../hooks/reduxStore";
 
+// export default function OrgDetailsGoalView({ info }) {
+//   const fundraiserInfo = useSelector((store) => store.orgFundraisers);
+
 export default function OrgDetailsGoalView({ info, groups }) {
   const fundraiserInfo = oFundraisers();
+
   console.log(fundraiserInfo);
 
   // Total number of goals for groups
-  const totalGoals = groups.reduce((total, group) => {
+  const totalGoals = fundraiserInfo.reduce((total, fundraiser) => {
     // Convert the goal to a number if it's not null
-    const goal = group.goal ? parseInt(group.goal, 10) : 0;
+    const goal = fundraiser.goal ? parseInt(fundraiser.goal, 10) : 0;
     return total + goal;
   }, 0);
+  console.log(totalGoals)
 
   // Money received
   const totalReceived = fundraiserInfo.reduce((total, fundraiser) => {
@@ -26,6 +31,7 @@ export default function OrgDetailsGoalView({ info, groups }) {
       : 0;
     return total + moneyIn;
   }, 0);
+  console.log(totalReceived)
 
   // To prevent rendering multiple times
   const goalData = {
@@ -79,7 +85,11 @@ export default function OrgDetailsGoalView({ info, groups }) {
             </center>
           </div>
           <div>
+            {info.map(info =>{ 
+              return(
             <AddGroupPopover info={info} />
+              )
+          })}
           </div>
         </CardContent>
       </Card>

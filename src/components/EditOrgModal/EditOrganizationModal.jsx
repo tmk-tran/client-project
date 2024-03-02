@@ -7,6 +7,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 const EditOrganizationModal = ({ open, handleClose, organization }) => {
   const [editedOrganization, setEditedOrganization] = useState(organization);
   const dispatch = useDispatch();
+  const auth = useSelector((store) => store.auth)
 
   useEffect(() => {
     setEditedOrganization(organization);
@@ -17,8 +18,8 @@ const EditOrganizationModal = ({ open, handleClose, organization }) => {
   };
 
   const handleEditSave = (editedOrganization) => {
-    dispatch({ type: "EDIT_ORGANIZATION", payload: editedOrganization });
-    dispatch({ type: "FETCH_ORGANIZATIONS" });
+    dispatch({ type: "EDIT_ORGANIZATION", payload: {editedOrganization: editedOrganization, auth: auth }});
+    dispatch({ type: "FETCH_ORGANIZATIONS", payload: auth });
     Swal.fire({
       icon: "success",
       title: "Organization Successfully Edited!",

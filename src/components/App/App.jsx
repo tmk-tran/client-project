@@ -6,6 +6,8 @@ import {
   Switch,
 } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Nav from "../Nav/Nav";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import UserProfile from "../UserProfile/UserProfile";
@@ -27,9 +29,16 @@ import Footer3 from "../Footer3/Footer3";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
+
+import PublicOrgPage from "../PublicOrgPage/PublicOrgPage";
+import PublicOrgDetails from "../PublicOrgDetails/PublicOrgDetails";
+import GlobalFundraiserInput
+  from "../GlobalFundraiserInput/GlobalFundraiserInput";
+// Theme establishing global color for MUI
+
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { dispatchHook } from "../../hooks/useDispatch";
-import { User } from "../../hooks/reduxStore";
+// import { dispatchHook } from "../../hooks/useDispatch";
+// import { User } from "../../hooks/reduxStore";
 
 // ~~~~~ Theme establishing global color for MUI ~~~~~
 const theme = createTheme({
@@ -46,19 +55,26 @@ const theme = createTheme({
 });
 // ~~~~~ end theme ~~~~~
 
+
+
 function App() {
-  const dispatch = dispatchHook();
-  const user = User();
+
+  const dispatch = useDispatch();
+  const auth = useSelector((store) => store.auth.data);
+  const user = useSelector((store) => store.user);
+console.log(user)
 
   useEffect(() => {
-    dispatch({ type: "FETCH_USER" });
+    dispatch({ type: "FETCH_USER", payload: auth });
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch({ type: "FETCH_COUPON_BOOKS" });
+
+    dispatch({ type: "FETCH_COUPON_BOOKS", payload: auth})
   }, [user]);
 
   return (
+
     <Router>
       <ThemeProvider theme={theme}>
         <div>
@@ -72,9 +88,27 @@ function App() {
               <AboutPage />
             </Route>
 
-            <ProtectedRoute exact path="/user">
-              <UserPage />
+            <Route
+              // shows AboutPage at all times (logged in or not)
+              exact
+              path="/publicOrgs"
+            >
+              <PublicOrgPage />
+            </Route>
+            <Route
+              // logged in shows InfoPage else shows LoginPage
+              exact
+              path="/publicOrgDetails/:id"
+            >
+              <PublicOrgDetails />
+            </Route>
+            <ProtectedRoute
+              exact 
+              path="/OrgDetails/:id">
+              <OrgDetails />
+
             </ProtectedRoute>
+           
 
             <ProtectedRoute exact path="/userProfile/:id">
               <UserProfile />
@@ -84,10 +118,8 @@ function App() {
               <ArchivedOrganizations />
             </ProtectedRoute>
 
-            <ProtectedRoute exact path="/orgDetails/:id">
-              <OrgDetails />
-            </ProtectedRoute>
 
+          
             <ProtectedRoute exact path="/group/:id">
               <GroupDetails user={user} />
             </ProtectedRoute>
@@ -95,6 +127,14 @@ function App() {
             <ProtectedRoute exact path="/newFundraiser">
               <GlobalFundraiserInput />
             </ProtectedRoute>
+
+            <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            >
+              <UserPage exact
+                path="/user" />
+            </ProtectedRoute>
+
 
             <ProtectedRoute exact path="/coupon">
               <CouponDesign />
@@ -108,6 +148,7 @@ function App() {
               {/* <Header /> */}
               {/* <Footer2 /> */}
             </ProtectedRoute>
+
 
             <Route exact path="/login">
               {user.id ? (
@@ -146,7 +187,9 @@ function App() {
         <Footer3 />
       </ThemeProvider>
     </Router>
+
   );
 }
+
 
 export default App;

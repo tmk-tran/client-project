@@ -1,5 +1,12 @@
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+
+// Styles 
+// import React, { useState } from "react";
 // ~~~~~~~~~~ Styles ~~~~~~~~~~
+
 import {
   Box,
   Button,
@@ -17,11 +24,21 @@ import OrgDetailsEdit from "../OrgDetailsEdit/OrgDetailsEdit";
 import ContactDetailsList from "../ContactDetailsList/ContactDetailsList";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { formatPhoneNumber } from "../Utils/helpers";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { dispatchHook } from "../../hooks/useDispatch";
 
-export default function OrgContactDetails({ info }) {
-  const dispatch = dispatchHook();
+import { useParams } from "react-router-dom";
+
+export default function OrgContactDetails() {
+  const dispatch = useDispatch();
+  const id = Number(useParams().id);
+  const info = useSelector((store) => store.orgDetailsReducer)
+  const auth = useSelector((store) => store.auth)
+
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+// import { dispatchHook } from "../../hooks/useDispatch";
+
+// export default function OrgContactDetails({ info }) {
+//   const dispatch = dispatchHook();
+
   const contactPhone = formatPhoneNumber(info.primary_contact_phone);
   const isSmallScreen = useMediaQuery("(max-width:400px)");
 
@@ -38,14 +55,21 @@ export default function OrgContactDetails({ info }) {
 
   const handleSaveContact = (editedItem) => {
     console.log("New Contact Info:", editedItem);
-    dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
+    dispatch({ type: "EDIT_ORG_DETAILS", payload: {editedOrg: editedItem, auth: auth }});
     setIsEditing(false);
   };
 
   const handleSaveOrgDetails = (editedOrg) => {
     console.log("New Org Details:", editedOrg);
-    dispatch({ type: "EDIT_ORG_DETAILS", payload: editedOrg });
+    dispatch({ type: "EDIT_ORG_DETAILS", payload: {editedOrg: editedOrg, auth: auth }});
   };
+
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_ORG_DETAILS",
+      payload: {id: id, auth: auth},
+    });
+  }, [])
 
   return (
     <>
@@ -68,20 +92,26 @@ export default function OrgContactDetails({ info }) {
               </div>
             </center>
           </div>
-          <div className="org-address">
-            <div className="org-name-container">
-              <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                {info.organization_name}
-              </Typography>
-            </div>
-            <Typography>{info.address}</Typography>
-            <Typography>
-              {info.city}, {info.state} {info.zip}
-            </Typography>
-          </div>
-          <br />
-        </div>
 
+          {info.map(info => {
+            return (
+              <div className="org-address">
+                <div className="org-name-container">
+                  <Typography variant="h5" style={{ fontWeight: "bold" }}>
+                    {info.organization_name}
+                  </Typography>
+                </div>
+                <Typography>{info.address}</Typography>
+                <Typography>
+                  {info.city}, {info.state} {info.zip}
+                </Typography>
+              </div>
+            )
+          })}
+
+              < br />
+        </div>
+      
         {/* Organization Contact Details Card */}
         <Card
           elevation={5}

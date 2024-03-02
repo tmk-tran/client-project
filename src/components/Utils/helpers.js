@@ -12,11 +12,14 @@ export function formatPhoneNumber(phoneNumber) {
 
 // Format date to MM/DD/YYYY, used in OrgNotes component
 export const formatDate = (dateString) => {
+  if (!dateString) {
+    return "Invalid Date";
+  }
+
   const dateWithoutTime = dateString.split("T")[0]; // Extract only the date part
   const [year, month, day] = dateWithoutTime.split("-");
-  return `${month}/${day}/${year}`;
+  return `${year}-${month}-${day}`;
 };
-
 // Function to capitalize the first letter of each word
 export const capitalizeWords = (sentence) => {
   return sentence

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Box, Button, Modal, TextField, Typography, Grid } from "@mui/material";
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 
 export default function AddOrganizationModal({ open, handleModalClose }) {
   const dispatch = useDispatch();
-
+  const auth = useSelector((store) => store.auth)
   // Set state for the add organization form
   const [organizationName, setOrganizationName] = useState("");
   const [organizationType, setOrganizationType] = useState("");
@@ -23,22 +23,21 @@ export default function AddOrganizationModal({ open, handleModalClose }) {
 
   // Save function to dispatch data for new organization
   const handleSave = () => {
+    const newOrg = {organization_name: organizationName,
+      type: organizationType,
+      address: address,
+      city: city,
+      state: state,
+      zip: zip,
+      primary_contact_first_name: contactFirstName,
+      primary_contact_last_name: contactLastName,
+      primary_contact_phone: contactPhone,
+      primary_contact_email: contactEmail,
+      organization_logo: logoUrl,
+      organization_earnings: orgEarnings}
     dispatch({
       type: "ADD_ORGANIZATION",
-      payload: {
-        organization_name: organizationName,
-        type: organizationType,
-        address,
-        city,
-        state,
-        zip,
-        primary_contact_first_name: contactFirstName,
-        primary_contact_last_name: contactLastName,
-        primary_contact_phone: contactPhone,
-        primary_contact_email: contactEmail,
-        organization_logo: logoUrl,
-        organization_earnings: orgEarnings,
-      },
+      payload: { newOrg: newOrg, auth: auth},
     });
     // clear input fields
     clearFields();

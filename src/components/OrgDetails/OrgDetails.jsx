@@ -25,6 +25,17 @@ import { oDetails, oGroups, oNotes } from "../../hooks/reduxStore";
 export default function orgDetails() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const id = Number(useParams().id);
+  const dispatch = useDispatch();
+  // Store
+//   const auth = useSelector((store) => store.auth)
+//   const detailsOrg = useSelector((store) => store.orgDetailsReducer);
+//   const group = useSelector((store) => store.orgGroups);
+//   const notes = useSelector((store) => store.orgNotes);
+//   console.log(id)
+  // State
+
   const paramsObject = useParams();
   // ~~~~~~~~~~ Hooks ~~~~~~~~~~
   const dispatch = dispatchHook();
@@ -33,33 +44,45 @@ export default function orgDetails() {
   console.log(groups);
   const notes = oNotes();
 
+
   useEffect(() => {
     dispatch({
       type: "FETCH_ORG_DETAILS",
-      payload: paramsObject.id,
+      payload: { id: id, auth: auth },
+    });
+  }, [])
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_ORG_GROUPS",
+      payload: { id: id, auth: auth },
+    });
+    dispatch({
+      type: "FETCH_ORG_NOTES",
+      payload: { id: id, auth: auth },
     });
     dispatch({
       type: "FETCH_ORGANIZATIONS",
-      payload: paramsObject.id,
+      payload: auth,
     });
     dispatch({
       type: "FETCH_ORG_FUNDRAISERS",
-      payload: paramsObject.id,
+      payload: { id: id, auth: auth },
     });
-  }, [groups]);
+  }, [detailsOrg]);
 
-  // Create a map to store organization details and associated groups
+  // // Create a map to store organization details and associated groups
   const orgMap = new Map();
 
   // Populate the map with unique organizations and associated groups
   detailsOrg.forEach((info) => {
     const orgId = info.organization_id;
 
+
     if (!orgMap.has(orgId)) {
       orgMap.set(orgId, { orgDetails: info, groups: [] });
     }
 
-    // Add group details to the associated organization
+     // Add group details to the associated organization
     orgMap.get(orgId).groups.push({
       group_id: info.group_id,
       department: info.department,
@@ -99,21 +122,21 @@ export default function orgDetails() {
 
                 {/* Add Buttons */}
                 <div>
-                  {/* Notes Section */}
-                  {/* <OrgNotesModal
+                  {/* Notes Section
+                  <OrgNotesModal
                     info={orgDetails}
-                  /> */}
+                  /> 
                   {/* Add Groups */}
-                  {/* <AddGroupPopover info={orgDetails} /> */}
+                  {/*<AddGroupPopover info={orgDetails} /> */}
                 </div>
 
-                {/* <OrgDetailsGoalView /> */}
-                <OrgDetailsGoalView info={orgDetails} groups={groups} />
+                {/* <OrgDetailsGoalView />  */}
+                <OrgDetailsGoalView groups={groups} info={detailsOrg} />
 
                 {/* Display associated groups or "No groups assigned" message */}
                 <div className="OrgGroupInfo-container">
                   {groups && groups.some((group) => group.group_id !== null) ? (
-                    groups.map((groupInfo, i) => (
+                    group.map((groupInfo, i) => (
                       <OrgGroupInfo
                         key={groupInfo.group_id}
                         groupInfo={groupInfo}
@@ -128,6 +151,7 @@ export default function orgDetails() {
                 </div>
               </React.Fragment>
             ))}
+
           </div>
         </CardContent>
       </Card>

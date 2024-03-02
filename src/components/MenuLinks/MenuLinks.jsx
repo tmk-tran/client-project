@@ -80,7 +80,7 @@ export default function BasicMenu() {
       confirmButtonText: "Yes, logout",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch({ type: "LOGOUT" });
+        dispatch({ type: 'UNSET_USER'});
         Swal.fire("Logged out!");
       }
     });

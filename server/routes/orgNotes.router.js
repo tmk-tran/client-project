@@ -5,83 +5,94 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-router.get("/:id", rejectUnauthenticated, (req, res) => {
-  const orgId = req.params.id;
-  console.log("orgId = ", orgId);
-  const queryText = `SELECT * FROM "organization_notes" WHERE organization_id = $1 ORDER by "id" DESC;`;
-  pool
-    .query(queryText, [orgId])
-    .then((result) => {
-      // console.log("orgId = ", orgId);
-      console.log("FROM orgNotes.router: ", result.rows);
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      console.log("error in the GET / request for authorized users", err);
-      res.sendStatus(500);
-    });
-});
+//New route to get notes from Devii
 
-router.post("/", rejectUnauthenticated, (req, res) => {
-  const note = req.body;
-  const orgId = note.organization_id;
-  const date = note.note_date;
-  const content = note.note_content;
+//Old get route for notes
+// router.get("/:id", rejectUnauthenticated, (req, res) => {
+//   const orgId = req.params.id;
+//   console.log("orgId = ", orgId);
+//   const queryText = `SELECT * FROM "organization_notes" WHERE organization_id = $1 ORDER by "id" DESC;`;
+//   pool
+//     .query(queryText, [orgId])
+//     .then((result) => {
+//       // console.log("orgId = ", orgId);
+//       console.log("FROM orgNotes.router: ", result.rows);
+//       res.send(result.rows);
+//     })
+//     .catch((err) => {
+//       console.log("error in the GET / request for authorized users", err);
+//       res.sendStatus(500);
+//     });
+// });
 
-  const queryText = `INSERT INTO "organization_notes" ("organization_id", "note_date", "note_content")
-  VALUES ($1, $2, $3);`;
+// New create query to create a new note using devii api
 
-  pool
-    .query(queryText, [orgId, date, content])
-    .then((response) => {
-      res.sendStatus(201);
-    })
-    .catch((err) => {
-      console.log("error in orgNotes POST route", err);
-      res.sendStatus(500);
-    });
-});
 
-router.delete("/:id", (req, res) => {
-  const noteId = req.params.id;
-  console.log("noteId = ", noteId);
-  pool
-    .query(
-      `UPDATE "organization_notes"
-      SET is_deleted = true
-      WHERE id = $1;`,
-      [noteId]
-    )
-    .then((response) => {
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.log("Error with orgNotes DELETE route", error);
-      res.sendStatus(500);
-    });
-});
+//Old post route to add a new note to the db
+// router.post("/", rejectUnauthenticated, (req, res) => {
+//   const note = req.body;
+//   const orgId = note.organization_id;
+//   const date = note.note_date;
+//   const content = note.note_content;
 
-router.put("/:id", rejectUnauthenticated, (req, res) => {
-  const note = req.body;
-  const orgId = req.params.id;
+//   const queryText = `INSERT INTO "organization_notes" ("organization_id", "note_date", "note_content")
+//   VALUES ($1, $2, $3);`;
 
-  //   const user = req.user.id;
-  const date = note.note_date;
-  const content = note.note_content;
-  const queryText = `
-    UPDATE "organization_notes" SET note_date = $1, note_content = $2
-    WHERE
-        organization_id = $3;
-    `;
-  pool
-    .query(queryText, [date, content, orgId])
-    .then((response) => {
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log("error with orgNotes PUT route", err);
-      res.sendStatus(500);
-    });
-});
+//   pool
+//     .query(queryText, [orgId, date, content])
+//     .then((response) => {
+//       res.sendStatus(201);
+//     })
+//     .catch((err) => {
+//       console.log("error in orgNotes POST route", err);
+//       res.sendStatus(500);
+//     });
+// });
+
+//New update route for use with Devii, can be used to update all info on a note
+
+
+//Original delete and update routes
+// router.delete("/:id", (req, res) => {
+//   const noteId = req.params.id;
+//   console.log("noteId = ", noteId);
+//   pool
+//     .query(
+//       `UPDATE "organization_notes"
+//       SET is_deleted = true
+//       WHERE id = $1;`,
+//       [noteId]
+//     )
+//     .then((response) => {
+//       res.sendStatus(200);
+//     })
+//     .catch((error) => {
+//       console.log("Error with orgNotes DELETE route", error);
+//       res.sendStatus(500);
+//     });
+// });
+
+// router.put("/:id", rejectUnauthenticated, (req, res) => {
+//   const note = req.body;
+//   const orgId = req.params.id;
+
+//   //   const user = req.user.id;
+//   const date = note.note_date;
+//   const content = note.note_content;
+//   const queryText = `
+//     UPDATE "organization_notes" SET note_date = $1, note_content = $2
+//     WHERE
+//         organization_id = $3;
+//     `;
+//   pool
+//     .query(queryText, [date, content, orgId])
+//     .then((response) => {
+//       res.sendStatus(200);
+//     })
+//     .catch((err) => {
+//       console.log("error with orgNotes PUT route", err);
+//       res.sendStatus(500);
+//     });
+// });
 
 module.exports = router;

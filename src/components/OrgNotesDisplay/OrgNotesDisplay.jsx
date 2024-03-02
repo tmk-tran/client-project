@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+
+// import { useDispatch, useSelector } from "react-redux";
+
 import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
@@ -21,15 +24,25 @@ import "react-toastify/dist/ReactToastify.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 
+
+// export default function OrgNotesDisplay({notes}) {
+  
+
+//   const dispatch = useDispatch();
+
 export default function OrgNotesDisplay({ notes, orgDetails }) {
   const dispatch = dispatchHook();
+  const auth = useSelector((store) => store.auth)
+  const id = notes.id
   const paramsObject = useParams();
+
+
 
   // State for showing notes
   const [noteDelete, setNoteDelete] = useState(false);
   const [inputValue, setInputValue] = useState("");
   // State from popover
-  const [orgId, setOrgId] = useState(orgDetails.organization_id);
+  // const [orgId, setOrgId] = useState(orgDetails.organization_id);
   const [noteDate, setNoteDate] = useState(new Date());
   const [noteAdded, setNoteAdded] = useState(false);
 
@@ -37,7 +50,7 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
     // Fetch org notes whenever noteAdded changes
     dispatch({
       type: "FETCH_ORG_NOTES",
-      payload: paramsObject.id,
+      payload: {id: id, auth: auth}
     });
 
     // Reset noteAdded after fetching data
@@ -46,16 +59,16 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
 
   const handleSave = () => {
     // Format the date as "mm/dd/yyyy"
-    const formattedDate = noteDate.toLocaleDateString("en-US");
+    const formattedDate = noteDate.toISOString().split('T')[0];
 
     const sendNote = {
-      organization_id: orgId,
+      organization_id: paramsObject.id,
       note_date: formattedDate,
       note_content: inputValue,
     };
 
     const saveCall = () => {
-      dispatch({ type: "ADD_ORG_NOTES", payload: sendNote });
+      dispatch({ type: "ADD_ORG_NOTES", payload: {sendNote: sendNote, auth: auth }});
       setNoteAdded(true);
     };
 
@@ -65,9 +78,17 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
     setInputValue("");
   };
 
-  const handleDelete = (id, organization_id) => {
+  const handleDelete = (id, organization_id, note_date, note_content) => {
+    const deletedNote = {
+      id: id,
+      organization_id: organization_id,
+      note_date: note_date,
+      note_content: note_content,
+      is_deleted: true
+    };
+    console.log(deletedNote)
     const deleteCall = () => {
-      dispatch({ type: "DELETE_ORG_NOTE", payload: { id, organization_id } });
+      dispatch({ type: "DELETE_ORG_NOTE", payload: { deletedNote: deletedNote, auth: auth } });
       setNoteDelete(true);
     };
     // from Utils
@@ -119,7 +140,12 @@ export default function OrgNotesDisplay({ notes, orgDetails }) {
                         <Button
                           className="notes-delete-btn"
                           onClick={() =>
-                            handleDelete(note.id, note.organization_id)
+                            handleDelete(
+                              note.id,
+                              note.organization_id,
+                              note.note_date,
+                              note.note_content
+                            )
                           }
                         >
                           <DeleteIcon style={{ fontSize: "20px" }} />
