@@ -108,6 +108,7 @@ const merchantCommentsRouter = require("./routes/merchantComments.router");
 const locationsRouter = require("./routes/locations.router");
 const sellersRouter = require("./routes/sellers.router");
 const sellerPageRouter = require("./routes/sellerPage.router");
+const customersRouter = require("./routes/customers.router");
 
 // Body parser middleware //
 app.use(bodyParser.json());
@@ -144,6 +145,7 @@ app.use("/api/merchantComments", merchantCommentsRouter);
 app.use("/api/locations", locationsRouter);
 app.use("/api/sellers", sellersRouter);
 app.use("/api/seller", sellerPageRouter);
+app.use("/api/customers", customersRouter);
 
 // Serve static files //
 app.use(express.static("build"));
