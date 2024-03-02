@@ -5,7 +5,7 @@ import { border } from "../Utils/colors";
 import { flexCenter, flexEnd, flexRowSpace } from "../Utils/pageStyles";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
-export default function CustomerNameInfo({ onFormChange }) {
+export default function CustomerNameInfo({ onSubmit }) {
   const seller = useParams();
   const refId = seller.refId;
   console.log(refId);
@@ -100,8 +100,8 @@ export default function CustomerNameInfo({ onFormChange }) {
       customerFirstName,
       customerPhoneNumber
     );
-    // onSubmit(refId, customerLastName, customerFirstName, customerPhoneNumber);
-    onFormChange({
+
+    onSubmit({
       refId: refId,
       last_name: customerLastName,
       first_name: customerFirstName,
@@ -147,7 +147,6 @@ export default function CustomerNameInfo({ onFormChange }) {
           </Button>
         )}
       </Box>
-      {/* <Divider sx={lineDivider} /> */}
     </form>
   );
 }

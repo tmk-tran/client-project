@@ -186,7 +186,7 @@ export default function OrderPage({ caseType }) {
       {/* ~~~~~~~~~~ Customer info fields ~~~~~~~~~~ */}
       {caseType === "cash" && (
         <Box sx={{ mb: 2 }}>
-          <CustomerNameInfo onFormChange={handleFormChange} />
+          <CustomerNameInfo onSubmit={handleFormChange} />
         </Box>
       )}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
