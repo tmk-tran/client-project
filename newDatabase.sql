@@ -252,6 +252,27 @@ CREATE TABLE sellers (
     digital_donations numeric
 );
 
+------ Function for sellers -------------------
+CREATE OR REPLACE FUNCTION update_books_due()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE sellers s
+    SET books_due = s.initial_books + s.additional_books - s.books_returned - COALESCE((
+        SELECT SUM(t.physical_book_cash + t.physical_book_digital + t.digital_book_credit)
+        FROM transactions t
+        WHERE t."refId" = s."refId"
+    ), 0);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+------- Trigger for sellers ----------------------
+CREATE TRIGGER calculate_books_due_trigger
+AFTER INSERT OR UPDATE OF physical_book_cash, physical_book_digital, digital_book_credit
+ON transactions
+FOR EACH ROW
+EXECUTE FUNCTION update_books_due();
+
 ------------ Customers table ------------------------------
 CREATE TABLE customers (
     id SERIAL PRIMARY KEY,

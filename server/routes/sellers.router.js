@@ -9,15 +9,19 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   const orgId = req.params.id;
 
   // const queryText = `
-  //   SELECT
-  //     *
-  //   FROM
-  //     sellers
-  //   WHERE
-  //     organization_id = $1
-  //   ORDER BY
-  //     lastname ASC     
-  //   ;`;
+  // SELECT
+  //     s.*,
+  //     o.organization_name,
+  //     o.address,
+  //     o.city,
+  //     o.state,
+  //     o.zip
+  // FROM
+  //     sellers s
+  // INNER JOIN
+  //     organization o ON s.organization_id = o.id
+  // WHERE
+  //     s.organization_id = $1;`;
 
   const queryText = `
   SELECT
@@ -26,13 +30,21 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
       o.address,
       o.city,
       o.state,
-      o.zip
+      o.zip,
+      t.physical_book_cash,
+      t.physical_book_digital,
+      t.digital_book_credit,
+      t.seller_earnings
   FROM
       sellers s
   INNER JOIN
       organization o ON s.organization_id = o.id
+  INNER JOIN
+      transactions t ON s."refId" = t."refId"
   WHERE
-      s.organization_id = $1;`;
+      s.organization_id = $1
+  ORDER BY s.lastname ASC;    
+  `;
 
   pool
     .query(queryText, [orgId])

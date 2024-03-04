@@ -12,10 +12,11 @@ import {
   TablePagination,
   TableRow,
   TableFooter,
-  ToolTip,
+  IconButton,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import LaunchIcon from "@mui/icons-material/Launch";
+import EditIcon from "@mui/icons-material/Edit";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { columns } from "./sellerTableColumns";
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -200,6 +201,12 @@ export default function SellersTable() {
   };
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
+  // ~~~~~~ Open / close edit form for physical books sold ~~~~~~ //
+  const handleEditBooksSold = (newValue) => {
+    console.log(newValue);
+  };
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+
   let isEvenRow = true;
 
   function calculateColumnSum(sellers, columnId) {
@@ -259,7 +266,7 @@ export default function SellersTable() {
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */}
       {/* ~~~~~~~~~~ Seller Table ~~~~~~~~~~ */}
       <Paper elevation={3} sx={{ width: "100%" }}>
-        <TableContainer sx={{ maxHeight: 600, overflowX: 'auto' }}>
+        <TableContainer sx={{ maxHeight: 600, overflowX: "auto" }}>
           {/* {!viewUrlTable ? ( */}
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -388,6 +395,30 @@ export default function SellersTable() {
                                   />
                                   {/* <SellerLink seller={seller} /> */}
                                 </>
+                              ) : column.id === "physical_book_cash" ? (
+                                <>
+                                  {/* <IconButton
+                                    onClick={() => handleIconClick(seller.id)}
+                                  >
+                                    <EditIcon sx={{ fontSize: "large" }} />
+                                  </IconButton> */}
+                                  <ActionButton
+                                    title="Edit Books Sold"
+                                    Icon={EditIcon}
+                                    iconSx={{ fontSize: "large" }}
+                                    buttonSx={{ mr: 1 }}
+                                    onClick={() => handleEditBooksSold(value)}
+                                    onMouseOver={(e) =>
+                                      (e.currentTarget.style.transform =
+                                        "scale(1.3)")
+                                    }
+                                    onMouseOut={(e) =>
+                                      (e.currentTarget.style.transform =
+                                        "scale(1)")
+                                    }
+                                  />
+                                  {value} {/* Display the value */}
+                                </>
                               ) : column.format && typeof value === "number" ? (
                                 column.format(value)
                               ) : (
@@ -428,23 +459,6 @@ export default function SellersTable() {
                     column.id === "actions"; // Add conditions to exclude columns
                   const isTotalCell = column.id === "teacher"; // Specify the column to show 'Total'
 
-                  // let booksDue = 0;
-                  // if (column.id === "books_due") {
-                  //   sellers.forEach((seller) => {
-                  //     const initialBooks = seller["initial_books"]
-                  //       ? Number(seller["initial_books"])
-                  //       : 0;
-                  //     const additionalBooks = seller["additional_books"]
-                  //       ? Number(seller["additional_books"])
-                  //       : 0;
-                  //     const booksReturned = seller["books_returned"]
-                  //       ? Number(seller["books_returned"])
-                  //       : 0;
-                  //     booksDue +=
-                  //       initialBooks + additionalBooks - booksReturned;
-                  //   });
-                  // }
-
                   return (
                     <React.Fragment key={column.id}>
                       {!isExcludedColumn ? (
@@ -453,7 +467,6 @@ export default function SellersTable() {
                           sx={{
                             minWidth: column.minWidth,
                             width: column.width,
-                            height: 50,
                             border: "1px solid #f0f0f0",
                             backgroundColor: "#d9d9d9",
                             lineHeight: 1,
@@ -464,17 +477,13 @@ export default function SellersTable() {
                         >
                           {/* ~~~~~~ Cells to display Totals ~~~~~~ */}
                           {isTotalCell ? "Totals:" : displaySum ? sum : null}
-                          {/* ~~~~~ Cell for Books Due ~~~~~~ */}
-                          {/* {column.id === "books_due" && displaySum
-                            ? booksDue
-                            : null} */}
                         </TableCell>
                       ) : (
                         <TableCell
                           sx={{
                             minWidth: column.minWidth,
                             width: column.width,
-                            height: 50,
+                            // height: 50,
                             border: "1px solid #f0f0f0",
                             backgroundColor: "#d9d9d9",
                             lineHeight: 1,
