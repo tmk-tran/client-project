@@ -184,6 +184,18 @@ export default function SellersTable() {
     }, 0);
   }
 
+  // function calculateColumnSum(sellers, columnId) {
+  //   return sellers.reduce((acc, seller) => {
+  //     if (columnId !== "digital_books_total") {
+  //       const value = seller[columnId];
+  //       const numericValue = Number(value);
+  //       return !isNaN(numericValue) ? acc + numericValue : acc;
+  //     } else {
+  //       return acc; // Skip calculation for books_due column
+  //     }
+  //   }, 0);
+  // }  
+
   return (
     <Box sx={{ mt: 3 }}>
       <Box
@@ -231,123 +243,125 @@ export default function SellersTable() {
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */}
       {/* ~~~~~~~~~~ Seller Table ~~~~~~~~~~ */}
       <Paper elevation={3} sx={{ width: "100%" }}>
-        <TableContainer sx={{ maxHeight: 600 }}>
-          {!viewUrlTable ? (
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
+        <TableContainer sx={{ maxHeight: 600, overflowX: 'auto' }}>
+          {/* {!viewUrlTable ? ( */}
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    sx={{
+                      minWidth: column.minWidth ? column.minWidth : "auto",
+                      width: column.width,
+                      // height: 50,
+                      // wordWrap: "break-word",
+                      // whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      border: "1px solid #f0f0f0",
+                      backgroundColor: "#d9d9d9",
+                      lineHeight: 1,
+                      fontSize: "1.1rem",
+                      maxWidth: 75, // Add this line to force ellipsis
+                    }}
+                    title={column.label}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~ Table Body ~~~~~~~~~~ */}
+            <TableBody>
+              {sellers
+                .filter((seller) => !seller.is_deleted) // Filter out deleted sellers
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((seller, index) => {
+                  isEvenRow = !isEvenRow; // Toggle the variable for each row
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={index}
                       sx={{
-                        minWidth: column.minWidth,
-                        width: column.width,
-                        height: 50,
-                        wordWrap: "break-word",
-                        border: "1px solid #f0f0f0",
-                        backgroundColor: "#d9d9d9",
-                        lineHeight: 1,
-                        fontSize: "1.1rem",
+                        ...(isEvenRow
+                          ? { backgroundColor: evenRowColor }
+                          : null),
                       }}
                     >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~ Table Body ~~~~~~~~~~ */}
-              <TableBody>
-                {sellers
-                  .filter((seller) => !seller.is_deleted) // Filter out deleted sellers
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((seller, index) => {
-                    isEvenRow = !isEvenRow; // Toggle the variable for each row
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={index}
-                        sx={{
-                          ...(isEvenRow
-                            ? { backgroundColor: evenRowColor }
-                            : null),
-                        }}
-                      >
-                        {columns.map((column) => {
-                          const value = seller[column.id];
-                          return (
-                            <TableCell
-                              key={column.id}
-                              align={column.align}
-                              sx={{
-                                border: "1px solid #e0e0e0",
-                                padding: "8px",
-                                ...(column.id === "notes" && {
-                                  maxWidth: "250px",
-                                  maxHeight: "50px",
-                                  // overflow: "hidden",
-                                  overflowWrap: "break-word",
-                                  // textOverflow: "ellipsis",
-                                  // whiteSpace: "no-wrap",
-                                }),
-                              }}
-                            >
-                              {column.id === "refId" && (
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                  }}
-                                >
-                                  {value}
-                                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                                  {/* ~~~~~ View URL Icon ~~~~~ */}
-                                  <ActionButton
-                                    title="View URLs"
-                                    Icon={LaunchIcon}
-                                    iconSx={{ fontSize: "25px" }}
-                                    onClick={() => handleViewUrl(value)}
-                                    onMouseOver={(e) =>
-                                      (e.currentTarget.style.transform =
-                                        "scale(1.3)")
-                                    }
-                                    onMouseOut={(e) =>
-                                      (e.currentTarget.style.transform =
-                                        "scale(1)")
-                                    }
+                      {columns.map((column) => {
+                        const value = seller[column.id];
+                        return (
+                          <TableCell
+                            key={column.id}
+                            align={column.align}
+                            sx={{
+                              border: "1px solid #e0e0e0",
+                              padding: "8px",
+                              ...(column.id === "notes" && {
+                                maxWidth: "250px",
+                                maxHeight: "50px",
+                                // overflow: "hidden",
+                                overflowWrap: "break-word",
+                                // textOverflow: "ellipsis",
+                                // whiteSpace: "no-wrap",
+                              }),
+                            }}
+                          >
+                            {column.id === "refId" && (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                }}
+                              >
+                                {value}
+                                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                                {/* ~~~~~ View URL Icon ~~~~~ */}
+                                <ActionButton
+                                  title="View URLs"
+                                  Icon={LaunchIcon}
+                                  iconSx={{ fontSize: "25px" }}
+                                  onClick={() => handleViewUrl(value)}
+                                  onMouseOver={(e) =>
+                                    (e.currentTarget.style.transform =
+                                      "scale(1.3)")
+                                  }
+                                  onMouseOut={(e) =>
+                                    (e.currentTarget.style.transform =
+                                      "scale(1)")
+                                  }
+                                />
+                              </div>
+                            )}
+                            {/* ~~~~~ Action Icons ~~~~~ */}
+                            {column.id !== "refId" &&
+                              (column.id === "actions" ? (
+                                <>
+                                  <ActionIcons
+                                    seller={seller}
+                                    onEdit={(id) => handleEditOpen(id, "edit")}
+                                    handleArchive={handleArchive}
                                   />
-                                </div>
-                              )}
-                              {/* ~~~~~ Action Icons ~~~~~ */}
-                              {column.id !== "refId" &&
-                                (column.id === "actions" ? (
-                                  <>
-                                    <ActionIcons
-                                      seller={seller}
-                                      onEdit={(id) =>
-                                        handleEditOpen(id, "edit")
-                                      }
-                                      handleArchive={handleArchive}
-                                    />
-                                    {/* <SellerLink seller={seller} /> */}
-                                  </>
-                                ) : column.format &&
-                                  typeof value === "number" ? (
-                                  column.format(value)
-                                ) : (
-                                  value
-                                ))}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-              {/* <TableFooter>
+                                  {/* <SellerLink seller={seller} /> */}
+                                </>
+                              ) : column.format && typeof value === "number" ? (
+                                column.format(value)
+                              ) : (
+                                value
+                              ))}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+            {/* <TableFooter>
                 <TableRow>
                   {columns.map((column) => (
                     <TableCell key={column.id}>
@@ -357,67 +371,87 @@ export default function SellersTable() {
                   ))}
                 </TableRow>
               </TableFooter> */}
-              <TableFooter
-                sx={{ position: "sticky", bottom: 0, background: "white" }}
-              >
-                <TableRow>
-                  {/* <TableCell>Total:</TableCell> */}
-                  {columns.map((column) => {
-                    const sum = calculateColumnSum(sellers, column.id);
-                    const displaySum = !isNaN(sum); // Check if sum is a valid number and not zero
-                    const isExcludedColumn =
-                      column.id === "refId" ||
-                      column.id === "lastname" ||
-                      column.id === "firstname" ||
-                      column.id === "level" ||
-                      // column.id === "teacher" ||
-                      column.id === "notes" ||
-                      column.id === "actions"; // Add conditions to exclude columns
-                    const isTotalCell = column.id === "teacher"; // Specify the column to show 'Total'
+            <TableFooter
+              sx={{ position: "sticky", bottom: 0, background: "white" }}
+            >
+              <TableRow>
+                {/* <TableCell>Total:</TableCell> */}
+                {columns.map((column) => {
+                  const sum = calculateColumnSum(sellers, column.id);
+                  const displaySum = !isNaN(sum); // Check if sum is a valid number and not zero
+                  const isExcludedColumn =
+                    column.id === "refId" ||
+                    column.id === "lastname" ||
+                    column.id === "firstname" ||
+                    column.id === "level" ||
+                    // column.id === "teacher" ||
+                    column.id === "notes" ||
+                    column.id === "actions"; // Add conditions to exclude columns
+                  const isTotalCell = column.id === "teacher"; // Specify the column to show 'Total'
 
-                    return (
-                      <React.Fragment key={column.id}>
-                        {!isExcludedColumn ? (
-                          <TableCell
-                            key={column.id}
-                            sx={{
-                              minWidth: column.minWidth,
-                              width: column.width,
-                              height: 50,
-                              // wordWrap: "break-word",
-                              border: "1px solid #f0f0f0",
-                              backgroundColor: "#d9d9d9",
-                              lineHeight: 1,
-                              fontSize: "1.1rem",
-                              textAlign: "right",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            {isTotalCell ? "Totals:" : displaySum ? sum : null}
-                          </TableCell>
-                        ) : (
-                          <TableCell
-                            sx={{
-                              minWidth: column.minWidth,
-                              width: column.width,
-                              height: 50,
-                              // wordWrap: "break-word",
-                              border: "1px solid #f0f0f0",
-                              backgroundColor: "#d9d9d9",
-                              lineHeight: 1,
-                              fontSize: "1.1rem",
-                              textAlign: "right",
-                              fontWeight: "bold",
-                            }}
-                          />
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
-                </TableRow>
-              </TableFooter>
-            </Table>
-          ) : null}
+                  let booksDue = 0;
+                  if (column.id === "books_due") {
+                    sellers.forEach((seller) => {
+                      const initialBooks = seller["initial_books"]
+                        ? Number(seller["initial_books"])
+                        : 0;
+                      const additionalBooks = seller["additional_books"]
+                        ? Number(seller["additional_books"])
+                        : 0;
+                      const booksReturned = seller["books_returned"]
+                        ? Number(seller["books_returned"])
+                        : 0;
+                      booksDue +=
+                        initialBooks + additionalBooks - booksReturned;
+                    });
+                  }
+
+                  return (
+                    <React.Fragment key={column.id}>
+                      {!isExcludedColumn ? (
+                        <TableCell
+                          key={column.id}
+                          sx={{
+                            minWidth: column.minWidth,
+                            width: column.width,
+                            height: 50,
+                            border: "1px solid #f0f0f0",
+                            backgroundColor: "#d9d9d9",
+                            lineHeight: 1,
+                            fontSize: "1.1rem",
+                            textAlign: "right",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {/* ~~~~~~ Cells to display Totals ~~~~~~ */}
+                          {isTotalCell ? "Totals:" : displaySum ? sum : null}
+                          {/* ~~~~~ Cell for Books Due ~~~~~~ */}
+                          {column.id === "books_due" && displaySum
+                            ? booksDue
+                            : null}
+                        </TableCell>
+                      ) : (
+                        <TableCell
+                          sx={{
+                            minWidth: column.minWidth,
+                            width: column.width,
+                            height: 50,
+                            border: "1px solid #f0f0f0",
+                            backgroundColor: "#d9d9d9",
+                            lineHeight: 1,
+                            fontSize: "1.1rem",
+                            textAlign: "right",
+                            fontWeight: "bold",
+                          }}
+                        />
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </TableRow>
+            </TableFooter>
+          </Table>
+          {/* ) : null} */}
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}

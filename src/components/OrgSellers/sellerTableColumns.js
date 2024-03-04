@@ -1,17 +1,17 @@
 export const columns = [
   { id: "refId", label: "Referral ID", minWidth: 100 },
-  { id: "lastname", label: "Last Name", minWidth: 90 },
+  { id: "lastname", label: "Last Name" },
   {
     id: "firstname",
     label: "First Name",
     align: "right",
-    minWidth: 90,
+    // minWidth: 90,
   },
   {
     id: "level",
     label: "Level / Grade",
     align: "right",
-    minWidth: 75,
+    // minWidth: 75,
   },
   {
     id: "teacher",
@@ -31,6 +31,11 @@ export const columns = [
   {
     id: "books_returned",
     label: "Returned Books",
+    align: "right",
+  },
+  {
+    id: "books_due",
+    label: "Books Due",
     align: "right",
   },
   {
@@ -60,10 +65,30 @@ export const columns = [
     // width: 75,
   },
   {
+    id: "seller_earnings",
+    label: "Seller Earnings",
+    align: "right",
+  },
+  {
     id: "notes",
     label: "Notes",
     align: "right",
-    width: 150,
+    minWidth: 150,
+  },
+  {
+    id: "digital_books_total",
+    label: "Digital Books Sold (CC)",
+    align: "right",
+  },
+  {
+    id: "physical_books_sold",
+    label: "Physical Books Sold (CC)",
+    align: "right",
+  },
+  {
+    id: "physical_books_cash",
+    label: "Physical Books Sold (Cash)",
+    align: "right",
   },
   {
     id: "actions",
