@@ -230,7 +230,8 @@ CREATE TABLE organization (
     filename character varying(255)
 );
 
------------------ Sellers -----------------------------
+----------------- Sellers ---------------------------------------------------
+---- "refId" is case sensitive, please make sure to include the quotes ------
 CREATE TABLE sellers (
     id SERIAL PRIMARY KEY,
     "refId" character varying(20) UNIQUE,
@@ -251,3 +252,12 @@ CREATE TABLE sellers (
     digital_donations numeric
 );
 
+------------ Customers table ------------------------------
+CREATE TABLE customers (
+    id SERIAL PRIMARY KEY,
+    "refId" character varying(10) REFERENCES sellers("refId"),
+    last_name character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    phone bigint,
+    created timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
