@@ -261,3 +261,33 @@ CREATE TABLE customers (
     phone bigint,
     created timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
+
+
+----------- Transactions ------------------------------------
+CREATE TABLE transactions (
+    id serial PRIMARY KEY,
+    refId varchar (10) REFERENCES sellers("refId"),
+    organization_id integer REFERENCES organization(id),
+    physical_book_cash integer,
+    physical_book_digital integer,
+    digital_book_credit integer,
+    seller_earnings numeric
+);
+
+------ Function for transactions --------
+CREATE OR REPLACE FUNCTION calculate_seller_earnings()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.seller_earnings := NEW.physical_book_cash + NEW.physical_book_digital + NEW.digital_book_credit * (
+        SELECT organization_earnings FROM organization WHERE id = NEW.organization_id
+    );
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+------- Trigger for transactions calc seller earnings ------
+CREATE TRIGGER update_seller_earnings_trigger
+BEFORE INSERT OR UPDATE OF physical_book_cash, physical_book_digital, digital_book_credit
+ON transactions
+FOR EACH ROW
+EXECUTE FUNCTION calculate_seller_earnings();

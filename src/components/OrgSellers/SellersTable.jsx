@@ -41,6 +41,34 @@ const sellersBorder = {
   borderRadius: "5px",
 };
 
+const newColumns = [
+  {
+    id: "books_due",
+    label: "Books Due",
+    align: "right",
+  },
+  {
+    id: "seller_earnings",
+    label: "Seller Earnings",
+    align: "right",
+  },
+  {
+    id: "digital_books_total",
+    label: "Digital Books Sold (CC)",
+    align: "right",
+  },
+  {
+    id: "physical_books_sold",
+    label: "Physical Books Sold (CC)",
+    align: "right",
+  },
+  {
+    id: "physical_books_cash",
+    label: "Physical Books Sold (Cash)",
+    align: "right",
+  },
+];
+
 function generateRefId(firstName, lastName, teacher) {
   const firstInitial = firstName.charAt(0).toUpperCase();
   const lastInitial = lastName.charAt(0).toUpperCase();
@@ -184,18 +212,6 @@ export default function SellersTable() {
     }, 0);
   }
 
-  // function calculateColumnSum(sellers, columnId) {
-  //   return sellers.reduce((acc, seller) => {
-  //     if (columnId !== "digital_books_total") {
-  //       const value = seller[columnId];
-  //       const numericValue = Number(value);
-  //       return !isNaN(numericValue) ? acc + numericValue : acc;
-  //     } else {
-  //       return acc; // Skip calculation for books_due column
-  //     }
-  //   }, 0);
-  // }  
-
   return (
     <Box sx={{ mt: 3 }}>
       <Box
@@ -271,6 +287,29 @@ export default function SellersTable() {
                     {column.label}
                   </TableCell>
                 ))}
+                {/* {newColumns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    sx={{
+                      minWidth: column.minWidth? column.minWidth : "auto",
+                      width: column.width,
+                      // height: 50,
+                      // wordWrap: "break-word",
+                      // whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      border: "1px solid #f0f0f0",
+                      backgroundColor: "#d9d9d9",
+                      lineHeight: 1,
+                      fontSize: "1.1rem",
+                      maxWidth: 75, // Add this line to force ellipsis
+                    }}
+                    title={column.label}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))} */}
               </TableRow>
             </TableHead>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -389,22 +428,22 @@ export default function SellersTable() {
                     column.id === "actions"; // Add conditions to exclude columns
                   const isTotalCell = column.id === "teacher"; // Specify the column to show 'Total'
 
-                  let booksDue = 0;
-                  if (column.id === "books_due") {
-                    sellers.forEach((seller) => {
-                      const initialBooks = seller["initial_books"]
-                        ? Number(seller["initial_books"])
-                        : 0;
-                      const additionalBooks = seller["additional_books"]
-                        ? Number(seller["additional_books"])
-                        : 0;
-                      const booksReturned = seller["books_returned"]
-                        ? Number(seller["books_returned"])
-                        : 0;
-                      booksDue +=
-                        initialBooks + additionalBooks - booksReturned;
-                    });
-                  }
+                  // let booksDue = 0;
+                  // if (column.id === "books_due") {
+                  //   sellers.forEach((seller) => {
+                  //     const initialBooks = seller["initial_books"]
+                  //       ? Number(seller["initial_books"])
+                  //       : 0;
+                  //     const additionalBooks = seller["additional_books"]
+                  //       ? Number(seller["additional_books"])
+                  //       : 0;
+                  //     const booksReturned = seller["books_returned"]
+                  //       ? Number(seller["books_returned"])
+                  //       : 0;
+                  //     booksDue +=
+                  //       initialBooks + additionalBooks - booksReturned;
+                  //   });
+                  // }
 
                   return (
                     <React.Fragment key={column.id}>
@@ -426,9 +465,9 @@ export default function SellersTable() {
                           {/* ~~~~~~ Cells to display Totals ~~~~~~ */}
                           {isTotalCell ? "Totals:" : displaySum ? sum : null}
                           {/* ~~~~~ Cell for Books Due ~~~~~~ */}
-                          {column.id === "books_due" && displaySum
+                          {/* {column.id === "books_due" && displaySum
                             ? booksDue
-                            : null}
+                            : null} */}
                         </TableCell>
                       ) : (
                         <TableCell
