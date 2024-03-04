@@ -66,4 +66,30 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.put("/:id", rejectUnauthenticated, (req, res) => {
+  const seller = req.body;
+  const refId = req.params.id;
+  console.log("Req.body from transactions = ", seller);
+
+  const queryText = `
+          UPDATE 
+            "transactions"
+          SET
+            "physical_book_cash" = $1
+          WHERE "refId" = $2;`;
+
+  const values = [seller.physical_book_cash, refId];
+
+  pool
+    .query(queryText, values)
+    .then((response) => {
+      console.log("response from PUT transactions.router: ", response.rows);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error with transactions PUT route", err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
