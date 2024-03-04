@@ -265,13 +265,13 @@ CREATE TABLE customers (
 
 ----------- Transactions ------------------------------------
 CREATE TABLE transactions (
-    id serial PRIMARY KEY,
-    refId varchar (10) REFERENCES sellers("refId"),
+    id SERIAL PRIMARY KEY,
+    "refId" character varying(10) REFERENCES sellers("refId") UNIQUE,
     organization_id integer REFERENCES organization(id),
-    physical_book_cash integer,
-    physical_book_digital integer,
-    digital_book_credit integer,
-    seller_earnings numeric
+    physical_book_cash integer DEFAULT 0,
+    physical_book_digital integer DEFAULT 0,
+    digital_book_credit integer DEFAULT 0,
+    seller_earnings numeric DEFAULT 0
 );
 
 ------ Function for transactions --------
