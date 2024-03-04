@@ -278,7 +278,7 @@ CREATE TABLE transactions (
 CREATE OR REPLACE FUNCTION calculate_seller_earnings()
 RETURNS TRIGGER AS $$
 BEGIN
-    NEW.seller_earnings := NEW.physical_book_cash + NEW.physical_book_digital + NEW.digital_book_credit * (
+    NEW.seller_earnings := (NEW.physical_book_cash + NEW.physical_book_digital + NEW.digital_book_credit) * (
         SELECT organization_earnings FROM organization WHERE id = NEW.organization_id
     );
     RETURN NEW;
