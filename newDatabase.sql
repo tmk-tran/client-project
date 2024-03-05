@@ -21,8 +21,11 @@ BEGIN
     -- Fetch the refId from the session (assuming it's passed to the function directly)
     ref_id := NEW."refId"; -- Assuming NEW.refId contains the refId
 
-    -- Check if the operation is an UPDATE
-    IF TG_OP = 'UPDATE' THEN
+    -- Check the operation type
+    CASE
+        WHEN TG_OP = 'INSERT' THEN
+            log_message := 'Inserted at ' || CURRENT_TIMESTAMP;
+        WHEN TG_OP = 'UPDATE' THEN
         -- Iterate over each column that was updated and append its name and new value to the log message
         IF NEW.lastname IS DISTINCT FROM OLD.lastname THEN
             log_message := log_message || ', lastname changed to: ' || NEW.lastname;
@@ -67,23 +70,47 @@ BEGIN
             log_message := log_message || ', digital_donations changed to: ' || NEW.digital_donations;
         END IF;
         -- Repeat the above for other columns that need to be logged
+    END CASE;
 
-        -- Insert a new row into the audit_log table with the log message
-        INSERT INTO audit_log (ref_id, action, details)
-        VALUES (ref_id, 'UPDATE', log_message);
-    END IF;
+    -- Insert a new row into the audit_log table with the log message
+    INSERT INTO audit_log (ref_id, action, details)
+    VALUES (ref_id, TG_OP, log_message);
 
     -- Return the modified row so that the original update can proceed
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
+
 ------------ Trigger that fires after an update on the sellers table ------------------
 CREATE TRIGGER sellers_update_trigger
-AFTER UPDATE OF lastname, firstname, level, teacher, initial_books, additional_books, books_returned, cash, checks, digital, donations, notes, is_deleted, digital_donations
+AFTER INSERT OR UPDATE OF lastname, firstname, level, teacher, initial_books, additional_books, books_returned, cash, checks, digital, donations, notes, is_deleted, digital_donations
 ON sellers
 FOR EACH ROW
 EXECUTE FUNCTION log_seller_changes();
+
+------------ Function for logging updates from transactions table ---------------------
+CREATE OR REPLACE FUNCTION log_transaction_changes()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'UPDATE' THEN
+        INSERT INTO audit_log (ref_id, action, details)
+        VALUES (NEW."refId", 'UPDATE Transactions', 'Physical Book Cash changed to: ' || NEW.physical_book_cash);
+    ELSIF TG_OP = 'INSERT' THEN
+        INSERT INTO audit_log (ref_id, action, details)
+        VALUES (NEW."refId", 'INSERT Transactions', 'New record inserted');    
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-------------- Trigger for transactions table ----------------------------
+CREATE TRIGGER transactions_update_trigger
+AFTER INSERT OR UPDATE OF physical_book_cash
+ON transactions
+FOR EACH ROW
+EXECUTE FUNCTION log_transaction_changes();
 
 ------------ Region Table --------------------------------
 CREATE TABLE "region" (
@@ -230,6 +257,7 @@ CREATE TABLE organization (
     filename character varying(255)
 );
 
+-----------------------------------------------------------------------------
 ----------------- Sellers ---------------------------------------------------
 ---- "refId" is case sensitive, please make sure to include the quotes ------
 CREATE TABLE sellers (
@@ -283,7 +311,7 @@ CREATE TABLE customers (
     created timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
 
-
+-------------------------------------------------------------
 ----------- Transactions ------------------------------------
 CREATE TABLE transactions (
     id SERIAL PRIMARY KEY,
@@ -312,3 +340,20 @@ BEFORE INSERT OR UPDATE OF physical_book_cash, physical_book_digital, digital_bo
 ON transactions
 FOR EACH ROW
 EXECUTE FUNCTION calculate_seller_earnings();
+
+-------- Function to create new transaction row for seller ----------------
+CREATE OR REPLACE FUNCTION create_transaction_for_new_seller()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO transactions ("refId", organization_id)
+    VALUES (NEW."refId", NEW.organization_id);
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+-------- Trigger for transaction row creations for seller -----------------
+CREATE TRIGGER create_transaction_trigger
+AFTER INSERT ON sellers
+FOR EACH ROW
+EXECUTE FUNCTION create_transaction_for_new_seller();
+---------------------------------------------------------------------------
