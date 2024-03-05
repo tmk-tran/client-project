@@ -246,6 +246,7 @@ export default function SellersTable() {
         handleAddSeller={handleAddSeller}
         handleEditSeller={handleEditSeller}
         sellerToEdit={sellerToEdit}
+        sellers={sellers}
       />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ Form for updating books sold ~~~~~~~~~~ */}

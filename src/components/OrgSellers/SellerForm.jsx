@@ -5,6 +5,7 @@ import { lineDivider } from "../Utils/modalStyles";
 import { primaryColor } from "../Utils/colors";
 import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
 import { useCaseType } from "../Utils/useCaseType";
+import { dispatchHook } from "../../hooks/useDispatch";
 // ~~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~ //
 import Typography from "../Typography/Typography";
 import ModalButtons from "../Modals/ModalButtons";
@@ -51,10 +52,12 @@ export default function SellerForm({
   handleAddSeller,
   handleEditSeller,
   sellerToEdit,
+  sellers,
 }) {
   console.log(user);
   console.log(sellerToEdit);
   console.log(mode);
+  const dispatch = dispatchHook();
 
   const initialFormState = columns.reduce((acc, column) => {
     acc[column.id] = [
@@ -81,6 +84,8 @@ export default function SellerForm({
     teacher: false,
   });
   const { caseType, handleCaseTypeChange } = useCaseType("default");
+  const [updateMoneyAmount, setUpdateMoneyAmount] = useState(null);
+  console.log(updateMoneyAmount);
 
   useEffect(() => {
     if (mode === "edit") {
@@ -88,7 +93,8 @@ export default function SellerForm({
     } else {
       setFormData(initialFormState);
     }
-  }, [mode, sellerToEdit]);
+  }, [mode, sellerToEdit, updateMoneyAmount]);
+
 
   const handleChange = (e) => {
     console.log(e.target.name);
@@ -182,14 +188,15 @@ export default function SellerForm({
       },
     };
     console.log("Dispatching action:", updateAction);
-    // dispatch(updateAction);
+    dispatch(updateAction);
+    setUpdateMoneyAmount(amountToUpdate);
   };
 
   return (
     <Modal
       open={open}
       mode={mode}
-      onClose={handleFormReset}
+      onClose={() => {}}
       aria-labelledby="new-seller-form"
       aria-describedby="form for adding and editing a seller"
     >
@@ -308,77 +315,45 @@ export default function SellerForm({
                     fullWidth
                     size="small"
                     type="number"
+                    disabled={mode === "add" ? true : false}
                   />
                 </Grid>
-                {/* <Grid item xs={3}>
-                  <TextField
-                    name="physical_book_cash"
-                    label="Physical Books Sold (Cash)"
-                    value={formData["physical_book"]}
-                    onChange={handleChange}
-                    fullWidth
-                    size="small"
-                    type="number"
-                  />
-                </Grid> */}
               </Grid>
             </Grid>
             {/* ~~~~~ Third Section ~~~~~ */}
-            <Grid item xs={15}>
-              <Divider sx={dividerStyle} />
-              <Grid container spacing={1}>
-                <Grid item xs={2}>
-                  <TextField
-                    disabled={user.is_admin ? false : true}
-                    name="digital"
-                    label="Digital Payments"
-                    value={formData["digital"]}
-                    onChange={handleChange}
-                    fullWidth
-                    size="small"
-                    type="number"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    name="donations"
-                    label="Donations (Cash)"
-                    value={formData["donations"]}
-                    onChange={handleChange}
-                    fullWidth
-                    size="small"
-                    type="number"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    disabled={user.is_admin ? false : true}
-                    name="digital_donations"
-                    label="Donations (Digital)"
-                    value={formData["digital_donations"]}
-                    onChange={handleChange}
-                    fullWidth
-                    size="small"
-                    type="number"
-                  />
-                </Grid>
-                <Grid item xs={2}>
-                  <TextField
-                    name="checks"
-                    label="Checks"
-                    value={formData["checks"]}
-                    onChange={handleChange}
-                    fullWidth
-                    size="small"
-                    type="number"
-                    disabled={mode === "edit" ? true : false}
-                  />
-                </Grid>
-                <Grid item xs={2}>
+            {mode === "edit" ? (
+              <Grid item xs={15}>
+                <Divider sx={dividerStyle} />
+                <Grid container spacing={1}>
+                  <Grid item xs={2}>
                     <TextField
-                      name="cash"
-                      label="Cash"
-                      value={formData["cash"]}
+                      disabled={user.is_admin ? false : true}
+                      name="digital"
+                      label="Digital Payments"
+                      value={formData["digital"]}
+                      onChange={handleChange}
+                      fullWidth
+                      size="small"
+                      type="number"
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <TextField
+                      disabled={user.is_admin ? false : true}
+                      name="digital_donations"
+                      label="Donations (Digital)"
+                      value={formData["digital_donations"]}
+                      onChange={handleChange}
+                      fullWidth
+                      size="small"
+                      type="number"
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <TextField
+                      name="donations"
+                      label="Donations (Cash)"
+                      value={formData["donations"]}
                       onChange={handleChange}
                       fullWidth
                       size="small"
@@ -386,15 +361,55 @@ export default function SellerForm({
                       disabled={mode === "edit" ? true : false}
                     />
                     {mode === "edit" && (
-                    <CashUpdateModal
-                      updateSellerInfo={updateSellerInfo}
-                      caseType="Cash"
-                      handleCaseTypeChange={handleCaseTypeChange}
+                      <CashUpdateModal
+                        updateSellerInfo={updateSellerInfo}
+                        caseType="Donations"
+                        handleCaseTypeChange={handleCaseTypeChange}
+                        setUpdateMoneyAmount={setUpdateMoneyAmount}
+                      />
+                    )}
+                  </Grid>
+                  <Grid item xs={2}>
+                    <TextField
+                      name="checks"
+                      label="Checks"
+                      value={formData["checks"]}
+                      onChange={handleChange}
+                      fullWidth
+                      size="small"
+                      type="number"
+                      disabled={mode === "edit" ? true : false}
                     />
-                  )}
+                    {mode === "edit" && (
+                      <CashUpdateModal
+                        updateSellerInfo={updateSellerInfo}
+                        caseType="Checks"
+                        handleCaseTypeChange={handleCaseTypeChange}
+                      />
+                    )}
+                  </Grid>
+                  <Grid item xs={2}>
+                    <TextField
+                      name="cash"
+                      label="Cash"
+                      value={`${Number(formData["cash"]) + (updateMoneyAmount !== null ? Number(updateMoneyAmount) : 0)}`}
+                      onChange={handleChange}
+                      fullWidth
+                      size="small"
+                      type="number"
+                      disabled={mode === "edit" ? true : false}
+                    />
+                    {mode === "edit" && (
+                      <CashUpdateModal
+                        updateSellerInfo={updateSellerInfo}
+                        caseType="Cash"
+                        handleCaseTypeChange={handleCaseTypeChange}
+                      />
+                    )}
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
+            ) : null}
             {/* ~~~~~ Fourth Section ~~~~~ */}
             <Grid item xs={12}>
               <Divider sx={dividerStyle} />

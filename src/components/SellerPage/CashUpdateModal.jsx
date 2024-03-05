@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, Typography, Modal, TextField } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ModalButtons from "../Modals/ModalButtons";
 
 const style = {
@@ -14,7 +15,16 @@ const style = {
   p: 4,
 };
 
-export default function CashUpdateModal({ caseType, updateSellerInfo, handleCaseTypeChange, onUpdate }) {
+const addIconStyle = {
+  mr: 1,
+  fontSize: "larger",
+};
+
+export default function CashUpdateModal({
+  caseType,
+  updateSellerInfo,
+  handleCaseTypeChange,
+}) {
   console.log(caseType);
   const [open, setOpen] = useState(false);
   const [cashAmount, setCashAmount] = useState(0);
@@ -62,7 +72,6 @@ export default function CashUpdateModal({ caseType, updateSellerInfo, handleCase
         break;
     }
     handleCaseTypeChange(caseType);
-    // onUpdate();
     resetForm();
     handleClose(); // Close the modal after submission
   };
@@ -71,17 +80,32 @@ export default function CashUpdateModal({ caseType, updateSellerInfo, handleCase
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Button
         variant="contained"
-        sx={{ margin: ".5rem 0", width: "300px" }}
+        sx={{ margin: ".5rem 0", width: "300px", lineHeight: "1.5rem" }}
         onClick={handleOpen}
       >
         {(() => {
           switch (caseType) {
             case "Cash":
-              return "Update Cash";
+              return (
+                <>
+                  <AddCircleIcon sx={addIconStyle} />
+                  Cash
+                </>
+              );
             case "Checks":
-              return "Update Checks";
+              return (
+                <>
+                  <AddCircleIcon sx={addIconStyle} />
+                  Checks
+                </>
+              );
             case "Donations":
-              return "Update Donations";
+              return (
+                <>
+                  <AddCircleIcon sx={addIconStyle} />
+                  Donations
+                </>
+              );
             default:
               return "";
           }
