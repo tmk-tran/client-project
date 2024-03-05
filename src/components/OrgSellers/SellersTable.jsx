@@ -32,6 +32,7 @@ import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
 import SellerLink from "../SellerPage/SellerLink";
 import ActionButton from "./ActionButton";
 import SellersTableHeader from "./SellersTableHeader";
+import BooksSoldForm from "./BooksSoldForm";
 
 const evenRowColor = {
   backgroundColor: "#fbfbfb",
@@ -105,6 +106,10 @@ export default function SellersTable() {
   console.log(sellerRefId);
   const [viewUrlTable, setViewUrlTable] = useState(false);
   console.log(viewUrlTable);
+  const [modeEditBooks, setModeEditBooks] = useState(false);
+  console.log(modeEditBooks);
+  const [booksSold, setBooksSold] = useState(0);
+  console.log(booksSold);
 
   useEffect(() => {
     dispatch({ type: "FETCH_SELLERS", payload: paramsObject.id });
@@ -201,9 +206,17 @@ export default function SellersTable() {
   };
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
-  // ~~~~~~ Open / close edit form for physical books sold ~~~~~~ //
-  const handleEditBooksSold = (newValue) => {
-    console.log(newValue);
+  // ~~~~~~ Open / Close edit form for physical books sold ~~~~~~ //
+  const openEditBooksSold = (refId, value) => {
+    console.log(refId);
+    console.log(value);
+    setModeEditBooks(true);
+    setBooksSold(value);
+  };
+
+  const closeEditBooksSold = () => {
+    setModeEditBooks(false);
+    setBooksSold(0);
   };
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
@@ -257,6 +270,9 @@ export default function SellersTable() {
         handleEditSeller={handleEditSeller}
         sellerToEdit={sellerToEdit}
       />
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ Form for updating books sold ~~~~~~~~~~ */}
+      <BooksSoldForm open={modeEditBooks} handleClose={closeEditBooksSold} />
       {/* ~~~~~~~~~~~ View URL modal ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <ViewUrl
         open={showSellerUrl}
@@ -407,7 +423,7 @@ export default function SellersTable() {
                                     Icon={EditIcon}
                                     iconSx={{ fontSize: "large" }}
                                     buttonSx={{ mr: 1 }}
-                                    onClick={() => handleEditBooksSold(value)}
+                                    onClick={() => openEditBooksSold(seller.refId, value)}
                                     onMouseOver={(e) =>
                                       (e.currentTarget.style.transform =
                                         "scale(1.3)")
