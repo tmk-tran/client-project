@@ -71,6 +71,11 @@ export default function SellerForm({
 
   const [formData, setFormData] = useState(initialFormState);
   console.log(formData);
+  const [errors, setErrors] = useState({
+    lastname: false,
+    firstname: false,
+    teacher: false,
+  });
 
   useEffect(() => {
     if (mode === "edit") {
@@ -98,10 +103,35 @@ export default function SellerForm({
       ...prevFormData,
       [name]: capitalizeValue,
     }));
+    // Clear the error when the user starts typing in the field
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: false,
+    }));
   };
 
   const handleFormSubmit = () => {
     let updatedFormData = { ...formData };
+    let formIsValid = true;
+    let updatedErrors = { ...errors };
+
+    // Check for required fields
+    const requiredFields = ["lastname", "firstname", "teacher"];
+    requiredFields.forEach((field) => {
+      if (!updatedFormData[field]) {
+        formIsValid = false;
+        updatedErrors[field] = true; // Set the field error to true
+      } else {
+        updatedErrors[field] = false; // Reset the field error to false if it's filled out
+      }
+    });
+
+    if (!formIsValid) {
+      // Display an error message or handle validation as needed
+      console.log("Please fill out all required fields.");
+      setErrors(updatedErrors); // Update the errors state with the new error values
+      return;
+    }
 
     if (mode === "add") {
       // Check if refId is an empty string or does not exist
@@ -127,6 +157,7 @@ export default function SellerForm({
 
   const handleFormReset = () => {
     setFormData(initialFormState);
+    setErrors(false);
     handleClose();
   };
 
@@ -156,7 +187,7 @@ export default function SellerForm({
           />
         )}
         <Divider sx={lineDivider} />
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <Grid container spacing={2}>
             {/* ~~~~~ Top Section ~~~~~ */}
             <Grid item xs={12}>
@@ -169,6 +200,11 @@ export default function SellerForm({
                     onChange={handleChange}
                     fullWidth
                     size="small"
+                    required
+                    error={errors.lastname}
+                    helperText={
+                      errors["lastname"] ? "Last Name is required" : ""
+                    }
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -179,6 +215,11 @@ export default function SellerForm({
                     onChange={handleChange}
                     fullWidth
                     size="small"
+                    required
+                    error={errors.firstname}
+                    helperText={
+                      errors["firstname"] ? "First Name is required" : ""
+                    }
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -199,6 +240,11 @@ export default function SellerForm({
                     onChange={handleChange}
                     fullWidth
                     size="small"
+                    required
+                    error={errors.teacher}
+                    helperText={
+                      errors["teacher"] ? "Teacher Name is required" : ""
+                    }
                   />
                 </Grid>
               </Grid>
