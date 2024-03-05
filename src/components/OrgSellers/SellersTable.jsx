@@ -291,29 +291,6 @@ export default function SellersTable() {
                     {column.label}
                   </TableCell>
                 ))}
-                {/* {newColumns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    sx={{
-                      minWidth: column.minWidth? column.minWidth : "auto",
-                      width: column.width,
-                      // height: 50,
-                      // wordWrap: "break-word",
-                      // whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      border: "1px solid #f0f0f0",
-                      backgroundColor: "#d9d9d9",
-                      lineHeight: 1,
-                      fontSize: "1.1rem",
-                      maxWidth: 75, // Add this line to force ellipsis
-                    }}
-                    title={column.label}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))} */}
               </TableRow>
             </TableHead>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -352,6 +329,9 @@ export default function SellersTable() {
                                 overflowWrap: "break-word",
                                 // textOverflow: "ellipsis",
                                 // whiteSpace: "no-wrap",
+                              }),
+                              ...(column.id === "books_due" && {
+                                backgroundColor: "rgba(111, 160, 216, 0.1)",
                               }),
                             }}
                           >

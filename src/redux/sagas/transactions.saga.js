@@ -2,10 +2,9 @@ import axios from "axios";
 import { put, takeEvery } from "redux-saga/effects";
 
 function* updateTransaction(action) {
-    console.log(action.payload);
-    const refId = action.payload.refId;
-    const booksSoldUpdate = action.payload.physical_book_cash;
-    const orgId = action.payload.orgId;
+  console.log(action.payload);
+  const refId = action.payload.refId;
+  const orgId = action.payload.orgId;
 
   try {
     yield axios.put(`/api/transactions/${refId}`, action.payload);
