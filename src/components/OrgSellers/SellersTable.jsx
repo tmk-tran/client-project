@@ -43,34 +43,6 @@ const sellersBorder = {
   borderRadius: "5px",
 };
 
-const newColumns = [
-  {
-    id: "books_due",
-    label: "Books Due",
-    align: "right",
-  },
-  {
-    id: "seller_earnings",
-    label: "Seller Earnings",
-    align: "right",
-  },
-  {
-    id: "digital_books_total",
-    label: "Digital Books Sold (CC)",
-    align: "right",
-  },
-  {
-    id: "physical_books_sold",
-    label: "Physical Books Sold (CC)",
-    align: "right",
-  },
-  {
-    id: "physical_books_cash",
-    label: "Physical Books Sold (Cash)",
-    align: "right",
-  },
-];
-
 function generateRefId(firstName, lastName, teacher) {
   const firstInitial = firstName.charAt(0).toUpperCase();
   const lastInitial = lastName.charAt(0).toUpperCase();
@@ -94,6 +66,7 @@ console.log(refId);
 export default function SellersTable() {
   const dispatch = dispatchHook();
   const paramsObject = useParams();
+  const orgId = paramsObject.id;
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [open, setOpen] = useState(false);
@@ -110,6 +83,8 @@ export default function SellersTable() {
   console.log(modeEditBooks);
   const [booksSold, setBooksSold] = useState(0);
   console.log(booksSold);
+  const [editingRefId, setEditingRefId] = useState(null);
+  console.log(editingRefId);
 
   useEffect(() => {
     dispatch({ type: "FETCH_SELLERS", payload: paramsObject.id });
@@ -212,6 +187,7 @@ export default function SellersTable() {
     console.log(value);
     setModeEditBooks(true);
     setBooksSold(value);
+    setEditingRefId(refId);
   };
 
   const closeEditBooksSold = () => {
@@ -272,7 +248,12 @@ export default function SellersTable() {
       />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ Form for updating books sold ~~~~~~~~~~ */}
-      <BooksSoldForm open={modeEditBooks} handleClose={closeEditBooksSold} />
+      <BooksSoldForm
+        open={modeEditBooks}
+        handleClose={closeEditBooksSold}
+        orgId={orgId}
+        editingRefId={editingRefId}
+      />
       {/* ~~~~~~~~~~~ View URL modal ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <ViewUrl
         open={showSellerUrl}
@@ -423,7 +404,9 @@ export default function SellersTable() {
                                     Icon={EditIcon}
                                     iconSx={{ fontSize: "large" }}
                                     buttonSx={{ mr: 1 }}
-                                    onClick={() => openEditBooksSold(seller.refId, value)}
+                                    onClick={() =>
+                                      openEditBooksSold(seller.refId, value)
+                                    }
                                     onMouseOver={(e) =>
                                       (e.currentTarget.style.transform =
                                         "scale(1.3)")

@@ -39,11 +39,6 @@ export const columns = [
     align: "right",
   },
   {
-    id: "digital",
-    label: "Digital Payments",
-    align: "right",
-  },
-  {
     id: "donations",
     label: "Donations (Cash)",
     align: "right",
@@ -51,6 +46,11 @@ export const columns = [
   {
     id: "digital_donations",
     label: "Donations (Digital)",
+    align: "right",
+  },
+  {
+    id: "digital",
+    label: "Digital Payments (CC)",
     align: "right",
   },
   {

@@ -23,7 +23,7 @@ const style = {
   p: 4,
 };
 
-export default function BooksSoldForm({ open, handleClose }) {
+export default function BooksSoldForm({ open, handleClose, orgId, editingRefId }) {
   const dispatch = dispatchHook();
   const [editedAmount, setEditedAmount] = useState(0);
   console.log(editedAmount);
@@ -34,9 +34,16 @@ export default function BooksSoldForm({ open, handleClose }) {
 
   const handleSubmit = () => {
     console.log(editedAmount);
+
+    const valuesToSend = {
+      physical_book_cash: editedAmount,
+      refId: editingRefId,
+      orgId: orgId,
+    };
+
     const updateAction = {
       type: "UPDATE_BOOKS_SOLD",
-      payload: editedAmount,
+      payload: valuesToSend,
     };
     console.log("Dispatching action:", updateAction);
     dispatch(updateAction);
