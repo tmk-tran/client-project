@@ -9,8 +9,10 @@ export default function ModalButtons({
   onCancel,
   sx,
   width,
+  caseType,
 }) {
   console.log(editedAccount);
+  console.log(caseType);
   const buttonSx = {
     width: width === "50%" ? "50%" : "auto",
     ...sx,
@@ -32,7 +34,7 @@ export default function ModalButtons({
       <Button
         onClick={handleSave}
         variant="contained"
-        color="secondary"
+        color={caseType === "moneyUpdate" ? "primary" : "secondary"}
         // sx={saveBtnWidth}
         sx={width === "50%" ? { ...saveBtnWidth, ...buttonSx } : saveBtnWidth}
       >

@@ -176,6 +176,7 @@ export default function CashUpdateModal({
             sx={{ mt: 3 }}
             onSave={handleSubmit}
             onCancel={resetForm}
+            caseType="moneyUpdate"
           />
         </Box>
       </Modal>
