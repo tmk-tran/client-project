@@ -24,7 +24,7 @@ export default function ActionIcons({ seller, onEdit, handleArchive }) {
   return (
     <>
       <ActionButton
-        title="Edit info"
+        title="Edit Seller info"
         Icon={EditNoteIcon}
         buttonSx={{ mr: 3 }}
         iconSx={editIconStyle}
@@ -34,7 +34,7 @@ export default function ActionIcons({ seller, onEdit, handleArchive }) {
       />
 
       <ActionButton
-        title="Archive"
+        title="Archive Seller"
         Icon={ArchiveIcon}
         iconSx={archiveIconStyle}
         onClick={() => handleArchive(seller.id)}

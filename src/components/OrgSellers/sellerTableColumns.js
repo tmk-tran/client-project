@@ -76,8 +76,8 @@ export const columns = [
     minWidth: 150,
   },
   {
-    id: "digital_book_credit",
-    label: "Digital Books Sold (CC)",
+    id: "physical_book_cash",
+    label: "Physical Books Sold (Cash)",
     align: "right",
   },
   {
@@ -86,8 +86,8 @@ export const columns = [
     align: "right",
   },
   {
-    id: "physical_book_cash",
-    label: "Physical Books Sold (Cash)",
+    id: "digital_book_credit",
+    label: "Digital Books Sold (CC)",
     align: "right",
   },
   {

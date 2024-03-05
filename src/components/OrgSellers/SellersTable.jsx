@@ -17,6 +17,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import LaunchIcon from "@mui/icons-material/Launch";
 import EditIcon from "@mui/icons-material/Edit";
+import EditAttributesIcon from '@mui/icons-material/EditAttributes';
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { columns } from "./sellerTableColumns";
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -379,11 +380,12 @@ export default function SellersTable() {
                                   >
                                     <EditIcon sx={{ fontSize: "large" }} />
                                   </IconButton> */}
+                                  {value}
                                   <ActionButton
                                     title="Edit Books Sold"
                                     Icon={EditIcon}
                                     iconSx={{ fontSize: "large" }}
-                                    buttonSx={{ mr: 1 }}
+                                    buttonSx={{ ml: 1 }}
                                     onClick={() =>
                                       openEditBooksSold(seller.refId, value)
                                     }
@@ -396,7 +398,7 @@ export default function SellersTable() {
                                         "scale(1)")
                                     }
                                   />
-                                  {value} {/* Display the value */}
+                                  {/* {value} */}
                                 </>
                               ) : column.format && typeof value === "number" ? (
                                 column.format(value)

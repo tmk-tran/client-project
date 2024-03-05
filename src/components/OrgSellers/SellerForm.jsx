@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Modal, TextField, Grid, Divider } from "@mui/material";
+// ~~~~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider } from "../Utils/modalStyles";
 import { primaryColor } from "../Utils/colors";
-import ModalButtons from "../Modals/ModalButtons";
-import Typography from "../Typography/Typography";
 import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
+import { useCaseType } from "../Utils/useCaseType";
+// ~~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~ //
+import Typography from "../Typography/Typography";
+import ModalButtons from "../Modals/ModalButtons";
+import CashUpdateModal from "../SellerPage/CashUpdateModal";
 
 const style = {
   position: "absolute",
@@ -76,6 +80,7 @@ export default function SellerForm({
     firstname: false,
     teacher: false,
   });
+  const { caseType, handleCaseTypeChange } = useCaseType("default");
 
   useEffect(() => {
     if (mode === "edit") {
@@ -159,6 +164,25 @@ export default function SellerForm({
     setFormData(initialFormState);
     setErrors(false);
     handleClose();
+  };
+
+  const updateSellerInfo = (updateType, amountToUpdate) => {
+    console.log(updateType);
+    console.log(amountToUpdate);
+    const sellerId = sellerToEdit.id;
+    console.log(sellerId);
+    const refId = sellerToEdit.refId;
+    const updateAction = {
+      type: `UPDATE_${updateType.toUpperCase()}`,
+      payload: {
+        id: sellerId,
+        refId: refId,
+        [updateType.toLowerCase()]: Number(amountToUpdate),
+        updateType: updateType.toLowerCase(),
+      },
+    };
+    console.log("Dispatching action:", updateAction);
+    // dispatch(updateAction);
   };
 
   return (
@@ -347,18 +371,27 @@ export default function SellerForm({
                     fullWidth
                     size="small"
                     type="number"
+                    disabled={mode === "edit" ? true : false}
                   />
                 </Grid>
                 <Grid item xs={2}>
-                  <TextField
-                    name="cash"
-                    label="Cash"
-                    value={formData["cash"]}
-                    onChange={handleChange}
-                    fullWidth
-                    size="small"
-                    type="number"
-                  />
+                    <TextField
+                      name="cash"
+                      label="Cash"
+                      value={formData["cash"]}
+                      onChange={handleChange}
+                      fullWidth
+                      size="small"
+                      type="number"
+                      disabled={mode === "edit" ? true : false}
+                    />
+                    {mode === "edit" && (
+                    <CashUpdateModal
+                      updateSellerInfo={updateSellerInfo}
+                      caseType="Cash"
+                      handleCaseTypeChange={handleCaseTypeChange}
+                    />
+                  )}
                 </Grid>
               </Grid>
             </Grid>

@@ -62,7 +62,7 @@ export default function CashUpdateModal({ caseType, updateSellerInfo, handleCase
         break;
     }
     handleCaseTypeChange(caseType);
-    onUpdate();
+    // onUpdate();
     resetForm();
     handleClose(); // Close the modal after submission
   };
