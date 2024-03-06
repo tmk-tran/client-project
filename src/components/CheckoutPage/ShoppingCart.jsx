@@ -87,6 +87,8 @@ export default function ShoppingCart() {
           refId: refId,
           orgId: orgId,
           physical_book_cash: physicalBooks,
+          physical_book_digital: 0,
+          digital_book_credit: 0,
         },
       };
       console.log("Dispatching action:", updateAction, updateTransactionsAction);
