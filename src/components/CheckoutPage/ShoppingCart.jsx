@@ -7,12 +7,15 @@ import TotalUpdate from "./TotalUpdate";
 import CustomButton from "../CustomButton/CustomButton";
 import Typography from "../Typography/Typography";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
+import { sellerPageInfo } from "../../hooks/reduxStore";
 import { historyHook } from "../../hooks/useHistory";
 import { containerStyle } from "../Utils/pageStyles";
 import { border } from "../Utils/colors";
 import { submitPaymentSweetAlert } from "../Utils/sweetAlerts";
 
 export default function ShoppingCart() {
+  const dispatch = dispatchHook();
   const location = useLocation();
   console.log(location);
   const history = historyHook();
@@ -34,8 +37,16 @@ export default function ShoppingCart() {
     location.state?.customDonation ?? 0
   );
   console.log(customDonation);
+  const [physicalBooks, setPhysicalBooks] = useState(0);
+  console.log(physicalBooks);
+
+  const sellerData = sellerPageInfo() || [];
+  console.log(sellerData);
+  const orgId = sellerData[0].organization_id;
+  console.log(orgId);
 
   const handleUpdateQuantity = (updatedQuantities) => {
+    console.log(updatedQuantities);
     // Update the state passed through the URL with updatedQuantities
     setSelectedProducts(
       selectedProducts.map((product) =>
@@ -70,8 +81,17 @@ export default function ShoppingCart() {
           updateType: caseType.toLowerCase(),
         },
       };
-      console.log("Dispatching action:", updateAction);
-      // dispatch(updateAction);
+      const updateTransactionsAction = {
+        type: `UPDATE_BOOKS_SOLD`,
+        payload: {
+          refId: refId,
+          orgId: orgId,
+          physical_book_cash: physicalBooks,
+        },
+      };
+      console.log("Dispatching action:", updateAction, updateTransactionsAction);
+      dispatch(updateAction);
+      dispatch(updateTransactionsAction);
     };
 
     submitPaymentSweetAlert(saveCall);
@@ -102,6 +122,7 @@ export default function ShoppingCart() {
             setCustomDonation={setCustomDonation}
             onUpdateQuantity={handleUpdateQuantity}
             caseType={caseType}
+            setPhysicalBooks={setPhysicalBooks}
           />
         ) : (
           <Typography label="No items in cart" />

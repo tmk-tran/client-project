@@ -71,14 +71,17 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   const refId = req.params.id;
   console.log("Req.body from transactions = ", seller);
 
+  // Ensure seller.physical_book_cash is a number
+  const physicalBookCash = Number(seller.physical_book_cash);
+
   const queryText = `
           UPDATE 
             "transactions"
           SET
-            "physical_book_cash" = $1
+            "physical_book_cash" = "physical_book_cash" + $1
           WHERE "refId" = $2;`;
 
-  const values = [seller.physical_book_cash, refId];
+  const values = [physicalBookCash, refId];
 
   pool
     .query(queryText, values)

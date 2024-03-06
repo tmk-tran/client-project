@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import {
   Box,
@@ -46,12 +46,78 @@ export default function CheckoutPage({ caseType }) {
   console.log("Selected Products in CheckoutPage:", selectedProducts);
   console.log(orderTotal);
   console.log(customDonation);
+  // Number of books sold //
+  const [physicalBookQuantity, setPhysicalBookQuantity] = useState(0);
+  const [digitalBookQuantity, setDigitalBookQuantity] = useState(0);
+  console.log(physicalBookQuantity);
+  console.log(digitalBookQuantity);
+  // const [physicalBookCash, setPhysicalBookCash] = useState(0);
+  const [physicalBookDigital, setPhysicalBookDigital] = useState(0);
+  const [digitalBookCredit, setDigitalBookCredit] = useState(0);
 
   const [activeStep, setActiveStep] = useState(0);
   const [stateSelected, setStateSelected] = useState(false);
   console.log(stateSelected);
   const [isSubmitted, setIsSubmitted] = useState(false);
   console.log(isSubmitted);
+
+  // // Calculate quantity of books sold
+  // useEffect(() => {
+  //   let physicalQuantity = 0;
+  //   let digitalQuantity = 0;
+  
+  //   selectedProducts.forEach(product => {
+  //     if (product.bookType === 'Physical Coupon Book') {
+  //       physicalQuantity += product.quantity;
+  //     } else {
+  //       digitalQuantity += product.quantity;
+  //     }
+  //   });
+  
+  //   setPhysicalBookQuantity(physicalQuantity);
+  //   setDigitalBookQuantity(digitalQuantity);
+  // }, [selectedProducts]);
+
+  useEffect(() => {
+    // let physicalCash = 0;
+    let physicalDigital = 0;
+    let digitalCredit = 0;
+  
+    selectedProducts.forEach(product => {
+      if (product.bookType === 'Physical Coupon Book') {
+        switch (caseType) {
+          case 'cash':
+            physicalCash += product.quantity;
+            break;
+          case 'credit':
+            physicalDigital += product.quantity;
+            break;
+          default:
+            break;
+        }
+      } else {
+        switch (caseType) {
+          // case 'cash':
+          //   digitalCredit += product.price * product.quantity;
+          //   break;
+          case 'credit':
+            digitalCredit += product.quantity;
+            break;
+          default:
+            break;
+        }
+      }
+    });
+  
+    // setPhysicalBookCash(physicalCash);
+    setPhysicalBookDigital(physicalDigital);
+    setDigitalBookCredit(digitalCredit);
+  }, [selectedProducts, caseType]);
+
+  // console.log(physicalBookCash);
+  console.log(physicalBookDigital);
+  console.log(digitalBookCredit);
+  
 
   const handleStateChange = (state, value) => {
     // Handle the state change in the parent component
@@ -120,6 +186,10 @@ export default function CheckoutPage({ caseType }) {
     setIsSubmitted(false);
     handleNext();
     console.log(isSubmitted);
+  };
+
+  const updateTransactions = () => {
+    const updateAction = { type: "UPDATE_TRANSACTIONS", payload: {  } };
   };
 
   return (

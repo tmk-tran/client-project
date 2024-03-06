@@ -201,7 +201,7 @@ function App() {
               </Route>
               {/* ~~~~~~~~~~ CHECKOUT PAGE ~~~~~~~~~ */}
               <Route exact path="/seller/:refId/paypal/checkout">
-                <CheckoutPage caseType="paypal" />
+                <CheckoutPage caseType="credit" />
               </Route>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~ CREDIT PAGE ~~~~~~~~~~~ */}

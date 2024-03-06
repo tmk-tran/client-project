@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -18,6 +18,7 @@ export default function OrderSummaryTable({
   setCustomDonation,
   onUpdateQuantity,
   caseType,
+  setPhysicalBooks,
 }) {
   console.log(selectedProducts);
   console.log(caseType);
@@ -32,11 +33,28 @@ export default function OrderSummaryTable({
   const [orderTotal, setOrderTotal] = useState(0);
   console.log(orderTotal);
 
-  // const handleQuantityChange = (productId, newQuantity) => {
-  //   const updatedQuantities = { ...localQuantities, [productId]: newQuantity };
-  //   setLocalQuantities(updatedQuantities);
-  //   onUpdateQuantity(updatedQuantities);
-  // };
+  useEffect(() => {
+    let bookTotal = 0;
+
+    // Iterate over the entries of localQuantities
+    Object.entries(localQuantities).forEach(([id, quantity]) => {
+      // Convert quantity to a number
+      const qty = Number(quantity, 10);
+
+      // Find the product with the matching id
+      const product = selectedProducts.find(
+        (prod) => prod.id === parseInt(id, 10)
+      );
+
+      // If the product is found, add the price multiplied by the quantity to the bookTotal
+      if (product) {
+        bookTotal += qty;
+      }
+    });
+
+    // Update the state in parent with the total cash for physical books
+    setPhysicalBooks(bookTotal);
+  }, [localQuantities, selectedProducts]);
 
   const handleQuantityChange = (productId, newQuantity) => {
     console.log(productId, newQuantity);
