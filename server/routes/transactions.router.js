@@ -70,27 +70,64 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   const seller = req.body;
   const refId = req.params.id;
   console.log("Req.body from transactions = ", seller);
+  const caseType = req.body.caseType;
 
   // Ensure seller.physical_book_cash is a number
   const physicalBookCash = Number(seller.physical_book_cash);
   const physicalBookCredit = Number(seller.physical_book_digital);
   const digitalBookCredit = Number(seller.digital_book_credit);
 
-  const queryText = `
-          UPDATE 
-            "transactions"
-          SET
-            "physical_book_cash" = "physical_book_cash" + $1,
-            "physical_book_digital" = "physical_book_digital" + $2,
-            "digital_book_credit" = "digital_book_credit" + $3
-          WHERE "refId" = $4;`;
+  let queryText;
 
-  const values = [
-    physicalBookCash,
-    physicalBookCredit,
-    digitalBookCredit,
-    refId,
-  ];
+  switch (caseType) {
+    case "edit":
+      queryText = `
+        UPDATE
+          "transactions"
+        SET
+          "physical_book_cash" = $1
+        WHERE "refId" = $2;
+        `;
+      break;
+    default:
+      queryText = `
+        UPDATE 
+          "transactions"
+        SET
+          "physical_book_cash" = "physical_book_cash" + $1,
+          "physical_book_digital" = "physical_book_digital" + $2,
+          "digital_book_credit" = "digital_book_credit" + $3
+        WHERE "refId" = $4;
+        `;
+      break;
+  }
+
+  // const queryText = `
+  //         UPDATE
+  //           "transactions"
+  //         SET
+  //           "physical_book_cash" = "physical_book_cash" + $1,
+  //           "physical_book_digital" = "physical_book_digital" + $2,
+  //           "digital_book_credit" = "digital_book_credit" + $3
+  //         WHERE "refId" = $4;`;
+
+  // const values = [
+  //   physicalBookCash,
+  //   physicalBookCredit,
+  //   digitalBookCredit,
+  //   refId,
+  // ];
+
+  let values;
+
+  switch (caseType) {
+    case "edit":
+      values = [physicalBookCash, refId];
+      break;
+    default:
+      values = [physicalBookCash, physicalBookCredit, digitalBookCredit, refId];
+      break;
+  }
 
   pool
     .query(queryText, values)

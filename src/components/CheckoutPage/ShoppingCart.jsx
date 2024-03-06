@@ -173,7 +173,7 @@ export default function ShoppingCart() {
           <>
             {caseType === "cash" && (
               <CustomButton
-                label="Submit Order"
+                label="Complete Order"
                 onClick={() => submitOrder("cash")}
                 variant="contained"
               />

@@ -24,7 +24,12 @@ const style = {
   p: 4,
 };
 
-export default function BooksSoldForm({ open, handleClose, orgId, editingRefId }) {
+export default function BooksSoldForm({
+  open,
+  handleClose,
+  orgId,
+  editingRefId,
+}) {
   const dispatch = dispatchHook();
   const [editedAmount, setEditedAmount] = useState(0);
   console.log(editedAmount);
@@ -37,9 +42,10 @@ export default function BooksSoldForm({ open, handleClose, orgId, editingRefId }
     console.log(editedAmount);
 
     const valuesToSend = {
-      physical_book_cash: editedAmount,
       refId: editingRefId,
       orgId: orgId,
+      physical_book_cash: editedAmount,
+      caseType: "edit",
     };
 
     const updateAction = {
@@ -67,16 +73,21 @@ export default function BooksSoldForm({ open, handleClose, orgId, editingRefId }
           </Typography>
           <Divider sx={lineDivider} />
           <Typography id="modal-modal-description" sx={{ mb: 2 }}>
-            Please provide the total amount sold, through cash or check sales
+            Please provide the total amount sold, through <strong>cash</strong>{" "}
+            and/or <strong>check</strong> sales
           </Typography>
           <TextField
-            label="Physical Book Sales"
+            label="Total"
             type="number"
             fullWidth
             onChange={handleAmountChange}
             sx={{ mb: 2 }}
           />
-          <ModalButtons label="Update" onSave={handleSubmit} onCancel={handleClose} />
+          <ModalButtons
+            label="Update"
+            onSave={handleSubmit}
+            onCancel={handleClose}
+          />
         </Box>
       </Modal>
     </div>
