@@ -54,29 +54,10 @@ export default function ViewUrl({ open, close, sellerRefId }) {
     <div>
       <Modal open={open} onClose={onClose}>
         <Box sx={style}>
-          <Typography label="Seller URLs" variant="h6" />
+          <Typography label="Seller URL" variant="h6" />
           <Divider sx={lineDivider} />
-          <Typography
-            label="Please use this address to update seller transactions:"
-            variant="caption"
-            sx={{ textAlign: "center" }}
-          />
           {sellerUrl ? (
             <>
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~ Link to transactions update ~~~~~~~~~~ */}
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginTop: 10,
-                }}
-              >
-                {/* <Typography label={`${sellerUrl}`} sx={{ mt: 1 }} /> */}
-                <UrlLinkTypography sx={{ mt: 1 }} urlForOrder={sellerUrl} />
-                <CopySnackBar copyToClipboard={copyToClipboard} />
-              </div>
-              <Divider sx={{ ...dividerMargin, ...lineDivider }} />
               <Typography
                 label="To place an order for this seller:"
                 variant="caption"
