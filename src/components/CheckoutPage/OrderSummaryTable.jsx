@@ -47,13 +47,16 @@ export default function OrderSummaryTable({
       );
 
       // If the product is found, add the price multiplied by the quantity to the bookTotal
-      if (product) {
+      if (product.bookType === "Physical Coupon Book") {
         bookTotal += qty;
       }
     });
 
     // Update the state in parent with the total cash for physical books
-    setPhysicalBooks(bookTotal);
+    {
+      caseType !== "Summary" ? setPhysicalBooks(bookTotal) : null;
+    }
+    // setPhysicalBooks(bookTotal);
   }, [localQuantities, selectedProducts]);
 
   const handleQuantityChange = (productId, newQuantity) => {
@@ -92,13 +95,17 @@ export default function OrderSummaryTable({
                   product.bookType === "Grand Forks (Digital Coupon Book)" ? (
                     <>
                       {product.bookType}
-                      <br />
-                      <Typography
-                        variant="caption"
-                        sx={{ ml: 1, fontWeight: "bold" }}
-                      >
-                        *please enter email during checkout
-                      </Typography>
+                      {caseType !== "Summary" ? (
+                        <>
+                          <br />
+                          <Typography
+                            variant="caption"
+                            sx={{ ml: 1, fontWeight: "bold" }}
+                          >
+                            *please enter email during checkout
+                          </Typography>
+                        </>
+                      ) : null}
                     </>
                   ) : (
                     <>{product.bookType}</>

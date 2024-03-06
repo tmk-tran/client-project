@@ -19,6 +19,8 @@ import CustomButton from "../CustomButton/CustomButton";
 import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
 import { navButtonStyle } from "./checkoutStyles";
+import { sellerPageInfo } from "../../hooks/reduxStore";
+import { dispatchHook } from "../../hooks/useDispatch";
 
 export const containerStyle = {
   width: "50vw",
@@ -34,6 +36,7 @@ export default function CheckoutPage({ caseType }) {
   console.log(caseType);
   const history = historyHook();
   const location = useLocation();
+  const dispatch = dispatchHook();
   console.log(location.state);
   const paramsObject = useParams();
   console.log(paramsObject);
@@ -56,40 +59,29 @@ export default function CheckoutPage({ caseType }) {
   const [digitalBookCredit, setDigitalBookCredit] = useState(0);
 
   const [activeStep, setActiveStep] = useState(0);
+  console.log(activeStep);
   const [stateSelected, setStateSelected] = useState(false);
   console.log(stateSelected);
   const [isSubmitted, setIsSubmitted] = useState(false);
   console.log(isSubmitted);
 
-  // // Calculate quantity of books sold
-  // useEffect(() => {
-  //   let physicalQuantity = 0;
-  //   let digitalQuantity = 0;
-  
-  //   selectedProducts.forEach(product => {
-  //     if (product.bookType === 'Physical Coupon Book') {
-  //       physicalQuantity += product.quantity;
-  //     } else {
-  //       digitalQuantity += product.quantity;
-  //     }
-  //   });
-  
-  //   setPhysicalBookQuantity(physicalQuantity);
-  //   setDigitalBookQuantity(digitalQuantity);
-  // }, [selectedProducts]);
+  const sellerData = sellerPageInfo() || [];
+  console.log(sellerData);
+  const orgId = sellerData[0].organization_id;
+  console.log(orgId);
 
   useEffect(() => {
     // let physicalCash = 0;
     let physicalDigital = 0;
     let digitalCredit = 0;
-  
-    selectedProducts.forEach(product => {
-      if (product.bookType === 'Physical Coupon Book') {
+
+    selectedProducts.forEach((product) => {
+      if (product.bookType === "Physical Coupon Book") {
         switch (caseType) {
-          case 'cash':
+          case "cash":
             physicalCash += product.quantity;
             break;
-          case 'credit':
+          case "credit":
             physicalDigital += product.quantity;
             break;
           default:
@@ -100,7 +92,7 @@ export default function CheckoutPage({ caseType }) {
           // case 'cash':
           //   digitalCredit += product.price * product.quantity;
           //   break;
-          case 'credit':
+          case "credit":
             digitalCredit += product.quantity;
             break;
           default:
@@ -108,7 +100,7 @@ export default function CheckoutPage({ caseType }) {
         }
       }
     });
-  
+
     // setPhysicalBookCash(physicalCash);
     setPhysicalBookDigital(physicalDigital);
     setDigitalBookCredit(digitalCredit);
@@ -117,7 +109,6 @@ export default function CheckoutPage({ caseType }) {
   // console.log(physicalBookCash);
   console.log(physicalBookDigital);
   console.log(digitalBookCredit);
-  
 
   const handleStateChange = (state, value) => {
     // Handle the state change in the parent component
@@ -189,7 +180,18 @@ export default function CheckoutPage({ caseType }) {
   };
 
   const updateTransactions = () => {
-    const updateAction = { type: "UPDATE_TRANSACTIONS", payload: {  } };
+    const updateAction = {
+      type: "UPDATE_BOOKS_SOLD",
+      payload: {
+        refId: refId,
+        orgId: orgId,
+        physical_book_cash: 0,
+        physical_book_digital: physicalBookDigital,
+        digital_book_credit: digitalBookCredit,
+      },
+    };
+    console.log("Dispatching action:", updateAction);
+    dispatch(updateAction);
   };
 
   return (
@@ -225,8 +227,19 @@ export default function CheckoutPage({ caseType }) {
             onClick={() => history.push(`/seller/${refId}/${caseType}`)}
           />
           <CustomButton
-            label={activeStep === steps.length - 1 ? "Place Order" : "Continue"}
-            onClick={handleSubmit}
+            label={
+              activeStep === steps.length - 1
+                ? "Complete Order"
+                : activeStep === steps.length - 2
+                ? "Place Order"
+                : "Continue"
+            }
+            onClick={
+              activeStep !== steps.length - 2
+                ? handleSubmit
+                : updateTransactions
+            }
+            // onClick={handleSubmit}
             variant="contained"
           />
         </Box>
