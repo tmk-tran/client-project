@@ -10,6 +10,7 @@ import {
 import { lineDivider } from "../Utils/modalStyles";
 import ModalButtons from "../Modals/ModalButtons";
 import { dispatchHook } from "../../hooks/useDispatch";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 const style = {
   position: "absolute",
@@ -47,6 +48,8 @@ export default function BooksSoldForm({ open, handleClose, orgId, editingRefId }
     };
     console.log("Dispatching action:", updateAction);
     dispatch(updateAction);
+    handleClose();
+    showSaveSweetAlert();
   };
 
   return (

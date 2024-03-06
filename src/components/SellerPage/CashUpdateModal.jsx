@@ -117,11 +117,11 @@ export default function CashUpdateModal({
             {(() => {
               switch (caseType) {
                 case "Cash":
-                  return "Cash Collected";
+                  return "Cash Update";
                 case "Checks":
-                  return "Checks Collected";
+                  return "Checks Update";
                 case "Donations":
-                  return "Donations Collected";
+                  return "Donations Update";
                 default:
                   return "";
               }
@@ -129,11 +129,11 @@ export default function CashUpdateModal({
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {caseType === "Cash" &&
-              "Please enter the amount of cash collected for coupon book sale"}
+              "Please enter the amount of cash collected for coupon book sale(s)"}
             {caseType === "Checks" &&
-              "Please enter the amount of checks collected for coupon book sale"}
+              "Please enter the amount of checks collected for coupon book sale(s)"}
             {caseType === "Donations" &&
-              "Please enter the amount of donations collected for coupon book sale"}
+              "Please enter the amount of cash donations collected for coupon book sale(s)"}
           </Typography>
 
           <TextField

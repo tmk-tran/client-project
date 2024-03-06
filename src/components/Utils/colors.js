@@ -42,3 +42,7 @@ export const dueDateHighlight = {
 };
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+export const highlightColor = {
+  backgroundColor: "rgba(111, 160, 216, 0.1)",
+};

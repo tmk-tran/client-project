@@ -96,26 +96,3 @@ export const columns = [
     align: "right",
   },
 ];
-
-const newColumns = [
-  {
-    id: "seller_earnings",
-    label: "Seller Earnings",
-    align: "right",
-  },
-  {
-    id: "digital_books_total",
-    label: "Digital Books Sold (CC)",
-    align: "right",
-  },
-  {
-    id: "physical_books_sold",
-    label: "Physical Books Sold (CC)",
-    align: "right",
-  },
-  {
-    id: "physical_books_cash",
-    label: "Physical Books Sold (Cash)",
-    align: "right",
-  },
-];

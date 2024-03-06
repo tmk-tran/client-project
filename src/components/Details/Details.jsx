@@ -79,40 +79,6 @@ export default function Details({
   const [locationAdded, setLocationAdded] = useState(false);
   console.log(locationAdded);
 
-  // useEffect(() => {
-  //   dispatch({
-  //     type: "FETCH_ORG_DETAILS",
-  //     payload: paramsObject.id,
-  //   });
-
-  //   dispatch({
-  //     type: isMerchantTaskPage
-  //       ? "FETCH_MERCHANT_DETAILS"
-  //       : "FETCH_ORG_FUNDRAISERS",
-  //     payload: paramsObject.id,
-  //   });
-  //   // Fetch locations if MerchantTaskPage is true
-  //   if (isMerchantTaskPage) {
-  //     dispatch({
-  //       type: "FETCH_MERCHANT_LOCATION",
-  //       payload: paramsObject.id,
-  //     });
-  //   }
-
-  //   if (!isMerchantTaskPage) {
-  //     dispatch({
-  //       type: "FETCH_ORG_GROUPS",
-  //       payload: paramsObject.id,
-  //     });
-  //   };
-
-  //   dispatch({
-  //     type: "FETCH_ORGANIZATIONS",
-  //     payload: paramsObject.id,
-  //   });
-  //   setGroupAdded(false);
-  // }, [paramsObject.id, isMerchantTaskPage, groupAdded]);
-
   useEffect(() => {
     console.log("Dispatching FETCH_ORG_DETAILS");
     dispatch({
@@ -218,8 +184,8 @@ export default function Details({
           <BackButton />
         </div>
       </div>
-      {/* <Card className="details-card" elevation={3}>
-        <CardContent> */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~~~~~~ Main Container ~~~~~~~~~~~~~~~~~~~ */}
       <div className="details-card" style={{ marginTop: 40 }}>
         <div className="detailsView-container">
           {[...orgMap.values()].map(({ orgDetails, groups }) => (
@@ -251,7 +217,7 @@ export default function Details({
                 ))}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~ Instructions for User ~~~~~~~~~~~ */}
-              {isOrgAdminPage && <OrgAdminInfo />}
+              {/* {isOrgAdminPage && <OrgAdminInfo />} */}
 
               <center>
                 {isMerchantTaskPage ? (
@@ -278,9 +244,9 @@ export default function Details({
                   <AddGroupPopover info={orgDetails} />
                 </div> */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
-              {!isTaskPage && !isMerchantTaskPage && (
-                // Default content when not on the task page
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~  Fundraiser / Group section ~~~~~~~~~~~ */}
+              {!isTaskPage && !isMerchantTaskPage && !isOrgAdminPage && (
                 <>
                   <OrgDetailsGoalView
                     info={orgDetails}
@@ -288,25 +254,27 @@ export default function Details({
                     handleAddGroup={handleAddGroup}
                   />
 
-                  <div className="OrgDetailsCard-container">
-                    {groups &&
-                    groups.some((group) => group.group_id !== null) ? (
-                      groups.map((groupInfo, i) => (
-                        <OrgGroupInfo
-                          key={groupInfo.group_id}
-                          groupInfo={groupInfo}
-                          groupNumber={i + 1}
-                        />
-                      ))
-                    ) : (
-                      <div style={{ height: "100px" }}>
-                        <Typography variant="h6" sx={{ mt: 2, p: 1 }}>
-                          No Groups Assigned
-                        </Typography>
-                        <hr />
-                      </div>
-                    )}
-                  </div>
+                  {!isOrgAdminPage ? (
+                    <div className="OrgDetailsCard-container">
+                      {groups &&
+                      groups.some((group) => group.group_id !== null) ? (
+                        groups.map((groupInfo, i) => (
+                          <OrgGroupInfo
+                            key={groupInfo.group_id}
+                            groupInfo={groupInfo}
+                            groupNumber={i + 1}
+                          />
+                        ))
+                      ) : (
+                        <div style={{ height: "100px" }}>
+                          <Typography variant="h6" sx={{ mt: 2, p: 1 }}>
+                            No Groups Assigned
+                          </Typography>
+                          <hr />
+                        </div>
+                      )}
+                    </div>
+                  ) : null}
                 </>
               )}
 
@@ -369,8 +337,6 @@ export default function Details({
             </React.Fragment>
           ))}
         </div>
-        {/* </CardContent>
-      </Card> */}
       </div>
     </div>
   );

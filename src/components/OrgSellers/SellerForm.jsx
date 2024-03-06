@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, Modal, TextField, Grid, Divider } from "@mui/material";
 // ~~~~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider } from "../Utils/modalStyles";
-import { primaryColor } from "../Utils/colors";
+import { highlightColor, primaryColor, border } from "../Utils/colors";
 import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
 import { useCaseType } from "../Utils/useCaseType";
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -10,6 +10,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import Typography from "../Typography/Typography";
 import ModalButtons from "../Modals/ModalButtons";
 import CashUpdateModal from "../SellerPage/CashUpdateModal";
+import SellerFormHeader from "./SellerFormHeader";
 
 const style = {
   position: "absolute",
@@ -94,7 +95,6 @@ export default function SellerForm({
       setFormData(initialFormState);
     }
   }, [mode, sellerToEdit, updateMoneyAmount]);
-
 
   const handleChange = (e) => {
     console.log(e.target.name);
@@ -210,13 +210,9 @@ export default function SellerForm({
             sx={{ textAlign: "center", mb: 2 }}
           />
         )}
-        {mode === "edit" && (
-          <Typography
-            label="Edit Seller"
-            variant="h6"
-            sx={{ textAlign: "center", mb: 2 }}
-          />
-        )}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
+        {mode === "edit" && <SellerFormHeader />}
         <Divider sx={lineDivider} />
         <form onSubmit={handleFormSubmit}>
           <Grid container spacing={2}>
@@ -236,6 +232,7 @@ export default function SellerForm({
                     helperText={
                       errors["lastname"] ? "Last Name is required" : ""
                     }
+                    disabled={mode === "edit" ? true : false}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -251,6 +248,7 @@ export default function SellerForm({
                     helperText={
                       errors["firstname"] ? "First Name is required" : ""
                     }
+                    disabled={mode === "edit" ? true : false}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -284,7 +282,7 @@ export default function SellerForm({
             <Grid item xs={12}>
               <Divider sx={dividerStyle} />
               <Grid container spacing={2}>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                   <TextField
                     name="initial_books"
                     label="Initial Book Count"
@@ -295,7 +293,7 @@ export default function SellerForm({
                     type="number"
                   />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                   <TextField
                     name="additional_books"
                     label="Additional Books"
@@ -306,7 +304,7 @@ export default function SellerForm({
                     type="number"
                   />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                   <TextField
                     name="books_returned"
                     label="Books Returned"
@@ -316,6 +314,19 @@ export default function SellerForm({
                     size="small"
                     type="number"
                     disabled={mode === "add" ? true : false}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    name="books_due"
+                    label="Books Due"
+                    value={formData["books_due"]}
+                    onChange={handleChange}
+                    sx={highlightColor}
+                    fullWidth
+                    size="small"
+                    type="number"
+                    disabled
                   />
                 </Grid>
               </Grid>
@@ -392,7 +403,12 @@ export default function SellerForm({
                     <TextField
                       name="cash"
                       label="Cash"
-                      value={`${Number(formData["cash"]) + (updateMoneyAmount !== null ? Number(updateMoneyAmount) : 0)}`}
+                      value={`${
+                        Number(formData["cash"]) +
+                        (updateMoneyAmount !== null
+                          ? Number(updateMoneyAmount)
+                          : 0)
+                      }`}
                       onChange={handleChange}
                       fullWidth
                       size="small"
