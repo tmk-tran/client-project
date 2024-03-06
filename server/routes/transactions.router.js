@@ -102,22 +102,6 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
       break;
   }
 
-  // const queryText = `
-  //         UPDATE
-  //           "transactions"
-  //         SET
-  //           "physical_book_cash" = "physical_book_cash" + $1,
-  //           "physical_book_digital" = "physical_book_digital" + $2,
-  //           "digital_book_credit" = "digital_book_credit" + $3
-  //         WHERE "refId" = $4;`;
-
-  // const values = [
-  //   physicalBookCash,
-  //   physicalBookCredit,
-  //   digitalBookCredit,
-  //   refId,
-  // ];
-
   let values;
 
   switch (caseType) {

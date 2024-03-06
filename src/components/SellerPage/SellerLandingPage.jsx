@@ -52,7 +52,7 @@ export default function SellerLandingPage() {
   return (
     <Box sx={containerStyle}>
       {sellerData.map((seller) => (
-        <Box key={seller.id} sx={centeredStyle}>
+        <Box key={seller.id} sx={{ mt: 5, ...centeredStyle }}>
           <OrgDetailsSection seller={seller} />
           <br />
           <Box sx={{ ...flexCenter, width: "40%", borderRadius: "4px" }}>
