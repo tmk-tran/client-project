@@ -68,12 +68,10 @@ export default function OrderSummaryTable({
             selectedProducts.map((product, index) => (
               <TableRow key={index}>
                 <TableCell>
-                  {product.bookType}
                   {/* ~~~~~~~~~~ HELPER TEXT FOR EMAIL ~~~~~~~~~ */}
-                  {/* {product.bookType.includes(
-                    "Fargo - Moorhead (Digital Coupon Book"
-                  ) ||
-                  product.bookType.includes("Grand Forks (Digital Coupon Book)") ? (
+                  {product.bookType ===
+                    "Fargo - Moorhead (Digital Coupon Book)" ||
+                  product.bookType === "Grand Forks (Digital Coupon Book)" ? (
                     <>
                       {product.bookType}
                       <br />
@@ -86,7 +84,7 @@ export default function OrderSummaryTable({
                     </>
                   ) : (
                     <>{product.bookType}</>
-                  )} */}
+                  )}
                 </TableCell>
 
                 <TableCell>
@@ -99,7 +97,7 @@ export default function OrderSummaryTable({
 
                 <TableCell align="right" sx={{ width: "10%" }}>
                   {/* ~~~~~~~~~~ Watch for multiple caseTypes ~~~~~~~~~ */}
-                  {["Summary", "paypal", "credit"].includes(caseType) &&
+                  {["Summary", "paypal", "credit", "cash"].includes(caseType) &&
                     (product.bookType ===
                       "Fargo - Moorhead (Digital Coupon Book)" ||
                     product.bookType === "Grand Forks (Digital Coupon Book)" ? (

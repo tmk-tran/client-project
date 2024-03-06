@@ -201,18 +201,12 @@ export default function SellerForm({
       aria-describedby="form for adding and editing a seller"
     >
       <Box sx={style}>
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~ */}
-        {/* ~~~~~ Header ~~~~~~~~~~ */}
-        {mode === "add" && (
-          <Typography
-            label="New Seller"
-            variant="h6"
-            sx={{ textAlign: "center", mb: 2 }}
-          />
-        )}
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
-        {mode === "edit" && <SellerFormHeader />}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~ Header (add) ~~~~~~~ */}
+        {mode === "add" && <SellerFormHeader mode={mode} />}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~ Header (edit) ~~~~~~ */}
+        {mode === "edit" && <SellerFormHeader mode={mode} />}
         <Divider sx={lineDivider} />
         <form onSubmit={handleFormSubmit}>
           <Grid container spacing={2}>

@@ -200,8 +200,6 @@ export default function SellersTable() {
   let isEvenRow = true;
 
   function calculateColumnSum(sellers, columnId) {
-    console.log(sellers);
-    console.log(columnId);
     return sellers.reduce((acc, seller) => {
       const value = seller[columnId];
       const numericValue = Number(value);
