@@ -364,3 +364,23 @@ AFTER INSERT ON sellers
 FOR EACH ROW
 EXECUTE FUNCTION create_transaction_for_new_seller();
 ---------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+-------------------- Coupon table ------------------------------------
+CREATE TABLE coupon (
+    id SERIAL PRIMARY KEY,
+    pdf_data bytea,
+    filename character varying(255),
+    merchant_id integer REFERENCES merchant(id),
+    is_deleted boolean DEFAULT false,
+    front_view_pdf bytea,
+    back_view_pdf bytea,
+    offer character varying(200),
+    value numeric,
+    exclusions character varying(200),
+    details character varying(200),
+    expiration date,
+    additional_info character varying(200)
+);
+----------------------------------------------------------------------
