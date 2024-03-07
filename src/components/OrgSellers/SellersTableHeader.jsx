@@ -15,7 +15,7 @@ export default function SellersTableHeader({ viewUrlTable, setViewUrlTable }) {
         sxButton={{ mr: 1 }}
       /> */}
       <Typography
-        label="URLs can be viewed using the button in the Referral ID column "
+        label="URL can be viewed using the button in the Referral ID column "
         variant="caption"
         sx={{ mt: 2.5 }}
       />

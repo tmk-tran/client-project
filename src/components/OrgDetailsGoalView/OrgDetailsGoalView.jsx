@@ -1,11 +1,11 @@
 import React from "react";
-// ~~~~~~~~~~ Style ~~~~~~~~~~
+// ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import { Typography, Card, CardContent } from "@mui/material";
 import "./OrgDetailsGoalView.css";
-// ~~~~~~~~~~ Component ~~~~~~~~~~
+// ~~~~~~~~~~ Component ~~~~~~~~~~ //
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { oFundraisers } from "../../hooks/reduxStore";
 
 export default function OrgDetailsGoalView({ info, groups, handleAddGroup }) {

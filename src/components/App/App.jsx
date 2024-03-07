@@ -29,13 +29,14 @@ import OrgSellers from "../OrgSellers/OrgSellers";
 import ShoppingCart from "../CheckoutPage/ShoppingCart";
 import SellerPage from "../SellerPage/SellerPage";
 import ConsumerCouponView from "../ConsumerCouponView/ConsumerCouponView";
+import SellerLandingPage from "../SellerPage/SellerLandingPage";
+import OrderComplete from "../CheckoutPage/OrderComplete";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { User } from "../../hooks/reduxStore";
-import SellerLandingPage from "../SellerPage/SellerLandingPage";
 
 // ~~~~~ Theme establishing global color for MUI ~~~~~
 const theme = createTheme({
@@ -216,7 +217,12 @@ function App() {
               <Route exact path="/seller/:refId/credit/checkout">
                 <CheckoutPage caseType="credit" />
               </Route>
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~ ORDER COMPLETE PAGE ~~~~~~~~~ */}
+              <Route exact path="/seller/:refId/complete">
+                <OrderComplete />
+              </Route>
+
               <Route exact path="/login">
                 {user.id ? (
                   // If the user is already logged in,

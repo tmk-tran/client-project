@@ -100,7 +100,7 @@ export default function ShoppingCart() {
             updateType: "donations",
             id: sellerId,
             refId: refId,
-            digital: customDonation
+            donations: customDonation
           },
         };
         updateActions.push(updateSellerTable);
@@ -108,6 +108,7 @@ export default function ShoppingCart() {
 
       console.log("Dispatching actions:", updateActions);
       updateActions.forEach((action) => dispatch(action));
+      history.push(`/seller/${refId}/complete`);
     };
 
     submitPaymentSweetAlert(saveCall);

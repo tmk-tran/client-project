@@ -127,13 +127,6 @@ export default function OrderPage({ caseType }) {
   };
 
   const addToCart = () => {
-    // const dispatchAction = {
-    //   type: "ADD_CUSTOMER",
-    //   payload: formData,
-    // };
-    // console.log("Dispatching action:", dispatchAction);
-    // dispatch(dispatchAction);
-
     history.push({
       pathname: `/seller/${seller.refId}/${caseType}/cart`,
       state: {
