@@ -3,12 +3,10 @@ import { useParams } from "react-router-dom";
 import { Box, Button, Divider } from "@mui/material";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~ //
 import { centeredStyle, containerStyle, flexEnd } from "../Utils/pageStyles";
-import { borderPrimaryColor } from "../Utils/colors";
 import { sellerPageInfo } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { historyHook } from "../../hooks/useHistory";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~~~~ //
-import CustomerNameInfo from "./CustomerNameInfo";
 import OrgDetailsSection from "./OrgDetailsSection";
 import RefIdDisplay from "./RefIdDisplay";
 import PaymentMenu from "./PaymentMenu";
@@ -69,7 +67,6 @@ export default function SellerLandingPage() {
               </Button>
             </Box>
           )}
-          {/* <CustomerNameInfo /> */}
         </Box>
       ))}
     </Box>

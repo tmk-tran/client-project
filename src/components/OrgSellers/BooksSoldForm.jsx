@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Typography,
-  TextField,
-  Modal,
-  Divider,
-} from "@mui/material";
+import { Box, Typography, TextField, Modal, Divider } from "@mui/material";
+// ~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider } from "../Utils/modalStyles";
-import ModalButtons from "../Modals/ModalButtons";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
+// ~~~~~~~~~~~ Components ~~~~~~~~~~~~~~ //
+import ModalButtons from "../Modals/ModalButtons";
 
 const style = {
   position: "absolute",
@@ -60,7 +55,6 @@ export default function BooksSoldForm({
 
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
         open={open}
         onClose={() => {}}

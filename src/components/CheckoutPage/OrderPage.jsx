@@ -23,7 +23,6 @@ export default function OrderPage({ caseType }) {
   const history = historyHook();
 
   const [selectedRows, setSelectedRows] = useState([]);
-  console.log(selectedRows);
   const [customDonation, setCustomDonation] = useState(0);
   console.log(customDonation);
   const [orderTotal, setOrderTotal] = useState(0);
@@ -36,8 +35,6 @@ export default function OrderPage({ caseType }) {
   const [firstSeller] = sellerData;
   const sellerId = firstSeller ? firstSeller.id : null;
   console.log(sellerId);
-  // const [formData, setFormData] = useState({});
-  // console.log(formData);
 
   // UPDATE WITH ACTUAL STORE DATA ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const [rows, setRows] = useState([

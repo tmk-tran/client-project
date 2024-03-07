@@ -91,9 +91,23 @@ export default function ShoppingCart() {
           digital_book_credit: 0,
         },
       };
-      console.log("Dispatching action:", updateAction, updateTransactionsAction);
-      dispatch(updateAction);
-      dispatch(updateTransactionsAction);
+      let updateActions = [updateAction, updateTransactionsAction];
+
+      if (customDonation > 0) {
+        const updateSellerTable = {
+          type: `UPDATE_DONATIONS`,
+          payload: {
+            updateType: "donations",
+            id: sellerId,
+            refId: refId,
+            digital: customDonation
+          },
+        };
+        updateActions.push(updateSellerTable);
+      }
+
+      console.log("Dispatching actions:", updateActions);
+      updateActions.forEach((action) => dispatch(action));
     };
 
     submitPaymentSweetAlert(saveCall);

@@ -50,11 +50,6 @@ export default function CheckoutPage({ caseType }) {
   console.log(orderTotal);
   console.log(customDonation);
   // Number of books sold //
-  const [physicalBookQuantity, setPhysicalBookQuantity] = useState(0);
-  const [digitalBookQuantity, setDigitalBookQuantity] = useState(0);
-  console.log(physicalBookQuantity);
-  console.log(digitalBookQuantity);
-  // const [physicalBookCash, setPhysicalBookCash] = useState(0);
   const [physicalBookDigital, setPhysicalBookDigital] = useState(0);
   const [digitalBookCredit, setDigitalBookCredit] = useState(0);
 
@@ -69,9 +64,9 @@ export default function CheckoutPage({ caseType }) {
   console.log(sellerData);
   const orgId = sellerData[0].organization_id;
   console.log(orgId);
+  const sellerId = sellerData[0].id;
 
   useEffect(() => {
-    // let physicalCash = 0;
     let physicalDigital = 0;
     let digitalCredit = 0;
 
@@ -87,11 +82,16 @@ export default function CheckoutPage({ caseType }) {
           default:
             break;
         }
+      } else if (product.bookType === "Donate") {
+        switch (caseType) {
+          case "credit":
+            digitalCredit = 0;
+            break;
+          default:
+            break;
+        }
       } else {
         switch (caseType) {
-          // case 'cash':
-          //   digitalCredit += product.price * product.quantity;
-          //   break;
           case "credit":
             digitalCredit += product.quantity;
             break;
@@ -190,8 +190,22 @@ export default function CheckoutPage({ caseType }) {
         digital_book_credit: digitalBookCredit,
       },
     };
-    console.log("Dispatching action:", updateAction);
-    dispatch(updateAction);
+    let updateActions = [updateAction];
+
+    if (customDonation > 0) {
+      const updateSellerTable = {
+        type: "UPDATE_DONATIONS",
+        payload: {
+          updateType: "digital",
+          id: sellerId,
+          refId: refId,
+          digital: customDonation,
+        },
+      };
+      updateActions.push(updateSellerTable);
+    }
+    console.log("Dispatching action:", updateActions);
+    updateActions.forEach((action) => dispatch(action));
   };
 
   return (

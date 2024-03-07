@@ -2,6 +2,7 @@ import axios from "axios";
 import { put, takeEvery } from "redux-saga/effects";
 
 function* fetchSellers(action) {
+  console.log(action.payload);
   try {
     const items = yield axios.get(`/api/sellers/${action.payload}`);
     console.log("FETCH request from sellers.saga, ITEMS = ", items.data);
@@ -30,6 +31,7 @@ function* addSeller(action) {
 }
 
 function* updateSeller(action) {
+  console.log(action.payload);
   const sellerId = action.payload.id;
   const orgId = action.payload.organization_id;
 

@@ -6,16 +6,16 @@ router.get("/:refId", (req, res) => {
   console.log("from GET /id seller.router: ", req.params.refId);
   const refId = req.params.refId;
 
-//   const queryText = `
-//       SELECT
-//         *
-//       FROM
-//         sellers
-//       WHERE
-//         "refId" = $1    
-//       ;`;
+  //   const queryText = `
+  //       SELECT
+  //         *
+  //       FROM
+  //         sellers
+  //       WHERE
+  //         "refId" = $1
+  //       ;`;
 
-const queryText = `
+  const queryText = `
   SELECT
       s.*,
       o.organization_name,
@@ -90,6 +90,19 @@ router.put("/:id", (req, res) => {
             "refId" = $3
           ;`;
       values = [sellerInfo.donations, sellerId, refId];
+      break;
+    case "digital":
+      queryText = `
+        UPDATE
+          "sellers"
+        SET
+          "digital" = "digital" + $1
+        WHERE
+          "id" = $2
+        AND
+          "refId" = $3
+        ;`;
+      values = [sellerInfo.digital, sellerId, refId];
       break;
     default:
       res.status(400).json({ error: "Invalid update type" });
