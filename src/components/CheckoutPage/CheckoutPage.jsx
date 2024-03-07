@@ -200,6 +200,7 @@ export default function CheckoutPage({ caseType }) {
           id: sellerId,
           refId: refId,
           digital: customDonation,
+          digital_donations: customDonation,
         },
       };
       updateActions.push(updateSellerTable);

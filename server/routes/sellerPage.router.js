@@ -96,13 +96,19 @@ router.put("/:id", (req, res) => {
         UPDATE
           "sellers"
         SET
-          "digital" = "digital" + $1
+          "digital" = "digital" + $1,
+          "digital_donations" = "digital_donations" + $2
         WHERE
-          "id" = $2
+          "id" = $3
         AND
-          "refId" = $3
+          "refId" = $4
         ;`;
-      values = [sellerInfo.digital, sellerId, refId];
+      values = [
+        sellerInfo.digital,
+        sellerInfo.digital_donations,
+        sellerId,
+        refId,
+      ];
       break;
     default:
       res.status(400).json({ error: "Invalid update type" });
