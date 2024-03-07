@@ -77,11 +77,11 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   return (
     <Card
       elevation={3}
-      className="details-view-card"
+      // className="details-view-card"
+      // sx={{ height: }}
       onClick={() => {
         history.push(`/coupon/${merchantId}`);
       }}
-      // sx={{ height: "80%" }}
     >
       <CardContent>
         {/* <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} /> */}
@@ -112,46 +112,48 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
 
         <hr />
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+        <div style={{ display: "flex", flexDirection: "row" }}>
           {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~ FRONT OF COUPON ~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* <div style={border}> */}
-          <div>
+          <div style={border}>
+            {/* <div>
             <div
               style={{
                 height: "15vh",
                 backgroundColor: "#D9D9D9",
               }}
-            >
-              <Typography sx={{ textAlign: "center", lineHeight: "15vh" }}>
+            > */}
+            {/* <Typography sx={{ textAlign: "center", lineHeight: "15vh" }}>
                 Front of Coupon
-              </Typography>
-            </div>
+              </Typography> */}
+            {/* </div> */}
+            Front of Coupon
           </div>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~ BACK OF COUPON ~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* <div style={border}> */}
-          <div>
+          <div style={border}>
+            {/* <div>
             <div
               style={{
                 height: "15vh",
                 backgroundColor: "#D9D9D9",
               }}
-            >
-              <Typography sx={{ textAlign: "center", lineHeight: "15vh" }}>
+            > */}
+            {/* <Typography sx={{ textAlign: "center", lineHeight: "15vh" }}>
                 Back of Coupon
-              </Typography>
-            </div>
+              </Typography> */}
+            {/* </div>*/}
+            Back of Coupon
           </div>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~ COUPON DETAILS ~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* <div style={border}> */}
-          <div>
+          <div style={border}>
+            {/* <div>
             <div
               style={{
                 height: "10vh",
@@ -164,7 +166,8 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
               >
                 Details of Coupon
               </Typography>
-            </div>
+            </div> */}
+            Details of Coupon
           </div>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}

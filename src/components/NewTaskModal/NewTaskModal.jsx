@@ -19,10 +19,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { border, hoverAccept, hoverDeny } from "../Utils/colors";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
-import {
-  capitalizeFirstWord,
-  saveBtnWidth,
-} from "../Utils/helpers";
+import { capitalizeFirstWord, saveBtnWidth } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import DatePicker from "../DatePicker/DatePicker";
 import SearchableSelect from "../NewTaskModal/SearchableSelect";
@@ -220,7 +217,7 @@ export default function BasicModal({
 
   return (
     <div>
-      <Button onClick={handleOpen} fullWidth>
+      <Button variant="contained" sx={{ mt: 1 }} onClick={handleOpen} fullWidth>
         {customIcon ? (
           customIcon // Render the custom icon if provided
         ) : (

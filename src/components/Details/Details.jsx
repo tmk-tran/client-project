@@ -303,7 +303,7 @@ export default function Details({
                   ) : null}
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   {/* ~~~~~ COUPON REVIEW CARDS ~~~~~ */}
-                  <div className="MerchantDetailsCard-container">
+                  <div className="MerchantDetailsCard-container" style={border}>
                     <div
                       style={{
                         position: "absolute",
@@ -322,11 +322,23 @@ export default function Details({
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     {/* ~~~~~~~~ COUPON PREVIEW CARDS ~~~~~~~~~ */}
                     {merchantDetails.map((merchant, i) => (
+                      <>
                       <CouponReviewCard
                         key={i}
                         merchant={merchant}
                         onTaskUpdate={handleTaskUpdate}
                       />
+                      <CouponReviewCard
+                        key={i}
+                        merchant={merchant}
+                        onTaskUpdate={handleTaskUpdate}
+                      />
+                      <CouponReviewCard
+                        key={i}
+                        merchant={merchant}
+                        onTaskUpdate={handleTaskUpdate}
+                      />
+                      </>
                     ))}
                   </div>
                 </>

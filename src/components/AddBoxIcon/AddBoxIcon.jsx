@@ -5,7 +5,7 @@ import { buttonIconSpacing } from "../Utils/helpers";
 export default function AddBox({ label, buttonStyle, onClick }) {
  
   return (
-    <Button sx={{ ...buttonStyle }} onClick={onClick}>
+    <Button variant="contained" sx={{ ...buttonStyle }} onClick={onClick}>
       <AddBoxIcon sx={buttonIconSpacing} />
       {label}
     </Button>

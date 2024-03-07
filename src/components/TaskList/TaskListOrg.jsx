@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-// ~~~~~~~~~~ Style ~~~~~~~~~~
+// ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import { Typography, MenuItem, Select, Box } from "@mui/material";
 import "./TaskList.css";
-// ~~~~~~~~~~ Components ~~~~~~~~~~
+// ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import TaskCard from "../TaskCard/TaskCard";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { oTasks } from "../../hooks/reduxStore";
 import { useAlert } from "../SuccessAlert/useAlert";
 
@@ -19,16 +19,6 @@ export default function TaskListOrg() {
   console.log(caseType);
   const [isNewTasksMenuOpen, setIsNewTasksMenuOpen] = useState(false);
   console.log(isNewTasksMenuOpen);
-  const [newTasksExist, setNewTasksExist] = useState(false); // Track if there are new tasks
-
-  const handleNewTaskAdded = (task) => {
-    setNewTasksExist(true); // Set newTasksExist to true when a new task is added
-  };
-
-  const handleMenuOpen = () => {
-    setIsNewTasksMenuOpen(false); // Remove the flag when the menu is opened
-    setNewTasksExist(false); // Reset newTasksExist when the menu is opened
-  };
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
