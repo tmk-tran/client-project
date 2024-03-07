@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-// ~~~~~~~~~~ Style ~~~~~~~~~~
+// ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import { border } from "../Utils/colors";
-// ~~~~~~~~~~ Component ~~~~~~~~~~
+// ~~~~~~~~~~ Component ~~~~~~~~~~ //
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 // import SuccessAlert from "../SuccessAlert/SuccessAlert";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
 import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { mComments } from "../../hooks/reduxStore";
 import { useAlert } from "../SuccessAlert/useAlert";
+import { pdfFile } from "../../hooks/reduxStore";
 
 export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   console.log(merchant);
@@ -38,8 +38,15 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
       type: "FETCH_MERCHANT_COMMENTS",
       payload: merchantId,
     });
+    merchantId &&
+      dispatch({
+        type: "FETCH_PDF_FILE",
+        payload: merchantId,
+      });
   }, []);
 
+  const files = pdfFile() || [];
+  console.log(files);
   const merchantComments = mComments(merchantId);
   console.log(merchantComments);
   const mostRecentComment =
@@ -70,15 +77,18 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   };
 
   const handleCompletedCoupon = () => {
-    setCompletedCoupon(true);
+    // setCompletedCoupon(true);
     console.log("Completed coupon: ", completedCoupon);
   };
-
+  
   return (
+    <>
+    {files.map((file, i) => (
     <Card
+    key={i}
       elevation={3}
       // className="details-view-card"
-      // sx={{ height: }}
+      // sx={{ width: "48%" }}
       onClick={() => {
         history.push(`/coupon/${merchantId}`);
       }}
@@ -112,7 +122,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
 
         <hr />
 
-        <div style={{ display: "flex", flexDirection: "row" }}>
+        <div style={{ display: "flex", flexDirection: "row", gap: 5 }}>
           {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -168,6 +178,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
               </Typography>
             </div> */}
             Details of Coupon
+            {file.offer}
           </div>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
@@ -179,5 +190,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
         </div>
       </CardContent>
     </Card>
+        ))}
+        </>
   );
 }

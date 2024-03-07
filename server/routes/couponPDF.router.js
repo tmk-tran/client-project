@@ -100,8 +100,11 @@ router.get("/:id", async (req, res) => {
   console.log("frontViewPdf = ", frontViewPdf);
   console.log("backViewPdf = ", backViewPdf);
 
+  // const queryText =
+  //   "SELECT pdf_data, filename, front_view_pdf, back_view_pdf FROM coupon WHERE merchant_id = $1";
+
   const queryText =
-    "SELECT pdf_data, filename, front_view_pdf, back_view_pdf FROM coupon WHERE merchant_id = $1";
+  "SELECT * FROM coupon WHERE merchant_id = $1";
 
   pool
     .query(queryText, [merchantId])

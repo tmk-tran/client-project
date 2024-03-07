@@ -43,7 +43,6 @@ export default function CouponStatusDropdown({
       // onChange={handleMenuChange}
       onChange={(event) => {
         handleMenuChange(event);
-        handleUpdateTask(); // Call the parent function here
       }}
       style={{
         width: width,

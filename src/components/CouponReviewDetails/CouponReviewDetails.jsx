@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-// ~~~~~~~~~~ Style ~~~~~~~~~~
+// ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import { Typography, Card, CardContent, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { border } from "../Utils/colors";
-// ~~~~~~~~~~ Components ~~~~~~~~~~
+// ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import DenyProofModal from "../DenyProofModal/DenyProofModal";
 import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 import CouponReviewButtons from "./CouponReviewButtons";
@@ -13,7 +13,7 @@ import CouponReviewComments from "./CouponReviewComments";
 import BackButton from "../Buttons/BackButton";
 import FilePreview from "./FilePreview";
 import UploadFileButton from "./UploadFileButton";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
 import { pdfFile } from "../../hooks/reduxStore";
 
@@ -68,14 +68,14 @@ export default function CouponReviewDetails() {
     setCommentAdded(true);
   };
 
-  const handleChangeRequest = (newValue) => {
-    // setChangesRequested(newValue);
-    console.log("Changes requested: ", changesRequested);
+  const handleChangeRequest = (boolean) => {
+    setChangesRequested(boolean);
+    console.log("Changes requested? ", changesRequested);
   };
 
-  const handleCompletedCoupon = () => {
-    // setCompletedCoupon(true);
-    console.log("Completed coupon: ", completedCoupon);
+  const handleCompletedCoupon = (boolean) => {
+    setCompletedCoupon(boolean);
+    console.log("Completed coupon? ", completedCoupon);
   };
 
   const handleUploadFile = () => {

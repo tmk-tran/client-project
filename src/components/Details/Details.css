@@ -9,16 +9,14 @@
   position: relative;
 }
 
-.OrgDetailsCard-container,
-.MerchantDetailsCard-container {
+.OrgDetailsCard-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 50px;
-  align-items: center;
+  gap: 40px;
   margin-top: 25px;
-  padding: 50px;
+  padding-top: 55px;
 }
 
 /* .OrgDetailsCard-container {
@@ -29,6 +27,11 @@
 .MerchantDetailsCard-container {
   /* width: 58vw; */
   position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 40px;
+  margin-top: 25px;
+  padding-top: 55px;
 }
 
 .add-group-fields {

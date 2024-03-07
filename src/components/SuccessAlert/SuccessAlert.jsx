@@ -3,13 +3,19 @@ import { Alert, Snackbar } from "@mui/material";
 
 export default function SuccessAlert({ isOpen, onClose, caseType }) {
   console.log(caseType);
+  let anchorOrigin = { vertical: "top", horizontal: "center" };
+
+  // Set different anchor origins based on caseType
+  if (caseType === "CompletedCoupon") {
+    anchorOrigin = { vertical: "bottom", horizontal: "left" };
+  }
 
   return (
     <Snackbar
       open={isOpen}
       autoHideDuration={3000}
       onClose={onClose}
-      anchorOrigin={{ vertical: "top", horizontal: "center" }} // Set the position to top-center
+      // anchorOrigin={{ vertical: "top", horizontal: "center" }} // Set the position to top-center
     >
       {caseType === "NewTask" ? (
         <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>

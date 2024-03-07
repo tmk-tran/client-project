@@ -23,6 +23,7 @@ export default function CouponReviewButtons({
   console.log(completedCoupon);
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
+  const [isCompletedCoupon, setIsCompletedCoupon] = useState(false);
 
   const handleDenyClick = () => {
     // Call the parent component's function when the Deny button is clicked
@@ -56,13 +57,22 @@ export default function CouponReviewButtons({
   const handleUpdateClick = () => {
     // Perform any necessary actions in the child component
     handleTaskUpdate();
+
+    completedCoupon ? setIsCompletedCoupon(true) : setIsCompletedCoupon(false);
+
     // Update the state in the parent component
     updateTaskState(false);
   };
 
   return (
     <div style={flexRowSpace}>
-      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} caseType="CompletedCoupon" />
+      {isCompletedCoupon && (
+        <SuccessAlert
+          isOpen={isAlertOpen}
+          onClose={handleAlertClose}
+          caseType="CompletedCoupon"
+        />
+      )}
 
       {isTaskUpdate ? (
         <>
@@ -82,7 +92,7 @@ export default function CouponReviewButtons({
             }}
             variant="contained"
           >
-            Update
+            {completedCoupon ? "Complete" : "Update"}
           </Button>
         </>
       ) : (

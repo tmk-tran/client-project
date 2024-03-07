@@ -37,6 +37,12 @@ function* couponFiles(action) {
         filename: coupon.filename,
         frontViewBlob: null,
         backViewBlob: null,
+        offer: coupon.offer,
+        value: coupon.value,
+        exclusions: coupon.exclusions,
+        details: coupon.details,
+        expiration: coupon.expiration,
+        additionalInfo: coupon.additional_info,
       };
 
       if (coupon.pdf_data && coupon.pdf_data.data) {
@@ -92,6 +98,12 @@ function* pdfFile(action) {
         filename: coupon.filename,
         frontViewBlob: null,
         backViewBlob: null,
+        offer: coupon.offer,
+        value: coupon.value,
+        exclusions: coupon.exclusions,
+        details: coupon.details,
+        expiration: coupon.expiration,
+        additionalInfo: coupon.additional_info,
       };
 
       if (coupon.pdf_data && coupon.pdf_data.data) {
@@ -162,7 +174,10 @@ function* frontViewUpload(action) {
     formData.append("pdf", selectedFile);
     console.log("formData = ", formData);
 
-    const response = yield axios.post(`/api/coupon/front/${merchantId}`, formData);
+    const response = yield axios.post(
+      `/api/coupon/front/${merchantId}`,
+      formData
+    );
     console.log("RESPONSE from uploadPdf = ", response.data);
 
     const uploadedPdfInfo = response.data;
@@ -188,7 +203,10 @@ function* backViewUpload(action) {
     formData.append("pdf", selectedFile);
     console.log("formData = ", formData);
 
-    const response = yield axios.post(`/api/coupon/back/${merchantId}`, formData);
+    const response = yield axios.post(
+      `/api/coupon/back/${merchantId}`,
+      formData
+    );
     console.log("RESPONSE from uploadPdf = ", response.data);
 
     const uploadedPdfInfo = response.data;
