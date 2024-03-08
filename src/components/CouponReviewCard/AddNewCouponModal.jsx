@@ -46,17 +46,20 @@ export default function AddNewCouponModal({
   console.log(locations);
 
   const [open, setOpen] = useState(false);
+  const [merchantId, setMerchantId] = useState(paramsObject.id);
   const [couponOffer, setCouponOffer] = useState("");
   const [couponValue, setCouponValue] = useState("");
   const [exclusions, setExclusions] = useState("");
+  const [additionalInfo, setAdditionalInfo] = useState("");
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  console.log(selectedLocations);
+  const [selectAllLocations, setSelectAllLocations] = useState(false);
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
   const [phone, setPhone] = useState("");
   const [website, setWebsite] = useState("");
-  const [additionalInfo, setAdditionalInfo] = useState("");
-  const [merchantId, setMerchantId] = useState(paramsObject.id);
   const [websiteError, setWebsiteError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [offerError, setOfferError] = useState(false);
@@ -78,21 +81,16 @@ export default function AddNewCouponModal({
 
   // NEED TO ADD COORDINATES AND REGION_ID AFTER TALKING TO JOE
   const newCouponPayload = {
-    coupon_offer: couponOffer,
-    coupon_value: couponValue,
-    exclusions: exclusions,
-    address: address,
-    city: city,
-    state: state,
-    zip: zip,
-    phone: phone,
-    website: website,
-    additional_info: additionalInfo,
     merchant_id: merchantId,
+    offer: couponOffer,
+    value: couponValue,
+    exclusions: exclusions,
+    additional_info: additionalInfo,
   };
 
-  const addCoupon = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+  const addCoupon = () => {
+    // e.preventDefault(); // Prevent default form submission behavior
+    // selectAllLocations ? 
 
     // Check if required fields are filled
     if (!couponOffer || !phone || !website) {
@@ -104,10 +102,13 @@ export default function AddNewCouponModal({
       // You can set error states for other required fields in a similar manner
       return; // Prevent further execution of form submission
     }
-    // dispatch({
-    //   type: "ADD_COUPON",
-    //   payload: newCouponPayload,
-    // });
+
+    const dispatchAction = {
+      type: "ADD_COUPON",
+      payload: newCouponPayload,
+    };
+    console.log(dispatchAction);
+    // dispatch(dispatchAction);
 
     // Validate phone number before saving
     if (!/^[0-9]*$/.test(phone) && phone.length == 10) {
@@ -133,6 +134,8 @@ export default function AddNewCouponModal({
     setCouponOffer("");
     setCouponValue("");
     setExclusions("");
+    setAdditionalInfo("");
+    setSelectAllLocations(false);
     setAddress("");
     setCity("");
     setState("");
@@ -141,6 +144,17 @@ export default function AddNewCouponModal({
     setWebsite("");
 
     handleClose();
+  };
+
+  const handleLocationChange = (locationId) => {
+    console.log(locationId);
+    setSelectedLocations(locationId);
+  };
+  console.log(selectedLocations);
+
+  const handleSelect = (boolean) => {
+    console.log(boolean);
+    setSelectAllLocations(boolean);
   };
 
   return (
@@ -162,11 +176,9 @@ export default function AddNewCouponModal({
           <Typography variant="h6" sx={modalHeaderStyle}>
             Add Coupon
           </Typography>
-          <Box sx={flexEnd}>
-            <Typography variant="caption" sx={{}}>
-              *required
-            </Typography>
-          </Box>
+          <Typography variant="caption" sx={{}}>
+            *required
+          </Typography>
           <Divider sx={lineDivider} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~ LOCATION SELECT ~~~~~~~ */}
@@ -174,6 +186,8 @@ export default function AddNewCouponModal({
             label="Participating Location"
             locations={locations}
             fullWidth
+            selectAllLocations={selectAllLocations}
+            onLocationChange={handleLocationChange}
           />
           <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -185,7 +199,7 @@ export default function AddNewCouponModal({
                   marginBottom: "16px", // Match the margin bottom
                 }}
               >
-                <AllLocationsButton />
+                <AllLocationsButton onSelect={handleSelect} />
               </Box>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ OFFER ~~~~~~~~~~~~ */}

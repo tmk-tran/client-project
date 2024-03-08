@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Radio, FormControlLabel, FormGroup } from "@mui/material";
 
-function ValidAtAllLocationsRadio() {
+function ValidAtAllLocationsRadio({ onSelect }) {
   const [selectedValue, setSelectedValue] = useState("");
+  console.log(selectedValue);
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
+    onSelect(true);
   };
 
   return (
