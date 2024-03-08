@@ -314,7 +314,6 @@ export default function Details({
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       {/* ~~~~~~~~~~ ADD COUPON BUTTON ~~~~~~~~~~ */}
                       <AddNewCouponModal
-                        onCouponAdd={handleTaskUpdate}
                         handleCaseTypeChange={handleCaseTypeChange}
                         locations={locations}
                       />

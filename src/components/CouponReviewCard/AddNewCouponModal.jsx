@@ -22,6 +22,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { validateWebsiteFormat, validatePhoneNumber } from "../Utils/helpers";
 import { border } from "../Utils/colors";
 import { flexEnd } from "../Utils/pageStyles";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 const style = {
   position: "absolute",
@@ -36,7 +37,6 @@ const style = {
 };
 
 export default function AddNewCouponModal({
-  onCouponAdd,
   handleCaseTypeChange,
   locations,
 }) {
@@ -80,6 +80,7 @@ export default function AddNewCouponModal({
   const handleClose = () => setOpen(false);
 
   // NEED TO ADD COORDINATES AND REGION_ID AFTER TALKING TO JOE
+  // also, add condition for null if additional info is not filled out, etc
   const newCouponPayload = {
     merchant_id: Number(merchantId),
     offer: couponOffer,
@@ -128,7 +129,8 @@ export default function AddNewCouponModal({
     }
 
     handleCaseTypeChange("New Coupon");
-    onCouponAdd();
+    showSaveSweetAlert();
+    resetForm();
   };
 
   const resetForm = () => {
