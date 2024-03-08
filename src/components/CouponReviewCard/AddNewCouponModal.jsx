@@ -14,12 +14,14 @@ import AddBox from "../AddBoxIcon/AddBoxIcon";
 import CloseButton from "../Buttons/CloseButton";
 import SelectMenu from "./SelectMenu";
 import AddFileButton from "../AddFileButton/AddFileButton";
+import ModalButtons from "../Modals/ModalButtons";
+import AllLocationsButton from "./AllLocationsButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { validateWebsiteFormat, validatePhoneNumber } from "../Utils/helpers";
-import ModalButtons from "../Modals/ModalButtons";
 import { border } from "../Utils/colors";
+import { flexEnd } from "../Utils/pageStyles";
 
 const style = {
   position: "absolute",
@@ -160,6 +162,11 @@ export default function AddNewCouponModal({
           <Typography variant="h6" sx={modalHeaderStyle}>
             Add Coupon
           </Typography>
+          <Box sx={flexEnd}>
+            <Typography variant="caption" sx={{}}>
+              *required
+            </Typography>
+          </Box>
           <Divider sx={lineDivider} />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~ LOCATION SELECT ~~~~~~~ */}
@@ -170,13 +177,20 @@ export default function AddNewCouponModal({
           />
           <Grid container spacing={2}>
             <Grid item xs={6}>
-              <Typography sx={{ mb: 3, mt: 3 }}>
-                Choice of 'Accepted at all locations'
-              </Typography>
+              <Box
+                sx={{
+                  border: "1px solid rgba(0, 0, 0, 0.23)", // Match the border style
+                  borderRadius: "4px", // Match the border radius
+                  padding: "6px 10px", // Match the padding
+                  marginBottom: "16px", // Match the margin bottom
+                }}
+              >
+                <AllLocationsButton />
+              </Box>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ OFFER ~~~~~~~~~~~~ */}
               <TextField
-                label="Coupon Offer*"
+                label="Coupon Offer"
                 value={couponOffer}
                 onChange={(e) => {
                   setCouponOffer(e.target.value);
@@ -188,6 +202,7 @@ export default function AddNewCouponModal({
                 }
                 fullWidth
                 sx={{ mb: 2 }}
+                required
               />
               {/* </Grid> */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -217,7 +232,7 @@ export default function AddNewCouponModal({
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~ PHONE ~~~~~~~~~~~~ */}
               <TextField
-                label="Phone Number*"
+                label="Phone Number"
                 type="number"
                 inputProps={{
                   minLength: 10,
@@ -235,11 +250,12 @@ export default function AddNewCouponModal({
                 helperText={phoneError ? "Invalid phone number" : ""}
                 fullWidth
                 sx={{ mb: 2 }}
+                required
               />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~ WEBSITE ~~~~~~~~~~~~ */}
               <TextField
-                label="Website*"
+                label="Website"
                 value={website}
                 onChange={(e) => {
                   setWebsite(e.target.value);
@@ -256,6 +272,7 @@ export default function AddNewCouponModal({
                 }
                 fullWidth
                 sx={{ mb: 2 }}
+                required
               />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~ ADDITIONAL INFO ~~~~~~~~ */}
@@ -272,7 +289,7 @@ export default function AddNewCouponModal({
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~ LOGO UPLOAD~~~~~~~~~ */}
           </Grid>
-          <AddFileButton />
+          {/* <AddFileButton /> */}
           <ModalButtons
             label="Add"
             onSave={addCoupon}

@@ -3,7 +3,6 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import { buttonIconSpacing } from "../Utils/helpers";
 
 export default function AddBox({ label, buttonStyle, onClick }) {
- 
   return (
     <Button variant="contained" sx={{ ...buttonStyle }} onClick={onClick}>
       <AddBoxIcon sx={buttonIconSpacing} />

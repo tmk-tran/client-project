@@ -41,7 +41,7 @@ export default function AddFileButton({ filename, onFileSelect }) {
             ? "Please upload a high resolution logo"
             : filename
         }
-        sx={{ fontSize: 12 }}
+        sx={{ fontSize: 12, mb: 2 }}
         disabled={isDisabled}
         InputProps={{
           startAdornment: (

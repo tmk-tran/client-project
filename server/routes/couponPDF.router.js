@@ -156,7 +156,7 @@ router.post("/front/:id", upload.single("pdf"), (req, res) => {
   // Insert the filename and merchantId into the database
   pool
     .query(
-      "INSERT INTO coupon (filename, front_view_pdf, merchant_id) VALUES ($1, $2, $3)",
+      "INSERT INTO coupon (filename_front, front_view_pdf, merchant_id) VALUES ($1, $2, $3)",
       [filename, frontViewPdf, merchantId]
     )
     .then(() => {
@@ -179,7 +179,7 @@ router.post("/back/:id", upload.single("pdf"), (req, res) => {
   // Insert the filename and merchantId into the database
   pool
     .query(
-      "INSERT INTO coupon (filename, merchant_id, back_view_pdf) VALUES ($1, $2, $3)",
+      "INSERT INTO coupon (filename_back, merchant_id, back_view_pdf) VALUES ($1, $2, $3)",
       [filename, merchantId, backViewPdf]
     )
     .then(() => {

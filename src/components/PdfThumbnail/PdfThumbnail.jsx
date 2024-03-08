@@ -12,28 +12,34 @@ const PdfThumbnail = ({ pdfUrl, style }) => {
   };
 
   return (
-    <div style={{ ...style, overflow: "hidden", position: "relative" }}>
-      <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={1} width={150} />
-      </Document>
-      {loading && (
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            background: "rgba(255, 255, 255, 0.5)",
-          }}
-        >
-          <CircularProgress />
+    <>
+      {pdfUrl ? (
+        <div style={{ ...style, overflow: "hidden", position: "relative" }}>
+          <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+            <Page pageNumber={1} width={150} />
+          </Document>
+          {loading && (
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                background: "rgba(255, 255, 255, 0.5)",
+              }}
+            >
+              <CircularProgress />
+            </div>
+          )}
         </div>
+      ) : (
+        <p>No files available</p>
       )}
-    </div>
+    </>
   );
 };
 

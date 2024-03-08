@@ -5,13 +5,13 @@ import { Button, Card, CardContent, Typography } from "@mui/material";
 import { border } from "../Utils/colors";
 // ~~~~~~~~~~ Component ~~~~~~~~~~ //
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
-// import SuccessAlert from "../SuccessAlert/SuccessAlert";
+import FilePreview from "../CouponReviewDetails/FilePreview";
+import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
-import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { mComments } from "../../hooks/reduxStore";
-import { useAlert } from "../SuccessAlert/useAlert";
+import { flexCenter } from "../Utils/pageStyles";
 import { pdfFile } from "../../hooks/reduxStore";
 
 export default function CouponReviewCard({ merchant, onTaskUpdate }) {
@@ -30,8 +30,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
 
   const dispatch = dispatchHook();
   const history = historyHook();
-
-  // const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
   useEffect(() => {
     dispatch({
@@ -72,7 +70,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   };
 
   const handleChangeRequest = (newValue) => {
-    setChangesRequested(newValue);
+    // setChangesRequested(newValue);
     console.log("Changes requested: ", changesRequested);
   };
 
@@ -80,117 +78,98 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
     // setCompletedCoupon(true);
     console.log("Completed coupon: ", completedCoupon);
   };
-  
+
   return (
     <>
-    {files.map((file, i) => (
-    <Card
-    key={i}
-      elevation={3}
-      // className="details-view-card"
-      // sx={{ width: "48%" }}
-      onClick={() => {
-        history.push(`/coupon/${merchantId}`);
-      }}
-    >
-      <CardContent>
-        {/* <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} /> */}
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~~ */}
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            marginBottom: "20px",
+      {files.map((file, i) => (
+        <Card
+          key={i}
+          elevation={3}
+          // className="details-view-card"
+          onClick={() => {
+            history.push(`/coupon/${merchantId}`);
           }}
-          onClick={handleContainerClick}
         >
-          {/* Status Menu */}
-          {/* Need to add onChange prop here to resolve error */}
-          <CouponStatusDropdown
-            handleUpdateTask={handleUpdateTask}
-            onChange={handleChangeRequest}
-            complete={handleCompletedCoupon}
-          />
-
-          <Button sx={{ marginLeft: "10px" }} onClick={handleUpdateClick}>
-            Update
-          </Button>
-        </div>
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
-        <hr />
-
-        <div style={{ display: "flex", flexDirection: "row", gap: 5 }}>
-          {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~ FRONT OF COUPON ~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <div style={border}>
-            {/* <div>
+          <CardContent>
+            {/* <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} /> */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             <div
               style={{
-                height: "15vh",
-                backgroundColor: "#D9D9D9",
+                display: "flex",
+                flexDirection: "row",
+                marginBottom: "20px",
               }}
-            > */}
-            {/* <Typography sx={{ textAlign: "center", lineHeight: "15vh" }}>
-                Front of Coupon
-              </Typography> */}
-            {/* </div> */}
-            Front of Coupon
-          </div>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~ BACK OF COUPON ~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <div style={border}>
-            {/* <div>
-            <div
-              style={{
-                height: "15vh",
-                backgroundColor: "#D9D9D9",
-              }}
-            > */}
-            {/* <Typography sx={{ textAlign: "center", lineHeight: "15vh" }}>
-                Back of Coupon
-              </Typography> */}
-            {/* </div>*/}
-            Back of Coupon
-          </div>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~ COUPON DETAILS ~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <div style={border}>
-            {/* <div>
-            <div
-              style={{
-                height: "10vh",
-                backgroundColor: "rgba(96, 96, 96, 0.1)",
-              }}
+              onClick={handleContainerClick}
             >
-              <Typography
-                variant="body2"
-                sx={{ textAlign: "center", lineHeight: "10vh" }}
-              >
-                Details of Coupon
-              </Typography>
-            </div> */}
-            Details of Coupon
-            {file.offer}
-          </div>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <div style={{ padding: "5%" }}>
-            <CommentDisplay comment={mostRecentComment} />
-          </div>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        </div>
-      </CardContent>
-    </Card>
-        ))}
-        </>
+              {/* Status Menu */}
+              {/* Need to add onChange prop here to resolve error */}
+              <CouponStatusDropdown
+                handleUpdateTask={handleUpdateTask}
+                onChange={handleChangeRequest}
+                complete={handleCompletedCoupon}
+              />
+
+              <Button sx={{ marginLeft: "10px" }} onClick={handleUpdateClick}>
+                Update
+              </Button>
+            </div>
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+
+            <hr />
+
+            <div style={{ display: "flex", flexDirection: "row", gap: 5 }}>
+              {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~ FRONT OF COUPON ~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              <div style={border}>
+                <Typography variant="body2" sx={{ textAlign: "center" }}>
+                  Front
+                </Typography>
+                <FilePreview
+                  directFile={file}
+                  showFrontViewFiles={true}
+                  showBackViewFiles={false}
+                  caseType="preview"
+                />
+              </div>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~ BACK OF COUPON ~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              <div style={border}>
+                <Typography variant="body2" sx={{ textAlign: "center" }}>
+                  Back
+                </Typography>
+                <FilePreview
+                  directFile={file}
+                  showFrontViewFiles={false}
+                  showBackViewFiles={true}
+                  caseType="preview"
+                />
+              </div>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~ COUPON DETAILS ~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              <div style={{ ...flexCenter, ...border }}>
+                <Typography variant="body2" sx={{ textAlign: "center" }}>
+                  {/* Details of Coupon */}
+                  {file.offer}
+                </Typography>
+              </div>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+              <div style={{ padding: "5%" }}>
+                <CommentDisplay comment={mostRecentComment} />
+              </div>
+              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </>
   );
 }
