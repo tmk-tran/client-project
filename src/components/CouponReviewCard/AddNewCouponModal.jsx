@@ -81,11 +81,12 @@ export default function AddNewCouponModal({
 
   // NEED TO ADD COORDINATES AND REGION_ID AFTER TALKING TO JOE
   const newCouponPayload = {
-    merchant_id: merchantId,
+    merchant_id: Number(merchantId),
     offer: couponOffer,
-    value: couponValue,
+    value: Number(couponValue),
     exclusions: exclusions,
     additional_info: additionalInfo,
+    // selectedLocations: selectedLocations,
   };
 
   const addCoupon = () => {
@@ -108,7 +109,7 @@ export default function AddNewCouponModal({
       payload: newCouponPayload,
     };
     console.log(dispatchAction);
-    // dispatch(dispatchAction);
+    dispatch(dispatchAction);
 
     // Validate phone number before saving
     if (!/^[0-9]*$/.test(phone) && phone.length == 10) {

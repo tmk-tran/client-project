@@ -103,8 +103,7 @@ router.get("/:id", async (req, res) => {
   // const queryText =
   //   "SELECT pdf_data, filename, front_view_pdf, back_view_pdf FROM coupon WHERE merchant_id = $1";
 
-  const queryText =
-  "SELECT * FROM coupon WHERE merchant_id = $1";
+  const queryText = "SELECT * FROM coupon WHERE merchant_id = $1";
 
   pool
     .query(queryText, [merchantId])
@@ -118,32 +117,34 @@ router.get("/:id", async (req, res) => {
     });
 });
 
-router.post("/", upload.single("pdf"), (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   console.log(req.body);
+  const coupon = req.body;
+  const merchantId = coupon.merchant_id;
+  const offer = coupon.offer;
+  const value = coupon.value;
+  const exclusions = coupon.exclusions;
+  const additionalInfo = coupon.additional_info;
 
-  const pdfData = req.file.buffer;
-  console.log("pdfData = ", pdfData);
-  const filename = req.file.originalname;
-  console.log("filename = ", filename);
-  const frontViewPdf = req.body.front_view_pdf;
-  console.log("frontViewPdf = ", frontViewPdf);
-  const backViewPdf = req.body.back_view_pdf;
-  console.log("backViewPdf = ", backViewPdf);
-  // After successful upload
-  const fileUrl = `/api/coupon/pdf/${filename}`;
+  const queryText = `
+          INSERT INTO coupon (
+            merchant_id, 
+            offer,
+            value, 
+            exclusions, 
+            additional_info) 
+          VALUES ($1, $2, $3, $4, $5)
+        `;
 
-  // Handle PDF data as needed (e.g., store in the database)
   pool
-    .query("INSERT INTO coupon (pdf_data, filename) VALUES ($1, $2)", [
-      pdfData,
-      filename,
-    ])
-    .then(() => {
-      res.status(200).send({ message: "PDF uploaded successfully!", fileUrl });
+    .query(queryText, [merchantId, offer, value, exclusions, additionalInfo])
+    .then((response) => {
+      console.log("response from couponPDFs.router: ", response.rows);
+      res.sendStatus(200);
     })
     .catch((error) => {
       console.error(error);
-      res.status(500).send("Error uploading PDF");
+      res.status(500).send("Error uploading coupon");
     });
 });
 
