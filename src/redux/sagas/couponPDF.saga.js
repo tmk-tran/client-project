@@ -71,11 +71,12 @@ function* couponFiles(action) {
 
 function* pdfFile(action) {
   console.log(action);
-  const couponId = action.payload;
-  console.log(couponId);
+  const merchantId = action.payload;
+  console.log(merchantId);
 
   try {
-    const response = yield axios.get(`/api/coupon/${couponId}`);
+    // const response = yield axios.get(`/api/coupon/${merchantId}`);
+    const response = yield axios.get(merchantId.couponId ? `/api/coupon/details/${merchantId.couponId}` : `/api/coupon/${merchantId}`);
     console.log("FETCH request from coupon.saga, RESPONSE = ", response.data);
 
     // Dispatch the successful results to the Redux store
@@ -84,6 +85,7 @@ function* pdfFile(action) {
     // Map the data received from the server
     const formattedFiles = files.map((coupon) => {
       const formattedFile = {
+        id: coupon.id,
         pdfBlob: null,
         filename: coupon.filename,
         frontViewBlob: null,
@@ -125,6 +127,19 @@ function* pdfFile(action) {
     yield put({ type: "SET_COUPON_FILES", payload: formattedFiles });
   } catch (error) {
     console.log("Error in GET for couponPDF by merchantId", error);
+  }
+}
+
+function* filesForCoupon(action) {
+  const couponId = action.payload;
+  console.log(couponId);
+
+  try {
+    const items = yield axios.get(`/api/coupon/${couponId}`);
+    console.log("FETCH request from merchants.saga, ITEMS = ", items);
+    yield put({ type: "SET_COUPON_DETAILS", payload: items.data });
+  } catch (error) {
+    console.log("Error in coupon FETCH for coupon ", error);
   }
 }
 
@@ -227,6 +242,7 @@ function* backViewUpload(action) {
 export default function* couponPDFSaga() {
   yield takeEvery("FETCH_COUPON_FILES", couponFiles); // this call will come from Coupon component
   yield takeEvery("FETCH_PDF_FILE", pdfFile); // place this call in the component that is viewed after clicking on the file (with its id)
+  yield takeEvery("FETCH_FILES_FOR_COUPON", filesForCoupon);
   yield takeEvery("UPLOAD_PDF_REQUEST", pdfUpload);
   yield takeEvery("ADD_COUPON", addCoupon);
   yield takeEvery("UPLOAD_FRONT_VIEW_PDF", frontViewUpload);

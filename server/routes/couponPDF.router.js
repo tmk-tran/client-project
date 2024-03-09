@@ -88,7 +88,7 @@ router.get("/", (req, res) => {
 //   }
 // });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", (req, res) => {
   const merchantId = req.params.id;
   const filename = req.params.filename;
   console.log("filename = ", filename);
@@ -107,6 +107,23 @@ router.get("/:id", async (req, res) => {
 
   pool
     .query(queryText, [merchantId])
+    .then((result) => {
+      console.log("FROM couponPDFs.router: ", result.rows);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("error in the GET / request for couponPDFs", err);
+      res.sendStatus(500);
+    });
+});
+
+router.get("/details/:id", (req, res) => {
+  const couponId = req.params.id;
+
+  const queryText = "SELECT * FROM coupon WHERE id = $1";
+
+  pool
+    .query(queryText, [couponId])
     .then((result) => {
       console.log("FROM couponPDFs.router: ", result.rows);
       res.send(result.rows);

@@ -5,6 +5,7 @@ import { CircularProgress } from "@mui/material";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const PdfThumbnail = ({ pdfUrl, style }) => {
+  console.log(pdfUrl);
   const [loading, setLoading] = useState(true);
 
   const onDocumentLoadSuccess = () => {

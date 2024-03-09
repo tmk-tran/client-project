@@ -1,6 +1,6 @@
 const couponReducer = (state = [], action) => {
   switch (action.type) {
-    case "SET_COUPON_FILES":
+    case "SET_COUPON_DETAILS":
       return action.payload;
     default:
       return state;

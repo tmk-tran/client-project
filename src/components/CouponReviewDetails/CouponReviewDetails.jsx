@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import { Typography, Card, CardContent, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -27,6 +27,9 @@ const bottomBoxStyle = {
 
 export default function CouponReviewDetails() {
   const dispatch = dispatchHook();
+  const location = useLocation();
+  const couponId = location.state?.couponId ?? "";
+  console.log(couponId);
   const params = useParams();
   console.log(params.id);
   const merchantId = params.id;
@@ -82,16 +85,15 @@ export default function CouponReviewDetails() {
     setUploadedFiles(true);
   };
 
-  const couponId = 6;
-  console.log(couponId);
+  // const couponId = 6;
+  // console.log(couponId);
 
   useEffect(() => {
     // Ensure that merchantId is available before dispatching the action
     if (merchantId) {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
     }
-    // dispatch({ type: "FETCH_COUPON_FILES", payload: merchantId });
-    dispatch({ type: "FETCH_PDF_FILE", payload: merchantId });
+    couponId && dispatch({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
 
     setUploadedFiles(false);
   }, [merchantId, commentAdded, uploadedFiles]); //Deleted dispatch from dependencies
@@ -225,7 +227,10 @@ export default function CouponReviewDetails() {
                           backgroundColor: "#D9D9D9",
                         }}
                       >
-                        <Typography variant="body2" sx={{ textAlign: "center" }}>
+                        <Typography
+                          variant="body2"
+                          sx={{ textAlign: "center" }}
+                        >
                           Front of Coupon
                         </Typography>
                         {/* {files.map((file, i) => (
@@ -254,9 +259,9 @@ export default function CouponReviewDetails() {
                             </div>
                           )}
                           {/* <Box style={bottomBoxStyle}> */}
-                            <UploadFileButton
-                              onFileSelect={handleFrontViewUpload}
-                            />
+                          <UploadFileButton
+                            onFileSelect={handleFrontViewUpload}
+                          />
                           {/* </Box> */}
                         </Box>
                       </div>
@@ -273,7 +278,10 @@ export default function CouponReviewDetails() {
                           backgroundColor: "#D9D9D9",
                         }}
                       >
-                        <Typography variant="body2" sx={{ textAlign: "center" }}>
+                        <Typography
+                          variant="body2"
+                          sx={{ textAlign: "center" }}
+                        >
                           Back of Coupon
                         </Typography>
                         <Box sx={{ position: "relative" }}>

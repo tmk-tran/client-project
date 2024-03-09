@@ -80,6 +80,16 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
     console.log("Completed coupon: ", completedCoupon);
   };
 
+  const handleCardClick = (couponId) => {
+    console.log(couponId);
+    history.push({
+      pathname: `/coupon/${merchantId}`,
+      state: {
+        couponId: couponId,
+      },
+    })
+  };
+
   return (
     <>
       {files.map((file, i) => (
@@ -88,7 +98,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
           elevation={3}
           // className="details-view-card"
           onClick={() => {
-            history.push(`/coupon/${merchantId}`);
+            handleCardClick(file.id);
           }}
         >
           <CardContent>

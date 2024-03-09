@@ -66,9 +66,111 @@ const FilePreview = ({
   console.log(directFile);
 
   return (
+    // <div>
+    //   {directFile ? (
+    //     <>
+    //       {showFrontViewFiles && directFile.frontViewBlob ? (
+    //         <>
+    //           <div style={{ display: "flex", justifyContent: "center" }}>
+    //             <PdfThumbnail
+    //               pdfUrl={directFile.frontViewBlob}
+    //               style={thumbnailSize}
+    //             />
+    //           </div>
+    //           {caseType !== "preview" && (
+    //             <Box sx={boxStyle}>
+    //               <Button
+    //                 onClick={() =>
+    //                   handleButtonClick(directFile, "frontView")
+    //                 }
+    //               >
+    //                 View Front
+    //               </Button>
+    //             </Box>
+    //           )}
+    //         </>
+    //       ) : (
+    //         <p>No files available</p>
+    //       )}
+    //       {showBackViewFiles && directFile.backViewBlob && (
+    //         <>
+    //           <div style={{ display: "flex", justifyContent: "center" }}>
+    //             <PdfThumbnail
+    //               pdfUrl={directFile.backViewBlob}
+    //               style={thumbnailSize}
+    //             />
+    //           </div>
+    //           {caseType !== "preview" && (
+    //             <Box sx={boxStyle}>
+    //               <Button
+    //                 onClick={() => handleButtonClick(directFile, "backView")}
+    //               >
+    //                 View Back
+    //               </Button>
+    //             </Box>
+    //           )}
+    //         </>
+    //       )}
+    //     </>
+    //   ) : (
+    //     <>
+    //       {pdfBlob.length > 0 ? (
+    //         pdfBlob.map((file, i) => (
+    //           <div key={i}>
+    //             {showFrontViewFiles && file.frontViewBlob && (
+    //               <>
+    //                 <div style={{ display: "flex", justifyContent: "center" }}>
+    //                   <PdfThumbnail
+    //                     pdfUrl={file.frontViewBlob}
+    //                     style={thumbnailSize}
+    //                   />
+    //                 </div>
+    //                 {caseType !== "preview" && (
+    //                   <Box sx={boxStyle}>
+    //                     {/* {file.filename}{" "} */}
+    //                     <Button
+    //                       onClick={() =>
+    //                         handleButtonClick(file, "frontView")
+    //                       }
+    //                     >
+    //                       View Front
+    //                     </Button>
+    //                   </Box>
+    //                 )}
+    //               </>
+    //             )}
+    //             {showBackViewFiles && file.backViewBlob && (
+    //               <>
+    //                 <div style={{ display: "flex", justifyContent: "center" }}>
+    //                   <PdfThumbnail
+    //                     pdfUrl={file.backViewBlob}
+    //                     style={thumbnailSize}
+    //                   />
+    //                 </div>
+    //                 {caseType !== "preview" && (
+    //                   <Box sx={boxStyle}>
+    //                     {/* {file.filename}{" "} */}
+    //                     <Button
+    //                       onClick={() => handleButtonClick(file, "backView")}
+    //                     >
+    //                       View Back
+    //                     </Button>
+    //                   </Box>
+    //                 )}
+    //               </>
+    //             )}
+    //           </div>
+    //         ))
+    //       ) : (
+    //         <p>No files available</p>
+    //       )}
+    //     </>
+    //   )}
+    // </div>
     <div>
-      {directFile === null && <p>No files available</p>}
-      {directFile ? (
+  {(directFile || pdfBlob.length > 0) ? (
+    <>
+      {directFile && (
         <>
           {showFrontViewFiles && directFile.frontViewBlob && (
             <>
@@ -111,61 +213,66 @@ const FilePreview = ({
             </>
           )}
         </>
-      ) : (
+      )}
+      {!directFile && pdfBlob.length > 0 && (
         <>
-          {pdfBlob.length > 0 ? (
-            pdfBlob.map((file, i) => (
-              <div key={i}>
-                {showFrontViewFiles && file.frontViewBlob && (
-                  <>
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      <PdfThumbnail
-                        pdfUrl={file.frontViewBlob}
-                        style={thumbnailSize}
-                      />
-                    </div>
-                    {caseType !== "preview" && (
-                      <Box sx={boxStyle}>
-                        {/* {file.filename}{" "} */}
-                        <Button
-                          onClick={() =>
-                            handleButtonClick(file, "frontView")
-                          }
-                        >
-                          View Front
-                        </Button>
-                      </Box>
-                    )}
-                  </>
-                )}
-                {showBackViewFiles && file.backViewBlob && (
-                  <>
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      <PdfThumbnail
-                        pdfUrl={file.backViewBlob}
-                        style={thumbnailSize}
-                      />
-                    </div>
-                    {caseType !== "preview" && (
-                      <Box sx={boxStyle}>
-                        {/* {file.filename}{" "} */}
-                        <Button
-                          onClick={() => handleButtonClick(file, "backView")}
-                        >
-                          View Back
-                        </Button>
-                      </Box>
-                    )}
-                  </>
-                )}
-              </div>
-            ))
-          ) : (
-            <p>No files available</p>
-          )}
+          {pdfBlob.map((file, i) => (
+            <div key={i}>
+              {showFrontViewFiles && file.frontViewBlob && (
+                <>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <PdfThumbnail
+                      pdfUrl={file.frontViewBlob}
+                      style={thumbnailSize}
+                    />
+                  </div>
+                  {caseType !== "preview" && (
+                    <Box sx={boxStyle}>
+                      {/* {file.filename}{" "} */}
+                      <Button
+                        onClick={() =>
+                          handleButtonClick(file, "frontView")
+                        }
+                      >
+                        View Front
+                      </Button>
+                    </Box>
+                  )}
+                </>
+              )}
+              {showBackViewFiles && file.backViewBlob && (
+                <>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <PdfThumbnail
+                      pdfUrl={file.backViewBlob}
+                      style={thumbnailSize}
+                    />
+                  </div>
+                  {caseType !== "preview" && (
+                    <Box sx={boxStyle}>
+                      {/* {file.filename}{" "} */}
+                      <Button
+                        onClick={() => handleButtonClick(file, "backView")}
+                      >
+                        View Back
+                      </Button>
+                    </Box>
+                  )}
+                </>
+              )}
+            </div>
+          ))}
         </>
       )}
-    </div>
+      {(!directFile || !directFile.frontViewBlob || !directFile.backViewBlob) && (
+        <p>No files available</p>
+      )}
+    </>
+  ) : (
+    <p>No files available</p>
+  )}
+</div>
+
   );
 };
 
