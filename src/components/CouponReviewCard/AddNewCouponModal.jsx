@@ -36,10 +36,7 @@ const style = {
   p: 4,
 };
 
-export default function AddNewCouponModal({
-  handleCaseTypeChange,
-  locations,
-}) {
+export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   const dispatch = dispatchHook();
   const paramsObject = useParams();
   console.log(paramsObject);
@@ -85,14 +82,14 @@ export default function AddNewCouponModal({
     merchant_id: Number(merchantId),
     offer: couponOffer,
     value: Number(couponValue),
-    exclusions: exclusions,
-    additional_info: additionalInfo,
+    exclusions: exclusions.trim() !== "" ? exclusions : null,
+    additional_info: additionalInfo.trim() !== "" ? additionalInfo : null,
     // selectedLocations: selectedLocations,
   };
 
   const addCoupon = () => {
     // e.preventDefault(); // Prevent default form submission behavior
-    // selectAllLocations ? 
+    // selectAllLocations ?
 
     // Check if required fields are filled
     if (!couponOffer || !phone || !website) {
