@@ -5,6 +5,11 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { border } from "../Utils/colors";
 import PdfThumbnail from "../PdfThumbnail/PdfThumbnail";
 
+export const thumbnailSize = {
+  height: "150px",
+  width: "150px",
+};
+
 const boxStyle = {
   display: "flex",
   justifyContent: "center",
@@ -35,6 +40,8 @@ const FilePreview = ({
   console.log(backViewUrl);
 
   const handleButtonClick = (file, type) => {
+    console.log(file);
+    console.log(type);
     let blob = null;
 
     switch (type) {
@@ -56,9 +63,11 @@ const FilePreview = ({
       window.open(url, "_blank");
     }
   };
+  console.log(directFile);
 
   return (
     <div>
+      {directFile === null && <p>No files available</p>}
       {directFile ? (
         <>
           {showFrontViewFiles && directFile.frontViewBlob && (
@@ -66,14 +75,14 @@ const FilePreview = ({
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <PdfThumbnail
                   pdfUrl={directFile.frontViewBlob}
-                  style={{ width: "150px", height: "150px" }}
+                  style={thumbnailSize}
                 />
               </div>
               {caseType !== "preview" && (
                 <Box sx={boxStyle}>
                   <Button
                     onClick={() =>
-                      handleButtonClick(directFile, 0, "frontView")
+                      handleButtonClick(directFile, "frontView")
                     }
                   >
                     View Front
@@ -87,13 +96,13 @@ const FilePreview = ({
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <PdfThumbnail
                   pdfUrl={directFile.backViewBlob}
-                  style={{ width: "150px", height: "150px" }}
+                  style={thumbnailSize}
                 />
               </div>
               {caseType !== "preview" && (
                 <Box sx={boxStyle}>
                   <Button
-                    onClick={() => handleButtonClick(directFile, 0, "backView")}
+                    onClick={() => handleButtonClick(directFile, "backView")}
                   >
                     View Back
                   </Button>
@@ -112,7 +121,7 @@ const FilePreview = ({
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <PdfThumbnail
                         pdfUrl={file.frontViewBlob}
-                        style={{ width: "150px", height: "150px" }}
+                        style={thumbnailSize}
                       />
                     </div>
                     {caseType !== "preview" && (
@@ -120,7 +129,7 @@ const FilePreview = ({
                         {/* {file.filename}{" "} */}
                         <Button
                           onClick={() =>
-                            handleButtonClick(file, i, "frontView")
+                            handleButtonClick(file, "frontView")
                           }
                         >
                           View Front
@@ -134,14 +143,14 @@ const FilePreview = ({
                     <div style={{ display: "flex", justifyContent: "center" }}>
                       <PdfThumbnail
                         pdfUrl={file.backViewBlob}
-                        style={{ width: "150px", height: "150px" }}
+                        style={thumbnailSize}
                       />
                     </div>
                     {caseType !== "preview" && (
                       <Box sx={boxStyle}>
                         {/* {file.filename}{" "} */}
                         <Button
-                          onClick={() => handleButtonClick(file, i, "backView")}
+                          onClick={() => handleButtonClick(file, "backView")}
                         >
                           View Back
                         </Button>
@@ -156,7 +165,6 @@ const FilePreview = ({
           )}
         </>
       )}
-      {!directFile && pdfBlob.length === 0 && <p>No files available</p>}
     </div>
   );
 };

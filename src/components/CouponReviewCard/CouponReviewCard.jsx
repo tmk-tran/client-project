@@ -13,6 +13,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { mComments } from "../../hooks/reduxStore";
 import { flexCenter } from "../Utils/pageStyles";
 import { pdfFile } from "../../hooks/reduxStore";
+import { thumbnailSize } from "../CouponReviewDetails/FilePreview";
 
 export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   console.log(merchant);
@@ -153,7 +154,8 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~ COUPON DETAILS ~~~~~~~ */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              <div style={{ ...flexCenter, ...border }}>
+              <div style={{ ...thumbnailSize, ...border }}>
+                <Typography variant="body2">Offer:</Typography>
                 <Typography variant="body2" sx={{ textAlign: "center" }}>
                   {/* Details of Coupon */}
                   {file.offer}
