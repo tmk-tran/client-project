@@ -76,7 +76,11 @@ function* pdfFile(action) {
 
   try {
     // const response = yield axios.get(`/api/coupon/${merchantId}`);
-    const response = yield axios.get(merchantId.couponId ? `/api/coupon/details/${merchantId.couponId}` : `/api/coupon/${merchantId}`);
+    const response = yield axios.get(
+      merchantId.couponId
+        ? `/api/coupon/details/${merchantId.couponId}`
+        : `/api/coupon/${merchantId}`
+    );
     console.log("FETCH request from coupon.saga, RESPONSE = ", response.data);
 
     // Dispatch the successful results to the Redux store
@@ -130,19 +134,6 @@ function* pdfFile(action) {
   }
 }
 
-function* filesForCoupon(action) {
-  const couponId = action.payload;
-  console.log(couponId);
-
-  try {
-    const items = yield axios.get(`/api/coupon/${couponId}`);
-    console.log("FETCH request from merchants.saga, ITEMS = ", items);
-    yield put({ type: "SET_COUPON_DETAILS", payload: items.data });
-  } catch (error) {
-    console.log("Error in coupon FETCH for coupon ", error);
-  }
-}
-
 function* pdfUpload(action) {
   const { selectedFile } = action.payload;
   console.log(selectedFile);
@@ -178,7 +169,6 @@ function* addCoupon(action) {
     console.log("error in addCoupon Saga", error);
     yield put({ type: "SET_ERROR", payload: error });
   }
-
 }
 
 function* frontViewUpload(action) {
@@ -187,18 +177,15 @@ function* frontViewUpload(action) {
   console.log(selectedFile);
   const selectedFileName = action.payload.frontViewFileName;
   console.log(selectedFileName);
-  const merchantId = action.payload.merchantId;
-  console.log(merchantId);
+  const couponId = action.payload.id;
+  console.log(couponId);
 
   try {
     const formData = new FormData();
     formData.append("pdf", selectedFile);
     console.log("formData = ", formData);
 
-    const response = yield axios.post(
-      `/api/coupon/front/${merchantId}`,
-      formData
-    );
+    const response = yield axios.put(`/api/coupon/front/${couponId}`, formData);
     console.log("RESPONSE from uploadPdf = ", response.data);
 
     const uploadedPdfInfo = response.data;
@@ -216,18 +203,15 @@ function* backViewUpload(action) {
   console.log(selectedFile);
   const selectedFileName = action.payload.backViewFileName;
   console.log(selectedFileName);
-  const merchantId = action.payload.merchantId;
-  console.log(merchantId);
+  const couponId = action.payload.id;
+  console.log(couponId);
 
   try {
     const formData = new FormData();
     formData.append("pdf", selectedFile);
     console.log("formData = ", formData);
 
-    const response = yield axios.post(
-      `/api/coupon/back/${merchantId}`,
-      formData
-    );
+    const response = yield axios.put(`/api/coupon/back/${couponId}`, formData);
     console.log("RESPONSE from uploadPdf = ", response.data);
 
     const uploadedPdfInfo = response.data;
@@ -242,7 +226,6 @@ function* backViewUpload(action) {
 export default function* couponPDFSaga() {
   yield takeEvery("FETCH_COUPON_FILES", couponFiles); // this call will come from Coupon component
   yield takeEvery("FETCH_PDF_FILE", pdfFile); // place this call in the component that is viewed after clicking on the file (with its id)
-  yield takeEvery("FETCH_FILES_FOR_COUPON", filesForCoupon);
   yield takeEvery("UPLOAD_PDF_REQUEST", pdfUpload);
   yield takeEvery("ADD_COUPON", addCoupon);
   yield takeEvery("UPLOAD_FRONT_VIEW_PDF", frontViewUpload);

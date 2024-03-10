@@ -60,10 +60,6 @@ export const pdfFile = () => {
   return useSelector((store) => store.pdf);
 };
 
-export const filesForCoupon = () => {
-  return useSelector((store) => store.coupon);
-};
-
 export const User = () => {
   return useSelector((store) => store.user);
 };

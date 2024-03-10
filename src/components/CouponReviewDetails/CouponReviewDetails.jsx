@@ -93,7 +93,8 @@ export default function CouponReviewDetails() {
     if (merchantId) {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
     }
-    couponId && dispatch({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
+    couponId &&
+      dispatch({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
 
     setUploadedFiles(false);
   }, [merchantId, commentAdded, uploadedFiles]); //Deleted dispatch from dependencies
@@ -123,7 +124,7 @@ export default function CouponReviewDetails() {
           payload: {
             frontViewFile: frontViewFile,
             frontViewFileName: frontViewFilename,
-            merchantId: merchantId,
+            id: couponId,
           },
         };
         console.log(frontViewAction);
@@ -160,7 +161,7 @@ export default function CouponReviewDetails() {
           payload: {
             backViewFile: backViewFile,
             backViewFileName: backViewFilename,
-            merchantId: merchantId,
+            id: couponId,
           },
         };
         console.log(backViewAction);
