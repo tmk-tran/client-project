@@ -51,7 +51,9 @@ export default function CouponReviewDetails() {
   const [frontViewFile, setFrontViewFile] = useState(null);
   const [frontViewFilename, setFrontViewFilename] = useState("");
   const [backViewFile, setBackViewFile] = useState(null);
+  console.log(backViewFile);
   const [backViewFilename, setBackViewFilename] = useState("");
+  const [isUploaded, setIsUploaded] = useState(false);
 
   const handleDenyButtonClick = () => {
     // Open the modal when Deny button is clicked
@@ -166,7 +168,7 @@ export default function CouponReviewDetails() {
         };
         console.log(backViewAction);
         dispatch(backViewAction);
-        setBackViewFile(null);
+        setIsUploaded(true); // Set isUploaded to true after successful upload
         // onUploadFile();
       } else {
         // Alert the user if the selected file is not a PDF
@@ -292,7 +294,7 @@ export default function CouponReviewDetails() {
                             showBackViewFiles={true}
                             showFrontViewFiles={false}
                           />
-                          {backViewFile && (
+                          {backViewFile && !isUploaded && (
                             <div>
                               <p>Selected File: {backViewFile.name}</p>
                               <button onClick={handleBackUpload}>Upload</button>
