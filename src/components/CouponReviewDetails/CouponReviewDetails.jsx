@@ -176,6 +176,7 @@ export default function CouponReviewDetails() {
       // Alert the user if no file is selected
       alert("No file selected");
     }
+    handleUploadFile();
   };
 
   return (
