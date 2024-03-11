@@ -19,7 +19,7 @@
 // const groupAdminRouter = require("./routes/groupAdmin.router");
 // const orgNotesRouter = require("./routes/orgNotes.router");
 // const allUsersRouter = require("./routes/allUsers.router");
-// const couponRouter = require("./routes/couponPDF.router");
+// const couponRouter = require("./routes/coupon.router");
 // const merchantsRouter = require("./routes/merchants.router");
 // const organizationTaskRouter = require("./routes/organizationTask.router");
 // const merchantNotesRouter = require("./routes/merchantNotes.router");
@@ -97,7 +97,7 @@ const couponBookRouter = require("./routes/couponbook.router");
 const groupAdminRouter = require("./routes/groupAdmin.router");
 const orgNotesRouter = require("./routes/orgNotes.router");
 const allUsersRouter = require("./routes/allUsers.router");
-const couponRouter = require("./routes/couponPDF.router");
+const couponRouter = require("./routes/coupon.router");
 const merchantsRouter = require("./routes/merchants.router");
 const organizationTaskRouter = require("./routes/organizationTask.router");
 const merchantNotesRouter = require("./routes/merchantNotes.router");
