@@ -48,6 +48,10 @@ export const mLocations = () => {
   return useSelector((store) => store.locations);
 };
 
+export const mCoupons = () => {
+  return useSelector((store) => store.merchantCoupons);
+};
+
 export const oSellers = () => {
   return useSelector((store) => store.sellers);
 };

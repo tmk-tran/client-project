@@ -22,11 +22,13 @@ function ListView({
   onChange,
   editComplete,
   isOrgAdmin,
+  numCoupons,
 }) {
   console.log(data);
   console.log(data.organization_logo_base64);
   console.log(data.merchant_logo_base64);
   console.log(isMerchantList);
+  console.log(numCoupons);
   const user = User() || {};
   console.log(user);
   const history = useHistory();
@@ -196,12 +198,12 @@ function ListView({
                       <Typography variant="body2">
                         {!user.org_admin
                           ? `PSG Earnings: $${(
-                            data.total_books_sold * 25 -
-                            (data.total_org_earnings !== undefined
-                              ? parseFloat(data.total_org_earnings)
-                              : 0)
-                          ).toLocaleString()}`
-                        : null}
+                              data.total_books_sold * 25 -
+                              (data.total_org_earnings !== undefined
+                                ? parseFloat(data.total_org_earnings)
+                                : 0)
+                            ).toLocaleString()}`
+                          : null}
                       </Typography>
                     </div>
                   </div>
@@ -212,23 +214,23 @@ function ListView({
                       flexDirection: "column",
                     }}
                   >
-                    <div style={border}>
-                      <Typography>Coupon Count (Active): # here</Typography>
-                    </div>
+                    {/* ///////////////////////////////////////////// */}
+                    {/* /////////// MERCHANT INFO /////////////////// */}
+                    {/* ///////////////////////////////////////////// */}
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~ Display Number of Coupons (active) ~~~~~~~~~~ */}
+                    <Typography>Coupon Count (Active): {numCoupons}</Typography>
                   </div>
                 )}
               </div>
             </div>
           </div>
-          {/* ) : (
-            <div>{isMerchantList ? "Merchant List" : "Merchant List"}</div>
-          )} */}
 
           <div
             className="mainListActions"
             style={{
               marginTop:
-                data.total_active_fundraisers <= 0 ? "-115px" : "-85px",
+                data.total_active_fundraisers <= 0 ? "-115px" : "-100px",
             }}
           >
             {!isOrgAdmin && (

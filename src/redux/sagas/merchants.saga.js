@@ -23,6 +23,16 @@ function* allMerchants() {
   }
 }
 
+function* merchantCouponNumber() {
+  try {
+    const items = yield axios.get("/api/merchants/number");
+    console.log("FETCH request from merchants.saga, ITEMS = ", items);
+    yield put({ type: "SET_COUPON_NUMBER", payload: items.data });
+  } catch (error) {
+    console.log("Error in fetching coupon numbers, merchants saga: ", error);
+  }
+}
+
 function* addMerchantSaga(action) {
   try {
     console.log(action.payload);
@@ -163,6 +173,7 @@ function* deleteMerchantSaga(action) {
 export default function* merchantDetailsSaga() {
   yield takeEvery("FETCH_MERCHANT_DETAILS", merchantDetails);
   yield takeEvery("FETCH_MERCHANTS", allMerchants);
+  yield takeEvery("FETCH_COUPON_NUMBER", merchantCouponNumber);
   yield takeEvery("ADD_MERCHANT", addMerchantSaga);
   yield takeEvery("EDIT_MERCHANT_DETAILS", editMerchant);
   yield takeEvery("DELETE_MERCHANT", deleteMerchantSaga);

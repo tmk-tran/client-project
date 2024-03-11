@@ -28,11 +28,10 @@
   flex-direction: column;
   align-items: flex-end;
   padding-right: 10px;
-  margin-bottom: 0px;
 }
 
 .mainListActions Button {
-  margin-top: 8px; /* Adjust this value as needed for spacing between buttons */
+  margin-top: 8px;
 }
 
 .mainListContainer:hover {
@@ -128,5 +127,4 @@
     font-weight: bold;
     color: #000000;
   }
-
 }

@@ -20,8 +20,9 @@ import merchantDetails from "./merchantDetails.reducer";
 import merchantNotes from "./merchantNotes.reducer";
 import merchantTasks from "./merchantTask.reducer";
 import merchants from "./merchants.reducer";
-import orgTasks from "./organizationTask.reducer";
+import merchantCoupons from "./merchantsCoupon.reducer.js";
 import merchantComments from "./merchantComments.reducer";
+import orgTasks from "./organizationTask.reducer";
 import locations from "./locations.reducer";
 import sellers from "./sellers.reducer";
 import sellerPage from "./sellerPage.reducer";
@@ -49,8 +50,9 @@ const rootReducer = combineReducers({
   merchantDetails,
   merchantTasks,
   merchants,
-  orgTasks,
+  merchantCoupons,
   merchantComments,
+  orgTasks,
   locations,
   sellers,
   sellerPage,

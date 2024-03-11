@@ -20,7 +20,7 @@ import ListView from "../ListView/ListView.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import ToggleButton from "../ToggleButton/ToggleButton.jsx";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { allMerchants } from "../../hooks/reduxStore.js";
+import { allMerchants, mCoupons } from "../../hooks/reduxStore.js";
 import { border } from "../Utils/colors.js";
 import { buttonIconSpacing } from "../Utils/helpers.js";
 
@@ -55,6 +55,9 @@ function HomePage({ isOrgAdmin }) {
       : "FETCH_ORGANIZATIONS";
     dispatch({ type: fetchDataAction });
 
+    const dispatchAction = isMerchantList && "FETCH_COUPON_NUMBER";
+    dispatch({ type: dispatchAction });
+
     // If editComplete is true, trigger refresh and reset editComplete
     if (editComplete) {
       dispatch({ type: fetchDataAction });
@@ -62,16 +65,8 @@ function HomePage({ isOrgAdmin }) {
     }
   }, [isMerchantList, editComplete]);
 
-  // Function to decode bytea data into a URL
-  // const decodeBytea = (bytea) => {
-  //   const binaryString = window.atob(bytea);
-  //   const byteArray = new Uint8Array(binaryString.length);
-  //   for (let i = 0; i < binaryString.length; i++) {
-  //     byteArray[i] = binaryString.charCodeAt(i);
-  //   }
-  //   const blob = new Blob([byteArray], { type: 'image/jpeg' }); // Adjust type as needed
-  //   return URL.createObjectURL(blob);
-  // };
+  const couponNumbers = mCoupons() || [];
+  console.log(couponNumbers);
 
   // fuzzy search information
   const listToSearch = !isMerchantList ? organizationsList : merchants;
@@ -263,6 +258,7 @@ function HomePage({ isOrgAdmin }) {
                     onChange={handleEdit}
                     editComplete={editComplete}
                     setEditComplete={setEditComplete}
+                    numCoupons={couponNumbers.find(coupon => coupon.merchant_id === merchant.id)?.num_coupons || 0}
                   />
                 ))
               : currentItems.map((organization, index) => (
