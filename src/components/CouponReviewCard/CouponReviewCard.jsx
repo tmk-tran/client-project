@@ -92,9 +92,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
     console.log(couponId);
     history.push({
       pathname: `/coupon/${merchantId}/${couponId}`,
-      state: {
-        couponId: couponId,
-      },
     });
   };
 
