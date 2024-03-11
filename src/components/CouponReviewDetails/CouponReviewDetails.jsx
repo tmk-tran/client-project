@@ -354,6 +354,7 @@ export default function CouponReviewDetails() {
                         {/* ~~~~~~~~~~ Coupon Details ~~~~~~~~~~  */}
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                         <Box sx={{ mt: 2, p: 1 }}>
+                          <RenderValue label="Coupon #" value={couponId} />
                           <RenderValue label="Offer" value={file.offer} />
                           <RenderValue label="Value" value={file.value} />
                           <RenderValue
