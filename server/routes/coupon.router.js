@@ -54,7 +54,7 @@ router.get("/:id", (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log("error in the GET / request for couponPDFs", err);
+      console.log("error in the GET / request for coupons", err);
       res.sendStatus(500);
     });
 });
@@ -92,11 +92,11 @@ router.get("/details/:id", (req, res) => {
   pool
     .query(queryText, [couponId])
     .then((result) => {
-      console.log("FROM couponPDFs.router: ", result.rows);
+      console.log("FROM coupon.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log("error in the GET / request for couponPDFs", err);
+      console.log("error in the GET / request for coupons", err);
       res.sendStatus(500);
     });
 });
@@ -155,7 +155,50 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
   }
 });
 
-// POST route for uploading front view PDF
+// EDIT route for updating coupon details
+router.put("/:id", rejectUnauthenticated, async (req, res) => {
+  console.log("COUPON EDIT req.body = ", req.body);
+  const coupon = req.body;
+  const couponId = req.params.id;
+
+  const offer = coupon.offer;
+  const value = coupon.value;
+  const exclusions = coupon.exclusions;
+  const expiration = coupon.expiration;
+  const additionalInfo = coupon.additional_info;
+
+  const queryText = `
+      UPDATE 
+        coupon
+      SET 
+        offer = $1,
+        value = $2,
+        exclusions = $3,
+        expiration = $4,
+        additional_info = $5
+      WHERE id = $6;
+  `;
+
+  pool
+    .query(queryText, [
+      offer,
+      value,
+      exclusions,
+      expiration,
+      additionalInfo,
+      couponId,
+    ])
+    .then((response) => {
+      console.log("FROM coupon.router EDIT: ", response.rows);
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error("Error in EDIT coupon PUT route", error);
+      res.sendStatus(500);
+    });
+});
+
+// PUT route for uploading front view PDF
 router.put("/front/:id", upload.single("pdf"), (req, res) => {
   console.log("PUT req.body = ", req.body);
   const frontViewPdf = req.file.buffer;
@@ -184,7 +227,7 @@ router.put("/front/:id", upload.single("pdf"), (req, res) => {
     });
 });
 
-// POST route for uploading back view PDF
+// PUT route for uploading back view PDF
 router.put("/back/:id", upload.single("pdf"), (req, res) => {
   const couponId = req.params.id;
   const backViewPdf = req.file.buffer;

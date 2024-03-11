@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import { Typography, Card, CardContent, Box, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -13,14 +13,14 @@ import CouponReviewComments from "./CouponReviewComments";
 import BackButton from "../Buttons/BackButton";
 import FilePreview from "./FilePreview";
 import UploadFileButton from "./UploadFileButton";
+import CouponLocations from "../CouponLocations/CouponLocations";
+import ToggleButton from "../ToggleButton/ToggleButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
 import { pdfFile } from "../../hooks/reduxStore";
 import { centeredStyle, flexCenter } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
 import { formatDate } from "../Utils/helpers";
-import CouponLocations from "../CouponLocations/CouponLocations";
-import ToggleButton from "../ToggleButton/ToggleButton";
 
 const uploadBoxStyle = {
   width: "100%",
@@ -30,13 +30,11 @@ const uploadBoxStyle = {
 
 export default function CouponReviewDetails() {
   const dispatch = dispatchHook();
-  const location = useLocation();
-  const couponId = location.state?.couponId ?? "";
-  console.log(couponId);
   const params = useParams();
-  console.log(params.id);
-  const merchantId = params.id;
+  const merchantId = params.merchantId;
   console.log(merchantId);
+  const couponId = params.couponId;
+  console.log(couponId);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 

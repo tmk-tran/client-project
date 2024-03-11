@@ -165,7 +165,8 @@ function App() {
                 />
               </ProtectedRoute>
 
-              <ProtectedRoute exact path="/coupon/:id">
+              {/* <ProtectedRoute exact path="/coupon/:id"> */}
+              <ProtectedRoute exact path="/coupon/:merchantId/:couponId">
                 <CouponReviewDetails />
               </ProtectedRoute>
 
