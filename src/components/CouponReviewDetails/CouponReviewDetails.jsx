@@ -18,6 +18,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { pdfFile } from "../../hooks/reduxStore";
 import { centeredStyle, flexCenter } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
+import { formatDate } from "../Utils/helpers";
 
 const uploadBoxStyle = {
   width: "100%",
@@ -363,7 +364,7 @@ export default function CouponReviewDetails() {
                           />
                           <RenderValue
                             label="Expiration"
-                            value={file.expiration}
+                            value={formatDate(file.expiration)}
                           />
                         </Box>
                       </Box>
