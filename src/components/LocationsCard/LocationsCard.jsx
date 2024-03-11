@@ -86,7 +86,7 @@ export default function LocationsCard({
       />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {locations.length === 0 ? (
-        <NoDetailsCard />
+        <NoDetailsCard label="No current locations" />
       ) : (
         locations
           .filter((location) => !location.is_deleted)

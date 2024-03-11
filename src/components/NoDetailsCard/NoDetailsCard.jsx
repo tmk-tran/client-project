@@ -3,12 +3,12 @@ import Typography from "../Typography/Typography";
 import { locationsCardWidth } from "../LocationsCard/LocationsCard";
 import { disabledColor } from "../Utils/colors";
 
-export default function NoDetailsCard() {
+export default function NoDetailsCard({ label }) {
   return (
     <Card elevation={2} sx={locationsCardWidth}>
       <CardContent>
         <Typography
-          label="No current locations"
+          label={label}
           sx={{
             p: 1,
             backgroundColor: disabledColor.color,

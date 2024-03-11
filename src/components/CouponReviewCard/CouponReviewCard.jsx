@@ -7,7 +7,7 @@ import { border, borderPrimaryColor } from "../Utils/colors";
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import FilePreview from "../CouponReviewDetails/FilePreview";
 import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
-import NoCouponsCard from "./NoCouponsCard";
+import NoDetailsCard from "../NoDetailsCard/NoDetailsCard";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -200,7 +200,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
           </Card>
         ))
       ) : (
-        <NoCouponsCard />
+        <NoDetailsCard label="Coupons empty" />
       )}
     </>
   );
