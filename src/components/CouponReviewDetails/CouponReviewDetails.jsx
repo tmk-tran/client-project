@@ -102,6 +102,8 @@ export default function CouponReviewDetails() {
       dispatch({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
 
     setUploadedFiles(false);
+    setIsUploaded(false);
+    setFrontViewFile(null);
   }, [merchantId, commentAdded, uploadedFiles]); //Deleted dispatch from dependencies
 
   const files = pdfFile() || [];
@@ -308,7 +310,9 @@ export default function CouponReviewDetails() {
                           />
                           {backViewFile && !isUploaded && (
                             <div>
-                              <p>Selected File: {backViewFile.name}</p>
+                              <Typography variant="caption">
+                                Selected File: {backViewFile.name}
+                              </Typography>
                               <Button
                                 variant="contained"
                                 fullWidth
