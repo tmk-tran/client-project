@@ -140,10 +140,10 @@ export const tabWidth = {
 };
 
 // Validate phone number format
-// export const validatePhoneNumber = (phoneNumber) => {
-//   const phoneRegex = /^[0-9]*$/;
-//   return phoneRegex.test(phoneNumber) && phoneNumber.length === 10;
-// };
+export const validatePhoneNumber = (phoneNumber) => {
+  const phoneRegex = /^[0-9]*$/;
+  return phoneRegex.test(phoneNumber) && phoneNumber.length === 10;
+};
 
 // export const validatePhoneNumber = (phoneNumber) => {
 //   return /^[0-9]*$/.test(phoneNumber);

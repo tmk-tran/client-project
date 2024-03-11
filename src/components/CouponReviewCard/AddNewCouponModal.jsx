@@ -60,6 +60,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   const [website, setWebsite] = useState("");
   const [websiteError, setWebsiteError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
+  console.log(phoneError);
   const [offerError, setOfferError] = useState(false);
 
   console.log(couponOffer);
@@ -76,8 +77,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   const handleClose = () => setOpen(false);
 
   // NEED TO ADD COORDINATES AND REGION_ID AFTER TALKING TO JOE
-  // also, add condition for null if additional info is not filled out, etc
-  console.log(selectedLocations);
+
   const newCouponPayload = {
     merchant_id: Number(merchantId),
     offer: couponOffer,
@@ -88,9 +88,6 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   };
 
   const addCoupon = () => {
-    // e.preventDefault(); // Prevent default form submission behavior
-    // selectAllLocations ?
-
     // Check if required fields are filled
     if (!couponOffer || !phone || !website) {
       // If any required field is empty, set error state or display error message
@@ -103,15 +100,8 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
       return; // Prevent further execution of form submission
     }
 
-    const dispatchAction = {
-      type: "ADD_COUPON",
-      payload: newCouponPayload,
-    };
-    console.log(dispatchAction);
-    dispatch(dispatchAction);
-
     // Validate phone number before saving
-    if (!/^[0-9]*$/.test(phone) && phone.length == 10) {
+    if (!/^[0-9]*$/.test(phone) || phone.length !== 10) {
       setPhoneError(true);
       return;
     }
@@ -126,6 +116,13 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
       return;
     }
 
+    const dispatchAction = {
+      type: "ADD_COUPON",
+      payload: newCouponPayload,
+    };
+    console.log(dispatchAction);
+    dispatch(dispatchAction);
+
     handleCaseTypeChange("New Coupon");
     showSaveSweetAlert();
     resetForm();
@@ -137,12 +134,13 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
     setExclusions("");
     setAdditionalInfo("");
     setSelectAllLocations(false);
-    setAddress("");
-    setCity("");
-    setState("");
-    setZip("");
     setPhone("");
     setWebsite("");
+    setSelectedLocations([]);
+    setPhoneError(false);
+    setOfferError(false);
+    setWebsiteError(false);
+    setLocationsError(false);
 
     handleClose();
   };
@@ -150,6 +148,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   const handleLocationChange = (locationId) => {
     console.log(locationId);
     setSelectedLocations(locationId);
+    setLocationsError(false);
   };
   console.log(selectedLocations);
 
