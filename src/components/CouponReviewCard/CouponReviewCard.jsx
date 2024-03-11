@@ -17,7 +17,6 @@ import { pdfFile } from "../../hooks/reduxStore";
 import { thumbnailSize } from "../CouponReviewDetails/FilePreview";
 import { capitalizeFirstWord } from "../Utils/helpers";
 
-
 const thumbnailHeaderStyle = {
   ...grayBackground,
   ...textCenter,
@@ -104,7 +103,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
         <Card
           key={i}
           elevation={3}
-          // className="details-view-card"
+          sx={{ "&:hover": { cursor: "pointer", transform: "scale(1.03)" } }}
           onClick={() => {
             handleCardClick(file.id);
           }}
