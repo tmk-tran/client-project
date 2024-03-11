@@ -48,7 +48,12 @@ export default function NavLinks() {
         {/* If no user is logged in or user is an org admin, show these links */}
         {!user.id || user.org_admin ? (
           <>
-            <Typography>
+            <Typography
+              sx={{
+                textAlign: !user.id ? "center" : "inherit",
+                flexGrow: !user.id ? 1 : "inherit",
+              }}
+            >
               <MuiLink
                 component={Link}
                 className="main-navlink"
@@ -73,7 +78,7 @@ export default function NavLinks() {
             )}
           </>
         ) : (
-          // If a user is logged in and not an org admin, show these links
+          // If a user is_admin status, show these links
           user.is_admin && (
             <>
               <Typography>

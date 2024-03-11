@@ -327,7 +327,7 @@ export default function CouponReviewDetails() {
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     </Box>
 
-                    <div style={border}>
+                    <div>
                       <Box
                         sx={{
                           // height: "15vh",
