@@ -156,10 +156,11 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
 });
 
 // EDIT route for updating coupon details
-router.put("/:id", rejectUnauthenticated, async (req, res) => {
+router.put("/:merchantId/:couponId", rejectUnauthenticated, async (req, res) => {
   console.log("COUPON EDIT req.body = ", req.body);
   const coupon = req.body;
-  const couponId = req.params.id;
+  const couponId = req.params.couponId;
+  console.log("couponId = ", couponId);
 
   const offer = coupon.offer;
   const value = coupon.value;
