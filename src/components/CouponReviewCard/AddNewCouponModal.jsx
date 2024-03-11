@@ -84,7 +84,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
     value: Number(couponValue),
     exclusions: exclusions.trim() !== "" ? exclusions : null,
     additional_info: additionalInfo.trim() !== "" ? additionalInfo : null,
-    // selectedLocations: selectedLocations,
+    location_ids: selectedLocations,
   };
 
   const addCoupon = () => {

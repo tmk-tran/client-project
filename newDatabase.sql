@@ -384,3 +384,39 @@ CREATE TABLE coupon (
     additional_info character varying(200)
 );
 ----------------------------------------------------------------------
+
+----------------------------------------------------------
+------- Table to tie locations to coupons ----------------
+CREATE TABLE coupon_location (
+    id SERIAL PRIMARY KEY,
+    coupon_id INTEGER REFERENCES coupon(id),
+    location_id INTEGER REFERENCES location(id)
+);
+
+---------- Function for logging coupon locations --------
+
+CREATE OR REPLACE FUNCTION insert_coupon_location()
+RETURNS TRIGGER AS
+$$
+DECLARE
+    location_id INTEGER;
+BEGIN
+    -- Fetch the location_id from the location table based on the merchant_id
+    SELECT id INTO location_id FROM location WHERE merchant_id = NEW.merchant_id LIMIT 1;
+
+    -- Insert the coupon_id and location_id into the coupon_location table
+    INSERT INTO coupon_location (coupon_id, location_id)
+    VALUES (NEW.id, location_id);
+    
+    RETURN NEW;
+END;
+$$
+LANGUAGE 'plpgsql';
+
+----------- Trigger for coupon locations --------------
+CREATE TRIGGER trigger_insert_coupon_location
+AFTER INSERT ON coupon
+FOR EACH ROW
+EXECUTE FUNCTION insert_coupon_location();
+
+-------------------------------------------------------
