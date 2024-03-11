@@ -371,8 +371,18 @@ export default function CouponReviewDetails() {
                           {!showLocations && (
                             <>
                               <RenderValue label="Coupon #" value={couponId} />
-                              <RenderValue label="Offer" value={capitalizeWords(file.offer)} />
-                              <RenderValue label="Value" value={`$ ${file.value}`} />
+                              <RenderValue
+                                label="Offer"
+                                value={capitalizeWords(file.offer)}
+                              />
+                              <RenderValue
+                                label="Value"
+                                value={
+                                  file.value !== null
+                                    ? `$ ${file.value}`
+                                    : "No offer set"
+                                }
+                              />
                               <RenderValue
                                 label="Exclusions"
                                 value={file.exclusions}

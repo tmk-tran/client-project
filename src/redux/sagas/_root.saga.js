@@ -13,7 +13,7 @@ import couponBookSaga from "./couponBook.saga";
 import groupAdminSaga from "./groupAdmin.saga";
 import orgNotesSaga from "./orgNotes.saga";
 import allUsersSaga from "./allUsers.saga";
-import couponPDFSaga from "./couponPDF.saga";
+import couponSaga from "./coupon.saga";
 import merchantsSaga from "./merchants.saga";
 import merchantNotesSaga from "./merchantNotes.saga";
 import merchantTaskSaga from "./merchantTask.saga";
@@ -47,7 +47,7 @@ export default function* rootSaga() {
     groupAdminSaga(),
     orgNotesSaga(),
     allUsersSaga(),
-    couponPDFSaga(),
+    couponSaga(),
     merchantsSaga(),
     merchantNotesSaga(),
     merchantTaskSaga(),

@@ -13,7 +13,7 @@ function* couponFiles(action) {
   try {
     const response = yield axios.get(`/api/coupon`);
     console.log(
-      "FETCH request from couponPDF.saga, RESPONSE = ",
+      "FETCH request from coupon.saga, RESPONSE = ",
       response.data
     );
 
@@ -64,7 +64,7 @@ function* couponFiles(action) {
     // Dispatch the formatted data to the Redux store
     yield put({ type: "SET_COUPON_FILES", payload: formattedFiles });
   } catch (error) {
-    console.log("Error in couponPDF.saga: ", error);
+    console.log("Error in coupon.saga: ", error);
     yield put(fetchCouponFilesFailure(error.message));
   }
 }
@@ -234,7 +234,7 @@ function* backViewUpload(action) {
   }
 }
 
-export default function* couponPDFSaga() {
+export default function* couponSaga() {
   yield takeEvery("FETCH_COUPON_FILES", couponFiles); // this call will come from Coupon component
   yield takeEvery("FETCH_PDF_FILE", pdfFile); // place this call in the component that is viewed after clicking on the file (with its id)
   yield takeEvery("UPLOAD_PDF_REQUEST", pdfUpload);
