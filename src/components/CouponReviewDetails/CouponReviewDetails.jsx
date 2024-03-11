@@ -15,10 +15,11 @@ import FilePreview from "./FilePreview";
 import UploadFileButton from "./UploadFileButton";
 import CouponLocations from "../CouponLocations/CouponLocations";
 import ToggleButton from "../ToggleButton/ToggleButton";
+import EditButton from "../Buttons/EditButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
 import { pdfFile } from "../../hooks/reduxStore";
-import { centeredStyle, flexCenter } from "../Utils/pageStyles";
+import { centeredStyle, flexCenter, flexRowSpace } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
 import { capitalizeWords, formatDate } from "../Utils/helpers";
 
@@ -59,6 +60,8 @@ export default function CouponReviewDetails() {
   const [isUploaded, setIsUploaded] = useState(false);
   console.log(isUploaded);
   const [showLocations, setShowLocations] = useState(false);
+  const [editCoupon, setEditCoupon] = useState(false);
+  console.log(editCoupon);
 
   const handleDenyButtonClick = () => {
     // Open the modal when Deny button is clicked
@@ -202,6 +205,10 @@ export default function CouponReviewDetails() {
   const handleToggleLocations = () => {
     setShowLocations(!showLocations);
     console.log(showLocations);
+  };
+
+  const handleEdit = () => {
+    setEditCoupon(true);
   };
 
   return (
@@ -362,12 +369,18 @@ export default function CouponReviewDetails() {
                         {/* ~~~~~~~~~~ Coupon Details ~~~~~~~~~~  */}
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                         <Box sx={{ mt: 2, p: 1 }}>
-                          <ToggleButton
-                            onClick={handleToggleLocations}
-                            toggleState={showLocations}
-                            label1="Locations"
-                            label2="Details"
-                          />
+                          <Box sx={flexRowSpace}>
+                            <ToggleButton
+                              onClick={handleToggleLocations}
+                              toggleState={showLocations}
+                              label1="Locations"
+                              label2="Details"
+                            />
+                            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                            {/* ~~~~~~~~~~ Edit Button ~~~~~~~~~~~ */}
+                            <EditButton onClick={handleEdit} />
+                            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                          </Box>
                           {!showLocations && (
                             <>
                               <RenderValue label="Coupon #" value={couponId} />
