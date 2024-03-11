@@ -111,6 +111,7 @@ export default function CouponReviewDetails() {
   console.log(files);
   const file = files[0];
   console.log(file);
+  const formattedDate = file.expiration ? formatDate(file.expiration) : null;
 
   // ~~~~~~~~~~ FRONT VIEW UPLOAD FUNCTIONS ~~~~~~~~~~ //
   const handleFrontViewUpload = (selectedFile, addedFileName) => {
@@ -364,7 +365,7 @@ export default function CouponReviewDetails() {
                           />
                           <RenderValue
                             label="Expiration"
-                            value={formatDate(file.expiration)}
+                            value={formattedDate}
                           />
                         </Box>
                       </Box>
