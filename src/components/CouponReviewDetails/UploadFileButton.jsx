@@ -38,7 +38,7 @@ export default function UploadFileButton({ title, onFileSelect }) {
         fullWidth
       >
         <UploadFileIcon sx={{ mr: 0.5 }} />
-        New File
+        New Pdf
       </Button>
     </>
   );
