@@ -106,11 +106,6 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
       return;
     }
 
-    // if (phone && !validatePhoneNumber(phone)) {
-    //   setPhoneError(true);
-    //   return;
-    // }
-
     if (website && !validateWebsiteFormat(website)) {
       setWebsiteError(true);
       return;

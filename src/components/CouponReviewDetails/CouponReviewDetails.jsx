@@ -367,7 +367,7 @@ export default function CouponReviewDetails() {
                           <ToggleButton
                             onClick={handleToggleLocations}
                             toggleState={showLocations}
-                            label1="Accepted Locations"
+                            label1="Locations"
                             label2="Details"
                           />
                           {!showLocations && (

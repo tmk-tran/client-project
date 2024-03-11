@@ -1,5 +1,20 @@
 import React from "react";
-import { capitalizeWords } from "../Utils/helpers";
+// ~~~~~~~~~~ Components ~~~~~~~~~ //
+import Typography from "../Typography/Typography";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
+import {
+  capitalizeStateAbbr,
+  capitalizeWords,
+  formatPhoneNumber,
+} from "../Utils/helpers";
+
+const textStyle = {
+  display: "inline",
+};
+
+const bold = {
+  fontWeight: "bold",
+};
 
 const CouponLocations = ({ locations }) => {
   return (
@@ -9,13 +24,40 @@ const CouponLocations = ({ locations }) => {
         <ol>
           {locations.map((location, index) => (
             <li key={index}>
-              <strong>Location Name:</strong>{" "}
-              {capitalizeWords(location.location_name)}
+              <Typography
+                label="Location Name: "
+                variant="body2"
+                sx={{ ...textStyle, ...bold }}
+              />
+              <Typography
+                label={capitalizeWords(location.location_name)}
+                variant="body2"
+                sx={textStyle}
+              />
               <br />
-              <strong>Phone:</strong> {location.phone_number}
+              <Typography
+                label="Phone: "
+                variant="body2"
+                sx={{ ...textStyle, ...bold }}
+              />
+              <Typography
+                label={formatPhoneNumber(location.phone_number)}
+                variant="body2"
+                sx={textStyle}
+              />
               <br />
-              <strong>Address:</strong> {location.address} {location.city}{" "}
-              {location.state}, {location.zip}
+              <Typography
+                label="Address: "
+                variant="body2"
+                sx={{ ...textStyle, ...bold }}
+              />
+              <Typography
+                label={`${capitalizeWords(location.address)} ${capitalizeWords(
+                  location.city
+                )}, ${capitalizeStateAbbr(location.state)} ${location.zip}`}
+                variant="body2"
+                sx={textStyle}
+              />
               <br />
               <br />
             </li>
