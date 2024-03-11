@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import Swal from "sweetalert2";
 import "./ArchivedOrganizationCard.css";
-import { primaryColor, successColor } from "../Utils/colors";
+import { successColor } from "../Utils/colors";
 
 function ArchivedOrganizationCard({ organization }) {
   const history = useHistory();

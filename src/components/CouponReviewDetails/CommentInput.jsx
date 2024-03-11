@@ -96,18 +96,6 @@ export default function CommentInput({
         height: "fit-content",
       }}
     >
-      {/* <div>
-        Files Uploaded, Viewed Here
-        <FilePreview pdfBlob={files} merchantId={merchantId} />
-      </div> */}
-
-      {/* Display the selected file name */}
-      {selectedFile && (
-        <div>
-          <p>Selected File: {selectedFile.name}</p>
-          <button onClick={handleUpload}>Upload</button>
-        </div>
-      )}
 
       <TextField
         label="Type your comment..."
@@ -126,15 +114,8 @@ export default function CommentInput({
           alignItems: "center",
         }}
       >
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          style={{ display: "none" }}
-        />
-        <IconButton color="primary" onClick={handleFileUploadClick} title="Upload PDF" >
-          <AttachFileIcon />
-        </IconButton>
+
+        <div style={{ flexGrow: 1 }}></div>
 
         <Button variant="contained" color="primary" onClick={handleSubmit}>
           Submit

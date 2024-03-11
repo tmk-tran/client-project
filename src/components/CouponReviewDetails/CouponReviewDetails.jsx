@@ -133,7 +133,7 @@ export default function CouponReviewDetails() {
         };
         console.log(frontViewAction);
         dispatch(frontViewAction);
-        setFrontViewFile(null);
+        setIsUploaded(true);
         // onUploadFile();
       } else {
         // Alert the user if the selected file is not a PDF
@@ -143,6 +143,7 @@ export default function CouponReviewDetails() {
       // Alert the user if no file is selected
       alert("No file selected");
     }
+    handleUploadFile();
   };
 
   // ~~~~~~~~~~ BACK VIEW UPLOAD FUNCTIONS ~~~~~~~~~~ //
@@ -237,14 +238,13 @@ export default function CouponReviewDetails() {
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       <div
                         style={{
-                          ...grayBackground,
                           border: "1px solid #D9D9D9",
                           width: "50%",
                         }}
                       >
                         <Typography
                           variant="body2"
-                          sx={{ textAlign: "center" }}
+                          sx={{ ...grayBackground, textAlign: "center" }}
                         >
                           Front of Coupon
                         </Typography>
@@ -258,7 +258,7 @@ export default function CouponReviewDetails() {
                             showFrontViewFiles={true}
                             showBackViewFiles={false}
                           />
-                          {frontViewFile && (
+                          {frontViewFile && !isUploaded && (
                             <div>
                               <Typography variant="caption">
                                 Selected File: {frontViewFile.name}
@@ -287,14 +287,13 @@ export default function CouponReviewDetails() {
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       <div
                         style={{
-                          ...grayBackground,
                           border: "1px solid #D9D9D9",
                           width: "50%",
                         }}
                       >
                         <Typography
                           variant="body2"
-                          sx={{ textAlign: "center" }}
+                          sx={{ ...grayBackground, textAlign: "center" }}
                         >
                           Back of Coupon
                         </Typography>
