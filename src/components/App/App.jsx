@@ -87,41 +87,44 @@ function App() {
             <Switch>
               <Redirect exact from="/" to="/home" />
 
-              {/* <Route exact path="/about">
-
-              </Route> */}
-
               <ProtectedRoute exact path="/user">
                 {!user.org_admin ? (
                   <HomePage isOrgAdmin={false} />
                 ) : (
                   <HomePage isOrgAdmin={true} />
                 )}
+                {!user.is_admin && !user.org_admin && <Redirect to="/coupon" />}
               </ProtectedRoute>
 
               <ProtectedRoute exact path="/userProfile/:id">
                 <UserProfile />
               </ProtectedRoute>
 
-              <ProtectedRoute exact path="/archivedOrganizations">
-                <ArchivedOrganizations />
-              </ProtectedRoute>
+              {user.is_admin && (
+                <ProtectedRoute exact path="/newFundraiser">
+                  <GlobalFundraiserInput />
+                </ProtectedRoute>
+              )}
+
+              {user.is_admin && (
+                <ProtectedRoute exact path="/archivedOrganizations">
+                  <ArchivedOrganizations />
+                </ProtectedRoute>
+              )}
 
               <ProtectedRoute exact path="/group/:id">
                 <GroupDetails user={user} />
-              </ProtectedRoute>
-
-              <ProtectedRoute exact path="/newFundraiser">
-                <GlobalFundraiserInput />
               </ProtectedRoute>
 
               <ProtectedRoute exact path="/coupon">
                 <ConsumerCouponView />
               </ProtectedRoute>
 
-              <ProtectedRoute exact path="/tasks">
-                <TaskTabs />
-              </ProtectedRoute>
+              {user.is_admin && (
+                <ProtectedRoute exact path="/tasks">
+                  <TaskTabs />
+                </ProtectedRoute>
+              )}
 
               {/* ProtectedRoute for /tasks with dynamic tab parameter */}
               <ProtectedRoute path="/tasks/:tab" component={TaskTabs} />
@@ -166,12 +169,8 @@ function App() {
                 <CouponReviewDetails />
               </ProtectedRoute>
 
-              <ProtectedRoute exact path="/order">
+              {/* <ProtectedRoute exact path="/order">
                 <OrderPage />
-              </ProtectedRoute>
-
-              {/* <ProtectedRoute exact path="/dev">
-                
               </ProtectedRoute> */}
 
               <ProtectedRoute exact path="/sellers">
@@ -247,6 +246,7 @@ function App() {
 
               <Route exact path="/home">
                 {user.id ? <Redirect to="/user" /> : <LoginPage />}
+                {/* {!user.is_admin && !user.org_admin && <Redirect to="/coupon" />} */}
               </Route>
 
               {/* If none of the other routes matched, we will show a 404. */}

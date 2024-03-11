@@ -71,74 +71,67 @@ export default function NavLinks() {
                 </MuiLink>
               </Typography>
             )}
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/about"
-                underline="hover"
-              >
-                About
-              </MuiLink>
-            </Typography>
           </>
         ) : (
           // If a user is logged in and not an org admin, show these links
-          <>
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/home"
-                underline="hover"
-              >
-                Home
-              </MuiLink>
-            </Typography>
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/newFundraiser"
-                underline="hover"
-              >
-                New Fundraiser
-              </MuiLink>
-            </Typography>
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/archivedOrganizations"
-                underline="hover"
-              >
-                Archived Organizations
-              </MuiLink>
-            </Typography>
+          user.is_admin && (
+            <>
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/home"
+                  underline="hover"
+                >
+                  Home
+                </MuiLink>
+              </Typography>
 
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/coupon"
-                underline="hover"
-              >
-                Coupon
-              </MuiLink>
-            </Typography>
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/newFundraiser"
+                  underline="hover"
+                >
+                  New Fundraiser
+                </MuiLink>
+              </Typography>
 
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/tasks"
-                underline="hover"
-              >
-                Tasks
-              </MuiLink>
-            </Typography>
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/archivedOrganizations"
+                  underline="hover"
+                >
+                  Archived Organizations
+                </MuiLink>
+              </Typography>
 
-            <Typography>
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/coupon"
+                  underline="hover"
+                >
+                  Coupon
+                </MuiLink>
+              </Typography>
+
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/tasks"
+                  underline="hover"
+                >
+                  Tasks
+                </MuiLink>
+              </Typography>
+
+              {/* <Typography>
               <MuiLink
                 component={Link}
                 className="main-navlink"
@@ -147,20 +140,9 @@ export default function NavLinks() {
               >
                 Order
               </MuiLink>
-            </Typography>
-
-            {/* <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/dev"
-                underline="hover"
-              >
-                Dev
-              </MuiLink>
             </Typography> */}
-            
-          </>
+            </>
+          )
         )}
       </div>
     </ThemeProvider>

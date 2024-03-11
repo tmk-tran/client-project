@@ -41,8 +41,8 @@ const AccountMenu = () => {
             alignItems: "center",
           }}
         >
-          <PersonIcon />
-          &nbsp;&nbsp;{user.username}
+          <PersonIcon sx={{ mr: 1.5 }} />
+          {user.username}
         </Typography>
       )}
     >
@@ -57,7 +57,7 @@ const AccountMenu = () => {
           Profile
         </MenuItem>,
         <hr key="divider" style={{ width: "90%" }} />,
-        !user.org_admin && (
+        user.is_admin && (
           <MenuItem
             key="tasks"
             value="tasks"
@@ -68,7 +68,7 @@ const AccountMenu = () => {
             Tasks
           </MenuItem>
         ),
-        !user.org_admin && (
+        user.is_admin && (
           <MenuItem
             key="organizations"
             value="organizations"
