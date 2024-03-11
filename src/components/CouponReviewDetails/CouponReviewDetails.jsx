@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~ //
-import { Typography, Card, CardContent, Box } from "@mui/material";
+import { Typography, Card, CardContent, Box, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { border } from "../Utils/colors";
@@ -16,15 +16,13 @@ import UploadFileButton from "./UploadFileButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
 import { pdfFile } from "../../hooks/reduxStore";
-import { centeredStyle } from "../Utils/pageStyles";
+import { centeredStyle, flexCenter } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
 
-const bottomBoxStyle = {
-  // position: "absolute",
-  bottom: 0,
-  left: 0,
-  right: 0,
-  ...border,
+const uploadBoxStyle = {
+  width: "100%",
+  backgroundColor: "white",
+  ...flexCenter,
 };
 
 export default function CouponReviewDetails() {
@@ -185,6 +183,13 @@ export default function CouponReviewDetails() {
     handleUploadFile();
   };
 
+  const RenderValue = ({ label, value }) => (
+    <Typography>
+      <strong>{label}: </strong>
+      {value !== null ? value : "No " + label.toLowerCase() + " set"}
+    </Typography>
+  );
+
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
       <Box className="details-card">
@@ -243,16 +248,8 @@ export default function CouponReviewDetails() {
                         >
                           Front of Coupon
                         </Typography>
-                        {/* {files.map((file, i) => (
-                          <FilePreview
-                            key={i}
-                            pdfBlob={file.frontViewBlob}
-                          />
-                        ))} */}
                         <Box
                           sx={{
-                            // border: "1px solid blue",
-                            // position: "relative",
                             ...centeredStyle,
                           }}
                         >
@@ -263,18 +260,24 @@ export default function CouponReviewDetails() {
                           />
                           {frontViewFile && (
                             <div>
-                              <p>Selected File: {frontViewFile.name}</p>
-                              <button onClick={handleFrontUpload}>
+                              <Typography variant="caption">
+                                Selected File: {frontViewFile.name}
+                              </Typography>
+                              <Button
+                                variant="contained"
+                                fullWidth
+                                onClick={handleFrontUpload}
+                              >
                                 Upload
-                              </button>
+                              </Button>
                             </div>
                           )}
-                          {/* <Box style={bottomBoxStyle}> */}
-                          <UploadFileButton
-                            onFileSelect={handleFrontViewUpload}
-                            title="Upload Front View PDF"
-                          />
-                          {/* </Box> */}
+                          <Box sx={uploadBoxStyle}>
+                            <UploadFileButton
+                              onFileSelect={handleFrontViewUpload}
+                              title="Upload Front View PDF"
+                            />
+                          </Box>
                         </Box>
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -304,21 +307,29 @@ export default function CouponReviewDetails() {
                           {backViewFile && !isUploaded && (
                             <div>
                               <p>Selected File: {backViewFile.name}</p>
-                              <button onClick={handleBackUpload}>Upload</button>
+                              <Button
+                                variant="contained"
+                                fullWidth
+                                onClick={handleBackUpload}
+                              >
+                                Upload
+                              </Button>
                             </div>
                           )}
-                          <UploadFileButton
-                            onFileSelect={handleBackViewUpload}
-                            title="Upload Back View PDF"
-                          />
+                          <Box sx={uploadBoxStyle}>
+                            <UploadFileButton
+                              onFileSelect={handleBackViewUpload}
+                              title="Upload Back View PDF"
+                            />
+                          </Box>
                         </Box>
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     </Box>
 
                     <div style={border}>
-                      <div
-                        style={{
+                      <Box
+                        sx={{
                           // height: "15vh",
                           backgroundColor: "rgba(96, 96, 96, 0.1)",
                         }}
@@ -333,13 +344,22 @@ export default function CouponReviewDetails() {
                         />
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
-                        <Typography
-                          variant="body2"
-                          sx={{ textAlign: "center", mt: 2 }}
-                        >
-                          Details of Coupon
-                        </Typography>
-                      </div>
+                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                        {/* ~~~~~~~~~~ Coupon Details ~~~~~~~~~~  */}
+                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                        <Box sx={{ mt: 2, p: 1 }}>
+                          <RenderValue label="Offer" value={file.offer} />
+                          <RenderValue label="Value" value={file.value} />
+                          <RenderValue
+                            label="Exclusions"
+                            value={file.exclusions}
+                          />
+                          <RenderValue
+                            label="Expiration"
+                            value={file.expiration}
+                          />
+                        </Box>
+                      </Box>
                     </div>
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     {/* ~~~~~~~~~~~ BUTTONS ~~~~~~~~~~~~~ */}

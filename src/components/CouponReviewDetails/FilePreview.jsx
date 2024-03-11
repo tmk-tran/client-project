@@ -112,7 +112,7 @@ const FilePreview = ({
             ) : null}
             {(showFrontViewFiles && directFile.frontViewBlob === null) ||
             (showBackViewFiles && directFile.backViewBlob === null) ? (
-              <Box sx={{ ...thumbnailSize, ...flexCenter, ...border }}>
+              <Box sx={{ ...thumbnailSize, ...flexCenter }}>
                 <Typography variant="caption">No file available</Typography>
               </Box>
             ) : null}
