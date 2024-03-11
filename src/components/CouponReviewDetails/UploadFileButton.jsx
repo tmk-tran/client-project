@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { IconButton } from "@mui/material";
+import { IconButton, Button } from "@mui/material";
 import useFileInput from "./useFileInput";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 export default function UploadFileButton({ title, onFileSelect }) {
   const { selectedFile, addedFileName, handleFileChange } = useFileInput();
@@ -29,9 +30,9 @@ export default function UploadFileButton({ title, onFileSelect }) {
         onChange={handleFileChange}
         style={{ display: "none" }}
       />
-      <IconButton color="primary" onClick={handleFileUploadClick} title={title}>
-        <AttachFileIcon />
-      </IconButton>
+      <Button color="primary" onClick={handleFileUploadClick} title={title} fullWidth>
+        <UploadFileIcon />Upload
+      </Button>
     </>
   );
 }

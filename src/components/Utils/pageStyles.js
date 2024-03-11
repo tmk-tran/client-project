@@ -35,3 +35,7 @@ export const flexEnd = {
   display: "flex",
   justifyContent: "flex-end",
 };
+
+export const textCenter = {
+  textAlign: "center",
+};

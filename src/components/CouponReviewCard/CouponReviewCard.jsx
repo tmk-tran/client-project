@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import { Button, Card, CardContent, Typography } from "@mui/material";
-import { border } from "../Utils/colors";
+import { border, borderPrimaryColor } from "../Utils/colors";
 // ~~~~~~~~~~ Component ~~~~~~~~~~ //
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import FilePreview from "../CouponReviewDetails/FilePreview";
@@ -11,9 +11,17 @@ import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
 import { historyHook } from "../../hooks/useHistory";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { mComments } from "../../hooks/reduxStore";
-import { flexCenter } from "../Utils/pageStyles";
+import { flexCenter, textCenter } from "../Utils/pageStyles";
+import { grayBackground } from "../Utils/colors";
 import { pdfFile } from "../../hooks/reduxStore";
 import { thumbnailSize } from "../CouponReviewDetails/FilePreview";
+import { capitalizeFirstWord } from "../Utils/helpers";
+
+
+const thumbnailHeaderStyle = {
+  ...grayBackground,
+  ...textCenter,
+};
 
 export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   console.log(merchant);
@@ -87,7 +95,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
       state: {
         couponId: couponId,
       },
-    })
+    });
   };
 
   return (
@@ -136,8 +144,8 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~ FRONT OF COUPON ~~~~~~ */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              <div style={border}>
-                <Typography variant="body2" sx={{ textAlign: "center" }}>
+              <div style={borderPrimaryColor}>
+                <Typography variant="body2" sx={thumbnailHeaderStyle}>
                   Front
                 </Typography>
                 <FilePreview
@@ -150,8 +158,8 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~ BACK OF COUPON ~~~~~~~ */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              <div style={border}>
-                <Typography variant="body2" sx={{ textAlign: "center" }}>
+              <div style={borderPrimaryColor}>
+                <Typography variant="body2" sx={thumbnailHeaderStyle}>
                   Back
                 </Typography>
                 <FilePreview
@@ -164,12 +172,20 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~ COUPON DETAILS ~~~~~~~ */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              <div style={{ ...thumbnailSize, ...border }}>
-                <Typography variant="body2">Offer:</Typography>
-                <Typography variant="body2" sx={{ textAlign: "center" }}>
-                  {/* Details of Coupon */}
-                  {file.offer}
+              <div style={borderPrimaryColor}>
+                <Typography variant="body2" sx={thumbnailHeaderStyle}>
+                  Offer:
                 </Typography>
+                <div style={{ ...thumbnailSize, ...flexCenter }}>
+                  {file.offer ? (
+                    <Typography variant="body2" sx={{ p: 1, ...textCenter }}>
+                      {/* Details of Coupon */}
+                      {capitalizeFirstWord(file.offer)}
+                    </Typography>
+                  ) : (
+                    <Typography variant="caption">No offer set</Typography>
+                  )}
+                </div>
               </div>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}

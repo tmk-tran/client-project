@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
+import { flexCenter } from "../Utils/pageStyles";
 import { border } from "../Utils/colors";
 import PdfThumbnail from "../PdfThumbnail/PdfThumbnail";
 
@@ -31,6 +32,7 @@ const FilePreview = ({
   const dispatch = dispatchHook();
   const [pdfUrl, setPdfUrl] = useState(null);
   console.log(pdfBlob);
+  console.log(directFile);
   console.log(pdfUrl);
   const [isUploading, setIsUploading] = useState(false);
   console.log(isUploading);
@@ -66,213 +68,58 @@ const FilePreview = ({
   console.log(directFile);
 
   return (
-    // <div>
-    //   {directFile ? (
-    //     <>
-    //       {showFrontViewFiles && directFile.frontViewBlob ? (
-    //         <>
-    //           <div style={{ display: "flex", justifyContent: "center" }}>
-    //             <PdfThumbnail
-    //               pdfUrl={directFile.frontViewBlob}
-    //               style={thumbnailSize}
-    //             />
-    //           </div>
-    //           {caseType !== "preview" && (
-    //             <Box sx={boxStyle}>
-    //               <Button
-    //                 onClick={() =>
-    //                   handleButtonClick(directFile, "frontView")
-    //                 }
-    //               >
-    //                 View Front
-    //               </Button>
-    //             </Box>
-    //           )}
-    //         </>
-    //       ) : (
-    //         <p>No files available</p>
-    //       )}
-    //       {showBackViewFiles && directFile.backViewBlob && (
-    //         <>
-    //           <div style={{ display: "flex", justifyContent: "center" }}>
-    //             <PdfThumbnail
-    //               pdfUrl={directFile.backViewBlob}
-    //               style={thumbnailSize}
-    //             />
-    //           </div>
-    //           {caseType !== "preview" && (
-    //             <Box sx={boxStyle}>
-    //               <Button
-    //                 onClick={() => handleButtonClick(directFile, "backView")}
-    //               >
-    //                 View Back
-    //               </Button>
-    //             </Box>
-    //           )}
-    //         </>
-    //       )}
-    //     </>
-    //   ) : (
-    //     <>
-    //       {pdfBlob.length > 0 ? (
-    //         pdfBlob.map((file, i) => (
-    //           <div key={i}>
-    //             {showFrontViewFiles && file.frontViewBlob && (
-    //               <>
-    //                 <div style={{ display: "flex", justifyContent: "center" }}>
-    //                   <PdfThumbnail
-    //                     pdfUrl={file.frontViewBlob}
-    //                     style={thumbnailSize}
-    //                   />
-    //                 </div>
-    //                 {caseType !== "preview" && (
-    //                   <Box sx={boxStyle}>
-    //                     {/* {file.filename}{" "} */}
-    //                     <Button
-    //                       onClick={() =>
-    //                         handleButtonClick(file, "frontView")
-    //                       }
-    //                     >
-    //                       View Front
-    //                     </Button>
-    //                   </Box>
-    //                 )}
-    //               </>
-    //             )}
-    //             {showBackViewFiles && file.backViewBlob && (
-    //               <>
-    //                 <div style={{ display: "flex", justifyContent: "center" }}>
-    //                   <PdfThumbnail
-    //                     pdfUrl={file.backViewBlob}
-    //                     style={thumbnailSize}
-    //                   />
-    //                 </div>
-    //                 {caseType !== "preview" && (
-    //                   <Box sx={boxStyle}>
-    //                     {/* {file.filename}{" "} */}
-    //                     <Button
-    //                       onClick={() => handleButtonClick(file, "backView")}
-    //                     >
-    //                       View Back
-    //                     </Button>
-    //                   </Box>
-    //                 )}
-    //               </>
-    //             )}
-    //           </div>
-    //         ))
-    //       ) : (
-    //         <p>No files available</p>
-    //       )}
-    //     </>
-    //   )}
-    // </div>
     <div>
-  {(directFile || pdfBlob.length > 0) ? (
-    <>
-      {directFile && (
-        <>
-          {showFrontViewFiles && directFile.frontViewBlob && (
-            <>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <PdfThumbnail
-                  pdfUrl={directFile.frontViewBlob}
-                  style={thumbnailSize}
-                />
-              </div>
-              {caseType !== "preview" && (
-                <Box sx={boxStyle}>
-                  <Button
-                    onClick={() =>
-                      handleButtonClick(directFile, "frontView")
-                    }
-                  >
-                    View Front
-                  </Button>
-                </Box>
-              )}
-            </>
-          )}
-          {showBackViewFiles && directFile.backViewBlob && (
-            <>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <PdfThumbnail
-                  pdfUrl={directFile.backViewBlob}
-                  style={thumbnailSize}
-                />
-              </div>
-              {caseType !== "preview" && (
-                <Box sx={boxStyle}>
-                  <Button
-                    onClick={() => handleButtonClick(directFile, "backView")}
-                  >
-                    View Back
-                  </Button>
-                </Box>
-              )}
-            </>
-          )}
-        </>
-      )}
-      {!directFile && pdfBlob.length > 0 && (
-        <>
-          {pdfBlob.map((file, i) => (
-            <div key={i}>
-              {showFrontViewFiles && file.frontViewBlob && (
-                <>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <PdfThumbnail
-                      pdfUrl={file.frontViewBlob}
-                      style={thumbnailSize}
-                    />
-                  </div>
-                  {caseType !== "preview" && (
-                    <Box sx={boxStyle}>
-                      {/* {file.filename}{" "} */}
-                      <Button
-                        onClick={() =>
-                          handleButtonClick(file, "frontView")
-                        }
-                      >
-                        View Front
-                      </Button>
-                    </Box>
-                  )}
-                </>
-              )}
-              {showBackViewFiles && file.backViewBlob && (
-                <>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <PdfThumbnail
-                      pdfUrl={file.backViewBlob}
-                      style={thumbnailSize}
-                    />
-                  </div>
-                  {caseType !== "preview" && (
-                    <Box sx={boxStyle}>
-                      {/* {file.filename}{" "} */}
-                      <Button
-                        onClick={() => handleButtonClick(file, "backView")}
-                      >
-                        View Back
-                      </Button>
-                    </Box>
-                  )}
-                </>
-              )}
-            </div>
-          ))}
-        </>
-      )}
-      {(!directFile || !directFile.frontViewBlob || !directFile.backViewBlob) && (
-        <p>No files available</p>
-      )}
-    </>
-  ) : (
-    <p>No files available</p>
-  )}
-</div>
-
+      <>
+        {directFile && (
+          <>
+            {showFrontViewFiles && directFile.frontViewBlob !== null ? (
+              <>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <PdfThumbnail
+                    pdfUrl={directFile.frontViewBlob}
+                    style={thumbnailSize}
+                  />
+                </div>
+                {caseType !== "preview" && (
+                  <Box sx={boxStyle}>
+                    <Button
+                      onClick={() => handleButtonClick(directFile, "frontView")}
+                    >
+                      View Front
+                    </Button>
+                  </Box>
+                )}
+              </>
+            ) : null}
+            {showBackViewFiles && directFile.backViewBlob !== null ? (
+              <>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <PdfThumbnail
+                    pdfUrl={directFile.backViewBlob}
+                    style={thumbnailSize}
+                  />
+                </div>
+                {caseType !== "preview" && (
+                  <Box sx={boxStyle}>
+                    <Button
+                      onClick={() => handleButtonClick(directFile, "backView")}
+                    >
+                      View Back
+                    </Button>
+                  </Box>
+                )}
+              </>
+            ) : null}
+            {(showFrontViewFiles && directFile.frontViewBlob === null) ||
+            (showBackViewFiles && directFile.backViewBlob === null) ? (
+              <Box sx={{ ...thumbnailSize, ...flexCenter, ...border }}>
+                <Typography variant="caption">No file available</Typography>
+              </Box>
+            ) : null}
+          </>
+        )}
+      </>
+    </div>
   );
 };
 

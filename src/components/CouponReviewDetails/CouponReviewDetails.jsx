@@ -16,6 +16,8 @@ import UploadFileButton from "./UploadFileButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
 import { pdfFile } from "../../hooks/reduxStore";
+import { centeredStyle } from "../Utils/pageStyles";
+import { grayBackground } from "../Utils/colors";
 
 const bottomBoxStyle = {
   // position: "absolute",
@@ -103,6 +105,8 @@ export default function CouponReviewDetails() {
 
   const files = pdfFile() || [];
   console.log(files);
+  const file = files[0];
+  console.log(file);
 
   // ~~~~~~~~~~ FRONT VIEW UPLOAD FUNCTIONS ~~~~~~~~~~ //
   const handleFrontViewUpload = (selectedFile, addedFileName) => {
@@ -222,13 +226,15 @@ export default function CouponReviewDetails() {
                       gap: 15,
                     }}
                   >
-                    <div>
+                    <Box sx={{ display: "flex", gap: 1 }}>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       {/* ~~~~~~~~~ FRONT OF COUPON ~~~~~~~ */}
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       <div
                         style={{
-                          backgroundColor: "#D9D9D9",
+                          ...grayBackground,
+                          border: "1px solid #D9D9D9",
+                          width: "50%",
                         }}
                       >
                         <Typography
@@ -245,12 +251,13 @@ export default function CouponReviewDetails() {
                         ))} */}
                         <Box
                           sx={{
-                            border: "1px solid blue",
-                            position: "relative",
+                            // border: "1px solid blue",
+                            // position: "relative",
+                            ...centeredStyle,
                           }}
                         >
                           <FilePreview
-                            pdfBlob={files}
+                            directFile={file}
                             showFrontViewFiles={true}
                             showBackViewFiles={false}
                           />
@@ -265,21 +272,21 @@ export default function CouponReviewDetails() {
                           {/* <Box style={bottomBoxStyle}> */}
                           <UploadFileButton
                             onFileSelect={handleFrontViewUpload}
+                            title="Upload Front View PDF"
                           />
                           {/* </Box> */}
                         </Box>
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    </div>
 
-                    <div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       {/* ~~~~~~~~~ BACK OF COUPON ~~~~~~~~ */}
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       <div
                         style={{
-                          // height: "18vh",
-                          backgroundColor: "#D9D9D9",
+                          ...grayBackground,
+                          border: "1px solid #D9D9D9",
+                          width: "50%",
                         }}
                       >
                         <Typography
@@ -288,9 +295,9 @@ export default function CouponReviewDetails() {
                         >
                           Back of Coupon
                         </Typography>
-                        <Box sx={{ position: "relative" }}>
+                        <Box sx={{ position: "relative", ...centeredStyle }}>
                           <FilePreview
-                            pdfBlob={files}
+                            directFile={file}
                             showBackViewFiles={true}
                             showFrontViewFiles={false}
                           />
@@ -300,17 +307,16 @@ export default function CouponReviewDetails() {
                               <button onClick={handleBackUpload}>Upload</button>
                             </div>
                           )}
-                          <Box sx={bottomBoxStyle}>
-                            <UploadFileButton
-                              onFileSelect={handleBackViewUpload}
-                            />
-                          </Box>
+                          <UploadFileButton
+                            onFileSelect={handleBackViewUpload}
+                            title="Upload Back View PDF"
+                          />
                         </Box>
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    </div>
+                    </Box>
 
-                    <div>
+                    <div style={border}>
                       <div
                         style={{
                           // height: "15vh",
