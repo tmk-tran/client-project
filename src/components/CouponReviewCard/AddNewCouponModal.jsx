@@ -52,22 +52,21 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   console.log(selectedLocations);
   const [selectAllLocations, setSelectAllLocations] = useState(false);
   const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
+  // const [city, setCity] = useState("");
+  // const [state, setState] = useState("");
+  // const [zip, setZip] = useState("");
   const [phone, setPhone] = useState("");
+  const [locationsError, setLocationsError] = useState(false);
   const [website, setWebsite] = useState("");
   const [websiteError, setWebsiteError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [offerError, setOfferError] = useState(false);
-  console.log(phoneError);
+
   console.log(couponOffer);
   console.log(couponValue);
   console.log(exclusions);
   console.log(address);
-  console.log(city);
-  console.log(state);
-  console.log(zip);
+
   console.log(phone);
   console.log(website);
   console.log(additionalInfo);
@@ -96,6 +95,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
     if (!couponOffer || !phone || !website) {
       // If any required field is empty, set error state or display error message
       // You can set an error state for each required field and display error messages accordingly
+      setLocationsError(!locationsError);
       setOfferError(!offerError);
       setPhoneError(!phone);
       setWebsiteError(!website);
@@ -184,11 +184,11 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~ LOCATION SELECT ~~~~~~~ */}
           <SelectMenu
-            label="Participating Location"
+            label="Participating Location*"
             locations={locations}
-            fullWidth
             selectAllLocations={selectAllLocations}
             onLocationChange={handleLocationChange}
+            error={locationsError}
           />
           <Grid container spacing={2}>
             <Grid item xs={6}>

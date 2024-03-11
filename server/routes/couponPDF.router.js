@@ -61,8 +61,33 @@ router.get("/:id", (req, res) => {
 
 router.get("/details/:id", (req, res) => {
   const couponId = req.params.id;
+  console.log("couponId = ", couponId);
 
-  const queryText = "SELECT * FROM coupon WHERE id = $1";
+  // const queryText = "SELECT * FROM coupon WHERE id = $1";
+
+  const queryText = `
+          SELECT
+            c.*,
+            l.id AS location_id,
+            l.location_name,
+            l.phone_number,
+            l.address,
+            l.city,
+            l.state,
+            l.zip,
+            l.coordinates,
+            l.region_id,
+            l.merchant_id AS location_merchant_id,
+            l.additional_details AS location_additional_details
+          FROM
+            coupon c
+          JOIN
+            coupon_location cl ON c.id = cl.coupon_id
+          JOIN
+            location l ON cl.location_id = l.id
+          WHERE
+            c.id = $1;
+    `;
 
   pool
     .query(queryText, [couponId])
@@ -75,38 +100,6 @@ router.get("/details/:id", (req, res) => {
       res.sendStatus(500);
     });
 });
-
-// router.post("/", rejectUnauthenticated, (req, res) => {
-//   console.log(req.body);
-//   const coupon = req.body;
-//   const merchantId = coupon.merchant_id;
-//   const offer = coupon.offer;
-//   const value = coupon.value;
-//   const exclusions = coupon.exclusions;
-//   const additionalInfo = coupon.additional_info;
-
-//   const queryText = `
-//           INSERT INTO coupon (
-//             merchant_id,
-//             offer,
-//             value,
-//             exclusions,
-//             additional_info)
-//           VALUES ($1, $2, $3, $4, $5)
-//           RETURNING *;
-//         `;
-
-//   pool
-//     .query(queryText, [merchantId, offer, value, exclusions, additionalInfo])
-//     .then((response) => {
-//       console.log("response from couponPDFs.router: ", response.rows);
-//       res.sendStatus(200);
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       res.status(500).send("Error uploading coupon");
-//     });
-// });
 
 router.post("/", rejectUnauthenticated, async (req, res) => {
   console.log(req.body);
@@ -133,7 +126,13 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       VALUES ($1, $2, $3, $4, $5)
       RETURNING id;
     `;
-    const couponResult = await pool.query(couponInsertQuery, [merchantId, offer, value, exclusions, additionalInfo]);
+    const couponResult = await pool.query(couponInsertQuery, [
+      merchantId,
+      offer,
+      value,
+      exclusions,
+      additionalInfo,
+    ]);
     const newCouponId = couponResult.rows[0].id;
 
     // Insert coupon locations into coupon_location table
@@ -155,7 +154,6 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
     res.status(500).send("Error uploading coupon");
   }
 });
-
 
 // POST route for uploading front view PDF
 // router.post("/front/:id", upload.single("pdf"), (req, res) => {

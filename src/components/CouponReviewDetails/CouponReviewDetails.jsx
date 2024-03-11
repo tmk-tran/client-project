@@ -19,6 +19,8 @@ import { pdfFile } from "../../hooks/reduxStore";
 import { centeredStyle, flexCenter } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
 import { formatDate } from "../Utils/helpers";
+import CouponLocations from "../CouponLocations/CouponLocations";
+import ToggleButton from "../ToggleButton/ToggleButton";
 
 const uploadBoxStyle = {
   width: "100%",
@@ -58,6 +60,7 @@ export default function CouponReviewDetails() {
   const [backViewFilename, setBackViewFilename] = useState("");
   const [isUploaded, setIsUploaded] = useState(false);
   console.log(isUploaded);
+  const [showLocations, setShowLocations] = useState(false);
 
   const handleDenyButtonClick = () => {
     // Open the modal when Deny button is clicked
@@ -197,6 +200,11 @@ export default function CouponReviewDetails() {
       {value !== null ? value : "No " + label.toLowerCase() + " set"}
     </Typography>
   );
+
+  const handleToggleLocations = () => {
+    setShowLocations(!showLocations);
+    console.log(showLocations);
+  };
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
@@ -356,17 +364,30 @@ export default function CouponReviewDetails() {
                         {/* ~~~~~~~~~~ Coupon Details ~~~~~~~~~~  */}
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                         <Box sx={{ mt: 2, p: 1 }}>
-                          <RenderValue label="Coupon #" value={couponId} />
-                          <RenderValue label="Offer" value={file.offer} />
-                          <RenderValue label="Value" value={file.value} />
-                          <RenderValue
-                            label="Exclusions"
-                            value={file.exclusions}
+                          <ToggleButton
+                            onClick={handleToggleLocations}
+                            toggleState={showLocations}
+                            label1="Accepted Locations"
+                            label2="Details"
                           />
-                          <RenderValue
-                            label="Expiration"
-                            value={formattedDate}
-                          />
+                          {!showLocations && (
+                            <>
+                              <RenderValue label="Coupon #" value={couponId} />
+                              <RenderValue label="Offer" value={file.offer} />
+                              <RenderValue label="Value" value={file.value} />
+                              <RenderValue
+                                label="Exclusions"
+                                value={file.exclusions}
+                              />
+                              <RenderValue
+                                label="Expiration"
+                                value={formattedDate}
+                              />
+                            </>
+                          )}
+                          {showLocations && (
+                            <CouponLocations locations={files} />
+                          )}
                         </Box>
                       </Box>
                     </div>

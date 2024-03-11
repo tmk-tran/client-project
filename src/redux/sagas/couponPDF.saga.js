@@ -100,6 +100,17 @@ function* pdfFile(action) {
         details: coupon.details,
         expiration: coupon.expiration,
         additionalInfo: coupon.additional_info,
+        location_id: coupon.location_id,
+        location_name: coupon.location_name,
+        phone_number: coupon.phone_number,
+        address: coupon.address,
+        city: coupon.city,
+        state: coupon.state,
+        zip: coupon.zip,
+        coordinates: coupon.coordinates,
+        region_id: coupon.region_id,
+        location_merchant_id: coupon.location_merchant_id,
+        location_additional_details: coupon.location_additional_details,
       };
 
       if (coupon.pdf_data && coupon.pdf_data.data) {
