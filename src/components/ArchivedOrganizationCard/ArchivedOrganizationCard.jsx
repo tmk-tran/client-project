@@ -112,13 +112,13 @@ function ArchivedOrganizationCard({ organization }) {
             style={{ marginTop: "-150px" }}
           >
             <Button
-              style={{ marginRight: "16px" }}
+              sx={{ mr: 2 }}
               onClick={(e) => {
                 e.stopPropagation();
                 unArchive(organization.id);
               }}
             >
-              <span className="archive-button">Un-archive</span>
+              Restore
             </Button>
           </div>
         </CardContent>
