@@ -76,7 +76,39 @@ router.get("/details/:id", (req, res) => {
     });
 });
 
-router.post("/", rejectUnauthenticated, (req, res) => {
+// router.post("/", rejectUnauthenticated, (req, res) => {
+//   console.log(req.body);
+//   const coupon = req.body;
+//   const merchantId = coupon.merchant_id;
+//   const offer = coupon.offer;
+//   const value = coupon.value;
+//   const exclusions = coupon.exclusions;
+//   const additionalInfo = coupon.additional_info;
+
+//   const queryText = `
+//           INSERT INTO coupon (
+//             merchant_id,
+//             offer,
+//             value,
+//             exclusions,
+//             additional_info)
+//           VALUES ($1, $2, $3, $4, $5)
+//           RETURNING *;
+//         `;
+
+//   pool
+//     .query(queryText, [merchantId, offer, value, exclusions, additionalInfo])
+//     .then((response) => {
+//       console.log("response from couponPDFs.router: ", response.rows);
+//       res.sendStatus(200);
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//       res.status(500).send("Error uploading coupon");
+//     });
+// });
+
+router.post("/", rejectUnauthenticated, async (req, res) => {
   console.log(req.body);
   const coupon = req.body;
   const merchantId = coupon.merchant_id;
@@ -84,28 +116,46 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const value = coupon.value;
   const exclusions = coupon.exclusions;
   const additionalInfo = coupon.additional_info;
+  const locationIds = coupon.location_ids; // Assuming location_ids is passed in the request
 
-  const queryText = `
-          INSERT INTO coupon (
-            merchant_id, 
-            offer,
-            value, 
-            exclusions, 
-            additional_info) 
-          VALUES ($1, $2, $3, $4, $5)
-        `;
+  try {
+    // Start a transaction
+    await pool.query("BEGIN");
 
-  pool
-    .query(queryText, [merchantId, offer, value, exclusions, additionalInfo])
-    .then((response) => {
-      console.log("response from couponPDFs.router: ", response.rows);
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Error uploading coupon");
-    });
+    // Insert coupon into coupon table
+    const couponInsertQuery = `
+      INSERT INTO coupon (
+        merchant_id, 
+        offer,
+        value, 
+        exclusions, 
+        additional_info) 
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING id;
+    `;
+    const couponResult = await pool.query(couponInsertQuery, [merchantId, offer, value, exclusions, additionalInfo]);
+    const newCouponId = couponResult.rows[0].id;
+
+    // Insert coupon locations into coupon_location table
+    const locationInsertQuery = `
+      INSERT INTO coupon_location (coupon_id, location_id)
+      SELECT $1, location_id
+      FROM unnest($2::integer[]) AS location_id;
+    `;
+    await pool.query(locationInsertQuery, [newCouponId, locationIds]);
+
+    // Commit the transaction
+    await pool.query("COMMIT");
+
+    res.sendStatus(200);
+  } catch (error) {
+    // Rollback the transaction in case of an error
+    await pool.query("ROLLBACK");
+    console.error(error);
+    res.status(500).send("Error uploading coupon");
+  }
 });
+
 
 // POST route for uploading front view PDF
 // router.post("/front/:id", upload.single("pdf"), (req, res) => {

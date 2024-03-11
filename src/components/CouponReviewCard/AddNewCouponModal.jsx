@@ -78,13 +78,14 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
 
   // NEED TO ADD COORDINATES AND REGION_ID AFTER TALKING TO JOE
   // also, add condition for null if additional info is not filled out, etc
+  console.log(selectedLocations);
   const newCouponPayload = {
     merchant_id: Number(merchantId),
     offer: couponOffer,
     value: Number(couponValue),
     exclusions: exclusions.trim() !== "" ? exclusions : null,
     additional_info: additionalInfo.trim() !== "" ? additionalInfo : null,
-    location_ids: selectedLocations,
+    location_ids: [selectedLocations],
   };
 
   const addCoupon = () => {
