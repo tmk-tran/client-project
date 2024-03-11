@@ -153,6 +153,7 @@ export default function BasicTabs() {
             {/* <Tab label="Coupons" {...a11yProps(2)} /> */}
           </Tabs>
           <NewTaskModal
+            tabs={true}
             customIcon={<AddBoxIcon />}
             customText="Task"
             merchantTab={merchantTab}

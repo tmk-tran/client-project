@@ -54,12 +54,14 @@ const userOptions = ["Chris", "Lacey", "Wendy"];
 
 // ~~~~~~~~~ ADD USE ALERT HERE FOR SUCCESS ALERT ~~~~~~~~~~~~~~~~~~~ ADD USE ALERT HERE FOR SUCCESS ALERT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export default function BasicModal({
+  tabs,
   merchantTab,
   customIcon,
   customText,
   caseType,
   onChange,
 }) {
+  console.log(tabs);
   console.log(merchantTab);
   const dispatch = dispatchHook();
   // ~~~~~~~~~~ All Merchants from store ~~~~~~~~~~
@@ -217,7 +219,7 @@ export default function BasicModal({
 
   return (
     <div>
-      <Button variant="contained" sx={{ mt: 1 }} onClick={handleOpen} fullWidth>
+      <Button variant={tabs ? "text" : "contained"} sx={{ mt: 1 }} onClick={handleOpen} fullWidth>
         {customIcon ? (
           customIcon // Render the custom icon if provided
         ) : (

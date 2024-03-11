@@ -23,7 +23,7 @@ export default function DetailsTaskView({ caseType }) {
 
   // useEffect(() => {
   //   dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: mId });
-    
+
   //   dispatch({
   //     type: "FETCH_MERCHANT_TASKS",
   //     payload: mId,
@@ -41,7 +41,7 @@ export default function DetailsTaskView({ caseType }) {
       dispatch({ type: "FETCH_MERCHANT_TASKS", payload: mId });
     }
   }, [mId, caseType]); // Deleted dispatch from dependencies
-  
+
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
       <Card elevation={3} className="goals-display-card">
@@ -53,7 +53,7 @@ export default function DetailsTaskView({ caseType }) {
             Tasks
           </Typography>
           <div
-          // style={{ height: "28vh" }}
+            // style={{ height: "28vh" }}
             className={`task-display-container ${
               caseType === "merchantView" ? "merchant-task-view" : ""
             }`}
@@ -65,13 +65,18 @@ export default function DetailsTaskView({ caseType }) {
             {caseType === "merchantView" ? (
               // Render NewTaskModal with 'merchantTab' props
               <NewTaskModal
+                tabs={false}
                 customIcon={<AddBoxIcon />}
                 customText="Task"
                 caseType={"merchantView"}
               />
             ) : (
               // Render regular NewTaskModal
-              <NewTaskModal customIcon={<AddBoxIcon />} customText="Task" />
+              <NewTaskModal
+                tabs={false}
+                customIcon={<AddBoxIcon />}
+                customText="Task"
+              />
             )}
           </div>
         </CardContent>
