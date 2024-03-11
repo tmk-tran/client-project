@@ -50,10 +50,13 @@ export default function CouponReviewDetails() {
   console.log(uploadedFiles);
   const [frontViewFile, setFrontViewFile] = useState(null);
   const [frontViewFilename, setFrontViewFilename] = useState("");
+  console.log(frontViewFile);
+  console.log(frontViewFilename);
   const [backViewFile, setBackViewFile] = useState(null);
   console.log(backViewFile);
   const [backViewFilename, setBackViewFilename] = useState("");
   const [isUploaded, setIsUploaded] = useState(false);
+  console.log(isUploaded);
 
   const handleDenyButtonClick = () => {
     // Open the modal when Deny button is clicked
