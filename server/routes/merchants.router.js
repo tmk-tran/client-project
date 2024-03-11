@@ -42,7 +42,35 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log("error in the GET / request for authorized users", err);
+      console.log("error in the GET / request for all merchants", err);
+      res.sendStatus(500);
+    });
+});
+
+router.get("/number", rejectUnauthenticated, (req, res) => {
+  const queryText = `
+    SELECT
+        m.id AS merchant_id,
+        m.merchant_name,
+      COUNT(c.id) AS num_coupons
+    FROM
+        merchant m
+    LEFT JOIN
+        coupon c ON m.id = c.merchant_id
+    GROUP BY
+        m.id
+    ORDER BY
+        m.id;
+    `;
+
+  pool
+    .query(queryText)
+    .then((result) => {
+      console.log("from GET /number merchants.router: ", result.rows);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("error in the GET / request for number of coupons", err);
       res.sendStatus(500);
     });
 });
