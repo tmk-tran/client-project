@@ -10,7 +10,7 @@ import ActionsSpeedDial from "./ActionsSpeedDial";
 import { capitalizeWords } from "../Utils/helpers";
 import { border } from "../Utils/colors";
 import { lineDivider } from "../Utils/modalStyles";
-import NoLocationsCard from "./NoLocationsCard";
+import NoDetailsCard from "../NoDetailsCard/NoDetailsCard";
 
 export const locationsCardWidth = {
   width: "56vw",
@@ -86,7 +86,7 @@ export default function LocationsCard({
       />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {locations.length === 0 ? (
-        <NoLocationsCard />
+        <NoDetailsCard />
       ) : (
         locations
           .filter((location) => !location.is_deleted)

@@ -1,9 +1,9 @@
 import { Card, CardContent } from "@mui/material";
 import Typography from "../Typography/Typography";
-import { locationsCardWidth } from "./LocationsCard";
+import { locationsCardWidth } from "../LocationsCard/LocationsCard";
 import { disabledColor } from "../Utils/colors";
 
-export default function NoLocationsCard() {
+export default function NoDetailsCard() {
   return (
     <Card elevation={2} sx={locationsCardWidth}>
       <CardContent>
