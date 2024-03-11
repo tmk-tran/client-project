@@ -19,9 +19,7 @@ import AllLocationsButton from "./AllLocationsButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { validateWebsiteFormat, validatePhoneNumber } from "../Utils/helpers";
-import { border } from "../Utils/colors";
-import { flexEnd } from "../Utils/pageStyles";
+import { validateWebsiteFormat } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 const style = {

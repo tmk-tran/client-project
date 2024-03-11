@@ -156,7 +156,6 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
 });
 
 // POST route for uploading front view PDF
-// router.post("/front/:id", upload.single("pdf"), (req, res) => {
 router.put("/front/:id", upload.single("pdf"), (req, res) => {
   console.log("PUT req.body = ", req.body);
   const frontViewPdf = req.file.buffer;
