@@ -20,7 +20,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { pdfFile } from "../../hooks/reduxStore";
 import { centeredStyle, flexCenter } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
-import { formatDate } from "../Utils/helpers";
+import { capitalizeWords, formatDate } from "../Utils/helpers";
 
 const uploadBoxStyle = {
   width: "100%",
@@ -371,8 +371,8 @@ export default function CouponReviewDetails() {
                           {!showLocations && (
                             <>
                               <RenderValue label="Coupon #" value={couponId} />
-                              <RenderValue label="Offer" value={file.offer} />
-                              <RenderValue label="Value" value={file.value} />
+                              <RenderValue label="Offer" value={capitalizeWords(file.offer)} />
+                              <RenderValue label="Value" value={`$ ${file.value}`} />
                               <RenderValue
                                 label="Exclusions"
                                 value={file.exclusions}
