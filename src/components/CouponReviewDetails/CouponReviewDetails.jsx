@@ -16,6 +16,7 @@ import UploadFileButton from "./UploadFileButton";
 import CouponLocations from "../CouponLocations/CouponLocations";
 import ToggleButton from "../ToggleButton/ToggleButton";
 import EditButton from "../Buttons/EditButton";
+import EditCouponModal from "./EditCouponModal";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
 import { pdfFile } from "../../hooks/reduxStore";
@@ -60,8 +61,6 @@ export default function CouponReviewDetails() {
   const [isUploaded, setIsUploaded] = useState(false);
   console.log(isUploaded);
   const [showLocations, setShowLocations] = useState(false);
-  const [editCoupon, setEditCoupon] = useState(false);
-  console.log(editCoupon);
 
   const handleDenyButtonClick = () => {
     // Open the modal when Deny button is clicked
@@ -94,9 +93,6 @@ export default function CouponReviewDetails() {
   const handleUploadFile = () => {
     setUploadedFiles(true);
   };
-
-  // const couponId = 6;
-  // console.log(couponId);
 
   useEffect(() => {
     // Ensure that merchantId is available before dispatching the action
@@ -205,10 +201,6 @@ export default function CouponReviewDetails() {
   const handleToggleLocations = () => {
     setShowLocations(!showLocations);
     console.log(showLocations);
-  };
-
-  const handleEdit = () => {
-    setEditCoupon(true);
   };
 
   return (
@@ -378,7 +370,10 @@ export default function CouponReviewDetails() {
                             />
                             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                             {/* ~~~~~~~~~~ Edit Button ~~~~~~~~~~~ */}
-                            <EditButton onClick={handleEdit} />
+                            <EditCouponModal file={file} />
+                            {files.map((file, index) => (
+                              <EditCouponModal key={index} locations={file} />
+                            ))}
                             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                           </Box>
                           {!showLocations && (
