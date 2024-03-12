@@ -241,7 +241,7 @@ function* updateCoupon(action) {
 
   try {
     yield axios.put(`/api/coupon/${merchantId}/${couponId}`, action.payload);
-    yield put({ type: "FETCH_PDF_FILE", payload: merchantId });
+    yield put({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
   } catch (error) {
     console.log("error in updateCoupon Saga", error);
     yield put({ type: "SET_ERROR", payload: error });

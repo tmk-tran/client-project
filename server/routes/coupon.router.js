@@ -50,7 +50,7 @@ router.get("/:id", (req, res) => {
   pool
     .query(queryText, [merchantId])
     .then((result) => {
-      console.log("FROM couponPDFs.router: ", result.rows);
+      console.log("FROM coupon.router GET /:id route: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -92,7 +92,7 @@ router.get("/details/:id", (req, res) => {
   pool
     .query(queryText, [couponId])
     .then((result) => {
-      console.log("FROM coupon.router: ", result.rows);
+      console.log("FROM coupon.router GET /details/:id : ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {

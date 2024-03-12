@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import {
   Box,
   Button,
@@ -12,8 +11,9 @@ import {
   Grid,
 } from "@mui/material";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~ //
-// import { dispatchHook } from "../../hooks/useDispatch"
+import { dispatchHook } from "../../hooks/useDispatch";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~ //
 import EditButton from "../Buttons/EditButton";
 import ModalButtons from "../Modals/ModalButtons";
@@ -36,7 +36,7 @@ const textfieldStyle = {
 
 export default function EditCouponModal({ file }) {
   console.log(file);
-  const dispatch = useDispatch();
+  const dispatch = dispatchHook();
   const params = useParams();
   console.log(params);
   const couponId = params.couponId;
@@ -55,17 +55,17 @@ export default function EditCouponModal({ file }) {
   );
   const [website, setWebsite] = useState(file ? file.website : null);
 
-    useEffect(() => {
-      if (file) {
-        setOffer(file.offer);
-        setValue(file.value);
-        setExclusions(file.exclusions);
-        setExpiration(file.expiration);
-        setAdditionalInfo(file.additional_info);
-        setPhoneNumber(file.phone_number);
-        setWebsite(file.website);
-      }
-    }, [file]);
+  useEffect(() => {
+    if (file) {
+      setOffer(file.offer);
+      setValue(file.value);
+      setExclusions(file.exclusions);
+      setExpiration(file.expiration);
+      setAdditionalInfo(file.additional_info);
+      setPhoneNumber(file.phone_number);
+      setWebsite(file.website);
+    }
+  }, [file]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -94,6 +94,7 @@ export default function EditCouponModal({ file }) {
     setExclusions(null);
     setExpiration(null);
     setAdditionalInfo(null);
+    showSaveSweetAlert();
 
     handleClose();
   };

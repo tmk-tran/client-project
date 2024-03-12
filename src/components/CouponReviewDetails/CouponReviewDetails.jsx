@@ -371,9 +371,9 @@ export default function CouponReviewDetails() {
                             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                             {/* ~~~~~~~~~~ Edit Button ~~~~~~~~~~~ */}
                             <EditCouponModal file={file} />
-                            {files.map((file, index) => (
-                              <EditCouponModal key={index} locations={file} />
-                            ))}
+                            {/* {files.map((file, index) => (
+                              <EditCouponModal key={index} file={file} />
+                            ))} */}
                             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                           </Box>
                           {!showLocations && (
