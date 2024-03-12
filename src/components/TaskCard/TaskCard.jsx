@@ -21,6 +21,7 @@ import TaskDropdown from "./TaskDropdown";
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { mComments } from "../../hooks/reduxStore";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 export default function TaskCard({
   id,
@@ -114,6 +115,7 @@ export default function TaskCard({
     });
     onTaskUpdate();
     handleCaseTypeChange("Archived");
+    // showSaveSweetAlert({ label: "Archived" });
   };
 
   const fullWidth = {
