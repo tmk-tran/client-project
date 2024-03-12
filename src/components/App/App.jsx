@@ -62,10 +62,6 @@ function App() {
   const user = User();
   console.log(user);
 
-  // useEffect(() => {
-  //   dispatch({ type: "FETCH_USER" });
-  // }, [dispatch]);
-
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
     // dispatch({ type: "FETCH_COUPON_BOOKS" });
