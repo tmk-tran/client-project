@@ -71,7 +71,7 @@ export default function BooksSoldForm({
             <strong>cash</strong> and/or <strong>check</strong> sales
           </Typography>
           <TextField
-            label="Total"
+            label="Total # books sold"
             type="number"
             fullWidth
             onChange={handleAmountChange}

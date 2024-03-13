@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Modal, TextField, Grid, Divider } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  TextField,
+  Grid,
+  Divider,
+  InputAdornment,
+} from "@mui/material";
 // ~~~~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider } from "../Utils/modalStyles";
 import { highlightColor, primaryColor, border } from "../Utils/colors";
@@ -364,6 +372,11 @@ export default function SellerForm({
                       size="small"
                       type="number"
                       disabled={mode === "edit" ? true : false}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">$</InputAdornment>
+                        ),
+                      }}
                     />
                     {mode === "edit" && (
                       <CashUpdateModal
@@ -384,6 +397,11 @@ export default function SellerForm({
                       size="small"
                       type="number"
                       disabled={mode === "edit" ? true : false}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">$</InputAdornment>
+                        ),
+                      }}
                     />
                     {mode === "edit" && (
                       <CashUpdateModal
@@ -397,17 +415,22 @@ export default function SellerForm({
                     <TextField
                       name="cash"
                       label="Cash"
-                      value={`${
+                      value={
                         Number(formData["cash"]) +
                         (updateMoneyAmount !== null
                           ? Number(updateMoneyAmount)
                           : 0)
-                      }`}
+                      }
                       onChange={handleChange}
                       fullWidth
                       size="small"
                       type="number"
                       disabled={mode === "edit" ? true : false}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">$</InputAdornment>
+                        ),
+                      }}
                     />
                     {mode === "edit" && (
                       <CashUpdateModal

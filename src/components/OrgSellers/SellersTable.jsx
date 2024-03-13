@@ -17,7 +17,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import LaunchIcon from "@mui/icons-material/Launch";
 import EditIcon from "@mui/icons-material/Edit";
-import EditAttributesIcon from '@mui/icons-material/EditAttributes';
+import EditAttributesIcon from "@mui/icons-material/EditAttributes";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { columns } from "./sellerTableColumns";
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -361,6 +361,13 @@ export default function SellersTable() {
                                 />
                               </div>
                             )}
+                            {/* ~~~~~ Cash Cell ~~~~~ */}
+                            {column.id === "donations" && <>$</>}
+                            {column.id === "digital_donations" && <>$</>}
+                            {column.id === "digital" && <>$</>}
+                            {column.id === "checks" && <>$</>}
+                            {column.id === "cash" && <>$</>}
+                            {column.id === "seller_earnings" && <>$</>}
                             {/* ~~~~~ Action Icons ~~~~~ */}
                             {column.id !== "refId" &&
                               (column.id === "actions" ? (
@@ -411,16 +418,8 @@ export default function SellersTable() {
                   );
                 })}
             </TableBody>
-            {/* <TableFooter>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell key={column.id}>
-                      Calculate and display sum for each column
-                      {calculateColumnSum(sellers, column.id)}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableFooter> */}
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ Table Footer ~~~~~~~~~~ */}
             <TableFooter
               sx={{ position: "sticky", bottom: 0, background: "white" }}
             >
@@ -456,7 +455,18 @@ export default function SellersTable() {
                           }}
                         >
                           {/* ~~~~~~ Cells to display Totals ~~~~~~ */}
-                          {isTotalCell ? "Totals:" : displaySum ? sum : null}
+                          {isTotalCell
+                            ? "Totals:"
+                            : displaySum
+                            ? (column.id === "cash" ||
+                              column.id === "checks" ||
+                              column.id === "donations" ||
+                              column.id === "digital_donations" ||
+                              column.id === "digital" ||
+                              column.id === "seller_earnings"
+                                ? "$"
+                                : "") + sum
+                            : null}
                         </TableCell>
                       ) : (
                         <TableCell
