@@ -352,6 +352,7 @@ const captureOrder = async (orderID) => {
 app.post("/api/orders", async (req, res) => {
   try {
     const { cart } = req.body;
+    console.log("From server, request from CART: ", cart);
     const order = await createOrder(cart);
     res.json(order);
   } catch (error) {
