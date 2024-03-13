@@ -112,6 +112,20 @@ const sellerPageRouter = require("./routes/sellerPage.router");
 const customersRouter = require("./routes/customers.router");
 const transactionsRouter = require("./routes/transactions.router");
 
+// Add this middleware to set the CORS headers
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  next();
+});
+
 // Body parser middleware //
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
