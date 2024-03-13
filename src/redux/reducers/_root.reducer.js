@@ -14,8 +14,7 @@ import couponBooks from "./couponBook.reducer";
 import orgNotes from "./orgNotes.reducer.js";
 import allUsers from "./allUsers.reducer.js";
 import groupAdmin from "./groupAdmin.reducer";
-import coupon from "./coupon.reducer";
-import pdf from "./couponPDF.reducer";
+import coupons from "./coupons.reducer";
 import merchantDetails from "./merchantDetails.reducer";
 import merchantNotes from "./merchantNotes.reducer";
 import merchantTasks from "./merchantTask.reducer";
@@ -44,8 +43,7 @@ const rootReducer = combineReducers({
   groupAdmin,
   orgNotes,
   allUsers,
-  coupon,
-  pdf,
+  coupons,
   merchantNotes,
   merchantDetails,
   merchantTasks,

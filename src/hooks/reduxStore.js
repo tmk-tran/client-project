@@ -60,8 +60,8 @@ export const sellerPageInfo = () => {
   return useSelector((store) => store.sellerPage);
 };
 
-export const pdfFile = () => {
-  return useSelector((store) => store.pdf);
+export const couponsData = () => {
+  return useSelector((store) => store.coupons);
 };
 
 export const User = () => {

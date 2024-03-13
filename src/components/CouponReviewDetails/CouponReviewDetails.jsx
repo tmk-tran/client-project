@@ -19,7 +19,7 @@ import EditButton from "../Buttons/EditButton";
 import EditCouponModal from "./EditCouponModal";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
-import { pdfFile } from "../../hooks/reduxStore";
+import { couponsData } from "../../hooks/reduxStore";
 import { centeredStyle, flexCenter, flexRowSpace } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
 import { capitalizeWords, formatDate } from "../Utils/helpers";
@@ -107,7 +107,7 @@ export default function CouponReviewDetails() {
     setFrontViewFile(null);
   }, [merchantId, commentAdded, uploadedFiles]); //Deleted dispatch from dependencies
 
-  const files = pdfFile() || [];
+  const files = couponsData() || [];
   console.log(files);
   const file = files[0];
   console.log(file);

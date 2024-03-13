@@ -1,4 +1,4 @@
-const pdfReducer = (state = [], action) => {
+const couponsReducer = (state = [], action) => {
   switch (action.type) {
     case "GET_PDF":
       return action.payload;
@@ -9,4 +9,4 @@ const pdfReducer = (state = [], action) => {
   }
 };
 
-export default pdfReducer;
+export default couponsReducer;

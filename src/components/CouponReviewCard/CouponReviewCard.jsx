@@ -14,7 +14,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { mComments } from "../../hooks/reduxStore";
 import { flexCenter, textCenter } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
-import { pdfFile } from "../../hooks/reduxStore";
+import { couponsData } from "../../hooks/reduxStore";
 import { thumbnailSize } from "../CouponReviewDetails/FilePreview";
 import { capitalizeFirstWord } from "../Utils/helpers";
 
@@ -52,7 +52,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
       });
   }, []);
 
-  const files = pdfFile() || [];
+  const files = couponsData() || [];
   console.log(files);
   const merchantComments = mComments(merchantId);
   console.log(merchantComments);
