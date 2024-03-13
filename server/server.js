@@ -329,8 +329,10 @@ const createOrder = async (cart) => {
       "Content-Type": "application/json",
     },
   });
-
+  
+  console.log("RESPONSE FROM SERVER, createOrder: ", response.data);
   return response.data;
+
 };
 
 // Capture payment for the created order to complete the transaction
