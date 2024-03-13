@@ -12,7 +12,7 @@ import {
 // ~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~~~~~~
 import CustomerInfoForm from "./CustomerInfoForm";
 import OrderSummaryDisplay from "./OrderSummaryDisplay";
-import PayPalButton from "./PayPalButtons";
+import PayPalButtons from "./PayPalButtons";
 import Typography from "../Typography/Typography";
 import CustomButton from "../CustomButton/CustomButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -145,7 +145,7 @@ export default function CheckoutPage({ caseType }) {
               justifyContent: "center",
             }}
           >
-            <PayPalButton />
+            <PayPalButtons selectedProducts={selectedProducts} customDonation={customDonation} />
           </Box>
         );
       case 2:
