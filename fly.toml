@@ -28,6 +28,10 @@ primary_region = 'ord'
   internal_port = 8080
   protocol = "tcp"
 
+  [services.ports]
+    handlers = ["http"]
+    port = 80
+    
   [services.env]
       PAYPAL_CLIENT_ID = "AXW1Fk6t36VzplCt2ev6VRwygaNynFd4tz4KBWicOhfvFrPLenoFFcwIbgih38FpabvP9I6RXFfyZ_Nx"
       PAYPAL_CLIENT_SECRET = "EHsnck16Pc_y_0vqTtqaUoGAZxRXjbM82_EowokKxydbYHRkV_gnlUCyfrNsrz2-YY0PWhReXvTr9c2X"
