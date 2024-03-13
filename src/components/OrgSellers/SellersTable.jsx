@@ -143,7 +143,7 @@ export default function SellersTable() {
     };
     console.log("Dispatching action:", editAction);
     dispatch(editAction);
-    showSaveSweetAlert();
+    showSaveSweetAlert({ label: null });
   };
 
   const handleArchive = (sellerId) => {

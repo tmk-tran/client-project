@@ -58,8 +58,8 @@ export const showDeleteSweetAlert = (deleteCall, caseType) => {
 //   });
 // };
 export const showSaveSweetAlert = ({ label }) => {
-  console.log(label);
-  const title = label ? `${label}!` : "Saved!";
+  // console.log(label);
+  const title = label !== null ? `${label}!` : "Saved!";
   Swal.fire({
     title: title,
     icon: "success",
