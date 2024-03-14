@@ -9,6 +9,7 @@ import {
   Divider,
   InputLabel,
   Grid,
+  InputAdornment,
 } from "@mui/material";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -158,6 +159,11 @@ export default function EditCouponModal({ file }) {
                   setValue(e.target.value);
                 }}
                 sx={textfieldStyle}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
               />
             </Grid>
             <Grid item xs={6}>
