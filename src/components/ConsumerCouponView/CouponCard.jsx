@@ -2,7 +2,7 @@ import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { border } from "../Utils/colors";
 import { redeemCouponSweetAlert } from "../Utils/sweetAlerts";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { flexColumnSpace, flexCenter, flexRowSpace } from "../Utils/pageStyles";
+import { flexCenter, flexRowSpace, centeredStyle } from "../Utils/pageStyles";
 import { capitalizeWords, formatDate } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import LocationSection from "./LocationSection";
@@ -20,34 +20,23 @@ export default function CouponCard({ coupon, i }) {
   const user = User() || {};
   console.log(user);
 
-  const onRedeemClick = (couponId) => {
-    console.log(couponId);
-    const redeemAction = {
-      type: "REDEEM_COUPON",
-      payload: couponId,
-    };
-    console.log(redeemAction);
-    // dispatch(redeemAction);
-  };
-
   const handleRedeem = (couponId, locationId, userId) => {
-    // redeemCouponSweetAlert(() => {
-    //   // onRedeemClick(couponId);
-    //   onRedeemClick();
-    // });
     console.log(couponId);
     console.log(locationId);
     console.log(userId);
-    const redeemAction = {
-      type: "REDEEM_COUPON",
-      payload: {
-        couponId,
-        locationId,
-        userId,
-      },
+    const saveCall = () => {
+      const redeemAction = {
+        type: "REDEEM_COUPON",
+        payload: {
+          couponId,
+          locationId,
+          userId,
+        },
+      };
+      console.log(redeemAction);
+      dispatch(redeemAction);
     };
-    console.log(redeemAction);
-    dispatch(redeemAction);
+    redeemCouponSweetAlert(saveCall);
   };
 
   return (
@@ -65,12 +54,10 @@ export default function CouponCard({ coupon, i }) {
           <Box
             sx={{
               flexGrow: 1,
-              ...flexColumnSpace,
               ...border,
             }}
           >
-            <div>
-              {coupon.locationId}
+            <div style={centeredStyle}>
               <Typography variant="body2">{coupon.merchantName}</Typography>
               <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                 {capitalizeWords(coupon.offer)}
@@ -80,8 +67,7 @@ export default function CouponCard({ coupon, i }) {
                   ? capitalizeWords(coupon.additionalInfo)
                   : ""}
               </Typography>
-            </div>
-            {/* <Typography variant="caption">
+              {/* <Typography variant="caption">
               Expires:{" "}
               {coupon.expiration ? (
                 formatDate(coupon.expiration)
@@ -89,9 +75,12 @@ export default function CouponCard({ coupon, i }) {
                 <Typography variant="caption">No expiration set</Typography>
               )}
             </Typography> */}
-            <Typography variant="caption">
-              {coupon.exclusions ? <>Exclusions: {coupon.exclusions}</> : null}
-            </Typography>
+              <Typography variant="caption">
+                {coupon.exclusions ? (
+                  <>Exclusions: {coupon.exclusions}</>
+                ) : null}
+              </Typography>
+            </div>
           </Box>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ Redeem Button ~~~~~~~~~~ */}
