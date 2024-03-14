@@ -7,43 +7,7 @@ const {
 const { upload } = require("../modules/upload");
 
 router.get("/", (req, res) => {
-  // const queryText = `
-  //             SELECT
-  //               c.*,
-  //               l.id AS location_id,
-  //               l.location_name,
-  //               l.phone_number,
-  //               l.address,
-  //               l.city,
-  //               l.state,
-  //               l.zip,
-  //               l.coordinates,
-  //               l.region_id,
-  //               l.merchant_id AS location_merchant_id,
-  //               l.additional_details AS location_additional_details,
-  //               m.merchant_name,
-  //               cl.is_redeemed
-  //             FROM
-  //               coupon c
-  //             JOIN
-  //               coupon_location cl ON c.id = cl.coupon_id
-  //             JOIN
-  //               location l ON cl.location_id = l.id
-  //             JOIN
-  //               merchant m ON c.merchant_id = m.id
-  //             LEFT JOIN
-  //               coupon_redemption cr ON cl.id = cr.location_id
-  //             WHERE
-  //               NOT EXISTS (
-  //                 SELECT 1
-  //                 FROM coupon_redemption cr
-  //                 WHERE cr.coupon_id = c.id AND cl.is_redeemed = true
-  //               )
-  //             ORDER BY
-  //               m.merchant_name ASC;
-  //       `;
-
-  // can add 
+  // can add
   // ARRAY_AGG(l.coordinates) AS coordinates,
   // ARRAY_AGG(l.region_id) AS region_id,
   const queryText = `

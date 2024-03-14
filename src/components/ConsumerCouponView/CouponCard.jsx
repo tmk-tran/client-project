@@ -1,12 +1,21 @@
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+} from "@mui/material";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
+import { User } from "../../hooks/reduxStore";
 import { border } from "../Utils/colors";
 import { redeemCouponSweetAlert } from "../Utils/sweetAlerts";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { flexCenter, flexRowSpace, centeredStyle } from "../Utils/pageStyles";
 import { capitalizeWords, formatDate } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
-import LocationSection from "./LocationSection";
-import { User } from "../../hooks/reduxStore";
+import BottomSection from "./BottomSection";
+import RedeemButton from "./RedeemButton";
 
 const couponPreviewStyle = {
   height: "100px",
@@ -84,7 +93,7 @@ export default function CouponCard({ coupon, i }) {
           </Box>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ Redeem Button ~~~~~~~~~~ */}
-          <Box
+          {/* <Box
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -108,22 +117,12 @@ export default function CouponCard({ coupon, i }) {
             >
               Redeem
             </Button>
-          </Box>
+          </Box> */}
+          <RedeemButton coupon={coupon} user={user} handleRedeem={handleRedeem} />
         </Box>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Locations Accepted ~~~~~~~~~~ */}
-        <Box sx={flexRowSpace}>
-          <LocationSection coupon={coupon} />
-          {/* {coupon.exclusions ? <>Exclusions: {coupon.exclusions}</> : null} */}
-          <Typography variant="caption">
-            Expires:{" "}
-            {coupon.expiration ? (
-              formatDate(coupon.expiration)
-            ) : (
-              <Typography variant="caption">No expiration set</Typography>
-            )}
-          </Typography>
-        </Box>
+        <BottomSection coupon={coupon} />
       </CardContent>
     </Card>
   );

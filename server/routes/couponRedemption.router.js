@@ -12,18 +12,30 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const locationId = coupon.locationId;
   const redeemedBy = coupon.userId;
 
-  const queryText = `
-        INSERT INTO 
-            coupon_redemption (
-                coupon_id, 
-                location_id, 
-                redeemed_by)
-        VALUES ($1, $2, $3);
+  // const queryText = `
+  //       INSERT INTO 
+  //           coupon_redemption (
+  //               coupon_id, 
+  //               location_id, 
+  //               redeemed_by)
+  //       VALUES ($1, $2, $3);
     
-    `;
+  //   `;
+      const queryText = `
+      INSERT INTO 
+          coupon_redemption (
+              coupon_id, 
+              location_id, 
+              redeemed_by
+          )
+      VALUES 
+          ${coupon.locationId.map((_, index) => `($1, $${index + 2}, $${coupon.locationId.length + 2})`).join(", ")};
+      `;
+
+      const params = [coupon.couponId, ...coupon.locationId, coupon.userId];
 
   pool
-    .query(queryText, [couponId, locationId, redeemedBy])
+    .query(queryText, params)
     .then((response) => {
       console.log("response from couponRedemption.router: ", response.rows);
       res.sendStatus(201);
