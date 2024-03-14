@@ -7,26 +7,64 @@ const {
 const { upload } = require("../modules/upload");
 
 router.get("/", (req, res) => {
+  // const queryText = `
+  //             SELECT
+  //               c.*,
+  //               l.id AS location_id,
+  //               l.location_name,
+  //               l.phone_number,
+  //               l.address,
+  //               l.city,
+  //               l.state,
+  //               l.zip,
+  //               l.coordinates,
+  //               l.region_id,
+  //               l.merchant_id AS location_merchant_id,
+  //               l.additional_details AS location_additional_details,
+  //               m.merchant_name,
+  //               cl.is_redeemed
+  //             FROM
+  //               coupon c
+  //             JOIN
+  //               coupon_location cl ON c.id = cl.coupon_id
+  //             JOIN
+  //               location l ON cl.location_id = l.id
+  //             JOIN
+  //               merchant m ON c.merchant_id = m.id
+  //             LEFT JOIN
+  //               coupon_redemption cr ON cl.id = cr.location_id
+  //             WHERE
+  //               NOT EXISTS (
+  //                 SELECT 1
+  //                 FROM coupon_redemption cr
+  //                 WHERE cr.coupon_id = c.id AND cl.is_redeemed = true
+  //               )
+  //             ORDER BY
+  //               m.merchant_name ASC;
+  //       `;
+
+  // can add 
+  // ARRAY_AGG(l.coordinates) AS coordinates,
+  // ARRAY_AGG(l.region_id) AS region_id,
   const queryText = `
               SELECT
                 c.*,
-                l.id AS location_id,
-                l.location_name,
-                l.phone_number,
-                l.address,
-                l.city,
-                l.state,
-                l.zip,
-                l.coordinates,
-                l.region_id,
-                l.merchant_id AS location_merchant_id,
-                l.additional_details AS location_additional_details,
+                cl.coupon_id AS coupon_id,
+                ARRAY_AGG(l.id) AS location_id,
+                ARRAY_AGG(l.location_name) AS location_name,
+                ARRAY_AGG(l.phone_number) AS phone_number,
+                ARRAY_AGG(l.address) AS address,
+                ARRAY_AGG(l.city) AS city,
+                ARRAY_AGG(l.state) AS state,
+                ARRAY_AGG(l.zip) AS zip,
+                ARRAY_AGG(l.merchant_id) AS location_merchant_id,
+                ARRAY_AGG(l.additional_details) AS location_additional_details,
                 m.merchant_name,
                 cl.is_redeemed
               FROM
-                coupon c
+                coupon_location cl
               JOIN
-                coupon_location cl ON c.id = cl.coupon_id
+                coupon c ON cl.coupon_id = c.id
               JOIN
                 location l ON cl.location_id = l.id
               JOIN
@@ -35,12 +73,15 @@ router.get("/", (req, res) => {
                 coupon_redemption cr ON cl.id = cr.location_id
               WHERE
                 NOT EXISTS (
-                  SELECT 1
-                  FROM coupon_redemption cr
-                  WHERE cr.coupon_id = c.id AND cl.is_redeemed = true
+                    SELECT 1
+                    FROM coupon_redemption cr
+                  WHERE cr.coupon_id = cl.coupon_id AND cl.is_redeemed = true
                 )
+              GROUP BY
+                c.id, m.merchant_name, cl.coupon_id, cl.is_redeemed
               ORDER BY
                 m.merchant_name ASC;
+
         `;
 
   pool
