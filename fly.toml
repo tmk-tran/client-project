@@ -16,10 +16,6 @@ primary_region = 'ord'
   min_machines_running = 0
   processes = ['app']
 
-    [http_service.env]
-      PAYPAL_CLIENT_ID = "AXW1Fk6t36VzplCt2ev6VRwygaNynFd4tz4KBWicOhfvFrPLenoFFcwIbgih38FpabvP9I6RXFfyZ_Nx"
-      PAYPAL_CLIENT_SECRET = "EHsnck16Pc_y_0vqTtqaUoGAZxRXjbM82_EowokKxydbYHRkV_gnlUCyfrNsrz2-YY0PWhReXvTr9c2X"
-
 [[vm]]
   memory = '1gb'
   cpu_kind = 'shared'
