@@ -7,33 +7,6 @@ const {
 const { upload } = require("../modules/upload");
 
 router.get("/", (req, res) => {
-  // const queryText = `
-  //         SELECT
-  //           c.*,
-  //           l.id AS location_id,
-  //           l.location_name,
-  //           l.phone_number,
-  //           l.address,
-  //           l.city,
-  //           l.state,
-  //           l.zip,
-  //           l.coordinates,
-  //           l.region_id,
-  //           l.merchant_id AS location_merchant_id,
-  //           l.additional_details AS location_additional_details,
-  //           m.merchant_name
-  //         FROM
-  //           coupon c
-  //         JOIN
-  //           coupon_location cl ON c.id = cl.coupon_id
-  //         JOIN
-  //           location l ON cl.location_id = l.id
-  //         JOIN
-  //           merchant m ON c.merchant_id = m.id
-  //         ORDER by
-  //           m.merchant_name ASC;
-  // `;
-
   const queryText = `
               SELECT
                 c.*,
@@ -92,9 +65,6 @@ router.get("/:id", (req, res) => {
   console.log("pdfData = ", pdfData);
   console.log("frontViewPdf = ", frontViewPdf);
   console.log("backViewPdf = ", backViewPdf);
-
-  // const queryText =
-  //   "SELECT pdf_data, filename, front_view_pdf, back_view_pdf FROM coupon WHERE merchant_id = $1";
 
   const queryText = "SELECT * FROM coupon WHERE merchant_id = $1";
 
@@ -238,10 +208,6 @@ router.put("/front/:id", upload.single("pdf"), (req, res) => {
 
   // Insert the filename and merchantId into the database
   pool
-    // .query(
-    //   "INSERT INTO coupon (filename_front, front_view_pdf, merchant_id) VALUES ($1, $2, $3)",
-    //   [filename, frontViewPdf, merchantId]
-    // )
     .query(
       "UPDATE coupon SET filename_front = $1, front_view_pdf = $2 WHERE id = $3",
       [filename, frontViewPdf, couponId]
