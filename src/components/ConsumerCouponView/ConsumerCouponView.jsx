@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { border } from "../Utils/colors";
 import {
@@ -12,8 +12,10 @@ import {
 import { dispatchHook } from "../../hooks/useDispatch";
 import { couponsData } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
+import Typography from "../Typography/Typography";
 import CouponCard from "./CouponCard";
 import SearchBar from "../SearchBar/SearchBar";
+import ToggleButton from "../ToggleButton/ToggleButton";
 
 export default function ConsumerCouponView() {
   const dispatch = dispatchHook();
@@ -29,38 +31,38 @@ export default function ConsumerCouponView() {
   console.log(coupons);
 
   return (
-    <Box sx={{ ...centeredStyle, ...border, ...containerStyle }}>
-      <Typography variant="h5" sx={{ fontWeight: "bold", ...centerMe }}>
-        Consumer Coupon View
-      </Typography>
+    <Box
+      sx={{
+        ...centeredStyle,
+        ...border,
+        ...containerStyle,
+        position: "relative",
+      }}
+    >
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~ Toggle ~~~~~~~~~~ */}
+      <Box sx={{ position: "absolute", top: 0, left: 0 }}>
+        <ToggleButton />
+      </Box>
+      {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
+      <Typography
+        label="My Coupons"
+        variant="h5"
+        sx={{ mt: 2, fontWeight: "bold", ...centerMe }}
+      />
       <br />
       <Box sx={{ mb: 2, width: "75%", ...flexRowSpace }}>
         <SearchBar isCoupon isOrganization={false} />
-        <Typography variant="body2" sx={{ mt: 2 }}>
-          Coupons valid mm/yy - mm/yy
-        </Typography>
+        <Typography
+          label="Coupons valid mm/yy - mm/yy"
+          variant="body2"
+          sx={{ mt: 2 }}
+        />
       </Box>
-      {/* <Grid container spacing={2}>
-        <Grid item xs={6}> */}
-      {/* First column */}
-      {/* <CouponCard />
-          <CouponCard />
-          <CouponCard />
-          <CouponCard />
-        </Grid>
-        <Grid item xs={6}> */}
-      {/* Second column */}
-      {/* <CouponCard />
-          <CouponCard />
-          <CouponCard />
-          <CouponCard />
-        </Grid>
-      </Grid>
-    </Box> */}
       {coupons ? (
         coupons.map((coupon, i) => <CouponCard key={i} coupon={coupon} />)
       ) : (
-        <Typography variant="body1">Coupons unavailable</Typography>
+        <Typography label="Coupons unavailable" variant="body1" />
       )}
     </Box>
   );
