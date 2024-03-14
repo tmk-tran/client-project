@@ -108,7 +108,7 @@ export default function CustomerNameInfo({ onSubmit }) {
       phone: customerPhoneNumber,
     });
     resetForm();
-    showSaveSweetAlert();
+    showSaveSweetAlert({ label: null });
   };
 
   return (

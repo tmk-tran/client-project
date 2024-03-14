@@ -7,17 +7,29 @@ const {
 const { upload } = require("../modules/upload");
 
 router.get("/", (req, res) => {
-  const filename = req.params.filename;
-  console.log("filename = ", filename);
-  // Assuming you have the PDF data stored in some way
-  const pdfData = req.params.pdf_data;
-  const frontViewPdf = req.params.front_view_pdf;
-  const backViewPdf = req.params.back_view_pdf;
-  console.log("pdfData = ", pdfData);
-  console.log("frontViewPdf = ", frontViewPdf);
-  console.log("backViewPdf = ", backViewPdf);
 
   const queryText = "SELECT * FROM coupon";
+  // const queryText = `
+  //         SELECT
+  //           c.*,
+  //           l.id AS location_id,
+  //           l.location_name,
+  //           l.phone_number,
+  //           l.address,
+  //           l.city,
+  //           l.state,
+  //           l.zip,
+  //           l.coordinates,
+  //           l.region_id,
+  //           l.merchant_id AS location_merchant_id,
+  //           l.additional_details AS location_additional_details
+  //         FROM
+  //           coupon c
+  //         JOIN
+  //           coupon_location cl ON c.id = cl.coupon_id
+  //         JOIN
+  //           location l ON cl.location_id = l.id;
+  // `;
 
   pool
     .query(queryText)
@@ -155,50 +167,6 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
   }
 });
 
-// EDIT route for updating coupon details
-router.put("/:merchantId/:couponId", rejectUnauthenticated, async (req, res) => {
-  console.log("COUPON EDIT req.body = ", req.body);
-  const coupon = req.body;
-  const couponId = req.params.couponId;
-  console.log("couponId = ", couponId);
-
-  const offer = coupon.offer;
-  const value = coupon.value;
-  const exclusions = coupon.exclusions;
-  const expiration = coupon.expiration;
-  const additionalInfo = coupon.additional_info;
-
-  const queryText = `
-      UPDATE 
-        coupon
-      SET 
-        offer = $1,
-        value = $2,
-        exclusions = $3,
-        expiration = $4,
-        additional_info = $5
-      WHERE id = $6;
-  `;
-
-  pool
-    .query(queryText, [
-      offer,
-      value,
-      exclusions,
-      expiration,
-      additionalInfo,
-      couponId,
-    ])
-    .then((response) => {
-      console.log("FROM coupon.router EDIT: ", response.rows);
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.error("Error in EDIT coupon PUT route", error);
-      res.sendStatus(500);
-    });
-});
-
 // PUT route for uploading front view PDF
 router.put("/front/:id", upload.single("pdf"), (req, res) => {
   console.log("PUT req.body = ", req.body);
@@ -246,6 +214,50 @@ router.put("/back/:id", upload.single("pdf"), (req, res) => {
     .catch((error) => {
       console.error(error);
       res.status(500).send("Error uploading back view PDF");
+    });
+});
+
+// EDIT route for updating coupon details
+router.put("/:merchantId/:couponId", rejectUnauthenticated, async (req, res) => {
+  console.log("COUPON EDIT req.body = ", req.body);
+  const coupon = req.body;
+  const couponId = req.params.couponId;
+  console.log("couponId = ", couponId);
+
+  const offer = coupon.offer;
+  const value = coupon.value;
+  const exclusions = coupon.exclusions;
+  const expiration = coupon.expiration;
+  const additionalInfo = coupon.additional_info;
+
+  const queryText = `
+      UPDATE 
+        coupon
+      SET 
+        offer = $1,
+        value = $2,
+        exclusions = $3,
+        expiration = $4,
+        additional_info = $5
+      WHERE id = $6;
+  `;
+
+  pool
+    .query(queryText, [
+      offer,
+      value,
+      exclusions,
+      expiration,
+      additionalInfo,
+      couponId,
+    ])
+    .then((response) => {
+      console.log("FROM coupon.router EDIT: ", response.rows);
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error("Error in EDIT coupon PUT route", error);
+      res.sendStatus(500);
     });
 });
 

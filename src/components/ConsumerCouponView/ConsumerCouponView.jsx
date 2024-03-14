@@ -8,21 +8,25 @@ import {
   centerMe,
   flexRowSpace,
 } from "../Utils/pageStyles";
-
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
+import { dispatchHook } from "../../hooks/useDispatch";
+import { couponsData } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
 import CouponCard from "./CouponCard";
 import SearchBar from "../SearchBar/SearchBar";
-import { dispatchHook } from "../../hooks/useDispatch";
 
 export default function ConsumerCouponView() {
   const dispatch = dispatchHook();
-  
+
   useEffect(() => {
     const dispatchAction = {
       type: "FETCH_COUPON_FILES",
     };
     dispatch(dispatchAction);
   }, []);
+
+  const coupons = couponsData() || [];
+  console.log(coupons);
 
   return (
     <Box sx={{ ...centeredStyle, ...border, ...containerStyle }}>

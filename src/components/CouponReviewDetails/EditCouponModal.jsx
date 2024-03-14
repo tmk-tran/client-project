@@ -94,7 +94,7 @@ export default function EditCouponModal({ file }) {
     setExclusions(null);
     setExpiration(null);
     setAdditionalInfo(null);
-    showSaveSweetAlert();
+    showSaveSweetAlert({ label: "Coupon Updated" });
 
     handleClose();
   };

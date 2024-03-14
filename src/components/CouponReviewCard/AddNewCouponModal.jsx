@@ -99,7 +99,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
     }
 
     // Validate phone number before saving
-    if (!/^[0-9]*$/.test(phone) || phone.length !== 10) {
+    if (!/^\d{10}$/.test(phone)) {
       setPhoneError(true);
       return;
     }
@@ -117,7 +117,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
     dispatch(dispatchAction);
 
     handleCaseTypeChange("New Coupon");
-    showSaveSweetAlert();
+    showSaveSweetAlert({ label: "Coupon Added" });
     resetForm();
   };
 

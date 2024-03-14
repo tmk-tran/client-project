@@ -62,9 +62,9 @@ export default function NotesPopover({ info }) {
 
     // Toast
     // showToast();
-
+    saveCall();
     // Sweet Alert
-    showSaveSweetAlert(saveCall);
+    showSaveSweetAlert({ label: "Note Added" });
 
     setNewNote("");
     handleClose();

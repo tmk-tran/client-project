@@ -115,7 +115,7 @@ export default function DetailsEdit({
     // showToast();
 
     // Sweet Alert
-    showSaveSweetAlert();
+    showSaveSweetAlert({ label: "Details Updated" });
 
     setZipError(false);
 

@@ -133,7 +133,7 @@ export default function SellersTable() {
     };
     console.log("Dispatching action:", action);
     dispatch(action);
-    showSaveSweetAlert();
+    showSaveSweetAlert({ label: "Seller Added" });
   };
 
   const handleEditSeller = (editedSeller) => {
