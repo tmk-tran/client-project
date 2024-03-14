@@ -155,28 +155,6 @@ function* pdfFile(action) {
   }
 }
 
-// function* pdfUpload(action) {
-//   const { selectedFile } = action.payload;
-//   console.log(selectedFile);
-
-//   try {
-//     const formData = new FormData();
-//     formData.append("pdf", selectedFile);
-
-//     const response = yield axios.post(`/api/coupon`, formData);
-//     console.log("RESPONSE from uploadPdf = ", response.data);
-
-//     const uploadedPdfInfo = response.data;
-
-//     // Dispatch a success action if needed
-//     yield put({ type: "UPLOAD_PDF_SUCCESS", payload: uploadedPdfInfo });
-//   } catch (error) {
-//     console.log("Error uploading PDF:", error);
-//     // Dispatch a failure action if needed
-//     yield put({ type: "UPLOAD_PDF_FAILURE", payload: "Error uploading PDF" });
-//   }
-// }
-
 function* addCoupon(action) {
   const coupon = action.payload;
   console.log(coupon);
@@ -251,7 +229,6 @@ function* updateCoupon(action) {
   console.log(couponId);
   const merchantId = coupon.merchantId;
 
-
   try {
     yield axios.put(`/api/coupon/${merchantId}/${couponId}`, action.payload);
     yield put({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
@@ -261,20 +238,13 @@ function* updateCoupon(action) {
   }
 }
 
-// function* redeemCoupon(action) {
-//   const couponId = action.payload;
-//   console.log(couponId);
-// }
-
 export default function* couponSaga() {
   yield takeEvery("FETCH_COUPON_FILES", couponFiles); // this call will come from Coupon component
   yield takeEvery("FETCH_PDF_FILE", pdfFile); // place this call in the component that is viewed after clicking on the file (with its id)
-  // yield takeEvery("UPLOAD_PDF_REQUEST", pdfUpload);
   yield takeEvery("ADD_COUPON", addCoupon);
   yield takeEvery("UPLOAD_FRONT_VIEW_PDF", frontViewUpload);
   yield takeEvery("UPLOAD_BACK_VIEW_PDF", backViewUpload);
   yield takeEvery("UPDATE_COUPON", updateCoupon);
-  // yield takeEvery("REDEEM_COUPON", redeemCoupon);
 }
 
 export { fetchPdfRequest };
