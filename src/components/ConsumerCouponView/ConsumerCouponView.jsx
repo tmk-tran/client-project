@@ -19,6 +19,8 @@ import ToggleButton from "../ToggleButton/ToggleButton";
 
 export default function ConsumerCouponView() {
   const dispatch = dispatchHook();
+  const [toggleView, setToggleView] = useState(false);
+  console.log(toggleView);
 
   useEffect(() => {
     const dispatchAction = {
@@ -29,6 +31,10 @@ export default function ConsumerCouponView() {
 
   const coupons = couponsData() || [];
   console.log(coupons);
+
+  const handleToggle = () => {
+    setToggleView(!toggleView);
+  };
 
   return (
     <Box
@@ -42,15 +48,24 @@ export default function ConsumerCouponView() {
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~ Toggle ~~~~~~~~~~ */}
       <Box sx={{ position: "absolute", top: 0, left: 0 }}>
-        <ToggleButton />
+        <ToggleButton
+          sxButton={{ margin: 2 }}
+          sxIcon={{ mr: 1 }}
+          onClick={() => handleToggle(!toggleView)}
+          label1="View Redeemed"
+          label2="View Active"
+          toggleState={toggleView}
+        />
       </Box>
       {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
       <Typography
-        label="My Coupons"
+        label={toggleView ? "Redeemed Coupons" : "My Coupons"}
         variant="h5"
         sx={{ mt: 2, fontWeight: "bold", ...centerMe }}
       />
       <br />
+      {!toggleView? (
+        <>
       <Box sx={{ mb: 2, width: "75%", ...flexRowSpace }}>
         <SearchBar isCoupon isOrganization={false} />
         <Typography
@@ -62,7 +77,11 @@ export default function ConsumerCouponView() {
       {coupons ? (
         coupons.map((coupon, i) => <CouponCard key={i} coupon={coupon} />)
       ) : (
-        <Typography label="Coupons unavailable" variant="body1" />
+        <Typography label="Coupons unavailable" />
+      )}
+      </>
+      ) : (
+        <Typography label="Coupons Redeemed" />
       )}
     </Box>
   );
