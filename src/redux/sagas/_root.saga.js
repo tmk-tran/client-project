@@ -24,6 +24,7 @@ import sellersSaga from "./sellers.saga";
 import sellerPageSaga from "./sellerPage.saga";
 import customersSaga from "./customers.saga";
 import transactionsSaga from "./transactions.saga";
+import redeemSaga from "./couponRedeem.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -57,6 +58,7 @@ export default function* rootSaga() {
     sellersSaga(),
     sellerPageSaga(),
     customersSaga(),
-    transactionsSaga(),    
+    transactionsSaga(),
+    redeemSaga(),    
   ]);
 }

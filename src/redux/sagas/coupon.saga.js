@@ -20,24 +20,37 @@ function* couponFiles(action) {
     // Map the data received from the server
     const formattedFiles = files.map((coupon) => {
       const formattedFile = {
-        pdfBlob: null,
-        filename: coupon.filename,
+        id: coupon.id,
+        merchantId: coupon.merchant_id,
+        is_deleted: coupon.is_deleted,
         frontViewBlob: null,
         backViewBlob: null,
         offer: coupon.offer,
         value: coupon.value,
         exclusions: coupon.exclusions,
-        details: coupon.details,
         expiration: coupon.expiration,
         additionalInfo: coupon.additional_info,
+        locationId: coupon.location_id,
+        locationName: coupon.location_name,
+        phoneNumber: coupon.phone_number,
+        address: coupon.address,
+        city: coupon.city,
+        state: coupon.state,
+        zip: coupon.zip,
+        // coordinates: coupon.coordinates,
+        // regionId: coupon.region_id,
+        locationMerchantId: coupon.location_merchant_id,
+        additionalDetails: coupon.location_additional_details,
+        merchantName: coupon.merchant_name,
+        is_redeemed: coupon.is_redeemed,
       };
 
-      if (coupon.pdf_data && coupon.pdf_data.data) {
-        formattedFile.pdfBlob = new Blob(
-          [Uint8Array.from(coupon.pdf_data.data)],
-          { type: "application/pdf" }
-        );
-      }
+      // if (coupon.pdf_data && coupon.pdf_data.data) {
+      //   formattedFile.pdfBlob = new Blob(
+      //     [Uint8Array.from(coupon.pdf_data.data)],
+      //     { type: "application/pdf" }
+      //   );
+      // }
 
       if (coupon.front_view_pdf && coupon.front_view_pdf.data) {
         formattedFile.frontViewBlob = new Blob(
@@ -248,6 +261,11 @@ function* updateCoupon(action) {
   }
 }
 
+// function* redeemCoupon(action) {
+//   const couponId = action.payload;
+//   console.log(couponId);
+// }
+
 export default function* couponSaga() {
   yield takeEvery("FETCH_COUPON_FILES", couponFiles); // this call will come from Coupon component
   yield takeEvery("FETCH_PDF_FILE", pdfFile); // place this call in the component that is viewed after clicking on the file (with its id)
@@ -256,6 +274,7 @@ export default function* couponSaga() {
   yield takeEvery("UPLOAD_FRONT_VIEW_PDF", frontViewUpload);
   yield takeEvery("UPLOAD_BACK_VIEW_PDF", backViewUpload);
   yield takeEvery("UPDATE_COUPON", updateCoupon);
+  // yield takeEvery("REDEEM_COUPON", redeemCoupon);
 }
 
 export { fetchPdfRequest };

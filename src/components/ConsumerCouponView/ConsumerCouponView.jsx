@@ -57,14 +57,11 @@ export default function ConsumerCouponView() {
         </Grid>
       </Grid>
     </Box> */}
-      <CouponCard />
-      <CouponCard />
-      <CouponCard />
-      <CouponCard />
-      <CouponCard />
-      <CouponCard />
-      <CouponCard />
-      <CouponCard />
+      {coupons ? (
+        coupons.map((coupon, i) => <CouponCard key={i} coupon={coupon} />)
+      ) : (
+        <Typography variant="body1">Coupons unavailable</Typography>
+      )}
     </Box>
   );
 }

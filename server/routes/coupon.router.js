@@ -7,8 +7,6 @@ const {
 const { upload } = require("../modules/upload");
 
 router.get("/", (req, res) => {
-
-  const queryText = "SELECT * FROM coupon";
   // const queryText = `
   //         SELECT
   //           c.*,
@@ -22,14 +20,55 @@ router.get("/", (req, res) => {
   //           l.coordinates,
   //           l.region_id,
   //           l.merchant_id AS location_merchant_id,
-  //           l.additional_details AS location_additional_details
+  //           l.additional_details AS location_additional_details,
+  //           m.merchant_name
   //         FROM
   //           coupon c
   //         JOIN
   //           coupon_location cl ON c.id = cl.coupon_id
   //         JOIN
-  //           location l ON cl.location_id = l.id;
+  //           location l ON cl.location_id = l.id
+  //         JOIN
+  //           merchant m ON c.merchant_id = m.id
+  //         ORDER by
+  //           m.merchant_name ASC;
   // `;
+
+  const queryText = `
+              SELECT
+                c.*,
+                l.id AS location_id,
+                l.location_name,
+                l.phone_number,
+                l.address,
+                l.city,
+                l.state,
+                l.zip,
+                l.coordinates,
+                l.region_id,
+                l.merchant_id AS location_merchant_id,
+                l.additional_details AS location_additional_details,
+                m.merchant_name,
+                cl.is_redeemed
+              FROM
+                coupon c
+              JOIN
+                coupon_location cl ON c.id = cl.coupon_id
+              JOIN
+                location l ON cl.location_id = l.id
+              JOIN
+                merchant m ON c.merchant_id = m.id
+              LEFT JOIN
+                coupon_redemption cr ON cl.id = cr.location_id
+              WHERE
+                NOT EXISTS (
+                  SELECT 1
+                  FROM coupon_redemption cr
+                  WHERE cr.coupon_id = c.id AND cl.is_redeemed = true
+                )
+              ORDER BY
+                m.merchant_name ASC;
+        `;
 
   pool
     .query(queryText)
@@ -167,6 +206,28 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
   }
 });
 
+// PUT route for redeeming a coupon
+router.put("/redeem/:id", (req, res) => {
+  const couponId = req.params.id;
+
+  const queryText = `
+    UPDATE coupon
+    SET is_redeemed = true
+    WHERE id = $1;
+  `;
+
+  pool
+    .query(queryText, [couponId])
+    .then((response) => {
+      console.log("Coupon redeemed:", response.rows);
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error("Error redeeming coupon:", error);
+      res.sendStatus(500);
+    });
+});
+
 // PUT route for uploading front view PDF
 router.put("/front/:id", upload.single("pdf"), (req, res) => {
   console.log("PUT req.body = ", req.body);
@@ -218,19 +279,22 @@ router.put("/back/:id", upload.single("pdf"), (req, res) => {
 });
 
 // EDIT route for updating coupon details
-router.put("/:merchantId/:couponId", rejectUnauthenticated, async (req, res) => {
-  console.log("COUPON EDIT req.body = ", req.body);
-  const coupon = req.body;
-  const couponId = req.params.couponId;
-  console.log("couponId = ", couponId);
+router.put(
+  "/:merchantId/:couponId",
+  rejectUnauthenticated,
+  async (req, res) => {
+    console.log("COUPON EDIT req.body = ", req.body);
+    const coupon = req.body;
+    const couponId = req.params.couponId;
+    console.log("couponId = ", couponId);
 
-  const offer = coupon.offer;
-  const value = coupon.value;
-  const exclusions = coupon.exclusions;
-  const expiration = coupon.expiration;
-  const additionalInfo = coupon.additional_info;
+    const offer = coupon.offer;
+    const value = coupon.value;
+    const exclusions = coupon.exclusions;
+    const expiration = coupon.expiration;
+    const additionalInfo = coupon.additional_info;
 
-  const queryText = `
+    const queryText = `
       UPDATE 
         coupon
       SET 
@@ -242,23 +306,24 @@ router.put("/:merchantId/:couponId", rejectUnauthenticated, async (req, res) => 
       WHERE id = $6;
   `;
 
-  pool
-    .query(queryText, [
-      offer,
-      value,
-      exclusions,
-      expiration,
-      additionalInfo,
-      couponId,
-    ])
-    .then((response) => {
-      console.log("FROM coupon.router EDIT: ", response.rows);
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.error("Error in EDIT coupon PUT route", error);
-      res.sendStatus(500);
-    });
-});
+    pool
+      .query(queryText, [
+        offer,
+        value,
+        exclusions,
+        expiration,
+        additionalInfo,
+        couponId,
+      ])
+      .then((response) => {
+        console.log("FROM coupon.router EDIT: ", response.rows);
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.error("Error in EDIT coupon PUT route", error);
+        res.sendStatus(500);
+      });
+  }
+);
 
 module.exports = router;

@@ -389,6 +389,37 @@ CREATE TABLE coupon (
 ------- Table to tie locations to coupons ----------------
 CREATE TABLE coupon_location (
     id SERIAL PRIMARY KEY,
-    coupon_id INTEGER REFERENCES coupon(id),
-    location_id INTEGER REFERENCES location(id)
+    coupon_id integer REFERENCES coupon(id),
+    location_id integer REFERENCES location(id),
+    is_redeemed boolean DEFAULT false,
+    CONSTRAINT unique_coupon_location UNIQUE (coupon_id, location_id)
 );
+
+-----------------------------------------------------------
+-------- Coupon Redemption --------------------------------
+CREATE TABLE coupon_redemption (
+    id SERIAL PRIMARY KEY,
+    coupon_id integer REFERENCES coupon(id),
+    location_id integer REFERENCES location(id),
+    redeemed_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    redeemed_by integer REFERENCES "user"(id)
+);
+
+---------------- Function for coupon redemption ------------
+CREATE OR REPLACE FUNCTION update_coupon_location_redeemed()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE coupon_location
+    SET is_redeemed = true
+    WHERE coupon_id = NEW.coupon_id AND location_id = NEW.location_id;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+--------------------------------------------------------------
+
+----- Trigger for updating redemption --------
+CREATE TRIGGER update_coupon_location_redeemed_trigger
+AFTER INSERT ON coupon_redemption
+FOR EACH ROW
+EXECUTE FUNCTION update_coupon_location_redeemed();
+-----------------------------------------------

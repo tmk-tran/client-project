@@ -111,6 +111,7 @@ const sellersRouter = require("./routes/sellers.router");
 const sellerPageRouter = require("./routes/sellerPage.router");
 const customersRouter = require("./routes/customers.router");
 const transactionsRouter = require("./routes/transactions.router");
+const redemptionRouter = require("./routes/couponRedemption.router");
 
 // // Add this middleware to set the CORS headers
 app.use((req, res, next) => {
@@ -163,6 +164,7 @@ app.use("/api/sellers", sellersRouter);
 app.use("/api/seller", sellerPageRouter);
 app.use("/api/customers", customersRouter);
 app.use("/api/transactions", transactionsRouter);
+app.use("/api/redeem", redemptionRouter);
 
 // Serve static files //
 app.use(express.static("build"));
