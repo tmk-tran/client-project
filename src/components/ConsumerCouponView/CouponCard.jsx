@@ -82,10 +82,10 @@ export default function CouponCard({ coupon, i }) {
           <Box
             sx={{
               flexGrow: 1,
-              ...border,
+              // ...border,
             }}
           >
-            <div style={{ ...border, ...centeredStyle}}>
+            <div style={{ ...centeredStyle, margin: "25px auto" }}>
               <Typography variant="body2">{coupon.merchantName}</Typography>
               <Typography sx={{ fontWeight: "bold" }}>
                 {capitalizeWords(coupon.offer)}

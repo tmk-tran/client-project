@@ -32,6 +32,55 @@ function PayPalButton({ selectedProducts, customDonation }) {
             shape: "rect",
             layout: "vertical",
           }}
+          // createOrder={async () => {
+          //   try {
+          //     const requestBody = {
+          //       cart: selectedProducts.map((product) => ({
+          //         id: product.id,
+          //         quantity: product.quantity,
+          //       })),
+          //     };
+
+          //     console.log("Request Body:", requestBody);
+
+          //     const response = await fetch("/api/orders", {
+          //       method: "POST",
+          //       headers: {
+          //         "Content-Type": "application/json",
+          //       },
+          //       // use the "body" param to optionally pass additional order information
+          //       // like product ids and quantities
+          //       // body: JSON.stringify({
+          //       //   cart: [
+          //       //     {
+          //       //       id: "YOUR_PRODUCT_ID",
+          //       //       quantity: "YOUR_PRODUCT_QUANTITY",
+          //       //     },
+          //       //   ],
+          //       // }),
+          //       body: JSON.stringify(requestBody),
+          //     });
+          //     console.log(response);
+
+          //     const orderData = await response.json();
+          //     console.log(orderData);
+
+          //     if (orderData.id) {
+          //       return orderData.id;
+          //     } else {
+          //       const errorDetail = orderData?.details?.[0];
+          //       const errorMessage = errorDetail
+          //         ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
+          //         : JSON.stringify(orderData);
+
+          //       throw new Error(errorMessage);
+          //     }
+          //   } catch (error) {
+          //     console.error(error);
+          //     console.log(error);
+          //     setMessage(`Could not initiate PayPal Checkout...${error}`);
+          //   }
+          // }}
           createOrder={async () => {
             try {
               const requestBody = {
@@ -40,31 +89,20 @@ function PayPalButton({ selectedProducts, customDonation }) {
                   quantity: product.quantity,
                 })),
               };
-
+          
               console.log("Request Body:", requestBody);
-
-              const response = await fetch("/api/orders", {
-                method: "POST",
+          
+              const response = await axios.post("/api/orders", requestBody, {
                 headers: {
                   "Content-Type": "application/json",
                 },
-                // use the "body" param to optionally pass additional order information
-                // like product ids and quantities
-                // body: JSON.stringify({
-                //   cart: [
-                //     {
-                //       id: "YOUR_PRODUCT_ID",
-                //       quantity: "YOUR_PRODUCT_QUANTITY",
-                //     },
-                //   ],
-                // }),
-                body: JSON.stringify(requestBody),
               });
+          
               console.log(response);
-
-              const orderData = await response.json();
+          
+              const orderData = response.data;
               console.log(orderData);
-
+          
               if (orderData.id) {
                 return orderData.id;
               } else {
@@ -72,7 +110,7 @@ function PayPalButton({ selectedProducts, customDonation }) {
                 const errorMessage = errorDetail
                   ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
                   : JSON.stringify(orderData);
-
+          
                 throw new Error(errorMessage);
               }
             } catch (error) {
@@ -81,6 +119,7 @@ function PayPalButton({ selectedProducts, customDonation }) {
               setMessage(`Could not initiate PayPal Checkout...${error}`);
             }
           }}
+          
           // onApprove={async (data, actions) => {
           //   try {
           //     const response = await fetch(
