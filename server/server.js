@@ -75,6 +75,7 @@
 // });
 
 const express = require("express");
+const cors = require('cors');
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const path = require("path");
@@ -114,18 +115,24 @@ const transactionsRouter = require("./routes/transactions.router");
 const redemptionRouter = require("./routes/couponRedemption.router");
 
 // // Add this middleware to set the CORS headers
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-  );
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader(
+//     'Access-Control-Allow-Methods',
+//     'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+//   );
+//   res.setHeader(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+//   );
+//   next();
+// });
+
+app.use(cors({
+  origin: 'https://your-frontend-domain.com',
+  methods: 'GET,POST',
+  allowedHeaders: 'Content-Type,Authorization',
+}));
 
 // Body parser middleware //
 app.use(bodyParser.json());
