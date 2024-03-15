@@ -184,16 +184,16 @@ export default function CheckoutPage({ caseType }) {
     // handleNext();
     console.log(isSubmitted);
 
-    // // Check if this is the last step in the process
-    // if (activeStep === steps.length - 1) {
-    //   // This is the last step, update transactions
-    //   updateTransactions();
-    //   // You might also want to redirect the user to a confirmation page
-    //   history.push("/confirmation");
-    // } else {
-    //   // This is not the last step, move to the next step
-    //   handleNext();
-    // }
+    // Check if this is the last step in the process
+    if (activeStep === steps.length - 1) {
+      // This is the last step, update transactions
+      updateTransactions();
+      // You might also want to redirect the user to a confirmation page
+      history.push(`/seller/${refId}/complete`);
+    } else {
+      // This is not the last step, move to the next step
+      handleNext();
+    }
   };
 
   const updateTransactions = () => {
@@ -229,7 +229,6 @@ export default function CheckoutPage({ caseType }) {
   const handleOrderInfo = (orderData) => {
     console.log(orderData);
     setOrderInfo(orderData);
-    // history.push(`/seller/${refId}/paypal/checkout/confirmation`);
     handleNext();
   };
   console.log(orderInfo);
