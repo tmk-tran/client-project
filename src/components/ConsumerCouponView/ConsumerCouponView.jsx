@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
 import { Box } from "@mui/material";
+import Pagination from "@mui/material/Pagination";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { border } from "../Utils/colors";
 import {
@@ -25,6 +26,7 @@ export default function ConsumerCouponView() {
   const [query, setQuery] = useState("");
   console.log(query);
   const [filteredCoupons, setFilteredCoupons] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const dispatchAction = {
@@ -46,16 +48,6 @@ export default function ConsumerCouponView() {
     setToggleView(!toggleView);
   };
 
-  // const handleSearch = (value) => {
-  //   setQuery(value);
-  //   if (value.trim() === "") {
-  //     setFilteredCoupons([]);
-  //   } else {
-  //     const results = fuse.search(value);
-  //     setFilteredCoupons(results.map((result) => result.item));
-  //   }
-  // };  
-
   const handleSearch = (value) => {
     setQuery(value);
     if (value.trim() === "") {
@@ -65,13 +57,11 @@ export default function ConsumerCouponView() {
       setFilteredCoupons(results.map((result) => result.item));
     }
   };
-  
+
   // Filter coupons by merchant name
-  const filteredMerchants = coupons.filter(
-    (coupon) =>
-      coupon.merchantName.toLowerCase().includes(query.toLowerCase())
+  const filteredMerchants = coupons.filter((coupon) =>
+    coupon.merchantName.toLowerCase().includes(query.toLowerCase())
   );
-  
 
   const clearInput = () => {
     setQuery("");
@@ -79,11 +69,21 @@ export default function ConsumerCouponView() {
     // setCurrentPage(1); // Reset to the first page when clearing the search
   };
 
+  const couponsPerPage = 10;
+  const indexOfLastCoupon = currentPage * couponsPerPage;
+  const indexOfFirstCoupon = indexOfLastCoupon - couponsPerPage;
+  const currentCoupons = !toggleView
+    ? filteredMerchants.slice(indexOfFirstCoupon, indexOfLastCoupon)
+    : [];
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <Box
       sx={{
         ...centeredStyle,
-        ...border,
         ...containerStyle,
         position: "relative",
       }}
@@ -91,14 +91,14 @@ export default function ConsumerCouponView() {
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~ Toggle ~~~~~~~~~~ */}
       <Box sx={{ position: "absolute", top: 0, left: 0 }}>
-        <ToggleButton
+        {/* <ToggleButton
           sxButton={{ margin: 2 }}
           sxIcon={{ mr: 1 }}
           onClick={() => handleToggle(!toggleView)}
           label1="View Redeemed"
           label2="View Active"
           toggleState={toggleView}
-        />
+        /> */}
       </Box>
       {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
       <Typography
@@ -132,16 +132,17 @@ export default function ConsumerCouponView() {
           ) : (
             <Typography label="No matching coupons found" />
           )}
-
-          {/* {coupons ? (
-            coupons.map((coupon, i) => <CouponCard key={i} coupon={coupon} />)
-          ) : (
-            <Typography label="Coupons unavailable" />
-          )} */}
         </>
       ) : (
         <Typography label="Coupons Redeemed" />
       )}
+      {/* Pagination */}
+      <Pagination
+        count={Math.ceil(filteredMerchants.length / couponsPerPage)}
+        page={currentPage}
+        onChange={(event, page) => paginate(page)}
+        color="primary"
+      />
     </Box>
   );
 }
