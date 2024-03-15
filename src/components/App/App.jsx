@@ -217,6 +217,10 @@ function App() {
               <Route exact path="/seller/:refId/credit/checkout">
                 <CheckoutPage caseType="credit" />
               </Route>
+              {/* ~~~~~~~~~~ COMPLETE ORDER PAGE ~~~~~~~~~ */}
+              <Route exact path="/seller/:refId/credit/checkout/confirmation">
+                <OrderComplete />
+              </Route>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~ ORDER COMPLETE PAGE ~~~~~~~~~ */}
               <Route exact path="/seller/:refId/complete">
