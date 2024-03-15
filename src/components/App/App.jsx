@@ -200,10 +200,6 @@ function App() {
               <Route exact path="/seller/:refId/paypal/checkout">
                 <CheckoutPage caseType="credit" />
               </Route>
-              {/* ~~~~~~~~~~ COMPLETE ORDER PAGE ~~~~~~~~~ */}
-              <Route exact path="/seller/:refId/paypal/checkout/confirmation">
-                <OrderComplete />
-              </Route>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~ CREDIT PAGE ~~~~~~~~~~~ */}
               <Route exact path="/seller/:refId/credit">
@@ -216,10 +212,6 @@ function App() {
               {/* ~~~~~~~~~~ CHECKOUT PAGE ~~~~~~~~~ */}
               <Route exact path="/seller/:refId/credit/checkout">
                 <CheckoutPage caseType="credit" />
-              </Route>
-              {/* ~~~~~~~~~~ COMPLETE ORDER PAGE ~~~~~~~~~ */}
-              <Route exact path="/seller/:refId/credit/checkout/confirmation">
-                <OrderComplete />
               </Route>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~ ORDER COMPLETE PAGE ~~~~~~~~~ */}
