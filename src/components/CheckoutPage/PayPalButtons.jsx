@@ -8,7 +8,7 @@ function Message({ content }) {
   return <p>{content}</p>;
 }
 
-function PayPalButton({ selectedProducts, customDonation }) {
+function PayPalButton({ selectedProducts, customDonation, orderSuccess }) {
   console.log(selectedProducts);
   console.log(customDonation);
 
@@ -207,6 +207,7 @@ function PayPalButton({ selectedProducts, customDonation }) {
                   orderData,
                   JSON.stringify(orderData, null, 2)
                 );
+                orderSuccess(orderData);
               }
             } catch (error) {
               console.error(error);

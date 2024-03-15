@@ -65,6 +65,8 @@ export default function CheckoutPage({ caseType }) {
   const orgId = sellerData[0].organization_id;
   console.log(orgId);
   const sellerId = sellerData[0].id;
+  const [orderInfo, setOrderInfo] = useState(null);
+  console.log(orderInfo);
 
   useEffect(() => {
     let physicalDigital = 0;
@@ -145,7 +147,11 @@ export default function CheckoutPage({ caseType }) {
               justifyContent: "center",
             }}
           >
-            <PayPalButtons selectedProducts={selectedProducts} customDonation={customDonation} />
+            <PayPalButtons
+              selectedProducts={selectedProducts}
+              customDonation={customDonation}
+              orderSuccess={handleOrderInfo}
+            />
           </Box>
         );
       case 2:
@@ -175,8 +181,19 @@ export default function CheckoutPage({ caseType }) {
     // Continue with form submission
     console.log("State selected:", stateSelected);
     setIsSubmitted(false);
-    handleNext();
+    // handleNext();
     console.log(isSubmitted);
+
+    // Check if this is the last step in the process
+    if (activeStep === steps.length - 1) {
+      // This is the last step, update transactions
+      updateTransactions();
+      // You might also want to redirect the user to a confirmation page
+      history.push("/confirmation");
+    } else {
+      // This is not the last step, move to the next step
+      handleNext();
+    }
   };
 
   const updateTransactions = () => {
@@ -208,6 +225,13 @@ export default function CheckoutPage({ caseType }) {
     console.log("Dispatching action:", updateActions);
     updateActions.forEach((action) => dispatch(action));
   };
+
+  const handleOrderInfo = (orderData) => {
+    console.log(orderData);
+    setOrderInfo(orderData);
+    history.push(`/seller/${refId}/paypal/checkout/confirmation`);
+  };
+  console.log(orderInfo);
 
   return (
     <Container sx={{ display: "flex", justifyContent: "center" }}>
@@ -249,10 +273,17 @@ export default function CheckoutPage({ caseType }) {
                 ? "Place Order"
                 : "Continue"
             }
+            // onClick={
+            //   activeStep !== steps.length - 2
+            //     ? handleSubmit
+            //     : updateTransactions
+            // }
             onClick={
-              activeStep !== steps.length - 2
-                ? handleSubmit
-                : updateTransactions
+              activeStep === steps.length - 1
+                ? handleSubmit // If it's the last step, handle form submission
+                : activeStep === steps.length - 2
+                ? updateTransactions // If it's the second last step, update transactions
+                : handleNext // Otherwise, move to the next step
             }
             // onClick={handleSubmit}
             variant="contained"

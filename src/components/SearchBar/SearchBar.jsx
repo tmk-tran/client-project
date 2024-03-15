@@ -45,7 +45,7 @@ const SearchBar = ({ isOrganization, isCoupon, query, onChange, clearInput }) =>
         />
       ) : (
         <TextField
-          label={isCoupon ? "Search Coupons" : "Search Merchants"}
+          label={isCoupon ? "Search by Merchant" : "Search Merchants"}
           variant="outlined"
           size="small"
           value={query}
