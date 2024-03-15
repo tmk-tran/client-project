@@ -8,6 +8,7 @@ const SearchBar = ({ isOrganization, isCoupon, query, onChange, clearInput }) =>
   
   const handleChange = (event) => {
     const { value } = event.target;
+    console.log(value);
     onChange(value); // Call the onChange function passed from the parent
   };
 
