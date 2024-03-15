@@ -7,7 +7,11 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { capitalizeStateAbbr, capitalizeWords } from "../Utils/helpers";
+import {
+  capitalizeStateAbbr,
+  capitalizeWords,
+  formatPhoneNumber,
+} from "../Utils/helpers";
 
 export default function LocationSection({ coupon }) {
   console.log(coupon);
@@ -15,6 +19,7 @@ export default function LocationSection({ coupon }) {
     !coupon ||
     !coupon.locationId ||
     !coupon.locationName ||
+    !coupon.phoneNumber ||
     !coupon.address ||
     !coupon.city ||
     !coupon.state ||
@@ -33,12 +38,15 @@ export default function LocationSection({ coupon }) {
             <Typography
               key={index}
               variant="body2"
-              sx={{ textAlign: "center" }}
+              sx={{ textAlign: "center", mb: 1 }}
             >
-              {capitalizeWords(coupon.locationName[index])}{" "}
+              <strong>{capitalizeWords(coupon.locationName[index])} </strong>
+              <br />
               {capitalizeWords(coupon.address[index])},{" "}
               {capitalizeWords(coupon.city[index])},{" "}
               {capitalizeStateAbbr(coupon.state[index])} {coupon.zip[index]}
+              <br />
+              {formatPhoneNumber(coupon.phoneNumber[index])}{" "}
             </Typography>
           ))}
         </Box>
