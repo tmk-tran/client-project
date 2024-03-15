@@ -69,7 +69,7 @@ export default function ConsumerCouponView() {
       <Box sx={{ mb: 2, width: "75%", ...flexRowSpace }}>
         <SearchBar isCoupon isOrganization={false} />
         <Typography
-          label="Coupons valid mm/yy - mm/yy"
+          label="Coupons valid mm/dd/yy - mm/dd/yy"
           variant="body2"
           sx={{ mt: 2 }}
         />

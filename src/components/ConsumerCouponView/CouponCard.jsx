@@ -8,18 +8,27 @@ import {
 } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { User } from "../../hooks/reduxStore";
-import { border } from "../Utils/colors";
+import { border, borderPrimaryColor } from "../Utils/colors";
 import { redeemCouponSweetAlert } from "../Utils/sweetAlerts";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { flexCenter, flexRowSpace, centeredStyle } from "../Utils/pageStyles";
 import { capitalizeWords, formatDate } from "../Utils/helpers";
+import { thumbnailSize } from "../CouponReviewDetails/FilePreview";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import BottomSection from "./BottomSection";
 import RedeemButton from "./RedeemButton";
+import PdfThumbnail from "../PdfThumbnail/PdfThumbnail";
+import NoFile from "./NoFile";
 
 const couponPreviewStyle = {
-  height: "100px",
+  height: "150px",
   width: "200px",
+};
+
+const previewBoxStyle = {
+  ...borderPrimaryColor, 
+  textAlign: "center", 
+  mb: 1
 };
 
 export default function CouponCard({ coupon, i }) {
@@ -52,11 +61,21 @@ export default function CouponCard({ coupon, i }) {
     <Card key={i} elevation={3} sx={{ mb: 2, width: "75%" }}>
       <CardContent>
         <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
-          <Box sx={{ ...couponPreviewStyle, ...flexCenter, ...border }}>
-            Front
+          <Box sx={previewBoxStyle}>
+          <Typography variant="caption" sx={{ lineHeight: 1 }}>Front</Typography>
+            {coupon.frontViewBlob !== null ? (
+              <PdfThumbnail pdf={coupon.frontViewBlob} style={couponPreviewStyle} width={200} />
+            ) : (
+              <NoFile label="No file available" sx={couponPreviewStyle} />
+            )}
           </Box>
-          <Box sx={{ ...couponPreviewStyle, ...flexCenter, ...border }}>
+          <Box sx={previewBoxStyle}>
             Back
+            {coupon.backViewBlob !== null ? (
+              <PdfThumbnail pdf={coupon.backViewBlob} style={couponPreviewStyle} width={200} />
+            ) : (
+              <NoFile label="No file available" sx={couponPreviewStyle} />
+            )}
           </Box>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ Coupon Details ~~~~~~~~~ */}
@@ -66,9 +85,9 @@ export default function CouponCard({ coupon, i }) {
               ...border,
             }}
           >
-            <div style={centeredStyle}>
+            <div style={{ ...border, ...centeredStyle}}>
               <Typography variant="body2">{coupon.merchantName}</Typography>
-              <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+              <Typography sx={{ fontWeight: "bold" }}>
                 {capitalizeWords(coupon.offer)}
               </Typography>
               <Typography variant="caption" sx={{ lineHeight: 1 }}>
@@ -93,32 +112,11 @@ export default function CouponCard({ coupon, i }) {
           </Box>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ Redeem Button ~~~~~~~~~~ */}
-          {/* <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: "auto",
-            }}
-          >
-            <Box sx={{ mb: 1 }}>
-              {coupon.value ? (
-                <>Value: ${coupon.value}</>
-              ) : (
-                <Box sx={{ minHeight: "1.1rem" }}></Box>
-              )}
-            </Box>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() =>
-                handleRedeem(coupon.id, coupon.locationId, user.id)
-              }
-            >
-              Redeem
-            </Button>
-          </Box> */}
-          <RedeemButton coupon={coupon} user={user} handleRedeem={handleRedeem} />
+          <RedeemButton
+            coupon={coupon}
+            user={user}
+            handleRedeem={handleRedeem}
+          />
         </Box>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Locations Accepted ~~~~~~~~~~ */}

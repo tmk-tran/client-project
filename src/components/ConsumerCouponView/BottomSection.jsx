@@ -6,7 +6,7 @@ import { flexCenter } from "../Utils/pageStyles";
 import LocationSection from "./LocationSection";
 
 export default function BottomSection({ coupon }) {
-  if (!coupon || !coupon.expiration) {
+  if (!coupon) {
     return null;
   }
 
@@ -24,7 +24,7 @@ export default function BottomSection({ coupon }) {
             {coupon.expiration ? (
               formatDate(coupon.expiration)
             ) : (
-              <Typography variant="caption">No expiration set</Typography>
+              <Typography variant="caption">None set</Typography>
             )}
           </Typography>
         </Grid>

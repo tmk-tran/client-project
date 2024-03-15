@@ -4,8 +4,8 @@ import { CircularProgress } from "@mui/material";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-const PdfThumbnail = ({ pdfUrl, style }) => {
-  console.log(pdfUrl);
+const PdfThumbnail = ({ pdf, style, width }) => {
+  console.log(pdf);
   const [loading, setLoading] = useState(true);
 
   const onDocumentLoadSuccess = () => {
@@ -14,10 +14,10 @@ const PdfThumbnail = ({ pdfUrl, style }) => {
 
   return (
     <>
-      {pdfUrl ? (
+      {pdf ? (
         <div style={{ ...style, overflow: "hidden", position: "relative" }}>
-          <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
-            <Page pageNumber={1} width={150} />
+          <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
+            <Page pageNumber={1} width={width ? width : 150} />
           </Document>
           {loading && (
             <div
