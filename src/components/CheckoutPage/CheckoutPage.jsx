@@ -213,8 +213,8 @@ export default function CheckoutPage({ caseType }) {
     };
     let updateActions = [updateAction];
 
-    if (customDonation > 0) {
-      const updateSellerTable = {
+    customDonation > 0 &&
+      updateActions.push({
         type: "UPDATE_DONATIONS",
         payload: {
           updateType: "digital",
@@ -222,12 +222,10 @@ export default function CheckoutPage({ caseType }) {
           refId: refId,
           digital_donations: customDonation,
         },
-      };
-      updateActions.push(updateSellerTable);
-    }
+      });
 
-    if (orderTotal > 0) {
-      const updatePayments = {
+    orderTotal > 0 &&
+      updateActions.push({
         type: "UPDATE_DIGITAL_PAYMENTS",
         payload: {
           updateType: "digital",
@@ -235,21 +233,7 @@ export default function CheckoutPage({ caseType }) {
           refId: refId,
           digital: orderTotal,
         },
-      };
-      updateActions.push(updatePayments);
-    }
-
-    // const updatePayments = orderTotal > 0 && {
-    //   type: "UPDATE_DIGITAL_PAYMENTS",
-    //   payload: {
-    //     updateType: "digital",
-    //     id: sellerId,
-    //     refId: refId,
-    //     digital_payments: orderTotal,
-    //   },
-    // };
-
-    // updatePayments && updateActions.push(updatePayments);
+      });
 
     console.log("Dispatching action:", updateActions);
     updateActions.forEach((action) => dispatch(action));
