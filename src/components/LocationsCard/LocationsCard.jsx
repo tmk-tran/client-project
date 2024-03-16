@@ -52,8 +52,6 @@ export default function LocationsCard({
         merchantId,
       },
     });
-    handleTaskUpdate();
-    handleCaseTypeChange("Delete Location");
   };
 
   const handleOpenModal = () => {

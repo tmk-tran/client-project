@@ -6,7 +6,7 @@ import AddBox from "../AddBoxIcon/AddBoxIcon";
 import ModalButtons from "../Modals/ModalButtons";
 import CloseButton from "../Buttons/CloseButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
-import { leftSpace } from "../Details/styleDetails";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { dispatchHook } from "../../hooks/useDispatch";
 
@@ -110,14 +110,12 @@ export default function AddLocationModal({
   };
 
   const addLocation = () => {
-    console.log("Clicked addLocation");
     dispatch({
       type: "ADD_LOCATION",
       payload: newLocationPayload,
     });
 
-    handleCaseTypeChange("New Location");
-    onLocationAdd();
+    showSaveSweetAlert({ label: "Location Added" });
     handleAddLocation();
     resetForm();
   };
@@ -130,8 +128,7 @@ export default function AddLocationModal({
     console.log("Dispatching action:", action);
     dispatch(action);
 
-    handleCaseTypeChange("Edit Location");
-    onLocationAdd();
+    showSaveSweetAlert({ label: "Changes Saved" });
     resetForm();
   };
 
@@ -139,11 +136,7 @@ export default function AddLocationModal({
     <div>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~ */}
-      <AddBox
-        label="Location"
-        buttonStyle={{ mb: 2 }}
-        onClick={handleOpen}
-      />
+      <AddBox label="Location" buttonStyle={{ mb: 2 }} onClick={handleOpen} />
       <Modal
         open={open}
         // onClose={handleClose}
