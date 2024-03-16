@@ -63,11 +63,14 @@ export default function BasicModal({
 }) {
   console.log(tabs);
   console.log(merchantTab);
+  console.log(caseType);
   const dispatch = dispatchHook();
   // ~~~~~~~~~~ All Merchants from store ~~~~~~~~~~
   const merchants = allMerchants();
+  console.log(merchants);
   // ~~~~~~~~~~ All Organizations from store ~~~~~~~~~~
   const organizations = allOrganizations();
+  console.log(organizations);
   // ~~~~~~~~~~ Modal State ~~~~~~~~~~
   const [open, setOpen] = useState(false);
   // ~~~~~~~~~~ Menu State ~~~~~~~~~~
@@ -219,7 +222,12 @@ export default function BasicModal({
 
   return (
     <div>
-      <Button variant={tabs ? "text" : "contained"} sx={{ mt: 1 }} onClick={handleOpen} fullWidth>
+      <Button
+        variant={tabs ? "text" : "contained"}
+        sx={{ mt: 1 }}
+        onClick={handleOpen}
+        fullWidth
+      >
         {customIcon ? (
           customIcon // Render the custom icon if provided
         ) : (
@@ -305,13 +313,21 @@ export default function BasicModal({
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~ SEARCHABLE FIELD ~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            <SearchableSelect
-              thirdMenuChoice={thirdMenuChoice}
-              handleAccountChange={handleAccountChange}
-              merchantTab={merchantTab}
-              merchants={merchants}
-              organizations={organizations}
-            />
+            {merchantTab ? (
+              <SearchableSelect
+                thirdMenuChoice={thirdMenuChoice}
+                handleAccountChange={handleAccountChange}
+                merchantTab={true}
+                merchants={merchants}
+              />
+            ) : (
+              <SearchableSelect
+                thirdMenuChoice={thirdMenuChoice}
+                handleAccountChange={handleAccountChange}
+                merchantTab={false}
+                organizations={organizations}
+              />
+            )}
             {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
             <InputLabel>Assign To:</InputLabel>

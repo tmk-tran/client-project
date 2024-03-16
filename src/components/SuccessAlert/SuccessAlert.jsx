@@ -34,10 +34,6 @@ export default function SuccessAlert({ isOpen, onClose, caseType }) {
         <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
           Task has been successfully archived!
         </Alert>
-      ) : caseType === "New Coupon" ? (
-        <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
-          New Coupon Added!
-        </Alert>
       ) : caseType === "Cash" ? (
         <Alert onClose={onClose} severity="success" sx={{ width: "100%" }}>
           Cash Updated!

@@ -68,6 +68,7 @@ export default function DetailsTaskView({ caseType }) {
                 tabs={false}
                 customIcon={<AddBoxIcon />}
                 customText="Task"
+                merchantTab={true}
                 caseType={"merchantView"}
               />
             ) : (
