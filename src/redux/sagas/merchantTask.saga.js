@@ -25,6 +25,7 @@ function* fetchAllMerchantTasks() {
 }
 
 function* addMerchantTask(action) {
+  console.log(action.payload);
   try {
     const items = yield axios.post("/api/tasks/merchants", action.payload);
     console.log(
@@ -33,9 +34,18 @@ function* addMerchantTask(action) {
     );
     console.log("merchantTask action.payload = ", action.payload);
 
+    // yield put({
+    //   type: "FETCH_ALL_MERCHANT_TASKS",
+    //   payload: action.payload.id,
+    // });
+    const fetchType =
+      action.payload.fetchType === "FETCH_MERCHANT_TASKS"
+        ? "FETCH_MERCHANT_TASKS"
+        : "FETCH_ALL_MERCHANT_TASKS";
+
     yield put({
-      type: "FETCH_ALL_MERCHANT_TASKS",
-      payload: action.payload.id,
+      type: fetchType,
+      payload: action.payload.merchant_id,
     });
   } catch (err) {
     console.log("error in addMerchantTask Saga", err);

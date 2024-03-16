@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Typography, Card, CardContent } from "@mui/material";
@@ -20,7 +20,6 @@ export default function DetailsTaskView({ caseType }) {
   console.log(merchantId);
   const mId = merchantId.id;
   console.log(mId);
-
   // useEffect(() => {
   //   dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: mId });
 

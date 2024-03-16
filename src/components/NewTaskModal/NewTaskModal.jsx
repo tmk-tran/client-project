@@ -59,7 +59,6 @@ export default function BasicModal({
   customIcon,
   customText,
   caseType,
-  onChange,
 }) {
   console.log(tabs);
   console.log(merchantTab);
@@ -185,31 +184,46 @@ export default function BasicModal({
       ? "ADD_MERCHANT_TASK"
       : "ADD_ORGANIZATION_TASK";
 
-    const payload = merchantTab
-      ? {
-          category: firstMenuChoice,
-          task: secondMenuChoice,
-          merchant_id: merchantId,
-          merchant_name: thirdMenuChoice,
-          assign: fourthMenuChoice,
-          due_date: dueDate,
-          description: additionalDetails,
-          task_status: "New",
-          coupon_details: couponDetails,
-        }
-      : {
-          // Adjust the payload properties for organization logic
-          // Example:
-          category: firstMenuChoice,
-          task: secondMenuChoice,
-          organization_id: organizationId,
-          organization_name: thirdMenuChoice,
-          assign: fourthMenuChoice,
-          due_date: dueDate,
-          description: additionalDetails,
-          task_status: "New",
-          // Adjust other properties as needed
-        };
+    const payload =
+      caseType === "merchantView"
+        ? {
+            // Include properties specific to the 'merchantView' case
+            fetchType: "FETCH_MERCHANT_TASKS",
+            category: firstMenuChoice,
+            task: secondMenuChoice,
+            merchant_id: merchantId,
+            merchant_name: thirdMenuChoice,
+            assign: fourthMenuChoice,
+            due_date: dueDate,
+            description: additionalDetails,
+            task_status: "New",
+            coupon_details: couponDetails,
+          }
+        : merchantTab
+        ? {
+            category: firstMenuChoice,
+            task: secondMenuChoice,
+            merchant_id: merchantId,
+            merchant_name: thirdMenuChoice,
+            assign: fourthMenuChoice,
+            due_date: dueDate,
+            description: additionalDetails,
+            task_status: "New",
+            coupon_details: couponDetails,
+          }
+        : {
+            // Adjust the payload properties for organization logic
+            // Example:
+            category: firstMenuChoice,
+            task: secondMenuChoice,
+            organization_id: organizationId,
+            organization_name: thirdMenuChoice,
+            assign: fourthMenuChoice,
+            due_date: dueDate,
+            description: additionalDetails,
+            task_status: "New",
+            // Adjust other properties as needed
+          };
 
     dispatch({
       type: actionType,
@@ -217,7 +231,6 @@ export default function BasicModal({
     });
 
     handleClose();
-    onChange();
   };
 
   return (
