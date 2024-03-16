@@ -103,11 +103,7 @@ router.put("/:id", (req, res) => {
         AND
           "refId" = $3
         ;`;
-      values = [
-        sellerInfo.digital,
-        sellerId,
-        refId,
-      ];
+      values = [sellerInfo.digital, sellerId, refId];
       break;
     default:
       res.status(400).json({ error: "Invalid update type" });
