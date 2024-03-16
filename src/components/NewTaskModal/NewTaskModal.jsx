@@ -25,6 +25,7 @@ import DatePicker from "../DatePicker/DatePicker";
 import SearchableSelect from "../NewTaskModal/SearchableSelect";
 import CloseButton from "../Buttons/CloseButton";
 import ModalButtons from "../Modals/ModalButtons";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 const style = {
   position: "absolute",
@@ -230,6 +231,7 @@ export default function BasicModal({
       payload: payload,
     });
 
+    showSaveSweetAlert({ label: "Task Added" });
     handleClose();
   };
 
