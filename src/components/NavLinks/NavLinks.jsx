@@ -121,7 +121,7 @@ export default function NavLinks() {
                   to="/coupon"
                   underline="hover"
                 >
-                  Coupon
+                  Coupons
                 </MuiLink>
               </Typography>
 

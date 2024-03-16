@@ -348,6 +348,11 @@ export default function SellerForm({
                       fullWidth
                       size="small"
                       type="number"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">$</InputAdornment>
+                        ),
+                      }}
                     />
                   </Grid>
                   <Grid item xs={3}>
@@ -360,6 +365,11 @@ export default function SellerForm({
                       fullWidth
                       size="small"
                       type="number"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">$</InputAdornment>
+                        ),
+                      }}
                     />
                   </Grid>
                   <Grid item xs={3}>

@@ -47,16 +47,20 @@ const AccountMenu = () => {
       )}
     >
       {[
-        <MenuItem
-          key="profile"
-          value="profile"
-          onClick={() => {
-            history.push(`/userProfile/${user.id}`);
-          }}
-        >
-          Profile
-        </MenuItem>,
-        <hr key="divider" style={{ width: "90%" }} />,
+        (user.is_admin || user.org_admin) && (
+          <>
+            <MenuItem
+              key="profile"
+              value="profile"
+              onClick={() => {
+                history.push(`/userProfile/${user.id}`);
+              }}
+            >
+              Profile
+            </MenuItem>
+            <hr key="divider" style={{ width: "90%" }} />
+          </>
+        ),
         user.is_admin && (
           <MenuItem
             key="tasks"
