@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import {
   Box,
@@ -36,7 +37,8 @@ export default function CheckoutPage({ caseType }) {
   console.log(caseType);
   const history = historyHook();
   const location = useLocation();
-  const dispatch = dispatchHook();
+  // const dispatch = dispatchHook();
+  const dispatch = useDispatch();
   console.log(location.state);
   const paramsObject = useParams();
   console.log(paramsObject);
@@ -51,7 +53,9 @@ export default function CheckoutPage({ caseType }) {
   console.log(customDonation);
   // Number of books sold //
   const [physicalBookDigital, setPhysicalBookDigital] = useState(0);
+  console.log(physicalBookDigital);
   const [digitalBookCredit, setDigitalBookCredit] = useState(0);
+  console.log(digitalBookCredit);
 
   const [activeStep, setActiveStep] = useState(0);
   console.log(activeStep);
@@ -216,12 +220,37 @@ export default function CheckoutPage({ caseType }) {
           updateType: "digital",
           id: sellerId,
           refId: refId,
-          digital: customDonation,
           digital_donations: customDonation,
         },
       };
       updateActions.push(updateSellerTable);
     }
+
+    if (orderTotal > 0) {
+      const updatePayments = {
+        type: "UPDATE_DIGITAL_PAYMENTS",
+        payload: {
+          updateType: "digital",
+          id: sellerId,
+          refId: refId,
+          digital: orderTotal,
+        },
+      };
+      updateActions.push(updatePayments);
+    }
+
+    // const updatePayments = orderTotal > 0 && {
+    //   type: "UPDATE_DIGITAL_PAYMENTS",
+    //   payload: {
+    //     updateType: "digital",
+    //     id: sellerId,
+    //     refId: refId,
+    //     digital_payments: orderTotal,
+    //   },
+    // };
+
+    // updatePayments && updateActions.push(updatePayments);
+
     console.log("Dispatching action:", updateActions);
     updateActions.forEach((action) => dispatch(action));
   };
@@ -269,9 +298,9 @@ export default function CheckoutPage({ caseType }) {
             label={
               activeStep === steps.length - 1
                 ? "Complete Order"
-                // : activeStep === steps.length - 2
-                // ? "Place Order"
-                : "Continue"
+                : // : activeStep === steps.length - 2
+                  // ? "Place Order"
+                  "Continue"
             }
             // onClick={
             //   activeStep !== steps.length - 2

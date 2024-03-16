@@ -115,7 +115,6 @@ export default function TaskCard({
     });
     onTaskUpdate();
     handleCaseTypeChange("Archived");
-    // showSaveSweetAlert({ label: "Archived" });
   };
 
   const fullWidth = {

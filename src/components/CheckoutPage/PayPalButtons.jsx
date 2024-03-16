@@ -11,12 +11,13 @@ function Message({ content }) {
 function PayPalButton({ selectedProducts, customDonation, orderSuccess }) {
   console.log(selectedProducts);
   console.log(customDonation);
+  console.log(process.env.REACT_APP_PAYPAL_CLIENT_ID);
 
   // Removed 'venmo' from "enable-funding"
   const initialOptions = {
     "client-id":
-      "AXW1Fk6t36VzplCt2ev6VRwygaNynFd4tz4KBWicOhfvFrPLenoFFcwIbgih38FpabvP9I6RXFfyZ_Nx",
-      // process.env.REACT_APP_PAYPAL_CLIENT_ID,
+      // "AXW1Fk6t36VzplCt2ev6VRwygaNynFd4tz4KBWicOhfvFrPLenoFFcwIbgih38FpabvP9I6RXFfyZ_Nx",
+      process.env.REACT_APP_PAYPAL_CLIENT_ID,
     "enable-funding": "paylater,card",
     "disable-funding": "",
     "data-sdk-integration-source": "integrationbuilder_sc",
