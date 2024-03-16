@@ -20,14 +20,6 @@ export default function DetailsTaskView({ caseType }) {
   console.log(merchantId);
   const mId = merchantId.id;
   console.log(mId);
-  // useEffect(() => {
-  //   dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: mId });
-
-  //   dispatch({
-  //     type: "FETCH_MERCHANT_TASKS",
-  //     payload: mId,
-  //   });
-  // }, [dispatch, mId]);
 
   useEffect(() => {
     if (caseType === "orgTaskView") {
@@ -39,7 +31,7 @@ export default function DetailsTaskView({ caseType }) {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: mId });
       dispatch({ type: "FETCH_MERCHANT_TASKS", payload: mId });
     }
-  }, [mId, caseType]); // Deleted dispatch from dependencies
+  }, [mId, caseType]);
 
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>

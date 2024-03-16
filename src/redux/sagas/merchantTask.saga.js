@@ -34,10 +34,6 @@ function* addMerchantTask(action) {
     );
     console.log("merchantTask action.payload = ", action.payload);
 
-    // yield put({
-    //   type: "FETCH_ALL_MERCHANT_TASKS",
-    //   payload: action.payload.id,
-    // });
     const fetchType =
       action.payload.fetchType === "FETCH_MERCHANT_TASKS"
         ? "FETCH_MERCHANT_TASKS"
