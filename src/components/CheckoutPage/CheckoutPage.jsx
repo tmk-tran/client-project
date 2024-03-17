@@ -37,13 +37,11 @@ export default function CheckoutPage({ caseType }) {
   console.log(caseType);
   const history = historyHook();
   const location = useLocation();
-  // const dispatch = dispatchHook();
-  const dispatch = useDispatch();
+  const dispatch = dispatchHook();
+  // const dispatch = useDispatch();
   console.log(location.state);
   const paramsObject = useParams();
-  console.log(paramsObject);
   const refId = paramsObject.refId;
-  console.log(refId);
   // Access state from URL and use it in component
   const selectedProducts = location.state?.selectedProducts ?? [];
   const orderTotal = location.state?.orderTotal ?? 0;
@@ -69,6 +67,29 @@ export default function CheckoutPage({ caseType }) {
   const orgId = sellerData[0].organization_id;
   console.log(orgId);
   const sellerId = sellerData[0].id;
+
+  // ~~~~~~~~~~ Form state ~~~~~~~~~~ //
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [unit, setUnit] = useState("");
+  const [city, setCity] = useState("");
+  const [zip, setZip] = useState("");
+  console.log(firstName);
+  console.log(lastName);
+  console.log(email);
+  console.log(phone);
+  console.log(address);
+  console.log(unit);
+  console.log(city);
+  console.log(stateSelected);
+  console.log(zip);
+  // ~~~~~ Error State ~~~~~ //
+  const [errors, setErrors] = useState({});
+
+  // ~~~~~~~~~~ Order Info ~~~~~~~~~~ //
   const [orderInfo, setOrderInfo] = useState(null);
   console.log(orderInfo);
 
@@ -139,8 +160,27 @@ export default function CheckoutPage({ caseType }) {
         return (
           <CustomerInfoForm
             handleStateChange={handleStateChange}
-            stateSelected={stateSelected}
             isSubmitted={isSubmitted}
+            errors={errors}
+            setErrors={setErrors}
+            firstName={firstName}
+            setFirstName={setFirstName}
+            lastName={lastName}
+            setLastName={setLastName}
+            email={email}
+            setEmail={setEmail}
+            phone={phone}
+            setPhone={setPhone}
+            address={address}
+            setAddress={setAddress}
+            unit={unit}
+            setUnit={setUnit}
+            city={city}
+            setCity={setCity}
+            stateSelected={stateSelected}
+            setStateSelected={setStateSelected}
+            zip={zip}
+            setZip={setZip}
           />
         );
       case 1:
@@ -173,6 +213,46 @@ export default function CheckoutPage({ caseType }) {
       default:
         return "Unknown step";
     }
+  };
+
+  const handleForm = () => {
+    // Example validation logic, replace with your own
+    const newErrors = {};
+    if (!firstName) {
+      newErrors.firstName = "First Name is required";
+    }
+    if (!lastName) {
+      newErrors.lastName = "Last Name is required";
+    }
+    if (!email) {
+      newErrors.email = "Email is required";
+    }
+    if (!phone) {
+      newErrors.phone = "Phone is required";
+    }
+    if (!address) {
+      newErrors.address = "Address is required";
+    }
+    if (!unit) {
+      newErrors.unit = "Unit is required";
+    }
+    if (!city) {
+      newErrors.city = "City is required";
+    }
+    if (!zip) {
+      newErrors.zip = "Zip is required";
+    }
+
+    setErrors(newErrors);
+    // Check if there are any errors
+    const hasErrors = Object.keys(newErrors).length > 0;
+    setIsSubmitted(!hasErrors);
+
+    setIsSubmitted(true);
+  };
+
+  const returnToStore = () => {
+    history.push(`/seller/${refId}/${caseType}`);
   };
 
   const handleSubmit = () => {
@@ -274,10 +354,7 @@ export default function CheckoutPage({ caseType }) {
             disabled={activeStep === 0}
             onClick={handleBack}
           /> */}
-          <CustomButton
-            label="Return to Store"
-            onClick={() => history.push(`/seller/${refId}/${caseType}`)}
-          />
+          <CustomButton label="Return to Store" onClick={returnToStore} />
           <CustomButton
             label={
               activeStep === steps.length - 1
@@ -287,15 +364,21 @@ export default function CheckoutPage({ caseType }) {
                   "Continue"
             }
             // onClick={
-            //   activeStep !== steps.length - 2
-            //     ? handleSubmit
-            //     : updateTransactions
+            //   activeStep === 0
+            //     ? handleForm // First step, check form info
+            //     : activeStep === steps.length - 1
+            //     ? handleSubmit // If it's the last step, handle form submission
+            //     : activeStep === steps.length - 2
+            //     ? updateTransactions // If it's the second last step, update transactions
+            //     : handleNext // Otherwise, move to the next step
             // }
             onClick={
-              activeStep === steps.length - 1
+              activeStep === 0
+                ? handleForm // First step, check form info
+                : activeStep === 1
+                ? updateTransactions // If it's the second step, update transactions
+                : activeStep === 2
                 ? handleSubmit // If it's the last step, handle form submission
-                : activeStep === steps.length - 2
-                ? updateTransactions // If it's the second last step, update transactions
                 : handleNext // Otherwise, move to the next step
             }
             // onClick={handleSubmit}

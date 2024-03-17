@@ -122,10 +122,11 @@ export default function StateSelector({
   onChange,
   stateSelected,
   isSubmitted,
-  setError,
-  error,
+  // setError,
+  // error,
 }) {
   const [state, setState] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (isSubmitted && !stateSelected) {

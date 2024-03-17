@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  Grid,
-} from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { User } from "../../hooks/reduxStore";
 import { border, borderPrimaryColor } from "../Utils/colors";
@@ -26,9 +19,9 @@ const couponPreviewStyle = {
 };
 
 const previewBoxStyle = {
-  ...borderPrimaryColor, 
-  textAlign: "center", 
-  mb: 1
+  ...borderPrimaryColor,
+  textAlign: "center",
+  mb: 1,
 };
 
 export default function CouponCard({ coupon, i }) {
@@ -62,9 +55,15 @@ export default function CouponCard({ coupon, i }) {
       <CardContent>
         <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
           <Box sx={previewBoxStyle}>
-          <Typography variant="caption" sx={{ lineHeight: 1 }}>Front</Typography>
+            <Typography variant="caption" sx={{ lineHeight: 1 }}>
+              Front
+            </Typography>
             {coupon.frontViewBlob !== null ? (
-              <PdfThumbnail pdf={coupon.frontViewBlob} style={couponPreviewStyle} width={200} />
+              <PdfThumbnail
+                pdf={coupon.frontViewBlob}
+                style={couponPreviewStyle}
+                width={200}
+              />
             ) : (
               <NoFile label="No file available" sx={couponPreviewStyle} />
             )}
@@ -72,7 +71,11 @@ export default function CouponCard({ coupon, i }) {
           <Box sx={previewBoxStyle}>
             Back
             {coupon.backViewBlob !== null ? (
-              <PdfThumbnail pdf={coupon.backViewBlob} style={couponPreviewStyle} width={200} />
+              <PdfThumbnail
+                pdf={coupon.backViewBlob}
+                style={couponPreviewStyle}
+                width={200}
+              />
             ) : (
               <NoFile label="No file available" sx={couponPreviewStyle} />
             )}
