@@ -26,43 +26,9 @@ export default function CustomerInfoForm({
   city,
   setCity,
   stateSelected,
-  setStateSelected,
   zip,
   setZip,
 }) {
-  // // ~~~~~~~~~~ Form state ~~~~~~~~~~ //
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [phone, setPhone] = useState("");
-  // const [address, setAddress] = useState("");
-  // const [unit, setUnit] = useState("");
-  // const [city, setCity] = useState("");
-  // const [zip, setZip] = useState("");
-  // console.log(firstName);
-  // console.log(lastName);
-  // console.log(email);
-  // console.log(phone);
-  // console.log(address);
-  // console.log(unit);
-  // console.log(city);
-  // console.log(stateSelected);
-  // console.log(zip);
-  // ~~~~~ Error State ~~~~~ //
-  // const [stateError, setStateError] = useState(false);
-
-  const resetForm = () => {
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPhone("");
-    setAddress("");
-    setUnit("");
-    setCity("");
-    setStateSelected(false);
-    setZip("");
-  };
-
   return (
     <div style={{ width: "90%", margin: "0 auto", padding: 5 }}>
       {/* ~~~~~~~~~~ Header ~~~~~~~~~~~~~~ */}
@@ -211,13 +177,10 @@ export default function CustomerInfoForm({
           </Grid>
           {/* ~~~~~~~~~~ State ~~~~~~~~~~~~~~~~~~~~ */}
           <Grid item xs={12} sm={3}>
-            {/* <TextField label="State" variant="outlined" fullWidth required /> */}
             <StateSelector
               onChange={handleStateChange}
               stateSelected={stateSelected}
               isSubmitted={isSubmitted}
-              // error={stateError}
-              // setError={setStateError}
             />
           </Grid>
           {/* ~~~~~~~~~~ Zip ~~~~~~~~~~~~~~~~~~~~ */}
