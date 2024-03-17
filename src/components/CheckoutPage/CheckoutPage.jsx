@@ -178,7 +178,6 @@ export default function CheckoutPage({ caseType }) {
             city={city}
             setCity={setCity}
             stateSelected={stateSelected}
-            setStateSelected={setStateSelected}
             zip={zip}
             setZip={setZip}
           />
@@ -219,28 +218,25 @@ export default function CheckoutPage({ caseType }) {
     // Example validation logic, replace with your own
     const newErrors = {};
     if (!firstName) {
-      newErrors.firstName = "First Name is required";
+      newErrors.firstName = "Please enter your first name";
     }
     if (!lastName) {
-      newErrors.lastName = "Last Name is required";
+      newErrors.lastName = "Please enter your last name";
     }
     if (!email) {
-      newErrors.email = "Email is required";
+      newErrors.email = "Email required";
     }
     if (!phone) {
-      newErrors.phone = "Phone is required";
+      newErrors.phone = "Phone required";
     }
     if (!address) {
-      newErrors.address = "Address is required";
-    }
-    if (!unit) {
-      newErrors.unit = "Unit is required";
+      newErrors.address = "Please enter address";
     }
     if (!city) {
-      newErrors.city = "City is required";
+      newErrors.city = "Please enter city";
     }
     if (!zip) {
-      newErrors.zip = "Zip is required";
+      newErrors.zip = "Please enter zip code";
     }
 
     setErrors(newErrors);

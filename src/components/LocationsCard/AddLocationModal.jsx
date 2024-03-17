@@ -101,7 +101,6 @@ export default function AddLocationModal({
     setPhoneNumber("");
     setLocationAddress("");
     setCity("");
-    setState("");
     setStateSelected(false);
     setZip("");
     setAdditionalDetails("");
@@ -128,28 +127,46 @@ export default function AddLocationModal({
   };
 
   const addLocation = () => {
-    if (
-      !locationName ||
-      !locationAddress ||
-      !city ||
-      !stateSelected ||
-      !zip ||
-      !phoneNumber ||
-      !stateSelected
-    ) {
+    if (!locationName) {
       setNameError(true);
+      return;
+    }
+    if (!locationAddress) {
       setAddressError(true);
+      return;
+    }
+    if (!city) {
       setCityError(true);
-      setStateError(true);
+      return;
+    }
+    if (!stateSelected) {
+      setIsSubmitted(true);
+      return;
+    }
+    if (!zip) {
       setZipError(true);
+      return;
+    }
+    if (!phoneNumber) {
       setPhoneError(true);
       return;
     }
-    dispatch({
-      type: "ADD_LOCATION",
-      payload: newLocationPayload,
-    });
+    // Only dispatch if all required fields are filled
+    if (
+      locationName &&
+      locationAddress &&
+      city &&
+      stateSelected &&
+      zip &&
+      phoneNumber
+    ) {
+      dispatch({
+        type: "ADD_LOCATION",
+        payload: newLocationPayload,
+      });
+    }
 
+    isSubmitted(true);
     showSaveSweetAlert({ label: "Location Added" });
     handleAddLocation();
     resetForm();
@@ -251,8 +268,8 @@ export default function AddLocationModal({
               onChange={handleStateChange}
               stateSelected={stateSelected}
               isSubmitted={isSubmitted}
-              setError={setStateError}
-              error={stateError}
+              // setError={setStateError}
+              // error={stateError}
             />
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~ ZIP ~~~~~~~~~~~~~~ */}

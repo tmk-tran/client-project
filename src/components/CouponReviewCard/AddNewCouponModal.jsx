@@ -85,14 +85,21 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
 
   const addCoupon = () => {
     // Check if required fields are filled
-    if (!couponOffer || !phone || !website) {
-      // If any required field is empty, set error state or display error message
-      setLocationsError(!locationsError);
-      setOfferError(!offerError);
-      setPhoneError(!phone);
-      setWebsiteError(!website);
-
-      return; // Prevent further execution of form submission
+    if (!selectedLocations.length) {
+      setLocationsError(true);
+      return; // Stop if condition met, resolve to continue
+    }
+    if (!couponOffer) {
+      setOfferError(true);
+      return;
+    }
+    if (!phone) {
+      setPhoneError(true);
+      return;
+    }
+    if (!website) {
+      setWebsiteError(true);
+      return;
     }
 
     // Validate phone number before saving
