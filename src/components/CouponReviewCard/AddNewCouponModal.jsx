@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box,
-  Button,
   Typography,
   Modal,
   TextField,
@@ -43,6 +42,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
 
   const [open, setOpen] = useState(false);
   const [merchantId, setMerchantId] = useState(paramsObject.id);
+  // ~~~~~~~~~~ Form State ~~~~~~~~~~~~~~~~~~~ //
   const [couponOffer, setCouponOffer] = useState("");
   const [couponValue, setCouponValue] = useState("");
   const [exclusions, setExclusions] = useState("");
@@ -51,22 +51,19 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   console.log(selectedLocations);
   const [selectAllLocations, setSelectAllLocations] = useState(false);
   const [address, setAddress] = useState("");
-  // const [city, setCity] = useState("");
-  // const [state, setState] = useState("");
-  // const [zip, setZip] = useState("");
   const [phone, setPhone] = useState("");
+  // ~~~~~~~~~~ Errors ~~~~~~~~~~~~~~~~~~~~~~~ //
   const [locationsError, setLocationsError] = useState(false);
   const [website, setWebsite] = useState("");
   const [websiteError, setWebsiteError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
-  console.log(phoneError);
   const [offerError, setOfferError] = useState(false);
 
+  console.log(phoneError);
   console.log(couponOffer);
   console.log(couponValue);
   console.log(exclusions);
   console.log(address);
-
   console.log(phone);
   console.log(website);
   console.log(additionalInfo);
@@ -90,12 +87,11 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
     // Check if required fields are filled
     if (!couponOffer || !phone || !website) {
       // If any required field is empty, set error state or display error message
-      // You can set an error state for each required field and display error messages accordingly
       setLocationsError(!locationsError);
       setOfferError(!offerError);
       setPhoneError(!phone);
       setWebsiteError(!website);
-      // You can set error states for other required fields in a similar manner
+
       return; // Prevent further execution of form submission
     }
 

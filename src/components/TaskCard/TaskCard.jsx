@@ -7,7 +7,6 @@ import { historyHook } from "../../hooks/useHistory";
 import {
   successColor,
   hoverAccept,
-  border,
   primaryColor,
   dueDateHighlight,
 } from "../Utils/colors";

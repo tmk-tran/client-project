@@ -247,19 +247,6 @@ export default function AddLocationModal({
           <div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~ STATE ~~~~~~~~~~~~ */}
-            {/* <TextField
-              label="State"
-              value={capitalizeStateAbbr(state)}
-              onChange={(e) => {
-                setState(e.target.value);
-                setStateError(false);
-              }}
-              // fullWidth
-              sx={{ mb: 2 }}
-              required
-              error={stateError}
-              helperText={stateError ? "Please select a state" : ""}
-            /> */}
             <StateSelector
               onChange={handleStateChange}
               stateSelected={stateSelected}
