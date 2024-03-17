@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~ //
-import { Button, Card, CardContent, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import { border, borderPrimaryColor } from "../Utils/colors";
 // ~~~~~~~~~~ Component ~~~~~~~~~~ //
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
@@ -172,7 +172,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 <div style={borderPrimaryColor}>
                   <Typography variant="body2" sx={thumbnailHeaderStyle}>
-                    Offer:
+                    Offer: 
                   </Typography>
                   <div style={{ ...thumbnailSize, ...flexCenter }}>
                     {file.offer ? (
@@ -188,9 +188,9 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                <div style={{ padding: "5%" }}>
+                <Box sx={{ mt: 5, p: .5, mr: 1 }}>
                   <CommentDisplay comment={mostRecentComment} />
-                </div>
+                </Box>
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               </div>
             </CardContent>
