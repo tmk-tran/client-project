@@ -242,6 +242,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
                 phoneNumber={phone}
                 setPhoneNumber={setPhone}
                 sx={{ mb: 2 }}
+                setPhoneError={setPhoneError}
                 error={phoneError}
                 helperText={phoneError ? "Invalid phone number" : ""}
               />
