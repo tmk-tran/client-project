@@ -59,14 +59,11 @@ export default function ConsumerCouponView() {
   };
 
   // // Filter coupons by merchant name
-  // const filteredMerchants = coupons.filter((coupon) =>
-  //   coupon.merchantName.toLowerCase().includes(query.toLowerCase())
-  // );
-  const filteredMerchants = coupons.filter((coupon) =>
-  typeof coupon.merchantName === 'string' &&
-  coupon.merchantName.toLowerCase().includes(query.toLowerCase())
-);
-
+  const filteredMerchants = coupons.filter(
+    (coupon) =>
+      typeof coupon.merchantName === "string" &&
+      coupon.merchantName.toLowerCase().includes(query.toLowerCase())
+  );
 
   const clearInput = () => {
     setQuery("");
