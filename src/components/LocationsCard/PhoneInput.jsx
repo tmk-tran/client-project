@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 
-const PhoneInput = ({ phoneNumber, setPhoneNumber, sx }) => {
+const PhoneInput = ({ phoneNumber, setPhoneNumber, sx, error, helperText }) => {
   const [isTyping, setIsTyping] = useState(false);
   const formattedPhoneNumber = isTyping
     ? `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
@@ -28,6 +28,8 @@ const PhoneInput = ({ phoneNumber, setPhoneNumber, sx }) => {
       fullWidth
       sx={sx}
       required
+      error={error}
+      helperText={helperText}
     />
   );
 };

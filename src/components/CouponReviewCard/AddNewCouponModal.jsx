@@ -20,7 +20,7 @@ import PhoneInput from "../LocationsCard/PhoneInput";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { validateWebsiteFormat } from "../Utils/helpers";
+import { capitalizeWords, validateWebsiteFormat } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 const style = {
@@ -199,7 +199,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
               {/* ~~~~~~~~~~ OFFER ~~~~~~~~~~~~ */}
               <TextField
                 label="Coupon Offer"
-                value={couponOffer}
+                value={capitalizeWords(couponOffer)}
                 onChange={(e) => {
                   setCouponOffer(e.target.value);
                   setOfferError(false);
@@ -236,34 +236,14 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
 
             <Grid item xs={6}>
               {/* <Divider sx={{ mt: 2, mb: 2, ...lineDivider}} /> */}
-
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~ PHONE ~~~~~~~~~~~~ */}
-              {/* <TextField
-                label="Phone Number"
-                type="number"
-                inputProps={{
-                  minLength: 10,
-                  maxLength: 10,
-                  pattern: "[0-9]*",
-                  inputMode: "numeric",
-                  required: true,
-                }}
-                value={phone}
-                onChange={(e) => {
-                  setPhone(Number(e.target.value));
-                  setPhoneError(false);
-                }}
-                error={phoneError}
-                helperText={phoneError ? "Invalid phone number" : ""}
-                fullWidth
-                sx={{ mb: 2 }}
-                required
-              /> */}
               <PhoneInput
                 phoneNumber={phone}
                 setPhoneNumber={setPhone}
                 sx={{ mb: 2 }}
+                error={phoneError}
+                helperText={phoneError ? "Invalid phone number" : ""}
               />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~ WEBSITE ~~~~~~~~~~~~ */}
