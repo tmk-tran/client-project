@@ -4,6 +4,7 @@ import { Box, Typography, Modal, TextField, Divider } from "@mui/material";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~
 import AddBox from "../AddBoxIcon/AddBoxIcon";
 import ModalButtons from "../Modals/ModalButtons";
+import PhoneInput from "./PhoneInput";
 import CloseButton from "../Buttons/CloseButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
@@ -29,8 +30,6 @@ const style = {
 };
 
 export default function AddLocationModal({
-  onLocationAdd,
-  handleCaseTypeChange,
   handleAddLocation,
   isEditing,
   handleCloseModal,
@@ -159,7 +158,7 @@ export default function AddLocationModal({
           {/* ~~~~~~~~~~ NAME ~~~~~~~~~~~~~ */}
           <TextField
             label="Location Name*"
-            value={locationName}
+            value={capitalizeWords(locationName)}
             onChange={(e) => setLocationName(e.target.value)}
             fullWidth
             sx={{ mb: 2 }}
@@ -168,7 +167,7 @@ export default function AddLocationModal({
           {/* ~~~~~~~~~~ ADDRESS ~~~~~~~~~~ */}
           <TextField
             label="Location Address*"
-            value={locationAddress}
+            value={capitalizeWords(locationAddress)}
             onChange={(e) => setLocationAddress(e.target.value)}
             fullWidth
             sx={{ mb: 2 }}
@@ -177,7 +176,7 @@ export default function AddLocationModal({
           {/* ~~~~~~~~~~ CITY ~~~~~~~~~~~~~ */}
           <TextField
             label="City"
-            value={city}
+            value={capitalizeWords(city)}
             onChange={(e) => setCity(e.target.value)}
             fullWidth
             sx={{ mb: 2 }}
@@ -187,7 +186,7 @@ export default function AddLocationModal({
             {/* ~~~~~~~~~~ STATE ~~~~~~~~~~~~ */}
             <TextField
               label="State"
-              value={state}
+              value={capitalizeStateAbbr(state)}
               onChange={(e) => setState(e.target.value)}
               // fullWidth
               sx={{ mb: 2 }}
@@ -208,12 +207,17 @@ export default function AddLocationModal({
           </div>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~ PHONE NUMBER ~~~~~~~~ */}
-          <TextField
+          {/* <TextField
             label="Phone Number"
             value={phoneNumber}
             type="number"
             onChange={(e) => setPhoneNumber(Number(e.target.value))}
             fullWidth
+            sx={{ mb: 2 }}
+          /> */}
+          <PhoneInput
+            phoneNumber={phoneNumber}
+            setPhoneNumber={setPhoneNumber}
             sx={{ mb: 2 }}
           />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
