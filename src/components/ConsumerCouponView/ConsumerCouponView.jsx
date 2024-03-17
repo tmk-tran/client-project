@@ -58,10 +58,15 @@ export default function ConsumerCouponView() {
     }
   };
 
-  // Filter coupons by merchant name
+  // // Filter coupons by merchant name
+  // const filteredMerchants = coupons.filter((coupon) =>
+  //   coupon.merchantName.toLowerCase().includes(query.toLowerCase())
+  // );
   const filteredMerchants = coupons.filter((coupon) =>
-    coupon.merchantName.toLowerCase().includes(query.toLowerCase())
-  );
+  typeof coupon.merchantName === 'string' &&
+  coupon.merchantName.toLowerCase().includes(query.toLowerCase())
+);
+
 
   const clearInput = () => {
     setQuery("");
