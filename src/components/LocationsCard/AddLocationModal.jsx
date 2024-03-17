@@ -207,14 +207,6 @@ export default function AddLocationModal({
           </div>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~ PHONE NUMBER ~~~~~~~~ */}
-          {/* <TextField
-            label="Phone Number"
-            value={phoneNumber}
-            type="number"
-            onChange={(e) => setPhoneNumber(Number(e.target.value))}
-            fullWidth
-            sx={{ mb: 2 }}
-          /> */}
           <PhoneInput
             phoneNumber={phoneNumber}
             setPhoneNumber={setPhoneNumber}

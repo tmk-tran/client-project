@@ -16,6 +16,7 @@ import SelectMenu from "./SelectMenu";
 import AddFileButton from "../AddFileButton/AddFileButton";
 import ModalButtons from "../Modals/ModalButtons";
 import AllLocationsButton from "./AllLocationsButton";
+import PhoneInput from "../LocationsCard/PhoneInput";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -238,7 +239,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
 
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~ PHONE ~~~~~~~~~~~~ */}
-              <TextField
+              {/* <TextField
                 label="Phone Number"
                 type="number"
                 inputProps={{
@@ -258,6 +259,11 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
                 fullWidth
                 sx={{ mb: 2 }}
                 required
+              /> */}
+              <PhoneInput
+                phoneNumber={phone}
+                setPhoneNumber={setPhone}
+                sx={{ mb: 2 }}
               />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~ WEBSITE ~~~~~~~~~~~~ */}
