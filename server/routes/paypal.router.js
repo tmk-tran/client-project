@@ -11,7 +11,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText)
     .then((result) => {
-      console.log("FROM paypal.router: ", result.rows);
+      console.log("FROM GET in paypal.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {

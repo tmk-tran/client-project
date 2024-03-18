@@ -2,11 +2,11 @@ import axios from "axios";
 import { put, takeEvery } from "redux-saga/effects";
 
 function* fetchPaypalTransactions(action) {
-  console.log("From paypal saga GET router: ", action.payload);
 
   try {
-    yield axios.get(`/api/paypal/`);
-    yield put({ type: "SET_PAYPAL_TRANSACTIONS", payload: action.payload });
+    const items = yield axios.get(`/api/paypal/`);
+    console.log("FETCH request from paypal.saga, ITEMS = ", items.data);
+    yield put({ type: "SET_PAYPAL_TRANSACTIONS", payload: items.data });
   } catch (error) {
     console.log("error in fetchPaypalTransactions Saga", error);
   }

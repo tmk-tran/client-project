@@ -31,6 +31,7 @@ import SellerPage from "../SellerPage/SellerPage";
 import ConsumerCouponView from "../ConsumerCouponView/ConsumerCouponView";
 import SellerLandingPage from "../SellerPage/SellerLandingPage";
 import OrderComplete from "../CheckoutPage/OrderComplete";
+import Transactions from "../Transactions/Transactions";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -119,6 +120,12 @@ function App() {
               {user.is_admin && (
                 <ProtectedRoute exact path="/tasks">
                   <TaskTabs />
+                </ProtectedRoute>
+              )}
+
+              {user.is_admin && (
+                <ProtectedRoute exact path="/transactions">
+                  <Transactions />
                 </ProtectedRoute>
               )}
 
