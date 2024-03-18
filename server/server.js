@@ -113,6 +113,7 @@ const sellerPageRouter = require("./routes/sellerPage.router");
 const customersRouter = require("./routes/customers.router");
 const transactionsRouter = require("./routes/transactions.router");
 const redemptionRouter = require("./routes/couponRedemption.router");
+const paypalRouter = require("./routes/paypal.router");
 
 // // Add this middleware to set the CORS headers
 // app.use((req, res, next) => {
@@ -174,6 +175,7 @@ app.use("/api/seller", sellerPageRouter);
 app.use("/api/customers", customersRouter);
 app.use("/api/transactions", transactionsRouter);
 app.use("/api/redeem", redemptionRouter);
+app.use("/api/paypal", paypalRouter);
 
 // Serve static files //
 app.use(express.static("build"));
@@ -218,6 +220,11 @@ const generateAccessToken = async () => {
 
 // Create an order to start the transaction
 const createOrder = async (cart) => {
+  // Calculate total amount based on the cart items
+  const totalAmount = cart.reduce((acc, item) => {
+    return acc + item.price * item.quantity;
+  }, 0).toFixed(2);
+
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders`;
   const payload = {
@@ -226,7 +233,7 @@ const createOrder = async (cart) => {
       {
         amount: {
           currency_code: "USD",
-          value: "100.00",
+          value: totalAmount,
         },
       },
     ],

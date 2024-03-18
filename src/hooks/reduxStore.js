@@ -64,6 +64,10 @@ export const couponsData = () => {
   return useSelector((store) => store.coupons);
 };
 
+export const paypalTransactions = () => {
+  return useSelector((store) => store.paypal);
+};
+
 export const User = () => {
   return useSelector((store) => store.user);
 };

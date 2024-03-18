@@ -242,9 +242,10 @@ export default function CheckoutPage({ caseType }) {
     setErrors(newErrors);
     // Check if there are any errors
     const hasErrors = Object.keys(newErrors).length > 0;
-    setIsSubmitted(!hasErrors);
-
-    setIsSubmitted(true);
+    // setIsSubmitted(!hasErrors);
+    !hasErrors && setIsSubmitted(true);
+    // setIsSubmitted(true);
+    !hasErrors && handleNext();
   };
 
   const returnToStore = () => {
@@ -377,7 +378,6 @@ export default function CheckoutPage({ caseType }) {
                 ? handleSubmit // If it's the last step, handle form submission
                 : handleNext // Otherwise, move to the next step
             }
-            // onClick={handleSubmit}
             variant="contained"
           />
         </Box>
