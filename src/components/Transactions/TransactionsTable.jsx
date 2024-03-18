@@ -136,8 +136,7 @@ export default function TransactionsTable({ transactions }) {
                   {transaction.payment_source_account_id}
                 </TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
-                  {transaction.payer_name_given_name},{" "}
-                  {transaction.payer_name_surname}
+                  {transaction.payer_name_given_name} {transaction.payer_name_surname}
                 </TableCell>
                 <TableCell sx={cellBorder}>
                   ${transaction.seller_receivable_gross_amount_value}
