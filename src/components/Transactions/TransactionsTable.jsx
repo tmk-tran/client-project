@@ -165,7 +165,7 @@ export default function TransactionsTable({ transactions }) {
               <TableCell sx={footerCellStyle}>
                 {totals.paymentAmount.toFixed(2)}
               </TableCell>
-              <TableCell sx={footerCellStyle} colSpan={4}></TableCell>
+              <TableCell sx={footerCellStyle} colSpan={5}></TableCell>
               <TableCell sx={footerCellStyle}>
                 {totals.receivedGrossValue.toFixed(2)}
               </TableCell>
