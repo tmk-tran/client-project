@@ -33,7 +33,7 @@ const alternateRowColors = {
 const footerCellStyle = {
   fontWeight: "bold",
   fontSize: "1.2rem",
-  color: "#000",
+  color: "#333",
   backgroundColor: "#d9d9d9",
 };
 
@@ -114,7 +114,7 @@ export default function TransactionsTable({ transactions }) {
                   {transaction.purchase_units_payments_captures_id}
                 </TableCell>
                 <TableCell sx={cellBorder}>
-                  {transaction.purchase_units_payments_captures_amount_value}
+                  ${transaction.purchase_units_payments_captures_amount_value}
                 </TableCell>
                 <TableCell sx={cellBorder}>
                   {transaction.payment_source_email}
@@ -136,13 +136,13 @@ export default function TransactionsTable({ transactions }) {
                   {transaction.payer_name_surname}
                 </TableCell>
                 <TableCell sx={cellBorder}>
-                  {transaction.seller_receivable_gross_amount_value}
+                  ${transaction.seller_receivable_gross_amount_value}
                 </TableCell>
                 <TableCell sx={cellBorder}>
-                  {transaction.seller_receivable_paypal_fee_value}
+                  ${transaction.seller_receivable_paypal_fee_value}
                 </TableCell>
                 <TableCell sx={cellBorder}>
-                  {transaction.seller_receivable_net_amount_value}
+                  ${transaction.seller_receivable_net_amount_value}
                 </TableCell>
                 <TableCell sx={cellBorder}>
                   {transaction.payment_source_account_status}
@@ -163,17 +163,17 @@ export default function TransactionsTable({ transactions }) {
               <TableCell sx={footerCellStyle}>Totals:</TableCell>
               <TableCell sx={footerCellStyle} colSpan={2}></TableCell>
               <TableCell sx={footerCellStyle}>
-                {totals.paymentAmount.toFixed(2)}
+                ${totals.paymentAmount.toFixed(2)}
               </TableCell>
               <TableCell sx={footerCellStyle} colSpan={5}></TableCell>
               <TableCell sx={footerCellStyle}>
-                {totals.receivedGrossValue.toFixed(2)}
+                ${totals.receivedGrossValue.toFixed(2)}
               </TableCell>
               <TableCell sx={footerCellStyle}>
-                {totals.paypalFee.toFixed(2)}
+                ${totals.paypalFee.toFixed(2)}
               </TableCell>
               <TableCell sx={footerCellStyle}>
-                {totals.receivedNetAmount.toFixed(2)}
+                ${totals.receivedNetAmount.toFixed(2)}
               </TableCell>
               <TableCell sx={footerCellStyle} colSpan={3}></TableCell>
             </TableRow>
