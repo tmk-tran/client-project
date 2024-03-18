@@ -458,14 +458,14 @@ export default function SellersTable() {
                           {isTotalCell
                             ? "Totals:"
                             : displaySum
-                            ? (column.id === "cash" ||
+                            ? column.id === "cash" ||
                               column.id === "checks" ||
                               column.id === "donations" ||
                               column.id === "digital_donations" ||
                               column.id === "digital" ||
                               column.id === "seller_earnings"
-                                ? "$"
-                                : "") + sum
+                              ? "$" + parseFloat(sum).toFixed(2)
+                              : sum
                             : null}
                         </TableCell>
                       ) : (
