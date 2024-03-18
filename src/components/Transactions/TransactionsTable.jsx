@@ -24,6 +24,10 @@ const cellBorder = {
   border: "1px solid #ddd",
 };
 
+const footerCellBorder = {
+  border: "1px solid #f0f0f0",
+};
+
 const alternateRowColors = {
   "&:nth-of-type(odd)": {
     backgroundColor: "rgba(0, 0, 0, 0.04)", // Light gray
@@ -33,7 +37,7 @@ const alternateRowColors = {
 const footerCellStyle = {
   fontWeight: "bold",
   fontSize: "1.2rem",
-  color: "#333",
+  //   color: "#333",
   backgroundColor: "#d9d9d9",
 };
 
@@ -162,17 +166,17 @@ export default function TransactionsTable({ transactions }) {
             <TableRow>
               <TableCell sx={footerCellStyle}>Totals:</TableCell>
               <TableCell sx={footerCellStyle} colSpan={2}></TableCell>
-              <TableCell sx={footerCellStyle}>
+              <TableCell sx={{ ...footerCellStyle, ...footerCellBorder }}>
                 ${totals.paymentAmount.toFixed(2)}
               </TableCell>
               <TableCell sx={footerCellStyle} colSpan={5}></TableCell>
-              <TableCell sx={footerCellStyle}>
+              <TableCell sx={{ ...footerCellStyle, ...footerCellBorder }}>
                 ${totals.receivedGrossValue.toFixed(2)}
               </TableCell>
-              <TableCell sx={footerCellStyle}>
+              <TableCell sx={{ ...footerCellStyle, ...footerCellBorder }}>
                 ${totals.paypalFee.toFixed(2)}
               </TableCell>
-              <TableCell sx={footerCellStyle}>
+              <TableCell sx={{ ...footerCellStyle, ...footerCellBorder }}>
                 ${totals.receivedNetAmount.toFixed(2)}
               </TableCell>
               <TableCell sx={footerCellStyle} colSpan={3}></TableCell>
