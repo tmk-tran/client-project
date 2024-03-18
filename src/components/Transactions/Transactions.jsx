@@ -18,11 +18,15 @@ export default function Transactions() {
   console.log(transactionList);
 
   return (
-    // <Box sx={{ ...centeredStyle, ...containerStyle }}>
     <Box>
-      <Typography variant="h6">Transactions</Typography>
-      <Box sx={{ width: "100%" }}>
-      <TransactionsTable transactions={transactionList} />
+      <Typography
+        variant="h5"
+        sx={{ mt: 2, fontWeight: "bold", textAlign: "center" }}
+      >
+        Transactions
+      </Typography>
+      <Box sx={{ width: "100%", mt: 2 }}>
+        <TransactionsTable transactions={transactionList} />
       </Box>
     </Box>
   );
