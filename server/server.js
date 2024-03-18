@@ -131,7 +131,7 @@ const paypalRouter = require("./routes/paypal.router");
 
 app.use(
   cors({
-    origin: "https://your-frontend-domain.com",
+    origin: "https://www.paypal.com",
     methods: "GET,POST",
     allowedHeaders: "Content-Type,Authorization",
   })
