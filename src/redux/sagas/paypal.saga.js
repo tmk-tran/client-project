@@ -19,7 +19,6 @@ function* addPaypalTransaction(action) {
       yield axios.post(`/api/paypal/`, action.payload);
       yield put({
         type: "FETCH_PAYPAL_TRANSACTIONS",
-        payload: orgId,
       });
     } catch (error) {
       console.log("error in addPaypal transaction Saga", error);
