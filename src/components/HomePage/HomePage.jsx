@@ -161,7 +161,6 @@ function HomePage({ isOrgAdmin, isGraphicDesigner }) {
               toggleState={isMerchantList}
             />
           )}
-
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ PAGE HEADER ~~~~~~~~~~~ */}
@@ -171,7 +170,7 @@ function HomePage({ isOrgAdmin, isGraphicDesigner }) {
           sx={{
             fontWeight: "bold",
             textAlign: "center",
-            mt: isOrgAdmin ? 3 : 0,
+            mt: isOrgAdmin ? 3 : isGraphicDesigner ? 3 : 0,
           }}
         >
           {!isMerchantList ? "Organization List" : "Merchant List"}
