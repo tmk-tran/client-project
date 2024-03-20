@@ -22,7 +22,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { couponsData } from "../../hooks/reduxStore";
 import { centeredStyle, flexCenter, flexRowSpace } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
-import { capitalizeWords, formatDate } from "../Utils/helpers";
+import { capitalizeFirstWord, capitalizeWords, formatDate } from "../Utils/helpers";
 
 const uploadBoxStyle = {
   width: "100%",
@@ -383,7 +383,7 @@ export default function CouponReviewDetails() {
                                 label="Offer"
                                 value={
                                   file.offer !== null
-                                    ? capitalizeWords(file.offer)
+                                    ? capitalizeFirstWord(file.offer)
                                     : "No offer set"
                                 }
                               />
