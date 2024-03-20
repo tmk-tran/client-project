@@ -81,7 +81,7 @@ export default function CommentDisplay({ comment, showAllComments }) {
             {capitalizeFirstWord(content)}
           </Typography>
         ) : (
-          <Typography>No Comments Available</Typography>
+          <Typography variant="caption">No Comments Available</Typography>
         )}
       </div>
     </Box>
