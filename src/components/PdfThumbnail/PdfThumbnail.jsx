@@ -45,9 +45,9 @@ const PdfThumbnail = ({ pdf, style, width, caseType }) => {
               position: "relative",
               ...(caseType === "consumer"
                 ? {
-                    // transition: "transform 0.3s",
-                    // transform: hovering ? "scale(1.3)" : "scale(1)",
-                    // margin: hovering ? "8%" : 0,
+                    transition: "transform 0.3s",
+                    transform: hovering ? "scale(.9)" : "scale(1)",
+                    // margin: hovering ? "3%" : 0,
                     // padding: hovering ? "5%" : 0,
                     // width: hovering ? "500px" : width ? width : "150px",
                     // maxWidth: 250,
