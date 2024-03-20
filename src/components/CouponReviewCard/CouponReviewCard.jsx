@@ -11,7 +11,7 @@ import NoDetailsCard from "../NoDetailsCard/NoDetailsCard";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { mComments } from "../../hooks/reduxStore";
+import { mComments, mTasks } from "../../hooks/reduxStore";
 import { flexCenter, textCenter } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
 import { couponsData } from "../../hooks/reduxStore";
@@ -50,7 +50,11 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
         type: "FETCH_PDF_FILE",
         payload: merchantId,
       });
-  }, []);
+    // dispatch({
+    //   type: "FETCH_MERCHANT_TASKS",
+    //   payload: merchantId,
+    // });
+  }, [merchantId]);
 
   const files = couponsData() || [];
   console.log(files);
@@ -59,6 +63,8 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   const mostRecentComment =
     merchantComments.length > 0 ? merchantComments[0] : null;
   console.log(mostRecentComment);
+  const tasks = mTasks() || [];
+  console.log(tasks);
 
   const handleUpdateClick = (event) => {
     // Add your logic for the Update button click
@@ -98,104 +104,116 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   return (
     <>
       {files.length > 0 ? (
-        files.map((file, i) => (
-          <Card
-            key={i}
-            elevation={3}
-            sx={{ "&:hover": { cursor: "pointer", transform: "scale(1.03)" } }}
-            onClick={() => {
-              handleCardClick(file.id);
-            }}
-          >
-            <CardContent>
-              {/* <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} /> */}
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginBottom: "20px",
-                }}
-                onClick={handleContainerClick}
-              >
-                {/* Status Menu */}
-                {/* Need to add onChange prop here to resolve error */}
-                <CouponStatusDropdown
-                  handleUpdateTask={handleUpdateTask}
-                  onChange={handleChangeRequest}
-                  complete={handleCompletedCoupon}
-                />
-
-                <Button sx={{ marginLeft: "10px" }} onClick={handleUpdateClick}>
-                  Update
-                </Button>
-              </div>
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
-              <hr />
-
-              <div style={{ display: "flex", flexDirection: "row", gap: 5 }}>
-                {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
+        files.map((file, i) => {
+          const couponTask = tasks.find((task) => task.coupon_id === file.id);
+          return (
+            <Card
+              key={i}
+              elevation={3}
+              sx={{
+                "&:hover": { cursor: "pointer", transform: "scale(1.03)" },
+              }}
+              onClick={() => {
+                handleCardClick(file.id);
+              }}
+            >
+              <CardContent>
+                {/* <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} /> */}
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                {/* ~~~~~~ FRONT OF COUPON ~~~~~~ */}
+                {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                <div style={borderPrimaryColor}>
-                  <Typography variant="body2" sx={thumbnailHeaderStyle}>
-                    Front
-                  </Typography>
-                  <FilePreview
-                    directFile={file}
-                    showFrontViewFiles={true}
-                    showBackViewFiles={false}
-                    caseType="preview"
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    marginBottom: "20px",
+                  }}
+                  onClick={handleContainerClick}
+                >
+                  {/* Status Menu */}
+                  {/* Need to add onChange prop here to resolve error */}
+                  <CouponStatusDropdown
+                    task={couponTask}
+                    handleUpdateTask={handleUpdateTask}
+                    onChange={handleChangeRequest}
+                    complete={handleCompletedCoupon}
                   />
+
+                  <Button
+                    sx={{ marginLeft: "10px" }}
+                    onClick={handleUpdateClick}
+                  >
+                    Update
+                  </Button>
                 </div>
-                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                {/* ~~~~~~ BACK OF COUPON ~~~~~~~ */}
-                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                <div style={borderPrimaryColor}>
-                  <Typography variant="body2" sx={thumbnailHeaderStyle}>
-                    Back
-                  </Typography>
-                  <FilePreview
-                    directFile={file}
-                    showFrontViewFiles={false}
-                    showBackViewFiles={true}
-                    caseType="preview"
-                  />
-                </div>
-                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                {/* ~~~~~~ COUPON DETAILS ~~~~~~~ */}
-                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                <div style={borderPrimaryColor}>
-                  <Typography variant="body2" sx={thumbnailHeaderStyle}>
-                    Offer: 
-                  </Typography>
-                  <div style={{ ...thumbnailSize, ...flexCenter }}>
-                    {file.offer ? (
-                      <Typography variant="body2" sx={{ fontWeight: "bold", p: 1, ...textCenter }}>
-                        {/* Details of Coupon */}
-                        {capitalizeWords(file.offer)}
-                      </Typography>
-                    ) : (
-                      <Typography variant="caption">No offer set</Typography>
-                    )}
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+
+                <hr />
+
+                <div style={{ display: "flex", flexDirection: "row", gap: 5 }}>
+                  {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~ FRONT OF COUPON ~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  <div style={borderPrimaryColor}>
+                    <Typography variant="body2" sx={thumbnailHeaderStyle}>
+                      Front
+                    </Typography>
+                    <FilePreview
+                      directFile={file}
+                      showFrontViewFiles={true}
+                      showBackViewFiles={false}
+                      caseType="preview"
+                    />
                   </div>
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~ BACK OF COUPON ~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  <div style={borderPrimaryColor}>
+                    <Typography variant="body2" sx={thumbnailHeaderStyle}>
+                      Back
+                    </Typography>
+                    <FilePreview
+                      directFile={file}
+                      showFrontViewFiles={false}
+                      showBackViewFiles={true}
+                      caseType="preview"
+                    />
+                  </div>
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~ COUPON DETAILS ~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  <div style={borderPrimaryColor}>
+                    <Typography variant="body2" sx={thumbnailHeaderStyle}>
+                      Offer:
+                    </Typography>
+                    <div style={{ ...thumbnailSize, ...flexCenter }}>
+                      {file.offer ? (
+                        <Typography
+                          variant="body2"
+                          sx={{ fontWeight: "bold", p: 1, ...textCenter }}
+                        >
+                          {/* Details of Coupon */}
+                          {capitalizeWords(file.offer)}
+                        </Typography>
+                      ) : (
+                        <Typography variant="caption">No offer set</Typography>
+                      )}
+                    </div>
+                  </div>
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  <Box sx={{ mt: 5, p: 0.5, mr: 1 }}>
+                    <CommentDisplay comment={mostRecentComment} />
+                  </Box>
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 </div>
-                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
-                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                <Box sx={{ mt: 5, p: .5, mr: 1 }}>
-                  <CommentDisplay comment={mostRecentComment} />
-                </Box>
-                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              </div>
-            </CardContent>
-          </Card>
-        ))
+              </CardContent>
+            </Card>
+          );
+        })
       ) : (
         <NoDetailsCard label="Coupons empty" />
       )}

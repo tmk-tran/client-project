@@ -20,8 +20,10 @@ export default function CouponStatusDropdown({
   handleUpdateTask,
   onChange,
   complete,
+  task,
 }) {
-  const [status, setStatus] = useState("");
+  const defaultStatus = task ? task.task : ""; // Default to an empty string if task is undefined
+  const [status, setStatus] = useState(defaultStatus);
   console.log(status);
 
   status === "Changes Requested" ? onChange(true) : onChange(false);
@@ -37,6 +39,7 @@ export default function CouponStatusDropdown({
     handleUpdateTask(choice);
   };
 
+  console.log(task);
   return (
     <Select
       value={status}
@@ -53,8 +56,8 @@ export default function CouponStatusDropdown({
       }}
       displayEmpty
     >
-      <MenuItem value="" disabled>
-        Change Status
+      <MenuItem value={status} disabled>
+        {status || "Change Status"}
       </MenuItem>
       {statusOptions.map((option) => (
         <MenuItem key={option} value={option}>
