@@ -456,3 +456,38 @@ CREATE TABLE paypal_transactions (
     seller_receivable_net_amount_value numeric(10,2)
 );
 ----------------------------------------------------
+
+---------- Trigger for coupon related tasks --------
+
+-- Function for coupons / tasks
+CREATE OR REPLACE FUNCTION create_coupon_on_new_task()
+RETURNS TRIGGER AS
+$$
+DECLARE
+    new_coupon_id INTEGER;
+BEGIN
+    -- Check if the task is 'new create proof'
+    IF LOWER(NEW.task) = 'new create proof' THEN
+        -- Start a transaction
+        BEGIN
+            -- Insert a new row into the coupon table
+            INSERT INTO coupon (merchant_id, offer, value, exclusions, expiration, additional_info, task_id)
+            VALUES (NEW.merchant_id, NEW.coupon_details, 0, '', NULL, '', NEW.id)
+            RETURNING id INTO new_coupon_id;
+
+            -- Update the merchant_tasks table with the new coupon_id
+            UPDATE merchant_tasks SET coupon_id = new_coupon_id WHERE id = NEW.id;
+        -- Commit the transaction
+        END;
+    END IF;
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+-- Trigger for tasks
+CREATE TRIGGER new_task_trigger
+AFTER INSERT ON merchant_tasks
+FOR EACH ROW
+EXECUTE FUNCTION create_coupon_on_new_task();
