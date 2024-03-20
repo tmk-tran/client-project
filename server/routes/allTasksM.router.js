@@ -68,12 +68,24 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.put("/:id", rejectUnauthenticated, (req, res) => {
+  console.log("From ALLTASKS ROUTER: ", req.body);
   const taskId = req.params.id;
+  const task = req.body.task;
   const taskStatus = req.body.task_status;
 
-  const queryText = `UPDATE "merchant_tasks" SET task_status = $1 WHERE id = $2;`;
+  // const queryText = `UPDATE "merchant_tasks" SET task_status = $1 WHERE id = $2;`;
+  const queryText = `
+            UPDATE 
+              "merchant_tasks"
+            SET
+              task = $1,
+              task_status = $2
+            WHERE
+              id = $3;
+        `;
+
   pool
-    .query(queryText, [taskStatus, taskId])
+    .query(queryText, [task, taskStatus, taskId])
     .then((response) => {
       res.sendStatus(200);
     })

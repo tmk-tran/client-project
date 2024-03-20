@@ -22,24 +22,30 @@ export default function CouponStatusDropdown({
   complete,
   task,
 }) {
-  const defaultStatus = task ? task.task : ""; // Default to an empty string if task is undefined
-  const [status, setStatus] = useState(defaultStatus);
+  const defaultTask = task ? task.task : ""; // Default to an empty string if task is undefined
+  const defaultStatus = task ? task.task_status : "";
+  const defaultId = task ? task.id : "";
+  const [status, setStatus] = useState(defaultTask);
   console.log(status);
+  const [taskStatus, setTaskStatus] = useState(defaultStatus);
+  console.log(taskStatus);
+  const [couponId, setCouponId] = useState(defaultId);
+  console.log(couponId);
 
   status === "Changes Requested" ? onChange(true) : onChange(false);
   status === "Completed Coupon" ? complete(true) : complete(false);
 
   const handleMenuChange = (event) => {
+    console.log(event.target);
     const choice = event.target.value;
     setStatus(choice);
     // choice === "Changes Requested" ? onChange() : null;
     console.log(choice);
 
     // Pass both the selected status and isTaskUpdate state to the parent
-    handleUpdateTask(choice);
+    handleUpdateTask(couponId, choice, taskStatus);
   };
 
-  console.log(task);
   return (
     <Select
       value={status}

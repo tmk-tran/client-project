@@ -17,6 +17,7 @@ import { grayBackground } from "../Utils/colors";
 import { couponsData } from "../../hooks/reduxStore";
 import { thumbnailSize } from "../CouponReviewDetails/FilePreview";
 import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 const thumbnailHeaderStyle = {
   ...grayBackground,
@@ -30,6 +31,14 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   const merchantId = mId.id;
   console.log(merchantId);
 
+  const [couponId, setCouponId] = useState("");
+  console.log(couponId);
+  const [taskUpdate, setTaskUpdate] = useState("");
+  console.log(taskUpdate);
+  const [taskStatus, setTaskStatus] = useState("");
+  console.log(taskStatus);
+  const [newTaskStatus, setNewTaskStatus] = useState("");
+  console.log(newTaskStatus);
   const [isTaskUpdate, setIsTaskUpdate] = useState(false);
   console.log(isTaskUpdate);
   const [changesRequested, setChangesRequested] = useState(false);
@@ -67,11 +76,29 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   console.log(tasks);
 
   const handleUpdateClick = (event) => {
-    // Add your logic for the Update button click
-    onTaskUpdate();
-
     // Prevent the click event from propagating to the Card and triggering history.push
     event.stopPropagation();
+
+    const dispatchAction = newTaskStatus
+      ? {
+          type: "UPDATE_MERCHANT_TASK",
+          payload: {
+            id: couponId,
+            task: newTaskStatus,
+            task_status: taskStatus,
+            merchantId: merchantId,
+          },
+        }
+      : null;
+
+    // Log the dispatch action if it is defined
+    if (dispatchAction) {
+      console.log("Dispatch Action:", dispatchAction);
+      dispatch(dispatchAction);
+    }
+
+    // onTaskUpdate();
+    showSaveSweetAlert({ label: "Task Updated" });
   };
 
   const handleContainerClick = (event) => {
@@ -79,8 +106,13 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
     event.stopPropagation();
   };
 
-  const handleUpdateTask = (choice) => {
+  const handleUpdateTask = (couponId, choice, taskStatus) => {
+    console.log(couponId);
     console.log(choice);
+    console.log(taskStatus);
+    setCouponId(couponId);
+    setNewTaskStatus(choice);
+    setTaskStatus(taskStatus);
     setIsTaskUpdate(true);
   };
 
