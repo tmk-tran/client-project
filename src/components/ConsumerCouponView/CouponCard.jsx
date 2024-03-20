@@ -58,7 +58,7 @@ export default function CouponCard({ coupon, i }) {
   };
 
   return (
-    <Card key={i} elevation={4} sx={cardStyle}>
+    <Card key={i} elevation={3} sx={cardStyle}>
       <CardContent>
         <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
           <Box sx={previewBoxStyle}>

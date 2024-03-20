@@ -16,7 +16,7 @@ import { flexCenter, textCenter } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
 import { couponsData } from "../../hooks/reduxStore";
 import { thumbnailSize } from "../CouponReviewDetails/FilePreview";
-import { capitalizeFirstWord } from "../Utils/helpers";
+import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
 
 const thumbnailHeaderStyle = {
   ...grayBackground,
@@ -176,9 +176,9 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                   </Typography>
                   <div style={{ ...thumbnailSize, ...flexCenter }}>
                     {file.offer ? (
-                      <Typography variant="body2" sx={{ p: 1, ...textCenter }}>
+                      <Typography variant="body2" sx={{ fontWeight: "bold", p: 1, ...textCenter }}>
                         {/* Details of Coupon */}
-                        {capitalizeFirstWord(file.offer)}
+                        {capitalizeWords(file.offer)}
                       </Typography>
                     ) : (
                       <Typography variant="caption">No offer set</Typography>
