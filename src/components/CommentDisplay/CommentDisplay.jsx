@@ -3,7 +3,6 @@ import { capitalizeFirstWord, formatDate } from "../Utils/helpers";
 import { border } from "../Utils/colors";
 
 const commentBoxStyle = {
-  backgroundColor: "rgba(96, 96, 96, 0.1)",
   borderRadius: "5px",
   p: 1,
   mr: 1,

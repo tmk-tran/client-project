@@ -187,7 +187,7 @@ const PORT = process.env.PORT || 5000;
 const { REACT_APP_PAYPAL_CLIENT_ID, REACT_APP_PAYPAL_CLIENT_SECRET } =
   process.env;
 
-  console.log("server: client id = ",REACT_APP_PAYPAL_CLIENT_ID);
+  // console.log("server: client id = ",REACT_APP_PAYPAL_CLIENT_ID);
 
 const base = "https://api-m.sandbox.paypal.com";
 
