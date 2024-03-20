@@ -162,26 +162,6 @@ function HomePage({ isOrgAdmin, isGraphicDesigner }) {
             />
           )}
 
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~ SEARCH BAR ~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* <div style={{ margin: 16 }}>
-            {!isMerchantList ? (
-              <SearchBar
-                isOrganization={true}
-                query={query}
-                onChange={handleOnSearch}
-                clearInput={clearInput}
-              />
-            ) : (
-              <SearchBar
-                isOrganization={false}
-                query={query}
-                onChange={handleOnSearch}
-                clearInput={clearInput}
-              />
-            )}
-          </div> */}
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ PAGE HEADER ~~~~~~~~~~~ */}
