@@ -1,21 +1,54 @@
 import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { CircularProgress } from "@mui/material";
+import { border } from "../Utils/colors";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-const PdfThumbnail = ({ pdf, style, width }) => {
+const PdfThumbnail = ({ pdf, style, width, caseType }) => {
   console.log(pdf);
+  console.log(caseType);
   const [loading, setLoading] = useState(true);
+  const [hovering, setHovering] = useState(false);
 
   const onDocumentLoadSuccess = () => {
     setLoading(false);
   };
 
+  const handleMouseEnter = () => {
+    setHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setHovering(false);
+  };
+
   return (
     <>
       {pdf ? (
-        <div style={{ ...style, overflow: "hidden", position: "relative" }}>
+        <div
+          style={{
+            // ...border,
+            ...style,
+            overflow: "hidden",
+            position: "relative",
+            ...(caseType === "consumer"
+              ? {
+                  transition: "transform 0.3s",
+                  transform: hovering ? "scale(1.3)" : "scale(1)",
+                  margin: hovering ? "8%" : 0,
+                  padding: hovering ? "5%" : 0,
+                  width: hovering ? "500px" : width ? width : "150px",
+                  maxWidth: 250,
+                  height: hovering ? "200px" : "150px",
+                  maxHeight: 150,
+                  cursor: "zoom-in",
+                }
+              : {}),
+          }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
             <Page pageNumber={1} width={width ? width : 150} />
           </Document>

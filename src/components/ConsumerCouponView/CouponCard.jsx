@@ -13,6 +13,12 @@ import RedeemButton from "./RedeemButton";
 import PdfThumbnail from "../PdfThumbnail/PdfThumbnail";
 import NoFile from "./NoFile";
 
+const cardStyle = {
+  mb: 4,
+  width: "75%",
+  backgroundColor: "#F0F0F0",
+};
+
 const couponPreviewStyle = {
   height: "150px",
   width: "200px",
@@ -22,6 +28,7 @@ const previewBoxStyle = {
   ...borderPrimaryColor,
   textAlign: "center",
   mb: 1,
+  overflow: "hidden",
 };
 
 export default function CouponCard({ coupon, i }) {
@@ -51,7 +58,7 @@ export default function CouponCard({ coupon, i }) {
   };
 
   return (
-    <Card key={i} elevation={3} sx={{ mb: 2, width: "75%" }}>
+    <Card key={i} elevation={4} sx={cardStyle}>
       <CardContent>
         <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
           <Box sx={previewBoxStyle}>
@@ -63,6 +70,7 @@ export default function CouponCard({ coupon, i }) {
                 pdf={coupon.frontViewBlob}
                 style={couponPreviewStyle}
                 width={200}
+                caseType="consumer"
               />
             ) : (
               <NoFile label="No file available" sx={couponPreviewStyle} />
@@ -75,6 +83,7 @@ export default function CouponCard({ coupon, i }) {
                 pdf={coupon.backViewBlob}
                 style={couponPreviewStyle}
                 width={200}
+                caseType="consumer"
               />
             ) : (
               <NoFile label="No file available" sx={couponPreviewStyle} />
