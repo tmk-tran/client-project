@@ -85,12 +85,14 @@ function App() {
               <Redirect exact from="/" to="/home" />
 
               <ProtectedRoute exact path="/user">
-                {!user.org_admin ? (
+                {user.org_admin && <HomePage isOrgAdmin={true} />}
+                {!user.org_admin && !user.graphic_designer && (
                   <HomePage isOrgAdmin={false} />
-                ) : (
-                  <HomePage isOrgAdmin={true} />
                 )}
-                {!user.is_admin && !user.org_admin && <Redirect to="/coupon" />}
+                {user.graphic_designer && <HomePage isGraphicDesigner={true} />}
+                {!user.is_admin &&
+                  !user.org_admin &&
+                  !user.graphic_designer && <Redirect to="/coupon" />}
               </ProtectedRoute>
 
               <ProtectedRoute exact path="/userProfile/:id">
