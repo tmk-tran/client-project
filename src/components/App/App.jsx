@@ -119,7 +119,7 @@ function App() {
                 <ConsumerCouponView />
               </ProtectedRoute>
 
-              {user.is_admin && (
+              {(user.is_admin || user.graphic_designer) && (
                 <ProtectedRoute exact path="/tasks">
                   <TaskTabs />
                 </ProtectedRoute>
