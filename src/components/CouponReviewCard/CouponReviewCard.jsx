@@ -45,6 +45,8 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   console.log(changesRequested);
   const [completedCoupon, setCompletedCoupon] = useState(false);
   console.log(completedCoupon);
+  const coupons = couponsData() || [];
+  console.log(coupons);
 
   const dispatch = dispatchHook();
   const history = historyHook();
@@ -65,8 +67,8 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
     // });
   }, [merchantId]);
 
-  const files = couponsData() || [];
-  console.log(files);
+  const couponFiles = couponsData() || [];
+  console.log(couponFiles);
   const merchantComments = mComments(merchantId);
   console.log(merchantComments);
   const mostRecentComment =
@@ -135,8 +137,8 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
 
   return (
     <>
-      {files.length > 0 ? (
-        files.map((file, i) => {
+      {couponFiles.length > 0 ? (
+        couponFiles.map((file, i) => {
           const couponTask = tasks.find((task) => task.coupon_id === file.id);
           return (
             <Card

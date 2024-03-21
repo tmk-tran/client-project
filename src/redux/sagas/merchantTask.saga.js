@@ -30,7 +30,7 @@ function* addMerchantTask(action) {
     const items = yield axios.post("/api/tasks/merchants", action.payload);
     console.log(
       "FETCH request from merchantTask.saga, ITEMS FOR add = ",
-      items
+      items.data
     );
     console.log("merchantTask action.payload = ", action.payload);
 

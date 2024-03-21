@@ -83,13 +83,15 @@ export default function Details({
       payload: paramsObject.id,
     });
 
-    console.log("Dispatching FETCH_MERCHANT_DETAILS or FETCH_ORG_FUNDRAISERS");
-    dispatch({
+    // console.log("Dispatching FETCH_MERCHANT_DETAILS or FETCH_ORG_FUNDRAISERS");
+    const action = {
       type: isMerchantTaskPage
         ? "FETCH_MERCHANT_DETAILS"
         : "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
-    });
+    };
+    console.log(action);
+    dispatch(action);
 
     const actionType = isMerchantTaskPage
       ? "FETCH_MERCHANT_DETAILS"
