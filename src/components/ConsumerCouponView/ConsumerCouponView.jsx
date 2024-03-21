@@ -12,7 +12,7 @@ import {
 } from "../Utils/pageStyles";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
-import { User, couponsData, userCouponsData } from "../../hooks/reduxStore";
+import { User, couponsData } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
 import Typography from "../Typography/Typography";
 import CouponCard from "./CouponCard";
@@ -40,7 +40,6 @@ export default function ConsumerCouponView() {
   }, []);
 
   const coupons = couponsData() || [];
-  // const coupons = userCouponsData() || [];
   console.log(coupons);
 
   const fuse = new Fuse(coupons, {

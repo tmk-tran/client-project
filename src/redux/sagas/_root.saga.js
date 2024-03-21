@@ -26,7 +26,6 @@ import customersSaga from "./customers.saga";
 import transactionsSaga from "./transactions.saga";
 import redeemSaga from "./couponRedeem.saga";
 import paypalSaga from "./paypal.saga";
-import userCouponSaga from "./userCoupon.saga";
 
 export default function* rootSaga() {
   yield all([
@@ -56,6 +55,5 @@ export default function* rootSaga() {
     transactionsSaga(),
     redeemSaga(),
     paypalSaga(),
-    userCouponSaga(),
   ]);
 }
