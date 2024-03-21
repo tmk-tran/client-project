@@ -405,25 +405,6 @@ CREATE TABLE coupon_redemption (
     redeemed_by integer REFERENCES "user"(id)
 );
 
----------------- Function for coupon redemption ------------
-CREATE OR REPLACE FUNCTION update_coupon_location_redeemed()
-RETURNS TRIGGER AS $$
-BEGIN
-    UPDATE coupon_location
-    SET is_redeemed = true
-    WHERE coupon_id = NEW.coupon_id AND location_id = NEW.location_id;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
---------------------------------------------------------------
-
------ Trigger for updating redemption --------
-CREATE TRIGGER update_coupon_location_redeemed_trigger
-AFTER INSERT ON coupon_redemption
-FOR EACH ROW
-EXECUTE FUNCTION update_coupon_location_redeemed();
------------------------------------------------
-
 ---------- Paypal transactions table ---------------
 CREATE TABLE paypal_transactions (
     id SERIAL PRIMARY KEY,

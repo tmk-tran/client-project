@@ -23,8 +23,7 @@ router.get("/", (req, res) => {
                 ARRAY_AGG(l.zip) AS zip,
                 ARRAY_AGG(l.merchant_id) AS location_merchant_id,
                 ARRAY_AGG(l.additional_details) AS location_additional_details,
-                m.merchant_name,
-                cl.is_redeemed
+                m.merchant_name
               FROM
                 coupon_location cl
               JOIN
@@ -33,16 +32,8 @@ router.get("/", (req, res) => {
                 location l ON cl.location_id = l.id
               JOIN
                 merchant m ON c.merchant_id = m.id
-              LEFT JOIN
-                coupon_redemption cr ON cl.id = cr.location_id
-              WHERE
-                NOT EXISTS (
-                    SELECT 1
-                    FROM coupon_redemption cr
-                  WHERE cr.coupon_id = cl.coupon_id AND cl.is_redeemed = true
-                )
               GROUP BY
-                c.id, m.merchant_name, cl.coupon_id, cl.is_redeemed
+                c.id, m.merchant_name, cl.coupon_id
               ORDER BY
                 m.merchant_name ASC;
 
