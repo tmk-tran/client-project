@@ -82,29 +82,53 @@ router.get("/details/:id", (req, res) => {
 
   // const queryText = "SELECT * FROM coupon WHERE id = $1";
 
+  // const queryText = `
+  //         SELECT
+  //           c.*,
+  //           l.id AS location_id,
+  //           l.location_name,
+  //           l.phone_number,
+  //           l.address,
+  //           l.city,
+  //           l.state,
+  //           l.zip,
+  //           l.coordinates,
+  //           l.region_id,
+  //           l.merchant_id AS location_merchant_id,
+  //           l.additional_details AS location_additional_details
+  //         FROM
+  //           coupon c
+  //         JOIN
+  //           coupon_location cl ON c.id = cl.coupon_id
+  //         JOIN
+  //           location l ON cl.location_id = l.id
+  //         WHERE
+  //           c.id = $1;
+  //   `;
+
   const queryText = `
-          SELECT
-            c.*,
-            l.id AS location_id,
-            l.location_name,
-            l.phone_number,
-            l.address,
-            l.city,
-            l.state,
-            l.zip,
-            l.coordinates,
-            l.region_id,
-            l.merchant_id AS location_merchant_id,
-            l.additional_details AS location_additional_details
-          FROM
-            coupon c
-          JOIN
-            coupon_location cl ON c.id = cl.coupon_id
-          JOIN
-            location l ON cl.location_id = l.id
-          WHERE
-            c.id = $1;
-    `;
+              SELECT
+                c.*,
+                l.id AS location_id,
+                l.location_name,
+                l.phone_number,
+                l.address,
+                l.city,
+                l.state,
+                l.zip,
+                l.coordinates,
+                l.region_id,
+                l.merchant_id AS location_merchant_id,
+                l.additional_details AS location_additional_details
+              FROM
+                coupon c
+              LEFT JOIN
+                coupon_location cl ON c.id = cl.coupon_id
+              LEFT JOIN
+                location l ON cl.location_id = l.id
+              WHERE
+                c.id = $1;
+            `;
 
   pool
     .query(queryText, [couponId])

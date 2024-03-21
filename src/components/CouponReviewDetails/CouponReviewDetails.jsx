@@ -112,6 +112,7 @@ export default function CouponReviewDetails() {
   const file = files[0];
   console.log(file);
   const formattedDate = file.expiration ? formatDate(file.expiration) : null;
+  
 
   // ~~~~~~~~~~ FRONT VIEW UPLOAD FUNCTIONS ~~~~~~~~~~ //
   const handleFrontViewUpload = (selectedFile, addedFileName) => {
