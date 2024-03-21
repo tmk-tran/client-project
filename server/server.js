@@ -114,6 +114,7 @@ const customersRouter = require("./routes/customers.router");
 const transactionsRouter = require("./routes/transactions.router");
 const redemptionRouter = require("./routes/couponRedemption.router");
 const paypalRouter = require("./routes/paypal.router");
+const userCouponRouter = require("./routes/userCoupon.router");
 
 // // Add this middleware to set the CORS headers
 // app.use((req, res, next) => {
@@ -176,6 +177,7 @@ app.use("/api/customers", customersRouter);
 app.use("/api/transactions", transactionsRouter);
 app.use("/api/redeem", redemptionRouter);
 app.use("/api/paypal", paypalRouter);
+app.use("/api/userCoupon", userCouponRouter);
 
 // Serve static files //
 app.use(express.static("build"));
@@ -187,7 +189,7 @@ const PORT = process.env.PORT || 5000;
 const { REACT_APP_PAYPAL_CLIENT_ID, REACT_APP_PAYPAL_CLIENT_SECRET } =
   process.env;
 
-  // console.log("server: client id = ",REACT_APP_PAYPAL_CLIENT_ID);
+// console.log("server: client id = ",REACT_APP_PAYPAL_CLIENT_ID);
 
 const base = "https://api-m.sandbox.paypal.com";
 
@@ -223,9 +225,11 @@ const generateAccessToken = async () => {
 // Create an order to start the transaction
 const createOrder = async (cart) => {
   // Calculate total amount based on the cart items
-  const totalAmount = cart.reduce((acc, item) => {
-    return acc + item.price * item.quantity;
-  }, 0).toFixed(2);
+  const totalAmount = cart
+    .reduce((acc, item) => {
+      return acc + item.price * item.quantity;
+    }, 0)
+    .toFixed(2);
 
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders`;
