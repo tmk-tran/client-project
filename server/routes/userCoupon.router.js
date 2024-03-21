@@ -5,16 +5,18 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-router.get("/", rejectUnauthenticated, (req, res) => {
+router.get("/:id", rejectUnauthenticated, (req, res) => {
+  const userId = req.params.id;  
+
   const queryText = `
             SELECT *
             FROM user_coupon
-            WHERE user_id = <user_id>
+            WHERE user_id = $1
             AND redeemed = false;
         `;
 
   pool
-    .query(queryText)
+    .query(queryText, [userId])
     .then((result) => {
       console.log("FROM userCoupon.router: ", result.rows);
       res.send(result.rows);
