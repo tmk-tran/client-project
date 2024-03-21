@@ -12,7 +12,7 @@ import {
 } from "../Utils/pageStyles";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
-import { couponsData } from "../../hooks/reduxStore";
+import { User, couponsData, userCouponsData } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
 import Typography from "../Typography/Typography";
 import CouponCard from "./CouponCard";
@@ -27,19 +27,24 @@ export default function ConsumerCouponView() {
   console.log(query);
   const [filteredCoupons, setFilteredCoupons] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const user = User();
+  console.log(user);
 
   useEffect(() => {
     const dispatchAction = {
-      type: "FETCH_COUPON_FILES",
+      type: "FETCH_CONSUMER_COUPONS",
+      // type: "FETCH_COUPON_FILES",
+      payload: user.id,
     };
     dispatch(dispatchAction);
   }, []);
 
   const coupons = couponsData() || [];
+  // const coupons = userCouponsData() || [];
   console.log(coupons);
 
   const fuse = new Fuse(coupons, {
-    keys: ["merchantName"], // The 'merchant' field is used for searching
+    keys: ["merchant_name"], // The 'merchant' field is used for searching
     includeScore: true,
     threshold: 0.3, // Adjust the threshold for fuzzy search accuracy
   });
@@ -64,6 +69,7 @@ export default function ConsumerCouponView() {
       typeof coupon.merchantName === "string" &&
       coupon.merchantName.toLowerCase().includes(query.toLowerCase())
   );
+  console.log(filteredMerchants);
 
   const clearInput = () => {
     setQuery("");

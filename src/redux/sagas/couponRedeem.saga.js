@@ -7,8 +7,8 @@ function* redeemCoupon(action) {
   try {
     yield axios.post(`/api/redeem/`, action.payload);
     yield put({
-      type: "FETCH_COUPON_FILES",
-      payload: action.payload.merchant_id,
+      type: "FETCH_CONSUMER_COUPONS",
+      payload: action.payload.userId,
     });
   } catch (error) {
     console.log("error in redeem coupon Saga", error);
