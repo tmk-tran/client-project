@@ -310,8 +310,8 @@ export default function BasicModal({
             {showDetailsInput && (
               <TextField
                 id="outlined-multiline-static"
-                label="Coupon Details"
-                placeholder="Please enter coupon details here..."
+                label="Coupon Offer"
+                placeholder="Please enter coupon offer here..."
                 fullWidth
                 multiline
                 rows={2}
