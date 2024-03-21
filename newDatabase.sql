@@ -472,3 +472,68 @@ CREATE TRIGGER new_task_trigger
 AFTER INSERT ON merchant_tasks
 FOR EACH ROW
 EXECUTE FUNCTION create_coupon_on_new_task();
+
+----------------------------------------------------
+
+------- Table for creating coupon lost for users, uses function -----
+------- and trigger listed below ------------------------------------
+
+CREATE TABLE user_coupon (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES "user"(id),
+    coupon_id INTEGER REFERENCES coupon(id),
+    location_id INTEGER REFERENCES location(id),
+    CONSTRAINT user_coupon_user_id_coupon_id_location_id_key UNIQUE (user_id, coupon_id, location_id)
+);
+
+-- Function to insert coupon IDs for a new user and mark them as unredeemed
+CREATE OR REPLACE FUNCTION insert_user_coupons()
+RETURNS TRIGGER AS
+$$
+BEGIN
+    -- Insert coupon IDs for the new user into user_coupon table
+    INSERT INTO user_coupon (user_id, coupon_id)
+	SELECT NEW.id, id
+	FROM coupon;
+
+
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+-- Trigger to automatically insert coupon IDs for a new user
+CREATE TRIGGER insert_user_coupons_trigger
+AFTER INSERT ON "user"
+FOR EACH ROW
+EXECUTE FUNCTION insert_user_coupons();
+
+
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+------- Function and trigger for unique coupons for users ------------
+CREATE OR REPLACE FUNCTION redeem_coupon_trigger_function()
+RETURNS TRIGGER AS
+$$
+BEGIN
+    -- Insert a record into the user_coupons table when a coupon is redeemed
+    INSERT INTO user_coupon (user_id, coupon_id, location_id)
+    VALUES (NEW.redeemed_by, NEW.coupon_id, NEW.location_id);
+    -- Update the redeemed column to true in the coupon_redemption table
+    UPDATE user_coupon
+    SET redeemed = true
+    WHERE user_id = NEW.redeemed_by AND coupon_id = NEW.coupon_id;
+    
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+-- Trigger --
+CREATE TRIGGER redeem_coupon_trigger
+AFTER INSERT ON coupon_redemption
+FOR EACH ROW
+EXECUTE FUNCTION redeem_coupon_trigger_function();
+
+----------------------------------------------------
