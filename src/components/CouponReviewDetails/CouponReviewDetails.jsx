@@ -22,7 +22,11 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { couponsData } from "../../hooks/reduxStore";
 import { centeredStyle, flexCenter, flexRowSpace } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
-import { capitalizeFirstWord, capitalizeWords, formatDate } from "../Utils/helpers";
+import {
+  capitalizeFirstWord,
+  capitalizeWords,
+  formatDate,
+} from "../Utils/helpers";
 
 const uploadBoxStyle = {
   width: "100%",
@@ -99,9 +103,12 @@ export default function CouponReviewDetails() {
     if (merchantId) {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
     }
-    couponId &&
+    // couponId &&
+    if (couponId) {
       dispatch({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
-
+    }
+    setChangesRequested(false);
+    setCompletedCoupon(false);
     setUploadedFiles(false);
     setIsUploaded(false);
     setFrontViewFile(null);
@@ -109,10 +116,13 @@ export default function CouponReviewDetails() {
 
   const files = couponsData() || [];
   console.log(files);
-  const file = files[0];
+  // const file = files[0];
+  const file = files.length > 0 ? files[0] : null;
+  const formattedDate =
+    file && file.expiration ? formatDate(file.expiration) : null;
+
   console.log(file);
-  const formattedDate = file.expiration ? formatDate(file.expiration) : null;
-  
+  // const formattedDate = file.expiration ? formatDate(file.expiration) : null;
 
   // ~~~~~~~~~~ FRONT VIEW UPLOAD FUNCTIONS ~~~~~~~~~~ //
   const handleFrontViewUpload = (selectedFile, addedFileName) => {
@@ -383,7 +393,7 @@ export default function CouponReviewDetails() {
                               <RenderValue
                                 label="Offer"
                                 value={
-                                  file.offer !== null
+                                  file && file.offer !== null
                                     ? capitalizeFirstWord(file.offer)
                                     : "No offer set"
                                 }
@@ -391,14 +401,18 @@ export default function CouponReviewDetails() {
                               <RenderValue
                                 label="Value"
                                 value={
-                                  file.value !== null
+                                  file && file.value !== null
                                     ? `$ ${file.value}`
                                     : "No value set"
                                 }
                               />
                               <RenderValue
                                 label="Exclusions"
-                                value={file.exclusions}
+                                value={
+                                  file && file.exclusions !== null
+                                    ? file.exclusions
+                                    : "No exclusions set"
+                                }
                               />
                               <RenderValue
                                 label="Expiration"

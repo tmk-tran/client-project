@@ -126,12 +126,12 @@ function* pdfFile(action) {
         merchantName: coupon.merchant_name,
       };
 
-      if (coupon.pdf_data && coupon.pdf_data.data) {
-        formattedFile.pdfBlob = new Blob(
-          [Uint8Array.from(coupon.pdf_data.data)],
-          { type: "application/pdf" }
-        );
-      }
+      // if (coupon.pdf_data && coupon.pdf_data.data) {
+      //   formattedFile.pdfBlob = new Blob(
+      //     [Uint8Array.from(coupon.pdf_data.data)],
+      //     { type: "application/pdf" }
+      //   );
+      // }
 
       if (coupon.front_view_pdf && coupon.front_view_pdf.data) {
         formattedFile.frontViewBlob = new Blob(
