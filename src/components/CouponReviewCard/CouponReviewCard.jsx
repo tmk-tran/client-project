@@ -162,21 +162,29 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                   }}
                   onClick={handleContainerClick}
                 >
-                  {/* Status Menu */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~~ Status Menu ~~~~~~~~~~ */}
                   {/* Need to add onChange prop here to resolve error */}
-                  <CouponStatusDropdown
-                    task={couponTask}
-                    handleUpdateTask={handleUpdateTask}
-                    onChange={handleChangeRequest}
-                    complete={handleCompletedCoupon}
-                  />
+                  {file.taskId ? (
+                    <>
+                      <Box sx={flexCenter}>
+                        <Typography sx={{ mr: 2 }}>#{file.id}</Typography>
+                      </Box>
+                      <CouponStatusDropdown
+                        task={couponTask}
+                        handleUpdateTask={handleUpdateTask}
+                        onChange={handleChangeRequest}
+                        complete={handleCompletedCoupon}
+                      />
 
-                  <Button
-                    sx={{ marginLeft: "10px" }}
-                    onClick={handleUpdateClick}
-                  >
-                    Update
-                  </Button>
+                      <Button
+                        sx={{ marginLeft: "10px" }}
+                        onClick={handleUpdateClick}
+                      >
+                        Update
+                      </Button>
+                    </>
+                  ) : null}
                 </div>
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
