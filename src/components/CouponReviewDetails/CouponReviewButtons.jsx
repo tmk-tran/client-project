@@ -8,22 +8,28 @@ import { border } from "../Utils/colors";
 import CheckIcon from "@mui/icons-material/Check";
 import CancelIcon from "@mui/icons-material/Cancel";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import SuccessAlert from "../SuccessAlert/SuccessAlert";
-import { useAlert } from "../SuccessAlert/useAlert";
 import { flexRowSpace } from "../Utils/pageStyles";
+import { dispatchHook } from "../../hooks/useDispatch";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
+
 export default function CouponReviewButtons({
   onDenyButtonClick,
   isTaskUpdate,
   updateTaskState,
   changesRequested,
   completedCoupon,
+  taskId,
+  newTaskStatus,
+  taskStatus,
+  setIsTaskUpdate,
 }) {
   console.log(isTaskUpdate);
   console.log(changesRequested);
   console.log(completedCoupon);
+  const dispatch = dispatchHook();
 
-  const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
   const [isCompletedCoupon, setIsCompletedCoupon] = useState(false);
+  console.log(isCompletedCoupon);
 
   const handleDenyClick = () => {
     // Call the parent component's function when the Deny button is clicked
@@ -55,25 +61,32 @@ export default function CouponReviewButtons({
   };
 
   const handleUpdateClick = () => {
-    // Perform any necessary actions in the child component
-    handleTaskUpdate();
+    const dispatchAction = {
+      type: "UPDATE_MERCHANT_TASK",
+      payload: {
+        id: taskId,
+        task: newTaskStatus,
+        task_status: taskStatus,
+      },
+    };
+    console.log(dispatchAction);
+    dispatch(dispatchAction);
 
-    completedCoupon ? setIsCompletedCoupon(true) : setIsCompletedCoupon(false);
-
-    // Update the state in the parent component
-    updateTaskState(false);
+    // if (completedCoupon) {
+    //   const dispatchAction2 = {
+    //     type: "UPDATE_MERCHANT_TASK",
+    //     payload: {
+    //       id: taskId,
+    //       task: newTaskStatus,
+    //       task_status: taskStatus,
+    //     },
+    //   };
+    setIsTaskUpdate(false);
+    showSaveSweetAlert({ label: "Task updated" })
   };
 
   return (
     <div style={flexRowSpace}>
-      {isCompletedCoupon && (
-        <SuccessAlert
-          isOpen={isAlertOpen}
-          onClose={handleAlertClose}
-          caseType="CompletedCoupon"
-        />
-      )}
-
       {isTaskUpdate ? (
         <>
           <Button

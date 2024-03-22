@@ -31,8 +31,8 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   const merchantId = mId.id;
   console.log(merchantId);
 
-  const [couponId, setCouponId] = useState("");
-  console.log(couponId);
+  const [taskId, setTaskId] = useState("");
+  console.log(taskId);
   const [taskUpdate, setTaskUpdate] = useState("");
   console.log(taskUpdate);
   const [taskStatus, setTaskStatus] = useState("");
@@ -83,7 +83,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
       ? {
           type: "UPDATE_MERCHANT_TASK",
           payload: {
-            id: couponId,
+            id: taskId,
             task: newTaskStatus,
             task_status: taskStatus,
             merchantId: merchantId,
@@ -106,11 +106,11 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
     event.stopPropagation();
   };
 
-  const handleUpdateTask = (couponId, choice, taskStatus) => {
-    console.log(couponId);
+  const handleUpdateTask = (taskId, choice, taskStatus) => {
+    console.log(taskId);
     console.log(choice);
     console.log(taskStatus);
-    setCouponId(couponId);
+    setTaskId(taskId);
     setNewTaskStatus(choice);
     setTaskStatus(taskStatus);
     setIsTaskUpdate(true);

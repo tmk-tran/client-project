@@ -19,7 +19,7 @@ import EditButton from "../Buttons/EditButton";
 import EditCouponModal from "./EditCouponModal";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
-import { couponsData } from "../../hooks/reduxStore";
+import { couponsData, mTasks } from "../../hooks/reduxStore";
 import { centeredStyle, flexCenter, flexRowSpace } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
 import {
@@ -45,14 +45,23 @@ export default function CouponReviewDetails() {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // ~~~~~~~~~~ Task Status State ~~~~~~~~~~ //
   const [isTaskUpdate, setIsTaskUpdate] = useState(false);
   console.log(isTaskUpdate);
+  const [completedCoupon, setCompletedCoupon] = useState(false);
+  console.log(completedCoupon);
+  const [taskId, setTaskId] = useState("");
+  console.log(taskId);
+  const [taskStatus, setTaskStatus] = useState("");
+  console.log(taskStatus);
+  const [newTaskStatus, setNewTaskStatus] = useState("");
+  console.log(newTaskStatus);
+  // ~~~~~~~~~~ Comments State ~~~~~~~~~~ //
   const [commentAdded, setCommentAdded] = useState(false);
   console.log(commentAdded);
   const [changesRequested, setChangesRequested] = useState(false);
   console.log(changesRequested);
-  const [completedCoupon, setCompletedCoupon] = useState(false);
-  console.log(completedCoupon);
+  // ~~~~~~~~~~ Uploaded Files State ~~~~~~~~~~ //
   const [uploadedFiles, setUploadedFiles] = useState(false);
   console.log(uploadedFiles);
   const [frontViewFile, setFrontViewFile] = useState(null);
@@ -64,6 +73,7 @@ export default function CouponReviewDetails() {
   const [backViewFilename, setBackViewFilename] = useState("");
   const [isUploaded, setIsUploaded] = useState(false);
   console.log(isUploaded);
+  // ~~~~~~~~~~ View Locations State ~~~~~~~~~~ //
   const [showLocations, setShowLocations] = useState(false);
 
   const handleDenyButtonClick = () => {
@@ -71,13 +81,19 @@ export default function CouponReviewDetails() {
     setIsModalOpen(true);
   };
 
-  const handleUpdateTask = (choice) => {
+  const handleUpdateTask = (taskId, choice, taskStatus) => {
+    console.log(taskId);
     console.log(choice);
+    console.log(taskStatus);
+    setTaskId(taskId);
+    setNewTaskStatus(choice);
+    setTaskStatus(taskStatus);
     setIsTaskUpdate(true);
   };
 
-  const updateTaskState = (newValue) => {
-    setIsTaskUpdate(newValue);
+  const updateTaskState = (isCompleted) => {
+    console.log(isCompleted);
+    // setIsTaskUpdate(newValue);
   };
 
   const updateComments = () => {
@@ -102,6 +118,7 @@ export default function CouponReviewDetails() {
     // Ensure that merchantId is available before dispatching the action
     if (merchantId) {
       dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
+      dispatch({ type: "FETCH_MERCHANT_TASKS", payload: merchantId });
     }
     // couponId &&
     if (couponId) {
@@ -122,7 +139,13 @@ export default function CouponReviewDetails() {
     file && file.expiration ? formatDate(file.expiration) : null;
 
   console.log(file);
-  // const formattedDate = file.expiration ? formatDate(file.expiration) : null;
+  const tasks = mTasks() || [];
+  console.log(tasks);
+  // const couponTask = tasks.find((task) => task.coupon_id === Number(couponId));
+  const couponTask = Array.isArray(tasks)
+    ? tasks.find((task) => task.coupon_id === Number(couponId))
+    : null;
+  console.log(couponTask);
 
   // ~~~~~~~~~~ FRONT VIEW UPLOAD FUNCTIONS ~~~~~~~~~~ //
   const handleFrontViewUpload = (selectedFile, addedFileName) => {
@@ -362,6 +385,7 @@ export default function CouponReviewDetails() {
                         {/* ~~~~~~~~~~~~ STATUS ~~~~~~~~~~~~~ */}
                         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                         <CouponStatusDropdown
+                          task={couponTask}
                           handleUpdateTask={handleUpdateTask}
                           onChange={handleChangeRequest}
                           complete={handleCompletedCoupon}
@@ -435,6 +459,10 @@ export default function CouponReviewDetails() {
                       updateTaskState={updateTaskState}
                       changesRequested={changesRequested}
                       completedCoupon={completedCoupon}
+                      taskId={taskId}
+                      newTaskStatus={newTaskStatus}
+                      taskStatus={taskStatus}
+                      setIsTaskUpdate={setIsTaskUpdate}
                     />
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
