@@ -96,7 +96,7 @@ export default function EditCouponModal({ file }) {
 
   return (
     <div>
-      <EditButton onClick={handleOpen} title={"Edit coupon details"} />
+      <EditButton onClick={handleOpen} title={"Edit Coupon Details"} />
       <Modal
         open={open}
         onClose={() => {}}

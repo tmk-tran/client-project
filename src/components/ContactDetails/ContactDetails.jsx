@@ -72,7 +72,7 @@ export default function ContactDetails({
                   {!isOrgAdminPage && (
                     <EditButton
                       onClick={handleEditOrg}
-                      title={"Edit Organization"}
+                      title={"Edit Account Details"}
                     />
                   )}
                 </div>
