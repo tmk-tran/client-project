@@ -56,7 +56,6 @@ export default function CouponReviewDetails() {
   console.log(taskStatus);
   const [newTaskStatus, setNewTaskStatus] = useState("");
   console.log(newTaskStatus);
-  const [taskUpdated, setTaskUpdated] = useState(false);
   // ~~~~~~~~~~ Comments State ~~~~~~~~~~ //
   const [commentAdded, setCommentAdded] = useState(false);
   console.log(commentAdded);
@@ -114,7 +113,6 @@ export default function CouponReviewDetails() {
   const handleUploadFile = () => {
     setUploadedFiles(true);
   };
-  console.log(taskUpdated);
 
   useEffect(() => {
     // Ensure that merchantId is available before dispatching the action
@@ -127,24 +125,13 @@ export default function CouponReviewDetails() {
       dispatch({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
     }
 
-    if (taskUpdated) {
-      const action3 = { 
-        type: "FETCH_MERCHANT_DETAILS", 
-        payload: {
-          merchantId: merchantId,
-        } 
-      };
-      console.log(action3);
-      // dispatch(action3);
-    }
-
     setChangesRequested(false);
     setCompletedCoupon(false);
     setUploadedFiles(false);
     setIsUploaded(false);
     setFrontViewFile(null);
-    setTaskUpdated(false);
-  }, [merchantId, commentAdded, uploadedFiles, taskUpdated]); //Deleted dispatch from dependencies
+    setBackViewFile(null);
+  }, [merchantId, commentAdded, uploadedFiles]); //Deleted dispatch from dependencies
 
   const files = couponsData() || [];
   console.log(files);
@@ -479,7 +466,7 @@ export default function CouponReviewDetails() {
                       taskStatus={taskStatus}
                       merchantId={merchantId}
                       setIsTaskUpdate={setIsTaskUpdate}
-                      setTaskUpdated={setTaskUpdated}
+                      couponId={couponId}
                     />
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 

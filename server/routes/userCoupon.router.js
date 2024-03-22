@@ -6,7 +6,7 @@ const {
 } = require("../modules/authentication-middleware");
 
 router.get("/:id", rejectUnauthenticated, (req, res) => {
-  const userId = req.params.id;  
+  const userId = req.params.id;
 
   const queryText = `
                 SELECT
@@ -50,6 +50,36 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
     })
     .catch((error) => {
       console.log("error in the GET / request for user coupons", error);
+      res.sendStatus(500);
+    });
+});
+
+router.post("/", rejectUnauthenticated, (req, res) => {
+  const coupon = req.body;
+  const couponId = coupon.id;
+
+  const queryText = `
+          INSERT INTO user_coupon (user_id, coupon_id, redeemed)
+          SELECT u.id, c.id, false
+          FROM "user" u
+          CROSS JOIN coupon c
+          WHERE c.id = $1
+          AND NOT EXISTS (
+              SELECT 1
+              FROM user_coupon uc
+              WHERE uc.user_id = u.id
+              AND uc.coupon_id = c.id
+          );
+  `;
+
+  pool
+    .query(queryText, [couponId])
+    .then((response) => {
+      console.log("response from POST userCoupon.router: ", response.rows);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error in userCoupon POST route", err);
       res.sendStatus(500);
     });
 });

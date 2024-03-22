@@ -23,7 +23,7 @@ export default function CouponReviewButtons({
   taskStatus,
   merchantId,
   setIsTaskUpdate,
-  setTaskUpdated,
+  couponId,
 }) {
   console.log(isTaskUpdate);
   console.log(changesRequested);
@@ -75,17 +75,18 @@ export default function CouponReviewButtons({
     console.log(dispatchAction);
     dispatch(dispatchAction);
 
-    // if (completedCoupon) {
-    //   const dispatchAction2 = {
-    //     type: "UPDATE_MERCHANT_TASK",
-    //     payload: {
-    //       id: taskId,
-    //       task: newTaskStatus,
-    //       task_status: taskStatus,
-    //     },
-    //   };
+    if (completedCoupon) {
+      const dispatchAction2 = {
+        type: "ADD_TO_CONSUMER_LIST",
+        payload: {
+          id: couponId
+        },
+      };
+      console.log(dispatchAction2);
+      dispatch(dispatchAction2);
+    };
+
     setIsTaskUpdate(false);
-    setTaskUpdated(true);
     showSaveSweetAlert({ label: "Task updated" })
   };
 
