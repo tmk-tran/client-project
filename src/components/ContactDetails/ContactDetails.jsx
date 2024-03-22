@@ -70,10 +70,10 @@ export default function ContactDetails({
               <div className="org-details-header">
                 <div className="edit-icon-btn">
                   {!isOrgAdminPage && (
-                    // <Button onClick={handleEditOrg}>
-                    //   <EditNoteIcon className="edit-note-icon" />
-                    // </Button>
-                    <EditButton onClick={handleEditOrg} title={"Edit Organization"} />
+                    <EditButton
+                      onClick={handleEditOrg}
+                      title={"Edit Organization"}
+                    />
                   )}
                 </div>
                 <DetailsEdit
