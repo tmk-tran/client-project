@@ -7,6 +7,7 @@ const {
 
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const merchantId = req.params.id;
+  console.log("FROM MERCHANT TASK ROUTER: ", merchantId);
 
   const queryText = `SELECT * FROM merchant_tasks WHERE merchant_id = $1 ORDER BY due_date ASC;`;
   pool
@@ -16,7 +17,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log("error in the GET / request for authorized users", err);
+      console.log("error in the GET / request for merchatTask router: ", err);
       res.sendStatus(500);
     });
 });

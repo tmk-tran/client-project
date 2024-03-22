@@ -77,6 +77,7 @@ router.get("/number", rejectUnauthenticated, (req, res) => {
 
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const merchantId = req.params.id;
+  console.log("FROM MERCHANTS ROUTER: ", merchantId);
 
   // const queryText = `SELECT * FROM merchant WHERE id = $1;`;
   const queryText = `
@@ -95,7 +96,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log("error in the GET / request for authorized users", err);
+      console.log("error in the GET / request for merchant details", err);
       res.sendStatus(500);
     });
 });

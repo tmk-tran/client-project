@@ -21,7 +21,9 @@ export default function CouponReviewButtons({
   taskId,
   newTaskStatus,
   taskStatus,
+  merchantId,
   setIsTaskUpdate,
+  setTaskUpdated,
 }) {
   console.log(isTaskUpdate);
   console.log(changesRequested);
@@ -67,6 +69,7 @@ export default function CouponReviewButtons({
         id: taskId,
         task: newTaskStatus,
         task_status: taskStatus,
+        merchantId: merchantId,
       },
     };
     console.log(dispatchAction);
@@ -82,6 +85,7 @@ export default function CouponReviewButtons({
     //     },
     //   };
     setIsTaskUpdate(false);
+    setTaskUpdated(true);
     showSaveSweetAlert({ label: "Task updated" })
   };
 
