@@ -85,10 +85,10 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
 
   const addCoupon = () => {
     // Check if required fields are filled
-    if (!selectedLocations.length) {
-      setLocationsError(true);
-      return; // Stop if condition met, resolve to continue
-    }
+    // if (!selectedLocations.length) {
+    //   setLocationsError(true);
+    //   return; // Stop if condition met, resolve to continue
+    // }
     if (!couponOffer) {
       setOfferError(true);
       return;

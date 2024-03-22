@@ -45,8 +45,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   console.log(changesRequested);
   const [completedCoupon, setCompletedCoupon] = useState(false);
   console.log(completedCoupon);
-  const coupons = couponsData() || [];
-  console.log(coupons);
 
   const dispatch = dispatchHook();
   const history = historyHook();
