@@ -117,7 +117,7 @@ export default function CouponCard({ coupon, i }) {
             </Typography> */}
               <Typography variant="caption">
                 {coupon.exclusions ? (
-                  <>Exclusions: {coupon.exclusions}</>
+                  <>Exclusions: {capitalizeWords(coupon.exclusions)}</>
                 ) : null}
               </Typography>
             </div>
