@@ -24,7 +24,9 @@ import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import CloseButton from "../Buttons/CloseButton";
 import { hoverAccept } from "../Utils/colors";
 import { saveBtnWidth } from "../Utils/helpers";
+// ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import ModalButtons from "../Modals/ModalButtons";
+import PhoneInput from "../LocationsCard/PhoneInput";
 
 export default function ContactEdit({
   isOpen,
@@ -238,7 +240,7 @@ export default function ContactEdit({
         />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~ PHONE ~~~~~~~~~~~ */}
-        <TextField
+        {/* <TextField
           label="Phone"
           type="tel"
           inputProps={{
@@ -252,7 +254,17 @@ export default function ContactEdit({
           }}
           error={phoneError}
           helperText={phoneError ? "Invalid phone number" : ""}
+        /> */}
+
+        <PhoneInput
+          phoneNumber={editedPhone}
+          setPhoneNumber={setEditedPhone}
+          sx={{ mb: 2 }}
+          setPhoneError={setPhoneError}
+          error={phoneError}
+          helperText={phoneError ? "Please enter phone number" : ""}
         />
+
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~ EMAIL ~~~~~~~~~~~ */}
         <TextField

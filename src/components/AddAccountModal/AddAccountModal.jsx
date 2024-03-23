@@ -22,6 +22,8 @@ import WebsiteInput from "./WebsiteInput";
 import RadioButtons from "./RadioButtons";
 import { capitalizeWords } from "../Utils/helpers";
 import ModalButtons from "../Modals/ModalButtons";
+import PhoneInput from "../LocationsCard/PhoneInput";
+import StateSelector from "../StateSelector/StateSelector";
 
 export default function AddAccountModal({
   open,
@@ -31,14 +33,14 @@ export default function AddAccountModal({
   console.log(isMerchantList);
   const dispatch = useDispatch();
 
-  // Set state for the add organization form
+  // ~~~~~ Set state for the add organization form ~~~~~ //
   const [organizationName, setOrganizationName] = useState("");
   const [organizationType, setOrganizationType] = useState("");
   const [merchantName, setMerchantName] = useState("");
   console.log(merchantName);
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  const [state, setState] = useState(false);
   const [zip, setZip] = useState("");
   const [merchantWebsite, setMerchantWebsite] = useState("");
   const [contactFirstName, setContactFirstName] = useState("");
@@ -50,13 +52,59 @@ export default function AddAccountModal({
   const [orgEarnings, setOrgEarnings] = useState(10);
   const [selectedChoice, setSelectedChoice] = useState("");
   console.log(selectedChoice);
+  // ~~~~~~~~~ Errors ~~~~~~~~~~~ //
+  const [organizationNameError, setOrganizationNameError] = useState(false);
+  const [organizationTypeError, setOrganizationTypeError] = useState(false);
+  const [merchantNameError, setMerchantNameError] = useState(false);
+  const [addressError, setAddressError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+  const [stateError, setStateError] = useState(false);
+  const [zipError, setZipError] = useState(false);
+  const [merchantWebsiteError, setMerchantWebsiteError] = useState(false);
+  const [contactFirstNameError, setContactFirstNameError] = useState(false);
+  const [contactLastNameError, setContactLastNameError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleLogoSelection = (selectedFile) => {
     setLogoFile(selectedFile);
   };
-
+  console.log(contactPhone);
   // Save function to dispatch data for new organization
   const handleSave = () => {
+    if (!merchantName) {
+      setMerchantNameError(true);
+      return;
+    }
+    if (!address) {
+      setAddressError(true);
+      return;
+    }
+    if (!city) {
+      setCityError(true);
+      return;
+    }
+    if (!state) {
+      setIsSubmitted(true);
+      return;
+    }
+    if (!zip) {
+      setZipError(true);
+      return;
+    }
+    if (!contactFirstName) {
+      setContactFirstNameError(true);
+      return;
+    }
+    if (!contactLastName) {
+      setContactLastNameError(true);
+      return;
+    }
+    if (!contactPhone) {
+      setPhoneError(true);
+      return;
+    }
+
     !isMerchantList
       ? dispatch({
           type: "ADD_ORGANIZATION",
@@ -120,6 +168,7 @@ export default function AddAccountModal({
     setContactEmail("");
     setLogoFile("");
     setOrgEarnings(10);
+    setPhoneError(false);
   };
 
   // cancel adding organization which clears the input fields and closes the modal
@@ -155,7 +204,8 @@ export default function AddAccountModal({
   };
 
   const stateInput = (value) => {
-    setState(value);
+    console.log(value.abbreviation);
+    setState(value.abbreviation);
   };
 
   const websiteInput = (value) => {
@@ -223,9 +273,25 @@ export default function AddAccountModal({
                 )}
                 onChange={(e) => {
                   !isMerchantList
-                    ? setOrganizationName(capitalizeFirstLetter(e.target.value))
-                    : setMerchantName(capitalizeFirstLetter(e.target.value));
+                    ? (setOrganizationName(
+                        capitalizeFirstLetter(e.target.value)
+                      ),
+                      setOrganizationNameError(false))
+                    : (setMerchantName(capitalizeFirstLetter(e.target.value)),
+                      setMerchantNameError(false));
                 }}
+                error={
+                  !isMerchantList ? organizationNameError : merchantNameError
+                }
+                helperText={
+                  !isMerchantList
+                    ? organizationNameError
+                      ? "Please enter an organization name"
+                      : ""
+                    : merchantNameError
+                    ? "Please enter a merchant name"
+                    : ""
+                }
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -249,7 +315,12 @@ export default function AddAccountModal({
                 label="Address"
                 fullWidth
                 value={capitalizeWords(address)}
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                  setAddressError(false);
+                }}
+                error={addressError}
+                helperText={addressError ? "Please enter an address" : ""}
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -260,13 +331,23 @@ export default function AddAccountModal({
                 label="City"
                 fullWidth
                 value={capitalizeWords(city)}
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) => {
+                  setCity(e.target.value);
+                  setCityError(false);
+                }}
+                error={cityError}
+                helperText={cityError ? "Please enter a city" : ""}
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ STATE ~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
-              <StateFieldInput label={"State*"} stateInput={stateInput} />
+              {/* <StateFieldInput label={"State*"} stateInput={stateInput} /> */}
+              <StateSelector
+                onChange={stateInput}
+                stateSelected={state}
+                isSubmitted={isSubmitted}
+              />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ ZIP ~~~~~~~~~~~~~~~~~~ */}
@@ -277,7 +358,12 @@ export default function AddAccountModal({
                 fullWidth
                 value={zip}
                 type="number"
-                onChange={(e) => setZip(Number(e.target.value))}
+                onChange={(e) => {
+                  setZip(Number(e.target.value));
+                  setZipError(false);
+                }}
+                error={zipError}
+                helperText={zipError ? "Please enter a zip code" : ""}
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -306,7 +392,14 @@ export default function AddAccountModal({
                 label="Contact First Name*"
                 fullWidth
                 value={capitalizeWords(contactFirstName)}
-                onChange={(e) => setContactFirstName(e.target.value)}
+                onChange={(e) => {
+                  setContactFirstName(e.target.value);
+                  setContactFirstNameError(false);
+                }}
+                error={contactFirstNameError}
+                helperText={
+                  contactFirstNameError ? "Please enter a first name" : ""
+                }
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -317,26 +410,33 @@ export default function AddAccountModal({
                 label="Contact Last Name"
                 fullWidth
                 value={capitalizeWords(contactLastName)}
-                onChange={(e) => setContactLastName(e.target.value)}
+                onChange={(e) => {
+                  setContactLastName(e.target.value);
+                  setContactLastNameError(false);
+                }}
+                error={contactLastNameError}
+                helperText={
+                  contactLastNameError ? "Please enter a last name" : ""
+                }
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ PHONE ~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={6}>
-              <TextField
-                required
-                label="Contact Phone"
-                fullWidth
-                value={contactPhone}
-                type="number"
-                onChange={(e) => setContactPhone(Number(e.target.value))}
+              <PhoneInput
+                phoneNumber={contactPhone}
+                setPhoneNumber={setContactPhone}
+                sx={{ mb: 2 }}
+                setPhoneError={setPhoneError}
+                error={phoneError}
+                helperText={phoneError ? "Please enter phone number" : ""}
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ EMAIL ~~~~~~~~~~~~~~~~~ */}
             <Grid item xs={6}>
               <TextField
-                label="Contact Email (optional)"
+                label="Email (optional)"
                 fullWidth
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
@@ -364,7 +464,12 @@ export default function AddAccountModal({
           </Grid>
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~~~~~ */}
-          <ModalButtons label="Add" onSave={handleSave} onCancel={cancelAdd} width="50%" />
+          <ModalButtons
+            label="Add"
+            onSave={handleSave}
+            onCancel={cancelAdd}
+            width="50%"
+          />
         </Box>
       </Modal>
     </div>
