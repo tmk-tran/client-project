@@ -130,6 +130,7 @@ export default function Details({
     paramsObject.id,
     isMerchantTaskPage,
     isTaskPage,
+    isOrgAdminPage,
     isOrgDetailsPage,
     groupAdded,
     locationAdded,

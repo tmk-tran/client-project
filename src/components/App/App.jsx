@@ -32,6 +32,7 @@ import ConsumerCouponView from "../ConsumerCouponView/ConsumerCouponView";
 import SellerLandingPage from "../SellerPage/SellerLandingPage";
 import OrderComplete from "../CheckoutPage/OrderComplete";
 import Transactions from "../Transactions/Transactions";
+import MerchantDetails from "../Details/MerchantDetails";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -163,9 +164,14 @@ function App() {
 
               {/* UPDATE THIS WITH CORRECT ID IN MerchantTaskDetails */}
               <ProtectedRoute exact path="/merchantTaskDetails/:id">
-                <Details
+                {/* <Details
                   isMerchantTaskPage={true}
                   isTaskPage={false}
+                  isMerchantDetails={true}
+                  isOrgAdminPage={false}
+                /> */}
+                <MerchantDetails
+                  isMerchantTaskPage={true}
                   isMerchantDetails={true}
                 />
               </ProtectedRoute>

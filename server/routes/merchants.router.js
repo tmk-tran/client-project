@@ -27,7 +27,8 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     archive_reason,
     encode(merchant_logo, 'base64') AS merchant_logo_base64,
     filename,
-    website
+    website,
+    contact_method
   FROM 
     merchant 
   WHERE 
