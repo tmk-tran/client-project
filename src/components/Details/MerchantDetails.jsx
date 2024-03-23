@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
@@ -82,11 +82,19 @@ export default function MerchantDetails({ isMerchantTaskPage }) {
           ))}
           <center>
             {merchantDetails.map((merchantInfo) => (
-              <ContactDetails
-                key={merchantInfo.id}
-                info={merchantInfo}
-                isMerchantTaskPage={isMerchantTaskPage}
-              />
+              <>
+                <ContactDetails
+                  key={merchantInfo.id}
+                  info={merchantInfo}
+                  isMerchantTaskPage={isMerchantTaskPage}
+                />
+                {merchantInfo.contact_method ? (
+                  <Typography sx={{ mt: 1 }}>
+                    Preferred contact:{" "}
+                    <strong>{merchantInfo.contact_method}</strong>
+                  </Typography>
+                ) : null}
+              </>
             ))}
           </center>
 
