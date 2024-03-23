@@ -80,13 +80,14 @@ export default function AddLocationModal({
       setPhoneNumber(locationToEdit.phone_number);
       setLocationAddress(capitalizeWords(locationToEdit.address));
       setCity(capitalizeWords(locationToEdit.city));
-      setState(capitalizeStateAbbr(locationToEdit.state));
+      // setState(capitalizeStateAbbr(locationToEdit.state));
       setZip(locationToEdit.zip);
       setAdditionalDetails(
         capitalizeFirstWord(locationToEdit.additional_details)
       );
       handleOpen(); // Open the modal after setting the state
     }
+    
   }, [locationToEdit]); // Trigger the effect when locationToEdit changes
 
   const handleOpen = () => setOpen(true);
@@ -166,7 +167,7 @@ export default function AddLocationModal({
       });
     }
 
-    isSubmitted(true);
+    setIsSubmitted(true);
     showSaveSweetAlert({ label: "Location Added" });
     handleAddLocation();
     resetForm();

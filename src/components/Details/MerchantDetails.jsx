@@ -45,7 +45,9 @@ export default function MerchantDetails({ isMerchantTaskPage }) {
     };
     isMerchantTaskPage && dispatch(action3);
     console.log(action3);
-  }, []);
+
+    setLocationAdded(false);
+  }, [paramsObject.id, locationAdded]);
 
   const merchantDetails = mDetails() || [];
   console.log(merchantDetails);
@@ -122,10 +124,7 @@ export default function MerchantDetails({ isMerchantTaskPage }) {
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~ COUPON PREVIEW CARDS ~~~~~~~~~ */}
                 {merchantDetails.map((merchant, i) => (
-                  <CouponReviewCard
-                    key={i}
-                    merchant={merchant}
-                  />
+                  <CouponReviewCard key={i} merchant={merchant} />
                 ))}
               </div>
             </>
