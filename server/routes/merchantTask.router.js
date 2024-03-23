@@ -7,7 +7,6 @@ const {
 
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const merchantId = req.params.id;
-  console.log("FROM MERCHANT TASK ROUTER: ", merchantId);
 
   const queryText = `SELECT * FROM merchant_tasks WHERE merchant_id = $1 ORDER BY due_date ASC;`;
   pool

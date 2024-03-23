@@ -202,12 +202,14 @@ export default function Details({
                 !isOrgAdminPage &&
                 // Map over merchantDetails and pass each object to NotesDisplay
                 merchantDetails.map((merchantInfo) => (
-                  <NotesDisplay
-                    key={merchantInfo.id}
-                    notes={notes}
-                    orgDetails={merchantInfo}
-                    isMerchantTaskPage={isMerchantTaskPage}
-                  />
+                  <React.Fragment key={merchantInfo.id}>
+                    <NotesDisplay
+                      key={merchantInfo.id}
+                      notes={notes}
+                      orgDetails={merchantInfo}
+                      isMerchantTaskPage={isMerchantTaskPage}
+                    />
+                  </React.Fragment>
                 ))}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~ Instructions for User ~~~~~~~~~~~ */}
