@@ -116,14 +116,14 @@ router.post("/", upload.single("merchant_logo"), (req, res) => {
   const contactPhoneNumber = data.contact_phone_number;
   const contactEmail = data.contact_email;
   const filename = data.filename ? data.filename : null;
-  let website = data.website;
+  const website = data.website ? data.website : null;
   const contactMethod = data.contact_method;
 
-  // Check if the website address already starts with "http://" or "https://"
-  if (!website.startsWith("http://") && !website.startsWith("https://")) {
-    // If it doesn't, prepend "https://"
-    website = "https://" + website;
-  }
+  // // Check if the website address already starts with "http://" or "https://"
+  // if (!website.startsWith("http://") && !website.startsWith("https://")) {
+  //   // If it doesn't, prepend "https://"
+  //   website = "https://" + website;
+  // }
 
   const queryText = `
       INSERT INTO "merchant" (
@@ -192,21 +192,21 @@ router.put(
     const phone = merchant.contact_phone_number;
     const email = merchant.contact_email;
     const filename = merchant.filename;
-    let website = merchant.website ? merchant.website : null;
+    const website = merchant.website ? merchant.website : null;
     const contactMethod = merchant.contact_method;
 
-    // Check if the website address is not empty and does not start with "http://" or "https://"
-    if (
-      website &&
-      !website.startsWith("http://") &&
-      !website.startsWith("https://")
-    ) {
-      // If it doesn't, prepend "https://"
-      website = "https://" + website;
-    } else if (!website) {
-      // If website is empty, set it to null
-      website = null;
-    }
+    // // Check if the website address is not empty and does not start with "http://" or "https://"
+    // if (
+    //   website &&
+    //   !website.startsWith("http://") &&
+    //   !website.startsWith("https://")
+    // ) {
+    //   // If it doesn't, prepend "https://"
+    //   website = "https://" + website;
+    // } else if (!website) {
+    //   // If website is empty, set it to null
+    //   website = null;
+    // }
 
     // const user = req.user.id;
     const queryText = `
