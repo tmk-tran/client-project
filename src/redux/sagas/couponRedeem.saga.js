@@ -2,8 +2,6 @@ import axios from "axios";
 import { put, takeEvery } from "redux-saga/effects";
 
 function* redeemCoupon(action) {
-  console.log(action.payload);
-
   try {
     yield axios.post(`/api/redeem/`, action.payload);
     yield put({

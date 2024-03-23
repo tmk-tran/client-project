@@ -33,8 +33,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
 
   const [taskId, setTaskId] = useState("");
   console.log(taskId);
-  const [taskUpdate, setTaskUpdate] = useState("");
-  console.log(taskUpdate);
   const [taskStatus, setTaskStatus] = useState("");
   console.log(taskStatus);
   const [newTaskStatus, setNewTaskStatus] = useState("");

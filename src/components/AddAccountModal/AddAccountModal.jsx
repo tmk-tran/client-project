@@ -23,7 +23,7 @@ import RadioButtons from "./RadioButtons";
 import { capitalizeWords } from "../Utils/helpers";
 import ModalButtons from "../Modals/ModalButtons";
 
-export default function AddOrganizationModal({
+export default function AddAccountModal({
   open,
   handleModalClose,
   isMerchantList,
@@ -89,6 +89,7 @@ export default function AddOrganizationModal({
             contact_email: contactEmail,
             merchant_logo: logoFile,
             website: merchantWebsite,
+            contact_method: selectedChoice,
           },
         });
     // clear input fields
