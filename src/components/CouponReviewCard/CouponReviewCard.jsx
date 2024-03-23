@@ -135,7 +135,9 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
     <>
       {couponFiles.length > 0 ? (
         couponFiles.map((file, i) => {
-          const couponTask = tasks.find((task) => task.coupon_id === file.id);
+          // const couponTask = tasks.find((task) => task.coupon_id === file.id);
+          const couponTask = Array.isArray(tasks) ? tasks.find((task) => task.coupon_id === file.id) : null;
+
           return (
             <Card
               key={i}

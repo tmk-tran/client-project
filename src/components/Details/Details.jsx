@@ -74,6 +74,7 @@ export default function Details({
   console.log(groupAdded);
   const [locationAdded, setLocationAdded] = useState(false);
   console.log(locationAdded);
+  const [noteAdded, setNoteAdded] = useState(false);
 
   useEffect(() => {
     console.log("Dispatching FETCH_ORG_DETAILS");
@@ -126,6 +127,7 @@ export default function Details({
 
     setGroupAdded(false);
     setLocationAdded(false);
+    setNoteAdded(false);
   }, [
     paramsObject.id,
     isMerchantTaskPage,
@@ -134,6 +136,7 @@ export default function Details({
     isOrgDetailsPage,
     groupAdded,
     locationAdded,
+    noteAdded,
   ]);
 
   // Create a map to store organization details and associated groups
@@ -167,6 +170,12 @@ export default function Details({
     setLocationAdded(true);
   };
 
+  // Note addition
+  const handleAddNote = () => {
+    // Update the noteAdded state to trigger a refresh
+    setNoteAdded(true);
+  };
+
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
       <SuccessAlert
@@ -186,15 +195,11 @@ export default function Details({
           {[...orgMap.values()].map(({ orgDetails, groups }) => (
             <React.Fragment key={orgDetails.organization_id}>
               {!isTaskPage && !isMerchantTaskPage && !isOrgAdminPage && (
-                <NotesDisplay notes={notes} orgDetails={orgDetails} />
+                <NotesDisplay notes={notes} details={orgDetails} />
               )}
 
               {isTaskPage && !isOrgAdminPage && (
-                <NotesDisplay
-                  notes={notes}
-                  orgDetails={orgDetails}
-                  caseType={1}
-                />
+                <NotesDisplay notes={notes} details={orgDetails} caseType={1} />
               )}
               {/* ////////////////////////////////// */}
               {/* Check if it's a merchant task page */}
@@ -207,7 +212,7 @@ export default function Details({
                     <NotesDisplay
                       key={merchantInfo.id}
                       notes={notes}
-                      orgDetails={merchantInfo}
+                      details={merchantInfo}
                       isMerchantTaskPage={isMerchantTaskPage}
                     />
                   </React.Fragment>

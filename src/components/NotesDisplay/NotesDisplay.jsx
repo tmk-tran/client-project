@@ -28,13 +28,14 @@ import { border, disabledColor } from "../Utils/colors";
 
 export default function NotesDisplay({
   notes,
-  orgDetails, // change name ??
+  details,
   caseType,
   isMerchantTaskPage,
+  onAddNote,
 }) {
   console.log(isMerchantTaskPage);
   console.log(notes);
-  console.log(orgDetails);
+  console.log(details);
   console.log(caseType);
   console.log(notes);
 
@@ -46,16 +47,16 @@ export default function NotesDisplay({
   // State for showing notes
   const [inputValue, setInputValue] = useState("");
   // State from popover
-  // const [orgId, setOrgId] = useState(orgDetails.organization_id);
+  // const [orgId, setOrgId] = useState(details.organization_id);
   const [orgId, setOrgId] = useState(
-    !isMerchantTaskPage ? orgDetails.organization_id : orgDetails.id
+    !isMerchantTaskPage ? details.organization_id : details.id
   );
   console.log(orgId);
   const [noteDate, setNoteDate] = useState(new Date());
   const [noteAdded, setNoteAdded] = useState(false);
 
-  // Access merchant_id directly from orgDetails if isMerchantTaskPage is true
-  const merchantId = isMerchantTaskPage ? orgDetails.id : null;
+  // Access merchant_id directly from details if isMerchantTaskPage is true
+  const merchantId = isMerchantTaskPage ? details.id : null;
   console.log(merchantId);
 
   // useEffect(() => {
@@ -69,28 +70,29 @@ export default function NotesDisplay({
   //   setNoteAdded(false);
   // }, [dispatch, paramsObject.id, noteAdded]);
 
-  useEffect(() => {
-    // Define the action type based on isMerchantTaskPage
-    const fetchNotesActionType = !isMerchantTaskPage
-      ? "FETCH_ORG_NOTES"
-      : "FETCH_MERCHANT_NOTES";
+  // useEffect(() => {
+  //   // Define the action type based on isMerchantTaskPage
+  //   const fetchNotesActionType = !isMerchantTaskPage
+  //     ? "FETCH_ORG_NOTES"
+  //     : "FETCH_MERCHANT_NOTES";
 
-    // Fetch notes based on the determined action type
-    dispatch({
-      type: fetchNotesActionType,
-      payload: paramsObject.id,
-    });
+  //   // Fetch notes based on the determined action type
+  //   dispatch({
+  //     type: fetchNotesActionType,
+  //     payload: paramsObject.id,
+  //   });
 
-    // Reset noteAdded after fetching data
-    setNoteAdded(false);
-  }, [paramsObject.id, noteAdded, isMerchantTaskPage]); // Deleted dispatch from dependencies
+  //   // Reset noteAdded after fetching data
+  //   setNoteAdded(false);
+  // }, [paramsObject.id, noteAdded, isMerchantTaskPage]); // Deleted dispatch from dependencies
+
 
   const handleSave = () => {
     // Format the date as "mm/dd/yyyy"
     const formattedDate = noteDate.toLocaleDateString("en-US");
 
     const sendNote = {
-      organization_id: !isMerchantTaskPage ? orgId : null,
+      organization_id: isMerchantTaskPage ? null : orgId,
       merchant_id: isMerchantTaskPage ? orgId : null,
       note_date: formattedDate,
       note_content: inputValue,
@@ -105,12 +107,14 @@ export default function NotesDisplay({
       const actionType = isMerchantTaskPage
         ? "ADD_MERCHANT_NOTES"
         : "ADD_ORG_NOTES";
+      console.log(actionType);
       dispatch({ type: actionType, payload: sendNote });
       console.log(sendNote);
       setNoteAdded(true);
     };
     saveCall();
-
+    // Update parent, trigger refresh
+    // onAddNote();
     // Sweet Alert
     showSaveSweetAlert({ label: "Note Added" });
 
@@ -122,7 +126,7 @@ export default function NotesDisplay({
     showDeleteSweetAlert(() => {
       // If the user confirms, call the handleDelete function
       handleDelete(noteId, entityId);
-    }, "delete" );
+    }, "delete");
   };
 
   const handleDelete = (noteId, entityId) => {
