@@ -70,21 +70,21 @@ export default function NotesDisplay({
   //   setNoteAdded(false);
   // }, [dispatch, paramsObject.id, noteAdded]);
 
-  // useEffect(() => {
-  //   // Define the action type based on isMerchantTaskPage
-  //   const fetchNotesActionType = !isMerchantTaskPage
-  //     ? "FETCH_ORG_NOTES"
-  //     : "FETCH_MERCHANT_NOTES";
+  useEffect(() => {
+    // Define the action type based on isMerchantTaskPage
+    const fetchNotesActionType = !isMerchantTaskPage
+      ? "FETCH_ORG_NOTES"
+      : "FETCH_MERCHANT_NOTES";
 
-  //   // Fetch notes based on the determined action type
-  //   dispatch({
-  //     type: fetchNotesActionType,
-  //     payload: paramsObject.id,
-  //   });
+    // Fetch notes based on the determined action type
+    dispatch({
+      type: fetchNotesActionType,
+      payload: paramsObject.id,
+    });
 
-  //   // Reset noteAdded after fetching data
-  //   setNoteAdded(false);
-  // }, [paramsObject.id, noteAdded, isMerchantTaskPage]); // Deleted dispatch from dependencies
+    // Reset noteAdded after fetching data
+    setNoteAdded(false);
+  }, [paramsObject.id, noteAdded, isMerchantTaskPage]); // Deleted dispatch from dependencies
 
 
   const handleSave = () => {

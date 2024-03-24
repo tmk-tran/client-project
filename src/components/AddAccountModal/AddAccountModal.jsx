@@ -24,6 +24,7 @@ import { capitalizeWords } from "../Utils/helpers";
 import ModalButtons from "../Modals/ModalButtons";
 import PhoneInput from "../LocationsCard/PhoneInput";
 import StateSelector from "../StateSelector/StateSelector";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 export default function AddAccountModal({
   open,
@@ -60,7 +61,6 @@ export default function AddAccountModal({
   const [cityError, setCityError] = useState(false);
   const [stateError, setStateError] = useState(false);
   const [zipError, setZipError] = useState(false);
-  const [merchantWebsiteError, setMerchantWebsiteError] = useState(false);
   const [contactFirstNameError, setContactFirstNameError] = useState(false);
   const [contactLastNameError, setContactLastNameError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
@@ -72,6 +72,17 @@ export default function AddAccountModal({
   console.log(contactPhone);
   // Save function to dispatch data for new organization
   const handleSave = () => {
+    if (!isMerchantList) {
+      if (!organizationName) {
+        setOrganizationNameError(true);
+      }
+    }
+    if (!isMerchantList) {
+      if (!organizationType) {
+        setOrganizationTypeError(true);
+      }
+    }
+    
     if (!merchantName) {
       setMerchantNameError(true);
       return;
@@ -145,12 +156,16 @@ export default function AddAccountModal({
     // close modal
     handleModalClose();
     // sweet alerts to confirm addition of organization
-    Swal.fire({
-      icon: "success",
-      title: "Organization Successfully Added!",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    // Swal.fire({
+    //   icon: "success",
+    //   title: "Organization Successfully Added!",
+    //   showConfirmButton: false,
+    //   timer: 1500,
+    // });
+    !isMerchantList &&
+      showSaveSweetAlert({ label: "Organization successfully added" });
+    isMerchantList &&
+      showSaveSweetAlert({ label: "Merchant successfully added" });
   };
 
   // clear input fields function
@@ -160,7 +175,7 @@ export default function AddAccountModal({
     setOrganizationType("");
     setAddress("");
     setCity("");
-    setState("");
+    setState(false);
     setZip("");
     setContactFirstName("");
     setContactLastName("");
@@ -168,6 +183,13 @@ export default function AddAccountModal({
     setContactEmail("");
     setLogoFile("");
     setOrgEarnings(10);
+    setOrganizationNameError(false);
+    setOrganizationTypeError(false);
+    setMerchantNameError(false);
+    setAddressError(false);
+    setCityError(false);
+    setStateError(false);
+    setZipError(false);
     setPhoneError(false);
   };
 
@@ -303,7 +325,9 @@ export default function AddAccountModal({
                   label="Organization Type"
                   fullWidth
                   value={capitalizeWords(organizationType)}
-                  onChange={(e) => setOrganizationType(e.target.value)}
+                  onChange={(e) => {setOrganizationType(e.target.value); setOrganizationTypeError(false);}}
+                  error={organizationTypeError}
+                  helperText={organizationTypeError ? "Please select an organization type" : ""}
                 />
               </Grid>
             ) : null}

@@ -25,16 +25,23 @@ function* merchantNotes(action) {
 // }
 function* addNotes(action) {
   console.log(action.payload);
+  const merchant_id = action.payload.merchant_id;
+  const note_date = action.payload.note_date;
+  const note_content = action.payload.note_content;
+
   try {
-    const { merchant_id, note_date, note_content } = action.payload;
-    yield axios.post(`/api/merchantnotes/`, { merchant_id, note_date, note_content });
+    // const { merchant_id, note_date, note_content } = action.payload;
+    yield axios.post(`/api/merchantnotes/`, {
+      merchant_id,
+      note_date,
+      note_content,
+    });
     yield put({ type: "FETCH_MERCHANT_NOTES", payload: { merchant_id } });
   } catch (error) {
     console.log("error in addNotes Merchant Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
+    // yield put({ type: "SET_ERROR", payload: error });
   }
 }
-
 
 function* deleteMerchantNote(action) {
   console.log(action.payload);
