@@ -250,6 +250,8 @@ export default function CheckoutPage({ caseType }) {
     !hasErrors && setIsSubmitted(true);
     // setIsSubmitted(true);
     !hasErrors && handleNext();
+
+    saveCustomerInfo();
   };
 
   const returnToStore = () => {
@@ -257,18 +259,6 @@ export default function CheckoutPage({ caseType }) {
   };
 
   const handleSubmit = () => {
-    // if (!stateSelected) {
-    //   // Handle error, e.g., display an error message
-    //   console.log("Please select a state.");
-    //   setIsSubmitted(true);
-    //   return;
-    // }
-    // // Continue with form submission
-    // console.log("State selected:", stateSelected);
-    // setIsSubmitted(false);
-    // // handleNext();
-    // console.log(isSubmitted);
-
     // Check if this is the last step in the process
     if (activeStep === steps.length - 1) {
       // This is the last step, update transactions
@@ -327,6 +317,26 @@ export default function CheckoutPage({ caseType }) {
   };
   console.log(orderInfo);
 
+  const saveCustomerInfo = () => {
+    const saveAction = {
+      type: "ADD_CUSTOMER",
+      payload: {
+        refId: refId,
+        last_name: lastName,
+        first_name: firstName,
+        email: email,
+        phone: phone,
+        address: address,
+        unit: unit,
+        city: city,
+        state: stateSelected,
+        zip: zip,
+      },
+    };
+    console.log("Dispatching action:", saveAction);
+    dispatch(saveAction);
+  };
+
   return (
     <Container sx={{ display: "flex", justifyContent: "center" }}>
       <div>
@@ -364,15 +374,6 @@ export default function CheckoutPage({ caseType }) {
                   // ? "Place Order"
                   "Continue"
             }
-            // onClick={
-            //   activeStep === 0
-            //     ? handleForm // First step, check form info
-            //     : activeStep === steps.length - 1
-            //     ? handleSubmit // If it's the last step, handle form submission
-            //     : activeStep === steps.length - 2
-            //     ? updateTransactions // If it's the second last step, update transactions
-            //     : handleNext // Otherwise, move to the next step
-            // }
             onClick={
               activeStep === 0
                 ? handleForm // First step, check form info

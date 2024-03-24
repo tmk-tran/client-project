@@ -315,7 +315,13 @@ CREATE TABLE customers (
     last_name character varying(30) NOT NULL,
     first_name character varying(30) NOT NULL,
     phone bigint,
-    created timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+    created timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    email character varying(50),
+    address character varying(50),
+    unit character varying(10),
+    city character varying(50),
+    state character varying(25),
+    zip integer
 );
 
 -------------------------------------------------------------
