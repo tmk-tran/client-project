@@ -118,7 +118,7 @@ function ListView({
 
   function goToDetails() {
     history.push(
-      `/${isMerchantList ? "merchantTaskDetails" : "orgDetails"}/${data.id}`
+      `/fargo/${isMerchantList ? "merchantTaskDetails" : "orgDetails"}/${data.id}`
     );
   }
 

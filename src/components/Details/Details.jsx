@@ -219,7 +219,7 @@ export default function Details({
                 ))}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~~ Instructions for User ~~~~~~~~~~~ */}
-              {/* {isOrgAdminPage && <OrgAdminInfo />} */}
+              {isOrgAdminPage && <OrgAdminInfo />}
 
               <center>
                 {isMerchantTaskPage ? (

@@ -48,12 +48,12 @@ export default function OrderPage({ caseType }) {
       price: 25,
       quantity: 0,
     },
-    {
-      id: 3,
-      bookType: "Grand Forks (Digital Coupon Book)",
-      price: 25,
-      quantity: 0,
-    },
+    // {
+    //   id: 3,
+    //   bookType: "Grand Forks (Digital Coupon Book)",
+    //   price: 25,
+    //   quantity: 0,
+    // },
     { id: 4, bookType: "Donate", price: 0, quantity: 0 },
   ]);
 

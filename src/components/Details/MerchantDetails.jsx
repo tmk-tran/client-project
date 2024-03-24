@@ -79,30 +79,29 @@ export default function MerchantDetails({ isMerchantTaskPage }) {
           {merchantDetails.map((merchantInfo) => (
             <React.Fragment key={merchantInfo.id}>
               <NotesDisplay
-                // key={merchantInfo.id}
+                key={`notes-${merchantInfo.id}`}
                 notes={notes}
                 details={merchantInfo}
                 isMerchantTaskPage={isMerchantTaskPage}
               />
-            </React.Fragment>
-          ))}
-          <center>
-            {merchantDetails.map((merchantInfo) => (
-              <>
+              <center>
                 <ContactDetails
-                  key={merchantInfo.id}
+                  key={`contact-${merchantInfo.id}`}
                   info={merchantInfo}
                   isMerchantTaskPage={isMerchantTaskPage}
                 />
-                {merchantInfo.contact_method ? (
-                  <Typography sx={{ mt: 1 }}>
-                    Preferred contact:{" "}
-                    <strong>{merchantInfo.contact_method}</strong>
-                  </Typography>
-                ) : null}
-              </>
-            ))}
-          </center>
+              </center>
+              {merchantInfo.contact_method && (
+                <Typography
+                  key={`contact-method-${merchantInfo.id}`}
+                  sx={{ mt: 1 }}
+                >
+                  Preferred contact:{" "}
+                  <strong>{merchantInfo.contact_method}</strong>
+                </Typography>
+              )}
+            </React.Fragment>
+          ))}
 
           {isMerchantTaskPage && (
             <>

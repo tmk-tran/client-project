@@ -71,7 +71,7 @@ export default function NavLinks() {
                 <MuiLink
                   component={Link}
                   className="main-navlink"
-                  to="/home"
+                  to="/fargo/home"
                   underline="hover"
                 >
                   Organizations
@@ -85,7 +85,7 @@ export default function NavLinks() {
                   <MuiLink
                     component={Link}
                     className="main-navlink"
-                    to="/home"
+                    to="/fargo/home"
                     underline="hover"
                   >
                     Merchants
@@ -96,7 +96,7 @@ export default function NavLinks() {
                   <MuiLink
                     component={Link}
                     className="main-navlink"
-                    to="/coupon"
+                    to="/fargo/coupon"
                     underline="hover"
                   >
                     Coupons
@@ -107,7 +107,7 @@ export default function NavLinks() {
                   <MuiLink
                     component={Link}
                     className="main-navlink"
-                    to="/tasks"
+                    to="/fargo/tasks"
                     underline="hover"
                   >
                     Tasks
@@ -124,7 +124,7 @@ export default function NavLinks() {
                 <MuiLink
                   component={Link}
                   className="main-navlink"
-                  to="/home"
+                  to="/fargo/home"
                   underline="hover"
                 >
                   Home
@@ -135,7 +135,7 @@ export default function NavLinks() {
                 <MuiLink
                   component={Link}
                   className="main-navlink"
-                  to="/newFundraiser"
+                  to="/fargo/newFundraiser"
                   underline="hover"
                 >
                   New Fundraiser
@@ -146,7 +146,7 @@ export default function NavLinks() {
                 <MuiLink
                   component={Link}
                   className="main-navlink"
-                  to="/archivedOrganizations"
+                  to="/fargo/archivedOrganizations"
                   underline="hover"
                 >
                   Archived Organizations
@@ -157,7 +157,7 @@ export default function NavLinks() {
                 <MuiLink
                   component={Link}
                   className="main-navlink"
-                  to="/coupon"
+                  to="/fargo/coupon"
                   underline="hover"
                 >
                   Coupons
@@ -168,7 +168,7 @@ export default function NavLinks() {
                 <MuiLink
                   component={Link}
                   className="main-navlink"
-                  to="/tasks"
+                  to="/fargo/tasks"
                   underline="hover"
                 >
                   Tasks
@@ -179,23 +179,12 @@ export default function NavLinks() {
                 <MuiLink
                   component={Link}
                   className="main-navlink"
-                  to="/transactions"
+                  to="/fargo/transactions"
                   underline="hover"
                 >
                   Transactions
                 </MuiLink>
               </Typography>
-
-              {/* <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/order"
-                underline="hover"
-              >
-                Order
-              </MuiLink>
-            </Typography> */}
             </>
           )
         )}

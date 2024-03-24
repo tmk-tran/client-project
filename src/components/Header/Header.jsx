@@ -5,7 +5,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import "./Header.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { User } from "../../hooks/reduxStore";
 import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
 

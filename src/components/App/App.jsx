@@ -83,9 +83,9 @@ function App() {
           <div style={{ flex: "1 0 auto", padding: "20px" }}>
             <MenuLinks />
             <Switch>
-              <Redirect exact from="/" to="/home" />
+              <Redirect exact from="/" to="/fargo/home" />
 
-              <ProtectedRoute exact path="/home">
+              <ProtectedRoute exact path="/fargo/home">
                 {user.org_admin && <HomePage isOrgAdmin={true} />}
                 {!user.org_admin && !user.graphic_designer && (
                   <HomePage isOrgAdmin={false} />
@@ -93,7 +93,7 @@ function App() {
                 {user.graphic_designer && <HomePage isGraphicDesigner={true} />}
                 {!user.is_admin &&
                   !user.org_admin &&
-                  !user.graphic_designer && <Redirect to="/coupon" />}
+                  !user.graphic_designer && <Redirect to="/fargo/coupon" />}
               </ProtectedRoute>
 
               <ProtectedRoute exact path="/userProfile/:id">
@@ -101,13 +101,13 @@ function App() {
               </ProtectedRoute>
 
               {user.is_admin && (
-                <ProtectedRoute exact path="/newFundraiser">
+                <ProtectedRoute exact path="/fargo/newFundraiser">
                   <GlobalFundraiserInput />
                 </ProtectedRoute>
               )}
 
               {user.is_admin && (
-                <ProtectedRoute exact path="/archivedOrganizations">
+                <ProtectedRoute exact path="/fargo/archivedOrganizations">
                   <ArchivedOrganizations />
                 </ProtectedRoute>
               )}
@@ -116,18 +116,18 @@ function App() {
                 <GroupDetails user={user} />
               </ProtectedRoute>
 
-              <ProtectedRoute exact path="/coupon">
+              <ProtectedRoute exact path="/fargo/coupon">
                 <ConsumerCouponView />
               </ProtectedRoute>
 
               {(user.is_admin || user.graphic_designer) && (
-                <ProtectedRoute exact path="/tasks">
+                <ProtectedRoute exact path="/fargo/tasks">
                   <TaskTabs />
                 </ProtectedRoute>
               )}
 
               {user.is_admin && (
-                <ProtectedRoute exact path="/transactions">
+                <ProtectedRoute exact path="/fargo/transactions">
                   <Transactions />
                 </ProtectedRoute>
               )}
@@ -135,7 +135,7 @@ function App() {
               {/* ProtectedRoute for /tasks with dynamic tab parameter */}
               <ProtectedRoute path="/tasks/:tab" component={TaskTabs} />
 
-              <ProtectedRoute exact path="/orgDetails/:id">
+              <ProtectedRoute exact path="/fargo/orgDetails/:id">
                 {!user.org_admin ? (
                   <Details
                     isMerchantTaskPage={false}
@@ -154,7 +154,7 @@ function App() {
               </ProtectedRoute>
 
               {/* UPDATE THIS WITH CORRECT ID IN OrgTaskDetails */}
-              <ProtectedRoute exact path="/organizationTaskDetails/:id">
+              <ProtectedRoute exact path="/fargo/organizationTaskDetails/:id">
                 <Details
                   isMerchantTaskPage={false}
                   isTaskPage={true}
@@ -163,7 +163,7 @@ function App() {
               </ProtectedRoute>
 
               {/* UPDATE THIS WITH CORRECT ID IN MerchantTaskDetails */}
-              <ProtectedRoute exact path="/merchantTaskDetails/:id">
+              <ProtectedRoute exact path="/fargo/merchantTaskDetails/:id">
                 {/* <Details
                   isMerchantTaskPage={true}
                   isTaskPage={false}
@@ -177,7 +177,7 @@ function App() {
               </ProtectedRoute>
 
               {/* <ProtectedRoute exact path="/coupon/:id"> */}
-              <ProtectedRoute exact path="/coupon/:merchantId/:couponId">
+              <ProtectedRoute exact path="/fargo/coupon/:merchantId/:couponId">
                 <CouponReviewDetails />
               </ProtectedRoute>
 
@@ -185,52 +185,52 @@ function App() {
                 <OrderPage />
               </ProtectedRoute> */}
 
-              <ProtectedRoute exact path="/sellers">
+              <ProtectedRoute exact path="/fargo/sellers">
                 <OrgSellers />
               </ProtectedRoute>
 
-              <Route exact path="/seller/:refId/">
+              <Route exact path="/fargo/seller/:refId/">
                 {/* <OrderPage /> */}
                 <SellerLandingPage />
               </Route>
               {/* ~~~~~~~~~~ CASH PAGE ~~~~~~~~~~ */}
-              <Route exact path="/seller/:refId/cash">
+              <Route exact path="/fargo/seller/:refId/cash">
                 <OrderPage caseType="cash" />
                 {/* <SellerLandingPage /> */}
               </Route>
 
-              <Route exact path="/seller/:refId/cash/cart">
+              <Route exact path="/fargo/seller/:refId/cash/cart">
                 <ShoppingCart caseType="cash" />
               </Route>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ PAYPAL PAGE ~~~~~~~~ */}
-              <Route exact path="/seller/:refId/paypal">
+              <Route exact path="/fargo/seller/:refId/paypal">
                 <OrderPage caseType="paypal" />
               </Route>
 
-              <Route exact path="/seller/:refId/paypal/cart">
+              <Route exact path="/fargo/seller/:refId/paypal/cart">
                 <ShoppingCart />
               </Route>
               {/* ~~~~~~~~~~ CHECKOUT PAGE ~~~~~~~~~ */}
-              <Route exact path="/seller/:refId/paypal/checkout">
+              <Route exact path="/fargo/seller/:refId/paypal/checkout">
                 <CheckoutPage caseType="credit" />
               </Route>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~ CREDIT PAGE ~~~~~~~~~~~ */}
-              <Route exact path="/seller/:refId/credit">
+              <Route exact path="/fargo/seller/:refId/credit">
                 <OrderPage caseType="credit" />
               </Route>
 
-              <Route exact path="/seller/:refId/credit/cart">
+              <Route exact path="/fargo/seller/:refId/credit/cart">
                 <ShoppingCart />
               </Route>
               {/* ~~~~~~~~~~ CHECKOUT PAGE ~~~~~~~~~ */}
-              <Route exact path="/seller/:refId/credit/checkout">
+              <Route exact path="/fargo/seller/:refId/credit/checkout">
                 <CheckoutPage caseType="credit" />
               </Route>
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~ ORDER COMPLETE PAGE ~~~~~~~~~ */}
-              <Route exact path="/seller/:refId/complete">
+              <Route exact path="/fargo/seller/:refId/complete">
                 <OrderComplete />
               </Route>
 
@@ -238,7 +238,7 @@ function App() {
                 {user.id ? (
                   // If the user is already logged in,
                   // redirect to the /home page
-                  <Redirect to="/home" />
+                  <Redirect to="/fargo/home" />
                 ) : (
                   // Otherwise, show the login page
                   <LoginPage />
@@ -256,8 +256,8 @@ function App() {
                 )}
               </Route>
 
-              <Route exact path="/home">
-                {user.id ? <Redirect to="/home" /> : <LoginPage />}
+              <Route exact path="/fargo/home">
+                {user.id ? <Redirect to="/fargo/home" /> : <LoginPage />}
                 {/* {!user.is_admin && !user.org_admin && <Redirect to="/coupon" />} */}
               </Route>
 
