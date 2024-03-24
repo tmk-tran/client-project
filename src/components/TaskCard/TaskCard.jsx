@@ -276,7 +276,7 @@ export default function TaskCard({
                   variant="contained"
                   onClick={() =>
                     history.push(
-                      `/${
+                      `/fargo/${
                         taskType === "organization"
                           ? "organizationTaskDetails"
                           : "merchantTaskDetails"
@@ -288,7 +288,6 @@ export default function TaskCard({
                     )
                   }
                   fullWidth
-                  // sx={{ height: "100%" }}
                   sx={{ height: "30%", maxHeight: "50px", mb: 2 }}
                 >
                   Details
