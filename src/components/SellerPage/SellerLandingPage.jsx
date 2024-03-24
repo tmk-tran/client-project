@@ -44,7 +44,7 @@ export default function SellerLandingPage() {
   };
 
   const navigateTo = () => {
-    history.push(`/seller/${paramsObject.refId}/${paymentType}`);
+    history.push(`/fargo/seller/${paramsObject.refId}/${paymentType}`);
   };
 
   return (

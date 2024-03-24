@@ -85,7 +85,6 @@ export default function NotesDisplay({
     setNoteAdded(false);
   }, [paramsObject.id, noteAdded, isMerchantTaskPage]); // Deleted dispatch from dependencies
 
-
   const handleSave = () => {
     // Format the date as "mm/dd/yyyy"
     const formattedDate = noteDate.toLocaleDateString("en-US");
@@ -112,7 +111,7 @@ export default function NotesDisplay({
       setNoteAdded(true);
     };
     saveCall();
-    
+
     // Sweet Alert
     showSaveSweetAlert({ label: "Note Added" });
 
@@ -221,6 +220,7 @@ export default function NotesDisplay({
                               );
                             }
                           }}
+                          title="Delete this note"
                         >
                           <DeleteIcon style={{ fontSize: "20px" }} />
                         </Button>

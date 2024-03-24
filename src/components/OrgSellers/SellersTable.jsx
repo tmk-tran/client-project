@@ -231,6 +231,7 @@ export default function SellersTable() {
           // onClick={handleOpen}
           onClick={() => handleOpen("add")}
           icon={<AddIcon />}
+          title="Add a new seller"
         />
       </Box>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}

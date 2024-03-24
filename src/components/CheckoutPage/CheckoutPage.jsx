@@ -249,7 +249,7 @@ export default function CheckoutPage({ caseType }) {
   };
 
   const returnToStore = () => {
-    history.push(`/seller/${refId}/${caseType}`);
+    history.push(`/fargo/seller/${refId}/${caseType}`);
   };
 
   const handleSubmit = () => {
@@ -270,7 +270,7 @@ export default function CheckoutPage({ caseType }) {
       // This is the last step, update transactions
       updateTransactions();
       // You might also want to redirect the user to a confirmation page
-      history.push(`/seller/${refId}/complete`);
+      history.push(`/fargo/seller/${refId}/complete`);
     } else {
       // This is not the last step, move to the next step
       handleNext();
