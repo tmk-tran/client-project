@@ -85,7 +85,7 @@ function App() {
             <Switch>
               <Redirect exact from="/" to="/home" />
 
-              <ProtectedRoute exact path="/user">
+              <ProtectedRoute exact path="/home">
                 {user.org_admin && <HomePage isOrgAdmin={true} />}
                 {!user.org_admin && !user.graphic_designer && (
                   <HomePage isOrgAdmin={false} />
@@ -237,8 +237,8 @@ function App() {
               <Route exact path="/login">
                 {user.id ? (
                   // If the user is already logged in,
-                  // redirect to the /user page
-                  <Redirect to="/user" />
+                  // redirect to the /home page
+                  <Redirect to="/home" />
                 ) : (
                   // Otherwise, show the login page
                   <LoginPage />
@@ -248,8 +248,8 @@ function App() {
               <Route exact path="/registration">
                 {user.id ? (
                   // If the user is already logged in,
-                  // redirect them to the /user page
-                  <Redirect to="/user" />
+                  // redirect them to the /home page
+                  <Redirect to="/home" />
                 ) : (
                   // Otherwise, show the registration page
                   <RegisterPage />
@@ -257,7 +257,7 @@ function App() {
               </Route>
 
               <Route exact path="/home">
-                {user.id ? <Redirect to="/user" /> : <LoginPage />}
+                {user.id ? <Redirect to="/home" /> : <LoginPage />}
                 {/* {!user.is_admin && !user.org_admin && <Redirect to="/coupon" />} */}
               </Route>
 

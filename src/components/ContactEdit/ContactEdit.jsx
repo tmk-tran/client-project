@@ -240,22 +240,6 @@ export default function ContactEdit({
         />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~ PHONE ~~~~~~~~~~~ */}
-        {/* <TextField
-          label="Phone"
-          type="tel"
-          inputProps={{
-            pattern: "[0-9]*",
-            inputMode: "numeric",
-          }}
-          value={editedPhone}
-          onChange={(e) => {
-            setEditedPhone(e.target.value);
-            setPhoneError(false);
-          }}
-          error={phoneError}
-          helperText={phoneError ? "Invalid phone number" : ""}
-        /> */}
-
         <PhoneInput
           phoneNumber={editedPhone}
           setPhoneNumber={setEditedPhone}
