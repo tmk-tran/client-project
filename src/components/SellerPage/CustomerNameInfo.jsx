@@ -33,6 +33,7 @@ export default function CustomerNameInfo({
         customerFirstName !== "" ||
         customerPhoneNumber !== ""
     );
+    setLastNameError(false);
   };
 
   const handleFirstName = (e) => {
@@ -42,6 +43,7 @@ export default function CustomerNameInfo({
         e.target.value !== "" ||
         customerPhoneNumber !== ""
     );
+    setFirstNameError(false);
   };
 
   const handlePhoneNumber = (e) => {
