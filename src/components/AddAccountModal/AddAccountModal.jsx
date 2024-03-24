@@ -20,7 +20,7 @@ import { hoverAccept, primaryColor } from "../Utils/colors";
 import StateFieldInput from "./StateFieldInput";
 import WebsiteInput from "./WebsiteInput";
 import RadioButtons from "./RadioButtons";
-import { capitalizeWords } from "../Utils/helpers";
+import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
 import ModalButtons from "../Modals/ModalButtons";
 import PhoneInput from "../LocationsCard/PhoneInput";
 import StateSelector from "../StateSelector/StateSelector";
@@ -164,20 +164,13 @@ export default function AddAccountModal({
     clearFields();
     // close modal
     handleModalClose();
-    // sweet alerts to confirm addition of organization
-    // Swal.fire({
-    //   icon: "success",
-    //   title: "Organization Successfully Added!",
-    //   showConfirmButton: false,
-    //   timer: 1500,
-    // });
+    // Sweet alert
     !isMerchantList &&
       showSaveSweetAlert({ label: "Organization successfully added" });
     isMerchantList &&
       showSaveSweetAlert({ label: "Merchant successfully added" });
   };
 
-  // clear input fields function
   const clearFields = () => {
     setOrganizationName("");
     setMerchantName("");
@@ -202,13 +195,13 @@ export default function AddAccountModal({
     setPhoneError(false);
   };
 
-  // cancel adding organization which clears the input fields and closes the modal
+  // for cancel button
   const cancelAdd = () => {
     clearFields();
     handleModalClose();
   };
 
-  // modal style, styled here not in the css file
+  // modal style
   const style = {
     position: "absolute",
     top: "50%",
@@ -229,11 +222,6 @@ export default function AddAccountModal({
     width: "98%",
   };
 
-  // function to capitalize the first letter of whatever you wrap in this
-  const capitalizeFirstLetter = (value) => {
-    return value.charAt(0).toUpperCase() + value.slice(1);
-  };
-
   const stateInput = (value) => {
     console.log(value.abbreviation);
     setState(value.abbreviation);
@@ -247,7 +235,7 @@ export default function AddAccountModal({
     setSelectedChoice(choice);
   };
 
-  // Define your choices
+  // Preferred method of contact choices
   const choices = ["Text", "Email", "Phone", "In-person visit"];
 
   return (
@@ -304,11 +292,9 @@ export default function AddAccountModal({
                 )}
                 onChange={(e) => {
                   !isMerchantList
-                    ? (setOrganizationName(
-                        capitalizeFirstLetter(e.target.value)
-                      ),
+                    ? (setOrganizationName(capitalizeFirstWord(e.target.value)),
                       setOrganizationNameError(false))
-                    : (setMerchantName(capitalizeFirstLetter(e.target.value)),
+                    : (setMerchantName(capitalizeFirstWord(e.target.value)),
                       setMerchantNameError(false));
                 }}
                 error={
@@ -485,16 +471,23 @@ export default function AddAccountModal({
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~ PREFERED CONTACT METHOD ~~~~~~ */}
             {isMerchantList ? (
-              <Grid
-                item
-                xs={12}
-                sx={{ display: "flex", justifyContent: "center" }}
-              >
-                <RadioButtons
-                  choices={choices}
-                  onSelectionChange={handleSelectionChange}
-                />
-              </Grid>
+              <>
+                <Grid item xs={12}>
+                  <Typography variant="caption" sx={{ fontWeight: "bold" }}>
+                    Preferred Method:
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{ display: "flex", justifyContent: "center" }}
+                >
+                  <RadioButtons
+                    choices={choices}
+                    onSelectionChange={handleSelectionChange}
+                  />
+                </Grid>
+              </>
             ) : null}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~~~~~ */}
