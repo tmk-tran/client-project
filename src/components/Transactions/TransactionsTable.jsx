@@ -74,6 +74,7 @@ export default function TransactionsTable({ transactions }) {
           <TableHead>
             <TableRow>
               <TableCell sx={headerStyle}>ID</TableCell>
+              <TableCell sx={headerStyle}>Created</TableCell>
               <TableCell sx={headerStyle}>Status</TableCell>
               <TableCell sx={headerStyle}>Payment Capture ID</TableCell>
               <TableCell sx={{ ...headerCellStyle, ...headerStyle }}>
@@ -100,7 +101,7 @@ export default function TransactionsTable({ transactions }) {
               <TableCell sx={{ ...headerCellStyle, ...headerStyle }}>
                 Account Status
               </TableCell>
-              <TableCell sx={headerStyle}>Created</TableCell>
+              {/* <TableCell sx={headerStyle}>Created</TableCell> */}
             </TableRow>
           </TableHead>
           {/* ~~~~~~~~~~ BODY ~~~~~~~~~~ */}
@@ -113,6 +114,11 @@ export default function TransactionsTable({ transactions }) {
                 }}
               >
                 <TableCell sx={cellBorder}>{transaction.id}</TableCell>
+                <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
+                  {formatDateTime(
+                    transaction.purchase_units_payments_captures_create_time
+                  )}
+                </TableCell>
                 <TableCell sx={cellBorder}>{transaction.status}</TableCell>
                 <TableCell sx={cellBorder}>
                   {transaction.purchase_units_payments_captures_id}
@@ -150,11 +156,11 @@ export default function TransactionsTable({ transactions }) {
                 <TableCell sx={cellBorder}>
                   {transaction.payment_source_account_status}
                 </TableCell>
-                <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
+                {/* <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
                   {formatDateTime(
                     transaction.purchase_units_payments_captures_create_time
                   )}
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>
@@ -164,7 +170,7 @@ export default function TransactionsTable({ transactions }) {
           >
             <TableRow>
               <TableCell sx={footerCellStyle}>Totals:</TableCell>
-              <TableCell sx={footerCellStyle} colSpan={2}></TableCell>
+              <TableCell sx={footerCellStyle} colSpan={3}></TableCell>
               <TableCell sx={{ ...footerCellStyle, ...footerCellBorder }}>
                 ${totals.paymentAmount.toFixed(2)}
               </TableCell>
