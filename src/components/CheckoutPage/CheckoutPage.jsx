@@ -235,6 +235,10 @@ export default function CheckoutPage({ caseType }) {
     if (!city) {
       newErrors.city = "Please enter city";
     }
+    if (!stateSelected) {
+      setIsSubmitted(true);
+      return;
+    }
     if (!zip) {
       newErrors.zip = "Please enter zip code";
     }
@@ -253,17 +257,17 @@ export default function CheckoutPage({ caseType }) {
   };
 
   const handleSubmit = () => {
-    if (!stateSelected) {
-      // Handle error, e.g., display an error message
-      console.log("Please select a state.");
-      setIsSubmitted(true);
-      return;
-    }
-    // Continue with form submission
-    console.log("State selected:", stateSelected);
-    setIsSubmitted(false);
-    // handleNext();
-    console.log(isSubmitted);
+    // if (!stateSelected) {
+    //   // Handle error, e.g., display an error message
+    //   console.log("Please select a state.");
+    //   setIsSubmitted(true);
+    //   return;
+    // }
+    // // Continue with form submission
+    // console.log("State selected:", stateSelected);
+    // setIsSubmitted(false);
+    // // handleNext();
+    // console.log(isSubmitted);
 
     // Check if this is the last step in the process
     if (activeStep === steps.length - 1) {

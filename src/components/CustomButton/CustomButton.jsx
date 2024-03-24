@@ -21,7 +21,6 @@ export default function CustomButton({
         sx={sx}
         disabled={disabled}
         fullWidth={fullWidth}
-        // title={title}
       >
         {label}
         {Icon && Icon}

@@ -126,15 +126,8 @@ export default function CustomerNameInfo({
               alignItems: pageLoad ? "center" : "flex-start",
             }}
           >
-            <TextField
-              value={customerLastName}
-              fullWidth
-              sx={{ width: pageLoad ? "50%" : "100%" }}
-              label="Last Name"
-              onChange={handleLastName}
-              error={!!lastNameError}
-              helperText={lastNameError}
-            />
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ First Name ~~~~~~~~~ */}
             <TextField
               value={customerFirstName}
               fullWidth
@@ -143,6 +136,17 @@ export default function CustomerNameInfo({
               onChange={handleFirstName}
               error={!!firstNameError}
               helperText={firstNameError}
+            />
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+            {/* ~~~~~~~~~~ Last Name ~~~~~~~~~ */}
+            <TextField
+              value={customerLastName}
+              fullWidth
+              sx={{ width: pageLoad ? "50%" : "100%" }}
+              label="Last Name"
+              onChange={handleLastName}
+              error={!!lastNameError}
+              helperText={lastNameError}
             />
             {/* <TextField
           value={customerPhoneNumber}
