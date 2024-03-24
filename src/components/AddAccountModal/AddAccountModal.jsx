@@ -120,42 +120,6 @@ export default function AddAccountModal({
       return;
     }
 
-    // !isMerchantList
-    //   ? dispatch({
-    //       type: "ADD_ORGANIZATION",
-    //       payload: {
-    //         organization_name: organizationName,
-    //         type: organizationType,
-    //         address,
-    //         city,
-    //         state,
-    //         zip,
-    //         primary_contact_first_name: contactFirstName,
-    //         primary_contact_last_name: contactLastName,
-    //         primary_contact_phone: contactPhone,
-    //         primary_contact_email: contactEmail,
-    //         organization_logo: logoFile,
-    //         organization_earnings: orgEarnings,
-    //       },
-    //     })
-    //   : dispatch({
-    //       type: "ADD_MERCHANT",
-    //       payload: {
-    //         merchant_name: merchantName,
-    //         address,
-    //         city,
-    //         state,
-    //         zip,
-    //         primary_contact_first_name: contactFirstName,
-    //         primary_contact_last_name: contactLastName,
-    //         contact_phone_number: contactPhone,
-    //         contact_email: contactEmail,
-    //         merchant_logo: logoFile,
-    //         website: merchantWebsite,
-    //         contact_method: selectedChoice,
-    //       },
-    //     });
-
     const action1 = {
       type: "ADD_ORGANIZATION",
       payload: {
