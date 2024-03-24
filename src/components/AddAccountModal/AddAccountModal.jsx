@@ -72,20 +72,24 @@ export default function AddAccountModal({
   console.log(contactPhone);
   // Save function to dispatch data for new organization
   const handleSave = () => {
+    console.log("clicked");
     if (!isMerchantList) {
       if (!organizationName) {
         setOrganizationNameError(true);
+        return;
       }
     }
     if (!isMerchantList) {
       if (!organizationType) {
         setOrganizationTypeError(true);
+        return;
       }
     }
-    
-    if (!merchantName) {
-      setMerchantNameError(true);
-      return;
+    if (isMerchantList) {
+      if (!merchantName) {
+        setMerchantNameError(true);
+        return;
+      }
     }
     if (!address) {
       setAddressError(true);
@@ -116,41 +120,82 @@ export default function AddAccountModal({
       return;
     }
 
-    !isMerchantList
-      ? dispatch({
-          type: "ADD_ORGANIZATION",
-          payload: {
-            organization_name: organizationName,
-            type: organizationType,
-            address,
-            city,
-            state,
-            zip,
-            primary_contact_first_name: contactFirstName,
-            primary_contact_last_name: contactLastName,
-            primary_contact_phone: contactPhone,
-            primary_contact_email: contactEmail,
-            organization_logo: logoFile,
-            organization_earnings: orgEarnings,
-          },
-        })
-      : dispatch({
-          type: "ADD_MERCHANT",
-          payload: {
-            merchant_name: merchantName,
-            address,
-            city,
-            state,
-            zip,
-            primary_contact_first_name: contactFirstName,
-            primary_contact_last_name: contactLastName,
-            contact_phone_number: contactPhone,
-            contact_email: contactEmail,
-            merchant_logo: logoFile,
-            website: merchantWebsite,
-            contact_method: selectedChoice,
-          },
-        });
+    // !isMerchantList
+    //   ? dispatch({
+    //       type: "ADD_ORGANIZATION",
+    //       payload: {
+    //         organization_name: organizationName,
+    //         type: organizationType,
+    //         address,
+    //         city,
+    //         state,
+    //         zip,
+    //         primary_contact_first_name: contactFirstName,
+    //         primary_contact_last_name: contactLastName,
+    //         primary_contact_phone: contactPhone,
+    //         primary_contact_email: contactEmail,
+    //         organization_logo: logoFile,
+    //         organization_earnings: orgEarnings,
+    //       },
+    //     })
+    //   : dispatch({
+    //       type: "ADD_MERCHANT",
+    //       payload: {
+    //         merchant_name: merchantName,
+    //         address,
+    //         city,
+    //         state,
+    //         zip,
+    //         primary_contact_first_name: contactFirstName,
+    //         primary_contact_last_name: contactLastName,
+    //         contact_phone_number: contactPhone,
+    //         contact_email: contactEmail,
+    //         merchant_logo: logoFile,
+    //         website: merchantWebsite,
+    //         contact_method: selectedChoice,
+    //       },
+    //     });
+
+    const action1 = {
+      type: "ADD_ORGANIZATION",
+      payload: {
+        organization_name: organizationName,
+        type: organizationType,
+        address,
+        city,
+        state,
+        zip,
+        primary_contact_first_name: contactFirstName,
+        primary_contact_last_name: contactLastName,
+        primary_contact_phone: contactPhone,
+        primary_contact_email: contactEmail,
+        organization_logo: logoFile,
+        organization_earnings: orgEarnings,
+      },
+    };
+    !isMerchantList && console.log(action1);
+    !isMerchantList && dispatch(action1);
+
+    const action2 = {
+      type: "ADD_MERCHANT",
+      payload: {
+        merchant_name: merchantName,
+        address,
+        city,
+        state,
+        zip,
+        primary_contact_first_name: contactFirstName,
+        primary_contact_last_name: contactLastName,
+        contact_phone_number: contactPhone,
+        contact_email: contactEmail,
+        merchant_logo: logoFile,
+        website: merchantWebsite,
+        contact_method: selectedChoice,
+      },
+    };
+    isMerchantList && console.log(action2);
+    isMerchantList && dispatch(action2);
+
     // clear input fields
     clearFields();
     // close modal
@@ -325,9 +370,16 @@ export default function AddAccountModal({
                   label="Organization Type"
                   fullWidth
                   value={capitalizeWords(organizationType)}
-                  onChange={(e) => {setOrganizationType(e.target.value); setOrganizationTypeError(false);}}
+                  onChange={(e) => {
+                    setOrganizationType(e.target.value);
+                    setOrganizationTypeError(false);
+                  }}
                   error={organizationTypeError}
-                  helperText={organizationTypeError ? "Please select an organization type" : ""}
+                  helperText={
+                    organizationTypeError
+                      ? "Please select an organization type"
+                      : ""
+                  }
                 />
               </Grid>
             ) : null}
