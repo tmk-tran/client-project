@@ -131,7 +131,7 @@ export default function OrderPage({ caseType }) {
 
   const addToCart = () => {
     history.push({
-      pathname: `/seller/${seller.refId}/${caseType}/cart`,
+      pathname: `/fargo/seller/${seller.refId}/${caseType}/cart`,
       state: {
         seller,
         sellerId,
