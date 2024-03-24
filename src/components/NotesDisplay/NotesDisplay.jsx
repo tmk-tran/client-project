@@ -31,7 +31,6 @@ export default function NotesDisplay({
   details,
   caseType,
   isMerchantTaskPage,
-  onAddNote,
 }) {
   console.log(isMerchantTaskPage);
   console.log(notes);
@@ -113,8 +112,7 @@ export default function NotesDisplay({
       setNoteAdded(true);
     };
     saveCall();
-    // Update parent, trigger refresh
-    // onAddNote();
+    
     // Sweet Alert
     showSaveSweetAlert({ label: "Note Added" });
 

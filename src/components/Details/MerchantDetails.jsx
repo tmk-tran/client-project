@@ -24,8 +24,6 @@ export default function MerchantDetails({ isMerchantTaskPage }) {
   // ~~~~~~~~~~ State ~~~~~~~~~~ //
   const [locationAdded, setLocationAdded] = useState(false);
   console.log(locationAdded);
-  const [noteAdded, setNoteAdded] = useState(false);
-  console.log(noteAdded);
   const { caseType, handleCaseTypeChange } = useCaseType("default");
 
   useEffect(() => {
@@ -55,8 +53,7 @@ export default function MerchantDetails({ isMerchantTaskPage }) {
     dispatch(action4);
 
     setLocationAdded(false);
-    setNoteAdded(false);
-  }, [paramsObject.id, locationAdded, noteAdded]);
+  }, [paramsObject.id, locationAdded]);
 
   const merchantDetails = mDetails() || [];
   console.log(merchantDetails);
@@ -66,12 +63,6 @@ export default function MerchantDetails({ isMerchantTaskPage }) {
 
   const handleAddLocation = () => {
     setLocationAdded(true);
-  };
-
-  // Note addition
-  const handleAddNote = () => {
-    // Update the noteAdded state to trigger a refresh
-    setNoteAdded(true);
   };
 
   return (
@@ -92,7 +83,6 @@ export default function MerchantDetails({ isMerchantTaskPage }) {
                 notes={notes}
                 details={merchantInfo}
                 isMerchantTaskPage={isMerchantTaskPage}
-                onAddNote={handleAddNote}
               />
             </React.Fragment>
           ))}

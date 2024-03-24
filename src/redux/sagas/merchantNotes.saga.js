@@ -22,7 +22,6 @@ function* addNotes(action) {
     yield put({ type: "FETCH_MERCHANT_NOTES", payload: action.payload.merchant_id });
   } catch (error) {
     console.log("error in addNotes Merchant Saga", error);
-    // yield put({ type: "SET_ERROR", payload: error });
   }
 }
 
