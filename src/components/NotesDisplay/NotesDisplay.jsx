@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import "./NotesDisplay.css";
 import { useTheme } from "@mui/material/styles";
@@ -195,35 +196,40 @@ export default function NotesDisplay({
                               )
                               .join(" ")}
                         </li>
-
-                        <Button
-                          className="notes-delete-btn"
-                          onClick={() => {
-                            if (isMerchantTaskPage) {
-                              console.log(
-                                "Merchant Task Page - Note ID:",
-                                note.id,
-                                "Merchant ID:",
-                                note.merchant_id
-                              );
-                              showDeleteConfirmation(note.id, note.merchant_id);
-                            } else {
-                              console.log(
-                                "Organization Task Page - Note ID:",
-                                note.id,
-                                "Organization ID:",
-                                note.organization_id
-                              );
-                              showDeleteConfirmation(
-                                note.id,
-                                note.organization_id
-                              );
-                            }
-                          }}
-                          title="Delete this note"
-                        >
-                          <DeleteIcon style={{ fontSize: "20px" }} />
-                        </Button>
+                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                        {/* ~~~~~~ Delete button ~~~~~ */}
+                        <Tooltip title="Delete This Note">
+                          <Button
+                            className="notes-delete-btn"
+                            onClick={() => {
+                              if (isMerchantTaskPage) {
+                                console.log(
+                                  "Merchant Task Page - Note ID:",
+                                  note.id,
+                                  "Merchant ID:",
+                                  note.merchant_id
+                                );
+                                showDeleteConfirmation(
+                                  note.id,
+                                  note.merchant_id
+                                );
+                              } else {
+                                console.log(
+                                  "Organization Task Page - Note ID:",
+                                  note.id,
+                                  "Organization ID:",
+                                  note.organization_id
+                                );
+                                showDeleteConfirmation(
+                                  note.id,
+                                  note.organization_id
+                                );
+                              }
+                            }}
+                          >
+                            <DeleteIcon style={{ fontSize: "20px" }} />
+                          </Button>
+                        </Tooltip>
                       </div>
                       <br />
                       <hr style={hrStyle} />

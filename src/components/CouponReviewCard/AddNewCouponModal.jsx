@@ -158,7 +158,12 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
     <div>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~ */}
-      <AddBox label="Coupon" buttonStyle={{ mb: 2 }} onClick={handleOpen} />
+      <AddBox
+        title="New Coupon"
+        label="Coupon"
+        buttonStyle={{ mb: 2 }}
+        onClick={handleOpen}
+      />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <Modal
         open={open}

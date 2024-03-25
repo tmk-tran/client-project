@@ -9,6 +9,7 @@ import {
   Popover,
   useTheme,
   useMediaQuery,
+  Tooltip,
 } from "@mui/material/";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import "./AddGroupPopover.css";
@@ -68,11 +69,20 @@ export default function BasicPopover({ info, groups, onChange }) {
 
   return (
     <div className="popover-container">
-      <Button id="add-group-button" onClick={handleClick} fullWidth title="Add a new group">
-        <AddBoxIcon />
-        &nbsp;Group
-        {/* Add Group */}
-      </Button>
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~ Add group button ~~~~~~~~~~ */}
+      <Tooltip title="Add a new group">
+        <Button
+          id="add-group-button"
+          onClick={handleClick}
+          fullWidth
+        >
+          <AddBoxIcon />
+          &nbsp;Group
+          {/* Add Group */}
+        </Button>
+      </Tooltip>
+
       <Popover
         id={id}
         open={open}

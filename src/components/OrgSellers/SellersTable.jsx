@@ -347,7 +347,7 @@ export default function SellersTable() {
                                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                                 {/* ~~~~~ View URL Icon ~~~~~ */}
                                 <ActionButton
-                                  title="View URLs"
+                                  title="View URL"
                                   Icon={LaunchIcon}
                                   iconSx={{ fontSize: "25px" }}
                                   onClick={() => handleViewUrl(value)}

@@ -87,7 +87,6 @@ export default function AddLocationModal({
       );
       handleOpen(); // Open the modal after setting the state
     }
-    
   }, [locationToEdit]); // Trigger the effect when locationToEdit changes
 
   const handleOpen = () => setOpen(true);
@@ -198,7 +197,12 @@ export default function AddLocationModal({
     <div>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ ADD BUTTON ~~~~~~~~~~ */}
-      <AddBox label="Location" buttonStyle={{ mb: 2 }} onClick={handleOpen} />
+      <AddBox
+        title="New Location"
+        label="Location"
+        buttonStyle={{ mb: 2 }}
+        onClick={handleOpen}
+      />
       <Modal
         open={open}
         // onClose={handleClose}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Backdrop, Divider } from "@mui/material";
+import { Backdrop, Divider, Tooltip } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { allMerchants, allOrganizations } from "../../hooks/reduxStore";
@@ -237,20 +237,24 @@ export default function BasicModal({
 
   return (
     <div>
-      <Button
-        variant={tabs ? "text" : "contained"}
-        sx={{ mt: 1 }}
-        onClick={handleOpen}
-        fullWidth
-      >
-        {customIcon ? (
-          customIcon // Render the custom icon if provided
-        ) : (
-          // <LibraryAddIcon />
-          <AddBoxIcon />
-        )}
-        {customText && <span style={{ marginLeft: "5px" }}>{customText}</span>}
-      </Button>
+      <Tooltip title="New Task">
+        <Button
+          variant={tabs ? "text" : "contained"}
+          sx={{ mt: 1 }}
+          onClick={handleOpen}
+          fullWidth
+        >
+          {customIcon ? (
+            customIcon // Render the custom icon if provided
+          ) : (
+            // <LibraryAddIcon />
+            <AddBoxIcon />
+          )}
+          {customText && (
+            <span style={{ marginLeft: "5px" }}>{customText}</span>
+          )}
+        </Button>
+      </Tooltip>
 
       <Modal
         open={open}
