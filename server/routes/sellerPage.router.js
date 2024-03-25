@@ -90,7 +90,7 @@ router.put("/:id", (req, res) => {
           AND
             "refId" = $3
           ;`;
-      values = [sellerInfo.donations, sellerId, refId];
+      values = [sellerInfo.digital_donations, sellerId, refId];
       break;
     case "digital":
       queryText = `
