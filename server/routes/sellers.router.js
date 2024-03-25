@@ -150,23 +150,20 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   console.log("Req.body from sellers = ", seller);
 
   const queryText = `
-        UPDATE 
-          "sellers"
-        SET
-          "lastname" = $1,
-          "firstname" = $2,
-          "level" = $3,
-          "teacher" = $4,
-          "initial_books" = $5,
-          "additional_books" = $6,
-          "books_returned" = $7,
-          "cash" = $8,
-          "checks" = $9,
-          "digital" = $10,
-          "donations" = $11,
-          "notes" = $12,
-          "digital_donations" = $13
-        WHERE "id" = $14;`;
+            UPDATE 
+              "sellers"
+            SET
+              "lastname" = $1,
+              "firstname" = $2,
+              "level" = $3,
+              "teacher" = $4,
+              "initial_books" = $5,
+              "additional_books" = $6,
+              "books_returned" = $7,
+              "digital" = $8,
+              "notes" = $9,
+              "digital_donations" = $10
+            WHERE "id" = $11;`;
 
   const values = [
     seller.lastname,
@@ -176,10 +173,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     seller.initial_books,
     seller.additional_books,
     seller.books_returned,
-    seller.cash,
-    seller.checks,
     seller.digital,
-    seller.donations,
     seller.notes,
     seller.digital_donations,
     sellerId,

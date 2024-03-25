@@ -8,7 +8,6 @@ function* fetchSeller(action) {
     yield put({ type: "SET_SELLER_PAGEINFO", payload: items.data });
   } catch (error) {
     console.log("error in sellerPage Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
   }
 }
 
@@ -25,7 +24,6 @@ function* updateCash(action) {
     yield put({ type: "FETCH_SELLERS", payload: orgId });
   } catch (error) {
     console.log("error in updateCash Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
   }
 }
 
@@ -34,28 +32,29 @@ function* updateChecks(action) {
   console.log(sellerId);
   const refId = action.payload.refId;
   console.log(refId);
+  const orgId = action.payload.orgId;
 
   try {
     yield axios.put(`/api/seller/${sellerId}`, action.payload);
-    yield put({ type: "FETCH_SELLER_PAGEINFO", payload: refId });
+    yield put({ type: "FETCH_SELLERS", payload: orgId });
   } catch (error) {
     console.log("error in updateChecks Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
   }
 }
 
 function* updateDonations(action) {
+  console.log(action.payload);
   const sellerId = action.payload.id;
   console.log(sellerId);
   const refId = action.payload.refId;
   console.log(refId);
+  const orgId = action.payload.orgId;
 
   try {
     yield axios.put(`/api/seller/${sellerId}`, action.payload);
-    yield put({ type: "FETCH_SELLER_PAGEINFO", payload: refId });
+    yield put({ type: "FETCH_SELLERS", payload: orgId });
   } catch (error) {
-    console.log("error in updateDonations Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
+    console.log("error in updateDigitalCash Saga", error);
   }
 }
 
@@ -65,13 +64,13 @@ function* updateDigitalPayments(action) {
   console.log(sellerId);
   const refId = action.payload.refId;
   console.log(refId);
+  const orgId = action.payload.orgId;
 
   try {
     yield axios.put(`/api/seller/${sellerId}`, action.payload);
-    yield put({ type: "FETCH_SELLER_PAGEINFO", payload: refId });
+    yield put({ type: "FETCH_SELLERS", payload: orgId });
   } catch (error) {
     console.log("error in updateDigitalPayments Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
   }
 }
 
@@ -93,43 +92,49 @@ export default function* sellerPageSaga() {
 //     yield put({ type: "SET_SELLER_PAGEINFO", payload: items.data });
 //   } catch (error) {
 //     console.log("error in sellerPage Saga", error);
-//     yield put({ type: "SET_ERROR", payload: error });
+//
 //   }
 // }
 
 // function* updateSeller(action, updateType) {
 //   const sellerId = action.payload.id;
 //   const refId = action.payload.refId;
+//   const orgId = action.payload.orgId;
 
 //   try {
 //     yield axios.put(`/api/seller/${sellerId}`, action.payload);
-//     yield put({ type: "FETCH_SELLER_PAGEINFO", payload: refId });
+//     yield put({ type: "FETCH_SELLERS", payload: orgId });
 //   } catch (error) {
 //     console.log(`error in update${updateType} Saga`, error);
-//     yield put({ type: "SET_ERROR", payload: error });
+//
 //   }
 // }
 
 // export function* updateCash(action) {
-//   yield updateSeller(action, "CASH");
+//   yield updateSeller(action, "cash");
 // }
 
 // export function* updateChecks(action) {
-//   yield updateSeller(action, "Checks");
+//   yield updateSeller(action, "checks");
 // }
 
 // export function* updateDonations(action) {
-//   yield updateSeller(action, "Donations");
+//   yield updateSeller(action, "donations");
+// }
+
+// export function* updateDigitalDonations(action) {
+//   yield updateSeller(action, "digitalDonations");
 // }
 
 // export function* updateDigitalPayments(action) {
-//   yield updateSeller(action, "DigitalPayments");
+//   yield updateSeller(action, "digitalPayments");
 // }
 
 // export default function* sellerPageSaga() {
 //   yield takeEvery("FETCH_SELLER_PAGEINFO", fetchSeller);
 //   yield takeEvery("UPDATE_CASH", updateCash);
 //   yield takeEvery("UPDATE_CHECKS", updateChecks);
+//   yield takeEvery("UPDATE_DIGITAL_CASH", updateDigitalCash);
 //   yield takeEvery("UPDATE_DONATIONS", updateDonations);
 //   yield takeEvery("UPDATE_DIGITAL_PAYMENTS", updateDigitalPayments);
 // }

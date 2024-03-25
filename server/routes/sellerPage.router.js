@@ -81,6 +81,19 @@ router.put("/:id", (req, res) => {
       break;
     case "donations":
       queryText = `
+            UPDATE 
+              "sellers"
+            SET
+              "donations" = "donations" + $1
+            WHERE 
+              "id" = $2
+            AND
+              "refId" = $3
+            ;`;
+      values = [sellerInfo.donations, sellerId, refId];
+      break;
+    case "digital_donations":
+      queryText = `
           UPDATE 
             "sellers"
           SET

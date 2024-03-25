@@ -138,12 +138,26 @@ export default function SellersTable() {
 
   const handleEditSeller = (editedSeller) => {
     console.log(editedSeller);
+
+    // const editPayload = {
+    //   id: editedSeller.id,
+    //   refId: editedSeller.refId,
+    //   level: editedSeller.level,
+    //   teacher: editedSeller.teacher,
+    //   initial_books: editedSeller.initial_books,
+    //   additional_books: editedSeller.additional_books,
+    //   books_returned: editedSeller.books_returned,
+    //   donations: editedSeller.donations,
+    //   digital_donations: editedSeller.digital_donations,
+    // };
+    // console.log(editPayload);
+
     const editAction = {
       type: "EDIT_SELLER",
       payload: editedSeller,
     };
     console.log("Dispatching action:", editAction);
-    // dispatch(editAction);
+    dispatch(editAction);
     showSaveSweetAlert({ label: null });
   };
 

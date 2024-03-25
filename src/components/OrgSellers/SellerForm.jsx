@@ -167,8 +167,33 @@ export default function SellerForm({
       handleAddSeller(updatedFormData);
     } else if (mode === "edit") {
       // Edit logic remains the same
-      // No need to generate or alter refId for editing
-      handleEditSeller(updatedFormData);
+      const editPayload = {
+        id: sellerToEdit.id,
+        refId: updatedFormData.refId,
+        lastname: updatedFormData.lastname,
+        firstname: updatedFormData.firstname,
+        level: updatedFormData.level,
+        teacher: updatedFormData.teacher,
+        initial_books: updatedFormData.initial_books,
+        additional_books: updatedFormData.additional_books,
+        books_returned: updatedFormData.books_returned,
+        digital: updatedFormData.digital,
+        notes: updatedFormData.notes,
+        organization_id: updatedFormData.organization_id,
+        is_deleted: updatedFormData.is_deleted,
+        books_due: updatedFormData.books_due,
+        digital_donations: updatedFormData.digital_donations,
+        organization_name: updatedFormData.organization_name,
+        address: updatedFormData.address,
+        city: updatedFormData.city,
+        state: updatedFormData.state,
+        zip: updatedFormData.zip,
+        physical_book_cash: updatedFormData.physical_book_cash,
+        physical_book_digital: updatedFormData.physical_book_digital,
+        digital_book_credit: updatedFormData.digital_book_credit,
+        seller_earnings: updatedFormData.seller_earnings,
+      };
+      handleEditSeller(editPayload);
     }
 
     console.log(updatedFormData);
@@ -380,7 +405,13 @@ export default function SellerForm({
                     <TextField
                       name="donations"
                       label="Donations (Cash)"
-                      value={formData["donations"]}
+                      // value={formData["donations"]}
+                      value={
+                        Number(formData["donations"]) +
+                        (updateMoneyAmount !== null
+                          ? Number(updateMoneyAmount)
+                          : 0)
+                      }
                       onChange={handleChange}
                       fullWidth
                       size="small"
@@ -405,7 +436,12 @@ export default function SellerForm({
                     <TextField
                       name="checks"
                       label="Checks"
-                      value={formData["checks"]}
+                      value={
+                        Number(formData["checks"]) +
+                        (updateMoneyAmount !== null
+                          ? Number(updateMoneyAmount)
+                          : 0)
+                      }
                       onChange={handleChange}
                       fullWidth
                       size="small"
