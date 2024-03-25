@@ -288,7 +288,7 @@ export default function CheckoutPage({ caseType }) {
       updateActions.push({
         type: "UPDATE_DONATIONS",
         payload: {
-          updateType: "donations",
+          updateType: "digital_donations",
           id: sellerId,
           refId: refId,
           digital_donations: customDonation,

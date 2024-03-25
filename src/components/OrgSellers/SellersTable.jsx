@@ -12,7 +12,6 @@ import {
   TablePagination,
   TableRow,
   TableFooter,
-  IconButton,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import LaunchIcon from "@mui/icons-material/Launch";
@@ -21,22 +20,21 @@ import EditAttributesIcon from "@mui/icons-material/EditAttributes";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { columns } from "./sellerTableColumns";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { User, oSellers, sellerPageInfo } from "../../hooks/reduxStore";
+import { User, oSellers } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Component ~~~~~~~~~~
 import SellerForm from "./SellerForm";
 import CustomButton from "../CustomButton/CustomButton";
 import ActionIcons from "./ActionIcons";
 import ViewUrl from "./ViewUrl";
-import { errorColor, primaryColor } from "../Utils/colors";
+import { primaryColor } from "../Utils/colors";
 import { border } from "../Utils/colors";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
-import SellerLink from "../SellerPage/SellerLink";
 import ActionButton from "./ActionButton";
 import SellersTableHeader from "./SellersTableHeader";
 import BooksSoldForm from "./BooksSoldForm";
 
 const evenRowColor = {
-  backgroundColor: "#fbfbfb",
+  backgroundColor: "#f5f5f5",
 };
 
 const sellersBorder = {
@@ -139,26 +137,13 @@ export default function SellersTable() {
   const handleEditSeller = (editedSeller) => {
     console.log(editedSeller);
 
-    // const editPayload = {
-    //   id: editedSeller.id,
-    //   refId: editedSeller.refId,
-    //   level: editedSeller.level,
-    //   teacher: editedSeller.teacher,
-    //   initial_books: editedSeller.initial_books,
-    //   additional_books: editedSeller.additional_books,
-    //   books_returned: editedSeller.books_returned,
-    //   donations: editedSeller.donations,
-    //   digital_donations: editedSeller.digital_donations,
-    // };
-    // console.log(editPayload);
-
     const editAction = {
       type: "EDIT_SELLER",
       payload: editedSeller,
     };
     console.log("Dispatching action:", editAction);
     dispatch(editAction);
-    showSaveSweetAlert({ label: null });
+    showSaveSweetAlert({ label: "Seller Updated" });
   };
 
   const handleArchive = (sellerId) => {
@@ -397,11 +382,6 @@ export default function SellersTable() {
                                 </>
                               ) : column.id === "physical_book_cash" ? (
                                 <>
-                                  {/* <IconButton
-                                    onClick={() => handleIconClick(seller.id)}
-                                  >
-                                    <EditIcon sx={{ fontSize: "large" }} />
-                                  </IconButton> */}
                                   {value}
                                   <ActionButton
                                     title="Edit Books Sold"
