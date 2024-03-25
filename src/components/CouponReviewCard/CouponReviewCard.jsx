@@ -127,7 +127,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   const handleCardClick = (couponId) => {
     console.log(couponId);
     history.push({
-      pathname: `/coupon/${merchantId}/${couponId}`,
+      pathname: `/fargo/coupon/${merchantId}/${couponId}`,
     });
   };
 

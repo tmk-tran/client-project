@@ -102,12 +102,7 @@ export default function OrderPage({ caseType }) {
   const handleQuantityChange = (newRows) => {
     setRows(newRows);
   };
-
-  // const mapSelectedRowsToProducts = () => {
-  //   return selectedRows.map((selectedId) => {
-  //     return rows.find((row) => row.id === selectedId);
-  //   });
-  // };
+  
   const mapSelectedRowsToProducts = () => {
     return selectedRows.map((selectedId) => {
       const row = rows.find((row) => row.id === selectedId);
