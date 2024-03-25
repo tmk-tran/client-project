@@ -21,7 +21,7 @@ import EditAttributesIcon from "@mui/icons-material/EditAttributes";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { columns } from "./sellerTableColumns";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { User, oSellers } from "../../hooks/reduxStore";
+import { User, oSellers, sellerPageInfo } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Component ~~~~~~~~~~
 import SellerForm from "./SellerForm";
 import CustomButton from "../CustomButton/CustomButton";
@@ -137,12 +137,13 @@ export default function SellersTable() {
   };
 
   const handleEditSeller = (editedSeller) => {
+    console.log(editedSeller);
     const editAction = {
       type: "EDIT_SELLER",
       payload: editedSeller,
     };
     console.log("Dispatching action:", editAction);
-    dispatch(editAction);
+    // dispatch(editAction);
     showSaveSweetAlert({ label: null });
   };
 
@@ -238,6 +239,7 @@ export default function SellersTable() {
       {/* ~~~~~~~ Modals for Seller Table ~~~~~ */}
       <SellerForm
         user={user}
+        orgId={orgId}
         columns={columns}
         open={open}
         mode={mode}
@@ -245,7 +247,6 @@ export default function SellersTable() {
         handleAddSeller={handleAddSeller}
         handleEditSeller={handleEditSeller}
         sellerToEdit={sellerToEdit}
-        sellers={sellers}
       />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ Form for updating books sold ~~~~~~~~~~ */}

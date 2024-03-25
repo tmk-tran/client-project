@@ -54,6 +54,7 @@ console.log(sample);
 
 export default function SellerForm({
   user,
+  orgId,
   columns,
   open,
   mode,
@@ -64,6 +65,7 @@ export default function SellerForm({
   sellers,
 }) {
   console.log(user);
+  console.log(orgId);
   console.log(sellerToEdit);
   console.log(mode);
   const dispatch = dispatchHook();
@@ -171,6 +173,7 @@ export default function SellerForm({
 
     console.log(updatedFormData);
     setFormData(initialFormState);
+    setUpdateMoneyAmount(null);
     handleClose();
   };
 
@@ -193,6 +196,7 @@ export default function SellerForm({
         refId: refId,
         [updateType.toLowerCase()]: Number(amountToUpdate),
         updateType: updateType.toLowerCase(),
+        orgId: orgId,
       },
     };
     console.log("Dispatching action:", updateAction);
