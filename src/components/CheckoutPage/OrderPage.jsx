@@ -103,11 +103,21 @@ export default function OrderPage({ caseType }) {
     setRows(newRows);
   };
 
+  // const mapSelectedRowsToProducts = () => {
+  //   return selectedRows.map((selectedId) => {
+  //     return rows.find((row) => row.id === selectedId);
+  //   });
+  // };
   const mapSelectedRowsToProducts = () => {
     return selectedRows.map((selectedId) => {
-      return rows.find((row) => row.id === selectedId);
+      const row = rows.find((row) => row.id === selectedId);
+      if (row.id === 4) {
+        // Set the price of the donation product to customDonation
+        return { ...row, price: customDonation };
+      }
+      return row;
     });
-  };
+  };  
 
   const selectedProducts = mapSelectedRowsToProducts();
   console.log("Selected Products:", selectedProducts);
