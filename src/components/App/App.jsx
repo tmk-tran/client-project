@@ -86,6 +86,7 @@ function App() {
               <Redirect exact from="/" to="/fargo/home" />
 
               <ProtectedRoute exact path="/fargo/home">
+                {user.is_admin && <HomePage />}
                 {/* {user.org_admin && <HomePage isOrgAdmin={true} />} */}
                 {user.org_admin && user.graphic_designer && (
                   <HomePage isOrgAdmin={true} isGraphicDesigner={true} />
