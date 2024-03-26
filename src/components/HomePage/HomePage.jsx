@@ -162,6 +162,18 @@ function HomePage({ isOrgAdmin, isGraphicDesigner }) {
               toggleState={isMerchantList}
             />
           )}
+          {isOrgAdmin && isGraphicDesigner && (
+            <ToggleButton
+              sxButton={{ margin: 2 }}
+              sxIcon={{ mr: 1 }}
+              // onClick={() => setIsMerchantList(!isMerchantList)}
+              title="Toggle List View"
+              onClick={() => setIsMerchantList((prevState) => !prevState)}
+              label1="Merchants"
+              label2="Organizations"
+              toggleState={isMerchantList}
+            />
+          )}
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ PAGE HEADER ~~~~~~~~~~~ */}

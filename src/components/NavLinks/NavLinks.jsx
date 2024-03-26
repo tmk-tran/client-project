@@ -67,16 +67,28 @@ export default function NavLinks() {
             )}
             {/* Add the /home link for org admins */}
             {user.org_admin && (
-              <Typography>
-                <MuiLink
-                  component={Link}
-                  className="main-navlink"
-                  to="/fargo/home"
-                  underline="hover"
-                >
-                  Organizations
-                </MuiLink>
-              </Typography>
+              <>
+                <Typography>
+                  <MuiLink
+                    component={Link}
+                    className="main-navlink"
+                    to="/fargo/home"
+                    underline="hover"
+                  >
+                    Organizations
+                  </MuiLink>
+                </Typography>
+                <Typography>
+                  <MuiLink
+                    component={Link}
+                    className="main-navlink"
+                    to="/fargo/coupon"
+                    underline="hover"
+                  >
+                    Coupons
+                  </MuiLink>
+                </Typography>
+              </>
             )}
             {/* Links for graphic designer */}
             {user.graphic_designer && (

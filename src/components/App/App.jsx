@@ -86,11 +86,20 @@ function App() {
               <Redirect exact from="/" to="/fargo/home" />
 
               <ProtectedRoute exact path="/fargo/home">
-                {user.org_admin && <HomePage isOrgAdmin={true} />}
-                {!user.org_admin && !user.graphic_designer && (
-                  <HomePage isOrgAdmin={false} />
+                {/* {user.org_admin && <HomePage isOrgAdmin={true} />} */}
+                {user.org_admin && user.graphic_designer && (
+                  <HomePage isOrgAdmin={true} isGraphicDesigner={true} />
                 )}
-                {user.graphic_designer && <HomePage isGraphicDesigner={true} />}
+                {/* {!user.org_admin && !user.graphic_designer && (
+                  <HomePage isOrgAdmin={false} />
+                )} */}
+                {user.org_admin && !user.graphic_designer && (
+                  <HomePage isOrgAdmin={true} />
+                )}
+                {/* {user.graphic_designer && <HomePage isGraphicDesigner={true} />} */}
+                {!user.org_admin && user.graphic_designer && (
+                  <HomePage isGraphicDesigner={true} />
+                )}
                 {!user.is_admin &&
                   !user.org_admin &&
                   !user.graphic_designer && <Redirect to="/fargo/coupon" />}
