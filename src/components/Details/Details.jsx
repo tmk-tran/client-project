@@ -29,6 +29,7 @@ import {
   mNotes,
   mComments,
   mLocations,
+  User,
 } from "../../hooks/reduxStore";
 import { useCaseType } from "../Utils/useCaseType";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -40,6 +41,7 @@ export default function Details({
   isOrgAdminPage,
 }) {
   console.log(isMerchantTaskPage);
+  console.log(isTaskPage);
   console.log(isMerchantDetails);
   console.log(isOrgAdminPage);
   const theme = useTheme();
@@ -58,7 +60,13 @@ export default function Details({
 
   // ~~~~~~~~~~ Hooks ~~~~~~~~~~
   const dispatch = dispatchHook();
+  const user = User();
+  console.log(user);
   const detailsOrg = oDetails();
+  const organizationId =
+    detailsOrg.length > 0 ? detailsOrg[0].organization_id : null;
+  // Use organizationId, which will be null if detailsOrg is empty
+  console.log(organizationId);
   const groups = oGroups();
   console.log(groups);
   const notes = isMerchantTaskPage ? mNotes() : oNotes();
@@ -334,7 +342,12 @@ export default function Details({
               )}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ Sellers Table ~~~~~~~~~~ */}
-              {(isTaskPage || isOrgDetailsPage) && <SellersTable />}
+              {/* {(isTaskPage || isOrgDetailsPage) && <SellersTable />} */}
+              {(isTaskPage || isOrgDetailsPage) &&
+                (!isOrgAdminPage ||
+                  (isOrgAdminPage &&
+                    user.org_id === organizationId &&
+                    user.org_admin)) && <SellersTable />}
             </React.Fragment>
           ))}
         </div>

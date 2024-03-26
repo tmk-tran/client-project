@@ -249,7 +249,7 @@ function App() {
                 {user.id ? (
                   // If the user is already logged in,
                   // redirect them to the /home page
-                  <Redirect to="/home" />
+                  <Redirect to="/fargo/home" />
                 ) : (
                   // Otherwise, show the registration page
                   <RegisterPage />
