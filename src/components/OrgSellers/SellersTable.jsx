@@ -134,8 +134,13 @@ export default function SellersTable() {
     showSaveSweetAlert({ label: "Seller Added" });
   };
 
-  const handleEditSeller = (editedSeller) => {
+  const handleEditSeller = (editedSeller, sellerUpdateType) => {
     console.log(editedSeller);
+
+    if (sellerUpdateType) {
+      dispatch(sellerUpdateType);
+    }
+    console.log("Dispatching action:", sellerUpdateType);
 
     const editAction = {
       type: "EDIT_SELLER",
@@ -143,6 +148,7 @@ export default function SellersTable() {
     };
     console.log("Dispatching action:", editAction);
     dispatch(editAction);
+    
     showSaveSweetAlert({ label: "Seller Updated" });
   };
 

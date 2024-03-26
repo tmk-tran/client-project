@@ -97,6 +97,7 @@ export default function SellerForm({
   const { caseType, handleCaseTypeChange } = useCaseType("default");
   const [updateMoneyAmount, setUpdateMoneyAmount] = useState(null);
   console.log(updateMoneyAmount);
+  const [sellerUpdateType, setSellerUpdateType] = useState({});
 
   useEffect(() => {
     if (mode === "edit") {
@@ -193,7 +194,7 @@ export default function SellerForm({
         digital_book_credit: updatedFormData.digital_book_credit,
         seller_earnings: updatedFormData.seller_earnings,
       };
-      handleEditSeller(editPayload);
+      handleEditSeller(editPayload, sellerUpdateType);
     }
 
     console.log(updatedFormData);
@@ -204,6 +205,7 @@ export default function SellerForm({
 
   const handleFormReset = () => {
     setFormData(initialFormState);
+    setUpdateMoneyAmount(0);
     setErrors(false);
     handleClose();
   };
@@ -224,10 +226,12 @@ export default function SellerForm({
         orgId: orgId,
       },
     };
-    console.log("Dispatching action:", updateAction);
-    dispatch(updateAction);
+    console.log("Dispatch action:", updateAction);
+
+    setSellerUpdateType(updateAction);
     setUpdateMoneyAmount(amountToUpdate);
   };
+  console.log(sellerUpdateType);
 
   return (
     <Modal
