@@ -95,9 +95,10 @@ export default function SellerForm({
     teacher: false,
   });
   const { caseType, handleCaseTypeChange } = useCaseType("default");
-  const [updateMoneyAmount, setUpdateMoneyAmount] = useState(null);
+  const [updateMoneyAmount, setUpdateMoneyAmount] = useState(0);
   console.log(updateMoneyAmount);
   const [sellerUpdateType, setSellerUpdateType] = useState({});
+  console.log(sellerUpdateType);
 
   useEffect(() => {
     if (mode === "edit") {
@@ -198,14 +199,13 @@ export default function SellerForm({
     }
 
     console.log(updatedFormData);
-    setFormData(initialFormState);
-    setUpdateMoneyAmount(null);
-    handleClose();
+    handleFormReset();
   };
 
   const handleFormReset = () => {
     setFormData(initialFormState);
     setUpdateMoneyAmount(0);
+    setSellerUpdateType({});
     setErrors(false);
     handleClose();
   };
@@ -231,7 +231,6 @@ export default function SellerForm({
     setSellerUpdateType(updateAction);
     setUpdateMoneyAmount(amountToUpdate);
   };
-  console.log(sellerUpdateType);
 
   return (
     <Modal
