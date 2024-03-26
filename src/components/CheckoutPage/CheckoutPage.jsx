@@ -54,6 +54,7 @@ export default function CheckoutPage({ caseType }) {
   console.log(physicalBookDigital);
   const [digitalBookCredit, setDigitalBookCredit] = useState(0);
   console.log(digitalBookCredit);
+  const [digitalDonation, setDigitalDonation] = useState(0);
 
   const [activeStep, setActiveStep] = useState(0);
   console.log(activeStep);
@@ -96,6 +97,7 @@ export default function CheckoutPage({ caseType }) {
   useEffect(() => {
     let physicalDigital = 0;
     let digitalCredit = 0;
+    let donationAmount = 0;
 
     selectedProducts.forEach((product) => {
       if (product.bookType === "Physical Coupon Book") {
@@ -112,7 +114,7 @@ export default function CheckoutPage({ caseType }) {
       } else if (product.bookType === "Donate") {
         switch (caseType) {
           case "credit":
-            digitalCredit = 0;
+            donationAmount += customDonation;
             break;
           default:
             break;
@@ -131,11 +133,13 @@ export default function CheckoutPage({ caseType }) {
     // setPhysicalBookCash(physicalCash);
     setPhysicalBookDigital(physicalDigital);
     setDigitalBookCredit(digitalCredit);
+    setDigitalDonation(donationAmount);
   }, [selectedProducts, caseType]);
 
   // console.log(physicalBookCash);
   console.log(physicalBookDigital);
   console.log(digitalBookCredit);
+  console.log(digitalDonation);
 
   const handleStateChange = (state, value) => {
     // Handle the state change in the parent component
