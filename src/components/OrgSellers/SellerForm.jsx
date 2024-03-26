@@ -97,7 +97,7 @@ export default function SellerForm({
   const { caseType, handleCaseTypeChange } = useCaseType("default");
   const [updateMoneyAmount, setUpdateMoneyAmount] = useState(0);
   console.log(updateMoneyAmount);
-  const [sellerUpdateType, setSellerUpdateType] = useState({});
+  const [sellerUpdateType, setSellerUpdateType] = useState(null);
   console.log(sellerUpdateType);
 
   useEffect(() => {

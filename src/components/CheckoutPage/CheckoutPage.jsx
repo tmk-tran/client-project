@@ -38,17 +38,20 @@ export default function CheckoutPage({ caseType }) {
   const history = historyHook();
   const location = useLocation();
   const dispatch = dispatchHook();
-  // const dispatch = useDispatch();
   console.log(location.state);
   const paramsObject = useParams();
   const refId = paramsObject.refId;
-  // Access state from URL and use it in component
+  // Access state from URL and use it in component //
   const selectedProducts = location.state?.selectedProducts ?? [];
   const orderTotal = location.state?.orderTotal ?? 0;
   const customDonation = location.state?.customDonation ?? 0;
   console.log("Selected Products in CheckoutPage:", selectedProducts);
   console.log(orderTotal);
   console.log(customDonation);
+  // Access digital payment amount //
+  let digitalPayment;
+  digitalPayment = orderTotal - customDonation;
+  console.log(digitalPayment);
   // Number of books sold //
   const [physicalBookDigital, setPhysicalBookDigital] = useState(0);
   console.log(physicalBookDigital);
@@ -306,7 +309,7 @@ export default function CheckoutPage({ caseType }) {
           updateType: "digital",
           id: sellerId,
           refId: refId,
-          digital: orderTotal,
+          digital: digitalPayment,
         },
       });
 
