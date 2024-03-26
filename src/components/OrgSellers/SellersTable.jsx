@@ -34,7 +34,7 @@ import SellersTableHeader from "./SellersTableHeader";
 import BooksSoldForm from "./BooksSoldForm";
 
 const evenRowColor = {
-  backgroundColor: "#f5f5f5",
+  backgroundColor: "#f9f9f9",
 };
 
 const sellersBorder = {
