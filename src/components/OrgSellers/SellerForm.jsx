@@ -69,7 +69,6 @@ export default function SellerForm({
   console.log(orgId);
   console.log(sellerToEdit);
   console.log(mode);
-  const dispatch = dispatchHook();
 
   const initialFormState = columns.reduce((acc, column) => {
     acc[column.id] = [
@@ -103,9 +102,6 @@ export default function SellerForm({
   const [cashEditAmount, setCashEditAmount] = useState(0);
   const [checksEditAmount, setChecksEditAmount] = useState(0);
   const [donationsEditAmount, setDonationsEditAmount] = useState(0);
-
-  const [sellerUpdateType, setSellerUpdateType] = useState(null);
-  console.log(sellerUpdateType);
 
   useEffect(() => {
     if (mode === "edit") {
@@ -202,7 +198,7 @@ export default function SellerForm({
         digital_book_credit: updatedFormData.digital_book_credit,
         seller_earnings: updatedFormData.seller_earnings,
       };
-      handleEditSeller(editPayload, sellerUpdateType);
+      handleEditSeller(editPayload);
     }
 
     console.log(updatedFormData);
@@ -216,7 +212,6 @@ export default function SellerForm({
     setCashEditAmount(0);
     setChecksEditAmount(0);
     setDonationsEditAmount(0);
-    setSellerUpdateType(null);
     setErrors(false);
     handleClose();
   };
@@ -239,9 +234,6 @@ export default function SellerForm({
     };
     console.log("Dispatch action:", updateAction);
 
-    // setSellerUpdateType(updateAction);
-    // setUpdateMoneyAmount(amountToUpdate);
-
     // Add the update action to the array
     const updatedActions = [...updateActions, updateAction];
     setUpdateActions(updatedActions);
@@ -261,9 +253,6 @@ export default function SellerForm({
         break;
     }
   };
-  console.log(cashEditAmount);
-  console.log(checksEditAmount);
-  console.log(donationsEditAmount);
 
   return (
     <Modal
