@@ -11,10 +11,9 @@ import NoDetailsCard from "../NoDetailsCard/NoDetailsCard";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { mComments, mTasks } from "../../hooks/reduxStore";
+import { couponsData, mComments, mTasks } from "../../hooks/reduxStore";
 import { flexCenter, textCenter } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
-import { couponsData } from "../../hooks/reduxStore";
 import { thumbnailSize } from "../CouponReviewDetails/FilePreview";
 import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
@@ -48,10 +47,20 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   const history = historyHook();
 
   useEffect(() => {
-    dispatch({
-      type: "FETCH_MERCHANT_COMMENTS",
-      payload: merchantId,
+    // dispatch({
+    //   type: "FETCH_MERCHANT_COMMENTS",
+    //   payload: merchantId,
+    // });
+    const taskIds = couponFiles.map((coupon) => coupon.taskId);
+
+    // Fetch comments for all coupon taskIds
+    taskIds.forEach((taskId) => {
+      dispatch({
+        type: "FETCH_COUPON_COMMENTS",
+        payload: taskId,
+      });
     });
+
     merchantId &&
       dispatch({
         type: "FETCH_PDF_FILE",
@@ -65,7 +74,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
 
   const couponFiles = couponsData() || [];
   console.log(couponFiles);
-  const merchantComments = mComments(merchantId);
+  const merchantComments = mComments();
   console.log(merchantComments);
   const mostRecentComment =
     merchantComments.length > 0 ? merchantComments[0] : null;
@@ -136,7 +145,9 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
       {couponFiles.length > 0 ? (
         couponFiles.map((file, i) => {
           // const couponTask = tasks.find((task) => task.coupon_id === file.id);
-          const couponTask = Array.isArray(tasks) ? tasks.find((task) => task.coupon_id === file.id) : null;
+          const couponTask = Array.isArray(tasks)
+            ? tasks.find((task) => task.coupon_id === file.id)
+            : null;
 
           return (
             <Card
@@ -246,7 +257,12 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                   {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   <Box sx={{ mt: 5, p: 0.5, mr: 1 }}>
-                    <CommentDisplay comment={mostRecentComment} />
+                    {/* <CommentDisplay comment={mostRecentComment} /> */}
+                    {merchantComments
+                      .filter((comment) => comment.task_id === file.taskId)
+                      .map((comment, index) => (
+                        <CommentDisplay key={index} comment={comment} />
+                      ))}
                   </Box>
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 </div>

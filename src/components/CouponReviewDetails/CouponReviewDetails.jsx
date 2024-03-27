@@ -117,7 +117,8 @@ export default function CouponReviewDetails() {
   useEffect(() => {
     // Ensure that merchantId is available before dispatching the action
     if (merchantId) {
-      dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
+      // dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
+      dispatch({ type: "FETCH_COUPON_COMMENTS", payload: file.taskId });
       dispatch({ type: "FETCH_MERCHANT_TASKS", payload: merchantId });
     }
     // couponId &&
@@ -481,7 +482,7 @@ export default function CouponReviewDetails() {
                 <CouponReviewComments
                   merchantId={merchantId}
                   onSubmit={updateComments}
-                  files={files}
+                  file={file}
                   handleUploadFile={handleUploadFile}
                 />
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}

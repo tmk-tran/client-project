@@ -84,6 +84,8 @@ export default function SellersTable() {
   console.log(booksSold);
   const [editingRefId, setEditingRefId] = useState(null);
   console.log(editingRefId);
+  const [updateActions, setUpdateActions] = useState([]);
+  console.log(updateActions);
 
   useEffect(() => {
     dispatch({ type: "FETCH_SELLERS", payload: paramsObject.id });
@@ -136,19 +138,23 @@ export default function SellersTable() {
 
   const handleEditSeller = (editedSeller, sellerUpdateType) => {
     console.log(editedSeller);
-
-    if (sellerUpdateType) {
-      dispatch(sellerUpdateType);
-    }
-    console.log("Dispatching action:", sellerUpdateType);
+    console.log("Update type:", sellerUpdateType);
 
     const editAction = {
       type: "EDIT_SELLER",
       payload: editedSeller,
     };
-    console.log("Dispatching action:", editAction);
     dispatch(editAction);
-    
+    console.log("Dispatching action:", editAction);
+
+    // Dispatch each update action from updateActions
+    updateActions.forEach((action) => {
+      console.log("Dispatching action:", action);
+      dispatch(action);
+    });
+
+    // Reset updateActions state
+    setUpdateActions([]);
     showSaveSweetAlert({ label: "Seller Updated" });
   };
 
@@ -252,6 +258,8 @@ export default function SellersTable() {
         handleAddSeller={handleAddSeller}
         handleEditSeller={handleEditSeller}
         sellerToEdit={sellerToEdit}
+        updateActions={updateActions}
+        setUpdateActions={setUpdateActions}
       />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ Form for updating books sold ~~~~~~~~~~ */}

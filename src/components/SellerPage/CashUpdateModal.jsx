@@ -52,9 +52,26 @@ export default function CashUpdateModal({
     setDonationsAmount(e.target.value);
   };
 
-  const resetForm = () => {
-    setCashAmount(0);
-    handleClose();
+  // const resetForm = () => {
+  //   setCashAmount(0);
+  //   handleClose();
+  // };
+
+  // Reset the form for the specific type
+  const resetForm = (type) => {
+    switch (type) {
+      case "Cash":
+        setCashAmount(0);
+        break;
+      case "Checks":
+        setChecksAmount(0);
+        break;
+      case "Donations":
+        setDonationsAmount(0);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = () => {
@@ -64,6 +81,7 @@ export default function CashUpdateModal({
       checksAmount,
       donationsAmount
     );
+    console.log(caseType);
 
     switch (caseType) {
       case "Cash":
@@ -79,7 +97,7 @@ export default function CashUpdateModal({
         break;
     }
     handleCaseTypeChange(caseType);
-    resetForm();
+    resetForm(caseType);
     handleClose(); // Close the modal after submission
   };
 

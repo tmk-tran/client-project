@@ -10,11 +10,11 @@ export default function CommentInput({
   taskId,
   onSubmit,
   onChange,
-  files,
+  file,
 }) {
   console.log(merchantId);
   console.log(taskId);
-  console.log(files);
+  console.log(file);
   const [comment, setComment] = useState("");
   const [commentAdded, setCommentAdded] = useState(false);
   console.log(comment);

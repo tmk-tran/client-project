@@ -62,7 +62,8 @@ export default function SellerForm({
   handleAddSeller,
   handleEditSeller,
   sellerToEdit,
-  sellers,
+  updateActions,
+  setUpdateActions,
 }) {
   console.log(user);
   console.log(orgId);
@@ -95,8 +96,14 @@ export default function SellerForm({
     teacher: false,
   });
   const { caseType, handleCaseTypeChange } = useCaseType("default");
+  console.log(caseType);
+  // ~~~~~~~~~~ Money update state ~~~~~~~~~~ //
   const [updateMoneyAmount, setUpdateMoneyAmount] = useState(0);
   console.log(updateMoneyAmount);
+  const [cashEditAmount, setCashEditAmount] = useState(0);
+  const [checksEditAmount, setChecksEditAmount] = useState(0);
+  const [donationsEditAmount, setDonationsEditAmount] = useState(0);
+
   const [sellerUpdateType, setSellerUpdateType] = useState(null);
   console.log(sellerUpdateType);
 
@@ -204,8 +211,12 @@ export default function SellerForm({
 
   const handleFormReset = () => {
     setFormData(initialFormState);
+    setUpdateActions([]);
     setUpdateMoneyAmount(0);
-    setSellerUpdateType({});
+    setCashEditAmount(0);
+    setChecksEditAmount(0);
+    setDonationsEditAmount(0);
+    setSellerUpdateType(null);
     setErrors(false);
     handleClose();
   };
@@ -228,9 +239,31 @@ export default function SellerForm({
     };
     console.log("Dispatch action:", updateAction);
 
-    setSellerUpdateType(updateAction);
-    setUpdateMoneyAmount(amountToUpdate);
+    // setSellerUpdateType(updateAction);
+    // setUpdateMoneyAmount(amountToUpdate);
+
+    // Add the update action to the array
+    const updatedActions = [...updateActions, updateAction];
+    setUpdateActions(updatedActions);
+
+    // Set the state based on the updateType
+    switch (updateType) {
+      case "Cash":
+        setCashEditAmount(amountToUpdate);
+        break;
+      case "Checks":
+        setChecksEditAmount(amountToUpdate);
+        break;
+      case "Donations":
+        setDonationsEditAmount(amountToUpdate);
+        break;
+      default:
+        break;
+    }
   };
+  console.log(cashEditAmount);
+  console.log(checksEditAmount);
+  console.log(donationsEditAmount);
 
   return (
     <Modal
@@ -409,11 +442,15 @@ export default function SellerForm({
                       name="donations"
                       label="Donations (Cash)"
                       // value={formData["donations"]}
+                      // value={
+                      //   Number(formData["donations"]) +
+                      //   (updateMoneyAmount !== null
+                      //     ? Number(updateMoneyAmount)
+                      //     : 0)
+                      // }
                       value={
                         Number(formData["donations"]) +
-                        (updateMoneyAmount !== null
-                          ? Number(updateMoneyAmount)
-                          : 0)
+                        Number(donationsEditAmount)
                       }
                       onChange={handleChange}
                       fullWidth
@@ -439,11 +476,14 @@ export default function SellerForm({
                     <TextField
                       name="checks"
                       label="Checks"
+                      // value={
+                      //   Number(formData["checks"]) +
+                      //   (updateMoneyAmount !== null
+                      //     ? Number(updateMoneyAmount)
+                      //     : 0)
+                      // }
                       value={
-                        Number(formData["checks"]) +
-                        (updateMoneyAmount !== null
-                          ? Number(updateMoneyAmount)
-                          : 0)
+                        Number(formData["checks"]) + Number(checksEditAmount)
                       }
                       onChange={handleChange}
                       fullWidth
@@ -468,12 +508,13 @@ export default function SellerForm({
                     <TextField
                       name="cash"
                       label="Cash"
-                      value={
-                        Number(formData["cash"]) +
-                        (updateMoneyAmount !== null
-                          ? Number(updateMoneyAmount)
-                          : 0)
-                      }
+                      // value={
+                      //   Number(formData["cash"]) +
+                      //   (updateMoneyAmount !== null
+                      //     ? Number(updateMoneyAmount)
+                      //     : 0)
+                      // }
+                      value={Number(formData["cash"]) + Number(cashEditAmount)}
                       onChange={handleChange}
                       fullWidth
                       size="small"
