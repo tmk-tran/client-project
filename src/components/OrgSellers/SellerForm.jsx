@@ -430,13 +430,6 @@ export default function SellerForm({
                     <TextField
                       name="donations"
                       label="Donations (Cash)"
-                      // value={formData["donations"]}
-                      // value={
-                      //   Number(formData["donations"]) +
-                      //   (updateMoneyAmount !== null
-                      //     ? Number(updateMoneyAmount)
-                      //     : 0)
-                      // }
                       value={
                         Number(formData["donations"]) +
                         Number(donationsEditAmount)
@@ -465,12 +458,6 @@ export default function SellerForm({
                     <TextField
                       name="checks"
                       label="Checks"
-                      // value={
-                      //   Number(formData["checks"]) +
-                      //   (updateMoneyAmount !== null
-                      //     ? Number(updateMoneyAmount)
-                      //     : 0)
-                      // }
                       value={
                         Number(formData["checks"]) + Number(checksEditAmount)
                       }
@@ -497,12 +484,6 @@ export default function SellerForm({
                     <TextField
                       name="cash"
                       label="Cash"
-                      // value={
-                      //   Number(formData["cash"]) +
-                      //   (updateMoneyAmount !== null
-                      //     ? Number(updateMoneyAmount)
-                      //     : 0)
-                      // }
                       value={Number(formData["cash"]) + Number(cashEditAmount)}
                       onChange={handleChange}
                       fullWidth

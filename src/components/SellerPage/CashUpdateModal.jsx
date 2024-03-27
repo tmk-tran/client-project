@@ -52,11 +52,6 @@ export default function CashUpdateModal({
     setDonationsAmount(e.target.value);
   };
 
-  // const resetForm = () => {
-  //   setCashAmount(0);
-  //   handleClose();
-  // };
-
   // Reset the form for the specific type
   const resetForm = (type) => {
     switch (type) {
@@ -72,6 +67,7 @@ export default function CashUpdateModal({
       default:
         break;
     }
+    handleClose();
   };
 
   const handleSubmit = () => {

@@ -136,9 +136,8 @@ export default function SellersTable() {
     showSaveSweetAlert({ label: "Seller Added" });
   };
 
-  const handleEditSeller = (editedSeller, sellerUpdateType) => {
+  const handleEditSeller = (editedSeller) => {
     console.log(editedSeller);
-    console.log("Update type:", sellerUpdateType);
 
     const editAction = {
       type: "EDIT_SELLER",
