@@ -188,7 +188,8 @@ CREATE TABLE merchant_comments (
     is_deleted boolean DEFAULT false,
     "user" character varying(80) NOT NULL,
     task_id integer REFERENCES merchant_tasks(id),
-    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    coupon_id integer REFERENCES coupon(id)
 );
 
 ----------------------------------------------------
@@ -377,17 +378,19 @@ EXECUTE FUNCTION create_transaction_for_new_seller();
 CREATE TABLE coupon (
     id SERIAL PRIMARY KEY,
     pdf_data bytea,
-    filename character varying(255),
     merchant_id integer REFERENCES merchant(id),
     is_deleted boolean DEFAULT false,
+    filename_front character varying(255),
     front_view_pdf bytea,
+    filename_back character varying(255),
     back_view_pdf bytea,
     offer character varying(200),
     value numeric,
     exclusions character varying(200),
-    details character varying(200),
     expiration date,
-    additional_info character varying(200)
+    additional_info character varying(200),
+    task_id integer REFERENCES merchant_tasks(id),
+    book_id integer REFERENCES coupon_book(id)
 );
 ----------------------------------------------------------------------
 
@@ -480,6 +483,16 @@ FOR EACH ROW
 EXECUTE FUNCTION create_coupon_on_new_task();
 
 ----------------------------------------------------
+CREATE TABLE "user" (
+    id SERIAL PRIMARY KEY,
+    username character varying(80) NOT NULL UNIQUE,
+    password character varying(1000) NOT NULL,
+    is_admin boolean DEFAULT false,
+    is_deleted boolean DEFAULT false,
+    org_admin boolean DEFAULT false,
+    graphic_designer boolean DEFAULT false,
+    org_id integer REFERENCES organization(id)
+);
 
 ------- Table for creating coupon lost for users, uses function -----
 ------- and trigger listed below ------------------------------------
