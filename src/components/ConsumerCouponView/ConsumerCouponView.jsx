@@ -12,7 +12,7 @@ import {
 } from "../Utils/pageStyles";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
-import { User, couponsData } from "../../hooks/reduxStore";
+import { User, couponsData, bookYear } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
 import Typography from "../Typography/Typography";
 import CouponCard from "./CouponCard";
@@ -21,14 +21,14 @@ import ToggleButton from "../ToggleButton/ToggleButton";
 
 export default function ConsumerCouponView() {
   const dispatch = dispatchHook();
+  const user = User();
+  console.log(user);
   const [toggleView, setToggleView] = useState(false);
   console.log(toggleView);
   const [query, setQuery] = useState("");
   console.log(query);
   const [filteredCoupons, setFilteredCoupons] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const user = User();
-  console.log(user);
 
   useEffect(() => {
     const dispatchAction = {
@@ -41,6 +41,11 @@ export default function ConsumerCouponView() {
 
   const coupons = couponsData() || [];
   console.log(coupons);
+  const activeYear = bookYear();
+  console.log(activeYear);
+
+  const years = activeYear[0].year;
+  const expirationYear = years.split("-")[1];
 
   const fuse = new Fuse(coupons, {
     keys: ["merchant_name"], // The 'merchant' field is used for searching
@@ -126,8 +131,9 @@ export default function ConsumerCouponView() {
               onChange={handleSearch}
               clearInput={clearInput}
             />
+            {/* ~~~~~ Valid through ~~~~~~ */}
             <Typography
-              label="Coupons valid mm/dd/yy - mm/dd/yy"
+              label={`Valid through September 1, ${expirationYear}`}
               variant="body2"
               sx={{ mt: 2 }}
             />
