@@ -47,11 +47,11 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   const history = historyHook();
 
   useEffect(() => {
-    dispatch({
-      type: "FETCH_MERCHANT_COMMENTS",
-      payload: merchantId,
-    });
-    const taskIds = couponFiles.map((coupon) => coupon.taskId);
+    // dispatch({
+    //   type: "FETCH_MERCHANT_COMMENTS",
+    //   payload: merchantId,
+    // });
+    // const taskIds = couponFiles.map((coupon) => coupon.taskId);
 
     // Fetch comments for all coupon taskIds
     // taskIds.forEach((taskId) => {
@@ -148,6 +148,10 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
           const couponTask = Array.isArray(tasks)
             ? tasks.find((task) => task.coupon_id === file.id)
             : null;
+
+          const relatedComments = merchantComments.filter(
+            (comment) => comment.coupon_id === file.id
+          );
 
           return (
             <Card
@@ -257,12 +261,16 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                   {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   <Box sx={{ mt: 5, p: 0.5, mr: 1 }}>
-                    <CommentDisplay comment={mostRecentComment} />
-                    {/* {merchantComments
-                      .filter((comment) => comment.task_id === file.taskId)
-                      .map((comment, index) => (
+                    {/* <CommentDisplay comment={mostRecentComment} /> */}
+                    {relatedComments.length > 0 ? (
+                      relatedComments.map((comment, index) => (
                         <CommentDisplay key={index} comment={comment} />
-                      ))} */}
+                      ))
+                    ) : (
+                      <Typography variant="body2" sx={{ ml: 3 }} >
+                        No comment available
+                      </Typography>
+                    )}
                   </Box>
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 </div>

@@ -114,26 +114,6 @@ export default function CouponReviewDetails() {
     setUploadedFiles(true);
   };
 
-  useEffect(() => {
-    // Ensure that merchantId is available before dispatching the action
-    if (merchantId) {
-      // dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
-      dispatch({ type: "FETCH_COUPON_COMMENTS", payload: file.taskId });
-      dispatch({ type: "FETCH_MERCHANT_TASKS", payload: merchantId });
-    }
-    // couponId &&
-    if (couponId) {
-      dispatch({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
-    }
-
-    setChangesRequested(false);
-    setCompletedCoupon(false);
-    setUploadedFiles(false);
-    setIsUploaded(false);
-    setFrontViewFile(null);
-    setBackViewFile(null);
-  }, [merchantId, commentAdded, uploadedFiles]); //Deleted dispatch from dependencies
-
   const files = couponsData() || [];
   console.log(files);
   // const file = files[0];
@@ -149,6 +129,36 @@ export default function CouponReviewDetails() {
     ? tasks.find((task) => task.coupon_id === Number(couponId))
     : null;
   console.log(couponTask);
+
+  useEffect(() => {
+    // Ensure that merchantId is available before dispatching the action
+    if (merchantId) {
+      // dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
+      // dispatch({ type: "FETCH_COUPON_COMMENTS", payload: file.taskId });
+      dispatch({ type: "FETCH_MERCHANT_TASKS", payload: merchantId });
+    }
+    if (merchantId && file.taskId) {
+      console.log(file.taskId);
+      // dispatch({ type: "FETCH_COUPON_COMMENTS", payload: file.taskId });
+      const action2 = {
+        type: "FETCH_COUPON_COMMENTS",
+        payload: file.taskId,
+      };
+      console.log(action2);
+      dispatch(action2);
+    }
+    // couponId &&
+    if (couponId) {
+      dispatch({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
+    }
+
+    setChangesRequested(false);
+    setCompletedCoupon(false);
+    setUploadedFiles(false);
+    setIsUploaded(false);
+    setFrontViewFile(null);
+    setBackViewFile(null);
+  }, [merchantId, commentAdded, uploadedFiles, file.taskId]);
 
   // ~~~~~~~~~~ FRONT VIEW UPLOAD FUNCTIONS ~~~~~~~~~~ //
   const handleFrontViewUpload = (selectedFile, addedFileName) => {
