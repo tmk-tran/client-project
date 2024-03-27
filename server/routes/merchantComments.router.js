@@ -14,7 +14,8 @@ router.get("/", rejectUnauthenticated, (req, res) => {
       TO_CHAR(created_at, 'HH12:MI:SS AM') AS formatted_time,
       comment_content,
       "user",
-      "task_id"
+      "task_id",
+      "coupon_id"
   FROM
       "merchant_comments"
   ORDER BY
@@ -44,7 +45,8 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
       TO_CHAR(created_at, 'HH12:MI:SS AM') AS formatted_time,
      comment_content,
      "user",
-     "task_id"
+     "task_id",
+     "coupon_id"
   FROM
      "merchant_comments"
   WHERE
@@ -78,7 +80,8 @@ router.get("/task/:id", rejectUnauthenticated, (req, res) => {
       TO_CHAR(created_at, 'HH12:MI:SS AM') AS formatted_time,
      comment_content,
      "user",
-     "task_id"
+     "task_id",
+     "coupon_id"
   FROM
      "merchant_comments"
   WHERE
@@ -111,12 +114,20 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const content = comment.comment_content;
   const user = comment.user;
   const taskId = comment.task_id;
+  const couponId = comment.coupon_id;
 
-  const queryText = `INSERT INTO "merchant_comments" ("merchant_id", "comment_content", "user", "task_id")
-                                                        VALUES ($1, $2, $3, $4);`;
+  const queryText = `
+        INSERT INTO "merchant_comments" (
+          "merchant_id", 
+          "comment_content", 
+          "user", 
+          "task_id", 
+          "coupon_id"
+          )
+          VALUES ($1, $2, $3, $4, $5);`;
 
   pool
-    .query(queryText, [merchantId, content, user, taskId])
+    .query(queryText, [merchantId, content, user, taskId, couponId])
     .then((response) => {
       console.log("response from merchantComments.router: ", response.rows);
       res.sendStatus(201);

@@ -47,19 +47,19 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   const history = historyHook();
 
   useEffect(() => {
-    // dispatch({
-    //   type: "FETCH_MERCHANT_COMMENTS",
-    //   payload: merchantId,
-    // });
+    dispatch({
+      type: "FETCH_MERCHANT_COMMENTS",
+      payload: merchantId,
+    });
     const taskIds = couponFiles.map((coupon) => coupon.taskId);
 
     // Fetch comments for all coupon taskIds
-    taskIds.forEach((taskId) => {
-      dispatch({
-        type: "FETCH_COUPON_COMMENTS",
-        payload: taskId,
-      });
-    });
+    // taskIds.forEach((taskId) => {
+    //   dispatch({
+    //     type: "FETCH_COUPON_COMMENTS",
+    //     payload: taskId,
+    //   });
+    // });
 
     merchantId &&
       dispatch({
@@ -257,12 +257,12 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                   {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   <Box sx={{ mt: 5, p: 0.5, mr: 1 }}>
-                    {/* <CommentDisplay comment={mostRecentComment} /> */}
-                    {merchantComments
+                    <CommentDisplay comment={mostRecentComment} />
+                    {/* {merchantComments
                       .filter((comment) => comment.task_id === file.taskId)
                       .map((comment, index) => (
                         <CommentDisplay key={index} comment={comment} />
-                      ))}
+                      ))} */}
                   </Box>
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 </div>
