@@ -68,6 +68,10 @@ export const bookYear = () => {
   return useSelector((store) => store.bookYear);
 };
 
+export const allYears = () => {
+  return useSelector((store) => store.couponBooks);
+};
+
 export const paypalTransactions = () => {
   return useSelector((store) => store.paypal);
 };

@@ -65,12 +65,14 @@ function App() {
   const user = User();
   console.log(user);
 
+  // add a function here to set current year for fetch
+  // will have to auto update for when year changes
   useEffect(() => {
     dispatch({ type: "FETCH_USER" });
     // dispatch({ type: "FETCH_COUPON_BOOKS" });
     const dispatchAction2 = {
       type: "FETCH_BOOK_YEAR",
-      payload: 4,
+      payload: 1,
     };
     console.log(dispatchAction2);
     dispatch(dispatchAction2);

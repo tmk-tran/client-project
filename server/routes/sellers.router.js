@@ -8,22 +8,6 @@ const {
 router.get("/:orgId/:yearId", rejectUnauthenticated, (req, res) => {
   const orgId = req.params.orgId;
   const yearId = req.params.yearId;
-  console.log("from sellersRouter GET, orgId = ", orgId, yearId);
-
-  // const queryText = `
-  // SELECT
-  //     s.*,
-  //     o.organization_name,
-  //     o.address,
-  //     o.city,
-  //     o.state,
-  //     o.zip
-  // FROM
-  //     sellers s
-  // INNER JOIN
-  //     organization o ON s.organization_id = o.id
-  // WHERE
-  //     s.organization_id = $1;`;
 
   const queryText = `
   SELECT
@@ -80,8 +64,6 @@ router.get("/:orgId/:yearId", rejectUnauthenticated, (req, res) => {
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const data = req.body;
-  console.log(req.body);
-  console.log(req.user);
 
   const refId = data.refId;
   const lastName = data.lastname;
@@ -153,7 +135,6 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 router.put("/:id", rejectUnauthenticated, (req, res) => {
   const seller = req.body;
   const sellerId = req.body.id;
-  console.log("Req.body from sellers = ", seller);
 
   const queryText = `
             UPDATE 
@@ -199,7 +180,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const sellerId = req.params.id;
-  console.log(sellerId);
+
   pool
     .query(
       `UPDATE 

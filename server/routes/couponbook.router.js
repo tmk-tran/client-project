@@ -4,7 +4,12 @@ const router = express.Router();
 
 //Get route for coupon books data
 router.get("/", (req, res) => {
-  const queryText = `SELECT * FROM "coupon_book";`;
+  const queryText = `
+            SELECT * 
+            FROM "coupon_book"
+            ORDER BY id ASC;
+            ;
+            `;
   pool
     .query(queryText)
     .then((result) => {
