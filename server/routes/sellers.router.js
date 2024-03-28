@@ -5,8 +5,10 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-router.get("/:id", rejectUnauthenticated, (req, res) => {
-  const orgId = req.params.id;
+router.get("/:orgId/:yearId", rejectUnauthenticated, (req, res) => {
+  const orgId = req.params.orgId;
+  const yearId = req.params.yearId;
+  console.log("from sellersRouter GET, orgId = ", orgId, yearId);
 
   // const queryText = `
   // SELECT
@@ -60,11 +62,12 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
       transactions t ON s."refId" = t."refId"
   WHERE
       s.organization_id = $1
+      AND s.coupon_book_id = $2
   ORDER BY s.lastname ASC;    
   `;
 
   pool
-    .query(queryText, [orgId])
+    .query(queryText, [orgId, yearId])
     .then((result) => {
       console.log("from GET /id sellers.router: ", result.rows);
       res.send(result.rows);
@@ -95,6 +98,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const notes = data.notes;
   const organizationId = data.organization_id;
   const digitalDonations = data.digital_donations;
+  const bookYear = data.coupon_book_id;
 
   const queryText = `
         INSERT INTO "sellers" (
@@ -112,9 +116,10 @@ router.post("/", rejectUnauthenticated, (req, res) => {
           "donations",
           "notes",
           "organization_id",
-          "digital_donations"
+          "digital_donations",
+          "coupon_book_id"
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15);`;
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16);`;
 
   pool
     .query(queryText, [
@@ -133,6 +138,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       notes,
       organizationId,
       digitalDonations,
+      bookYear,
     ])
     .then((response) => {
       console.log("response from POST sellers.router: ", response.rows);

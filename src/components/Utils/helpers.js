@@ -192,3 +192,9 @@ export const saveBtnWidth = {
 export const handleCaseTypeChange = (newValue) => {
   setCaseType(newValue);
 };
+
+export const getExpirationYear = (bookYearData) => {
+  const years = bookYearData[0].year;
+  const expirationYear = years.split("-")[1];
+  return expirationYear;
+};

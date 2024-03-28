@@ -33,6 +33,7 @@ import SellerLandingPage from "../SellerPage/SellerLandingPage";
 import OrderComplete from "../CheckoutPage/OrderComplete";
 import Transactions from "../Transactions/Transactions";
 import MerchantDetails from "../Details/MerchantDetails";
+import NewBookYear from "../NewBookYear/NewBookYear";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -145,6 +146,12 @@ function App() {
               {user.is_admin && (
                 <ProtectedRoute exact path="/fargo/transactions">
                   <Transactions />
+                </ProtectedRoute>
+              )}
+
+              {user.is_admin && (
+                <ProtectedRoute exact path="/fargo/books">
+                  <NewBookYear />
                 </ProtectedRoute>
               )}
 

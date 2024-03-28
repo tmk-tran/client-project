@@ -2,9 +2,13 @@ import axios from "axios";
 import { put, takeEvery } from "redux-saga/effects";
 
 function* fetchSellers(action) {
-  console.log(action.payload);
+  const orgId = action.payload.orgId;
+  const yearId = action.payload.yearId;
+  console.log(orgId);
+  console.log(yearId);
+
   try {
-    const items = yield axios.get(`/api/sellers/${action.payload}`);
+    const items = yield axios.get(`/api/sellers/${orgId}/${yearId}`);
     console.log("FETCH request from sellers.saga, ITEMS = ", items.data);
     yield put({ type: "SET_SELLERS", payload: items.data });
   } catch (error) {

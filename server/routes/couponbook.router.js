@@ -20,7 +20,7 @@ router.get("/:id", (req, res) => {
   const bookId = req.params.id;
 
   const queryText = `
-        SELECT year
+        SELECT *
         FROM coupon_book
         WHERE id = $1;
     `;

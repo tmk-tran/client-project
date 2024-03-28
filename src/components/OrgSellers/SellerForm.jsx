@@ -11,7 +11,10 @@ import {
 // ~~~~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider } from "../Utils/modalStyles";
 import { highlightColor, primaryColor, border } from "../Utils/colors";
-import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
+import {
+  capitalizeFirstWord,
+  capitalizeWords,
+} from "../Utils/helpers";
 import { useCaseType } from "../Utils/useCaseType";
 import { dispatchHook } from "../../hooks/useDispatch";
 // ~~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~ //

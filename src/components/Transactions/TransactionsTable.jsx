@@ -128,7 +128,7 @@ export default function TransactionsTable({ transactions }) {
                 <TableCell sx={cellBorder}>
                   {transaction.payment_source_email}
                 </TableCell>
-                <TableCell sx={cellBorder}>
+                <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
                   {transaction.purchase_units_shipping_name_full_name}
                 </TableCell>
                 <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>

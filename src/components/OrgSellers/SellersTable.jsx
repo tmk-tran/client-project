@@ -20,7 +20,7 @@ import EditAttributesIcon from "@mui/icons-material/EditAttributes";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { columns } from "./sellerTableColumns";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { User, oSellers } from "../../hooks/reduxStore";
+import { User, oSellers, bookYear } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Component ~~~~~~~~~~
 import SellerForm from "./SellerForm";
 import CustomButton from "../CustomButton/CustomButton";
@@ -87,14 +87,25 @@ export default function SellersTable() {
   const [updateActions, setUpdateActions] = useState([]);
   console.log(updateActions);
 
-  useEffect(() => {
-    dispatch({ type: "FETCH_SELLERS", payload: paramsObject.id });
-  }, []);
-
-  const sellers = oSellers() || [];
-  console.log(sellers);
   const user = User() || [];
   console.log(user);
+  const sellers = oSellers() || [];
+  console.log(sellers);
+  const year = bookYear() || [];
+  const yearId = year[0].id;
+  console.log(yearId);
+
+  useEffect(() => {
+    const dispatchAction = {
+      type: "FETCH_SELLERS",
+      payload: {
+        orgId: paramsObject.id,
+        yearId: yearId,
+      }
+    };
+    console.log(dispatchAction);
+    dispatch(dispatchAction);
+  }, []);
 
   // ~~~~~~ Open / Close Seller Form ~~~~~~ //
   const handleOpen = (mode) => {
@@ -121,10 +132,12 @@ export default function SellersTable() {
     }
   };
 
+  // Adding a new seller //
   const handleAddSeller = (formData) => {
     const formDataWithId = {
       ...formData,
       organization_id: paramsObject.id,
+      coupon_book_id: yearId,
     };
 
     const action = {
