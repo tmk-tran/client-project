@@ -226,7 +226,7 @@ router.put(
           filename = $11,
           website = $12,
           contact_method = $13
-        WHERE id = $13;`;
+        WHERE id = $14;`;
     pool
       .query(queryText, [
         merchantName,
@@ -241,8 +241,8 @@ router.put(
         merchant_logo,
         filename,
         website,
-        merchantId,
         contactMethod,
+        merchantId,
       ])
       .then((response) => {
         console.log("response from EDIT merchants.router: ", response.rows);

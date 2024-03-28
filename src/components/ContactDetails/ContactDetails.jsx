@@ -56,9 +56,18 @@ export default function ContactDetails({
 
   const handleSaveOrgDetails = (editedDetails) => {
     console.log("New Details:", editedDetails);
-    isMerchantTaskPage
-      ? dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedDetails })
-      : dispatch({ type: "EDIT_ORG_DETAILS", payload: editedDetails });
+    const merchantAction = {
+      type: "EDIT_MERCHANT_DETAILS",
+      payload: editedDetails,
+    };
+    const orgAction = {
+      type: "EDIT_ORG_DETAILS",
+      payload: editedDetails,
+    };
+    isMerchantTaskPage ? dispatch(merchantAction) : dispatch(orgAction);
+
+    console.log(merchantAction);
+    console.log(orgAction);
   };
 
   return (
