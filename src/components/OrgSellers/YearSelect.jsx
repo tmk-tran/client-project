@@ -23,7 +23,7 @@ export default function YearSelect() {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120, p: 1 }}>
       <FormControl fullWidth>
         <InputLabel>Year</InputLabel>
         <Select value={yearSelected} label="Year" onChange={handleChange}>

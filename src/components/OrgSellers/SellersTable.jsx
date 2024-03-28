@@ -17,21 +17,22 @@ import AddIcon from "@mui/icons-material/Add";
 import LaunchIcon from "@mui/icons-material/Launch";
 import EditIcon from "@mui/icons-material/Edit";
 import EditAttributesIcon from "@mui/icons-material/EditAttributes";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { columns } from "./sellerTableColumns";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { User, oSellers, bookYear } from "../../hooks/reduxStore";
-// ~~~~~~~~~~ Component ~~~~~~~~~~
+import { primaryColor } from "../Utils/colors";
+import { border } from "../Utils/colors";
+import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
+// ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import SellerForm from "./SellerForm";
 import CustomButton from "../CustomButton/CustomButton";
 import ActionIcons from "./ActionIcons";
 import ViewUrl from "./ViewUrl";
-import { primaryColor } from "../Utils/colors";
-import { border } from "../Utils/colors";
-import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
 import ActionButton from "./ActionButton";
 import SellersTableHeader from "./SellersTableHeader";
 import BooksSoldForm from "./BooksSoldForm";
+import YearSelect from "./YearSelect";
 
 const evenRowColor = {
   backgroundColor: "#f9f9f9",
@@ -101,7 +102,7 @@ export default function SellersTable() {
       payload: {
         orgId: paramsObject.id,
         yearId: yearId,
-      }
+      },
     };
     console.log(dispatchAction);
     dispatch(dispatchAction);
@@ -241,6 +242,8 @@ export default function SellersTable() {
           ...sellersBorder,
         }}
       >
+        {/* ~~~~~ Year View ~~~~~ */}
+        <YearSelect />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
         <SellersTableHeader
@@ -249,14 +252,16 @@ export default function SellersTable() {
         />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Add Seller Button ~~~~~~~~ */}
+        <Box sx={{ p: 1 }}>
         <CustomButton
           label="New Seller"
           variant="contained"
-          // onClick={handleOpen}
+          sx={{ height: "100%" }}
           onClick={() => handleOpen("add")}
           icon={<AddIcon />}
           title="Add a new seller"
         />
+        </Box>
       </Box>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~ Modals for Seller Table ~~~~~ */}
