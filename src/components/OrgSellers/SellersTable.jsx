@@ -87,6 +87,7 @@ export default function SellersTable() {
   console.log(editingRefId);
   const [updateActions, setUpdateActions] = useState([]);
   console.log(updateActions);
+  const [viewYearId, setViewYearId] = useState(null);
 
   const user = User() || [];
   console.log(user);
@@ -107,6 +108,20 @@ export default function SellersTable() {
     console.log(dispatchAction);
     dispatch(dispatchAction);
   }, []);
+
+  useEffect(() => {
+    if (viewYearId !== null) {
+      const dispatchAction2 = {
+        type: "FETCH_SELLERS",
+        payload: {
+          orgId: paramsObject.id,
+          yearId: viewYearId,
+        },
+      };
+      console.log(dispatchAction2);
+      dispatch(dispatchAction2);
+    }
+  }, [viewYearId]);
 
   // ~~~~~~ Open / Close Seller Form ~~~~~~ //
   const handleOpen = (mode) => {
@@ -243,7 +258,7 @@ export default function SellersTable() {
         }}
       >
         {/* ~~~~~ Year View ~~~~~ */}
-        <YearSelect />
+        <YearSelect setViewYearId={setViewYearId} />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
         <SellersTableHeader
@@ -253,14 +268,14 @@ export default function SellersTable() {
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Add Seller Button ~~~~~~~~ */}
         <Box sx={{ p: 1 }}>
-        <CustomButton
-          label="New Seller"
-          variant="contained"
-          sx={{ height: "100%" }}
-          onClick={() => handleOpen("add")}
-          icon={<AddIcon />}
-          title="Add a new seller"
-        />
+          <CustomButton
+            label="New Seller"
+            variant="contained"
+            sx={{ height: "100%" }}
+            onClick={() => handleOpen("add")}
+            icon={<AddIcon />}
+            title="Add a new seller"
+          />
         </Box>
       </Box>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}

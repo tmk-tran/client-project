@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import Typography from "../Typography/Typography";
-import YearSelect from "./YearSelect";
 import ToggleButton from "../ToggleButton/ToggleButton";
 
 export default function SellersTableHeader({ viewUrlTable, setViewUrlTable }) {
