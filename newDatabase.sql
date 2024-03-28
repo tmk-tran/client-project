@@ -278,7 +278,9 @@ CREATE TABLE sellers (
     notes character varying(250),
     organization_id integer REFERENCES organization(id),
     is_deleted boolean DEFAULT false,
-    digital_donations numeric
+    digital_donations numeric,
+    books_due integer,
+    coupon_book_id integer REFERENCES coupon_book(id)
 );
 
 ------ Function for sellers -------------------
