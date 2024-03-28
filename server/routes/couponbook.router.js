@@ -41,18 +41,52 @@ router.get("/:id", (req, res) => {
 });
 
 //Post route to add a new coupon book
+// router.post("/", (req, res) => {
+//   const year = req.body;
+//   const queryText = `INSERT INTO "coupon_book" ("year")
+//     VALUES ($1);`;
+
+//   pool
+//     .query(queryText, [year])
+//     .then(() => {
+//       res.sendStatus(201);
+//     })
+//     .catch((err) => {
+//       console.log("Error adding new coupon book", err);
+//       res.sendStatus(500);
+//     });
+// });
+
 router.post("/", (req, res) => {
-  const year = req.body;
-  const queryText = `INSERT INTO "coupon_book" ("year")
-    VALUES ($1);`;
+  const queryText = `SELECT year FROM coupon_book ORDER BY year DESC LIMIT 1`;
 
   pool
-    .query(queryText, [year])
-    .then(() => {
-      res.sendStatus(201);
+    .query(queryText)
+    .then((result) => {
+      let latestYear = "2023-2024"; // Default value if no year exists yet
+      if (result.rows.length > 0) {
+        latestYear = result.rows[0].year;
+      }
+
+      // Calculate the next year
+      const [startYear, endYear] = latestYear.split("-");
+      const nextYear = `${parseInt(endYear) + 1}-${parseInt(endYear) + 2}`;
+
+      const insertQueryText = `INSERT INTO "coupon_book" ("year")
+          VALUES ($1);`;
+
+      pool
+        .query(insertQueryText, [nextYear])
+        .then(() => {
+          res.sendStatus(201);
+        })
+        .catch((err) => {
+          console.log("Error adding new coupon year", err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
-      console.log("Error adding new coupon book", err);
+      console.log("Error fetching latest year", err);
       res.sendStatus(500);
     });
 });

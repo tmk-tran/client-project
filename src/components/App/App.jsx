@@ -151,12 +151,6 @@ function App() {
                 </ProtectedRoute>
               )}
 
-              {user.is_admin && (
-                <ProtectedRoute exact path="/fargo/books">
-                  <NewBookYear />
-                </ProtectedRoute>
-              )}
-
               {/* ProtectedRoute for /tasks with dynamic tab parameter */}
               <ProtectedRoute path="/tasks/:tab" component={TaskTabs} />
 

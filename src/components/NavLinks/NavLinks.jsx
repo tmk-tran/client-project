@@ -198,17 +198,6 @@ export default function NavLinks() {
                 </MuiLink>
               </Typography>
 
-              <Typography>
-                <MuiLink
-                  component={Link}
-                  className="main-navlink"
-                  to="/fargo/books"
-                  underline="hover"
-                >
-                  Books
-                </MuiLink>
-              </Typography>
-
             </>
           )
         )}
