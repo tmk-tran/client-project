@@ -258,7 +258,10 @@ export default function SellersTable() {
         }}
       >
         {/* ~~~~~ Year View ~~~~~ */}
-        <YearSelect setViewYearId={setViewYearId} />
+        <YearSelect
+          sx={{ minWidth: 150, p: 1 }}
+          setYear={setViewYearId}
+        />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
         <SellersTableHeader

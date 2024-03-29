@@ -150,6 +150,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
   const value = coupon.value;
   const exclusions = coupon.exclusions;
   const additionalInfo = coupon.additional_info;
+  const bookId = coupon.book_id;
   const locationIds = coupon.location_ids; // Assuming location_ids is passed in the request
 
   try {
@@ -163,8 +164,9 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
         offer,
         value, 
         exclusions, 
-        additional_info) 
-      VALUES ($1, $2, $3, $4, $5)
+        additional_info,
+        book_id) 
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING id;
     `;
     const couponResult = await pool.query(couponInsertQuery, [
@@ -173,6 +175,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       value,
       exclusions,
       additionalInfo,
+      bookId,
     ]);
     const newCouponId = couponResult.rows[0].id;
 
