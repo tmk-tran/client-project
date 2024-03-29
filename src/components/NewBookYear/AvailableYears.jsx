@@ -13,6 +13,7 @@ export default function AvailableYears() {
     dispatch(dispatchAction);
   }, []);
   const years = allYears();
+  
   return (
     <Grid container direction="column" alignItems="center">
       <Grid item xs={12}>

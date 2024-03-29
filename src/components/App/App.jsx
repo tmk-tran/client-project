@@ -40,6 +40,7 @@ import "./App.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { User } from "../../hooks/reduxStore";
+import { getCurrentSeason } from "../Utils/helpers";
 
 // ~~~~~ Theme establishing global color for MUI ~~~~~
 const theme = createTheme({
@@ -65,14 +66,15 @@ function App() {
   const user = User();
   console.log(user);
 
-  // add a function here to set current year for fetch
-  // will have to auto update for when year changes
   useEffect(() => {
+    // Set the current season
+    const currentSeason = getCurrentSeason();
+
     dispatch({ type: "FETCH_USER" });
     // dispatch({ type: "FETCH_COUPON_BOOKS" });
     const dispatchAction2 = {
       type: "FETCH_BOOK_YEAR",
-      payload: 1,
+      payload: currentSeason,
     };
     console.log(dispatchAction2);
     dispatch(dispatchAction2);

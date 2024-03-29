@@ -198,3 +198,27 @@ export const getExpirationYear = (bookYearData) => {
   const expirationYear = years.split("-")[1];
   return expirationYear;
 };
+
+// seasonHelper.js
+
+export const getCurrentSeason = () => {
+  // Fetch the current year
+  const currentYear = new Date().getFullYear();
+
+  // Fetch the current date
+  const currentDate = new Date();
+
+  // Determine the current season based on the current date
+  let currentSeason;
+  if (
+    currentDate >= new Date(`${currentYear - 1}-09-02`) &&
+    currentDate <= new Date(`${currentYear}-09-01`)
+  ) {
+    // Season starts after September 1st
+    currentSeason = `${currentYear - 1}-${currentYear}`;
+  } else {
+    currentSeason = `${currentYear}-${currentYear + 1}`;
+  }
+
+  return currentSeason;
+};
