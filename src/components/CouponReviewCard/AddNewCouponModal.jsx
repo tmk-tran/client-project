@@ -130,14 +130,15 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   };
 
   const resetForm = () => {
-    setCouponOffer("");
-    setCouponValue("");
-    setExclusions("");
-    setAdditionalInfo("");
-    setSelectAllLocations(false);
-    setPhone("");
-    setWebsite("");
     setSelectedLocations([]);
+    setSeasonIdSelected("");
+    setPhone("");
+    setCouponOffer("");
+    setWebsite("");
+    setCouponValue("");
+    setAdditionalInfo("");
+    setExclusions("");
+    setSelectAllLocations(false);
     setPhoneError(false);
     setOfferError(false);
     setWebsiteError(false);
