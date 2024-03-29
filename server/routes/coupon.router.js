@@ -62,7 +62,15 @@ router.get("/:id", (req, res) => {
   console.log("frontViewPdf = ", frontViewPdf);
   console.log("backViewPdf = ", backViewPdf);
 
-  const queryText = "SELECT * FROM coupon WHERE merchant_id = $1";
+  // const queryText = "SELECT * FROM coupon WHERE merchant_id = $1";
+  const queryText = `
+          SELECT 
+            c.*,
+            cb.year
+          FROM coupon c 
+          JOIN coupon_book cb 
+          ON c.book_id = cb.id 
+          WHERE c.merchant_id = $1`;
 
   pool
     .query(queryText, [merchantId])

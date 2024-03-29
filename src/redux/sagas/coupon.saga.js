@@ -114,6 +114,7 @@ function* pdfFile(action) {
         additionalInfo: coupon.additional_info,
         taskId: coupon.task_id,
         bookId: coupon.book_id,
+        year: coupon.year,
         location_id: coupon.location_id,
         location_name: coupon.location_name,
         phone_number: coupon.phone_number,

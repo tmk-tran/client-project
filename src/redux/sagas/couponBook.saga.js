@@ -11,11 +11,21 @@ function* fetchCouponBooksSaga() {
   }
 }
 
+function* fetchByIdSaga(action) {
+  try {
+    console.log(action.payload);
+    const response = yield axios.get(`/api/couponbook/id/${action.payload}`);
+    yield put({ type: "SET_BOOK_YEAR", payload: response.data });
+  } catch (err) {
+    console.log("Error fetching coupon book year by id", err);
+  }
+}
+
 // Reducer is bookYear.reducer here
 function* fetchByYearSaga(action) {
   try {
     console.log(action.payload);
-    const response = yield axios.get(`/api/couponbook/${action.payload}`);
+    const response = yield axios.get(`/api/couponbook/season/${action.payload}`);
     yield put({ type: "SET_BOOK_YEAR", payload: response.data });
   } catch (err) {
     console.log("Error fetching book year", err);
@@ -34,6 +44,7 @@ function* addCouponBookSaga(action) {
 
 export default function* couponBookSaga() {
   yield takeEvery("FETCH_COUPON_BOOKS", fetchCouponBooksSaga);
+  yield takeEvery("FETCH_YEAR_BY_ID", fetchByIdSaga);
   yield takeEvery("FETCH_BOOK_YEAR", fetchByYearSaga);
   yield takeEvery("ADD_COUPON_BOOK", addCouponBookSaga);
 }

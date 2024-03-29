@@ -21,26 +21,26 @@ router.get("/", (req, res) => {
     });
 });
 
-// router.get("/:id", (req, res) => {
-//   const bookId = req.params.id;
+router.get("/id/:id", (req, res) => {
+  const bookId = req.params.id;
 
-//   const queryText = `
-//         SELECT *
-//         FROM coupon_book
-//         WHERE id = $1;
-//     `;
-//   pool
-//     .query(queryText, [bookId])
-//     .then((result) => {
-//       res.send(result.rows);
-//     })
-//     .catch((err) => {
-//       console.log("Error getting coupon books", err);
-//       res.sendStatus(500);
-//     });
-// });
+  const queryText = `
+        SELECT *
+        FROM coupon_book
+        WHERE id = $1;
+    `;
+  pool
+    .query(queryText, [bookId])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("Error getting coupon books", err);
+      res.sendStatus(500);
+    });
+});
 
-router.get("/:season", (req, res) => {
+router.get("/season/:season", (req, res) => {
     const season = req.params.season;
     console.log("season = ", season);
   

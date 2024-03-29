@@ -31,7 +31,7 @@ export default function CommentInput({
     comment_content: comment,
     user: currentUsername,
     task_id: taskId,
-    coupon_id: file.id,
+    coupon_id: file?.id,
   };
 
   const handleSubmit = () => {
