@@ -49,6 +49,9 @@ function* addMerchantTask(action) {
 }
 
 function* editMerchantTask(action) {
+  console.log(action.payload);
+  const merchantId = action.payload.id;
+  console.log("merchantId = ", merchantId);
   try {
     yield axios.put(
       `/api/tasks/merchants/${action.payload.id}`,
@@ -56,8 +59,8 @@ function* editMerchantTask(action) {
     );
     console.log("merchantTask action.payload = ", action.payload);
     yield put({
-      type: "FETCH_MERCHANT_TASKS",
-      payload: action.payload.merchantId,
+      type: "FETCH_ALL_MERCHANT_TASKS",
+      payload: merchantId,
     });
   } catch (err) {
     console.log("error in editMerchantTask Saga", err);

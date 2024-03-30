@@ -146,11 +146,11 @@ export default function BasicTabs() {
               onClick={handleMerchantTab}
               sx={tabWidth}
             />
-            <Tab
+            {/* <Tab
               label="Coupon Book"
               {...a11yProps(2)}
               onClick={() => setActiveTab("book year")}
-            />
+            /> */}
           </Tabs>
           <NewTaskModal
             tabs={true}

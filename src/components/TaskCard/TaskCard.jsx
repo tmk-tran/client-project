@@ -87,6 +87,7 @@ export default function TaskCard({
       type: updateActionType,
       payload: {
         id: task.id,
+        task: task.task,
         task_status: selectedTask,
       },
     });
