@@ -293,6 +293,7 @@ function HomePage({ isOrgAdmin, isGraphicDesigner }) {
             shape="rounded"
             page={currentPage}
             onChange={handlePageChange}
+            color="primary"
           />
         </div>
 
