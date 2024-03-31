@@ -90,10 +90,12 @@ function App() {
             minHeight: "92vh",
           }}
         >
+          {/* ~~~~~ Header ~~~~~ */}
           <Header user={user} />
           <div style={{ flex: "1 0 auto", padding: "20px" }}>
             <MenuLinks />
             <Switch>
+              {/* ~~~~~ Fargo Home Route ~~~~~ */}
               <Redirect exact from="/" to="/fargo/home" />
 
               <ProtectedRoute exact path="/fargo/home">

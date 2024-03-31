@@ -39,7 +39,11 @@ export default function Header({ user }) {
           />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ Region Text ~~~~~~~~~~ */}
+          {user.id ? (
           <RegionText sx={flexCenter} color="ghostwhite" location="Fargo" />
+          ) : (
+            null
+          )}
           <div
             style={{
               display: "flex",

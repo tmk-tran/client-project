@@ -146,11 +146,11 @@ export default function BasicTabs() {
               onClick={handleMerchantTab}
               sx={tabWidth}
             />
-            {/* <Tab
+            <Tab
               label="Coupon Book"
               {...a11yProps(2)}
               onClick={() => setActiveTab("book year")}
-            /> */}
+            />
           </Tabs>
           <NewTaskModal
             tabs={true}
@@ -159,27 +159,23 @@ export default function BasicTabs() {
             merchantTab={merchantTab}
             onChange={handleTaskUpdate}
           />
-          {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
-          {/* <div style={{ flexGrow: 0.3 }}></div> */}
-          {/* <SearchBar /> */}
         </Box>
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~ Tab Body ~~~~~~~~~~~~~~ */}
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <TabPanel value={value} index={0}>
           <TaskListOrg />
-          {/* <TaskList taskType={type} /> */}
         </TabPanel>
 
         <TabPanel value={value} index={1}>
           <TaskListMerchant />
-          {/* <TaskList taskType={type} /> */}
         </TabPanel>
         {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        {/* ~~~~~~~~~~~~~~ Coupon Tab (unused) ~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~ Coupon Book Year ~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <TabPanel value={value} index={2}>
           <NewBookYear />
