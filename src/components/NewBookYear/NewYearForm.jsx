@@ -34,7 +34,6 @@ export default function NewYearForm() {
   const startNewYear = () => {
     const dispatchAction = {
       type: "ADD_COUPON_BOOK",
-      payload: {},
     };
     console.log(dispatchAction);
     dispatch(dispatchAction);
