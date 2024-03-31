@@ -78,6 +78,7 @@ router.get("/season/:season", (req, res) => {
 // });
 
 router.post("/", (req, res) => {
+    console.log("from couponBook.saga = ", req.body);
   const queryText = `SELECT year FROM coupon_book ORDER BY year DESC LIMIT 1`;
 
   pool

@@ -4,7 +4,7 @@ import { takeEvery, put } from "redux-saga/effects";
 function* fetchCouponBooksSaga() {
   try {
     const response = yield axios.get("/api/couponbook");
-    console.log("FETCH request fetchCouponBooksSaga");
+    console.log("FETCH request fetchCouponBooksSaga", response.data);
     yield put({ type: "SET_COUPON_BOOKS", payload: response.data });
   } catch (err) {
     console.log("error in fetching coupon books", err);
@@ -34,8 +34,7 @@ function* fetchByYearSaga(action) {
 
 function* addCouponBookSaga(action) {
   try {
-    console.log(action.payload);
-    yield axios.put("/api/couponbook", action.payload);
+    yield axios.post("/api/couponbook");
     yield put({ type: "FETCH_COUPON_BOOKS" });
   } catch (err) {
     console.log("Error in adding a new coupon book", err);

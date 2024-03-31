@@ -104,7 +104,7 @@ export default function BasicModal({
 
     // Cleanup function or dependencies for useEffect
   }, [merchantTab]);
-
+  
   const resetForm = () => {
     // Reset form fields
     setFirstMenuChoice("");

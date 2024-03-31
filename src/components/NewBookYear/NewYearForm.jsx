@@ -7,7 +7,11 @@ import {
   Modal,
   Divider,
 } from "@mui/material";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
+import { dispatchHook } from "../../hooks/useDispatch";
+// ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import ModalButtons from "../Modals/ModalButtons";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 const style = {
   position: "absolute",
@@ -22,9 +26,21 @@ const style = {
 };
 
 export default function NewYearForm() {
+  const dispatch = dispatchHook();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const startNewYear = () => {
+    const dispatchAction = {
+      type: "ADD_COUPON_BOOK",
+      payload: {},
+    };
+    console.log(dispatchAction);
+    dispatch(dispatchAction);
+    handleClose();
+    showSaveSweetAlert({ label: "New Book Year Added" });
+  };
 
   return (
     <div>
@@ -41,7 +57,11 @@ export default function NewYearForm() {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Start a new coupon book year?
           </Typography>
-          <ModalButtons label="Confirm" onCancel={handleClose} />
+          <ModalButtons
+            label="Confirm"
+            onSave={startNewYear}
+            onCancel={handleClose}
+          />
         </Box>
       </Modal>
     </div>
