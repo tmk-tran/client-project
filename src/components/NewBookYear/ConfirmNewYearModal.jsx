@@ -5,6 +5,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import ErrorOutline from "../ErrorOutline/ErrorOutline";
 import ModalButtons from "../Modals/ModalButtons";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 const style = {
   position: "absolute",
@@ -42,9 +43,10 @@ export default function ConfirmNewYearModal({
         payload: selectedYearId,
       };
       console.log(dispatchAction);
-        dispatch(dispatchAction);
+      dispatch(dispatchAction);
     }
     setModalOpen(false);
+    showSaveSweetAlert({ label: "Active Book Year Set" });
   };
 
   const handleCancel = () => {

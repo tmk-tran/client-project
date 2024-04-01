@@ -67,7 +67,7 @@ const AvailableYearsButtons = ({ activeYear }) => {
           orientation="vertical"
         >
           {displayedYears.map((year) => (
-            <Tooltip title="Sets Active Year for App">
+            <Tooltip key={year.id} title="Sets Active Year for App">
               <ToggleButton
                 key={year.id}
                 value={year}
