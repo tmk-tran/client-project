@@ -379,7 +379,6 @@ EXECUTE FUNCTION create_transaction_for_new_seller();
 -------------------- Coupon table ------------------------------------
 CREATE TABLE coupon (
     id SERIAL PRIMARY KEY,
-    pdf_data bytea,
     merchant_id integer REFERENCES merchant(id),
     is_deleted boolean DEFAULT false,
     filename_front character varying(255),

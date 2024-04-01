@@ -54,11 +54,9 @@ router.get("/:id", (req, res) => {
   const merchantId = req.params.id;
   const filename = req.params.filename;
   console.log("filename = ", filename);
-  // Assuming you have the PDF data stored in some way
-  const pdfData = req.params.pdf_data;
+
   const frontViewPdf = req.params.front_view_pdf;
   const backViewPdf = req.params.back_view_pdf;
-  console.log("pdfData = ", pdfData);
   console.log("frontViewPdf = ", frontViewPdf);
   console.log("backViewPdf = ", backViewPdf);
 
