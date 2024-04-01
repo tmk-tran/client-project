@@ -84,11 +84,13 @@ export default function ConsumerCouponView() {
   const couponsPerPage = 10;
   const indexOfLastCoupon = currentPage * couponsPerPage;
   const indexOfFirstCoupon = indexOfLastCoupon - couponsPerPage;
-  const currentCoupons = !toggleView
-    ? filteredMerchants.slice(indexOfFirstCoupon, indexOfLastCoupon)
-    : [];
-  const totalFilteredMerchants = query.trim() === "" ? coupons.length : filteredMerchants.length;
-  console.log(totalFilteredMerchants);  
+  const currentCoupons = filteredMerchants.slice(
+    indexOfFirstCoupon,
+    indexOfLastCoupon
+  );
+  const totalFilteredMerchants =
+    query.trim() === "" ? coupons.length : filteredMerchants.length;
+  console.log(totalFilteredMerchants);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -140,9 +142,9 @@ export default function ConsumerCouponView() {
               sx={{ mt: 2 }}
             />
           </Box>
-          {filteredMerchants.length > 0 ? (
-            filteredMerchants.map((coupon, i) => (
-              <CouponCard key={i} coupon={coupon} />
+          {currentCoupons.length > 0 ? (
+            currentCoupons.map((coupon, index) => (
+              <CouponCard key={index} coupon={coupon} />
             ))
           ) : (
             <Typography label="No matching coupons found" />
