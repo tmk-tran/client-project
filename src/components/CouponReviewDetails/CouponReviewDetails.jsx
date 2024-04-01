@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Typography, Card, CardContent, Box, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { border } from "../Utils/colors";
+import { border, dueDateHighlight } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import DenyProofModal from "../DenyProofModal/DenyProofModal";
 import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
@@ -21,7 +21,7 @@ import EditCouponModal from "./EditCouponModal";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { couponsData, mTasks, bookYear } from "../../hooks/reduxStore";
 import { centeredStyle, flexCenter, flexRowSpace } from "../Utils/pageStyles";
-import { grayBackground } from "../Utils/colors";
+import { grayBackground, highlightColor } from "../Utils/colors";
 import {
   capitalizeFirstWord,
   capitalizeWords,
@@ -289,7 +289,7 @@ export default function CouponReviewDetails() {
           {year ? (
             year.map((item, i) => (
               <Typography key={i} sx={{ textAlign: "center" }}>
-                For year: {item.year}
+                For year: <span style={dueDateHighlight}>{item.year}</span>
               </Typography>
             ))
           ) : (
