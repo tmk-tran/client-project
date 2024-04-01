@@ -64,9 +64,9 @@ const PdfThumbnail = ({ pdf, style, width, caseType }) => {
             onClick={handleThumbnailClick}
           >
             <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
-              <Page pageNumber={1} width={width ? width : 150} className="custom-page" />
+              <Page pageNumber={1} width={width ? width : 150} />
             </Document>
-            <img src={pdf} alt="Thumbnail" />
+            {/* <img src={pdf} alt="Thumbnail" /> */}
             {loading && (
               <div
                 style={{
