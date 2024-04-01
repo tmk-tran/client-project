@@ -48,7 +48,7 @@ export default function NavLinks() {
         {/* If no user is logged in or user is an org admin, show these links */}
         {!user.id || user.org_admin || user.graphic_designer ? (
           <>
-            {(!user.graphic_designer || !user.id) && (
+            {(!user.id) && (
               <Typography
                 sx={{
                   textAlign: !user.id ? "center" : "inherit",
