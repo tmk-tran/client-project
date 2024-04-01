@@ -119,34 +119,6 @@ router.post("/", (req, res) => {
     });
 });
 
-// router.put("/id/:id", (req, res) => {
-//   const id = req.params.id;
-//   const queryText = `
-//             BEGIN;
-
-//             UPDATE coupon_book SET active = FALSE WHERE active = TRUE;
-
-//             UPDATE coupon_book SET active = TRUE WHERE id = $1;
-
-//             COMMIT;
-
-//     `;
-
-//   pool
-//     .query(queryText, [id])
-//     .then((response) => {
-//       console.log(
-//         "Successfully updated coupon book to active: ",
-//         response.rows
-//       );
-//       res.sendStatus(201);
-//     })
-//     .catch((err) => {
-//       console.log("Error updating coupon book", err);
-//       res.sendStatus(500);
-//     });
-// });
-
 router.put("/id/:id", async (req, res) => {
   const id = req.params.id;
 

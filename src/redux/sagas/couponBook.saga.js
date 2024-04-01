@@ -25,7 +25,9 @@ function* fetchByIdSaga(action) {
 function* fetchByYearSaga(action) {
   try {
     console.log(action.payload);
-    const response = yield axios.get(`/api/couponbook/season/${action.payload}`);
+    const response = yield axios.get(
+      `/api/couponbook/season/${action.payload}`
+    );
     yield put({ type: "SET_BOOK_YEAR", payload: response.data });
   } catch (err) {
     console.log("Error fetching book year", err);
