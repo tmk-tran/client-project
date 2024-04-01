@@ -95,7 +95,6 @@ function* pdfFile(action) {
     const formattedFiles = files.map((coupon) => {
       const formattedFile = {
         id: coupon.id,
-        pdfBlob: null,
         filename: coupon.filename,
         frontViewBlob: null,
         backViewBlob: null,
