@@ -203,7 +203,6 @@ router.put(
       website = "https://" + website;
     }
 
-    // const user = req.user.id;
     const queryText = `
         UPDATE "merchant" 
         SET 
