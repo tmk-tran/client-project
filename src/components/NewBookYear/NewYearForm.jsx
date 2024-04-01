@@ -35,7 +35,7 @@ export default function NewYearForm() {
     const dispatchAction = {
       type: "ADD_COUPON_BOOK",
     };
-    console.log(dispatchAction);
+
     dispatch(dispatchAction);
     handleClose();
     showSaveSweetAlert({ label: "New Book Year Added" });
