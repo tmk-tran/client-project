@@ -231,7 +231,7 @@ function* updateCoupon(action) {
 
 export default function* couponSaga() {
   // yield takeEvery("FETCH_COUPON_FILES", couponFiles); // this call will come from Coupon component
-  yield takeEvery("FETCH_CONSUMER_COUPONS", couponFiles)
+  yield takeEvery("FETCH_CONSUMER_COUPONS", couponFiles);
   yield takeEvery("FETCH_PDF_FILE", pdfFile); // place this call in the component that is viewed after clicking on the file (with its id)
   yield takeEvery("ADD_COUPON", addCoupon);
   yield takeEvery("UPLOAD_FRONT_VIEW_PDF", frontViewUpload);
