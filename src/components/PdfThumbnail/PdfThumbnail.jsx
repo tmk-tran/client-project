@@ -3,6 +3,8 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { CircularProgress } from "@mui/material";
 import { border } from "../Utils/colors";
 import PdfModal from "./PdfModal";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 

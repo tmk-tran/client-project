@@ -87,6 +87,8 @@ export default function ConsumerCouponView() {
   const currentCoupons = !toggleView
     ? filteredMerchants.slice(indexOfFirstCoupon, indexOfLastCoupon)
     : [];
+  const totalFilteredMerchants = query.trim() === "" ? coupons.length : filteredMerchants.length;
+  console.log(totalFilteredMerchants);  
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -151,7 +153,7 @@ export default function ConsumerCouponView() {
       )}
       {/* Pagination */}
       <Pagination
-        count={Math.ceil(filteredMerchants.length / couponsPerPage)}
+        count={Math.ceil(totalFilteredMerchants / couponsPerPage)}
         page={currentPage}
         onChange={(event, page) => paginate(page)}
         color="primary"
