@@ -558,3 +558,13 @@ FOR EACH ROW
 EXECUTE FUNCTION redeem_coupon_trigger_function();
 
 ----------------------------------------------------
+
+----------------------------------------------------
+------------- Coupon Book Table --------------------
+CREATE TABLE coupon_book (
+    id SERIAL PRIMARY KEY,
+    year character varying(20) NOT NULL,
+    active boolean DEFAULT false
+);
+----------------------------------------------------
+----------------------------------------------------
