@@ -3,12 +3,18 @@ import { Box, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { allYears } from "../../hooks/reduxStore";
 
-export default function YearSelect({ setYear, labelOutside, sx }) {
+export default function YearSelect({ year, setYear, labelOutside, sx }) {
   const dispatch = dispatchHook();
   const [yearSelected, setYearSelected] = useState("");
   console.log(yearSelected);
 
   useEffect(() => {
+    // Set the initial selected year to the ID of the active year
+    if (year.length > 0) {
+      const activeYearId = year.find((y) => y.active)?.id || "";
+      setYearSelected(activeYearId);
+    }
+
     const dispatchAction = {
       type: "FETCH_COUPON_BOOKS",
     };
@@ -25,8 +31,7 @@ export default function YearSelect({ setYear, labelOutside, sx }) {
   };
 
   return (
-    // <Box sx={{ minWidth: 150, p: 1, ...sx }}>
-        <Box sx={sx}>
+    <Box sx={sx}>
       {labelOutside ? (
         <>
           <InputLabel>Book Year</InputLabel>
