@@ -22,11 +22,9 @@ import ToggleButton from "../ToggleButton/ToggleButton";
 export default function ConsumerCouponView() {
   const dispatch = dispatchHook();
   const user = User();
-  console.log(user);
   const [toggleView, setToggleView] = useState(false);
   console.log(toggleView);
   const [query, setQuery] = useState("");
-  console.log(query);
   const [filteredCoupons, setFilteredCoupons] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -40,9 +38,7 @@ export default function ConsumerCouponView() {
   }, []);
 
   const coupons = couponsData() || [];
-  console.log(coupons);
   const activeYear = bookYear();
-  console.log(activeYear);
 
   const years = activeYear[0].year;
   const expirationYear = years.split("-")[1];
@@ -116,6 +112,7 @@ export default function ConsumerCouponView() {
           toggleState={toggleView}
         /> */}
       </Box>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
       <Typography
         label={toggleView ? "Redeemed Coupons" : "My Coupons"}
@@ -135,6 +132,7 @@ export default function ConsumerCouponView() {
               onChange={handleSearch}
               clearInput={clearInput}
             />
+            {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~ Valid through ~~~~~~ */}
             <Typography
               label={`Valid through September 1, ${expirationYear}`}
@@ -142,6 +140,8 @@ export default function ConsumerCouponView() {
               sx={{ mt: 2 }}
             />
           </Box>
+          {/* ~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~ List ~~~~~ */}
           {currentCoupons.length > 0 ? (
             currentCoupons.map((coupon, index) => (
               <CouponCard key={index} coupon={coupon} />
@@ -153,7 +153,8 @@ export default function ConsumerCouponView() {
       ) : (
         <Typography label="Coupons Redeemed" />
       )}
-      {/* Pagination */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~ Pagination ~~~~~ */}
       <Pagination
         count={Math.ceil(totalFilteredMerchants / couponsPerPage)}
         page={currentPage}
