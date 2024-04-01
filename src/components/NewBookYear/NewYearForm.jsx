@@ -44,7 +44,7 @@ export default function NewYearForm() {
   return (
     <div>
       <Button variant="contained" onClick={handleOpen}>
-        Start
+        Add
       </Button>
       <Modal
         open={open}
@@ -53,11 +53,11 @@ export default function NewYearForm() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Start a new coupon book year?
+          <Typography variant="h6" sx={{ textAlign: "center", mb: 3 }}>
+            Add a new coupon book year?
           </Typography>
           <ModalButtons
-            label="Confirm"
+            label="Yes"
             onSave={startNewYear}
             onCancel={handleClose}
           />

@@ -4,13 +4,14 @@ import { border, highlightColor } from "../Utils/colors";
 import { bookYear } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import NewYearForm from "./NewYearForm";
-import AvailableYears from "./AvailableYears";
 import AvailableYearsButtons from "./AvailableYearsButtons";
 
 const typographyStyle = {
   ...highlightColor,
   textAlign: "center",
   borderRadius: "5px",
+  mt: 1,
+  mb: 5,
 };
 
 export default function NewBookYear() {
@@ -28,7 +29,7 @@ export default function NewBookYear() {
             Current book year: {activeYear}
           </Typography>
           <Box sx={{ textAlign: "center", mt: 2 }}>
-            <Typography>Start a new coupon book year</Typography>
+            <Typography>Add a new book year:</Typography>
             <NewYearForm />
           </Box>
         </Grid>

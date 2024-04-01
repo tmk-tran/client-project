@@ -5,6 +5,7 @@ import {
   ToggleButtonGroup,
   Typography,
   Pagination,
+  Tooltip,
 } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -66,17 +67,19 @@ const AvailableYearsButtons = ({ activeYear }) => {
           orientation="vertical"
         >
           {displayedYears.map((year) => (
-            <ToggleButton
-              key={year.id}
-              value={year}
-              style={
-                year.year === activeYear
-                  ? { ...highlightColor, color: "black" }
-                  : null
-              }
-            >
-              {year.year}
-            </ToggleButton>
+            <Tooltip title="Sets Active Year for App">
+              <ToggleButton
+                key={year.id}
+                value={year}
+                style={
+                  year.year === activeYear
+                    ? { ...highlightColor, color: "black" }
+                    : null
+                }
+              >
+                {year.year}
+              </ToggleButton>
+            </Tooltip>
           ))}
         </ToggleButtonGroup>
         <br />
