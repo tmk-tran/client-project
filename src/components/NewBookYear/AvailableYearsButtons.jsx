@@ -10,10 +10,14 @@ import {
 import { dispatchHook } from "../../hooks/useDispatch";
 import { allYears } from "../../hooks/reduxStore";
 import { centeredStyle } from "../Utils/pageStyles";
+import ConfirmNewYearModal from "./ConfirmNewYearModal";
+import { highlightColor } from "../Utils/colors";
 
-const AvailableYearsButtons = ({ onSelect }) => {
+const AvailableYearsButtons = ({ activeYear }) => {
   const dispatch = dispatchHook();
-  const [selectedYear, setSelectedYear] = useState([]);
+  const [yearSelected, setYearSelected] = useState(null);
+  const [selectedYearId, setSelectedYearId] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const dispatchAction = {
@@ -25,9 +29,10 @@ const AvailableYearsButtons = ({ onSelect }) => {
   const years = allYears();
 
   const handleChange = (event, year) => {
-    setSelectedYear(year);
-    // onSelect(year);
-    console.log("clicked");
+    console.log(year);
+    setSelectedYearId(year.id);
+    setYearSelected(year.year);
+    setModalOpen(true);
   };
 
   const itemsPerPage = 5;
@@ -43,16 +48,33 @@ const AvailableYearsButtons = ({ onSelect }) => {
 
   return (
     <>
-      <Typography sx={{ textAlign: "center" }}>Available Years: </Typography>
+      <ConfirmNewYearModal
+        selectedYearId={selectedYearId}
+        yearSelected={yearSelected}
+        setYearSelected={setYearSelected}
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+      />
+      <Typography sx={{ textAlign: "center", mb: 2 }}>
+        Select Active Book Year:{" "}
+      </Typography>
       <Box sx={centeredStyle}>
         <ToggleButtonGroup
-          value={selectedYear}
+          value={selectedYearId}
           exclusive
           onChange={handleChange}
           orientation="vertical"
         >
           {displayedYears.map((year) => (
-            <ToggleButton key={year.id} value={year.year}>
+            <ToggleButton
+              key={year.id}
+              value={year}
+              style={
+                year.year === activeYear
+                  ? { ...highlightColor, color: "black" }
+                  : null
+              }
+            >
               {year.year}
             </ToggleButton>
           ))}

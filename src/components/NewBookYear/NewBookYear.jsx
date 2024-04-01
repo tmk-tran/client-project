@@ -34,7 +34,7 @@ export default function NewBookYear() {
         </Grid>
         {/* Right column */}
         <Grid item xs={6}>
-          <AvailableYearsButtons years={years} />
+          <AvailableYearsButtons activeYear={activeYear} years={years} />
         </Grid>
       </Grid>
     </Box>

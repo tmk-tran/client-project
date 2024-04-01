@@ -24,11 +24,18 @@ router.get("/", (req, res) => {
 router.get("/id/:id", (req, res) => {
   const bookId = req.params.id;
 
+  //   const queryText = `
+  //         SELECT *
+  //         FROM coupon_book
+  //         WHERE id = $1;
+  //     `;
   const queryText = `
-        SELECT *
-        FROM coupon_book
-        WHERE id = $1;
-    `;
+            SELECT *
+            FROM coupon_book
+            WHERE id = $1
+            AND active = TRUE;
+          `;
+
   pool
     .query(queryText, [bookId])
     .then((result) => {
@@ -41,24 +48,24 @@ router.get("/id/:id", (req, res) => {
 });
 
 router.get("/season/:season", (req, res) => {
-    const season = req.params.season;
-    console.log("season = ", season);
-  
-    const queryText = `
+  const season = req.params.season;
+  console.log("season = ", season);
+
+  const queryText = `
           SELECT *
           FROM coupon_book
           WHERE year = $1;
       `;
-    pool
-      .query(queryText, [season])
-      .then((result) => {
-        res.send(result.rows);
-      })
-      .catch((err) => {
-        console.log("Error getting coupon books", err);
-        res.sendStatus(500);
-      });
-  });
+  pool
+    .query(queryText, [season])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("Error getting coupon books", err);
+      res.sendStatus(500);
+    });
+});
 
 //Post route to add a new coupon book
 // router.post("/", (req, res) => {
@@ -78,7 +85,7 @@ router.get("/season/:season", (req, res) => {
 // });
 
 router.post("/", (req, res) => {
-    console.log("from couponBook.saga = ", req.body);
+  console.log("from couponBook.saga = ", req.body);
   const queryText = `SELECT year FROM coupon_book ORDER BY year DESC LIMIT 1`;
 
   pool
@@ -110,6 +117,61 @@ router.post("/", (req, res) => {
       console.log("Error fetching latest year", err);
       res.sendStatus(500);
     });
+});
+
+// router.put("/id/:id", (req, res) => {
+//   const id = req.params.id;
+//   const queryText = `
+//             BEGIN;
+
+//             UPDATE coupon_book SET active = FALSE WHERE active = TRUE;
+
+//             UPDATE coupon_book SET active = TRUE WHERE id = $1;
+
+//             COMMIT;
+
+//     `;
+
+//   pool
+//     .query(queryText, [id])
+//     .then((response) => {
+//       console.log(
+//         "Successfully updated coupon book to active: ",
+//         response.rows
+//       );
+//       res.sendStatus(201);
+//     })
+//     .catch((err) => {
+//       console.log("Error updating coupon book", err);
+//       res.sendStatus(500);
+//     });
+// });
+
+router.put("/id/:id", async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    await pool.query("BEGIN");
+
+    // Set the current active year to false
+    await pool.query(
+      "UPDATE coupon_book SET active = FALSE WHERE active = TRUE"
+    );
+
+    // Set the new active year to true
+    await pool.query("UPDATE coupon_book SET active = TRUE WHERE id = $1", [
+      id,
+    ]);
+
+    await pool.query("COMMIT");
+
+    console.log("Successfully updated coupon book to active");
+    res.sendStatus(201);
+  } catch (err) {
+    await pool.query("ROLLBACK");
+    console.error("Error updating coupon book", err);
+    res.sendStatus(500);
+  }
 });
 
 module.exports = router;

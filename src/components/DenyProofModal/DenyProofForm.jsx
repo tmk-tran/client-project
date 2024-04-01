@@ -1,5 +1,5 @@
 import React from "react";
-// ~~~~~~~~~~ Style ~~~~~~~~~~
+// ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import { Typography, TextField, Button } from "@mui/material";
 import {
   secondaryColor,
@@ -7,10 +7,10 @@ import {
   successColor,
   border,
 } from "../Utils/colors";
-// ~~~~~~~~~~ Helpers ~~~~~~~~~~
+// ~~~~~~~~~~ Helpers ~~~~~~~~~~ //
 import { flexCenter } from "../Utils/pageStyles";
 import { hoverAccept, hoverDeny } from "../Utils/colors";
-// ~~~~~~~~~~ Icons ~~~~~~~~~~
+// ~~~~~~~~~~ Icons ~~~~~~~~~~ //
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 const DenyProofForm = ({ onClose }) => {

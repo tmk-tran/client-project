@@ -69,6 +69,7 @@ function App() {
   useEffect(() => {
     // Set the current season
     const currentSeason = getCurrentSeason();
+    console.log(currentSeason);
 
     dispatch({ type: "FETCH_USER" });
     // dispatch({ type: "FETCH_COUPON_BOOKS" });
