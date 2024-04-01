@@ -56,7 +56,7 @@ const AvailableYearsButtons = ({ activeYear }) => {
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
       />
-      <Typography sx={{ textAlign: "center", mb: 2 }}>
+      <Typography sx={{ textAlign: "center", mt: 1, mb: 2 }}>
         Select Active Book Year:{" "}
       </Typography>
       <Box sx={centeredStyle}>

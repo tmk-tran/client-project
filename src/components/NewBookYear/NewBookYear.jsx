@@ -10,7 +10,7 @@ const typographyStyle = {
   ...highlightColor,
   textAlign: "center",
   borderRadius: "5px",
-  mt: 1,
+  mt: 7,
   mb: 5,
 };
 
@@ -21,7 +21,7 @@ export default function NewBookYear() {
   console.log(activeYear);
 
   return (
-    <Box>
+    // <Box>
       <Grid container spacing={2}>
         {/* Left column */}
         <Grid item xs={6}>
@@ -38,6 +38,6 @@ export default function NewBookYear() {
           <AvailableYearsButtons activeYear={activeYear} years={years} />
         </Grid>
       </Grid>
-    </Box>
+    // </Box>
   );
 }

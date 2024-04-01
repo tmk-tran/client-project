@@ -12,7 +12,7 @@ import SuccessAlert from "../SuccessAlert/SuccessAlert";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { border } from "../Utils/colors";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { mComments } from "../../hooks/reduxStore";
+import { User, mComments } from "../../hooks/reduxStore";
 import { useAlert } from "../SuccessAlert/useAlert";
 import { tabWidth } from "../Utils/helpers";
 
@@ -47,6 +47,7 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const dispatch = dispatchHook();
+  const user = User();
   const [value, setValue] = useState(0);
   const [merchantTab, setMerchantTab] = useState(false);
   console.log(merchantTab);
@@ -146,11 +147,13 @@ export default function BasicTabs() {
               onClick={handleMerchantTab}
               sx={tabWidth}
             />
-            <Tab
-              label="Coupon Book"
-              {...a11yProps(2)}
-              onClick={() => setActiveTab("book year")}
-            />
+            {user.is_admin && (
+              <Tab
+                label="Coupon Book"
+                {...a11yProps(2)}
+                onClick={() => setActiveTab("book year")}
+              />
+            )}
           </Tabs>
           <NewTaskModal
             tabs={true}
@@ -160,7 +163,6 @@ export default function BasicTabs() {
             onChange={handleTaskUpdate}
           />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
         </Box>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~ Tab Body ~~~~~~~~~~~~~~ */}
