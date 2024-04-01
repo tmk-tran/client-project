@@ -98,7 +98,7 @@ router.post("/", (req, res) => {
 
       // Calculate the next year
       const [startYear, endYear] = latestYear.split("-");
-      const nextYear = `${parseInt(endYear) + 1}-${parseInt(endYear) + 2}`;
+      const nextYear = `${parseInt(endYear)}-${parseInt(endYear) + 1}`;
 
       const insertQueryText = `INSERT INTO "coupon_book" ("year")
           VALUES ($1);`;
