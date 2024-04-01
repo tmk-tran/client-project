@@ -89,17 +89,11 @@ export default function SellersTable() {
   console.log(updateActions);
 
   const user = User() || [];
-  console.log(user);
   const sellers = oSellers() || [];
-  console.log(sellers);
   const year = bookYear() || [];
-  console.log(year);
   const yearId = year[0].id;
-  console.log(yearId);
   const availableYears = allYears();
-  console.log(availableYears);
   const [viewYearId, setViewYearId] = useState(year ? yearId : null);
-  console.log(viewYearId);
 
   useEffect(() => {
     const dispatchAction = {
@@ -131,11 +125,9 @@ export default function SellersTable() {
   const activeYears = availableYears
     .filter((year) => year.active)
     .map((year) => year.id);
-  console.log(activeYears);
 
   // Disable buttons if the selected year is not active
   const isYearActive = activeYears.includes(viewYearId);
-  console.log(isYearActive);
 
   // ~~~~~~ Open / Close Seller Form ~~~~~~ //
   const handleOpen = (mode) => {
