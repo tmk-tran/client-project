@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 // ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import "./Header.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
@@ -14,20 +14,29 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 export default function Header({ user }) {
   console.log(user);
   const history = historyHook();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <>
-      <div style={{ height: "88px", backgroundColor: "#273B91" }}>
+      <Box
+        sx={{
+          height: isMobile ? null : "88px",
+          width: isMobile ? "100%" : null,
+          backgroundColor: "#273B91",
+          position: "relative",
+        }}
+      >
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Logo ~~~~~~~~~~ */}
-        <div
-          style={{
-            height: "86px",
-            width: "70vw",
+        <Box
+          sx={{
+            height: isMobile ? null : "86px",
+            width: isMobile ? null : "70vw",
             margin: "0 auto",
             display: "flex",
             justifyContent: "space-between",
-            position: "relative",
+            // position: "relative",
           }}
         >
           <img
@@ -40,12 +49,15 @@ export default function Header({ user }) {
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ Region Text ~~~~~~~~~~ */}
           {user.id ? (
-          <RegionText sx={flexCenter} color="ghostwhite" location="Fargo" />
-          ) : (
-            null
-          )}
-          <div
-            style={{
+            <RegionText
+              isMobile={isMobile}
+              sx={flexCenter}
+              color="ghostwhite"
+              location="Fargo"
+            />
+          ) : null}
+          <Box
+            sx={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -54,21 +66,21 @@ export default function Header({ user }) {
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~ Menu ~~~~~~~~~~ */}
             {/* If a user is logged in, show these links */}
-            <div>{user.id && <AccountMenu />}</div>
-          </div>
-        </div>
+            <Box>{user.id && <AccountMenu isMobile={isMobile} />}</Box>
+          </Box>
+        </Box>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Icon ~~~~~~~~~~ */}
-        <div style={{ position: "absolute", right: "10%", top: "3%" }}>
+        <Box sx={{ position: "absolute", right: "10%", top: "3%" }}>
           {/* <ShoppingCartIcon
             sx={{ color: "ghostwhite", cursor: "pointer" }}
             onClick={() => history.push("/checkout")}
           /> */}
-        </div>
-      </div>
-      <div className="NavLinks-container">
+        </Box>
+      </Box>
+      <Box className="NavLinks-container">
         <NavLinks />
-      </div>
+      </Box>
     </>
   );
 }

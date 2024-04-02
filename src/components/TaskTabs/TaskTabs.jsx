@@ -64,8 +64,6 @@ export default function BasicTabs() {
     } else if (activeTab === "merchant") {
       dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
     }
-    // dispatch({ type: "SET_ACTIVE_TAB" });
-    // Add more conditions if needed...
   }, [dispatch, activeTab]);
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
