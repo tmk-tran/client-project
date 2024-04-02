@@ -9,7 +9,12 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   const orgId = req.params.id;
   console.log(orgId);
 
-  const queryText = `SELECT * FROM organization_tasks WHERE organization_id = $1 ORDER BY due_date ASC;`;
+  const queryText = `
+          SELECT * 
+          FROM organization_tasks 
+          WHERE organization_id = $1 
+          ORDER BY due_date ASC;
+        `;
   pool
     .query(queryText, [orgId])
     .then((result) => {
@@ -30,7 +35,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
           UPDATE "organization_tasks"
           SET assign = $1
           WHERE id = $2;
-  `;
+        `;
 
   pool
     .query(queryText, [assignedTo, taskId])
