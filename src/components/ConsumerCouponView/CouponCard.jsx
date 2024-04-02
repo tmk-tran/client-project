@@ -1,4 +1,5 @@
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { User } from "../../hooks/reduxStore";
 import { border, borderPrimaryColor } from "../Utils/colors";
@@ -13,30 +14,32 @@ import RedeemButton from "./RedeemButton";
 import PdfThumbnail from "../PdfThumbnail/PdfThumbnail";
 import NoFile from "./NoFile";
 
-const cardStyle = {
-  mb: 4,
-  width: "75%",
-  backgroundColor: "#F0F0F0",
-};
-
-const couponPreviewStyle = {
-  height: "150px",
-  width: "200px",
-};
-
-const previewBoxStyle = {
-  ...borderPrimaryColor,
-  textAlign: "center",
-  mb: 1,
-  overflow: "hidden",
-};
-
 export default function CouponCard({ coupon, i }) {
   const dispatch = dispatchHook();
   console.log(coupon);
 
   const user = User() || {};
   console.log(user);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); 
+
+  const cardStyle = {
+    mb: 4,
+    width: isMobile ? "100%" : "75%",
+    backgroundColor: "#F0F0F0",
+  };
+  
+  const couponPreviewStyle = {
+    height: "150px",
+    width: "200px",
+  };
+  
+  const previewBoxStyle = {
+    ...borderPrimaryColor,
+    textAlign: "center",
+    mb: 1,
+    overflow: "hidden",
+  };
 
   const handleRedeem = (couponId, locationId, userId) => {
     console.log(couponId);
@@ -76,6 +79,8 @@ export default function CouponCard({ coupon, i }) {
               <NoFile label="No file available" sx={couponPreviewStyle} />
             )}
           </Box>
+
+          {!isMobile ? (
           <Box sx={previewBoxStyle}>
             Back
             {coupon.backViewBlob !== null ? (
@@ -89,6 +94,10 @@ export default function CouponCard({ coupon, i }) {
               <NoFile label="No file available" sx={couponPreviewStyle} />
             )}
           </Box>
+          ) : (
+            null
+          )}
+          
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ Coupon Details ~~~~~~~~~ */}
           <Box

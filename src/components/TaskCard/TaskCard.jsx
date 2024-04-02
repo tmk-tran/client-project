@@ -164,7 +164,7 @@ export default function TaskCard({
   };
 
   const assignNewUser = () => {
-    if (assignedUser) {
+    if (assignedUser && taskType === "merchant") {
       const dispatchAction = {
         type: "CHANGE_ASSIGNED_TO",
         payload: {
@@ -174,7 +174,19 @@ export default function TaskCard({
         },
       };
       console.log(dispatchAction);
-      // dispatch(dispatchAction);
+      dispatch(dispatchAction);
+    }
+    if (assignedUser && taskType === "organization") {
+      const dispatchAction2 = {
+        type: "CHANGE_ASSIGNED_ORG",
+        payload: {
+          id: task.id,
+          assign: assignedUser,
+          organizationId: oId,
+        },
+      };
+      console.log(dispatchAction2);
+      dispatch(dispatchAction2);
     }
     onTaskUpdate();
     handleCloseEditMode();

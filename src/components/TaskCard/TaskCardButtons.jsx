@@ -16,7 +16,7 @@ export default function TaskCardButtons({ onSave, onCancel }) {
   return (
     <Box sx={boxStyle}>
       <Button
-        // variant="contained"
+        className="modal-cancel-btn"
         onClick={onCancel}
         size="small"
         sx={buttonStyle}
@@ -25,6 +25,7 @@ export default function TaskCardButtons({ onSave, onCancel }) {
       </Button>
       <Button
         variant="contained"
+        color="secondary"
         size="small"
         onClick={onSave}
         sx={buttonStyle}

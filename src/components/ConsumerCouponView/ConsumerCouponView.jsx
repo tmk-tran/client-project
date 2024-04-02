@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
-import { Box } from "@mui/material";
-import Pagination from "@mui/material/Pagination";
+import { Box, useMediaQuery, Pagination  } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { border } from "../Utils/colors";
 import {
@@ -22,6 +22,8 @@ import ToggleButton from "../ToggleButton/ToggleButton";
 export default function ConsumerCouponView() {
   const dispatch = dispatchHook();
   const user = User();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); 
   const [toggleView, setToggleView] = useState(false);
   console.log(toggleView);
   const [query, setQuery] = useState("");

@@ -1,14 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 import { userOptions } from "../Utils/userOptions";
 
 export default function AssignSelect({ selectedUser, onUserChange }) {
-  const [userAssigned, setUserAssigned] = useState("");
-  console.log(userAssigned);
-  console.log(userOptions);
-
   const handleChange = (event) => {
-    // setUserAssigned(event.target.value);
     onUserChange(event.target.value);
   };
 
