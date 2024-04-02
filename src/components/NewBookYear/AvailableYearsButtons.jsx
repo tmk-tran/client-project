@@ -24,13 +24,11 @@ const AvailableYearsButtons = ({ activeYear }) => {
     const dispatchAction = {
       type: "FETCH_COUPON_BOOKS",
     };
-    console.log(dispatchAction);
     dispatch(dispatchAction);
   }, []);
   const years = allYears();
 
   const handleChange = (event, year) => {
-    console.log(year);
     setSelectedYearId(year.id);
     setYearSelected(year.year);
     setModalOpen(true);

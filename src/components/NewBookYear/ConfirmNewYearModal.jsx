@@ -33,7 +33,6 @@ export default function ConfirmNewYearModal({
   modalOpen,
   setModalOpen,
 }) {
-  console.log(selectedYearId);
   const dispatch = dispatchHook();
 
   const handleSave = () => {
@@ -42,7 +41,6 @@ export default function ConfirmNewYearModal({
         type: "SET_ACTIVE_YEAR",
         payload: selectedYearId,
       };
-      console.log(dispatchAction);
       dispatch(dispatchAction);
     }
     setModalOpen(false);
@@ -57,6 +55,7 @@ export default function ConfirmNewYearModal({
   return (
     <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
       <Box sx={style}>
+        {/* ~~~~~ Icon ~~~~~ */}
         <ErrorOutline />
         <Typography sx={typographyStyle}>
           Proceeding will set <strong>{yearSelected}</strong> as the active book
