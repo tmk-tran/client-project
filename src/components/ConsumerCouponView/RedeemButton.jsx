@@ -1,5 +1,4 @@
 import { Box, Button, Typography } from "@mui/material";
-import { border } from "../Utils/colors";
 
 export default function RedeemButton({ isMobile, coupon, user, handleRedeem }) {
   return (
