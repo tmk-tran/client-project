@@ -53,14 +53,23 @@ export default function SellerLandingPage() {
     <Box sx={containerStyle}>
       {sellerData.map((seller) => (
         <Box key={seller.id} sx={{ mt: 5, ...centeredStyle }}>
+          {/* ~~~~~ OrgDetails ~~~~~ */}
           <OrgDetailsSection isMobile={isMobile} seller={seller} />
           <br />
-          <Box sx={{ ...flexCenter, width: "40%", borderRadius: "4px" }}>
+          {/* ~~~~~ Referral ID ~~~~~ */}
+          <Box
+            sx={{
+              ...flexCenter,
+              width: isMobile ? "100%" : "40%",
+              borderRadius: "4px",
+            }}
+          >
             <RefIdDisplay seller={seller} />
           </Box>
           <Divider />
           <br />
-          <PaymentMenu onPaymentSelect={handlePaymentSelect} />
+          {/* ~~~~~ Payment Method ~~~~~ */}
+          <PaymentMenu isMobile={isMobile} onPaymentSelect={handlePaymentSelect} />
           <br />
           {showGoButton && (
             <Box sx={{ width: "40%", ...flexEnd }}>

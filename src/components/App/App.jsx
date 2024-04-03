@@ -94,7 +94,9 @@ function App() {
           {/* ~~~~~ Header ~~~~~ */}
           <Header user={user} />
           <div style={{ flex: "1 0 auto", padding: "20px" }}>
-            <MenuLinks />
+            {user.is_admin || user.org_admin || user.graphic_designer ? (
+              <MenuLinks />
+            ) : null}
             <Switch>
               {/* ~~~~~ Fargo Home Route ~~~~~ */}
               <Redirect exact from="/" to="/fargo/home" />
