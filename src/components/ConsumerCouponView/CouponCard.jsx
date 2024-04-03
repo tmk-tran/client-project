@@ -1,12 +1,11 @@
 import { Box, Card, CardContent, Typography } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { User } from "../../hooks/reduxStore";
-import { border, borderPrimaryColor } from "../Utils/colors";
+import { borderPrimaryColor } from "../Utils/colors";
 import { redeemCouponSweetAlert } from "../Utils/sweetAlerts";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { flexCenter, flexRowSpace, centeredStyle } from "../Utils/pageStyles";
-import { capitalizeWords, formatDate } from "../Utils/helpers";
-import { thumbnailSize } from "../CouponReviewDetails/FilePreview";
+import { centeredStyle } from "../Utils/pageStyles";
+import { capitalizeWords } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import BottomSection from "./BottomSection";
 import RedeemButton from "./RedeemButton";
@@ -116,16 +115,19 @@ export default function CouponCard({ isMobile, coupon, i }) {
                     margin: isMobile ? "0" : "25px auto",
                   }}
                 >
+                  {/* ~~~~~ NAME ~~~~~ */}
                   <Typography variant="body2">{coupon.merchantName}</Typography>
+                  {/* ~~~~~ OFFER ~~~~~ */}
                   <Typography sx={{ fontWeight: "bold" }}>
                     {capitalizeWords(coupon.offer)}
                   </Typography>
+                  {/* ~~~~~ ADDITIONAL INFO ~~~~~ */}
                   <Typography variant="caption" sx={{ lineHeight: 1 }}>
                     {coupon.additionalInfo
                       ? capitalizeWords(coupon.additionalInfo)
                       : ""}
                   </Typography>
-
+                  {/* ~~~~~ EXCLUSIONS ~~~~~ */}
                   <Typography
                     variant={"caption"}
                     sx={{
@@ -156,25 +158,19 @@ export default function CouponCard({ isMobile, coupon, i }) {
                 }}
               >
                 <div style={{ ...centeredStyle, margin: "25px auto" }}>
+                  {/* ~~~~~ NAME ~~~~~ */}
                   <Typography variant="body2">{coupon.merchantName}</Typography>
+                  {/* ~~~~~ OFFER ~~~~~ */}
                   <Typography sx={{ fontWeight: "bold" }}>
                     {capitalizeWords(coupon.offer)}
                   </Typography>
+                  {/* ~~~~~ ADDITIONAL INFO ~~~~~ */}
                   <Typography variant="caption" sx={{ lineHeight: 1 }}>
                     {coupon.additionalInfo
                       ? capitalizeWords(coupon.additionalInfo)
                       : ""}
                   </Typography>
-                  {/* <Typography variant="caption">
-                    Expires:{" "}
-                    {coupon.expiration ? (
-                      formatDate(coupon.expiration)
-                    ) : (
-                      <Typography variant="caption">
-                        No expiration set
-                      </Typography>
-                    )}
-                  </Typography> */}
+                  {/* ~~~~~ EXCLUSIONS ~~~~~ */}
                   <Typography variant="caption">
                     {coupon.exclusions ? (
                       <>Exclusions: {capitalizeWords(coupon.exclusions)}</>
