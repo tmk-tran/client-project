@@ -30,7 +30,8 @@ export default function ThumbView({
                 caseType="consumer"
               />
             ) : (
-              <NoFile label="No file available" sx={{ mt: 3 }} />
+              // <NoFile label="No file available" sx={{ mt: 3 }} />
+              null
             )}
           </Box>
           {/* ~~~~~ Back View ~~~~~ */}
@@ -51,7 +52,8 @@ export default function ThumbView({
                 caseType="consumer"
               />
             ) : (
-              <NoFile label="No file available" sx={{ mt: 3 }} />
+              // <NoFile label="No file available" sx={{ mt: 3 }} />
+              null
             )}
           </Box>
         </Box>

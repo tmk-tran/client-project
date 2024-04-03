@@ -40,9 +40,9 @@ export default function CouponCard({ isMobile, coupon, i }) {
   };
 
   const mobilePreviewBox = {
-    ...borderPrimaryColor,
+    // ...borderPrimaryColor,
     textAlign: "center",
-    height: 80,
+    // height: 90,
     overflow: "hidden",
     position: "relative",
     width: "100%",

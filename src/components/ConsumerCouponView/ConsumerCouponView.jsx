@@ -136,6 +136,7 @@ export default function ConsumerCouponView() {
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~ Search Bar ~~~~~~~~~~ */}
             <SearchBar
+              isMobile={isMobile}
               isCoupon
               isOrganization={false}
               query={query}
@@ -147,7 +148,7 @@ export default function ConsumerCouponView() {
             <Typography
               label={`Valid through September 1, ${expirationYear}`}
               variant={isMobile ? "caption" : "body2"}
-              sx={{ mt: 2 }}
+              sx={{ mt: 2, textAlign: "center" }}
             />
           </Box>
           {/* ~~~~~~~~~~~~~~~~ */}
