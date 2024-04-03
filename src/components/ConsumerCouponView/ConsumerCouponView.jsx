@@ -99,7 +99,8 @@ export default function ConsumerCouponView() {
     <Box
       sx={{
         ...centeredStyle,
-        ...containerStyle,
+        // ...containerStyle,
+        ...(isMobile ? {} : containerStyle),
         position: "relative",
       }}
     >
