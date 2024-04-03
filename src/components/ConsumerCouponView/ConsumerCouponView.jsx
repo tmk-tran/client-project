@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
-import { Box, useMediaQuery, Pagination  } from "@mui/material";
+import { Box, useMediaQuery, Pagination } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { border } from "../Utils/colors";
@@ -9,6 +9,7 @@ import {
   centeredStyle,
   centerMe,
   flexRowSpace,
+  flexColumn,
 } from "../Utils/pageStyles";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -23,7 +24,7 @@ export default function ConsumerCouponView() {
   const dispatch = dispatchHook();
   const user = User();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); 
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [toggleView, setToggleView] = useState(false);
   console.log(toggleView);
   const [query, setQuery] = useState("");
@@ -119,12 +120,18 @@ export default function ConsumerCouponView() {
       <Typography
         label={toggleView ? "Redeemed Coupons" : "My Coupons"}
         variant="h5"
-        sx={{ mt: 2, fontWeight: "bold", ...centerMe }}
+        sx={{ mt: isMobile ? 0 : 2, fontWeight: "bold", ...centerMe }}
       />
       <br />
       {!toggleView ? (
         <>
-          <Box sx={{ mb: 2, width: "75%", ...flexRowSpace }}>
+          <Box
+            sx={{
+              mb: 2,
+              width: isMobile ? "100%" : "75%",
+              ...(isMobile ? flexColumn : flexRowSpace),
+            }}
+          >
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~ Search Bar ~~~~~~~~~~ */}
             <SearchBar
@@ -138,7 +145,7 @@ export default function ConsumerCouponView() {
             {/* ~~~~~ Valid through ~~~~~~ */}
             <Typography
               label={`Valid through September 1, ${expirationYear}`}
-              variant="body2"
+              variant={isMobile ? "caption" : "body2"}
               sx={{ mt: 2 }}
             />
           </Box>
@@ -146,7 +153,7 @@ export default function ConsumerCouponView() {
           {/* ~~~~~ List ~~~~~ */}
           {currentCoupons.length > 0 ? (
             currentCoupons.map((coupon, index) => (
-              <CouponCard key={index} coupon={coupon} />
+              <CouponCard isMobile={isMobile} key={index} coupon={coupon} />
             ))
           ) : (
             <Typography label="No matching coupons found" />
