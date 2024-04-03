@@ -12,6 +12,7 @@ import RedeemButton from "./RedeemButton";
 import PdfThumbnail from "../PdfThumbnail/PdfThumbnail";
 import NoFile from "./NoFile";
 import ThumbView from "./ThumbVIew";
+import CouponDetails from "./CouponDetails";
 
 export default function CouponCard({ isMobile, coupon, i }) {
   const dispatch = dispatchHook();
@@ -76,6 +77,8 @@ export default function CouponCard({ isMobile, coupon, i }) {
             gap: 1,
           }}
         >
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~ File Previews ~~~~~ */}
           <ThumbView
             isMobile={isMobile}
             mobilePreviewBox={mobilePreviewBox}
@@ -83,101 +86,15 @@ export default function CouponCard({ isMobile, coupon, i }) {
             couponPreviewStyle={couponPreviewStyle}
             coupon={coupon}
           />
-
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~ Coupon Details ~~~~~~~~~ */}
-          {isMobile ? (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: isMobile ? "100%" : "undefined",
-              }}
-            >
-              <Box
-                sx={{
-                  flexGrow: 1,
-                }}
-              >
-                <div
-                  style={{
-                    ...centeredStyle,
-                    margin: isMobile ? "0" : "25px auto",
-                  }}
-                >
-                  {/* ~~~~~ NAME ~~~~~ */}
-                  <Typography variant="body2">{coupon.merchantName}</Typography>
-                  {/* ~~~~~ OFFER ~~~~~ */}
-                  <Typography sx={{ fontWeight: "bold" }}>
-                    {capitalizeWords(coupon.offer)}
-                  </Typography>
-                  {/* ~~~~~ ADDITIONAL INFO ~~~~~ */}
-                  <Typography variant="caption" sx={{ lineHeight: 1 }}>
-                    {coupon.additionalInfo
-                      ? capitalizeWords(coupon.additionalInfo)
-                      : ""}
-                  </Typography>
-                  {/* ~~~~~ EXCLUSIONS ~~~~~ */}
-                  <Typography
-                    variant={"caption"}
-                    sx={{
-                      fontSize: isMobile ? 12 : "undefined",
-                      textAlign: isMobile ? "center" : "undefined",
-                    }}
-                  >
-                    {coupon.exclusions ? (
-                      <>Exclusions: {capitalizeWords(coupon.exclusions)}</>
-                    ) : null}
-                  </Typography>
-                </div>
-              </Box>
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~ Redeem Button ~~~~~~~~~~ */}
-              <RedeemButton
-                isMobile={isMobile}
-                coupon={coupon}
-                user={user}
-                handleRedeem={handleRedeem}
-              />
-            </Box>
-          ) : (
-            <>
-              <Box
-                sx={{
-                  flexGrow: 1,
-                }}
-              >
-                <div style={{ ...centeredStyle, margin: "25px auto" }}>
-                  {/* ~~~~~ NAME ~~~~~ */}
-                  <Typography variant="body2">{coupon.merchantName}</Typography>
-                  {/* ~~~~~ OFFER ~~~~~ */}
-                  <Typography sx={{ fontWeight: "bold" }}>
-                    {capitalizeWords(coupon.offer)}
-                  </Typography>
-                  {/* ~~~~~ ADDITIONAL INFO ~~~~~ */}
-                  <Typography variant="caption" sx={{ lineHeight: 1 }}>
-                    {coupon.additionalInfo
-                      ? capitalizeWords(coupon.additionalInfo)
-                      : ""}
-                  </Typography>
-                  {/* ~~~~~ EXCLUSIONS ~~~~~ */}
-                  <Typography variant="caption">
-                    {coupon.exclusions ? (
-                      <>Exclusions: {capitalizeWords(coupon.exclusions)}</>
-                    ) : null}
-                  </Typography>
-                </div>
-              </Box>
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~ Redeem Button ~~~~~~~~~~ */}
-              <RedeemButton
-                isMobile={isMobile}
-                coupon={coupon}
-                user={user}
-                handleRedeem={handleRedeem}
-              />
-            </>
-          )}
+          <CouponDetails
+            isMobile={isMobile}
+            centeredStyle={centeredStyle}
+            coupon={coupon}
+            user={user}
+            handleRedeem={handleRedeem}
+          />
         </Box>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ Locations Accepted ~~~~~~~~~~ */}
