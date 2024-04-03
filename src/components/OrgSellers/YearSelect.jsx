@@ -6,7 +6,7 @@ import { allYears } from "../../hooks/reduxStore";
 export default function YearSelect({ year, setYear, labelOutside, sx }) {
   const dispatch = dispatchHook();
   const [yearSelected, setYearSelected] = useState("");
-
+  console.log(year);
   useEffect(() => {
     // Set the initial selected year to the ID of the active year
     
@@ -26,6 +26,7 @@ export default function YearSelect({ year, setYear, labelOutside, sx }) {
   }, []);
 
   const years = allYears();
+  console.log(years); 
 
   const handleChange = (event) => {
     setYearSelected(event.target.value);
