@@ -501,6 +501,12 @@ BEGIN
     INSERT INTO merchant_tasks (category, task, merchant_id, merchant_name, assign, due_date, description, task_status, coupon_details, coupon_id, book_id, is_auto_generated)
     VALUES ('Coupon', 'New create proof', NEW.merchant_id, new_merchant_name, NULL, NULL, NULL, 'New', NULL, NEW.id, NEW.book_id, true);
     
+    -- Get the newly inserted task's id
+    SELECT id INTO NEW.task_id FROM merchant_tasks WHERE coupon_id = NEW.id;
+
+    -- Update the coupon table with the new task_id
+    UPDATE coupon SET task_id = NEW.task_id WHERE id = NEW.id;
+    
 END IF;
 
     RETURN NEW;
