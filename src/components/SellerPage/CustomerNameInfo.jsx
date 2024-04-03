@@ -129,7 +129,7 @@ export default function CustomerNameInfo({
             sx={{
               display: "flex",
               gap: 2,
-              flexDirection: isMobile ? "column" : (pageLoad ? "column" : "row"),
+              flexDirection: isMobile ? "column" : pageLoad ? "column" : "row",
               justifyContent: pageLoad ? "center" : "flex-start",
               alignItems: pageLoad ? "center" : "flex-start",
             }}
@@ -171,7 +171,7 @@ export default function CustomerNameInfo({
           </Box>
           <Box sx={pageLoad ? flexCenter : flexEnd}>
             {showSkip ? (
-              <Button onClick={skipClick} sx={isMobile ? { mt: 2 } : {}}>
+              <Button onClick={skipClick} sx={{ mt: 2 }}>
                 Skip
               </Button>
             ) : null}
