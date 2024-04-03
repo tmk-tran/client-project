@@ -63,7 +63,7 @@ export default function CheckoutPage({ caseType }) {
   console.log(digitalBookCredit);
   const [digitalDonation, setDigitalDonation] = useState(0);
 
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(2);
   console.log(activeStep);
   const [stateSelected, setStateSelected] = useState(false);
   console.log(stateSelected);

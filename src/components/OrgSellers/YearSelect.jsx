@@ -9,10 +9,15 @@ export default function YearSelect({ year, setYear, labelOutside, sx }) {
 
   useEffect(() => {
     // Set the initial selected year to the ID of the active year
-    if (year.length > 0) {
+    
+    // if (year.length > 0) {
+    //   const activeYearId = year.find((y) => y.active)?.id || "";
+    //   setYearSelected(activeYearId);
+    // }
+    if (Array.isArray(year) && year.length > 0) {
       const activeYearId = year.find((y) => y.active)?.id || "";
       setYearSelected(activeYearId);
-    }
+  }
 
     const dispatchAction = {
       type: "FETCH_COUPON_BOOKS",
