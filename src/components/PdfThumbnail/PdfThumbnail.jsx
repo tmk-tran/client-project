@@ -54,7 +54,11 @@ const PdfThumbnail = ({ isMobile, pdf, style, width, caseType }) => {
                     transition: "transform 0.3s",
                     // transform: hovering ? "scale(.9)" : "scale(1)",
                     // cursor: "zoom-in",
-                    transform: isMobile ? "scale(1)" : hovering ? "scale(.9)" : "scale(1)",
+                    transform: isMobile
+                      ? "scale(1)"
+                      : hovering
+                      ? "scale(.9)"
+                      : "scale(1)",
                     cursor: isMobile ? "default" : "zoom-in",
                     // margin: hovering ? "3%" : 0,
                     // padding: hovering ? "5%" : 0,
@@ -93,7 +97,12 @@ const PdfThumbnail = ({ isMobile, pdf, style, width, caseType }) => {
               </div>
             )}
           </div>
-          <PdfModal pdf={pdf} isOpen={isModalOpen} onClose={handleCloseModal} />
+          <PdfModal
+            isMobile={isMobile}
+            pdf={pdf}
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+          />
         </>
       ) : (
         <p>No files available</p>
