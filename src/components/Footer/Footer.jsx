@@ -1,5 +1,6 @@
 import { Box, Typography, ThemeProvider, createTheme } from "@mui/material";
 import LinksSocial from "../LinksSocial/LinksSocial";
+import "./Footer.css";
 
 // Define a custom theme
 const theme = createTheme({

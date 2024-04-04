@@ -15,16 +15,31 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.get("/table", rejectUnauthenticated, (req, res) => {
+  // const queryText = `
+  //         SELECT 
+  //           id, 
+  //           username,
+  //           first_name,
+  //           last_name, 
+  //           org_admin,
+  //           org_id,
+  //           graphic_designer 
+  //         FROM "user" 
+  //         ORDER BY last_name ASC;
+  //       `;
   const queryText = `
           SELECT 
-            id, 
-            username,
-            first_name,
-            last_name, 
-            org_admin,
-            graphic_designer 
-          FROM "user" 
-          ORDER BY last_name ASC;
+            u.id, 
+            u.username,
+            u.first_name,
+            u.last_name, 
+            u.org_admin,
+            u.org_id,
+            u.graphic_designer,
+            o.organization_name
+          FROM "user" u
+          LEFT JOIN organization o ON u.org_id = o.id
+          ORDER BY u.last_name ASC;
         `;
 
   pool

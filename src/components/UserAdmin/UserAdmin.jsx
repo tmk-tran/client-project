@@ -9,11 +9,12 @@ import {
 } from "@mui/material";
 // ~~~~~~~~~ Hooks ~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
-import { userTableData } from "../../hooks/reduxStore";
+import { userTableData, allOrganizations } from "../../hooks/reduxStore";
 import { containerStyle } from "../Utils/pageStyles";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 // ~~~~~~~~~ Components ~~~~~~~~~ //
 import ActionSwitch from "./ActionSwitch";
+import OrgMenu from "./OrgMenu";
 
 const headerCellSx = {
   width: 120,
@@ -28,6 +29,10 @@ const shortCellSx = {
   border: "1px solid #ddd",
 };
 
+const center = {
+  textAlign: "center",
+};
+
 export default function UserAdmin() {
   const dispatch = dispatchHook();
 
@@ -36,10 +41,16 @@ export default function UserAdmin() {
       type: "FETCH_USER_TABLE",
     };
     dispatch(action);
+    const action2 = {
+      type: "FETCH_ORGANIZATIONS",
+    };
+    dispatch(action2);
   }, []);
 
   const tableData = userTableData() || [];
   console.log(tableData);
+  const allOrgs = allOrganizations() || [];
+  console.log(allOrgs);
 
   const handleSwitch = (id, type, newValue) => {
     console.log(id, type, newValue);
@@ -56,6 +67,10 @@ export default function UserAdmin() {
     showSaveSweetAlert({ label: "User Role Updated" });
   };
 
+  const handleOrgSelect = (id, newValue) => {
+    console.log(id, newValue);
+  };
+
   return (
     <div style={containerStyle}>
       <Table>
@@ -65,8 +80,9 @@ export default function UserAdmin() {
             <TableCell>Last Name</TableCell>
             <TableCell>First Name</TableCell>
             <TableCell>Username</TableCell>
-            <TableCell sx={headerCellSx}>Graphic Designer</TableCell>
-            <TableCell sx={headerCellSx}>Organization Admin</TableCell>
+            <TableCell sx={{ ...headerCellSx, ...center }}>Graphic Designer</TableCell>
+            <TableCell sx={{ ...headerCellSx, ...center }}>Organization Admin</TableCell>
+            <TableCell sx={center}>Organization Name</TableCell>
           </TableRow>
         </TableHead>
         {/* ~~~~~~~~~~ BODY ~~~~~~~~~~ */}
@@ -84,7 +100,7 @@ export default function UserAdmin() {
               <TableCell sx={wideCellSx}>
                 <strong>{row.username}</strong>
               </TableCell>
-              <TableCell sx={shortCellSx}>
+              <TableCell sx={{ ...shortCellSx, ...center }}>
                 {/* ~~~~~~~~~ Graphic Designer Column ~~~~~~~~~~ */}
                 {row.graphic_designer ? (
                   <Typography
@@ -110,7 +126,7 @@ export default function UserAdmin() {
                   }
                 />
               </TableCell>
-              <TableCell sx={shortCellSx}>
+              <TableCell sx={{ ...shortCellSx, ...center}}>
                 {/* ~~~~~~~~~ Org Admin Column ~~~~~~~~~~ */}
                 {row.org_admin ? (
                   <Typography
@@ -135,6 +151,15 @@ export default function UserAdmin() {
                     handleSwitch(row.id, "org_admin", newValue)
                   }
                 />
+              </TableCell>
+              <TableCell sx={{ ...wideCellSx, ...center, width: 150 }}>
+                {row.org_admin ? (
+                  <OrgMenu
+                    organizations={allOrgs}
+                    defaultValue={row.org_id}
+                    onChange={handleOrgSelect}
+                  />
+                ) : null}
               </TableCell>
             </TableRow>
           ))}
