@@ -78,6 +78,7 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { Search, Clear } from "@mui/icons-material";
+import { border } from "../Utils/colors";
 
 const SearchBar = ({
   isMobile,
@@ -91,26 +92,32 @@ const SearchBar = ({
 
   const stickyStyle = {
     position: isSticky ? "fixed" : "static",
-    top: 0,
+    top: 10,
+    left: 0,
+    right: 0,
+    margin: "auto",
     width: "100%",
-    zIndex: 999,
+    zIndex: 1,
+    paddingTop: 15,
     backgroundColor: "white",
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    };
+    if (isMobile) {
+      const handleScroll = () => {
+        if (window.scrollY > 0) {
+          setIsSticky(true);
+        } else {
+          setIsSticky(false);
+        }
+      };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [isMobile]);
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -155,6 +162,7 @@ const SearchBar = ({
           size="small"
           value={query}
           onChange={handleChange}
+          fullWidth={isMobile}
           InputProps={{
             startAdornment: (
               <Search
