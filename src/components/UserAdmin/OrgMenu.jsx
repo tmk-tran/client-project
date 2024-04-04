@@ -17,8 +17,10 @@ const OrgMenu = ({ organizations, defaultValue, onChange }) => {
 
   return (
     <FormControl fullWidth>
-      <InputLabel>Select Organization</InputLabel>
-      <Select value={value} onChange={handleChange}>
+      {!defaultValue && (
+        <InputLabel shrink={false}>Select Organization</InputLabel>
+      )}
+      <Select value={value} onChange={handleChange} sx={{ height: 40 }}>
         {organizations.map((org) => (
           <MenuItem key={org.id} value={org.id}>
             {org.organization_name}

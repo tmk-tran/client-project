@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {
+  Box,
   Table,
   TableHead,
   TableRow,
@@ -72,7 +73,8 @@ export default function UserAdmin() {
   };
 
   return (
-    <div style={containerStyle}>
+    <div style={{ ...containerStyle }}>
+      <Box sx={{ maxHeight: "100vh", overflow: "auto" }}>
       <Table>
         {/* ~~~~~~~~~~ HEAD ~~~~~~~~~~ */}
         <TableHead>
@@ -80,8 +82,12 @@ export default function UserAdmin() {
             <TableCell>Last Name</TableCell>
             <TableCell>First Name</TableCell>
             <TableCell>Username</TableCell>
-            <TableCell sx={{ ...headerCellSx, ...center }}>Graphic Designer</TableCell>
-            <TableCell sx={{ ...headerCellSx, ...center }}>Organization Admin</TableCell>
+            <TableCell sx={{ ...headerCellSx, ...center }}>
+              Graphic Designer
+            </TableCell>
+            <TableCell sx={{ ...headerCellSx, ...center }}>
+              Organization Admin
+            </TableCell>
             <TableCell sx={center}>Organization Name</TableCell>
           </TableRow>
         </TableHead>
@@ -126,7 +132,7 @@ export default function UserAdmin() {
                   }
                 />
               </TableCell>
-              <TableCell sx={{ ...shortCellSx, ...center}}>
+              <TableCell sx={{ ...shortCellSx, ...center }}>
                 {/* ~~~~~~~~~ Org Admin Column ~~~~~~~~~~ */}
                 {row.org_admin ? (
                   <Typography
@@ -152,7 +158,7 @@ export default function UserAdmin() {
                   }
                 />
               </TableCell>
-              <TableCell sx={{ ...wideCellSx, ...center, width: 150 }}>
+              <TableCell sx={{ ...wideCellSx, ...center, maxWidth: 150 }}>
                 {row.org_admin ? (
                   <OrgMenu
                     organizations={allOrgs}
@@ -165,6 +171,7 @@ export default function UserAdmin() {
           ))}
         </TableBody>
       </Table>
+      </Box>
     </div>
   );
 }
