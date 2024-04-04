@@ -76,6 +76,10 @@ export const paypalTransactions = () => {
   return useSelector((store) => store.paypal);
 };
 
+export const userTableData = () => {
+  return useSelector((store) => store.userTable);
+};
+
 export const User = () => {
   return useSelector((store) => store.user);
 };
