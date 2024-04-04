@@ -197,6 +197,19 @@ export default function NavLinks() {
                   Transactions
                 </MuiLink>
               </Typography>
+
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/fargo/useradmin"
+                  underline="hover"
+                >
+                  Users
+                </MuiLink>
+              </Typography>
+
+
             </>
           )
         )}
