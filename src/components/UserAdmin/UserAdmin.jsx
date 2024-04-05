@@ -18,7 +18,7 @@ import {
   allOrganizations,
   userBooksData,
 } from "../../hooks/reduxStore";
-import { containerStyle, flexRowSpace } from "../Utils/pageStyles";
+import { centerMe, containerStyle, flexRowSpace } from "../Utils/pageStyles";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 // ~~~~~~~~~ Components ~~~~~~~~~ //
 import ActionSwitch from "./ActionSwitch";
@@ -49,10 +49,6 @@ const shortCellSx = {
   border: "1px solid #ddd",
 };
 
-const center = {
-  textAlign: "center",
-};
-
 export default function UserAdmin() {
   const dispatch = dispatchHook();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -76,11 +72,8 @@ export default function UserAdmin() {
   }, []);
 
   const tableData = userTableData() || [];
-  console.log(tableData);
   const allOrgs = allOrganizations() || [];
-  console.log(allOrgs);
   const userBooks = userBooksData() || [];
-  console.log(userBooks);
 
   const fuse = new Fuse(tableData, {
     keys: ["last_name"], // The 'merchant' field is used for searching
@@ -151,21 +144,17 @@ export default function UserAdmin() {
     }
   };
 
-  // const filteredResults = tableData.filter(
-  //   (user) =>
-  //     user.last_name &&
-  //     user.last_name.toLowerCase().includes(query.toLowerCase())
-  // );
-  const filteredResults = tableData.map((user) => {
-    const userShowBook = userBooks.find((book) => book.user_id === user.id)?.show_book ?? false;
-    return { ...user, show_book: userShowBook };
-  }).filter(
-    (user) =>
-      user.last_name &&
-      user.last_name.toLowerCase().includes(query.toLowerCase())
-  );  
-
-  console.log(filteredResults);
+  const filteredResults = tableData
+    .map((user) => {
+      const userShowBook =
+        userBooks.find((book) => book.user_id === user.id)?.show_book ?? false;
+      return { ...user, show_book: userShowBook };
+    })
+    .filter(
+      (user) =>
+        user.last_name &&
+        user.last_name.toLowerCase().includes(query.toLowerCase())
+    );
 
   const clearInput = () => {
     setQuery("");
@@ -195,16 +184,20 @@ export default function UserAdmin() {
               <TableCell sx={headerStyle}>Last Name</TableCell>
               <TableCell sx={headerStyle}>First Name</TableCell>
               <TableCell sx={headerStyle}>Username</TableCell>
-              <TableCell sx={{ ...headerStyle, ...shortHeaderCell, ...center }}>
+              <TableCell
+                sx={{ ...headerStyle, ...shortHeaderCell, ...centerMe }}
+              >
                 Graphic Designer
               </TableCell>
-              <TableCell sx={{ ...headerStyle, ...shortHeaderCell, ...center }}>
+              <TableCell
+                sx={{ ...headerStyle, ...shortHeaderCell, ...centerMe }}
+              >
                 Organization Admin
               </TableCell>
-              <TableCell sx={{ ...headerStyle, ...center }}>
+              <TableCell sx={{ ...headerStyle, ...centerMe }}>
                 Organization Name
               </TableCell>
-              <TableCell sx={{ ...headerStyle, ...center }}>
+              <TableCell sx={{ ...headerStyle, ...centerMe }}>
                 Coupon Book
               </TableCell>
             </TableRow>
@@ -224,7 +217,7 @@ export default function UserAdmin() {
                 <TableCell sx={wideCellSx}>
                   <strong>{row.username}</strong>
                 </TableCell>
-                <TableCell sx={{ ...shortCellSx, ...center }}>
+                <TableCell sx={{ ...shortCellSx, ...centerMe }}>
                   {/* ~~~~~~~~~ Graphic Designer Column ~~~~~~~~~~ */}
                   {row.graphic_designer ? (
                     <Typography
@@ -250,7 +243,7 @@ export default function UserAdmin() {
                     }
                   />
                 </TableCell>
-                <TableCell sx={{ ...shortCellSx, ...center }}>
+                <TableCell sx={{ ...shortCellSx, ...centerMe }}>
                   {/* ~~~~~~~~~ Org Admin Column ~~~~~~~~~~ */}
                   {row.org_admin ? (
                     <Typography
@@ -276,7 +269,7 @@ export default function UserAdmin() {
                     }
                   />
                 </TableCell>
-                <TableCell sx={{ ...wideCellSx, ...center, maxWidth: 150 }}>
+                <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
                   {row.org_admin ? (
                     <OrgMenu
                       userId={row.id}
@@ -286,7 +279,7 @@ export default function UserAdmin() {
                     />
                   ) : null}
                 </TableCell>
-                <TableCell>
+                <TableCell sx={centerMe}>
                   {row.show_book ? (
                     <Typography
                       component="span"
