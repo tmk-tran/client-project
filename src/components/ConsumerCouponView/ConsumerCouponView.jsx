@@ -34,7 +34,6 @@ export default function ConsumerCouponView() {
   useEffect(() => {
     const dispatchAction = {
       type: "FETCH_CONSUMER_COUPONS",
-      // type: "FETCH_COUPON_FILES",
       payload: user.id,
     };
     dispatch(dispatchAction);
