@@ -15,23 +15,22 @@ function LoginPage() {
       <br />
       <LoginForm />
 
-      {/* <center
+      <center
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <Typography>Not a member?&nbsp;</Typography>
         <Button
-          style={{ textDecoration: "underline" }}
-          onClick={() => {
-            history.push("/registration");
-          }}
+          style={{ textDecoration: "underline", textTransform: "none" }}
+          // onClick={() => {
+          //   history.push("/");
+          // }}
         >
-          Create Account
+          Forgot Password?
         </Button>
-      </center> */}
+      </center>
     </div>
   );
 }
