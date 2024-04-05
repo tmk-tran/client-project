@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Fuse from "fuse.js";
 import {
   Box,
+  Button,
+  TableContainer,
   Table,
   TableHead,
   TableRow,
@@ -11,13 +14,25 @@ import {
 // ~~~~~~~~~ Hooks ~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
 import { userTableData, allOrganizations } from "../../hooks/reduxStore";
-import { containerStyle } from "../Utils/pageStyles";
+import { containerStyle, flexRowSpace } from "../Utils/pageStyles";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 // ~~~~~~~~~ Components ~~~~~~~~~ //
 import ActionSwitch from "./ActionSwitch";
 import OrgMenu from "./OrgMenu";
+import UserAdminHeader from "./UserAdminHeader";
 
-const headerCellSx = {
+const pageHeaderStyle = {
+  textAlign: "center",
+  mb: 2,
+};
+
+const headerStyle = {
+  border: "1px solid #f0f0f0",
+  backgroundColor: "#d9d9d9",
+  lineHeight: 1,
+};
+
+const shortHeaderCell = {
   width: 120,
 };
 
@@ -36,6 +51,10 @@ const center = {
 
 export default function UserAdmin() {
   const dispatch = dispatchHook();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const action = {
@@ -52,6 +71,12 @@ export default function UserAdmin() {
   console.log(tableData);
   const allOrgs = allOrganizations() || [];
   console.log(allOrgs);
+
+  const fuse = new Fuse(tableData, {
+    keys: ["last_name"], // The 'merchant' field is used for searching
+    includeScore: true,
+    threshold: 0.3, // Adjust the threshold for fuzzy search accuracy
+  });
 
   const handleSwitch = (id, type, newValue) => {
     console.log(id, type, newValue);
@@ -81,28 +106,74 @@ export default function UserAdmin() {
     showSaveSweetAlert({ label: "Organization Admin Set" });
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSearch = (value) => {
+    console.log(value);
+    setQuery(value);
+    if (value.trim() === "") {
+      setFilteredUsers([]);
+    } else {
+      const results = fuse.search(value);
+      setFilteredUsers(results.map((result) => result.item));
+    }
+  };
+
+  const filteredResults = tableData.filter(
+    (user) =>
+      user.last_name &&
+      user.last_name.toLowerCase().includes(query.toLowerCase())
+  );
+  console.log(filteredResults);
+
+  const clearInput = () => {
+    setQuery("");
+    setCurrentPage(1); // Reset to the first page when clearing the search
+  };
+
   return (
     <div style={{ ...containerStyle }}>
-      <Box sx={{ maxHeight: "100vh", overflow: "auto" }}>
-        <Table>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
+      <UserAdminHeader
+        query={query}
+        onChange={handleSearch}
+        clearInput={clearInput}
+        pageHeaderStyle={pageHeaderStyle}
+        isModalOpen={isModalOpen}
+        handleOpenModal={handleOpenModal}
+        handleCloseModal={handleCloseModal}
+      />
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ Table ~~~~~~~~~~ */}
+      <TableContainer sx={{ maxHeight: "100vh", overflow: "auto" }}>
+        <Table stickyHeader>
           {/* ~~~~~~~~~~ HEAD ~~~~~~~~~~ */}
           <TableHead>
             <TableRow>
-              <TableCell>Last Name</TableCell>
-              <TableCell>First Name</TableCell>
-              <TableCell>Username</TableCell>
-              <TableCell sx={{ ...headerCellSx, ...center }}>
+              <TableCell sx={headerStyle}>Last Name</TableCell>
+              <TableCell sx={headerStyle}>First Name</TableCell>
+              <TableCell sx={headerStyle}>Username</TableCell>
+              <TableCell sx={{ ...headerStyle, ...shortHeaderCell, ...center }}>
                 Graphic Designer
               </TableCell>
-              <TableCell sx={{ ...headerCellSx, ...center }}>
+              <TableCell sx={{ ...headerStyle, ...shortHeaderCell, ...center }}>
                 Organization Admin
               </TableCell>
-              <TableCell sx={center}>Organization Name</TableCell>
+              <TableCell sx={{ ...headerStyle, ...center }}>
+                Organization Name
+              </TableCell>
             </TableRow>
           </TableHead>
           {/* ~~~~~~~~~~ BODY ~~~~~~~~~~ */}
           <TableBody>
-            {tableData.map((row, index) => (
+            {filteredResults.map((row, index) => (
               <TableRow
                 key={row.id}
                 sx={{
@@ -181,7 +252,7 @@ export default function UserAdmin() {
             ))}
           </TableBody>
         </Table>
-      </Box>
+      </TableContainer>
     </div>
   );
 }
