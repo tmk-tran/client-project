@@ -89,21 +89,8 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   };
 
   const addCoupon = () => {
-    // Check if required fields are filled
-    // if (!selectedLocations.length) {
-    //   setLocationsError(true);
-    //   return; // Stop if condition met, resolve to continue
-    // }
-    if (!couponOffer) {
-      setOfferError(true);
-      return;
-    }
     if (!phone) {
       setPhoneError(true);
-      return;
-    }
-    if (!website) {
-      setWebsiteError(true);
       return;
     }
 
@@ -141,8 +128,6 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
     setExclusions("");
     setSelectAllLocations(false);
     setPhoneError(false);
-    setOfferError(false);
-    setWebsiteError(false);
     setLocationsError(false);
 
     handleClose();
@@ -229,15 +214,9 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
                 value={capitalizeWords(couponOffer)}
                 onChange={(e) => {
                   setCouponOffer(e.target.value);
-                  setOfferError(false);
                 }}
-                error={offerError}
-                helperText={
-                  offerError ? "Please enter coupon offer details" : ""
-                }
                 fullWidth
                 sx={{ mb: 2 }}
-                required
               />
               {/* </Grid> */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -285,15 +264,14 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
                 inputProps={{
                   required: true,
                 }}
+                fullWidth
+                sx={{ mb: 2 }}
                 error={websiteError}
                 helperText={
                   websiteError
                     ? "Please enter a valid format (e.g., www.example.com)"
                     : ""
                 }
-                fullWidth
-                sx={{ mb: 2 }}
-                required
               />
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~ ADDITIONAL INFO ~~~~~~~~ */}
