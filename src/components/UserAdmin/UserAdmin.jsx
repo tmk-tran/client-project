@@ -13,7 +13,11 @@ import {
 } from "@mui/material";
 // ~~~~~~~~~ Hooks ~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
-import { userTableData, allOrganizations } from "../../hooks/reduxStore";
+import {
+  userTableData,
+  allOrganizations,
+  userBooksData,
+} from "../../hooks/reduxStore";
 import { containerStyle, flexRowSpace } from "../Utils/pageStyles";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 // ~~~~~~~~~ Components ~~~~~~~~~ //
@@ -65,12 +69,18 @@ export default function UserAdmin() {
       type: "FETCH_ORGANIZATIONS",
     };
     dispatch(action2);
+    const action3 = {
+      type: "FETCH_CONSUMER_BOOKS",
+    };
+    dispatch(action3);
   }, []);
 
   const tableData = userTableData() || [];
   console.log(tableData);
   const allOrgs = allOrganizations() || [];
   console.log(allOrgs);
+  const userBooks = userBooksData() || [];
+  console.log(userBooks);
 
   const fuse = new Fuse(tableData, {
     keys: ["last_name"], // The 'merchant' field is used for searching
@@ -80,17 +90,33 @@ export default function UserAdmin() {
 
   const handleSwitch = (id, type, newValue) => {
     console.log(id, type, newValue);
-    const action = {
-      type: "CHANGE_USER_ROLE",
-      payload: {
-        id: id,
-        [type === "graphic_designer" ? "graphic_designer" : "org_admin"]:
-          newValue,
-      },
-    };
-    console.log(action);
-    dispatch(action);
-    showSaveSweetAlert({ label: "User Role Updated" });
+
+    if (type === "graphic_designer" || type === "org_admin") {
+      const action = {
+        type: "CHANGE_USER_ROLE",
+        payload: {
+          id: id,
+          [type === "graphic_designer" ? "graphic_designer" : "org_admin"]:
+            newValue,
+        },
+      };
+      console.log(action);
+      dispatch(action);
+      showSaveSweetAlert({ label: "User Role Updated" });
+    }
+
+    if (type === "show_book") {
+      const action2 = {
+        type: "RELEASE_COUPON_BOOK",
+        payload: {
+          id: id,
+          show_book: newValue,
+        },
+      };
+      console.log(action2);
+      dispatch(action2);
+      showSaveSweetAlert({ label: "Book Access Updated" });
+    }
   };
 
   const handleOrgSelect = (userId, id) => {
@@ -125,11 +151,20 @@ export default function UserAdmin() {
     }
   };
 
-  const filteredResults = tableData.filter(
+  // const filteredResults = tableData.filter(
+  //   (user) =>
+  //     user.last_name &&
+  //     user.last_name.toLowerCase().includes(query.toLowerCase())
+  // );
+  const filteredResults = tableData.map((user) => {
+    const userShowBook = userBooks.find((book) => book.user_id === user.id)?.show_book ?? false;
+    return { ...user, show_book: userShowBook };
+  }).filter(
     (user) =>
       user.last_name &&
       user.last_name.toLowerCase().includes(query.toLowerCase())
-  );
+  );  
+
   console.log(filteredResults);
 
   const clearInput = () => {
@@ -168,6 +203,9 @@ export default function UserAdmin() {
               </TableCell>
               <TableCell sx={{ ...headerStyle, ...center }}>
                 Organization Name
+              </TableCell>
+              <TableCell sx={{ ...headerStyle, ...center }}>
+                Coupon Book
               </TableCell>
             </TableRow>
           </TableHead>
@@ -247,6 +285,31 @@ export default function UserAdmin() {
                       onChange={handleOrgSelect}
                     />
                   ) : null}
+                </TableCell>
+                <TableCell>
+                  {row.show_book ? (
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      sx={{ display: "inline" }}
+                    >
+                      Yes
+                    </Typography>
+                  ) : (
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      sx={{ display: "inline" }}
+                    >
+                      No
+                    </Typography>
+                  )}
+                  <ActionSwitch
+                    isChecked={row.show_book}
+                    onChange={(newValue) =>
+                      handleSwitch(row.id, "show_book", newValue)
+                    }
+                  />
                 </TableCell>
               </TableRow>
             ))}

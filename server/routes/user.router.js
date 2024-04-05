@@ -36,16 +36,19 @@ router.get("/table", rejectUnauthenticated, (req, res) => {
             u.org_admin,
             u.org_id,
             u.graphic_designer,
-            o.organization_name
+            o.organization_name,
+            STRING_AGG(DISTINCT uc.show_book::text, ',') AS show_book
           FROM "user" u
           LEFT JOIN organization o ON u.org_id = o.id
+          LEFT JOIN user_coupon uc ON u.id = uc.user_id
+          GROUP BY u.id, u.username, u.first_name, u.last_name, u.org_admin, u.org_id, u.graphic_designer, o.organization_name
           ORDER BY u.last_name ASC;
         `;
 
   pool
     .query(queryText)
     .then((result) => {
-      console.log("FROM users.router: ", result.rows);
+      // console.log("FROM users.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -99,7 +102,6 @@ router.post("/logout", (req, res) => {
 
 router.put("/:id", rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
-  console.log("from user PUT route: ", req.body);
   const { id, ...updates } = req.body; // Destructure the id and other updates
 
   if (Object.keys(updates).length !== 1) {
@@ -118,7 +120,6 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [value, userId])
     .then((response) => {
-      console.log("response from PUT users.router: ", response.rows);
       res.sendStatus(200);
     })
     .catch((err) => {
@@ -140,10 +141,6 @@ router.put("/org/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [orgId, userId])
     .then((response) => {
-      console.log(
-        "response from PUT for orgAdmin, users.router: ",
-        response.rows
-      );
       res.sendStatus(200);
     })
     .catch((err) => {

@@ -80,6 +80,10 @@ export const userTableData = () => {
   return useSelector((store) => store.userTable);
 };
 
+export const userBooksData = () => {
+  return useSelector((store) => store.userBooks);
+};
+
 export const User = () => {
   return useSelector((store) => store.user);
 };
