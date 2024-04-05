@@ -152,7 +152,7 @@ export default function UserAdmin() {
       />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ Table ~~~~~~~~~~ */}
-      <TableContainer sx={{ maxHeight: "100vh", overflow: "auto" }}>
+      <TableContainer sx={{ maxHeight: "600px", overflow: "auto" }}>
         <Table stickyHeader>
           {/* ~~~~~~~~~~ HEAD ~~~~~~~~~~ */}
           <TableHead>
