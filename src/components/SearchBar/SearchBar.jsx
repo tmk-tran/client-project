@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { Search, Clear } from "@mui/icons-material";
-import { border } from "../Utils/colors";
 
 const SearchBar = ({
   isMobile,
