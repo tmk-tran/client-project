@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Table,
@@ -68,109 +68,119 @@ export default function UserAdmin() {
     showSaveSweetAlert({ label: "User Role Updated" });
   };
 
-  const handleOrgSelect = (id, newValue) => {
-    console.log(id, newValue);
+  const handleOrgSelect = (userId, id) => {
+    const dispatchAction = {
+      type: "SET_ORGANIZATION_ADMIN",
+      payload: {
+        id: userId,
+        org_id: id,
+      },
+    };
+    console.log(dispatchAction);
+    dispatch(dispatchAction);
+    showSaveSweetAlert({ label: "Organization Admin Set" });
   };
 
   return (
     <div style={{ ...containerStyle }}>
       <Box sx={{ maxHeight: "100vh", overflow: "auto" }}>
-      <Table>
-        {/* ~~~~~~~~~~ HEAD ~~~~~~~~~~ */}
-        <TableHead>
-          <TableRow>
-            <TableCell>Last Name</TableCell>
-            <TableCell>First Name</TableCell>
-            <TableCell>Username</TableCell>
-            <TableCell sx={{ ...headerCellSx, ...center }}>
-              Graphic Designer
-            </TableCell>
-            <TableCell sx={{ ...headerCellSx, ...center }}>
-              Organization Admin
-            </TableCell>
-            <TableCell sx={center}>Organization Name</TableCell>
-          </TableRow>
-        </TableHead>
-        {/* ~~~~~~~~~~ BODY ~~~~~~~~~~ */}
-        <TableBody>
-          {tableData.map((row, index) => (
-            <TableRow
-              key={row.id}
-              sx={{
-                bgcolor:
-                  index % 2 === 0 ? "rgba(0, 0, 0, 0.04)" : "transparent",
-              }}
-            >
-              <TableCell sx={wideCellSx}>{row.last_name}</TableCell>
-              <TableCell sx={wideCellSx}>{row.first_name}</TableCell>
-              <TableCell sx={wideCellSx}>
-                <strong>{row.username}</strong>
+        <Table>
+          {/* ~~~~~~~~~~ HEAD ~~~~~~~~~~ */}
+          <TableHead>
+            <TableRow>
+              <TableCell>Last Name</TableCell>
+              <TableCell>First Name</TableCell>
+              <TableCell>Username</TableCell>
+              <TableCell sx={{ ...headerCellSx, ...center }}>
+                Graphic Designer
               </TableCell>
-              <TableCell sx={{ ...shortCellSx, ...center }}>
-                {/* ~~~~~~~~~ Graphic Designer Column ~~~~~~~~~~ */}
-                {row.graphic_designer ? (
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    sx={{ display: "inline" }}
-                  >
-                    Yes
-                  </Typography>
-                ) : (
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    sx={{ display: "inline" }}
-                  >
-                    No
-                  </Typography>
-                )}
-                <ActionSwitch
-                  isChecked={row.graphic_designer}
-                  onChange={(newValue) =>
-                    handleSwitch(row.id, "graphic_designer", newValue)
-                  }
-                />
+              <TableCell sx={{ ...headerCellSx, ...center }}>
+                Organization Admin
               </TableCell>
-              <TableCell sx={{ ...shortCellSx, ...center }}>
-                {/* ~~~~~~~~~ Org Admin Column ~~~~~~~~~~ */}
-                {row.org_admin ? (
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    sx={{ display: "inline" }}
-                  >
-                    Yes
-                  </Typography>
-                ) : (
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    sx={{ display: "inline" }}
-                  >
-                    No
-                  </Typography>
-                )}
-                <ActionSwitch
-                  isChecked={row.org_admin}
-                  onChange={(newValue) =>
-                    handleSwitch(row.id, "org_admin", newValue)
-                  }
-                />
-              </TableCell>
-              <TableCell sx={{ ...wideCellSx, ...center, maxWidth: 150 }}>
-                {row.org_admin ? (
-                  <OrgMenu
-                    organizations={allOrgs}
-                    defaultValue={row.org_id}
-                    onChange={handleOrgSelect}
-                  />
-                ) : null}
-              </TableCell>
+              <TableCell sx={center}>Organization Name</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          {/* ~~~~~~~~~~ BODY ~~~~~~~~~~ */}
+          <TableBody>
+            {tableData.map((row, index) => (
+              <TableRow
+                key={row.id}
+                sx={{
+                  bgcolor:
+                    index % 2 === 0 ? "rgba(0, 0, 0, 0.04)" : "transparent",
+                }}
+              >
+                <TableCell sx={wideCellSx}>{row.last_name}</TableCell>
+                <TableCell sx={wideCellSx}>{row.first_name}</TableCell>
+                <TableCell sx={wideCellSx}>
+                  <strong>{row.username}</strong>
+                </TableCell>
+                <TableCell sx={{ ...shortCellSx, ...center }}>
+                  {/* ~~~~~~~~~ Graphic Designer Column ~~~~~~~~~~ */}
+                  {row.graphic_designer ? (
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      sx={{ display: "inline" }}
+                    >
+                      Yes
+                    </Typography>
+                  ) : (
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      sx={{ display: "inline" }}
+                    >
+                      No
+                    </Typography>
+                  )}
+                  <ActionSwitch
+                    isChecked={row.graphic_designer}
+                    onChange={(newValue) =>
+                      handleSwitch(row.id, "graphic_designer", newValue)
+                    }
+                  />
+                </TableCell>
+                <TableCell sx={{ ...shortCellSx, ...center }}>
+                  {/* ~~~~~~~~~ Org Admin Column ~~~~~~~~~~ */}
+                  {row.org_admin ? (
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      sx={{ display: "inline" }}
+                    >
+                      Yes
+                    </Typography>
+                  ) : (
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      sx={{ display: "inline" }}
+                    >
+                      No
+                    </Typography>
+                  )}
+                  <ActionSwitch
+                    isChecked={row.org_admin}
+                    onChange={(newValue) =>
+                      handleSwitch(row.id, "org_admin", newValue)
+                    }
+                  />
+                </TableCell>
+                <TableCell sx={{ ...wideCellSx, ...center, maxWidth: 150 }}>
+                  {row.org_admin ? (
+                    <OrgMenu
+                      userId={row.id}
+                      organizations={allOrgs}
+                      defaultValue={row.org_id}
+                      onChange={handleOrgSelect}
+                    />
+                  ) : null}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </Box>
     </div>
   );

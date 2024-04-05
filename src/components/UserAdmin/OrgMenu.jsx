@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-const OrgMenu = ({ organizations, defaultValue, onChange }) => {
+const OrgMenu = ({ userId, organizations, defaultValue, onChange }) => {
   const [value, setValue] = useState(defaultValue);
   console.log(value);
+  const [itemSelected, setItemSelected] = useState(false);
 
   useEffect(() => {
     setValue(defaultValue);
@@ -11,14 +12,27 @@ const OrgMenu = ({ organizations, defaultValue, onChange }) => {
 
   const handleChange = (event) => {
     const newValue = event.target.value;
+    console.log(newValue);
     setValue(newValue);
-    onChange(newValue);
+    setItemSelected(true);
+    onChange(userId, newValue);
+    setItemSelected(false);
   };
 
   return (
     <FormControl fullWidth>
-      {!defaultValue && (
-        <InputLabel shrink={false}>Select Organization</InputLabel>
+      {(!defaultValue || defaultValue === null) && itemSelected === false && (
+        <InputLabel
+          shrink={false}
+          sx={{
+            fontSize: "18px",
+            display: "block",
+            marginBottom: "8px",
+            lineHeight: "1.1",
+          }}
+        >
+          Select Organization
+        </InputLabel>
       )}
       <Select value={value} onChange={handleChange} sx={{ height: 40 }}>
         {organizations.map((org) => (

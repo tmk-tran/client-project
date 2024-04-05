@@ -48,10 +48,25 @@ function* changeUserRole(action) {
   }
 }
 
+function* setOrgAdmin(action) {
+  console.log(action.payload);
+  try {
+    const response = yield axios.put(
+      `/api/user/org/${action.payload.id}`,
+      action.payload
+    );
+    console.log("From user saga: ", response.data);
+    yield put({ type: "FETCH_USER_TABLE" });
+  } catch (error) {
+    console.log("User table get request failed", error);
+  }
+}
+
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
   yield takeLatest("FETCH_USER_TABLE", forUserAdmin);
   yield takeLatest("CHANGE_USER_ROLE", changeUserRole);
+  yield takeLatest("SET_ORGANIZATION_ADMIN", setOrgAdmin);
 }
 
 export default userSaga;

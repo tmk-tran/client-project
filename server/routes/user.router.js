@@ -16,15 +16,15 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 router.get("/table", rejectUnauthenticated, (req, res) => {
   // const queryText = `
-  //         SELECT 
-  //           id, 
+  //         SELECT
+  //           id,
   //           username,
   //           first_name,
-  //           last_name, 
+  //           last_name,
   //           org_admin,
   //           org_id,
-  //           graphic_designer 
-  //         FROM "user" 
+  //           graphic_designer
+  //         FROM "user"
   //         ORDER BY last_name ASC;
   //       `;
   const queryText = `
@@ -123,6 +123,31 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     })
     .catch((err) => {
       console.log("error in the PUT / request for user role change", err);
+      res.sendStatus(500);
+    });
+});
+
+router.put("/org/:id", rejectUnauthenticated, (req, res) => {
+  const userId = req.params.id;
+  const orgId = req.body.org_id;
+
+  const queryText = `
+          UPDATE "user"
+          SET org_id = $1
+          WHERE id = $2;
+      `;
+
+  pool
+    .query(queryText, [orgId, userId])
+    .then((response) => {
+      console.log(
+        "response from PUT for orgAdmin, users.router: ",
+        response.rows
+      );
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error in the PUT / request for orgAdmin, user.router", err);
       res.sendStatus(500);
     });
 });
