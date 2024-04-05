@@ -15,7 +15,7 @@ function LoginPage() {
       <br />
       <LoginForm />
 
-      <center
+      {/* <center
         style={{
           display: "flex",
           alignItems: "center",
@@ -31,7 +31,7 @@ function LoginPage() {
         >
           Create Account
         </Button>
-      </center>
+      </center> */}
     </div>
   );
 }

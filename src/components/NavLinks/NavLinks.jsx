@@ -61,7 +61,7 @@ export default function NavLinks() {
                   to="/login"
                   underline="hover"
                 >
-                  Login / Register
+                  Login
                 </MuiLink>
               </Typography>
             )}
