@@ -2,6 +2,7 @@ import axios from "axios";
 import { put, takeEvery } from "redux-saga/effects";
 
 function* fetchSellers(action) {
+  console.log("From sellers saga, action payload: ", action.payload);
   const orgId = action.payload.orgId;
   const yearId = action.payload.yearId;
   console.log(orgId);

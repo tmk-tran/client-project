@@ -59,7 +59,7 @@ function* updateDonations(action) {
 }
 
 function* updateDigitalPayments(action) {
-  console.log(action.payload);
+  console.log("DIGITAL PAYMENTS = ", action.payload);
   const sellerId = action.payload.id;
   console.log(sellerId);
   const refId = action.payload.refId;
@@ -68,7 +68,7 @@ function* updateDigitalPayments(action) {
 
   try {
     yield axios.put(`/api/seller/${sellerId}`, action.payload);
-    yield put({ type: "FETCH_SELLERS", payload: orgId });
+    yield put({ type: "FETCH_SELLER_PAGEINFO", payload: refId });
   } catch (error) {
     console.log("error in updateDigitalPayments Saga", error);
   }

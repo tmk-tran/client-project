@@ -80,6 +80,10 @@ export const paypalTransactions = () => {
   return useSelector((store) => store.paypal);
 };
 
+export const digitalBookSold = () => {
+  return useSelector((store) => store.digitalBook);
+};
+
 export const userTableData = () => {
   return useSelector((store) => store.userTable);
 };

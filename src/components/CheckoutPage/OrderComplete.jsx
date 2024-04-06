@@ -1,14 +1,19 @@
 import { useParams } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Typography as MuiTypography } from "@mui/material";
 // ~~~~~~~~~ Hooks ~~~~~~~~~ //
 import { centeredStyle } from "../Utils/pageStyles";
 // ~~~~~~~~~ Components ~~~~~~~~~ //
 import NewOrderButton from "./NewOrderButton";
 import Typography from "../Typography/Typography";
+import { customerList, digitalBookSold } from "../../hooks/reduxStore";
 
 export default function OrderComplete() {
   const seller = useParams();
   const refId = seller.refId;
+  const customerEmail = customerList() || [];
+  console.log(customerEmail);
+  const digitalBook = digitalBookSold() || [];
+  console.log(digitalBook);
   // Typography here is a custom component //
   return (
     <>
@@ -18,11 +23,15 @@ export default function OrderComplete() {
           variant="h6"
           sx={{ mt: 10 }}
         />
+        {customerEmail.map((customer) => (
         <Typography
-          label="Your digital coupon book will be sent to: "
+          customKey={customer.email}
+          label={`Your digital coupon book will be sent to: ${customer.email}`}
           variant="body2"
           sx={{ mt: 5, mb: 5 }}
         />
+        // <MuiTypography key={customer.email} variant="body2" sx={{ mt: 5, mb: 5 }}>Your digital coupon book will be sent to: `${customer.email}`</MuiTypography>
+        ))}
         <Typography
           label="You may now close this window, or..."
           variant="caption"

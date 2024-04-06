@@ -22,7 +22,7 @@ import CustomButton from "../CustomButton/CustomButton";
 import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
 import { navButtonStyle } from "./checkoutStyles";
-import { sellerPageInfo } from "../../hooks/reduxStore";
+import { sellerPageInfo, bookYear } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 
 export const containerStyle = {
@@ -63,7 +63,7 @@ export default function CheckoutPage({ caseType }) {
   console.log(digitalBookCredit);
   const [digitalDonation, setDigitalDonation] = useState(0);
 
-  const [activeStep, setActiveStep] = useState(2);
+  const [activeStep, setActiveStep] = useState(0);
   console.log(activeStep);
   const [stateSelected, setStateSelected] = useState(false);
   console.log(stateSelected);
@@ -73,8 +73,10 @@ export default function CheckoutPage({ caseType }) {
   const sellerData = sellerPageInfo() || [];
   console.log(sellerData);
   const orgId = sellerData[0].organization_id;
-  console.log(orgId);
+  console.log("orgId from Checkout page = ", orgId);
   const sellerId = sellerData[0].id;
+  const currentYear = bookYear() || [];
+  const activeYearId = currentYear[0].id;
 
   // ~~~~~~~~~~ Form state ~~~~~~~~~~ //
   const [firstName, setFirstName] = useState("");
@@ -270,12 +272,20 @@ export default function CheckoutPage({ caseType }) {
     history.push(`/fargo/seller/${refId}/${caseType}`);
   };
 
+  const setDigitalBook = (value) => ({
+    type: 'SET_DIGITAL_BOOK',
+    payload: value,
+  });
+
   const handleSubmit = () => {
     // Check if this is the last step in the process
     if (activeStep === steps.length - 1) {
       // This is the last step, update transactions
       updateTransactions();
-      // You might also want to redirect the user to a confirmation page
+      if (digitalBookCredit) {
+        dispatch(setDigitalBook(true));
+      }
+      // Redirect the user to a confirmation page
       history.push(`/fargo/seller/${refId}/complete`);
     } else {
       // This is not the last step, move to the next step
@@ -289,6 +299,7 @@ export default function CheckoutPage({ caseType }) {
       payload: {
         refId: refId,
         orgId: orgId,
+        yearId: activeYearId,
         physical_book_cash: 0,
         physical_book_digital: physicalBookDigital,
         digital_book_credit: digitalBookCredit,
@@ -315,6 +326,7 @@ export default function CheckoutPage({ caseType }) {
           id: sellerId,
           refId: refId,
           digital: digitalPayment,
+          orgId: orgId,
         },
       });
 

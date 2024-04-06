@@ -11,13 +11,30 @@ function* fetchCustomers() {
   }
 }
 
+function* fetchCustomerEmail(action) {
+  console.log("from customers.saga, action.payload = ", action.payload)
+  const customerId = action.payload.id;
+  try {
+    const items = yield axios.get(`/api/customers/${customerId}`);
+    console.log("FETCH request from customers.saga, ITEMS = ", items.data);
+    yield put({ type: "SET_CUSTOMERS", payload: items.data });
+  } catch (error) {
+    console.log("error in customers Saga", error);
+  }
+}
+
 function* addCustomer(action) {
   console.log(action.payload);
 
   try {
-    yield axios.post(`/api/customers/`, action.payload);
+    const response = yield axios.post(`/api/customers/`, action.payload);
+    const newCustomerId = response.data[0].id;
+
     yield put({
-      type: "FETCH_CUSTOMERS",
+      type: "FETCH_CUSTOMER_EMAIL",
+      payload: {
+        id: newCustomerId,
+      },
     });
   } catch (error) {
     console.log("error in addCustomer Saga", error);
@@ -26,5 +43,6 @@ function* addCustomer(action) {
 
 export default function* merchantCommentsSaga() {
   yield takeEvery("FETCH_CUSTOMERS", fetchCustomers);
+  yield takeEvery("FETCH_CUSTOMER_EMAIL", fetchCustomerEmail);
   yield takeEvery("ADD_CUSTOMER", addCustomer);
 }

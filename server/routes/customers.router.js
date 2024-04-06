@@ -27,6 +27,30 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.get("/:id", rejectUnauthenticated, (req, res) => {
+  const customerId = req.params.id;
+
+  const queryText = `
+          SELECT
+            email
+          FROM
+            customers
+          WHERE
+            id = $1;
+        `;
+
+  pool
+    .query(queryText, [customerId])
+    .then((result) => {
+      console.log("from GET /id customers.router: ", result.rows);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("error in the GET / request for customers", err);
+      res.sendStatus(500);
+    });
+});
+
 router.post("/", rejectUnauthenticated, (req, res) => {
   console.log(req.body);
   const customer = req.body;
@@ -60,7 +84,8 @@ router.post("/", rejectUnauthenticated, (req, res) => {
           "state",
           "zip"
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        RETURNING "id";
         `;
 
   pool
@@ -78,7 +103,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     ])
     .then((response) => {
       console.log("response from POST customers.router: ", response.rows);
-      res.sendStatus(201);
+      res.send(response.rows).status(201);
     })
     .catch((err) => {
       console.log("error in customers POST route", err);
