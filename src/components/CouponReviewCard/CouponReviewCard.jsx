@@ -32,6 +32,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
 
   const [taskId, setTaskId] = useState("");
   console.log(taskId);
+  const [couponId, setCouponId] = useState("");
   const [taskStatus, setTaskStatus] = useState("");
   console.log(taskStatus);
   const [newTaskStatus, setNewTaskStatus] = useState("");
@@ -42,7 +43,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   console.log(changesRequested);
   const [completedCoupon, setCompletedCoupon] = useState(false);
   console.log(completedCoupon);
-  const [bookYears, setBookYears] = useState([]);
 
   const dispatch = dispatchHook();
   const history = historyHook();
@@ -105,6 +105,17 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
       dispatch(dispatchAction);
     }
 
+    if (completedCoupon) {
+      const dispatchAction2 = {
+        type: "ADD_TO_CONSUMER_LIST",
+        payload: {
+          id: couponId,
+        },
+      };
+      console.log(dispatchAction2);
+      dispatch(dispatchAction2);
+    }
+
     // onTaskUpdate();
     showSaveSweetAlert({ label: "Task Updated" });
   };
@@ -114,24 +125,27 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
     event.stopPropagation();
   };
 
-  const handleUpdateTask = (taskId, choice, taskStatus) => {
+  const handleUpdateTask = (taskId, couponId, choice, taskStatus) => {
     console.log(taskId);
+    console.log(couponId);
     console.log(choice);
     console.log(taskStatus);
     setTaskId(taskId);
+    setCouponId(couponId);
     setNewTaskStatus(choice);
     setTaskStatus(taskStatus);
     setIsTaskUpdate(true);
   };
 
-  const handleChangeRequest = (newValue) => {
-    // setChangesRequested(newValue);
+  const handleChangeRequest = (boolean) => {
+    console.log(boolean);
+    setChangesRequested(boolean);
     console.log("Changes requested: ", changesRequested);
   };
 
-  const handleCompletedCoupon = () => {
-    // setCompletedCoupon(true);
-    console.log("Completed coupon: ", completedCoupon);
+  const handleCompletedCoupon = (boolean) => {
+    console.log(boolean);
+    setCompletedCoupon(boolean);
   };
 
   const handleCardClick = (couponId) => {
@@ -187,6 +201,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                         <Typography sx={{ mr: 2 }}>#{file.id}</Typography>
                       </Box>
                       <CouponStatusDropdown
+                        couponId={file.id}
                         task={couponTask}
                         handleUpdateTask={handleUpdateTask}
                         onChange={handleChangeRequest}
