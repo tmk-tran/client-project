@@ -12,7 +12,7 @@ function* fetchCustomers() {
 }
 
 function* fetchCustomerEmail(action) {
-  console.log("from customers.saga, action.payload = ", action.payload)
+  console.log("from customers.saga, action.payload = ", action.payload);
   const customerId = action.payload.id;
   try {
     const items = yield axios.get(`/api/customers/${customerId}`);

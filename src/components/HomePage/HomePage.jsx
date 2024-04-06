@@ -21,8 +21,9 @@ import ToggleButton from "../ToggleButton/ToggleButton.jsx";
 import { allMerchants, mCoupons } from "../../hooks/reduxStore.js";
 import { buttonIconSpacing } from "../Utils/helpers.js";
 
-function HomePage({ isOrgAdmin, isGraphicDesigner }) {
+function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   console.log(isOrgAdmin);
+  console.log(orgAdminId);
   console.log(isGraphicDesigner);
   const dispatch = useDispatch();
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -254,24 +255,33 @@ function HomePage({ isOrgAdmin, isGraphicDesigner }) {
           {/* ~~~~~~~~~~~~~~~~~~ List Cards ~~~~~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
-          {
-            isMerchantList
-              ? currentItems.map((merchant, index) => (
-                  <ListView
-                    key={index}
-                    data={merchant}
-                    isMerchantList={true}
-                    onChange={handleEdit}
-                    editComplete={editComplete}
-                    setEditComplete={setEditComplete}
-                    numCoupons={
-                      couponNumbers.find(
-                        (coupon) => coupon.merchant_id === merchant.id
-                      )?.num_coupons || 0
-                    }
-                  />
-                ))
-              : currentItems.map((organization, index) => (
+          {isMerchantList
+            ? currentItems.map((merchant, index) => (
+                <ListView
+                  key={index}
+                  data={merchant}
+                  isMerchantList={true}
+                  onChange={handleEdit}
+                  editComplete={editComplete}
+                  setEditComplete={setEditComplete}
+                  numCoupons={
+                    couponNumbers.find(
+                      (coupon) => coupon.merchant_id === merchant.id
+                    )?.num_coupons || 0
+                  }
+                />
+              ))
+            : currentItems.map((organization, index) =>
+                // <ListView
+                //   key={index}
+                //   data={organization}
+                //   isMerchantList={false}
+                //   onChange={handleEdit}
+                //   editComplete={editComplete}
+                //   setEditComplete={setEditComplete}
+                //   isOrgAdmin={isOrgAdmin}
+                // />
+                (!isOrgAdmin || (isOrgAdmin && organization.id === orgAdminId)) && (
                   <ListView
                     key={index}
                     data={organization}
@@ -281,9 +291,9 @@ function HomePage({ isOrgAdmin, isGraphicDesigner }) {
                     setEditComplete={setEditComplete}
                     isOrgAdmin={isOrgAdmin}
                   />
-                ))
-            // <div>Not Merchant List</div>
-          }
+                )
+              
+              )}
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~ Add New Org ~~~~~~~~~~~~~~~~~~~~~~ */}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import {
   useTheme,
@@ -49,31 +48,21 @@ export default function CheckoutPage({ caseType }) {
   const selectedProducts = location.state?.selectedProducts ?? [];
   const orderTotal = location.state?.orderTotal ?? 0;
   const customDonation = location.state?.customDonation ?? 0;
-  console.log("Selected Products in CheckoutPage:", selectedProducts);
-  console.log(orderTotal);
-  console.log(customDonation);
   // Access digital payment amount //
   let digitalPayment;
   digitalPayment = orderTotal - customDonation;
   console.log(digitalPayment);
   // Number of books sold //
   const [physicalBookDigital, setPhysicalBookDigital] = useState(0);
-  console.log(physicalBookDigital);
   const [digitalBookCredit, setDigitalBookCredit] = useState(0);
-  console.log(digitalBookCredit);
   const [digitalDonation, setDigitalDonation] = useState(0);
 
   const [activeStep, setActiveStep] = useState(0);
-  console.log(activeStep);
   const [stateSelected, setStateSelected] = useState(false);
-  console.log(stateSelected);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  console.log(isSubmitted);
 
   const sellerData = sellerPageInfo() || [];
-  console.log(sellerData);
   const orgId = sellerData[0].organization_id;
-  console.log("orgId from Checkout page = ", orgId);
   const sellerId = sellerData[0].id;
   const currentYear = bookYear() || [];
   const activeYearId = currentYear[0].id;
@@ -87,21 +76,11 @@ export default function CheckoutPage({ caseType }) {
   const [unit, setUnit] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
-  console.log(firstName);
-  console.log(lastName);
-  console.log(email);
-  console.log(phone);
-  console.log(address);
-  console.log(unit);
-  console.log(city);
-  console.log(stateSelected);
-  console.log(zip);
   // ~~~~~ Error State ~~~~~ //
   const [errors, setErrors] = useState({});
 
   // ~~~~~~~~~~ Order Info ~~~~~~~~~~ //
   const [orderInfo, setOrderInfo] = useState(null);
-  console.log(orderInfo);
 
   useEffect(() => {
     let physicalDigital = 0;
@@ -273,7 +252,7 @@ export default function CheckoutPage({ caseType }) {
   };
 
   const setDigitalBook = (value) => ({
-    type: 'SET_DIGITAL_BOOK',
+    type: "SET_DIGITAL_BOOK",
     payload: value,
   });
 
