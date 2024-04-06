@@ -271,28 +271,20 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
                   }
                 />
               ))
-            : currentItems.map((organization, index) =>
-                // <ListView
-                //   key={index}
-                //   data={organization}
-                //   isMerchantList={false}
-                //   onChange={handleEdit}
-                //   editComplete={editComplete}
-                //   setEditComplete={setEditComplete}
-                //   isOrgAdmin={isOrgAdmin}
-                // />
-                (!isOrgAdmin || (isOrgAdmin && organization.id === orgAdminId)) && (
-                  <ListView
-                    key={index}
-                    data={organization}
-                    isMerchantList={false}
-                    onChange={handleEdit}
-                    editComplete={editComplete}
-                    setEditComplete={setEditComplete}
-                    isOrgAdmin={isOrgAdmin}
-                  />
-                )
-              
+            : currentItems.map(
+                (organization, index) =>
+                  (!isOrgAdmin ||
+                    (isOrgAdmin && organization.id === orgAdminId)) && (
+                    <ListView
+                      key={index}
+                      data={organization}
+                      isMerchantList={false}
+                      onChange={handleEdit}
+                      editComplete={editComplete}
+                      setEditComplete={setEditComplete}
+                      isOrgAdmin={isOrgAdmin}
+                    />
+                  )
               )}
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
