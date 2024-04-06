@@ -236,9 +236,6 @@ export default function AddAccountModal({
     setSelectedChoice(choice);
   };
 
-  // Preferred method of contact choices
-  // const choices = ["Text", "Email", "Phone", "In-person visit"];
-
   return (
     <div>
       <Modal
