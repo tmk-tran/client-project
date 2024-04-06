@@ -15,6 +15,7 @@ export default function OrderComplete() {
   const digitalBook = digitalBookSold() || [];
   console.log(digitalBook);
   // Typography here is a custom component //
+  // MuiTypography is MUI component //
   return (
     <>
       <Box sx={centeredStyle}>
@@ -24,13 +25,14 @@ export default function OrderComplete() {
           sx={{ mt: 10 }}
         />
         {customerEmail.map((customer) => (
-        <Typography
-          customKey={customer.email}
-          label={`Your digital coupon book will be sent to: ${customer.email}`}
-          variant="body2"
-          sx={{ mt: 5, mb: 5 }}
-        />
-        // <MuiTypography key={customer.email} variant="body2" sx={{ mt: 5, mb: 5 }}>Your digital coupon book will be sent to: `${customer.email}`</MuiTypography>
+          <MuiTypography
+            key={customer.email}
+            variant="body2"
+            sx={{ mt: 5, mb: 5 }}
+          >
+            Your digital coupon book will be sent to:{" "}
+            <strong>{customer.email}</strong>
+          </MuiTypography>
         ))}
         <Typography
           label="You may now close this window, or..."
