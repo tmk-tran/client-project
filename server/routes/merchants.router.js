@@ -123,6 +123,9 @@ router.post("/", upload.single("merchant_logo"), (req, res) => {
     !website.startsWith("https://")
   ) {
     website = "https://" + website;
+  } else if (website === null) {
+    // If the website URL is null, leave it as null
+    website = null;
   }
 
   const queryText = `
@@ -201,6 +204,9 @@ router.put(
       !website.startsWith("https://")
     ) {
       website = "https://" + website;
+    } else if (website === null) {
+      // If the website URL is null, leave it as null
+      website = null;
     }
 
     const queryText = `
