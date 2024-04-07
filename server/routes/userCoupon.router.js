@@ -23,6 +23,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
+  const yearId = req.query.yearId;
 
   const queryText = `
           SELECT
@@ -48,10 +49,13 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
             merchant m ON c.merchant_id = m.id
           LEFT JOIN
             user_coupon uc ON c.id = uc.coupon_id
+          JOIN
+            coupon_book cb ON c.book_id = cb.id
           WHERE
             uc.user_id = $1
             AND uc.redeemed = false
             AND uc.show_book = true
+            AND cb.id = $2
           GROUP BY
             c.id, m.merchant_name, cl.coupon_id, uc.show_book
           ORDER BY
@@ -59,7 +63,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
         `;
 
   pool
-    .query(queryText, [userId])
+    .query(queryText, [userId, yearId])
     .then((result) => {
       res.send(result.rows);
     })
