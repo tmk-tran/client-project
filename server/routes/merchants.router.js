@@ -113,20 +113,8 @@ router.post("/", upload.single("merchant_logo"), (req, res) => {
   const contactPhoneNumber = data.contact_phone_number;
   const contactEmail = data.contact_email;
   const filename = data.filename ? data.filename : null;
-  let website = data.website ? data.website : null;
+  const website = data.website ? data.website : null;
   const contactMethod = data.contact_method;
-
-  // Check if the website address already starts with "http://" or "https://"
-  if (
-    website &&
-    !website.startsWith("http://") &&
-    !website.startsWith("https://")
-  ) {
-    website = "https://" + website;
-  } else if (website === null) {
-    // If the website URL is null, leave it as null
-    website = null;
-  }
 
   const queryText = `
       INSERT INTO "merchant" (
@@ -194,20 +182,8 @@ router.put(
     const phone = merchant.contact_phone_number;
     const email = merchant.contact_email;
     const filename = merchant.filename;
-    let website = merchant.website ? merchant.website : null;
+    const website = merchant.website ? merchant.website : null;
     const contactMethod = merchant.contact_method;
-
-    // Check if the website address already starts with "http://" or "https://"
-    if (
-      website &&
-      !website.startsWith("http://") &&
-      !website.startsWith("https://")
-    ) {
-      website = "https://" + website;
-    } else if (website === null) {
-      // If the website URL is null, leave it as null
-      website = null;
-    }
 
     const queryText = `
         UPDATE "merchant" 
