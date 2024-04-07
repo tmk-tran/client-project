@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
-import { border, borderPrimaryColor } from "../Utils/colors";
+import { borderPrimaryColor } from "../Utils/colors";
 // ~~~~~~~~~~ Component ~~~~~~~~~~ //
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
 import FilePreview from "../CouponReviewDetails/FilePreview";
@@ -15,7 +15,7 @@ import { couponsData, mComments, mTasks } from "../../hooks/reduxStore";
 import { flexCenter, textCenter } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
 import { thumbnailSize } from "../CouponReviewDetails/FilePreview";
-import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
+import { capitalizeWords } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
 const thumbnailHeaderStyle = {
@@ -116,7 +116,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
       dispatch(dispatchAction2);
     }
 
-    // onTaskUpdate();
     showSaveSweetAlert({ label: "Task Updated" });
   };
 
@@ -180,7 +179,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
               }}
             >
               <CardContent>
-                {/* <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} /> */}
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -194,7 +192,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                 >
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~ Status Menu ~~~~~~~~~~ */}
-                  {/* Need to add onChange prop here to resolve error */}
                   {file.taskId ? (
                     <>
                       <Box sx={flexCenter}>
@@ -222,8 +219,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                 <hr />
 
                 <div style={{ display: "flex", flexDirection: "row", gap: 5 }}>
-                  {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   {/* ~~~~~~ FRONT OF COUPON ~~~~~~ */}
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
