@@ -287,7 +287,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                       {/* <CommentDisplay comment={mostRecentComment} /> */}
                       {relatedComments.length > 0 ? (
                         relatedComments.map((comment, index) => (
-                          <CommentDisplay key={index} comment={comment} />
+                          <CommentDisplay key={index} comment={comment} showAllComments={false} />
                         ))
                       ) : (
                         <Typography
