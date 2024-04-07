@@ -78,7 +78,9 @@ export default function ContactEdit({
   const [emailError, setEmailError] = useState(false);
   console.log(emailError);
   console.log(name);
-  const [editedWebsite, setEditedWebsite] = useState(info.website);
+  const [editedWebsite, setEditedWebsite] = useState(
+    info.website ? info.website : null
+  );
   console.log(editedWebsite);
   const [websiteError, setWebsiteError] = useState(false);
 
