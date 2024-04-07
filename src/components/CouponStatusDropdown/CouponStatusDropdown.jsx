@@ -38,15 +38,13 @@ export default function CouponStatusDropdown({
     console.log(event.target);
     const choice = event.target.value;
     setStatus(choice);
-    // choice === "Changes Requested" ? onChange() : null;
-    console.log(choice);
 
     if (choice === "Changes Requested") {
       onChange(true); // Call the onChange function with true
     } else {
       onChange(false); // Call the onChange function with false
     }
-  
+
     if (choice === "Completed Coupon") {
       complete(true); // Call the complete function with true
     } else {
