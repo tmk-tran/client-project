@@ -12,9 +12,9 @@ const OrgMenu = ({ methods, defaultValue, onChange }) => {
   console.log(value);
   const [itemSelected, setItemSelected] = useState(false);
 
-  useEffect(() => {
-    setValue(defaultValue);
-  }, [defaultValue]);
+  // useEffect(() => {
+  //   setValue(defaultValue);
+  // }, [defaultValue]);
 
   const handleChange = (event) => {
     const newValue = event.target.value;
@@ -27,6 +27,7 @@ const OrgMenu = ({ methods, defaultValue, onChange }) => {
 
   return (
     <FormControl sx={{ width: 190, position: "relative" }}>
+      {!defaultValue && (
       <InputLabel
         shrink={false}
         sx={{
@@ -40,6 +41,7 @@ const OrgMenu = ({ methods, defaultValue, onChange }) => {
       >
         Select
       </InputLabel>
+      )}
       <Select value={value} onChange={handleChange} sx={{ height: 30 }}>
         {methods.map((contactBy) => (
           <MenuItem key={contactBy} value={contactBy}>

@@ -73,7 +73,10 @@ function* addMerchantSaga(action) {
       formData.append("filename", action.payload.merchant_logo.name);
     }
     formData.append("website", action.payload.website);
+
+    if (action.payload.contact_method !== null) {
     formData.append("contact_method", action.payload.contact_method);
+    }
 
     const response = yield axios.post(`/api/merchants`, formData, {
       headers: {
@@ -81,7 +84,7 @@ function* addMerchantSaga(action) {
       },
     });
 
-    console.log("RESPONSE IS", response);
+    console.log("RESPONSE IS", response.rows);
 
     yield put({ type: "FETCH_MERCHANTS", payload: action.payload });
   } catch (error) {
