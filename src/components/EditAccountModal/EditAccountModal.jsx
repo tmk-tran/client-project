@@ -12,28 +12,17 @@ import {
 import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
-import { border, primaryColor } from "../Utils/colors";
 import { modalHeaderStyle, lineDivider } from "../Utils/modalStyles";
-import {
-  capitalizeWords,
-  capitalizeFirstWord,
-  capitalizeStateAbbr,
-  capitalize,
-} from "../Utils/helpers";
+import { capitalize } from "../Utils/helpers";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~
-import CloseButton from "../Buttons/CloseButton";
 import AddFileButton from "../AddFileButton/AddFileButton";
 import StateSelector from "../StateSelector/StateSelector";
 import ModalButtons from "../Modals/ModalButtons";
 
 const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
-  console.log(data);
   const dispatch = useDispatch();
   const [editedAccount, setEditedAccount] = useState(data);
-  console.log(editedAccount);
-
   const [selectedState, setSelectedState] = useState(data.state);
-  console.log(selectedState);
 
   useEffect(() => {
     setEditedAccount(data);
@@ -55,14 +44,9 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const handleEditSave = (editedAccount) => {
     console.log(editedAccount);
     if (!isMerchantList) {
-      // const payload = { editedAccount };
-      const payload = editedAccount;
-      console.log(payload);
       dispatch({ type: "EDIT_ORGANIZATION", payload: editedAccount });
       dispatch({ type: "FETCH_ORGANIZATIONS" });
     } else {
-      const payload = editedAccount;
-      console.log(payload);
       dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedAccount });
       dispatch({ type: "FETCH_MERCHANTS" });
     }
@@ -93,7 +77,6 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
     mb: 5,
   };
 
-  // NEED TO ADD THE LOGO TO THE STATE OF THE MODAL SO IT DOESNT ERASE WHEN EDITING
   return (
     <div>
       <Modal
