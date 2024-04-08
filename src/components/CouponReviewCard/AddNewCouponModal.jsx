@@ -13,7 +13,6 @@ import AddBox from "../AddBoxIcon/AddBoxIcon";
 import SelectMenu from "./SelectMenu";
 import ModalButtons from "../Modals/ModalButtons";
 import AllLocationsButton from "./AllLocationsButton";
-import PhoneInput from "../LocationsCard/PhoneInput";
 import YearSelect from "../OrgSellers/YearSelect";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
@@ -46,7 +45,6 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   console.log(selectedLocations);
   const [seasonIdSelected, setSeasonIdSelected] = useState("");
   const [selectAllLocations, setSelectAllLocations] = useState(false);
-  const [phone, setPhone] = useState("");
   const [couponOffer, setCouponOffer] = useState("");
   const [website, setWebsite] = useState("");
   const [couponValue, setCouponValue] = useState("");
@@ -56,16 +54,13 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   // ~~~~~~~~~~ Errors ~~~~~~~~~~~~~~~~~~~~~~~ //
   const [locationsError, setLocationsError] = useState(false);
   const [websiteError, setWebsiteError] = useState(false);
-  const [phoneError, setPhoneError] = useState(false);
   const [offerError, setOfferError] = useState(false);
   const [activeYearError, setActiveYearError] = useState(false);
 
-  console.log(phoneError);
   console.log(couponOffer);
   console.log(couponValue);
   console.log(exclusions);
   console.log(address);
-  console.log(phone);
   console.log(website);
   console.log(additionalInfo);
   console.log(merchantId);
@@ -88,16 +83,6 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   };
 
   const addCoupon = () => {
-    // if (!phone) {
-    //   setPhoneError(true);
-    //   return;
-    // }
-
-    // Validate phone number before saving
-    // if (phone && !/^\d{10}$/.test(phone)) {
-    //   setPhoneError(true);
-    //   return;
-    // }
     if (!seasonIdSelected) {
       setActiveYearError(true);
       return;
@@ -123,7 +108,6 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   const resetForm = () => {
     setSelectedLocations([]);
     setSeasonIdSelected("");
-    setPhone("");
     setCouponOffer("");
     setWebsite("");
     setCouponValue("");
@@ -245,17 +229,6 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
             </Grid>
 
             <Grid item xs={6}>
-              {/* <Divider sx={{ mt: 2, mb: 2, ...lineDivider}} /> */}
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~~ PHONE ~~~~~~~~~~~~ */}
-              {/* <PhoneInput
-                phoneNumber={phone}
-                setPhoneNumber={setPhone}
-                sx={{ mb: 2 }}
-                setPhoneError={setPhoneError}
-                error={phoneError}
-                helperText={phoneError ? "Invalid phone number" : ""}
-              /> */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ VALUE ~~~~~~~~~~~~ */}
               <TextField
