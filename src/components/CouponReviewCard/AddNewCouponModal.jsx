@@ -35,14 +35,11 @@ const style = {
 export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   const dispatch = dispatchHook();
   const paramsObject = useParams();
-  console.log(paramsObject);
-  console.log(locations);
 
   const [open, setOpen] = useState(false);
   const [merchantId, setMerchantId] = useState(paramsObject.id);
   // ~~~~~~~~~~ Form State ~~~~~~~~~~~~~~~~~~~ //
   const [selectedLocations, setSelectedLocations] = useState([]);
-  console.log(selectedLocations);
   const [seasonIdSelected, setSeasonIdSelected] = useState("");
   const [selectAllLocations, setSelectAllLocations] = useState(false);
   const [couponOffer, setCouponOffer] = useState("");
@@ -50,21 +47,10 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   const [couponValue, setCouponValue] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [exclusions, setExclusions] = useState("");
-  const [address, setAddress] = useState("");
   // ~~~~~~~~~~ Errors ~~~~~~~~~~~~~~~~~~~~~~~ //
   const [locationsError, setLocationsError] = useState(false);
   const [websiteError, setWebsiteError] = useState(false);
-  const [offerError, setOfferError] = useState(false);
   const [activeYearError, setActiveYearError] = useState(false);
-
-  console.log(couponOffer);
-  console.log(couponValue);
-  console.log(exclusions);
-  console.log(address);
-  console.log(website);
-  console.log(additionalInfo);
-  console.log(merchantId);
-  console.log(seasonIdSelected);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -208,15 +194,6 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
                 fullWidth
                 sx={{ mb: 2 }}
               />
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~ VALUE ~~~~~~~~~~~~ */}
-              {/* <TextField
-                label="Coupon Value"
-                value={couponValue}
-                onChange={(e) => setCouponValue(e.target.value)}
-                fullWidth
-                sx={{ mb: 2 }}
-              /> */}
               {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
               {/* ~~~~~~~~~~ EXCLUSIONS ~~~~~~~~~ */}
               <TextField
