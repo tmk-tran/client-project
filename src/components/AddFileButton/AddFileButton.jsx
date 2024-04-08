@@ -4,7 +4,8 @@ import FileUploadIcon from "@mui/icons-material/FileUpload";
 import CheckIcon from "@mui/icons-material/Check";
 import { border } from "../Utils/colors";
 
-export default function AddFileButton({ filename, onFileSelect }) {
+export default function AddFileButton({ logo, filename, onFileSelect }) {
+  console.log(logo);
   console.log(filename);
   const [file, setFile] = useState(null);
   console.log(file);

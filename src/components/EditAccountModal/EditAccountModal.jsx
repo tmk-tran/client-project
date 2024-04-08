@@ -27,6 +27,7 @@ import StateSelector from "../StateSelector/StateSelector";
 import ModalButtons from "../Modals/ModalButtons";
 
 const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
+  console.log(data);
   const dispatch = useDispatch();
   const [editedAccount, setEditedAccount] = useState(data);
   console.log(editedAccount);
@@ -221,6 +222,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~ */}
             <Grid item xs={12}>
               <AddFileButton
+                logo={editedAccount.merchant_logo_base64}
                 filename={editedAccount.filename}
                 onFileSelect={handleFileSelection}
               />
