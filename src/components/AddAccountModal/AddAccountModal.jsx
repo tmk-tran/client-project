@@ -154,7 +154,7 @@ export default function AddAccountModal({
         contact_email: contactEmail,
         merchant_logo: logoFile,
         website: merchantWebsite,
-        contact_method: selectedChoice || null,
+        contact_method: selectedChoice,
       },
     };
     isMerchantList && console.log(action2);
