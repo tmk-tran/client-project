@@ -21,7 +21,6 @@ import {
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import { showToast } from "../Utils/toasts";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
-import CloseButton from "../Buttons/CloseButton";
 import { hoverAccept } from "../Utils/colors";
 import { saveBtnWidth } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
@@ -173,7 +172,6 @@ export default function ContactEdit({
           gap: 2,
         }}
       >
-        {/* <CloseButton handleClose={handleClose} /> */}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~ HEADER ~~~~~~~~ */}
         <Typography variant="h6" sx={modalHeaderStyle}>
