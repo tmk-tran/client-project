@@ -29,15 +29,16 @@ export default function StateSelector({
   useEffect(() => {
     console.log(stateSelected);
     if (stateSelected) {
-      const selectedState = states.find((state) => state.abbreviation === stateSelected);
+      const selectedState = states.find(
+        (state) => state.abbreviation === stateSelected
+      );
       console.log(selectedState);
       setState(selectedState);
     } else {
       setState("");
     }
   }, []);
-  
-  
+
   const handleChange = (event) => {
     const selectedAbbreviation = event.target.value;
     const newState = states.find(

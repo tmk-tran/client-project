@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Modal,
   Box,
   TextField,
-  Button,
   Typography,
   Grid,
   Divider,
@@ -13,7 +12,7 @@ import Swal from "sweetalert2";
 import InputAdornment from "@mui/material/InputAdornment";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~
 import { modalHeaderStyle, lineDivider } from "../Utils/modalStyles";
-import { capitalize } from "../Utils/helpers";
+import { capitalize, capitalizeStateAbbr } from "../Utils/helpers";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~
 import AddFileButton from "../AddFileButton/AddFileButton";
 import StateSelector from "../StateSelector/StateSelector";
@@ -179,15 +178,9 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~ STATE ~~~~~~~~~~~~~~ */}
             <Grid item xs={4}>
-              {/* <TextField
-                label="State"
-                fullWidth
-                value={capitalizeStateAbbr(editedAccount.state)}
-                onChange={(e) => handleChange("state", e.target.value)}
-              /> */}
               <StateSelector
                 onChange={handleChange}
-                stateSelected={selectedState}
+                stateSelected={capitalizeStateAbbr(selectedState)}
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -205,7 +198,6 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
             {/* ~~~~~~~~~~~~ LOGO ~~~~~~~~~~~~~~ */}
             <Grid item xs={12}>
               <AddFileButton
-                logo={editedAccount.merchant_logo_base64}
                 filename={editedAccount.filename}
                 onFileSelect={handleFileSelection}
               />
