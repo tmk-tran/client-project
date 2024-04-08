@@ -205,7 +205,7 @@ const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
           </Grid>
           <br />
           {/* ~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ///~~~ BUTTONS ~~~/// */}
+          {/* ~~~~~~ BUTTONS ~~~~~~ */}
           <ModalButtons
             label="Save"
             editedAccount={editedAccount}
