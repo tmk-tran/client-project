@@ -2,7 +2,6 @@ import axios from "axios";
 import { put, takeEvery } from "redux-saga/effects";
 
 function* merchantDetails(action) {
-  console.log(action.payload);
   try {
     const items = yield axios.get(`/api/merchants/${action.payload}`);
     console.log("FETCH request from merchants.saga, ITEMS = ", items.data);
@@ -36,13 +35,6 @@ function* merchantCouponNumber() {
 
 function* addMerchantSaga(action) {
   try {
-    console.log(action.payload);
-    //     yield axios.post("/api/merchants", action.payload);
-    //     yield put({ type: "FETCH_MERCHANTS" });
-    //   } catch (error) {
-    //     console.log("error in addMerchantSaga", error);
-    //   }
-    // }
     // Create a FormData object to send the file data
     const formData = new FormData();
     formData.append("merchant_name", action.payload.merchant_name);
@@ -75,7 +67,7 @@ function* addMerchantSaga(action) {
     formData.append("website", action.payload.website);
 
     if (action.payload.contact_method !== null) {
-    formData.append("contact_method", action.payload.contact_method);
+      formData.append("contact_method", action.payload.contact_method);
     }
 
     const response = yield axios.post(`/api/merchants`, formData, {
@@ -93,29 +85,9 @@ function* addMerchantSaga(action) {
 }
 
 function* editMerchant(action) {
-  //   try {
-  //     const items = yield axios.put(
-  //       `/api/merchants/${action.payload.id}`,
-  //       action.payload
-  //     );
-  //     console.log(
-  //       "FETCH request from merchants.saga, ITEMS FOR editContact = ",
-  //       items
-  //     );
-  //     console.log("EDIT_CONTACT_INFO action.payload = ", action.payload);
-
-  //     yield put({
-  //       type: "FETCH_MERCHANT_DETAILS",
-  //       payload: action.payload.id,
-  //     });
-  //   } catch {
-  //     console.log("error in editMerchantSaga");
-  //   }
-  // }
   try {
-    console.log("ACTION PAYLOAD IS", action.payload);
+    // console.log("ACTION PAYLOAD IS", action.payload);
     const merchantId = action.payload.id;
-    console.log(merchantId);
 
     // Create a FormData object to send the file data
     const formData = new FormData();
@@ -166,7 +138,6 @@ function* editMerchant(action) {
 }
 
 function* changeContactMethod(action) {
-  console.log(action.payload);
   const merchantId = action.payload.id;
   try {
     const response = yield axios.put(
@@ -183,8 +154,6 @@ function* changeContactMethod(action) {
 function* deleteMerchantSaga(action) {
   const merchantId = action.payload.dataId;
   const archiveReason = action.payload.archiveReason;
-  console.log(merchantId);
-  console.log(archiveReason);
 
   try {
     yield axios.delete(`/api/merchants/${merchantId}`, {
