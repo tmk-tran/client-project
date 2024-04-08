@@ -13,16 +13,11 @@ import "./ContactEdit.css";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import {
   capitalizeFirstWord,
-  formatPhoneNumber,
   validateEmail,
-  validatePhoneNumber,
   validateWebsiteFormat,
 } from "../Utils/helpers";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
-import { showToast } from "../Utils/toasts";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
-import { hoverAccept } from "../Utils/colors";
-import { saveBtnWidth } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import ModalButtons from "../Modals/ModalButtons";
 import PhoneInput from "../LocationsCard/PhoneInput";
