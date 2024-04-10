@@ -62,9 +62,11 @@ export default function CheckoutPage({ caseType }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const sellerData = sellerPageInfo() || [];
+  console.log(sellerData);
   const orgId = sellerData[0].organization_id;
   const sellerId = sellerData[0].id;
   const currentYear = bookYear() || [];
+  console.log(currentYear);
   const activeYearId = currentYear[0].id;
 
   // ~~~~~~~~~~ Form state ~~~~~~~~~~ //
