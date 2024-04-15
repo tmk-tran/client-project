@@ -46,12 +46,14 @@ export default function CheckoutPage({ caseType }) {
   const refId = paramsObject.refId;
   // Access state from URL and use it in component //
   const selectedProducts = location.state?.selectedProducts ?? [];
+  console.log(selectedProducts);
   const orderTotal = location.state?.orderTotal ?? 0;
   const customDonation = location.state?.customDonation ?? 0;
   // Access digital payment amount //
   let digitalPayment;
   digitalPayment = orderTotal - customDonation;
   console.log(digitalPayment);
+  const [physicalCouponBook, setPhysicalCouponBook] = useState(false);
   // Number of books sold //
   const [physicalBookDigital, setPhysicalBookDigital] = useState(0);
   const [digitalBookCredit, setDigitalBookCredit] = useState(0);
@@ -68,6 +70,7 @@ export default function CheckoutPage({ caseType }) {
   const currentYear = bookYear() || [];
   console.log(currentYear);
   const activeYearId = currentYear[0].id;
+  console.log(activeYearId);
 
   // ~~~~~~~~~~ Form state ~~~~~~~~~~ //
   const [firstName, setFirstName] = useState("");
@@ -84,18 +87,41 @@ export default function CheckoutPage({ caseType }) {
   // ~~~~~~~~~~ Order Info ~~~~~~~~~~ //
   const [orderInfo, setOrderInfo] = useState(null);
 
+  const acInfo = () => {
+    const contactData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      address: address,
+      unit: unit,
+      city: city,
+      state: stateSelected,
+      zip: zip,
+      organization: sellerData[0].organization_name,
+      url: "testpsg.fly.dev/fargo/coupon",
+      year: currentYear[0].year,
+      donation: customDonation,
+      bookType: selectedProducts[0].bookType,
+      type: caseType,
+    };
+    console.log("Contact Data from acInfo", contactData);
+    dispatch({ type: "ADD_CONTACT", payload: contactData });
+  };
+
   useEffect(() => {
     let physicalDigital = 0;
-    let digitalCredit = 0;
     let donationAmount = 0;
+    let digitalCredit = 0;
 
     selectedProducts.forEach((product) => {
       if (product.bookType === "Physical Coupon Book") {
         switch (caseType) {
-          case "cash":
-            physicalCash += product.quantity;
-            break;
+          // case "cash":
+          //   setPhysicalBook(true);
+          //   break;
           case "credit":
+            setPhysicalCouponBook(true);
             physicalDigital += product.quantity;
             break;
           default:
@@ -120,13 +146,12 @@ export default function CheckoutPage({ caseType }) {
       }
     });
 
-    // setPhysicalBookCash(physicalCash);
     setPhysicalBookDigital(physicalDigital);
     setDigitalBookCredit(digitalCredit);
     setDigitalDonation(donationAmount);
   }, [selectedProducts, caseType]);
 
-  // console.log(physicalBookCash);
+  console.log(physicalCouponBook);
   console.log(physicalBookDigital);
   console.log(digitalBookCredit);
   console.log(digitalDonation);
@@ -258,6 +283,11 @@ export default function CheckoutPage({ caseType }) {
     payload: value,
   });
 
+  const setPhysicalBook = (value) => ({
+    type: "SET_PHYSICAL_BOOK",
+    payload: value,
+  });
+
   const handleSubmit = () => {
     // Check if this is the last step in the process
     if (activeStep === steps.length - 1) {
@@ -266,6 +296,11 @@ export default function CheckoutPage({ caseType }) {
       if (digitalBookCredit) {
         dispatch(setDigitalBook(true));
       }
+      if (physicalCouponBook) {
+        dispatch(setPhysicalBook(true));
+      }
+      // Send payload to Active Campaign
+      acInfo();
       // Redirect the user to a confirmation page
       history.push(`/fargo/seller/${refId}/complete`);
     } else {
