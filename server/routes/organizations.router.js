@@ -250,6 +250,7 @@ router.put("/:id", upload.single("organization_logo"), (req, res) => {
   const organization = req.body;
   console.log(organization);
   const organization_logo = req.file ? req.file.buffer : null;
+  console.log(organization_logo);
 
   const queryText = `
       UPDATE "organization"

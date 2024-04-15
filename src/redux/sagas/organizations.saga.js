@@ -42,10 +42,7 @@ function* editOrganizationSaga(action) {
 
     // Create a FormData object to send the file data
     const formData = new FormData();
-    formData.append(
-      "organization_name",
-      action.payload.organization_name
-    );
+    formData.append("organization_name", action.payload.organization_name);
     formData.append("type", action.payload.type);
     formData.append("address", action.payload.address);
     formData.append("city", action.payload.city);
@@ -72,16 +69,19 @@ function* editOrganizationSaga(action) {
       action.payload.organization_earnings
     );
 
-    // Check if a file is uploaded
-    if (action.payload.uploadedFile) {
+    // Check if there is an existing logo
+    if (action.payload.organization_logo_base64) {
       formData.append(
         "organization_logo",
-        action.payload.uploadedFile
+        action.payload.organization_logo_base64
       );
-      formData.append(
-        "filename",
-        action.payload.uploadedFile.name
-      );
+      formData.append("filename", action.payload.filename);
+    }
+
+    // Check if a file is uploaded
+    if (action.payload.uploadedFile) {
+      formData.append("organization_logo", action.payload.uploadedFile);
+      formData.append("filename", action.payload.uploadedFile.name);
     }
 
     const response = yield axios.put(`/api/organizations/${orgId}`, formData, {
