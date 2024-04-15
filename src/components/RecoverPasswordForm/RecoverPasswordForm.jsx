@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import LogoPSG from "../LogoPSG/LogoPSG";
-import NavLinks from "../NavLinks/NavLinks";
 import Swal from "sweetalert2";
 
 import {

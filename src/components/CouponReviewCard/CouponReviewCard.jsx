@@ -33,6 +33,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   const [taskId, setTaskId] = useState("");
   console.log(taskId);
   const [couponId, setCouponId] = useState("");
+  console.log(couponId);
   const [taskStatus, setTaskStatus] = useState("");
   console.log(taskStatus);
   const [newTaskStatus, setNewTaskStatus] = useState("");
@@ -124,23 +125,23 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
     event.stopPropagation();
   };
 
-  const handleUpdateTask = (taskId, couponId, choice, taskStatus) => {
+  const handleUpdateTask = (taskId, couponId, choice, selectedTaskStatus) => {
     console.log(taskId);
     console.log(couponId);
     console.log(choice);
-    console.log(taskStatus);
+    console.log(selectedTaskStatus);
     setTaskId(taskId);
     setCouponId(couponId);
     setNewTaskStatus(choice);
-    setTaskStatus(taskStatus);
+    setTaskStatus(selectedTaskStatus);
     setIsTaskUpdate(true);
   };
 
   const handleChangeRequest = (boolean) => {
     console.log(boolean);
     setChangesRequested(boolean);
-    console.log("Changes requested: ", changesRequested);
   };
+  console.log("Changes requested: ", changesRequested);
 
   const handleCompletedCoupon = (boolean) => {
     console.log(boolean);

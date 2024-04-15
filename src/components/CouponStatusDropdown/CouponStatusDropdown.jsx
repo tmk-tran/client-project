@@ -24,59 +24,49 @@ export default function CouponStatusDropdown({
   task,
 }) {
   console.log(task);
-  const defaultTask = task ? task.task : ""; // Default to an empty string if task is undefined
-  console.log(defaultTask);
-  const defaultStatus = task ? task.task_status : "";
-  console.log(defaultStatus);
-  const defaultId = task ? task.id : "";
-  console.log(defaultId);
 
-
-  const [taskStatus, setTaskStatus] = useState(defaultStatus);
+  const [taskStatus, setTaskStatus] = useState(task ? task.task_status : "");
   console.log(taskStatus);
-  const [status, setStatus] = useState(defaultTask);
+  // Change name to: task description
+  const [status, setStatus] = useState(task ? task.task : "");
   console.log(status);
-  const [taskId, setTaskId] = useState(defaultId);
-  console.log(taskId);
-  
-  console.log(couponId);
 
-  useEffect(() => {
-    if (defaultTask) {
-      setTaskStatus(defaultStatus);
-      setStatus(defaultTask);
-      setTaskId(defaultId);
-    }
-  }, [defaultTask, defaultStatus, defaultId]);
-  
+  const [taskId, setTaskId] = useState(task ? task.id : "");
+  console.log(taskId);
+  const [assignedCouponId, setAssignedCouonId] = useState(
+    task ? task.coupon_id : ""
+  );
+  console.log(assignedCouponId);
+
+  console.log(couponId);
 
   const handleMenuChange = (event) => {
     console.log(event.target);
     const choice = event.target.value;
     setStatus(choice);
+    console.log(choice);
 
+    let newTaskStatus;
     if (choice === "Changes Requested") {
-      onChange(true); // Call the onChange function with true
+      onChange(true);
+      newTaskStatus = "Changes Requested";
+    } else if (
+      choice === "New: Create Proof" ||
+      choice === "New: Add-on Proof"
+    ) {
+      newTaskStatus = "New";
+    } else if (choice === "Completed Coupon") {
+      onChange(false);
+      complete(true);
+      newTaskStatus = "Complete";
     } else {
-      onChange(false); // Call the onChange function with false
-    }
-
-    // if (choice === "Completed Coupon") {
-    //   complete(true); // Call the complete function with true
-    //   setTaskStatus("Complete"); // Set the task_status to "Complete"
-    // } else {
-    //   complete(false); // Call the complete function with false
-    // }
-    if (choice !== "Completed Coupon") {
+      onChange(false);
       complete(false);
-      setTaskStatus("In Progress");
-    } else {
-      complete(true); // Call the complete function with true
-      setTaskStatus("Complete"); // Set the task_status to "Complete"
+      newTaskStatus = "In Progress";
     }
 
-    // Pass both the selected status and isTaskUpdate state to the parent
-    handleUpdateTask(taskId, choice, taskStatus);
+    // Pass the updated taskStatus to the parent
+    handleUpdateTask(taskId, couponId, choice, newTaskStatus);
   };
 
   return (
