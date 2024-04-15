@@ -39,10 +39,13 @@ function* updateSeller(action) {
   console.log(action.payload);
   const sellerId = action.payload.id;
   const orgId = action.payload.organization_id;
+  const yearId = action.payload.yearId;
+  console.log(orgId);
+  console.log(yearId);
 
   try {
     yield axios.put(`/api/sellers/${sellerId}`, action.payload);
-    yield put({ type: "FETCH_SELLERS", payload: orgId });
+    yield put({ type: "FETCH_SELLERS", payload: { orgId, yearId } });
   } catch (error) {
     console.log("error in updateSeller Saga", error);
     yield put({ type: "SET_ERROR", payload: error });

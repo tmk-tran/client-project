@@ -22,6 +22,7 @@ import Typography from "../Typography/Typography";
 import ModalButtons from "../Modals/ModalButtons";
 import CashUpdateModal from "../SellerPage/CashUpdateModal";
 import SellerFormHeader from "./SellerFormHeader";
+import { bookYear } from "../../hooks/reduxStore";
 
 const style = {
   position: "absolute",
@@ -73,6 +74,8 @@ export default function SellerForm({
   console.log(sellerToEdit);
   console.log(mode);
 
+  
+
   const initialFormState = columns.reduce((acc, column) => {
     acc[column.id] = [
       "initial_books",
@@ -105,6 +108,11 @@ export default function SellerForm({
   const [cashEditAmount, setCashEditAmount] = useState(0);
   const [checksEditAmount, setChecksEditAmount] = useState(0);
   const [donationsEditAmount, setDonationsEditAmount] = useState(0);
+
+  const year = bookYear() || [];
+  console.log(year);
+  const activeYearId = year ? year[0].id : null;
+  console.log(activeYearId);
 
   useEffect(() => {
     if (mode === "edit") {
@@ -200,6 +208,7 @@ export default function SellerForm({
         physical_book_digital: updatedFormData.physical_book_digital,
         digital_book_credit: updatedFormData.digital_book_credit,
         seller_earnings: updatedFormData.seller_earnings,
+        yearId: activeYearId,
       };
       handleEditSeller(editPayload);
     }
