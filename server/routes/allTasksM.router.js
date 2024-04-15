@@ -112,6 +112,31 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.put("/status/:id", rejectUnauthenticated, (req, res) => {
+  console.log("From ALLTASKS ROUTER: ", req.body);
+  const taskId = req.params.id;
+  const taskStatus = req.body.task_status;
+
+  const queryText = `
+            UPDATE 
+              "merchant_tasks"
+            SET
+              task_status = $1
+            WHERE
+              id = $2;
+        `;
+
+  pool
+    .query(queryText, [taskStatus, taskId])
+    .then((response) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error with allTaskM PUT route", err);
+      res.sendStatus(500);
+    });
+});
+
 router.delete("/:id", (req, res) => {
   const taskId = req.params.id;
   console.log("taskId = ", taskId);

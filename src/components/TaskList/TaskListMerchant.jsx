@@ -9,7 +9,6 @@ import SuccessAlert from "../SuccessAlert/SuccessAlert";
 import { mTasks } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { useAlert } from "../SuccessAlert/useAlert";
-import { useSelector } from "react-redux";
 import { spinnerSx } from "../TaskTabs/TaskTabs";
 
 export default function TaskListMerchant({
@@ -18,7 +17,6 @@ export default function TaskListMerchant({
   loadComplete,
 }) {
   const dispatch = dispatchHook();
-  const auth = useSelector((store) => store.auth);
   const [selectedTasks, setSelectedTasks] = useState({
     newTask: "",
     inProgressTask: "",
@@ -32,7 +30,7 @@ export default function TaskListMerchant({
   const merchantTasks = mTasks() || [];
 
   useEffect(() => {
-    dispatch({ type: "FETCH_ALL_MERCHANT_COMMENTS", payload: auth });
+    dispatch({ type: "FETCH_ALL_MERCHANT_COMMENTS" });
   }, []);
 
   // Set isLoading to false when the tasks are loaded

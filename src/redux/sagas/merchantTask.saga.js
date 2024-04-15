@@ -49,6 +49,7 @@ function* addMerchantTask(action) {
 }
 
 function* editMerchantTask(action) {
+  console.log(action.payload);
   try {
     yield axios.put(
       `/api/tasks/merchants/${action.payload.id}`,
@@ -56,10 +57,27 @@ function* editMerchantTask(action) {
     );
     console.log("merchantTask action.payload = ", action.payload);
     yield put({
-      type: "FETCH_ALL_MERCHANT_TASKS",
+      type: "FETCH_MERCHANT_TASKS",
+      payload: action.payload.merchantId,
     });
   } catch (err) {
     console.log("error in editMerchantTask Saga", err);
+  }
+}
+
+function* changeTaskStatus(action) {
+  console.log(action.payload);
+  try {
+    yield axios.put(
+      `/api/tasks/merchants/status/${action.payload.id}`,
+      action.payload
+    );
+    console.log("update task list action.payload = ", action.payload);
+    yield put({
+      type: "FETCH_ALL_MERCHANT_TASKS",
+    });
+  } catch (err) {
+    console.log("error in changeTaskStatus Saga", err);
   }
 }
 
@@ -122,6 +140,7 @@ export default function* merchantTaskSaga() {
   yield takeEvery("FETCH_ALL_MERCHANT_TASKS", fetchAllMerchantTasks);
   yield takeEvery("ADD_MERCHANT_TASK", addMerchantTask);
   yield takeEvery("UPDATE_MERCHANT_TASK", editMerchantTask);
+  yield takeEvery("CHANGE_MERCHANT_TASK_STATUS", changeTaskStatus);
   yield takeEvery("CHANGE_ASSIGNED_TO", changeAssignedTo);
   yield takeEvery("CHANGE_DUE_DATE", changeDueDate);
   yield takeEvery("ARCHIVE_MERCHANT_TASK", deleteMerchantTask);

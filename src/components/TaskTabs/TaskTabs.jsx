@@ -11,10 +11,9 @@ import NewBookYear from "../NewBookYear/NewBookYear";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
-import { User, mComments, mTasks } from "../../hooks/reduxStore";
+import { User, mTasks } from "../../hooks/reduxStore";
 import { useAlert } from "../SuccessAlert/useAlert";
 import { tabWidth } from "../Utils/helpers";
-import { useSelector } from "react-redux";
 
 export const spinnerSx = {
   ml: 1,
@@ -52,24 +51,23 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const dispatch = dispatchHook();
-  const user = User();
-  const auth = useSelector((store) => store.auth);
   const [value, setValue] = useState(0);
   const [merchantTab, setMerchantTab] = useState(false);
   const [activeTab, setActiveTab] = useState("organization"); // Set the default tab
   const [isLoading, setIsLoading] = useState(true);
-  // ~~~~~~~~~~ Alert ~~~~~~~~~~
+  // ~~~~~~~~~~ Alert ~~~~~~~~~~ //
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
-
+  // ~~~~~~~~~~ Store ~~~~~~~~~~ //
+  const user = User();
   const merchantTasks = mTasks() || [];
-  console.log(merchantTasks);
+
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   useEffect(() => {
     // Dispatch actions based on the active tab
     if (activeTab === "organization") {
-      dispatch({ type: "FETCH_ALL_ORGANIZATION_TASKS", payload: auth });
+      dispatch({ type: "FETCH_ALL_ORGANIZATION_TASKS" });
     } else if (activeTab === "merchant") {
-      dispatch({ type: "FETCH_ALL_MERCHANT_TASKS", payload: auth });
+      dispatch({ type: "FETCH_ALL_MERCHANT_TASKS" });
     }
   }, [activeTab]);
 
