@@ -164,11 +164,13 @@ export default function CouponReviewDetails() {
   const handleChangeRequest = (boolean) => {
     setChangesRequested(boolean);
     console.log("Changes requested? ", changesRequested);
+    setTaskStatus("In Progress");
   };
 
   const handleCompletedCoupon = (boolean) => {
     setCompletedCoupon(boolean);
     console.log("Completed coupon? ", completedCoupon);
+    setTaskStatus("Complete");
   };
 
   const handleUploadFile = () => {

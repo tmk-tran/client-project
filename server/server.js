@@ -331,7 +331,10 @@ app.post(`/api/contact`, async (req, res) => {
         },
       }
     );
-    console.log(checkedResponse.data.contacts);
+    console.log(
+      "Active campaign returner check",
+      checkedResponse.data.contacts
+    );
     const returnerId =
       checkedResponse.data.contacts && checkedResponse.data.contacts.length > 0
         ? checkedResponse.data.contacts[0].id
@@ -477,16 +480,6 @@ app.post(`/api/contact`, async (req, res) => {
       );
       console.log("Response from adding tag to contact:", response3.data);
       res.send(randomPassword);
-
-      // await axios.post(
-      //     "/api/user/register",
-      //     (user = {
-      //       username: contactEmail,
-      //       password: randomPassword,
-      //       firstName: req.body.firstName,
-      //       lastName: req.body.lastName,
-      //     })
-      //   );
     } else {
       // Code block to run if there is already a user in the active campaign database, updates existing information and updates the list a user is added too
       const apiKey = process.env.AC_API_KEY;
@@ -562,6 +555,65 @@ app.post(`/api/contact`, async (req, res) => {
           list = 0;
           break;
       }
+      console.log("returning list type is:", list);
+
+      //Retrieves returning contacts list's and then compairs an lists they are currently subscribed too to either add them to a new list or trigger the automation for the list
+      const returnerLists = await axios.get(
+        `https://northpointeinsure57220.api-us1.com/api/3/contacts/${returnerId}/contactLists`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Api-Token": apiKey,
+          },
+        }
+      );
+      const lists = returnerLists.data.contactLists;
+      console.log("The lists variable", lists);
+
+      for (let i = 0; i < lists.length; i++) {
+        const returnList = lists[i];
+        console.log("list in loop", returnList.list);
+        console.log("list to be added too", list);
+        if (Number(returnList.list) === list) {
+          const response2 = await axios.post(
+            `https://northpointeinsure57220.api-us1.com/api/3/contactAutomations`,
+            JSON.stringify({
+              contactAutomation: {
+                contact: returnerId,
+                automation: "46",
+              },
+            }),
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "Api-Token": apiKey,
+              },
+            }
+          );
+          console.log(
+            "response from adding contact to automation",
+            response2.data
+          );
+        } else {
+          const response2 = await axios.post(
+            `https://northpointeinsure57220.api-us1.com/api/3/contactLists`,
+            JSON.stringify({
+              contactList: {
+                list: list,
+                contact: returnerId,
+                status: 1,
+              },
+            }),
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "Api-Token": apiKey,
+              },
+            }
+          );
+          console.log("Response from adding contact to list:", response2.data);
+        }
+      }
 
       const response2 = await axios.post(
         `https://northpointeinsure57220.api-us1.com/api/3/contactLists`,
@@ -580,7 +632,7 @@ app.post(`/api/contact`, async (req, res) => {
         }
       );
       console.log("Response from adding contact to list:", response2.data);
-
+      console.log("returning book type is:", req.body.bookType);
       let tag = 0;
 
       if (
@@ -614,7 +666,10 @@ app.post(`/api/contact`, async (req, res) => {
           },
         }
       );
-      console.log("Response from adding tag to contact:", response3.data);
+      console.log(
+        "Response from adding tag to a returning contact:",
+        response3.data
+      );
 
       res.sendStatus(200);
     }

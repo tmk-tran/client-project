@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Select, MenuItem } from "@mui/material";
 
 const statusOptions = [
@@ -23,16 +23,32 @@ export default function CouponStatusDropdown({
   complete,
   task,
 }) {
+  console.log(task);
   const defaultTask = task ? task.task : ""; // Default to an empty string if task is undefined
+  console.log(defaultTask);
   const defaultStatus = task ? task.task_status : "";
+  console.log(defaultStatus);
   const defaultId = task ? task.id : "";
-  const [status, setStatus] = useState(defaultTask);
-  console.log(status);
+  console.log(defaultId);
+
+
   const [taskStatus, setTaskStatus] = useState(defaultStatus);
   console.log(taskStatus);
+  const [status, setStatus] = useState(defaultTask);
+  console.log(status);
   const [taskId, setTaskId] = useState(defaultId);
   console.log(taskId);
+  
   console.log(couponId);
+
+  useEffect(() => {
+    if (defaultTask) {
+      setTaskStatus(defaultStatus);
+      setStatus(defaultTask);
+      setTaskId(defaultId);
+    }
+  }, [defaultTask, defaultStatus, defaultId]);
+  
 
   const handleMenuChange = (event) => {
     console.log(event.target);
@@ -47,12 +63,13 @@ export default function CouponStatusDropdown({
 
     if (choice === "Completed Coupon") {
       complete(true); // Call the complete function with true
+      setTaskStatus("Complete"); // Set the task_status to "Complete"
     } else {
       complete(false); // Call the complete function with false
     }
 
     // Pass both the selected status and isTaskUpdate state to the parent
-    handleUpdateTask(taskId, couponId, choice, taskStatus);
+    handleUpdateTask(taskId, choice, taskStatus);
   };
 
   return (

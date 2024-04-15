@@ -57,6 +57,12 @@ export default function CouponReviewButtons({
     updateTaskState(false);
   };
 
+  console.log(taskId);
+  console.log(newTaskStatus);
+  console.log(taskStatus);
+  console.log(merchantId);
+
+  
   const handleUpdateClick = () => {
     const dispatchAction = {
       type: "UPDATE_MERCHANT_TASK",
