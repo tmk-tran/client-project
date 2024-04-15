@@ -26,14 +26,7 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   console.log(orgAdminId);
   console.log(isGraphicDesigner);
   const dispatch = useDispatch();
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
-  const organizationsList = useSelector((store) => store.organizations);
-  console.log(organizationsList);
-  const merchants = allMerchants() || [];
-  console.log(merchants);
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
   const [isMerchantList, setIsMerchantList] = useState(
     Cookies.get("isMerchantList") === "true" || false
   );
@@ -48,6 +41,16 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   console.log(currentPage);
   const [editComplete, setEditComplete] = useState(false);
   console.log(editComplete);
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
+  const organizationsList = useSelector((store) => store.organizations);
+  console.log(organizationsList);
+  const merchants = allMerchants() || [];
+  console.log(merchants);
+  const couponNumbers = mCoupons() || [];
+  console.log(couponNumbers);
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const itemsPerPage = 12;
 
   const handleToggle = () => {
@@ -78,9 +81,6 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
       setEditComplete(false);
     }
   }, [isMerchantList, editComplete]);
-
-  const couponNumbers = mCoupons() || [];
-  console.log(couponNumbers);
 
   // fuzzy search information
   const listToSearch = !isMerchantList ? organizationsList : merchants;

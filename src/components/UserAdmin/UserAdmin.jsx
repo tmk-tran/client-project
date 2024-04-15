@@ -24,6 +24,7 @@ import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import ActionSwitch from "./ActionSwitch";
 import OrgMenu from "./OrgMenu";
 import UserAdminHeader from "./UserAdminHeader";
+import { useSelector } from "react-redux";
 
 const pageHeaderStyle = {
   textAlign: "center",
@@ -44,29 +45,54 @@ const wideCellSx = {
   border: "1px solid #ddd",
 };
 
+const userNameCellSx = {
+  maxWidth: 175,
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  transition: "max-width 0.5s",
+  ...wideCellSx,
+};
+
 const shortCellSx = {
   width: 120,
   border: "1px solid #ddd",
 };
 
+const disabledCellSx = {
+  backgroundColor: "#eaeaea",
+  color: "gray",
+};
+
 export default function UserAdmin() {
+  const auth = useSelector((store) => store.auth);
+  const roles = useSelector((store) => store.roles);
   const dispatch = dispatchHook();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isHovered, setIsHovered] = useState(false);
+  console.log(isHovered);
+
+  isHovered
+    ? (userNameCellSx.maxWidth = "none")
+    : (userNameCellSx.maxWidth = 175);
 
   useEffect(() => {
     const action = {
       type: "FETCH_USER_TABLE",
+      payload: auth,
     };
     dispatch(action);
     const action2 = {
       type: "FETCH_ORGANIZATIONS",
+      payload: auth,
     };
     dispatch(action2);
     const action3 = {
       type: "FETCH_CONSUMER_BOOKS",
+      payload: auth,
     };
     dispatch(action3);
   }, []);
@@ -85,12 +111,14 @@ export default function UserAdmin() {
     console.log(id, type, newValue);
 
     if (type === "graphic_designer" || type === "org_admin") {
+      const role_id = type === "graphic_designer" ? 3 : 2;
       const action = {
         type: "CHANGE_USER_ROLE",
         payload: {
           id: id,
           [type === "graphic_designer" ? "graphic_designer" : "org_admin"]:
             newValue,
+          role_id,
         },
       };
       console.log(action);
@@ -118,6 +146,7 @@ export default function UserAdmin() {
       payload: {
         id: userId,
         org_id: id,
+        role_id: 2,
       },
     };
     console.log(dispatchAction);
@@ -214,10 +243,20 @@ export default function UserAdmin() {
               >
                 <TableCell sx={wideCellSx}>{row.last_name}</TableCell>
                 <TableCell sx={wideCellSx}>{row.first_name}</TableCell>
-                <TableCell sx={wideCellSx}>
+                <TableCell
+                  sx={userNameCellSx}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
                   <strong>{row.username}</strong>
                 </TableCell>
-                <TableCell sx={{ ...shortCellSx, ...centerMe }}>
+                <TableCell
+                  sx={{
+                    ...shortCellSx,
+                    ...centerMe,
+                    ...(row.id === 3 || row.id === 4 ? disabledCellSx : {}),
+                  }}
+                >
                   {/* ~~~~~~~~~ Graphic Designer Column ~~~~~~~~~~ */}
                   {row.graphic_designer ? (
                     <Typography
@@ -253,7 +292,13 @@ export default function UserAdmin() {
                     />
                   )}
                 </TableCell>
-                <TableCell sx={{ ...shortCellSx, ...centerMe }}>
+                <TableCell
+                  sx={{
+                    ...shortCellSx,
+                    ...centerMe,
+                    ...(row.id === 3 || row.id === 4 ? disabledCellSx : {}),
+                  }}
+                >
                   {/* ~~~~~~~~~ Org Admin Column ~~~~~~~~~~ */}
                   {row.org_admin ? (
                     <Typography
@@ -299,7 +344,7 @@ export default function UserAdmin() {
                     />
                   ) : null}
                 </TableCell>
-                <TableCell sx={centerMe}>
+                <TableCell sx={{ ...shortCellSx, ...centerMe }}>
                   {row.show_book ? (
                     <Typography
                       component="span"
