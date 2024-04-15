@@ -113,6 +113,10 @@ export default function CouponReviewDetails() {
       setBookId(file?.bookId);
     }
 
+    if (couponTask) {
+      setTaskStatus(couponTask.task_status);
+    }
+
     if (couponId) {
       dispatch({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
     }

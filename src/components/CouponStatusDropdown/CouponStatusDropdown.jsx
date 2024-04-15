@@ -61,11 +61,18 @@ export default function CouponStatusDropdown({
       onChange(false); // Call the onChange function with false
     }
 
-    if (choice === "Completed Coupon") {
+    // if (choice === "Completed Coupon") {
+    //   complete(true); // Call the complete function with true
+    //   setTaskStatus("Complete"); // Set the task_status to "Complete"
+    // } else {
+    //   complete(false); // Call the complete function with false
+    // }
+    if (choice !== "Completed Coupon") {
+      complete(false);
+      setTaskStatus("In Progress");
+    } else {
       complete(true); // Call the complete function with true
       setTaskStatus("Complete"); // Set the task_status to "Complete"
-    } else {
-      complete(false); // Call the complete function with false
     }
 
     // Pass both the selected status and isTaskUpdate state to the parent

@@ -20,6 +20,7 @@ export default function CouponReviewButtons({
   setIsTaskUpdate,
   couponId,
 }) {
+  console.log(taskStatus);
   console.log(isTaskUpdate);
   console.log(changesRequested);
   console.log(completedCoupon);
