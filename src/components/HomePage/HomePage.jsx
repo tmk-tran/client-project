@@ -31,18 +31,7 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   console.log(orgAdminId);
   console.log(isGraphicDesigner);
   const dispatch = dispatchHook();
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
-  const user = User();
-  console.log(user);
-  const organizationsList = allOrganizations() || [];
-  console.log(organizationsList);
-  const merchants = allMerchants() || [];
-  console.log(merchants);
-  const couponNumbers = mCoupons() || [];
-  console.log(couponNumbers);
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
   const [isMerchantList, setIsMerchantList] = useState(
     Cookies.get("isMerchantList") === "true" || false
   );
@@ -50,11 +39,9 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
 
   // state for the search and modal and pagination
   const [query, setQuery] = useState(" ");
-  console.log(query);
   const [showInput, setShowInput] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  console.log(currentPage);
   const [editComplete, setEditComplete] = useState(false);
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
