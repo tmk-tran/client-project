@@ -24,6 +24,7 @@ export default function BooksSoldForm({
   handleClose,
   orgId,
   editingRefId,
+  yearId,
 }) {
   const dispatch = dispatchHook();
   const [editedAmount, setEditedAmount] = useState(0);
@@ -39,6 +40,7 @@ export default function BooksSoldForm({
     const valuesToSend = {
       refId: editingRefId,
       orgId: orgId,
+      yearId: yearId,
       physical_book_cash: editedAmount,
       caseType: "edit",
     };

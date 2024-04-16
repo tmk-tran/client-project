@@ -91,7 +91,7 @@ export default function SellersTable() {
   const user = User() || [];
   const sellers = oSellers() || [];
   const year = bookYear() || [];
-  const yearId = year[0].id;
+  const yearId = year ? year[0].id : null;
   const availableYears = allYears();
   const [viewYearId, setViewYearId] = useState(year ? yearId : null);
 
@@ -310,6 +310,7 @@ export default function SellersTable() {
         handleClose={closeEditBooksSold}
         orgId={orgId}
         editingRefId={editingRefId}
+        yearId={yearId}
       />
       {/* ~~~~~~~~~~~ View URL modal ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <ViewUrl
