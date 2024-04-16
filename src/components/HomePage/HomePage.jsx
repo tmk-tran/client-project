@@ -244,7 +244,7 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
           {isMerchantList
             ? currentItems.map((merchant, index) => (
                 <ListView
-                  key={index}
+                  key={merchant.id}
                   data={merchant}
                   isMerchantList={true}
                   onChange={handleEdit}
@@ -262,17 +262,29 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
                   (organization) =>
                     !isOrgAdmin || organization.id === orgAdminId
                 )
-                .map((organization, index) => (
-                  <ListView
-                    key={index}
-                    data={organization}
-                    isMerchantList={false}
-                    onChange={handleEdit}
-                    editComplete={editComplete}
-                    setEditComplete={setEditComplete}
-                    isOrgAdmin={isOrgAdmin}
-                  />
-                ))}
+                .map((organization, index) => {
+                  // Check if the user is an admin of this organization
+                  const isAdminOfOrganization = organization.id === orgAdminId;
+
+                  // Render the organization only if the user is an admin
+                  if (isAdminOfOrganization) {
+                    return (
+                      <ListView
+                        key={organization.id}
+                        data={organization}
+                        isMerchantList={false}
+                        onChange={handleEdit}
+                        editComplete={editComplete}
+                        setEditComplete={setEditComplete}
+                        isOrgAdmin={isOrgAdmin}
+                      />
+                    );
+                  }
+
+                  // Return null if the user is not an admin of this organization
+                  // This will prevent the organization from being rendered
+                  return null;
+                })}
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~ Add New Org ~~~~~~~~~~~~~~~~~~~~~~ */}
