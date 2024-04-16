@@ -64,11 +64,14 @@ export default function TaskCard({
   onTaskUpdate,
   handleCaseTypeChange,
 }) {
+  console.log(task);
+  console.log(taskType);
   const history = historyHook();
   const dispatch = dispatchHook();
 
   const oId = task ? task.organization_id : null;
   const mId = task ? task.merchant_id : null;
+  console.log(mId);
   const taskStatus = task ? task.task_status : null;
 
   const [selectedTask, setSelectedTask] = useState(null);
@@ -149,12 +152,16 @@ export default function TaskCard({
   };
 
   const saveNewDueDate = () => {
+    const idToSend = taskType === "organization" ? oId : mId;
+
+    const actionType = taskType === "organization" ? "CHANGE_DUE_DATE_ORG" : "CHANGE_DUE_DATE_MER";
+
     const action = {
-      type: "CHANGE_DUE_DATE",
+      type: actionType,
       payload: {
         id: task.id,
         due_date: newDueDate,
-        merchantId: mId,
+        accountId: idToSend,
       },
     };
     dispatch(action);

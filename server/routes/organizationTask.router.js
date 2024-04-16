@@ -51,4 +51,29 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.put("/duedate/:id", rejectUnauthenticated, (req, res) => {
+  const dueDate = req.body.due_date;
+  const taskId = req.params.id;
+
+  const queryText = `
+          UPDATE "organization_tasks"
+          SET due_date = $1
+          WHERE id = $2;
+  `;
+
+  pool
+    .query(queryText, [dueDate, taskId])
+    .then((result) => {
+      console.log("FROM organizationTasks.router: ", result.rows);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(
+        "error in the PUT / request for organizationTasks router: ",
+        err
+      );
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

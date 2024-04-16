@@ -537,7 +537,7 @@ CREATE TABLE "user" (
     last_name character varying(100)
 );
 
-------- Table for creating coupon lost for users, uses function -----
+------- Table for creating coupon list for users, uses function -----
 ------- and trigger listed below ------------------------------------
 
 CREATE TABLE user_coupon (

@@ -101,7 +101,7 @@ function* changeAssignedTo(action) {
 function* changeDueDate(action) {
   console.log(action.payload);
   const taskId = action.payload.id;
-  const merchantId = action.payload.merchantId;
+  const merchantId = action.payload.accountId;
 
   try {
     yield axios.put(`/api/merchantTask/duedate/${taskId}`, action.payload);
@@ -142,6 +142,6 @@ export default function* merchantTaskSaga() {
   yield takeEvery("UPDATE_MERCHANT_TASK", editMerchantTask);
   yield takeEvery("CHANGE_MERCHANT_TASK_STATUS", changeTaskStatus);
   yield takeEvery("CHANGE_ASSIGNED_TO", changeAssignedTo);
-  yield takeEvery("CHANGE_DUE_DATE", changeDueDate);
+  yield takeEvery("CHANGE_DUE_DATE_MER", changeDueDate);
   yield takeEvery("ARCHIVE_MERCHANT_TASK", deleteMerchantTask);
 }
