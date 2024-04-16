@@ -289,7 +289,7 @@ RETURNS TRIGGER AS $$
 BEGIN
     UPDATE sellers s
     SET books_due = (s.initial_books + s.additional_books) - s.books_returned - COALESCE((
-        SELECT SUM(t.physical_book_cash + t.physical_book_digital + t.digital_book_credit)
+        SELECT SUM(t.physical_book_cash + t.physical_book_digital)
         FROM transactions t
         WHERE t."refId" = s."refId"
     ), 0);
@@ -299,7 +299,7 @@ $$ LANGUAGE plpgsql;
 
 ------- Trigger for transactions ----------------------
 CREATE TRIGGER calculate_books_due_trigger
-AFTER INSERT OR UPDATE OF physical_book_cash, physical_book_digital, digital_book_credit
+AFTER INSERT OR UPDATE OF physical_book_cash, physical_book_digital
 ON transactions
 FOR EACH ROW
 EXECUTE FUNCTION update_books_due();
