@@ -117,9 +117,7 @@ function* editMerchant(action) {
     if (action.payload.uploadedFile) {
       formData.append("merchant_logo", action.payload.uploadedFile);
       formData.append("filename", action.payload.uploadedFile.name);
-    }
-
-    if (action.payload.merchant_logo_base64) {
+    } else if (action.payload.merchant_logo_base64) {
       formData.append("merchant_logo", action.payload.merchant_logo_base64);
       formData.append("filename", action.payload.filename);
     }

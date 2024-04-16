@@ -205,87 +205,89 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-// router.put("/:id", (req, res) => {
-//   const organization = req.body;
-//   const queryText = `
-//   UPDATE "organization"
-//   SET "organization_name" = $1, "type" = $2, "address" = $3,
-//       "city" = $4,
-//       "state" = $5,
-//       "zip" = $6,
-//       "primary_contact_first_name" = $7,
-//       "primary_contact_last_name" = $8,
-//       "primary_contact_phone" = $9,
-//       "primary_contact_email" = $10,
-//       "organization_earnings" = $11,
-//       "organization_logo" = $12
-//   WHERE "id" = $13;`;
-//   pool
-//     .query(queryText, [
-//       organization.organization_name,
-//       organization.type,
-//       organization.address,
-//       organization.city,
-//       organization.state,
-//       organization.zip,
-//       organization.primary_contact_first_name,
-//       organization.primary_contact_last_name,
-//       organization.primary_contact_phone,
-//       organization.primary_contact_email,
-//       organization.organization_earnings,
-//       organization.organization_logo,
-//       req.params.id,
-//     ])
-//     .then((response) => {
-//       res.sendStatus(200);
-//     })
-//     .catch((err) => {
-//       console.log("error with organizations PUT route", err);
-//       res.sendStatus(500);
-//     });
-// });
-
 router.put("/:id", upload.single("organization_logo"), (req, res) => {
   const organizationId = req.params.id;
   const organization = req.body;
   console.log(organization);
-  const organization_logo = req.file ? req.file.buffer : null;
+  let organization_logo = null;
+  if (req.file) {
+    organization_logo = req.file.buffer;
+  }
   console.log(organization_logo);
 
-  const queryText = `
-      UPDATE "organization"
-      SET
-        "organization_name" = $1,
-        "type" = $2,
-        "address" = $3,
-        "city" = $4,
-        "state" = $5,
-        "zip" = $6,
-        "primary_contact_first_name" = $7,
-        "primary_contact_last_name" = $8,
-        "primary_contact_phone" = $9,
-        "primary_contact_email" = $10,
-        "organization_earnings" = $11,
-        "organization_logo" = $12,
-        "filename" = $13
-      WHERE "id" = $14;`;
+  let queryText;
+  let values;
+  if (organization_logo) {
+    // If a new logo is being uploaded, update the organization logo as well
+    queryText = `
+        UPDATE "organization"
+        SET
+          "organization_name" = $1,
+          "type" = $2,
+          "address" = $3,
+          "city" = $4,
+          "state" = $5,
+          "zip" = $6,
+          "primary_contact_first_name" = $7,
+          "primary_contact_last_name" = $8,
+          "primary_contact_phone" = $9,
+          "primary_contact_email" = $10,
+          "organization_earnings" = $11,
+          "organization_logo" = $12,
+          "filename" = $13
+        WHERE "id" = $14;`;
 
-  const values = [
-    organization.organization_name,
-    organization.type,
-    organization.address,
-    organization.city,
-    organization.state,
-    organization.zip,
-    organization.primary_contact_first_name,
-    organization.primary_contact_last_name,
-    organization.primary_contact_phone,
-    organization.primary_contact_email,
-    organization.organization_earnings,
-    organization_logo,
-    organization.filename,
-    organizationId,
-  ];
+    values = [
+      organization.organization_name,
+      organization.type,
+      organization.address,
+      organization.city,
+      organization.state,
+      organization.zip,
+      organization.primary_contact_first_name,
+      organization.primary_contact_last_name,
+      organization.primary_contact_phone,
+      organization.primary_contact_email,
+      organization.organization_earnings,
+      organization_logo,
+      organization.filename,
+      organizationId,
+    ];
+  } else {
+    // If no new logo is being uploaded, skip updating the organization logo
+    queryText = `
+        UPDATE "organization"
+        SET
+          "organization_name" = $1,
+          "type" = $2,
+          "address" = $3,
+          "city" = $4,
+          "state" = $5,
+          "zip" = $6,
+          "primary_contact_first_name" = $7,
+          "primary_contact_last_name" = $8,
+          "primary_contact_phone" = $9,
+          "primary_contact_email" = $10,
+          "organization_earnings" = $11,
+          "filename" = $12
+        WHERE "id" = $13;`;
+
+    values = [
+      organization.organization_name,
+      organization.type,
+      organization.address,
+      organization.city,
+      organization.state,
+      organization.zip,
+      organization.primary_contact_first_name,
+      organization.primary_contact_last_name,
+      organization.primary_contact_phone,
+      organization.primary_contact_email,
+      organization.organization_earnings,
+      organization.filename,
+      organizationId,
+    ];
+  }
 
   pool
     .query(queryText, values)

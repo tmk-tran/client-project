@@ -69,19 +69,16 @@ function* editOrganizationSaga(action) {
       action.payload.organization_earnings
     );
 
-    // Check if there is an existing logo
-    if (action.payload.organization_logo_base64) {
+    // Check if a file is uploaded
+    if (action.payload.uploadedFile) {
+      formData.append("organization_logo", action.payload.uploadedFile);
+      formData.append("filename", action.payload.uploadedFile.name);
+    } else if (action.payload.organization_logo_base64) {
       formData.append(
         "organization_logo",
         action.payload.organization_logo_base64
       );
       formData.append("filename", action.payload.filename);
-    }
-
-    // Check if a file is uploaded
-    if (action.payload.uploadedFile) {
-      formData.append("organization_logo", action.payload.uploadedFile);
-      formData.append("filename", action.payload.uploadedFile.name);
     }
 
     const response = yield axios.put(`/api/organizations/${orgId}`, formData, {

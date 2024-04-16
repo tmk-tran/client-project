@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Button,
-  Paper,
-  Pagination,
-  Typography,
-  Fab,
-  Tooltip,
-} from "@mui/material";
+import { Button, Paper, Pagination, Typography, Tooltip } from "@mui/material";
 import "./HomePage.css";
 import Fuse from "fuse.js";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -18,37 +10,35 @@ import ListView from "../ListView/ListView.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import ToggleButton from "../ToggleButton/ToggleButton.jsx";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { allMerchants, mCoupons } from "../../hooks/reduxStore.js";
+import { dispatchHook } from "../../hooks/useDispatch.js";
+import {
+  allMerchants,
+  allOrganizations,
+  mCoupons,
+} from "../../hooks/reduxStore.js";
 import { buttonIconSpacing } from "../Utils/helpers.js";
 
 function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   console.log(isOrgAdmin);
   console.log(orgAdminId);
   console.log(isGraphicDesigner);
-  const dispatch = useDispatch();
+  const dispatch = dispatchHook();
 
   const [isMerchantList, setIsMerchantList] = useState(
     Cookies.get("isMerchantList") === "true" || false
   );
-  console.log(isMerchantList);
 
   // state for the search and modal and pagination
   const [query, setQuery] = useState(" ");
-  console.log(query);
   const [showInput, setShowInput] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  console.log(currentPage);
   const [editComplete, setEditComplete] = useState(false);
-  console.log(editComplete);
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
-  const organizationsList = useSelector((store) => store.organizations);
-  console.log(organizationsList);
+  const organizationsList = allOrganizations() || [];
   const merchants = allMerchants() || [];
-  console.log(merchants);
   const couponNumbers = mCoupons() || [];
-  console.log(couponNumbers);
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const itemsPerPage = 12;
@@ -84,9 +74,8 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
 
   // fuzzy search information
   const listToSearch = !isMerchantList ? organizationsList : merchants;
-  console.log(listToSearch);
+  // console.log(listToSearch);
   const keys = !isMerchantList ? ["organization_name"] : ["merchant_name"];
-  console.log(keys);
 
   const fuse = new Fuse(listToSearch, {
     keys: keys,
@@ -95,12 +84,9 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
     minMatchCharLength: 2,
   });
   const results = fuse.search(query);
-  console.log(results);
   const searchResult = results.map((result) => result.item);
-  console.log(searchResult);
 
   const handleOnSearch = (value) => {
-    console.log(value);
     setQuery(value);
     if (!showInput) {
       setShowInput(true);
@@ -135,7 +121,7 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
       ? merchants.slice(indexOfFirstItem, indexOfLastItem)
       : organizationsList.slice(indexOfFirstItem, indexOfLastItem);
 
-  console.log(currentItems);
+  // console.log(currentItems);
 
   const totalItems =
     searchResult.length > 0
@@ -144,7 +130,6 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
       ? organizationsList.length
       : merchants.length;
   const pageCount = Math.ceil(totalItems / itemsPerPage);
-  console.log(pageCount);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
