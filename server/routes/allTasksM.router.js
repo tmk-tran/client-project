@@ -53,7 +53,6 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const category = req.body.category;
   const task = req.body.task;
   const merchantId = req.body.merchant_id;
-  const merchantName = req.body.merchant_name;
   const assign = req.body.assign;
   const dueDate = req.body.due_date;
   const description = req.body.description;
@@ -65,22 +64,20 @@ router.post("/", rejectUnauthenticated, (req, res) => {
           INSERT INTO "merchant_tasks" (
             category, 
             task, 
-            merchant_id, 
-            merchant_name, 
+            merchant_id,  
             assign, 
             due_date, 
             description, 
             task_status, 
             coupon_details,
             book_id) 
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
 
   pool
     .query(queryText, [
       category,
       task,
       merchantId,
-      merchantName,
       assign,
       dueDate,
       description,
