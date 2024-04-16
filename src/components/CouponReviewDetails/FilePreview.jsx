@@ -17,6 +17,10 @@ const boxStyle = {
   // position: "relative"
 };
 
+const divStyle = {
+  marginTop: "auto",
+};
+
 const FilePreview = ({
   pdfBlob,
   merchantId,
@@ -68,7 +72,7 @@ const FilePreview = ({
   console.log(directFile);
 
   return (
-    <div>
+    <div style={divStyle}>
       <>
         {directFile && (
           <>

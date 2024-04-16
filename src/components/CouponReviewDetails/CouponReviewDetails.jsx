@@ -355,12 +355,14 @@ export default function CouponReviewDetails() {
                               </Button>
                             </div>
                           )}
-                          <Box sx={uploadBoxStyle}>
-                            <UploadFileButton
-                              onFileSelect={handleFrontViewUpload}
-                              title="Upload Front View PDF"
-                            />
-                          </Box>
+                          {frontViewFile && !isUploaded ? null : (
+                            <Box sx={uploadBoxStyle}>
+                              <UploadFileButton
+                                onFileSelect={handleFrontViewUpload}
+                                title="Upload Front View PDF"
+                              />
+                            </Box>
+                          )}
                         </Box>
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -380,7 +382,7 @@ export default function CouponReviewDetails() {
                         >
                           Back of Coupon
                         </Typography>
-                        <Box sx={{ position: "relative", ...centeredStyle }}>
+                        <Box sx={{ ...centeredStyle }}>
                           <FilePreview
                             directFile={file}
                             showBackViewFiles={true}
@@ -400,12 +402,16 @@ export default function CouponReviewDetails() {
                               </Button>
                             </div>
                           )}
+                          {backViewFile && !isUploaded ? (
+                            null
+                          ) : (
                           <Box sx={uploadBoxStyle}>
                             <UploadFileButton
                               onFileSelect={handleBackViewUpload}
                               title="Upload Back View PDF"
                             />
                           </Box>
+                          )}
                         </Box>
                       </div>
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
