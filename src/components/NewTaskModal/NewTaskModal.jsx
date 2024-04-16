@@ -17,7 +17,6 @@ import {
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
 import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { border, hoverAccept, hoverDeny } from "../Utils/colors";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { capitalizeFirstWord, saveBtnWidth } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
@@ -197,7 +196,6 @@ export default function BasicModal({
             category: firstMenuChoice,
             task: secondMenuChoice,
             merchant_id: merchantId,
-            // merchant_name: thirdMenuChoice,
             assign: fourthMenuChoice,
             due_date: dueDate,
             description: additionalDetails,
@@ -210,7 +208,6 @@ export default function BasicModal({
             category: firstMenuChoice,
             task: secondMenuChoice,
             merchant_id: merchantId,
-            // merchant_name: thirdMenuChoice,
             assign: fourthMenuChoice,
             due_date: dueDate,
             description: additionalDetails,
@@ -224,7 +221,6 @@ export default function BasicModal({
             category: firstMenuChoice,
             task: secondMenuChoice,
             organization_id: organizationId,
-            // organization_name: thirdMenuChoice,
             assign: fourthMenuChoice,
             due_date: dueDate,
             description: additionalDetails,

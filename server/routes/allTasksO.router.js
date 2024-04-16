@@ -26,23 +26,31 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/", rejectUnauthenticated, (req, res) => {
-  const queryText = `INSERT INTO "organization_tasks" (category, task, organization_id, organization_name, assign, due_date, description, task_status) 
-                                            VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
   const category = req.body.category;
   const task = req.body.task;
   const organizationId = req.body.organization_id;
-  const organizationName = req.body.organization_name;
   const assign = req.body.assign;
   const dueDate = req.body.due_date;
   const description = req.body.description;
   const taskStatus = req.body.task_status;
+
+  const queryText = `
+          INSERT INTO "organization_tasks" (
+            category, 
+            task, 
+            organization_id, 
+            assign, 
+            due_date, 
+            description, 
+            task_status
+          ) 
+          VALUES ($1, $2, $3, $4, $5, $6, $7);`;
 
   pool
     .query(queryText, [
       category,
       task,
       organizationId,
-      organizationName,
       assign,
       dueDate,
       description,
