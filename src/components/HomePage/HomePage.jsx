@@ -257,21 +257,22 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
                   }
                 />
               ))
-            : currentItems.map(
-                (organization, index) =>
-                  (!isOrgAdmin ||
-                    (isOrgAdmin && organization.id === orgAdminId)) && (
-                    <ListView
-                      key={index}
-                      data={organization}
-                      isMerchantList={false}
-                      onChange={handleEdit}
-                      editComplete={editComplete}
-                      setEditComplete={setEditComplete}
-                      isOrgAdmin={isOrgAdmin}
-                    />
-                  )
-              )}
+            : currentItems
+                .filter(
+                  (organization) =>
+                    !isOrgAdmin || organization.id === orgAdminId
+                )
+                .map((organization, index) => (
+                  <ListView
+                    key={index}
+                    data={organization}
+                    isMerchantList={false}
+                    onChange={handleEdit}
+                    editComplete={editComplete}
+                    setEditComplete={setEditComplete}
+                    isOrgAdmin={isOrgAdmin}
+                  />
+                ))}
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~ Add New Org ~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -284,7 +285,7 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
         <br />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Pagination
-            count={isOrgAdmin ? 1 : pageCount}
+            count={pageCount}
             shape="rounded"
             page={currentPage}
             onChange={handlePageChange}
