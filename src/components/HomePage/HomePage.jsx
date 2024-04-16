@@ -12,8 +12,9 @@ import ToggleButton from "../ToggleButton/ToggleButton.jsx";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch.js";
 import {
-  allMerchants,
+  User,
   allOrganizations,
+  allMerchants,
   mCoupons,
 } from "../../hooks/reduxStore.js";
 import { buttonIconSpacing } from "../Utils/helpers.js";
@@ -36,6 +37,7 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   const [editComplete, setEditComplete] = useState(false);
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
+  const user = User();
   const organizationsList = allOrganizations() || [];
   const merchants = allMerchants() || [];
   const couponNumbers = mCoupons() || [];
@@ -265,9 +267,10 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
                 .map((organization, index) => {
                   // Check if the user is an admin of this organization
                   const isAdminOfOrganization = organization.id === orgAdminId;
+                  const isAdmin = user.is_admin;
 
                   // Render the organization only if the user is an admin
-                  if (isAdminOfOrganization) {
+                  if (isAdminOfOrganization || isAdmin) {
                     return (
                       <ListView
                         key={organization.id}
