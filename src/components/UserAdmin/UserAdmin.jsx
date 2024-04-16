@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
 import {
-  Box,
-  Button,
   TableContainer,
   Table,
   TableHead,
@@ -66,7 +64,6 @@ const disabledCellSx = {
 
 export default function UserAdmin() {
   const auth = useSelector((store) => store.auth);
-  const roles = useSelector((store) => store.roles);
   const dispatch = dispatchHook();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -144,7 +141,6 @@ export default function UserAdmin() {
       payload: {
         id: userId,
         org_id: id,
-        role_id: 2,
       },
     };
     console.log(dispatchAction);
