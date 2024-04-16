@@ -39,6 +39,8 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   console.log(organizationsList);
   const merchants = allMerchants() || [];
   console.log(merchants);
+  const couponNumbers = mCoupons() || [];
+  console.log(couponNumbers);
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const [isMerchantList, setIsMerchantList] = useState(
@@ -85,9 +87,6 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
       setEditComplete(false);
     }
   }, [isMerchantList, editComplete]);
-
-  const couponNumbers = mCoupons() || [];
-  console.log(couponNumbers);
 
   // fuzzy search information
   const listToSearch = !isMerchantList ? organizationsList : merchants;
