@@ -111,14 +111,12 @@ export default function UserAdmin() {
     console.log(id, type, newValue);
 
     if (type === "graphic_designer" || type === "org_admin") {
-      const role_id = type === "graphic_designer" ? 3 : 2;
       const action = {
         type: "CHANGE_USER_ROLE",
         payload: {
           id: id,
           [type === "graphic_designer" ? "graphic_designer" : "org_admin"]:
             newValue,
-          role_id,
         },
       };
       console.log(action);
