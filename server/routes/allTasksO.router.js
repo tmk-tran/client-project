@@ -6,7 +6,13 @@ const {
 } = require("../modules/authentication-middleware");
 
 router.get("/", rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT * FROM organization_tasks ORDER BY due_date ASC;`;
+  const queryText = `
+          SELECT ot.*, o.organization_name
+          FROM organization_tasks ot
+          JOIN organization o ON ot.organization_id = o.id
+          ORDER BY ot.due_date ASC;
+        `;
+
   pool
     .query(queryText)
     .then((result) => {

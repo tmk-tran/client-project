@@ -6,7 +6,13 @@ const {
 } = require("../modules/authentication-middleware");
 
 router.get("/", rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT * FROM merchant_tasks ORDER BY due_date ASC;`;
+  const queryText = `
+          SELECT mt.*, m.merchant_name
+          FROM merchant_tasks mt
+          JOIN merchant m ON mt.merchant_id = m.id
+          ORDER BY mt.due_date ASC;
+        `;
+
   pool
     .query(queryText)
     .then((result) => {
@@ -22,7 +28,14 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const merchantId = req.params.id;
 
-  const queryText = `SELECT * FROM merchant_tasks WHERE merchant_id = $1;`;
+  const queryText = `
+          SELECT mt.*, m.merchant_name
+          FROM merchant_tasks mt
+          JOIN merchant m ON mt.merchant_id = m.id
+          WHERE mt.merchant_id = $1
+          ORDER BY mt.due_date ASC;
+        `;
+
   pool
     .query(queryText, [merchantId])
     .then((result) => {
@@ -90,7 +103,6 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   const task = req.body.task;
   const taskStatus = req.body.task_status;
 
-  // const queryText = `UPDATE "merchant_tasks" SET task_status = $1 WHERE id = $2;`;
   const queryText = `
             UPDATE 
               "merchant_tasks"

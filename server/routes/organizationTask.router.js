@@ -10,11 +10,13 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   console.log(orgId);
 
   const queryText = `
-          SELECT * 
-          FROM organization_tasks 
-          WHERE organization_id = $1 
-          ORDER BY due_date ASC;
+          SELECT ot.*, o.organization_name
+          FROM organization_tasks ot
+          JOIN organization o ON ot.organization_id = o.id
+          WHERE ot.organization_id = $1
+          ORDER BY ot.due_date ASC;
         `;
+
   pool
     .query(queryText, [orgId])
     .then((result) => {
