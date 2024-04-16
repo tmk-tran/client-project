@@ -134,6 +134,7 @@ export default function AddAccountModal({
         primary_contact_phone: contactPhone,
         primary_contact_email: contactEmail,
         organization_logo: logoFile,
+        filename: logoFile.name,
         organization_earnings: orgEarnings,
       },
     };
@@ -153,6 +154,7 @@ export default function AddAccountModal({
         contact_phone_number: contactPhone,
         contact_email: contactEmail,
         merchant_logo: logoFile,
+        filename: logoFile.name,
         website: merchantWebsite,
         contact_method: selectedChoice,
       },

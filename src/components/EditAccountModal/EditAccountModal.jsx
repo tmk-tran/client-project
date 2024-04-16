@@ -21,6 +21,7 @@ import ModalButtons from "../Modals/ModalButtons";
 const EditAccountModal = ({ open, handleClose, data, isMerchantList }) => {
   const dispatch = useDispatch();
   const [editedAccount, setEditedAccount] = useState(data);
+  console.log(editedAccount);
   const [selectedState, setSelectedState] = useState(data.state);
 
   useEffect(() => {

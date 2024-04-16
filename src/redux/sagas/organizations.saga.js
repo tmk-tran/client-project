@@ -14,6 +14,45 @@ function* fetchOrganizationsSaga() {
 function* addOrganizationSaga(action) {
   try {
     console.log(action.payload);
+    // Create a FormData object to send the file data
+    const formData = new FormData();
+    formData.append("organization_name", action.payload.organization_name);
+    formData.append("type", action.payload.type);
+    formData.append("address", action.payload.address);
+    formData.append("city", action.payload.city);
+    formData.append("state", action.payload.state);
+    formData.append("zip", action.payload.zip);
+    formData.append(
+      "primary_contact_first_name",
+      action.payload.primary_contact_first_name
+    );
+    formData.append(
+      "primary_contact_last_name",
+      action.payload.primary_contact_last_name
+    );
+    formData.append(
+      "primary_contact_phone",
+      action.payload.primary_contact_phone
+    );
+    formData.append(
+      "primary_contact_email",
+      action.payload.primary_contact_email
+    );
+    formData.append(
+      "organization_earnings",
+      action.payload.organization_earnings
+    );
+    formData.append("organization_logo", action.payload.organization_logo);
+    formData.append("filename", action.payload.filename);
+
+    const response = yield axios.post(`/api/organizations`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Set content type to multipart/form-data for file upload
+      },
+    });
+
+    console.log("RESPONSE IS", response);
+
     yield axios.post("/api/organizations", action.payload);
     yield put({ type: "FETCH_ORGANIZATIONS" });
   } catch (error) {
