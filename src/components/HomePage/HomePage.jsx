@@ -56,7 +56,14 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   const [currentPage, setCurrentPage] = useState(1);
   console.log(currentPage);
   const [editComplete, setEditComplete] = useState(false);
-  console.log(editComplete);
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
+  const user = User();
+  const organizationsList = allOrganizations() || [];
+  const merchants = allMerchants() || [];
+  const couponNumbers = mCoupons() || [];
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const itemsPerPage = 12;
 
   const handleToggle = () => {
@@ -300,7 +307,6 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
                 .map((organization, index) => {
                   // Check if the user is an admin of this organization
                   const isAdminOfOrganization = organization.id === orgAdminId;
-                  // Or an App Admin
                   const isAdmin = user.is_admin;
 
                   // Render the organization only if the user is an admin
