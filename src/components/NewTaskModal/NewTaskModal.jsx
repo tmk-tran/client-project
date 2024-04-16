@@ -217,7 +217,6 @@ export default function BasicModal({
           }
         : {
             // Adjust the payload properties for organization logic
-            // Example:
             category: firstMenuChoice,
             task: secondMenuChoice,
             organization_id: organizationId,
