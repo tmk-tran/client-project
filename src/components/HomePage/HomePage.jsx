@@ -144,6 +144,7 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
       ? organizationsList.length
       : merchants.length;
   const pageCount = Math.ceil(totalItems / itemsPerPage);
+  console.log(pageCount);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -298,7 +299,7 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
         <br />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Pagination
-            count={pageCount}
+            count={isOrgAdmin ? 1 : pageCount}
             shape="rounded"
             page={currentPage}
             onChange={handlePageChange}
