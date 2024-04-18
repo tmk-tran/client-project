@@ -9,7 +9,7 @@ import {
   TableFooter,
   Typography,
 } from "@mui/material";
-import { formatDateTime } from "../Utils/helpers";
+import { capitalizeWords, formatDateTime } from "../Utils/helpers";
 
 const headerStyle = {
   border: "1px solid #f0f0f0",
@@ -146,13 +146,19 @@ export default function TransactionsTable({ transactions }) {
                 </TableCell>
                 {/* ~~~~~ Shipping Name ~~~~~ */}
                 <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
-                  {transaction.purchase_units_shipping_name_full_name}
+                  {capitalizeWords(
+                    transaction.purchase_units_shipping_name_full_name
+                  )}
                 </TableCell>
                 {/* ~~~~~ Address ~~~~~ */}
                 <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
-                  {transaction.purchase_units_shipping_address_address_line_1}{" "}
-                  {transaction.purchase_units_shipping_address_admin_area_2},{" "}
-                  {transaction.purchase_units_shipping_address_admin_area_1}{" "}
+                  {capitalizeWords(
+                    transaction.purchase_units_shipping_address_address_line_1
+                  )}{" "}
+                  {capitalizeWords(
+                    transaction.purchase_units_shipping_address_admin_area_2
+                  )}
+                  , {transaction.purchase_units_shipping_address_admin_area_1}{" "}
                   {transaction.purchase_units_shipping_address_postal_code}
                 </TableCell>
                 {/* ~~~~~ Payer ID ~~~~~ */}
@@ -161,8 +167,8 @@ export default function TransactionsTable({ transactions }) {
                 </TableCell>
                 {/* ~~~~~ Payer Name ~~~~~ */}
                 <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
-                  {transaction.payer_name_given_name}{" "}
-                  {transaction.payer_name_surname}
+                  {capitalizeWords(transaction.payer_name_given_name)}{" "}
+                  {capitalizeWords(transaction.payer_name_surname)}
                 </TableCell>
                 {/* ~~~~~ Received Gross Value ~~~~~ */}
                 <TableCell sx={cellBorder}>

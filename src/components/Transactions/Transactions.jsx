@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { Box, Tab, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
-import { centeredStyle, containerStyle } from "../Utils/pageStyles";
 import { paypalTransactions } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
 import TransactionsTable from "./TransactionsTable";
@@ -26,7 +25,13 @@ export default function Transactions() {
         Transactions
       </Typography>
       <Box sx={{ width: "100%", mt: 2 }}>
-        <TransactionsTable transactions={transactionList} />
+        {transactionList.length > 0 ? (
+          <TransactionsTable transactions={transactionList} />
+        ) : (
+          <Typography variant="body2" sx={{ textAlign: "center" }}>
+            Error loading transactions
+          </Typography>
+        )}
       </Box>
     </Box>
   );
