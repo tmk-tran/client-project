@@ -16,7 +16,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText)
     .then((result) => {
-      console.log("FROM tasks.router: ", result.rows);
+      console.log("Successful GET from allTasksM.router");
       res.send(result.rows);
     })
     .catch((err) => {
@@ -39,7 +39,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [merchantId])
     .then((result) => {
-      console.log("FROM tasks.router: ", result.rows);
+      console.log("Successful GET by id in allTasksM.router");
       res.send(result.rows);
     })
     .catch((err) => {
@@ -49,7 +49,6 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/", rejectUnauthenticated, (req, res) => {
-  console.log("From ALLTASKS ROUTER: ", req.body);
   const category = req.body.category;
   const task = req.body.task;
   const merchantId = req.body.merchant_id;
@@ -95,7 +94,6 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.put("/:id", rejectUnauthenticated, (req, res) => {
-  console.log("From ALLTASKS ROUTER: ", req.body);
   const taskId = req.params.id;
   const task = req.body.task;
   const taskStatus = req.body.task_status;
@@ -122,7 +120,6 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
 });
 
 router.put("/status/:id", rejectUnauthenticated, (req, res) => {
-  console.log("From ALLTASKS ROUTER: ", req.body);
   const taskId = req.params.id;
   const taskStatus = req.body.task_status;
 
@@ -148,7 +145,7 @@ router.put("/status/:id", rejectUnauthenticated, (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const taskId = req.params.id;
-  console.log("taskId = ", taskId);
+
   pool
     .query(
       `UPDATE "merchant_tasks"
