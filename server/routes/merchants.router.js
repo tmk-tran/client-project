@@ -151,7 +151,7 @@ router.post("/", upload.single("merchant_logo"), (req, res) => {
       contactMethod,
     ])
     .then((response) => {
-      console.log("response from POST merchants.router: ", response.rows);
+      console.log("Successful POST in merchants.router");
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -266,7 +266,7 @@ router.put(
     pool
       .query(queryText, values)
       .then((response) => {
-        console.log("successful PUT to merchants.router");
+        console.log("successful PUT in merchants.router");
         res.sendStatus(200);
       })
       .catch((err) => {
@@ -288,7 +288,7 @@ router.put("/contact/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [method, merchantId])
     .then((response) => {
-      console.log("successful PUT in merchants.router: ");
+      console.log("Successful PUT to /contact in merchants.router");
       res.sendStatus(200);
     })
     .catch((err) => {
@@ -301,11 +301,18 @@ router.delete("/:id", (req, res) => {
   const { id } = req.params;
   const { archiveReason } = req.body;
 
-  const queryText = `UPDATE "merchant" SET is_deleted = true, archive_reason = $1 WHERE id = $2;`;
+  const queryText = `
+          UPDATE "merchant" 
+          SET 
+            is_deleted = true, 
+            archive_reason = $1 
+          WHERE id = $2;
+        `;
+
   pool
     .query(queryText, [archiveReason, id])
     .then((response) => {
-      console.log("successful DELETE from merchants.router: ");
+      console.log("successful DELETE from merchants.router");
       res.sendStatus(200);
     })
     .catch((error) => {
