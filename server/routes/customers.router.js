@@ -18,7 +18,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText)
     .then((result) => {
-      console.log("from GET ALL customers.router: ", result.rows);
+      // console.log("from GET ALL customers.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -42,7 +42,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [customerId])
     .then((result) => {
-      console.log("from GET /id customers.router: ", result.rows);
+      // console.log("from GET /id customers.router: ", result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -52,7 +52,6 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/", rejectUnauthenticated, (req, res) => {
-  console.log(req.body);
   const customer = req.body;
   const refId = customer.refId;
   const lastName = customer.last_name;
@@ -64,12 +63,6 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   const city = customer.city;
   const state = customer.state;
   const zip = customer.zip;
-
-  // Check if the phone number is exactly 10 digits long
-  // if (!/^\d{10}$/.test(phone)) {
-  //   console.log("Phone number is not 10 digits long");
-  //   return res.status(400).send("Phone number must be 10 digits long");
-  // }
 
   const queryText = `
         INSERT INTO "customers" (
@@ -102,7 +95,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       zip,
     ])
     .then((response) => {
-      console.log("response from POST customers.router: ", response.rows);
+      console.log("Successful POST in customers.router");
       res.send(response.rows).status(201);
     })
     .catch((err) => {
