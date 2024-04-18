@@ -53,7 +53,6 @@ function* addOrganizationSaga(action) {
 
     console.log("RESPONSE IS", response);
 
-    yield axios.post("/api/organizations", action.payload);
     yield put({ type: "FETCH_ORGANIZATIONS" });
   } catch (error) {
     console.log("error in addOrganizationSaga", error);
