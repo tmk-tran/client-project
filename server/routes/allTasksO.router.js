@@ -16,7 +16,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText)
     .then((result) => {
-      console.log("FROM allTasksO.router: ", result.rows);
+      console.log("Successful GET from allTasksO.router: ");
       res.send(result.rows);
     })
     .catch((err) => {

@@ -6,7 +6,6 @@ const {
 } = require("../modules/authentication-middleware");
 
 router.get("/:orgId/:yearId", rejectUnauthenticated, (req, res) => {
-  console.log("from sellers.router: ", req.params);
   const orgId = req.params.orgId;
   const yearId = req.params.yearId;
 
@@ -54,7 +53,7 @@ router.get("/:orgId/:yearId", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [orgId, yearId])
     .then((result) => {
-      console.log("from GET /id sellers.router: ", result.rows);
+      console.log("Successful GET /id from sellers.router: ");
       res.send(result.rows);
     })
     .catch((err) => {
@@ -124,7 +123,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       bookYear,
     ])
     .then((response) => {
-      console.log("response from POST sellers.router: ", response.rows);
+      console.log("Successful POST sellers.router: ");
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -170,7 +169,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, values)
     .then((response) => {
-      console.log("response from PUT sellers.router: ", response.rows);
+      console.log("Successful PUT sellers.router: ");
       res.sendStatus(200);
     })
     .catch((err) => {
