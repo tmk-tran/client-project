@@ -6,10 +6,6 @@ const {
 } = require("../modules/authentication-middleware");
 
 router.get("/", rejectUnauthenticated, (req, res) => {
-  // const queryText = `
-  //       SELECT * FROM "paypal_transactions"
-  //       ORDER BY "purchase_units_payments_captures_create_time" DESC;
-  //       `;
   const queryText = `
           SELECT pt.*,
             o.organization_name,
