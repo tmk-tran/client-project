@@ -9,11 +9,12 @@ function Message({ content }) {
   return <p>{content}</p>;
 }
 
-function PayPalButton({ selectedProducts, customDonation, orderSuccess }) {
+function PayPalButton({ refId, selectedProducts, customDonation, orderSuccess }) {
   console.log(selectedProducts);
   console.log(customDonation);
   console.log(process.env.REACT_APP_PAYPAL_CLIENT_ID);
   const dispatch = dispatchHook();
+  console.log(refId);
 
   // Removed 'venmo' from "enable-funding"
   const initialOptions = {
@@ -249,6 +250,7 @@ function PayPalButton({ selectedProducts, customDonation, orderSuccess }) {
                   seller_receivable_paypal_fee_value: orderData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.paypal_fee.value,
                   seller_receivable_net_amount_currency_code: orderData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.net_amount.currency_code,
                   seller_receivable_net_amount_value: orderData.purchase_units[0].payments.captures[0].seller_receivable_breakdown.net_amount.value,
+                  seller_ref_id: refId,
                 };
                 
 

@@ -211,6 +211,7 @@ export default function CheckoutPage({ caseType }) {
             }}
           >
             <PayPalButtons
+              refId={refId}
               selectedProducts={selectedProducts}
               customDonation={customDonation}
               orderSuccess={handleOrderInfo}
