@@ -16,7 +16,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText)
     .then((result) => {
-      console.log("Successful GET from allTasksO.router: ");
+      console.log("Successful GET from allTasksO.router");
       res.send(result.rows);
     })
     .catch((err) => {
@@ -69,10 +69,15 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   const taskId = req.params.id;
   const taskStatus = req.body.task_status;
 
-  const queryText = `UPDATE "organization_tasks" SET task_status = $1 WHERE id = $2;`;
+  const queryText = `
+          UPDATE "organization_tasks" 
+          SET task_status = $1 
+          WHERE id = $2;
+        `;
   pool
     .query(queryText, [taskStatus, taskId])
     .then((response) => {
+      console.log("Successful PUT in allTasksO.router");
       res.sendStatus(200);
     })
     .catch((err) => {
@@ -83,7 +88,7 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const taskId = req.params.id;
-  console.log("taskId = ", taskId);
+
   pool
     .query(
       `UPDATE "organization_tasks"
@@ -92,6 +97,7 @@ router.delete("/:id", (req, res) => {
       [taskId]
     )
     .then((response) => {
+      console.log("Successful DELETE in allTasksO.router");
       res.sendStatus(200);
     })
     .catch((error) => {
