@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { dispatchHook } from "../../hooks/useDispatch";
 import { flexCenter } from "../Utils/pageStyles";
-import { border } from "../Utils/colors";
 import PdfThumbnail from "../PdfThumbnail/PdfThumbnail";
 
 export const thumbnailSize = {
@@ -22,32 +20,12 @@ const divStyle = {
 };
 
 const FilePreview = ({
-  pdfBlob,
-  merchantId,
   showFrontViewFiles,
   showBackViewFiles,
   caseType,
   directFile,
 }) => {
-  console.log(merchantId);
-  console.log(showFrontViewFiles);
-  console.log(showBackViewFiles);
-  console.log(caseType);
-  const dispatch = dispatchHook();
-  const [pdf, setPdf] = useState(null);
-  console.log(pdfBlob);
-  console.log(directFile);
-  console.log(pdf);
-  const [isUploading, setIsUploading] = useState(false);
-  console.log(isUploading);
-  const [frontViewUrl, setFrontViewUrl] = useState(null);
-  console.log(frontViewUrl);
-  const [backViewUrl, setBackViewUrl] = useState(null);
-  console.log(backViewUrl);
-
   const handleButtonClick = (file, type) => {
-    console.log(file);
-    console.log(type);
     let blob = null;
 
     switch (type) {
@@ -69,7 +47,6 @@ const FilePreview = ({
       window.open(url, "_blank");
     }
   };
-  console.log(directFile);
 
   return (
     <div style={divStyle}>
