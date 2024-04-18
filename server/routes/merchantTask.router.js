@@ -19,7 +19,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [merchantId])
     .then((result) => {
-      console.log("FROM tasks.router: ", result.rows);
+      console.log("Successful GET in merchantTask.router");
       res.send(result.rows);
     })
     .catch((err) => {
@@ -41,11 +41,14 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [assignedTo, taskId])
     .then((result) => {
-      console.log("FROM merchantTasks.router: ", result.rows);
+      console.log("Successful PUT by ID in merchantTask.router");
       res.sendStatus(200);
     })
     .catch((err) => {
-      console.log("error in the PUT / request for merchantTasks router: ", err);
+      console.log(
+        "error in the PUT / request by ID for merchantTask router: ",
+        err
+      );
       res.sendStatus(500);
     });
 });
@@ -63,11 +66,14 @@ router.put("/duedate/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [dueDate, taskId])
     .then((result) => {
-      console.log("FROM merchantTasks.router: ", result.rows);
+      console.log("Successful PUT to /duedate in merchantTask.router");
       res.sendStatus(200);
     })
     .catch((err) => {
-      console.log("error in the PUT / request for merchantTasks router: ", err);
+      console.log(
+        "error in the PUT / request for /duedate merchantTask router: ",
+        err
+      );
       res.sendStatus(500);
     });
 });
