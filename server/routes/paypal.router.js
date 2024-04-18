@@ -14,7 +14,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText)
     .then((result) => {
-      console.log("FROM GET in paypal.router: ", result.rows);
+      console.log("Successful GET in paypal.router");
       res.send(result.rows);
     })
     .catch((err) => {
@@ -25,7 +25,6 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const data = req.body;
-  console.log(data);
 
   const queryText = `
     INSERT INTO paypal_transactions (
@@ -91,7 +90,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, values)
     .then(() => {
-      console.log("successful POST paypal.router: ");
+      console.log("successful POST paypal.router");
       res.sendStatus(201);
     })
     .catch((err) => {
