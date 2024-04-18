@@ -123,7 +123,7 @@ export default function TransactionsTable({ transactions }) {
                   )}
                 </TableCell>
                 {/* ~~~~~ Seller Name ~~~~~ */}
-                <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder}}>
+                <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
                   {transaction.seller_first_name} {transaction.seller_last_name}
                 </TableCell>
                 {/* ~~~~~ Organization ~~~~~ */}
