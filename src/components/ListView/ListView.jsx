@@ -1,40 +1,28 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./ListView.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import Swal from "sweetalert2";
-import EditAccountModal from "../EditAccountModal/EditAccountModal";
-import {
-  backgroundColor,
-  border,
-  primaryColor,
-  successColor,
-} from "../Utils/colors";
+import { dispatchHook } from "../../hooks/useDispatch";
 import { User } from "../../hooks/reduxStore";
+import { backgroundColor, border } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import ImageRender from "../ImageRender/ImageRender";
+import EditAccountModal from "../EditAccountModal/EditAccountModal";
 
 function ListView({
   data,
   isMerchantList,
   onChange,
-  editComplete,
   isOrgAdmin,
   numCoupons,
 }) {
-  console.log(data);
-  console.log(data.organization_logo_base64);
-  console.log(data.merchant_logo_base64);
-  console.log(isMerchantList);
-  console.log(numCoupons);
-  const user = User() || {};
-  console.log(user);
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = dispatchHook();
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  console.log(editComplete);
+
+  const user = User() || {};
 
   const handleEdit = () => {
     setEditModalOpen(true);
@@ -42,6 +30,7 @@ function ListView({
 
   const handleEditClose = () => {
     setEditModalOpen(false);
+    // Used to refresh page for Merchant account edit
     onChange();
   };
 
