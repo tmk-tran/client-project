@@ -11,13 +11,8 @@ import { backgroundColor, border } from "../Utils/colors";
 import ImageRender from "../ImageRender/ImageRender";
 import EditAccountModal from "../EditAccountModal/EditAccountModal";
 
-function ListView({
-  data,
-  isMerchantList,
-  onChange,
-  isOrgAdmin,
-  numCoupons,
-}) {
+function ListView({ data, isMerchantList, onChange, isOrgAdmin, numCoupons }) {
+  console.log(data);
   const history = useHistory();
   const dispatch = dispatchHook();
   const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -124,6 +119,16 @@ function ListView({
   const totalBooksSold = data.total_books_sold;
   const totalStandingBooks =
     totalCheckedOutBooks - totalCheckedInBooks - totalBooksSold;
+  // Added 4/19/24, per client request
+  const orgBooksSold =
+    Number(data.physical_book_cash || 0) +
+    Number(data.physical_book_digital || 0) +
+    Number(data.digital_book_credit || 0);
+  const orgEarningsCalc =
+    Number(orgBooksSold) + Number(data.organization_earnings);
+  const psgEarningsCalc =
+    (25 - Number(data.organization_earnings)) * Number(orgBooksSold);
+  console.log(psgEarningsCalc);
 
   return (
     <>
@@ -151,7 +156,7 @@ function ListView({
                       {/* ///////////// ORG INFORMATION /////////// */}
                       {/* ///////////////////////////////////////// */}
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                      {/* ~~~~~~~~~~~ EARNINGS ~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~~ ORG FEE ~~~~~~~~~~~~~ */}
                       <Typography variant="body2">
                         {!user.org_admin
                           ? `Organization Fee: $${data.organization_earnings}`
@@ -159,34 +164,53 @@ function ListView({
                       </Typography>
 
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                      {/* ~~~~~~~~~~ BOOKS SOLD ~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~~ EARNINGS ~~~~~~~~~~~~ */}
                       <Typography variant="body2">
-                        Total Books Sold: {data.total_books_sold}
+                        Organization Earnings: ${orgEarningsCalc}
                       </Typography>
+
+                      {/* ~~~~~ For Groups ~~~~~ */}
+                      {/* <Typography variant="body2">
+                        Total Books Sold: {data.total_books_sold}
+                      </Typography> */}
 
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       {/* ~~~~~~~~~~~ EARNINGS ~~~~~~~~~~~~ */}
-                      <Typography variant="body2">
+                      {/* <Typography variant="body2">
                         Organization Earnings: ${formattedEarnings}
-                      </Typography>
+                      </Typography> */}
                     </div>
 
                     <div className="column">
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       {/* ~~~~~~~~~~~~ GROUPS ~~~~~~~~~~~~~ */}
-                      <Typography variant="body2">
+                      {/* <Typography variant="body2">
                         Total Groups: {data.total_groups}
+                      </Typography> */}
+
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~ BOOKS SOLD ~~~~~~~~~~~ */}
+                      <Typography variant="body2">
+                        Total Books Sold: {orgBooksSold}
+                      </Typography>
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~ TOTAL BOOKS ~~~~~~~~~~ */}
+                      {/* <Typography variant="body2">
+                        Total Outstanding Books: {totalStandingBooks}
+                      </Typography> */}
+                      <Typography variant="body2">
+                        Total Outstanding Books: {data.total_books_due}
                       </Typography>
 
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                       {/* ~~~~~~~~~~ TOTAL BOOKS ~~~~~~~~~~ */}
-                      <Typography variant="body2">
+                      {/* <Typography variant="body2">
                         Total Outstanding Books: {totalStandingBooks}
-                      </Typography>
+                      </Typography> */}
 
                       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                      {/* ~~~~~~~~~~ PSG EARNINGS ~~~~~~~~~ */}
-                      <Typography variant="body2">
+                      {/* ~~~~~ PSG EARNINGS (groups) ~~~~~ */}
+                      {/* <Typography variant="body2">
                         {!user.org_admin
                           ? `PSG Earnings: $${(
                               data.total_books_sold * 25 -
@@ -194,6 +218,13 @@ function ListView({
                                 ? parseFloat(data.total_org_earnings)
                                 : 0)
                             ).toLocaleString()}`
+                          : null}
+                      </Typography> */}
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~ PSG EARNINGS ~~~~~~~~~ */}
+                      <Typography variant="body2">
+                        {!user.org_admin
+                          ? `PSG Earnings: $${psgEarningsCalc}`
                           : null}
                       </Typography>
                     </div>

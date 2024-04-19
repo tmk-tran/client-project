@@ -35,7 +35,11 @@ router.get("/", (req, res) => {
       COALESCE(total_outstanding_balance.total_outstanding_balance, 0) AS total_outstanding_balance,
       COALESCE(total_books_sold.total_books_sold, 0) * COALESCE(o.organization_earnings, 0) AS total_org_earnings,
       COALESCE(total_checked_out_books.total_checked_out_books, 0) AS total_checked_out_books,
-      COALESCE(total_checked_in_books.total_checked_in_books, 0) AS total_checked_in_books
+      COALESCE(total_checked_in_books.total_checked_in_books, 0) AS total_checked_in_books,
+      COALESCE(total_books_due.total_books_due, 0) AS total_books_due,
+      COALESCE(org_total_books_sold.physical_book_cash, 0) AS physical_book_cash,
+      COALESCE(org_total_books_sold.physical_book_digital, 0) AS physical_book_digital,
+      COALESCE(org_total_books_sold.digital_book_credit, 0) AS digital_book_credit
   FROM
       organization o
   LEFT JOIN (
@@ -127,6 +131,24 @@ router.get("/", (req, res) => {
       GROUP BY
           g.organization_id
   ) AS total_checked_in_books ON o.id = total_checked_in_books.organization_id
+  LEFT JOIN (
+    SELECT organization_id,
+    SUM(books_due) AS total_books_due
+    FROM
+        sellers
+    GROUP BY
+        organization_id
+  ) AS total_books_due ON o.id = total_books_due.organization_id
+  LEFT JOIN (
+    SELECT organization_id,
+    SUM(physical_book_cash) AS physical_book_cash,
+    SUM(physical_book_digital) AS physical_book_digital,
+    SUM(digital_book_credit) AS digital_book_credit
+    FROM 
+        transactions
+    GROUP BY
+        organization_id
+  ) AS org_total_books_sold ON o.id = org_total_books_sold.organization_id
   WHERE
       o.is_deleted = false
   ORDER BY
