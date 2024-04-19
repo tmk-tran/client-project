@@ -20,14 +20,7 @@ export default function CouponReviewButtons({
   setIsTaskUpdate,
   couponId,
 }) {
-  console.log(taskStatus);
-  console.log(isTaskUpdate);
-  console.log(changesRequested);
-  console.log(completedCoupon);
   const dispatch = dispatchHook();
-
-  const [isCompletedCoupon, setIsCompletedCoupon] = useState(false);
-  console.log(isCompletedCoupon);
 
   const handleDenyClick = () => {
     // Call the parent component's function when the Deny button is clicked
@@ -58,12 +51,6 @@ export default function CouponReviewButtons({
     updateTaskState(false);
   };
 
-  console.log(taskId);
-  console.log(newTaskStatus);
-  console.log(taskStatus);
-  console.log(merchantId);
-
-  
   const handleUpdateClick = () => {
     const dispatchAction = {
       type: "UPDATE_MERCHANT_TASK",
@@ -74,7 +61,6 @@ export default function CouponReviewButtons({
         merchantId: merchantId,
       },
     };
-    console.log(dispatchAction);
     dispatch(dispatchAction);
 
     if (completedCoupon) {
@@ -84,7 +70,6 @@ export default function CouponReviewButtons({
           id: couponId,
         },
       };
-      console.log(dispatchAction2);
       dispatch(dispatchAction2);
     }
 
