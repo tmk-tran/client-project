@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import errors from "./errors.reducer";
 import user from "./user.reducer";
+import userOrgAdmins from "./userOrgAdmin.reducer";
 
 import orgDetails from "./orgDetails.reducer";
 import organizations from "./organizations.reducer.js";
@@ -36,6 +37,7 @@ import digitalBookType from "./digitalBookType.reducer";
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
+  userOrgAdmins,
   orgDetails,
   organizations,
   group,

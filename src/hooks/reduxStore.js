@@ -96,6 +96,10 @@ export const User = () => {
   return useSelector((store) => store.user);
 };
 
+export const UserOrgAdmins = () => {
+  return useSelector((store) => store.userOrgAdmins);
+};
+
 export const Errors = () => {
   return useSelector((store) => store.errors);
 };

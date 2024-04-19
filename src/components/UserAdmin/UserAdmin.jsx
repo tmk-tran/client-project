@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
 import {
+  Box,
   TableContainer,
   Table,
   TableHead,
@@ -13,16 +14,16 @@ import {
 import { dispatchHook } from "../../hooks/useDispatch";
 import {
   userTableData,
+  UserOrgAdmins,
   allOrganizations,
   userBooksData,
 } from "../../hooks/reduxStore";
-import { centerMe, containerStyle, flexRowSpace } from "../Utils/pageStyles";
-import { showSaveSweetAlert } from "../Utils/sweetAlerts";
+import { centerMe, containerStyle } from "../Utils/pageStyles";
+import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
 // ~~~~~~~~~ Components ~~~~~~~~~ //
 import ActionSwitch from "./ActionSwitch";
-import OrgMenu from "./OrgMenu";
 import UserAdminHeader from "./UserAdminHeader";
-import { useSelector } from "react-redux";
+import OrgAdminCell from "./OrgAdminCell";
 
 const pageHeaderStyle = {
   textAlign: "center",
@@ -63,7 +64,7 @@ const disabledCellSx = {
 };
 
 export default function UserAdmin() {
-  const auth = useSelector((store) => store.auth);
+  // Removed auth store from this component
   const dispatch = dispatchHook();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -79,23 +80,30 @@ export default function UserAdmin() {
   useEffect(() => {
     const action = {
       type: "FETCH_USER_TABLE",
-      payload: auth,
+      // payload: auth,
     };
     dispatch(action);
     const action2 = {
       type: "FETCH_ORGANIZATIONS",
-      payload: auth,
+      // payload: auth,
     };
     dispatch(action2);
     const action3 = {
       type: "FETCH_CONSUMER_BOOKS",
-      payload: auth,
+      // payload: auth,
     };
     dispatch(action3);
+    const action4 = {
+      type: "FETCH_ORG_ADMINS",
+    };
+    dispatch(action4);
   }, []);
 
   const tableData = userTableData() || [];
+  const orgAdmins = UserOrgAdmins() || [];
+  console.log(orgAdmins);
   const allOrgs = allOrganizations() || [];
+  console.log(allOrgs);
   const userBooks = userBooksData() || [];
 
   const fuse = new Fuse(tableData, {
@@ -135,17 +143,40 @@ export default function UserAdmin() {
     }
   };
 
-  const handleOrgSelect = (userId, id) => {
+  const handleOrgSelect = (userId, currentId, newId) => {
+    // const dispatchAction = {
+    //   type: "SET_ORGANIZATION_ADMIN",
+    //   payload: {
+    //     id: userId,
+    //     org_id: id,
+    //   },
+    // };
     const dispatchAction = {
-      type: "SET_ORGANIZATION_ADMIN",
+      type: "REPLACE_ORG_ID",
       payload: {
-        id: userId,
-        org_id: id,
+        currentId: currentId,
+        user_id: userId,
+        org_id: newId,
       },
     };
     console.log(dispatchAction);
     dispatch(dispatchAction);
     showSaveSweetAlert({ label: "Organization Admin Set" });
+  };
+
+  const deleteOrgAdmin = (userId, orgId) => {
+    const deleteAction = {
+      type: "DELETE_ORG_ID",
+      payload: {
+        user_id: userId,
+        org_id: orgId,
+      },
+    };
+
+    showDeleteSweetAlert(() => {
+      console.log("Dispatching action:", deleteAction);
+      dispatch(deleteAction);
+    }, "removeOrgAdmin");
   };
 
   const handleOpenModal = () => {
@@ -328,7 +359,8 @@ export default function UserAdmin() {
                     />
                   )}
                 </TableCell>
-                <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
+                {/* ~~~~~ Org Admin Select Menu ~~~~~ */}
+                {/* <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
                   {row.org_admin ? (
                     <OrgMenu
                       userId={row.id}
@@ -337,7 +369,17 @@ export default function UserAdmin() {
                       onChange={handleOrgSelect}
                     />
                   ) : null}
+                </TableCell> */}
+                <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
+                  <OrgAdminCell
+                    orgAdmins={orgAdmins}
+                    row={row}
+                    allOrgs={allOrgs}
+                    handleOrgSelect={handleOrgSelect}
+                    removeOrg={deleteOrgAdmin}
+                  />
                 </TableCell>
+
                 <TableCell sx={{ ...shortCellSx, ...centerMe }}>
                   {row.show_book ? (
                     <Typography
