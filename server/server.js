@@ -416,18 +416,22 @@ app.post(`/api/contact`, async (req, res) => {
       const contactId = response1.data.contact.id;
       console.log(contactId);
 
-      let list = 0;
-      switch (req.body.city) {
-        case "Fargo":
-          list = 10;
-          break;
-        case "Grand Forks":
-          list = 11;
-          break;
-        default:
-          list = 0;
-          break;
-      }
+      let list = 10;
+
+      //ADD THIS BACK IN WHTN REGION FILTERING IS ADDED
+      //Can add more regions as needed
+
+      // switch (req.body.region) {
+      //   case 1:
+      //     list = 10;
+      //     break;
+      //   case 2:
+      //     list = 11;
+      //     break;
+      //   default:
+      //     list = 0;
+      //     break;
+      // }
 
       const response2 = await axios.post(
         `https://northpointeinsure57220.api-us1.com/api/3/contactLists`,
@@ -545,19 +549,23 @@ app.post(`/api/contact`, async (req, res) => {
       console.log("Response from ActiveCampaign:", response1.data);
       // const contactId = response1.data.contact.id;
 
-      var list = 0;
-      switch (req.body.city) {
-        case "Fargo":
-          list = 10;
-          break;
-        case "Grand Forks":
-          list = 11;
-          break;
-        default:
-          list = 0;
-          break;
-      }
-      console.log("returning list type is:", list);
+      var list = 10;
+
+      //ADD THIS BACK IN WHEN REGION FILTERING IS ADDED
+      //Can add more regions as needed
+
+      // switch (req.body.region) {
+      //   case 1:
+      //     list = 10;
+      //     break;
+      //   case 2:
+      //     list = 11;
+      //     break;
+      //   default:
+      //     list = 0;
+      //     break;
+      // }
+      // console.log("returning list type is:", list)
 
       //Retrieves returning contacts list's and then compairs an lists they are currently subscribed too to either add them to a new list or trigger the automation for the list
       const returnerLists = await axios.get(
@@ -681,50 +689,6 @@ app.post(`/api/contact`, async (req, res) => {
   }
 });
 
-app.post("/api/recoverPassword", async (req, res) => {
-  try {
-    const email = req.body.email;
-    console.log(email);
-    const apiKey = process.env.AC_API_KEY;
-    // const emailChecked = await axios.get(`https://${process.env.ac_address}/api/${process.env.version}/contacts?filters[email]=${email}`,
-    const emailChecked = await axios.get(
-      `https://northpointeinsure57220.api-us1.com/api/3/contacts?filters[email]=${email}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Api-Token": apiKey,
-        },
-      }
-    );
-    console.log(emailChecked.data);
-    const id =
-      emailChecked.data.contacts.length > 0
-        ? emailChecked.data.contacts[0].id
-        : null;
-    console.log(id);
-    const resetAcc = await axios.post(
-      // `https://${process.env.ac_address}/api/${process.env.version}/contactTags`,
-      `https://northpointeinsure57220.api-us1.com/api/3/contactTags`,
-      JSON.stringify({
-        contactTag: {
-          contact: id,
-          tag: 64,
-        },
-      }),
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Api-Token": apiKey,
-        },
-      }
-    );
-    console.log("Response from adding tag to contact:", resetAcc.data);
-    res.sendStatus(200);
-  } catch (error) {
-    console.log("Error adding recover password tag to AC contact", error);
-    res.sendStatus(500);
-  }
-});
 // End Active Campaign ~~~~~~~~~~ //
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
