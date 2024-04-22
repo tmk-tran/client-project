@@ -16,12 +16,14 @@ import AddAccountModal from "../AddAccountModal/AddAccountModal.jsx";
 import ListView from "../ListView/ListView.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import ToggleButton from "../ToggleButton/ToggleButton.jsx";
+import SellerSearch from "./SellerSearch.jsx";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import {
   User,
   allOrganizations,
   allMerchants,
   mCoupons,
+  searchedSeller,
 } from "../../hooks/reduxStore.js";
 import { buttonIconSpacing } from "../Utils/helpers.js";
 import { dispatchHook } from "../../hooks/useDispatch.js";
@@ -46,10 +48,10 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
   const user = User();
-  console.log(user);
   const organizationsList = allOrganizations() || [];
   const merchants = allMerchants() || [];
   const couponNumbers = mCoupons() || [];
+  const sellerResults = searchedSeller() || [];
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   const itemsPerPage = 12;
@@ -81,6 +83,7 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
       dispatch({ type: fetchDataAction });
       setEditComplete(false);
     }
+
   }, [isMerchantList, editComplete]);
 
   // fuzzy search information
@@ -198,6 +201,7 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
               toggleState={isMerchantList}
             />
           )}
+          {/* ~~~~~ User who is both orgAdmin and Graphic Designer ~~~~~ */}
           {isOrgAdmin && isGraphicDesigner && (
             <ToggleButton
               sxButton={{ margin: 2 }}
@@ -209,6 +213,8 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
               toggleState={isMerchantList}
             />
           )}
+          {/* ~~~~~ Seller Search Drawer ~~~~~ */}
+          <SellerSearch sellers={sellerResults} />
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ PAGE HEADER ~~~~~~~~~~~ */}

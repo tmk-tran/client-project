@@ -60,6 +60,10 @@ export const sellerPageInfo = () => {
   return useSelector((store) => store.sellerPage);
 };
 
+export const searchedSeller = () => {
+  return useSelector((store) => store.sellerSearch);
+};
+
 export const couponsData = () => {
   return useSelector((store) => store.coupons);
 };

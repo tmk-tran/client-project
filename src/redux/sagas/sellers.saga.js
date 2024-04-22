@@ -1,6 +1,29 @@
 import axios from "axios";
 import { put, takeEvery } from "redux-saga/effects";
 
+function* getAllSellers() {
+  try {
+    const items = yield axios.get(`/api/sellers`);
+    console.log("FETCH request from sellers.saga, ITEMS = ", items.data);
+    yield put({ type: "SET_SELLERS", payload: items.data });
+  } catch (error) {
+    console.log("error in sellers Saga", error);
+    yield put({ type: "SET_ERROR", payload: error });
+  }
+}
+
+function* fetchByName(action) {
+  console.log(action.payload);
+  try {
+    const items = yield axios.get(`/api/sellers/name`, { params: action.payload });
+    console.log("FETCH request from sellers.saga, ITEMS = ", items.data);
+    yield put({ type: "SET_SEARCHED_SELLER", payload: items.data });
+  } catch (error) {
+    console.log("error in sellers Saga", error);
+    yield put({ type: "SET_ERROR", payload: error });
+  }
+}
+
 function* fetchSellers(action) {
   console.log("From sellers saga, action payload: ", action.payload);
   const orgId = action.payload.orgId;
@@ -69,6 +92,8 @@ function* archiveSeller(action) {
 }
 
 export default function* merchantCommentsSaga() {
+  yield takeEvery("FETCH_ALL_SELLERS", getAllSellers);
+  yield takeEvery("FETCH_SELLER_BY_NAME", fetchByName);
   yield takeEvery("FETCH_SELLERS", fetchSellers);
   yield takeEvery("ADD_SELLER", addSeller);
   yield takeEvery("EDIT_SELLER", updateSeller);
