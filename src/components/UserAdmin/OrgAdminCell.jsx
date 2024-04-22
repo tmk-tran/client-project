@@ -12,8 +12,8 @@ export default function ({
   allOrgs,
   handleOrgSelect,
   removeOrg,
+  addNewOrg,
 }) {
-
   return (
     <>
       {orgAdmins
@@ -23,12 +23,27 @@ export default function ({
           console.log(organization);
           return organization ? (
             <Box sx={flexRowSpace} key={organization.id}>
-              <OrgMenu
-                userId={row.id}
-                organizations={allOrgs}
-                defaultValue={organization.id}
-                onChange={handleOrgSelect}
-              />
+              {/* <OrgMenu
+                  userId={row.id}
+                  organizations={allOrgs}
+                  defaultValue={organization.id}
+                  onChange={handleOrgSelect}
+                /> */}
+              {addNewOrg ? (
+                <OrgMenu
+                  userId={row.id}
+                  organizations={allOrgs}
+                  // defaultValue={organization.id}
+                  onChange={handleOrgSelect}
+                />
+              ) : (
+                <OrgMenu
+                  userId={row.id}
+                  organizations={allOrgs}
+                  defaultValue={organization.id}
+                  onChange={handleOrgSelect}
+                />
+              )}
               <Box sx={flexCenter}>
                 <Tooltip title="Remove OrgAdmin status">
                   <IconButton

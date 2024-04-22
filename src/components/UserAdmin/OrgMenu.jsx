@@ -6,6 +6,7 @@ const OrgMenu = ({ userId, organizations, defaultValue, onChange }) => {
   console.log(value);
   const [itemSelected, setItemSelected] = useState(false);
   console.log(userId);
+  console.log(organizations);
 
   useEffect(() => {
     setValue(defaultValue);

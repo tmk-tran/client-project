@@ -18,12 +18,15 @@ import {
   allOrganizations,
   userBooksData,
 } from "../../hooks/reduxStore";
-import { centerMe, containerStyle } from "../Utils/pageStyles";
+import { centerMe, containerStyle, flexRowSpace } from "../Utils/pageStyles";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
 // ~~~~~~~~~ Components ~~~~~~~~~ //
 import ActionSwitch from "./ActionSwitch";
 import UserAdminHeader from "./UserAdminHeader";
 import OrgAdminCell from "./OrgAdminCell";
+import AddOrgBtn from "./AddOrgBtn";
+import { border, primaryColor, successColor } from "../Utils/colors";
+import OrgMenu from "./OrgMenu";
 
 const pageHeaderStyle = {
   textAlign: "center",
@@ -72,6 +75,7 @@ export default function UserAdmin() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
   console.log(isHovered);
+  const [addNewOrg, setAddNewOrg] = useState(false);
 
   isHovered
     ? (userNameCellSx.maxWidth = "none")
@@ -162,6 +166,18 @@ export default function UserAdmin() {
     console.log(dispatchAction);
     dispatch(dispatchAction);
     showSaveSweetAlert({ label: "Organization Admin Set" });
+    setAddNewOrg(false);
+  };
+
+  const handleAddOrg = () => {
+    // const addAction = {
+    //   type: "ADD_ORG_ADMIN",
+    //   payload: {
+    //     user_id: userId,
+    //     org_id: newOrgId,
+    //   },
+    // };
+    setAddNewOrg(true);
   };
 
   const deleteOrgAdmin = (userId, orgId) => {
@@ -209,6 +225,8 @@ export default function UserAdmin() {
         user.last_name &&
         user.last_name.toLowerCase().includes(query.toLowerCase())
     );
+
+    console.log(filteredResults);
 
   const clearInput = () => {
     setQuery("");
@@ -325,42 +343,54 @@ export default function UserAdmin() {
                   }}
                 >
                   {/* ~~~~~~~~~ Org Admin Column ~~~~~~~~~~ */}
-                  {row.org_admin ? (
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      sx={{ display: "inline" }}
-                    >
-                      Yes
-                    </Typography>
-                  ) : (
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      sx={{ display: "inline" }}
-                    >
-                      No
-                    </Typography>
-                  )}
-                  {row.id === 3 || row.id === 4 ? (
-                    <ActionSwitch
-                      disabled={true}
-                      isChecked={row.org_admin}
-                      onChange={(newValue) =>
-                        handleSwitch(row.id, "org_admin", newValue)
-                      }
-                    />
-                  ) : (
-                    <ActionSwitch
-                      isChecked={row.org_admin}
-                      onChange={(newValue) =>
-                        handleSwitch(row.id, "org_admin", newValue)
-                      }
-                    />
-                  )}
+                  {/* <Box sx={{ ...flexRowSpace, position: "relative" }}> */}
+                    <Box>
+                      {row.org_admin ? (
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          sx={{ display: "inline" }}
+                        >
+                          Yes
+                        </Typography>
+                      ) : (
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          sx={{ display: "inline" }}
+                        >
+                          No
+                        </Typography>
+                      )}
+                      {row.id === 3 || row.id === 4 ? (
+                        <ActionSwitch
+                          disabled={true}
+                          isChecked={row.org_admin}
+                          onChange={(newValue) =>
+                            handleSwitch(row.id, "org_admin", newValue)
+                          }
+                        />
+                      ) : (
+                        <ActionSwitch
+                          isChecked={row.org_admin}
+                          onChange={(newValue) =>
+                            handleSwitch(row.id, "org_admin", newValue)
+                          }
+                        />
+                      )}
+                    </Box>
+                    {/* ~~~~~ Add Org button ~~~~~ */}
+                    {/* <Box sx={{ position: "absolute", right: 0, top: -2 }}>
+                      <AddOrgBtn
+                        title="Assign New"
+                        sx={{ fontSize: 18, color: successColor.color }}
+                        onClick={handleAddOrg}
+                      />
+                    </Box> */}
+                  {/* </Box> */}
                 </TableCell>
                 {/* ~~~~~ Org Admin Select Menu ~~~~~ */}
-                {/* <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
+                <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
                   {row.org_admin ? (
                     <OrgMenu
                       userId={row.id}
@@ -369,16 +399,18 @@ export default function UserAdmin() {
                       onChange={handleOrgSelect}
                     />
                   ) : null}
-                </TableCell> */}
-                <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
+                </TableCell>
+                {/* <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
                   <OrgAdminCell
                     orgAdmins={orgAdmins}
                     row={row}
                     allOrgs={allOrgs}
                     handleOrgSelect={handleOrgSelect}
                     removeOrg={deleteOrgAdmin}
+                    addNewOrg={addNewOrg}
+                    setAddNewOrg={setAddNewOrg}
                   />
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell sx={{ ...shortCellSx, ...centerMe }}>
                   {row.show_book ? (

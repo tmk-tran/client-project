@@ -15,24 +15,12 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.get("/table", rejectUnauthenticated, (req, res) => {
-  // const queryText = `
-  //         SELECT
-  //           id,
-  //           username,
-  //           first_name,
-  //           last_name,
-  //           org_admin,
-  //           org_id,
-  //           graphic_designer
-  //         FROM "user"
-  //         ORDER BY last_name ASC;
-  //       `;
   const queryText = `
-          SELECT 
-            u.id, 
+          SELECT
+            u.id,
             u.username,
             u.first_name,
-            u.last_name, 
+            u.last_name,
             u.org_admin,
             u.org_id,
             u.graphic_designer,
@@ -44,6 +32,24 @@ router.get("/table", rejectUnauthenticated, (req, res) => {
           GROUP BY u.id, u.username, u.first_name, u.last_name, u.org_admin, u.org_id, u.graphic_designer, o.organization_name
           ORDER BY u.last_name ASC;
         `;
+
+  // const queryText = `
+  //           SELECT 
+  //             u.id, 
+  //             u.username,
+  //             u.first_name,
+  //             u.last_name, 
+  //             u.org_admin,
+  //             u.graphic_designer,
+  //             o.organization_name,
+  //             STRING_AGG(DISTINCT uc.show_book::text, ',') AS show_book
+  //           FROM "user" u
+  //           LEFT JOIN organization o ON u.org_id = o.id
+  //           LEFT JOIN user_coupon uc ON u.id = uc.user_id
+  //           LEFT JOIN user_org_admin uoa ON u.id = uoa.user_id
+  //           GROUP BY u.id, u.username, u.first_name, u.last_name, u.org_admin, u.org_id, u.graphic_designer, o.organization_name
+  //           ORDER BY u.last_name ASC;
+  //         `;
 
   pool
     .query(queryText)
