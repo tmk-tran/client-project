@@ -105,7 +105,7 @@ router.delete("/:id", rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [userId, orgId])
     .then((response) => {
-      console.log("Successful DELETE ALL USERORGS in user_org_admin.router");
+      console.log("Successful DELETE USERORG in user_org_admin.router");
       res.sendStatus(200);
     })
     .catch((err) => {

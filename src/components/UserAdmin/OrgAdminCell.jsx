@@ -23,13 +23,13 @@ export default function ({
           console.log(organization);
           return organization ? (
             <Box sx={flexRowSpace} key={organization.id}>
-              {/* <OrgMenu
+              <OrgMenu
                   userId={row.id}
                   organizations={allOrgs}
                   defaultValue={organization.id}
                   onChange={handleOrgSelect}
-                /> */}
-              {addNewOrg ? (
+                />
+              {/* {addNewOrg ? (
                 <OrgMenu
                   userId={row.id}
                   organizations={allOrgs}
@@ -43,7 +43,7 @@ export default function ({
                   defaultValue={organization.id}
                   onChange={handleOrgSelect}
                 />
-              )}
+              )} */}
               <Box sx={flexCenter}>
                 <Tooltip title="Remove OrgAdmin status">
                   <IconButton

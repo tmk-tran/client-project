@@ -46,6 +46,7 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~ Store ~~~~~~~~~~~~~~~~~~~~
   const user = User();
+  console.log(user);
   const organizationsList = allOrganizations() || [];
   const merchants = allMerchants() || [];
   const couponNumbers = mCoupons() || [];
@@ -128,21 +129,47 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
+  // const currentItems =
+  //   searchResult.length > 0
+  //     ? searchResult.slice(indexOfFirstItem, indexOfLastItem)
+  //     : isMerchantList
+  //     ? merchants.slice(indexOfFirstItem, indexOfLastItem)
+  //     : organizationsList.slice(indexOfFirstItem, indexOfLastItem);
+
+  // console.log(currentItems);
+
+  // const totalItems =
+  //   searchResult.length > 0
+  //     ? searchResult.length
+  //     : !isMerchantList
+  //     ? organizationsList.length
+  //     : merchants.length;
+  // const pageCount = Math.ceil(totalItems / itemsPerPage);
+
+  const orgIdsArray = user.org_ids
+    ? user.org_ids.split(",").map((id) => parseInt(id.trim(), 10))
+    : [];
+
+  const userOrgs = organizationsList.filter(
+    (organization) =>
+      !isOrgAdmin ||
+      (orgIdsArray.length > 0 && orgIdsArray.includes(organization.id))
+  );
+
   const currentItems =
     searchResult.length > 0
       ? searchResult.slice(indexOfFirstItem, indexOfLastItem)
       : isMerchantList
       ? merchants.slice(indexOfFirstItem, indexOfLastItem)
-      : organizationsList.slice(indexOfFirstItem, indexOfLastItem);
-
-  console.log(currentItems);
+      : userOrgs.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalItems =
     searchResult.length > 0
       ? searchResult.length
-      : !isMerchantList
-      ? organizationsList.length
-      : merchants.length;
+      : isMerchantList
+      ? merchants.length
+      : userOrgs.length;
+
   const pageCount = Math.ceil(totalItems / itemsPerPage);
 
   const handlePageChange = (event, value) => {
@@ -271,29 +298,18 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
                   }
                 />
               ))
-            : // : currentItems.map(
-              //     (organization, index) =>
-              //       (!isOrgAdmin ||
-              //         (isOrgAdmin && organization.id === orgAdminId)) && (
-              //         <ListView
-              //           key={index}
-              //           data={organization}
-              //           isMerchantList={false}
-              //           onChange={handleEdit}
-              //           editComplete={editComplete}
-              //           setEditComplete={setEditComplete}
-              //           isOrgAdmin={isOrgAdmin}
-              //         />
-              //       )
-              //   )}
-              currentItems
+            : currentItems
                 .filter(
                   (organization) =>
-                    !isOrgAdmin || organization.id === orgAdminId
+                    !isOrgAdmin ||
+                    (orgIdsArray.length > 0 &&
+                      orgIdsArray.includes(organization.id))
                 )
                 .map((organization, index) => {
                   // Check if the user is an admin of this organization
-                  const isAdminOfOrganization = organization.id === orgAdminId;
+                  const isAdminOfOrganization = orgIdsArray.includes(
+                    organization.id
+                  );
                   const isAdmin = user.is_admin;
 
                   // Render the organization only if the user is an admin

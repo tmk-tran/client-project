@@ -76,6 +76,7 @@ export default function UserAdmin() {
   const [isHovered, setIsHovered] = useState(false);
   console.log(isHovered);
   const [addNewOrg, setAddNewOrg] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
   isHovered
     ? (userNameCellSx.maxWidth = "none")
@@ -148,6 +149,7 @@ export default function UserAdmin() {
   };
 
   const handleOrgSelect = (userId, currentId, newId) => {
+    console.log(userId, currentId, newId);
     // const dispatchAction = {
     //   type: "SET_ORGANIZATION_ADMIN",
     //   payload: {
@@ -155,6 +157,18 @@ export default function UserAdmin() {
     //     org_id: id,
     //   },
     // };
+    if (userId && newId) {
+      const addAction = {
+        type: "ADD_ORG_ADMIN",
+        payload: {
+          user_id: userId,
+          org_id: newId,
+        },
+      };
+      console.log(addAction);
+      dispatch(addAction);
+    }
+
     const dispatchAction = {
       type: "REPLACE_ORG_ID",
       payload: {
@@ -164,12 +178,12 @@ export default function UserAdmin() {
       },
     };
     console.log(dispatchAction);
-    dispatch(dispatchAction);
+    // dispatch(dispatchAction);
     showSaveSweetAlert({ label: "Organization Admin Set" });
     setAddNewOrg(false);
   };
 
-  const handleAddOrg = () => {
+  const handleAddOrg = (userId) => {
     // const addAction = {
     //   type: "ADD_ORG_ADMIN",
     //   payload: {
@@ -178,6 +192,7 @@ export default function UserAdmin() {
     //   },
     // };
     setAddNewOrg(true);
+    setSelectedUserId(userId);
   };
 
   const deleteOrgAdmin = (userId, orgId) => {
@@ -226,7 +241,7 @@ export default function UserAdmin() {
         user.last_name.toLowerCase().includes(query.toLowerCase())
     );
 
-    console.log(filteredResults);
+  console.log(filteredResults);
 
   const clearInput = () => {
     setQuery("");
@@ -343,7 +358,7 @@ export default function UserAdmin() {
                   }}
                 >
                   {/* ~~~~~~~~~ Org Admin Column ~~~~~~~~~~ */}
-                  {/* <Box sx={{ ...flexRowSpace, position: "relative" }}> */}
+                  <Box sx={{ ...flexRowSpace, position: "relative" }}>
                     <Box>
                       {row.org_admin ? (
                         <Typography
@@ -380,17 +395,21 @@ export default function UserAdmin() {
                       )}
                     </Box>
                     {/* ~~~~~ Add Org button ~~~~~ */}
-                    {/* <Box sx={{ position: "absolute", right: 0, top: -2 }}>
+                    <Box sx={{ position: "absolute", right: 0, top: -2 }}>
                       <AddOrgBtn
                         title="Assign New"
-                        sx={{ fontSize: 18, color: successColor.color }}
-                        onClick={handleAddOrg}
+                        disabled={!row.org_admin}
+                        sx={{
+                          fontSize: 18,
+                          color: !row.org_admin ? "gray" : successColor.color,
+                        }}
+                        onClick={() => handleAddOrg(row.id)}
                       />
-                    </Box> */}
-                  {/* </Box> */}
+                    </Box>
+                  </Box>
                 </TableCell>
                 {/* ~~~~~ Org Admin Select Menu ~~~~~ */}
-                <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
+                {/* <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
                   {row.org_admin ? (
                     <OrgMenu
                       userId={row.id}
@@ -399,8 +418,8 @@ export default function UserAdmin() {
                       onChange={handleOrgSelect}
                     />
                   ) : null}
-                </TableCell>
-                {/* <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
+                </TableCell> */}
+                <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
                   <OrgAdminCell
                     orgAdmins={orgAdmins}
                     row={row}
@@ -410,7 +429,16 @@ export default function UserAdmin() {
                     addNewOrg={addNewOrg}
                     setAddNewOrg={setAddNewOrg}
                   />
-                </TableCell> */}
+                  {row.org_admin && row.id === selectedUserId && addNewOrg ? (
+                    <OrgMenu
+                      userId={row.id}
+                      organizations={allOrgs}
+                      defaultValue={row.org_id}
+                      onChange={handleOrgSelect}
+                      setAddNewOrg={setAddNewOrg}
+                    />
+                  ) : null}
+                </TableCell>
 
                 <TableCell sx={{ ...shortCellSx, ...centerMe }}>
                   {row.show_book ? (
