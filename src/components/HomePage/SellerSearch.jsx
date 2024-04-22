@@ -95,8 +95,10 @@ const TopDrawer = ({ sellers }) => {
                       | Organization:{" "}
                       <Link
                         component="button"
-                        variant="body2"
+                        variant="body1"
+                        underline="none"
                         onClick={() => navigateToOrg(seller.organization_id)}
+                        sx={{ mb: 0.5 }}
                       >
                         {seller.organization_name}
                       </Link>
