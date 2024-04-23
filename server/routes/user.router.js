@@ -53,24 +53,6 @@ router.get("/", rejectUnauthenticated, async (req, res) => {
 });
 
 router.get("/table", rejectUnauthenticated, (req, res) => {
-  // const queryText = `
-  //         SELECT
-  //           u.id,
-  //           u.username,
-  //           u.first_name,
-  //           u.last_name,
-  //           u.org_admin,
-  //           u.org_id,
-  //           u.graphic_designer,
-  //           o.organization_name,
-  //           STRING_AGG(DISTINCT uc.show_book::text, ',') AS show_book
-  //         FROM "user" u
-  //         LEFT JOIN organization o ON u.org_id = o.id
-  //         LEFT JOIN user_coupon uc ON u.id = uc.user_id
-  //         GROUP BY u.id, u.username, u.first_name, u.last_name, u.org_admin, u.org_id, u.graphic_designer, o.organization_name
-  //         ORDER BY u.last_name ASC;
-  //       `;
-
   const queryText = `
             SELECT 
               u.id, 
