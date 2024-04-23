@@ -37,22 +37,18 @@ const steps = ["Information", "Payment", "Order Confirmation"];
 export default function CheckoutPage({ caseType }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  console.log(caseType);
   const history = historyHook();
   const location = useLocation();
   const dispatch = dispatchHook();
-  console.log(location.state);
   const paramsObject = useParams();
   const refId = paramsObject.refId;
   // Access state from URL and use it in component //
   const selectedProducts = location.state?.selectedProducts ?? [];
-  console.log(selectedProducts);
   const orderTotal = location.state?.orderTotal ?? 0;
   const customDonation = location.state?.customDonation ?? 0;
   // Access digital payment amount //
   let digitalPayment;
   digitalPayment = orderTotal - customDonation;
-  console.log(digitalPayment);
   const [physicalCouponBook, setPhysicalCouponBook] = useState(false);
   // Number of books sold //
   const [physicalBookDigital, setPhysicalBookDigital] = useState(0);
