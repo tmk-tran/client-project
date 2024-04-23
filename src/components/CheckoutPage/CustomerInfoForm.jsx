@@ -31,16 +31,7 @@ export default function CustomerInfoForm({
   stateSelected,
   zip,
   setZip,
-  errorStore,
 }) {
-
-  console.log(errorStore);
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    // Clear any existing email format error when user types in the email field
-    setErrors({ ...errors, email: "" });
-  };
 
   return (
     <div style={{ width: "90%", margin: "0 auto", padding: isMobile ? 0 : 5 }}>

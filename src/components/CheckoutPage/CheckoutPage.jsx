@@ -207,7 +207,6 @@ export default function CheckoutPage({ caseType }) {
             stateSelected={stateSelected}
             zip={zip}
             setZip={setZip}
-            errorStore={errorStore}
           />
         );
       case 1:
