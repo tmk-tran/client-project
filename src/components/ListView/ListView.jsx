@@ -125,7 +125,7 @@ function ListView({ data, isMerchantList, onChange, isOrgAdmin, numCoupons }) {
     Number(data.physical_book_digital || 0) +
     Number(data.digital_book_credit || 0);
   const orgEarningsCalc =
-    Number(orgBooksSold) + Number(data.organization_earnings);
+    Number(orgBooksSold) * Number(data.organization_earnings);
   const psgEarningsCalc =
     (25 - Number(data.organization_earnings)) * Number(orgBooksSold);
   console.log(psgEarningsCalc);
