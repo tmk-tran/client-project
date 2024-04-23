@@ -21,7 +21,7 @@ import CustomButton from "../CustomButton/CustomButton";
 import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
 import { navButtonStyle } from "./checkoutStyles";
-import { sellerPageInfo, bookYear } from "../../hooks/reduxStore";
+import { sellerPageInfo, bookYear, Errors } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 
 export const containerStyle = {
@@ -63,14 +63,16 @@ export default function CheckoutPage({ caseType }) {
   const [stateSelected, setStateSelected] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // ~~~~~ Store Data ~~~~~ //
   const sellerData = sellerPageInfo() || [];
-  console.log(sellerData);
-  const orgId = sellerData[0].organization_id;
-  const sellerId = sellerData[0].id;
+  const orgId = sellerData ? sellerData[0].organization_id : "";
+  const sellerId = sellerData ? sellerData[0].id : "";
   const currentYear = bookYear() || [];
-  console.log(currentYear);
-  const activeYearId = currentYear[0].id;
-  console.log(activeYearId);
+  const activeYearId = currentYear ? currentYear[0].id : "";
+  const errorStore = Errors() || [];
+  const msgFromReducer = errorStore
+    ? errorStore.errorReducer.errorMessage
+    : null;
 
   // ~~~~~~~~~~ Form state ~~~~~~~~~~ //
   const [firstName, setFirstName] = useState("");
@@ -151,6 +153,15 @@ export default function CheckoutPage({ caseType }) {
     setDigitalDonation(donationAmount);
   }, [selectedProducts, caseType]);
 
+  useEffect(() => {
+    if (msgFromReducer) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        emailCheck: msgFromReducer,
+      }));
+    }
+  }, [msgFromReducer]);
+
   console.log(physicalCouponBook);
   console.log(physicalBookDigital);
   console.log(digitalBookCredit);
@@ -200,6 +211,7 @@ export default function CheckoutPage({ caseType }) {
             stateSelected={stateSelected}
             zip={zip}
             setZip={setZip}
+            errorStore={errorStore}
           />
         );
       case 1:
@@ -236,7 +248,6 @@ export default function CheckoutPage({ caseType }) {
   };
 
   const handleForm = () => {
-    // Example validation logic, replace with your own
     const newErrors = {};
     if (!firstName) {
       newErrors.firstName = "Please enter your first name";
@@ -267,12 +278,21 @@ export default function CheckoutPage({ caseType }) {
     setErrors(newErrors);
     // Check if there are any errors
     const hasErrors = Object.keys(newErrors).length > 0;
-    // setIsSubmitted(!hasErrors);
     !hasErrors && setIsSubmitted(true);
-    // setIsSubmitted(true);
-    !hasErrors && handleNext();
 
-    saveCustomerInfo();
+    // saveCustomerInfo();
+    if (!hasErrors) {
+      // Assuming saveCustomerInfo is an asynchronous function, you can handle it like this:
+      saveCustomerInfo()
+        .then(() => {
+          // Handle success, e.g., advance the form
+          handleNext();
+        })
+        .catch((error) => {
+          // Handle error, e.g., display an error message
+          console.error("Failed to save customer info:", error);
+        });
+    }
   };
 
   const returnToStore = () => {
@@ -358,6 +378,25 @@ export default function CheckoutPage({ caseType }) {
   };
   console.log(orderInfo);
 
+  // const saveCustomerInfo = () => {
+  //   const saveAction = {
+  //     type: "ADD_CUSTOMER",
+  //     payload: {
+  //       refId: refId,
+  //       last_name: lastName,
+  //       first_name: firstName,
+  //       email: email,
+  //       phone: phone,
+  //       address: address,
+  //       unit: unit,
+  //       city: city,
+  //       state: stateSelected,
+  //       zip: zip,
+  //     },
+  //   };
+  //   console.log("Dispatching action:", saveAction);
+  //   dispatch(saveAction);
+  // };
   const saveCustomerInfo = () => {
     const saveAction = {
       type: "ADD_CUSTOMER",
@@ -375,7 +414,19 @@ export default function CheckoutPage({ caseType }) {
       },
     };
     console.log("Dispatching action:", saveAction);
-    dispatch(saveAction);
+    return new Promise((resolve, reject) => {
+      try {
+        dispatch(saveAction)
+          .then(() => {
+            resolve(); // Resolve the outer promise once the dispatch is complete
+          })
+          .catch((error) => {
+            reject(error); // Reject the outer promise if there's an error with dispatch
+          });
+      } catch (error) {
+        reject(error); // Reject if there's an error with the try block
+      }
+    });
   };
 
   return (

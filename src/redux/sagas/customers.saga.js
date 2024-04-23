@@ -36,8 +36,16 @@ function* addCustomer(action) {
         id: newCustomerId,
       },
     });
+    // Clear any existing error messages
+    yield put({ type: "CLEAR_ERROR_MESSAGE" });
+    return response; // Return the response to indicate success
   } catch (error) {
     console.log("error in addCustomer Saga", error);
+    yield put({
+      type: "SET_ERROR_MESSAGE",
+      payload: "This username is already in use. Please try again...",
+    });
+    throw error; // Throw the error to indicate failure
   }
 }
 
