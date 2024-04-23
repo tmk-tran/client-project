@@ -47,9 +47,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.put("/:id", rejectUnauthenticated, (req, res) => {
-  console.log(req.body);
   const userId = req.params.id;
-  console.log(userId);
   const orgId = req.body.org_id;
 
   const queryText = `
