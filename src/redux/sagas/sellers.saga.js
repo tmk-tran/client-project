@@ -1,22 +1,24 @@
 import axios from "axios";
 import { put, takeEvery } from "redux-saga/effects";
 
-function* getAllSellers() {
-  try {
-    const items = yield axios.get(`/api/sellers`);
-    console.log("FETCH request from sellers.saga, ITEMS = ", items.data);
-    yield put({ type: "SET_SELLERS", payload: items.data });
-  } catch (error) {
-    console.log("error in sellers Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
-  }
-}
+// MAY USE LATER, INACTIVE FOR NOW
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// function* getAllSellers() {
+//   try {
+//     const items = yield axios.get(`/api/sellers`);
+//     console.log("FETCH request from sellers.saga, ITEMS = ", items.data);
+//     yield put({ type: "SET_SELLERS", payload: items.data });
+//   } catch (error) {
+//     console.log("error in sellers Saga", error);
+//     yield put({ type: "SET_ERROR", payload: error });
+//   }
+// }
 
 function* fetchByName(action) {
-  console.log(action.payload);
   try {
-    const items = yield axios.get(`/api/sellers/name`, { params: action.payload });
-    console.log("FETCH request from sellers.saga, ITEMS = ", items.data);
+    const items = yield axios.get(`/api/sellers/name`, {
+      params: action.payload,
+    });
     yield put({ type: "SET_SEARCHED_SELLER", payload: items.data });
   } catch (error) {
     console.log("error in sellers Saga", error);
@@ -25,15 +27,11 @@ function* fetchByName(action) {
 }
 
 function* fetchSellers(action) {
-  console.log("From sellers saga, action payload: ", action.payload);
   const orgId = action.payload.orgId;
   const yearId = action.payload.yearId;
-  console.log(orgId);
-  console.log(yearId);
 
   try {
     const items = yield axios.get(`/api/sellers/${orgId}/${yearId}`);
-    console.log("FETCH request from sellers.saga, ITEMS = ", items.data);
     yield put({ type: "SET_SELLERS", payload: items.data });
   } catch (error) {
     console.log("error in sellers Saga", error);
@@ -42,8 +40,6 @@ function* fetchSellers(action) {
 }
 
 function* addSeller(action) {
-  console.log(action.payload);
-  console.log(action.payload.organization_id);
   const orgId = action.payload.organization_id;
 
   try {
@@ -59,12 +55,9 @@ function* addSeller(action) {
 }
 
 function* updateSeller(action) {
-  console.log(action.payload);
   const sellerId = action.payload.id;
   const orgId = action.payload.organization_id;
   const yearId = action.payload.yearId;
-  console.log(orgId);
-  console.log(yearId);
 
   try {
     yield axios.put(`/api/sellers/${sellerId}`, action.payload);
@@ -92,7 +85,7 @@ function* archiveSeller(action) {
 }
 
 export default function* merchantCommentsSaga() {
-  yield takeEvery("FETCH_ALL_SELLERS", getAllSellers);
+  // yield takeEvery("FETCH_ALL_SELLERS", getAllSellers);
   yield takeEvery("FETCH_SELLER_BY_NAME", fetchByName);
   yield takeEvery("FETCH_SELLERS", fetchSellers);
   yield takeEvery("ADD_SELLER", addSeller);

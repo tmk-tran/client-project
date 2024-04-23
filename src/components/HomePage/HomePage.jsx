@@ -263,7 +263,6 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
               <Tooltip title="Add a New Account">
                 <Button
                   style={{ marginBottom: "5px" }}
-                  // variant="outlined"
                   onClick={handleAddAccountClick}
                 >
                   {!isMerchantList ? (
