@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
   Drawer,
   Button,
   TextField,
@@ -8,12 +7,22 @@ import {
   ListItem,
   ListItemText,
   Link,
+  Tooltip,
 } from "@mui/material";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { highlightColor } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
 import { capitalizeFirstWord } from "../Utils/helpers";
+// ~~~~~~~~~~ Components ~~~~~~~~~~ //
+import SearchButtons from "./SearchButtons";
+import LinearProgressBar from "../LinearProgressBar/LinearProgressBar";
+
+const refIdStyle = {
+  ...highlightColor,
+  padding: 3,
+  borderRadius: 4,
+};
 
 const TopDrawer = ({ sellers }) => {
   console.log(sellers);
@@ -22,6 +31,7 @@ const TopDrawer = ({ sellers }) => {
   const [open, setOpen] = useState(false);
   const [lastName, setLastName] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Update searchResults when sellers prop changes
@@ -61,10 +71,21 @@ const TopDrawer = ({ sellers }) => {
     resetSearchField();
   };
 
+  //   const navigateToOrg = (sellerId) => {
+  //     setLoading(true); // Set loading to true when navigating
+  //     history.push(`/fargo/orgDetails/${sellerId}`);
+  //     resetSearchField();
+  //   };
   const navigateToOrg = (sellerId) => {
-    history.push(`/fargo/orgDetails/${sellerId}`);
+    setLoading(true); // Set loading to true first
+    setTimeout(() => {
+      history.push(`/fargo/orgDetails/${sellerId}`); // Navigate to the new URL
+      setLoading(false); // Set loading to false after navigation
+    }, 0); // Use setTimeout to ensure the setLoading(false) runs after the state is updated
     resetSearchField();
   };
+
+  console.log(loading);
 
   return (
     <div>
@@ -73,14 +94,22 @@ const TopDrawer = ({ sellers }) => {
         Sellers
       </Button>
       <Drawer anchor="top" open={open} onClose={handleClose}>
-        <div style={{ padding: "16px", width: "60%", margin: "0 auto" }}>
+        <div style={{ padding: "16px", width: "50%", margin: "0 auto" }}>
           <TextField
             label="Search Sellers by Last Name"
             variant="outlined"
             fullWidth
             value={lastName}
             onChange={handleSearchChange}
+            sx={{ mb: 1 }}
           />
+          {/* ~~~~~ Action Buttons ~~~~~ */}
+          {!loading && (
+            <SearchButtons
+              handleClose={handleClose}
+              handleFetchSeller={handleFetchSeller}
+            />
+          )}
           <List>
             {searchResults.map((seller) => (
               <ListItem key={seller.id}>
@@ -89,31 +118,37 @@ const TopDrawer = ({ sellers }) => {
                   //   secondary={`Ref ID: ${seller.refId} | Organization: ${seller.organization_name}`}
                   secondary={
                     <span>
-                      <span
-                        style={{ ...highlightColor }}
-                      >{`Ref ID: ${seller.refId}`}</span>{" "}
+                      <span style={refIdStyle}>
+                        Ref ID:{" "}
+                        <span style={{ fontWeight: "bold" }}>
+                          {seller.refId}
+                        </span>
+                      </span>{" "}
                       | Organization:{" "}
-                      <Link
-                        component="button"
-                        variant="body1"
-                        underline="none"
-                        onClick={() => navigateToOrg(seller.organization_id)}
-                        sx={{ mb: 0.5 }}
-                      >
-                        {seller.organization_name}
-                      </Link>
+                      <Tooltip title="Go to Organization">
+                        <Link
+                          component="button"
+                          variant="body1"
+                          underline="none"
+                          onClick={() => navigateToOrg(seller.organization_id)}
+                          sx={{ mb: 0.5 }}
+                        >
+                          {seller.organization_name}
+                        </Link>
+                      </Tooltip>
                     </span>
                   }
                 />
               </ListItem>
             ))}
           </List>
-          <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1 }}>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button variant="contained" onClick={handleFetchSeller}>
-              Search
-            </Button>
-          </Box>
+          {/* ~~~~~ Loading Message ~~~~~ */}
+          {loading && (
+            <>
+              <LinearProgressBar />
+              <p>Loading Organization Details...</p>
+            </>
+          )}
         </div>
       </Drawer>
     </div>

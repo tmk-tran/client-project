@@ -18,6 +18,7 @@ import LocationsCard from "../LocationsCard/LocationsCard";
 import AddNewCouponModal from "../CouponReviewCard/AddNewCouponModal";
 import SellersTable from "../OrgSellers/SellersTable";
 import OrgAdminInfo from "./OrgAdminInfo";
+import LoadingSpinner from "../HomePage/LoadingSpinner";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
 import { useAlert } from "../SuccessAlert/useAlert";
@@ -83,6 +84,7 @@ export default function Details({
   const [locationAdded, setLocationAdded] = useState(false);
   console.log(locationAdded);
   const [noteAdded, setNoteAdded] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log("Dispatching FETCH_ORG_DETAILS");
@@ -147,6 +149,13 @@ export default function Details({
     noteAdded,
   ]);
 
+  useEffect(() => {
+    // const detailsOrg = oDetails();
+    if (detailsOrg.length > 0) {
+      setLoading(false); // Set loading to false when detailsOrg is available
+    }
+  }, [detailsOrg]);
+
   // Create a map to store organization details and associated groups
   const orgMap = new Map();
 
@@ -185,173 +194,187 @@ export default function Details({
   };
 
   return (
-    <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
-      <SuccessAlert
-        isOpen={isAlertOpen}
-        onClose={handleAlertClose}
-        caseType={caseType}
-      />
-      <div style={{ position: "relative" }}>
-        <div style={{ position: "absolute", top: 0, left: 0 }}>
-          <BackButton />
+    <>
+      {loading && (
+        <LoadingSpinner
+          text="Loading from database..."
+          finalText="Oops! ...unexpected error. Please refresh the page, or try again later"
+        />
+      )}
+      <div
+        className={`details-container ${isSmallScreen ? "small-screen" : ""}`}
+      >
+        <SuccessAlert
+          isOpen={isAlertOpen}
+          onClose={handleAlertClose}
+          caseType={caseType}
+        />
+        <div style={{ position: "relative" }}>
+          <div style={{ position: "absolute", top: 0, left: 0 }}>
+            <BackButton />
+          </div>
         </div>
-      </div>
-      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {/* ~~~~~~~~~~~~~~~~~ Main Container ~~~~~~~~~~~~~~~~~~~ */}
-      <div className="details-card" style={{ marginTop: 40 }}>
-        <div className="detailsView-container">
-          {[...orgMap.values()].map(({ orgDetails, groups }) => (
-            <React.Fragment key={orgDetails.organization_id}>
-              {!isTaskPage && !isMerchantTaskPage && !isOrgAdminPage && (
-                <NotesDisplay notes={notes} details={orgDetails} />
-              )}
+        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+        {/* ~~~~~~~~~~~~~~~~~ Main Container ~~~~~~~~~~~~~~~~~~~ */}
+        <div className="details-card" style={{ marginTop: 40 }}>
+          <div className="detailsView-container">
+            {[...orgMap.values()].map(({ orgDetails, groups }) => (
+              <React.Fragment key={orgDetails.organization_id}>
+                {!isTaskPage && !isMerchantTaskPage && !isOrgAdminPage && (
+                  <NotesDisplay notes={notes} details={orgDetails} />
+                )}
 
-              {isTaskPage && !isOrgAdminPage && (
-                <NotesDisplay notes={notes} details={orgDetails} caseType={1} />
-              )}
-              {/* ////////////////////////////////// */}
-              {/* Check if it's a merchant task page */}
-              {/* ////////////////////////////////// */}
-              {isMerchantTaskPage &&
-                !isOrgAdminPage &&
-                // Map over merchantDetails and pass each object to NotesDisplay
-                merchantDetails.map((merchantInfo) => (
-                  <React.Fragment key={merchantInfo.id}>
-                    <NotesDisplay
-                      key={merchantInfo.id}
-                      notes={notes}
-                      details={merchantInfo}
-                      isMerchantTaskPage={isMerchantTaskPage}
-                    />
-                  </React.Fragment>
-                ))}
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~~ Instructions for User ~~~~~~~~~~~ */}
-              {isOrgAdminPage && <OrgAdminInfo />}
-
-              <center>
-                {isMerchantTaskPage ? (
-                  merchantDetails.map((info) => (
-                    <ContactDetails
-                      key={info.id}
-                      info={info}
-                      isMerchantTaskPage={isMerchantTaskPage}
-                    />
-                  ))
-                ) : (
-                  // <OrgContactDetails info={orgDetails} isMerchantTaskPage={isMerchantTaskPage} />
-                  <ContactDetails
-                    info={orgDetails}
-                    isOrgAdminPage={isOrgAdminPage}
+                {isTaskPage && !isOrgAdminPage && (
+                  <NotesDisplay
+                    notes={notes}
+                    details={orgDetails}
+                    caseType={1}
                   />
                 )}
-                <br />
-              </center>
+                {/* ////////////////////////////////// */}
+                {/* Check if it's a merchant task page */}
+                {/* ////////////////////////////////// */}
+                {isMerchantTaskPage &&
+                  !isOrgAdminPage &&
+                  // Map over merchantDetails and pass each object to NotesDisplay
+                  merchantDetails.map((merchantInfo) => (
+                    <React.Fragment key={merchantInfo.id}>
+                      <NotesDisplay
+                        key={merchantInfo.id}
+                        notes={notes}
+                        details={merchantInfo}
+                        isMerchantTaskPage={isMerchantTaskPage}
+                      />
+                    </React.Fragment>
+                  ))}
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~~ Instructions for User ~~~~~~~~~~~ */}
+                {isOrgAdminPage && <OrgAdminInfo />}
 
-              {/* ~~~~~~~~~~ May use later, disabled for now ~~~~~~~~~~ */}
-              {/* <div>
+                <center>
+                  {isMerchantTaskPage ? (
+                    merchantDetails.map((info) => (
+                      <ContactDetails
+                        key={info.id}
+                        info={info}
+                        isMerchantTaskPage={isMerchantTaskPage}
+                      />
+                    ))
+                  ) : (
+                    // <OrgContactDetails info={orgDetails} isMerchantTaskPage={isMerchantTaskPage} />
+                    <ContactDetails
+                      info={orgDetails}
+                      isOrgAdminPage={isOrgAdminPage}
+                    />
+                  )}
+                  <br />
+                </center>
+
+                {/* ~~~~~~~~~~ May use later, disabled for now ~~~~~~~~~~ */}
+                {/* <div>
                   <OrgNotesModal info={orgDetails} />
                   <AddGroupPopover info={orgDetails} />
                 </div> */}
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~~  Fundraiser / Group section ~~~~~~~~~~~ */}
-              {!isTaskPage && !isMerchantTaskPage && !isOrgAdminPage && (
-                <>
-                  <OrgDetailsGoalView
-                    info={orgDetails}
-                    groups={groups}
-                    handleAddGroup={handleAddGroup}
-                  />
-
-                  {!isOrgAdminPage ? (
-                    <div className="OrgDetailsCard-container">
-                      {groups &&
-                      groups.some((group) => group.group_id !== null) ? (
-                        groups.map((groupInfo, i) => (
-                          <OrgGroupInfo
-                            key={groupInfo.group_id}
-                            groupInfo={groupInfo}
-                            groupNumber={i + 1}
-                          />
-                        ))
-                      ) : (
-                        <div style={{ height: "100px" }}>
-                          <Typography variant="h6" sx={{ mt: 2, p: 1 }}>
-                            No Groups Assigned
-                          </Typography>
-                          <hr />
-                        </div>
-                      )}
-                    </div>
-                  ) : null}
-                </>
-              )}
-
-              {isTaskPage && !isOrgAdminPage && (
-                // Show task-related content on the task page
-                <>
-                  <DetailsTaskView caseType="orgTaskView" />
-                  <div style={{ height: "40vh" }}></div>
-                </>
-              )}
-
-              {isMerchantTaskPage && !isOrgAdminPage && (
-                <>
-                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                  {/* ~~~~~~~~~~ TASK SECTION ~~~~~~~~~~ */}
-                  <DetailsTaskView caseType={"merchantView"} />
-                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                  {/* ~~~~~~~~~~ LOCATION INFO ~~~~~~~~~ */}
-                  {locations ? (
-                    <LocationsCard
-                      locations={locations}
-                      handleTaskUpdate={handleTaskUpdate}
-                      handleCaseTypeChange={handleCaseTypeChange}
-                      handleAddLocation={handleAddLocation}
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~~  Fundraiser / Group section ~~~~~~~~~~~ */}
+                {!isTaskPage && !isMerchantTaskPage && !isOrgAdminPage && (
+                  <>
+                    <OrgDetailsGoalView
+                      info={orgDetails}
+                      groups={groups}
+                      handleAddGroup={handleAddGroup}
                     />
-                  ) : null}
-                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                  {/* ~~~~~ COUPON REVIEW CARDS ~~~~~ */}
-                  <div className="MerchantDetailsCard-container">
-                    <div
-                      style={{
-                        position: "absolute",
-                        left: 0,
-                        top: 0,
-                      }}
-                    >
-                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                      {/* ~~~~~~~~~~ ADD COUPON BUTTON ~~~~~~~~~~ */}
-                      <AddNewCouponModal
-                        handleCaseTypeChange={handleCaseTypeChange}
+
+                    {!isOrgAdminPage ? (
+                      <div className="OrgDetailsCard-container">
+                        {groups &&
+                        groups.some((group) => group.group_id !== null) ? (
+                          groups.map((groupInfo, i) => (
+                            <OrgGroupInfo
+                              key={groupInfo.group_id}
+                              groupInfo={groupInfo}
+                              groupNumber={i + 1}
+                            />
+                          ))
+                        ) : (
+                          <div style={{ height: "100px" }}>
+                            <Typography variant="h6" sx={{ mt: 2, p: 1 }}>
+                              No Groups Assigned
+                            </Typography>
+                            <hr />
+                          </div>
+                        )}
+                      </div>
+                    ) : null}
+                  </>
+                )}
+
+                {isTaskPage && !isOrgAdminPage && (
+                  // Show task-related content on the task page
+                  <>
+                    <DetailsTaskView caseType="orgTaskView" />
+                    <div style={{ height: "40vh" }}></div>
+                  </>
+                )}
+
+                {isMerchantTaskPage && !isOrgAdminPage && (
+                  <>
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~ TASK SECTION ~~~~~~~~~~ */}
+                    <DetailsTaskView caseType={"merchantView"} />
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~ LOCATION INFO ~~~~~~~~~ */}
+                    {locations ? (
+                      <LocationsCard
                         locations={locations}
+                        handleTaskUpdate={handleTaskUpdate}
+                        handleCaseTypeChange={handleCaseTypeChange}
+                        handleAddLocation={handleAddLocation}
                       />
+                    ) : null}
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~ COUPON REVIEW CARDS ~~~~~ */}
+                    <div className="MerchantDetailsCard-container">
+                      <div
+                        style={{
+                          position: "absolute",
+                          left: 0,
+                          top: 0,
+                        }}
+                      >
+                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                        {/* ~~~~~~~~~~ ADD COUPON BUTTON ~~~~~~~~~~ */}
+                        <AddNewCouponModal
+                          handleCaseTypeChange={handleCaseTypeChange}
+                          locations={locations}
+                        />
+                      </div>
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~ COUPON PREVIEW CARDS ~~~~~~~~~ */}
+                      {merchantDetails.map((merchant, i) => (
+                        <CouponReviewCard
+                          key={i}
+                          merchant={merchant}
+                          onTaskUpdate={handleTaskUpdate}
+                        />
+                      ))}
                     </div>
-                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    {/* ~~~~~~~~ COUPON PREVIEW CARDS ~~~~~~~~~ */}
-                    {merchantDetails.map((merchant, i) => (
-                      <CouponReviewCard
-                        key={i}
-                        merchant={merchant}
-                        onTaskUpdate={handleTaskUpdate}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-              {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-              {/* ~~~~~~~~~~ Sellers Table ~~~~~~~~~~ */}
-              {/* {(isTaskPage || isOrgDetailsPage) && <SellersTable />} */}
-              {(isTaskPage || isOrgDetailsPage) &&
-                (!isOrgAdminPage ||
-                  (isOrgAdminPage &&
-                    user.org_id === organizationId &&
-                    user.org_admin)) && <SellersTable />}
-            </React.Fragment>
-          ))}
+                  </>
+                )}
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~ Sellers Table ~~~~~~~~~~ */}
+                {/* {(isTaskPage || isOrgDetailsPage) && <SellersTable />} */}
+                {(isTaskPage || isOrgDetailsPage) &&
+                  (!isOrgAdminPage ||
+                    (isOrgAdminPage &&
+                      user.org_id === organizationId &&
+                      user.org_admin)) && <SellersTable />}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
