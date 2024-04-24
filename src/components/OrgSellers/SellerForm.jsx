@@ -22,7 +22,7 @@ import Typography from "../Typography/Typography";
 import ModalButtons from "../Modals/ModalButtons";
 import CashUpdateModal from "../SellerPage/CashUpdateModal";
 import SellerFormHeader from "./SellerFormHeader";
-import { bookYear } from "../../hooks/reduxStore";
+import { appActiveYear, bookYear } from "../../hooks/reduxStore";
 
 const style = {
   position: "absolute",
@@ -109,9 +109,9 @@ export default function SellerForm({
   const [checksEditAmount, setChecksEditAmount] = useState(0);
   const [donationsEditAmount, setDonationsEditAmount] = useState(0);
 
-  const year = bookYear() || [];
+  const year = appActiveYear() || [];
   console.log(year);
-  const activeYearId = year ? year[0].id : null;
+  const activeYearId = year.length > 0 ? year[0].id : null;
   console.log(activeYearId);
 
   useEffect(() => {

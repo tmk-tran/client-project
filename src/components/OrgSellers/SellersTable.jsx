@@ -20,7 +20,7 @@ import EditAttributesIcon from "@mui/icons-material/EditAttributes";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { columns } from "./sellerTableColumns";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { User, oSellers, bookYear, allYears } from "../../hooks/reduxStore";
+import { User, oSellers, bookYear, allYears, appActiveYear } from "../../hooks/reduxStore";
 import { primaryColor } from "../Utils/colors";
 import { border } from "../Utils/colors";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
@@ -90,8 +90,10 @@ export default function SellersTable() {
 
   const user = User() || [];
   const sellers = oSellers() || [];
-  const year = bookYear() || [];
-  const yearId = year ? year[0].id : null;
+  console.log(sellers);
+  const year = appActiveYear() || [];
+  console.log(year);
+  const yearId = year.length > 0 ? year[0].id : null;
   const availableYears = allYears();
   const [viewYearId, setViewYearId] = useState(year ? yearId : null);
 
