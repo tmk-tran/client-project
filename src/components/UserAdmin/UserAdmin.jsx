@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
 import {
   Box,
+  Button,
   TableContainer,
   Table,
   TableHead,
@@ -9,6 +10,7 @@ import {
   TableCell,
   TableBody,
   Typography,
+  TextField,
 } from "@mui/material";
 // ~~~~~~~~~ Hooks ~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -18,15 +20,23 @@ import {
   allOrganizations,
   userBooksData,
 } from "../../hooks/reduxStore";
-import { centerMe, containerStyle, flexRowSpace } from "../Utils/pageStyles";
+import {
+  centerMe,
+  containerStyle,
+  flexColumnSpace,
+  flexRowSpace,
+} from "../Utils/pageStyles";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
+import { errorColor, successColor } from "../Utils/colors";
 // ~~~~~~~~~ Components ~~~~~~~~~ //
 import ActionSwitch from "./ActionSwitch";
 import UserAdminHeader from "./UserAdminHeader";
 import OrgAdminCell from "./OrgAdminCell";
 import AddOrgBtn from "./AddOrgBtn";
-import { border, primaryColor, successColor } from "../Utils/colors";
 import OrgMenu from "./OrgMenu";
+import UserActions from "./UserActions";
+import ActionButton from "../OrgSellers/ActionButton";
+import EditUsernameField from "./EditUsernameField";
 
 const pageHeaderStyle = {
   textAlign: "center",
@@ -77,6 +87,10 @@ export default function UserAdmin() {
   console.log(isHovered);
   const [addNewOrg, setAddNewOrg] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
+  // ~~~~~~~~~ State for Edit ~~~~~~~~~ //
+  const [editMode, setEditMode] = useState(false);
+  const [userToEdit, setUserToEdit] = useState(null);
+  const [newUserName, setNewUserName] = useState(null);
 
   isHovered
     ? (userNameCellSx.maxWidth = "none")
@@ -248,6 +262,48 @@ export default function UserAdmin() {
     setCurrentPage(1); // Reset to the first page when clearing the search
   };
 
+  const startEdit = (userId) => {
+    setUserToEdit(userId);
+    setEditMode(true);
+  };
+  console.log(userToEdit);
+  console.log(editMode);
+
+  const handleEditUser = () => {
+    const editAction = {
+      type: "EDIT_USER_NAME",
+      payload: {
+        id: userToEdit,
+        username: newUserName,
+      },
+    };
+    console.log(editAction);
+    dispatch(editAction);
+    resetEditUser();
+
+    showSaveSweetAlert({ label: "User Name Updated" });
+  };
+
+  const resetEditUser = () => {
+    setEditMode(false);
+    setUserToEdit(null);
+    setNewUserName(null);
+  };
+
+  const handleDeleteUser = (userId) => {
+    const deleteAction = {
+      type: "DELETE_USER",
+      payload: {
+        id: userId,
+      },
+    };
+
+    showDeleteSweetAlert(() => {
+      console.log("Dispatching action:", deleteAction);
+      dispatch(deleteAction);
+    }, "deleteUser");
+  };
+
   return (
     <div style={{ ...containerStyle }}>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -287,6 +343,9 @@ export default function UserAdmin() {
               <TableCell sx={{ ...headerStyle, ...centerMe }}>
                 Coupon Book
               </TableCell>
+              <TableCell sx={{ ...headerStyle, ...centerMe }}>
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           {/* ~~~~~~~~~~ BODY ~~~~~~~~~~ */}
@@ -301,13 +360,20 @@ export default function UserAdmin() {
               >
                 <TableCell sx={wideCellSx}>{row.last_name}</TableCell>
                 <TableCell sx={wideCellSx}>{row.first_name}</TableCell>
-                <TableCell
-                  sx={userNameCellSx}
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                >
-                  <strong>{row.username}</strong>
+                {/* ~~~~~~~~~~ Username Column ~~~~~~~~~~ */}
+                <TableCell>
+                  {editMode && userToEdit === row.id ? (
+                    <EditUsernameField
+                      newUserName={newUserName}
+                      setNewUserName={setNewUserName}
+                      resetEditUser={resetEditUser}
+                      handleEditUser={handleEditUser}
+                    />
+                  ) : (
+                    <strong>{row.username}</strong>
+                  )}
                 </TableCell>
+                {/* ~~~~~~~~~ Graphic Designer Column ~~~~~~~~~~ */}
                 <TableCell
                   sx={{
                     ...shortCellSx,
@@ -315,7 +381,6 @@ export default function UserAdmin() {
                     ...(row.id === 3 || row.id === 4 ? disabledCellSx : {}),
                   }}
                 >
-                  {/* ~~~~~~~~~ Graphic Designer Column ~~~~~~~~~~ */}
                   {row.graphic_designer ? (
                     <Typography
                       component="span"
@@ -397,7 +462,7 @@ export default function UserAdmin() {
                     {/* ~~~~~ Add Org button ~~~~~ */}
                     <Box sx={{ position: "absolute", right: 0, top: -2 }}>
                       <AddOrgBtn
-                        title="Assign New"
+                        title="Assign New Org"
                         disabled={!row.org_admin}
                         sx={{
                           fontSize: 18,
@@ -439,7 +504,7 @@ export default function UserAdmin() {
                     />
                   ) : null}
                 </TableCell>
-
+                {/* ~~~~~~~~~~ Coupon Book Column ~~~~~~~~~~~ */}
                 <TableCell sx={{ ...shortCellSx, ...centerMe }}>
                   {row.show_book ? (
                     <Typography
@@ -463,6 +528,14 @@ export default function UserAdmin() {
                     onChange={(newValue) =>
                       handleSwitch(row.id, "show_book", newValue)
                     }
+                  />
+                </TableCell>
+                {/* ~~~~~~~~~~ Acions Column ~~~~~~~~~~ */}
+                <TableCell sx={{ ...shortCellSx, ...centerMe }}>
+                  <UserActions
+                    user={row}
+                    startEdit={startEdit}
+                    handleDelete={handleDeleteUser}
                   />
                 </TableCell>
               </TableRow>

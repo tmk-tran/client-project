@@ -157,6 +157,26 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.put("/name/:id", rejectUnauthenticated, (req, res) => {
+  const userId = req.params.id;
+  const newUserName = req.body.username;
+
+  const queryText = `
+          UPDATE "user"
+          SET username = $1
+          WHERE id = $2;
+      `;
+  pool
+    .query(queryText, [newUserName, userId])
+    .then((response) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error in the PUT / request for user name change", err);
+      res.sendStatus(500);
+    });
+});
+
 router.put("/org/:id", rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
   const orgId = req.body.org_id;
@@ -174,6 +194,25 @@ router.put("/org/:id", rejectUnauthenticated, (req, res) => {
     })
     .catch((err) => {
       console.log("error in the PUT / request for orgAdmin, user.router", err);
+      res.sendStatus(500);
+    });
+});
+
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
+  const userId = req.params.id;
+
+  const queryText = `
+          DELETE FROM "user" 
+          WHERE id = $1;
+      `;
+
+  pool
+    .query(queryText, [userId])
+    .then((response) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log("error in the DELETE / request for user", err);
       res.sendStatus(500);
     });
 });
