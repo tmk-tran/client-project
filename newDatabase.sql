@@ -412,7 +412,7 @@ CREATE TABLE coupon_redemption (
     coupon_id integer REFERENCES coupon(id),
     location_id integer REFERENCES location(id),
     redeemed_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
-    redeemed_by integer REFERENCES "user"(id)
+    redeemed_by integer REFERENCES "user"(id) ON DELETE CASCADE
 );
 
 ---------- Paypal transactions table ---------------
@@ -542,9 +542,11 @@ CREATE TABLE "user" (
 
 CREATE TABLE user_coupon (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES "user"(id),
-    coupon_id INTEGER REFERENCES coupon(id),
-    location_id INTEGER REFERENCES location(id),
+    user_id integer REFERENCES "user"(id) ON DELETE CASCADE,
+    coupon_id integer REFERENCES coupon(id),
+    location_id integer REFERENCES location(id),
+    redeemed boolean DEFAULT false,
+    show_book boolean DEFAULT false,
     CONSTRAINT user_coupon_user_id_coupon_id_location_id_key UNIQUE (user_id, coupon_id, location_id)
 );
 
