@@ -12,7 +12,7 @@ import {
 } from "../Utils/pageStyles";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
-import { User, couponsData, bookYear } from "../../hooks/reduxStore";
+import { User, couponsData, bookYear, appActiveYear } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
 import Typography from "../Typography/Typography";
 import CouponCard from "./CouponCard";
@@ -34,7 +34,7 @@ export default function ConsumerCouponView() {
 
   const coupons = couponsData() || [];
   // For Coupon Book Year
-  const activeYear = bookYear();
+  const activeYear = appActiveYear();
   const expirationYear =
     activeYear && activeYear[0] ? activeYear[0].year.split("-")[1] : "";
   // Year ID //

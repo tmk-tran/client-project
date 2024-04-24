@@ -62,9 +62,7 @@ const theme = createTheme({
 function App() {
   const dispatch = dispatchHook();
   const user = User();
-  console.log(user);
   const [orgAdminId, setOrgAdminId] = useState(null);
-  console.log(orgAdminId);
 
   useEffect(() => {
     // Set the current season

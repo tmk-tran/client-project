@@ -72,6 +72,10 @@ export const bookYear = () => {
   return useSelector((store) => store.bookYear);
 };
 
+export const appActiveYear = () => {
+  return useSelector((store) => store.activeYear);
+};
+
 export const allYears = () => {
   return useSelector((store) => store.couponBooks);
 };
