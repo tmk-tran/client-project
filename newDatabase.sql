@@ -537,6 +537,13 @@ CREATE TABLE "user" (
     last_name character varying(100)
 );
 
+---------- JOIN table for users who are orgAdmins -----------
+CREATE TABLE user_org_admin (
+    user_id integer REFERENCES "user"(id),
+    org_id integer REFERENCES organization(id),
+    CONSTRAINT user_org_admin_pkey PRIMARY KEY (user_id, org_id)
+);
+
 ------- Table for creating coupon list for users, uses function -----
 ------- and trigger listed below ------------------------------------
 

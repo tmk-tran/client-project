@@ -1,6 +1,10 @@
-import { errorColor, primaryColor } from "../Utils/colors";
+import { Box } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+// ~~~~~~~ Hooks ~~~~~~~~~~~~ //
+import { flexRowSpace } from "../Utils/pageStyles";
+import { errorColor, primaryColor } from "../Utils/colors";
+// ~~~~~~~ Components ~~~~~~~ //
 import ActionButton from "../OrgSellers/ActionButton";
 
 const editIconStyle = {
@@ -23,7 +27,7 @@ const deleteIconStyle = {
 
 export default function UserActions({ user, startEdit, handleDelete }) {
   return (
-    <>
+    <Box sx={flexRowSpace}>
       <ActionButton
         title="Edit Username"
         Icon={EditNoteIcon}
@@ -42,6 +46,6 @@ export default function UserActions({ user, startEdit, handleDelete }) {
         onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
         onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
       />
-    </>
+    </Box>
   );
 }

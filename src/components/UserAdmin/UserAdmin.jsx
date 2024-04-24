@@ -484,7 +484,7 @@ export default function UserAdmin() {
                     />
                   ) : null}
                 </TableCell> */}
-                <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
+                <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 240 }}>
                   <OrgAdminCell
                     orgAdmins={orgAdmins}
                     row={row}
@@ -530,7 +530,7 @@ export default function UserAdmin() {
                     }
                   />
                 </TableCell>
-                {/* ~~~~~~~~~~ Acions Column ~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~ Actions Column ~~~~~~~~~~ */}
                 <TableCell sx={{ ...shortCellSx, ...centerMe }}>
                   <UserActions
                     user={row}

@@ -32,11 +32,17 @@ const TopDrawer = ({ sellers }) => {
   const [lastName, setLastName] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchInitiated, setSearchInitiated] = useState(false);
 
   useEffect(() => {
     // Update searchResults when sellers prop changes
     setSearchResults(sellers ? sellers : []);
   }, [sellers]);
+
+  useEffect(() => {
+    // Reset searchInitiated to false when lastName changes (indicating a new search)
+    setSearchInitiated(false);
+  }, [lastName]);
 
   const handleSearchChange = (e) => {
     const searchTerm = e.target.value;
@@ -44,6 +50,7 @@ const TopDrawer = ({ sellers }) => {
   };
 
   const handleFetchSeller = () => {
+    setSearchInitiated(true); // Set searchInitiated to true when search is initiated
     // Dispatch a fetch action to retrieve sellers matching the search term
     const fetchSellersByName = {
       type: "FETCH_SELLER_BY_NAME",
@@ -141,6 +148,12 @@ const TopDrawer = ({ sellers }) => {
                 />
               </ListItem>
             ))}
+            {searchInitiated &&
+              searchResults.length === 0 &&
+              !loading &&
+              lastName.trim() !== "" && (
+                <p>No results found for "{lastName}"</p>
+              )}
           </List>
           {/* ~~~~~ Loading Message ~~~~~ */}
           {loading && (
