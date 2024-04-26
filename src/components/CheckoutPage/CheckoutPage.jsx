@@ -24,6 +24,7 @@ import {
   sellerPageInfo,
   Errors,
   appActiveYear,
+  CustomerAdded,
 } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 
@@ -299,7 +300,10 @@ export default function CheckoutPage({ caseType }) {
 
     if (Object.keys(newErrors).length === 0) {
       try {
-        await saveCustomerInfo();
+        console.log("Before saveCustomerInfo");
+        const response = await saveCustomerInfo();
+        console.log("After saveCustomerInfo, response:", response);
+        // setFormSubmitted(true);
         // No action here...
       } catch (error) {
         console.error("Failed to save customer info:", error);
@@ -312,13 +316,15 @@ export default function CheckoutPage({ caseType }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   console.log(formSubmitted);
 
-  // useEffect to run runHandleNext whenever formSubmitted, errors, or errorStore changes
+  const formStatus = CustomerAdded();
+
+  // useEffect to run runHandleNext
   useEffect(() => {
-    if (formSubmitted) {
+    if (formSubmitted && formStatus.customerAddedSuccessfully === true) {
       runHandleNext();
       setFormSubmitted(false);
     }
-  }, [errorStore]);
+  }, [errorStore, formStatus]);
 
   const runHandleNext = () => {
     if (Object.keys(errors).length === 0 && !errorStore) {

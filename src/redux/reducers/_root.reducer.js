@@ -34,6 +34,7 @@ import userBooks from "./userCoupon.reducer.js";
 import digitalBookType from "./digitalBookType.reducer";
 import sellerSearch from "./sellerSearch.reducer";
 import activeYear from "./activeYear.reducer";
+import customerAddSuccess from "./customerAdded.reducer.js";
 
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
@@ -71,6 +72,7 @@ const rootReducer = combineReducers({
   digitalBookType,
   sellerSearch,
   activeYear,
+  customerAddSuccess,
 });
 
 export default rootReducer;

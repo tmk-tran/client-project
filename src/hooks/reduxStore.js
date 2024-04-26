@@ -111,3 +111,7 @@ export const UserOrgAdmins = () => {
 export const Errors = () => {
   return useSelector((store) => store.errors);
 };
+
+export const CustomerAdded = () => {
+  return useSelector((store) => store.customerAddSuccess);
+};

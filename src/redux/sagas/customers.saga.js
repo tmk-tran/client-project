@@ -40,6 +40,8 @@ function* addCustomer(action) {
         id: newCustomerId,
       },
     });
+    // Dispatch action to indicate successful customer addition
+    yield put({ type: "CUSTOMER_ADDED_SUCCESSFULLY", payload: true });
   } catch (error) {
     console.log("error in addCustomer Saga", error);
     console.log(error.response.data);
@@ -51,6 +53,8 @@ function* addCustomer(action) {
         payload: error.response.data.error,
       });
     }
+    // Customer add failed
+    yield put({ type: "CUSTOMER_ADDED_SUCCESSFULLY", payload: false });
     // throw error; // Throw the error to indicate failure <--- DO NOT NEED THIS!!
   }
 }
