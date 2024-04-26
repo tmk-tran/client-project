@@ -89,6 +89,8 @@ export default function SellersTable() {
   console.log(updateActions);
 
   const user = User() || [];
+  console.log(user);
+  
   const sellers = oSellers() || [];
   console.log(sellers);
   const year = appActiveYear() || [];

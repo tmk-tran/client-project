@@ -193,6 +193,9 @@ export default function Details({
     setNoteAdded(true);
   };
 
+  const orgIdsArray = user.org_ids.split(',').map(id => parseInt(id.trim()));
+
+
   return (
     <>
       {loading && (
@@ -365,11 +368,16 @@ export default function Details({
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~ Sellers Table ~~~~~~~~~~ */}
                 {/* {(isTaskPage || isOrgDetailsPage) && <SellersTable />} */}
-                {(isTaskPage || isOrgDetailsPage) &&
+                {/* {(isTaskPage || isOrgDetailsPage) &&
                   (!isOrgAdminPage ||
                     (isOrgAdminPage &&
-                      user.org_id === organizationId &&
-                      user.org_admin)) && <SellersTable />}
+                      user.org_ids === organizationId &&
+                      user.org_admin)) && <SellersTable />} */}
+                      {(isTaskPage || isOrgDetailsPage) &&
+  (!isOrgAdminPage ||
+    (isOrgAdminPage &&
+      orgIdsArray.includes(organizationId) &&
+      user.org_admin)) && <SellersTable />}
               </React.Fragment>
             ))}
           </div>
