@@ -48,6 +48,11 @@ export default function Details({
   console.log(paramsObject);
   const tableRef = useRef(null);
   const location = useLocation();
+  const queryString = window.location.hash.split('?')[1]; // Get the query string after the hash
+  const params = new URLSearchParams(queryString);
+  const isSellerSearched = params.get('isSellerSearched') === 'true';
+  console.log(isSellerSearched);
+  
   const isOrgDetailsPage = location.pathname.includes("/orgDetails");
   console.log(isOrgDetailsPage);
 

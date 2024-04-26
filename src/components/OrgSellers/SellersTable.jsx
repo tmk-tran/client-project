@@ -27,7 +27,6 @@ import {
   appActiveYear,
 } from "../../hooks/reduxStore";
 import { primaryColor } from "../Utils/colors";
-import { border } from "../Utils/colors";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import SellerForm from "./SellerForm";
@@ -76,22 +75,14 @@ export default function SellersTable({ forwardedRef }) {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState("add");
-  console.log(mode);
   const [sellerToEdit, setSellerToEdit] = useState(null);
   const [showSellerUrl, setShowSellerUrl] = useState(false);
-  console.log(showSellerUrl);
   const [sellerRefId, setSellerRefId] = useState(null);
-  console.log(sellerRefId);
   const [viewUrlTable, setViewUrlTable] = useState(false);
-  console.log(viewUrlTable);
   const [modeEditBooks, setModeEditBooks] = useState(false);
-  console.log(modeEditBooks);
   const [booksSold, setBooksSold] = useState(0);
-  console.log(booksSold);
   const [editingRefId, setEditingRefId] = useState(null);
-  console.log(editingRefId);
   const [updateActions, setUpdateActions] = useState([]);
-  console.log(updateActions);
 
   const user = User() || [];
   const sellers = oSellers() || [];
@@ -108,7 +99,7 @@ export default function SellersTable({ forwardedRef }) {
         yearId: yearId,
       },
     };
-    console.log(dispatchAction);
+    // console.log(dispatchAction);
     dispatch(dispatchAction);
   }, []);
 
@@ -121,7 +112,7 @@ export default function SellersTable({ forwardedRef }) {
           yearId: viewYearId,
         },
       };
-      console.log(dispatchAction2);
+      // console.log(dispatchAction2);
       dispatch(dispatchAction2);
     }
   }, [viewYearId]);
@@ -160,11 +151,8 @@ export default function SellersTable({ forwardedRef }) {
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
   const handleEditOpen = (id, mode) => {
-    console.log(id);
-    console.log(mode);
-
     const sellerToEdit = sellers.find((seller) => seller.id === id);
-    console.log(sellerToEdit);
+
     if (sellerToEdit) {
       setSellerToEdit(sellerToEdit);
       setMode(mode);
@@ -184,24 +172,22 @@ export default function SellersTable({ forwardedRef }) {
       type: "ADD_SELLER",
       payload: formDataWithId,
     };
-    console.log("Dispatching action:", action);
+    // console.log("Dispatching action:", action);
     dispatch(action);
     showSaveSweetAlert({ label: "Seller Added" });
   };
 
   const handleEditSeller = (editedSeller) => {
-    console.log(editedSeller);
-
     const editAction = {
       type: "EDIT_SELLER",
       payload: editedSeller,
     };
     dispatch(editAction);
-    console.log("Dispatching action:", editAction);
+    // console.log("Dispatching action:", editAction);
 
     // Dispatch each update action from updateActions
     updateActions.forEach((action) => {
-      console.log("Dispatching action:", action);
+      // console.log("Dispatching action:", action);
       dispatch(action);
     });
 
@@ -236,7 +222,6 @@ export default function SellersTable({ forwardedRef }) {
 
   // ~~~~~ Open / Close URL modal ~~~~~ //
   const handleViewUrl = (value) => {
-    console.log(value);
     setShowSellerUrl(true);
     setSellerRefId(value);
   };
@@ -248,8 +233,6 @@ export default function SellersTable({ forwardedRef }) {
 
   // ~~~~~~ Open / Close edit form for physical books sold ~~~~~~ //
   const openEditBooksSold = (refId, value) => {
-    console.log(refId);
-    console.log(value);
     setModeEditBooks(true);
     setBooksSold(value);
     setEditingRefId(refId);

@@ -79,7 +79,9 @@ const TopDrawer = ({ sellers }) => {
   const navigateToOrg = (orgId) => {
     setLoading(true); // Set loading to true first
     setTimeout(() => {
-      history.push(`/fargo/orgDetails/${orgId}`, { isSellerSearched: true }); // Navigate to the new URL
+      // history.push(`/fargo/orgDetails/${orgId}`);
+      history.push(`/fargo/orgDetails/${orgId}?isSellerSearched=true`);
+      console.log(history);
       setLoading(false); // Set loading to false after navigation
     }, 0); // Use setTimeout to ensure the setLoading(false) runs after the state is updated
     resetSearchField();
