@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
 import {
   Box,
-  Button,
   TableContainer,
   Table,
   TableHead,
@@ -10,7 +9,6 @@ import {
   TableCell,
   TableBody,
   Typography,
-  TextField,
 } from "@mui/material";
 // ~~~~~~~~~ Hooks ~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -20,14 +18,9 @@ import {
   allOrganizations,
   userBooksData,
 } from "../../hooks/reduxStore";
-import {
-  centerMe,
-  containerStyle,
-  flexColumnSpace,
-  flexRowSpace,
-} from "../Utils/pageStyles";
+import { centerMe, containerStyle, flexRowSpace } from "../Utils/pageStyles";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
-import { errorColor, successColor } from "../Utils/colors";
+import { successColor } from "../Utils/colors";
 // ~~~~~~~~~ Components ~~~~~~~~~ //
 import ActionSwitch from "./ActionSwitch";
 import UserAdminHeader from "./UserAdminHeader";
@@ -84,7 +77,6 @@ export default function UserAdmin() {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
-  console.log(isHovered);
   const [addNewOrg, setAddNewOrg] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
   // ~~~~~~~~~ State for Edit ~~~~~~~~~ //
@@ -120,9 +112,9 @@ export default function UserAdmin() {
 
   const tableData = userTableData() || [];
   const orgAdmins = UserOrgAdmins() || [];
-  console.log(orgAdmins);
+  // console.log(orgAdmins);
   const allOrgs = allOrganizations() || [];
-  console.log(allOrgs);
+  // console.log(allOrgs);
   const userBooks = userBooksData() || [];
 
   const fuse = new Fuse(tableData, {
@@ -163,8 +155,6 @@ export default function UserAdmin() {
   };
 
   const handleOrgSelect = (userId, currentId, newId) => {
-    console.log(userId, currentId, newId);
-
     if (userId && currentId && newId) {
       const dispatchAction = {
         type: "REPLACE_ORG_ID",
@@ -174,7 +164,7 @@ export default function UserAdmin() {
           org_id: newId,
         },
       };
-      console.log(dispatchAction);
+      // console.log(dispatchAction);
       dispatch(dispatchAction);
       showSaveSweetAlert({ label: "Organization Admin Set" });
       setAddNewOrg(false);
@@ -188,19 +178,12 @@ export default function UserAdmin() {
           org_id: newId,
         },
       };
-      console.log(addAction);
+      // console.log(addAction);
       dispatch(addAction);
     }
   };
 
   const handleAddOrg = (userId) => {
-    // const addAction = {
-    //   type: "ADD_ORG_ADMIN",
-    //   payload: {
-    //     user_id: userId,
-    //     org_id: newOrgId,
-    //   },
-    // };
     setAddNewOrg(true);
     setSelectedUserId(userId);
   };
@@ -215,7 +198,6 @@ export default function UserAdmin() {
     };
 
     showDeleteSweetAlert(() => {
-      console.log("Dispatching action:", deleteAction);
       dispatch(deleteAction);
     }, "removeOrgAdmin");
   };
@@ -229,7 +211,6 @@ export default function UserAdmin() {
   };
 
   const handleSearch = (value) => {
-    console.log(value);
     setQuery(value);
     if (value.trim() === "") {
       setFilteredUsers([]);
@@ -251,8 +232,6 @@ export default function UserAdmin() {
         user.last_name.toLowerCase().includes(query.toLowerCase())
     );
 
-  console.log(filteredResults);
-
   const clearInput = () => {
     setQuery("");
     setCurrentPage(1); // Reset to the first page when clearing the search
@@ -262,8 +241,6 @@ export default function UserAdmin() {
     setUserToEdit(userId);
     setEditMode(true);
   };
-  console.log(userToEdit);
-  console.log(editMode);
 
   const handleEditUser = () => {
     const editAction = {
@@ -273,7 +250,7 @@ export default function UserAdmin() {
         username: newUserName,
       },
     };
-    console.log(editAction);
+    // console.log(editAction);
     dispatch(editAction);
     resetEditUser();
 
@@ -295,7 +272,6 @@ export default function UserAdmin() {
     };
 
     showDeleteSweetAlert(() => {
-      console.log("Dispatching action:", deleteAction);
       dispatch(deleteAction);
     }, "deleteUser");
   };
