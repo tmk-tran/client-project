@@ -164,14 +164,23 @@ export default function UserAdmin() {
 
   const handleOrgSelect = (userId, currentId, newId) => {
     console.log(userId, currentId, newId);
-    // const dispatchAction = {
-    //   type: "SET_ORGANIZATION_ADMIN",
-    //   payload: {
-    //     id: userId,
-    //     org_id: id,
-    //   },
-    // };
-    if (userId && newId) {
+
+    if (userId && currentId && newId) {
+      const dispatchAction = {
+        type: "REPLACE_ORG_ID",
+        payload: {
+          currentId: currentId,
+          user_id: userId,
+          org_id: newId,
+        },
+      };
+      console.log(dispatchAction);
+      dispatch(dispatchAction);
+      showSaveSweetAlert({ label: "Organization Admin Set" });
+      setAddNewOrg(false);
+    }
+
+    if (userId && newId && !currentId) {
       const addAction = {
         type: "ADD_ORG_ADMIN",
         payload: {
@@ -182,19 +191,6 @@ export default function UserAdmin() {
       console.log(addAction);
       dispatch(addAction);
     }
-
-    const dispatchAction = {
-      type: "REPLACE_ORG_ID",
-      payload: {
-        currentId: currentId,
-        user_id: userId,
-        org_id: newId,
-      },
-    };
-    console.log(dispatchAction);
-    // dispatch(dispatchAction);
-    showSaveSweetAlert({ label: "Organization Admin Set" });
-    setAddNewOrg(false);
   };
 
   const handleAddOrg = (userId) => {
@@ -474,16 +470,6 @@ export default function UserAdmin() {
                   </Box>
                 </TableCell>
                 {/* ~~~~~ Org Admin Select Menu ~~~~~ */}
-                {/* <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 150 }}>
-                  {row.org_admin ? (
-                    <OrgMenu
-                      userId={row.id}
-                      organizations={allOrgs}
-                      defaultValue={row.org_id}
-                      onChange={handleOrgSelect}
-                    />
-                  ) : null}
-                </TableCell> */}
                 <TableCell sx={{ ...wideCellSx, ...centerMe, maxWidth: 240 }}>
                   <OrgAdminCell
                     orgAdmins={orgAdmins}
@@ -491,7 +477,6 @@ export default function UserAdmin() {
                     allOrgs={allOrgs}
                     handleOrgSelect={handleOrgSelect}
                     removeOrg={deleteOrgAdmin}
-                    addNewOrg={addNewOrg}
                     setAddNewOrg={setAddNewOrg}
                   />
                   {row.org_admin && row.id === selectedUserId && addNewOrg ? (

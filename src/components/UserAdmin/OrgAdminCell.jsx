@@ -12,7 +12,7 @@ export default function ({
   allOrgs,
   handleOrgSelect,
   removeOrg,
-  addNewOrg,
+  setAddNewOrg,
 }) {
   return (
     <>
@@ -20,30 +20,15 @@ export default function ({
         .filter((admin) => admin.user_id === row.id) // Filter orgAdmins for the current user
         .map((admin) => {
           const organization = allOrgs.find((org) => org.id === admin.org_id); // Find the organization details
-          console.log(organization);
           return organization ? (
             <Box sx={flexRowSpace} key={organization.id}>
               <OrgMenu
-                  userId={row.id}
-                  organizations={allOrgs}
-                  defaultValue={organization.id}
-                  onChange={handleOrgSelect}
-                />
-              {/* {addNewOrg ? (
-                <OrgMenu
-                  userId={row.id}
-                  organizations={allOrgs}
-                  // defaultValue={organization.id}
-                  onChange={handleOrgSelect}
-                />
-              ) : (
-                <OrgMenu
-                  userId={row.id}
-                  organizations={allOrgs}
-                  defaultValue={organization.id}
-                  onChange={handleOrgSelect}
-                />
-              )} */}
+                userId={row.id}
+                organizations={allOrgs}
+                defaultValue={organization.id}
+                onChange={handleOrgSelect}
+                setAddNewOrg={setAddNewOrg}
+              />
               <Box sx={flexCenter}>
                 <Tooltip title="Remove OrgAdmin status">
                   <IconButton
