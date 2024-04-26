@@ -23,7 +23,6 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import {
   User,
   oSellers,
-  bookYear,
   allYears,
   appActiveYear,
 } from "../../hooks/reduxStore";
@@ -102,13 +101,6 @@ export default function SellersTable({ forwardedRef }) {
   const [viewYearId, setViewYearId] = useState(year ? yearId : null);
 
   useEffect(() => {
-    if (forwardedRef && forwardedRef.current) {
-      // Scroll to the table element when the component mounts
-      forwardedRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [forwardedRef]);
-
-  useEffect(() => {
     const dispatchAction = {
       type: "FETCH_SELLERS",
       payload: {
@@ -133,6 +125,19 @@ export default function SellersTable({ forwardedRef }) {
       dispatch(dispatchAction2);
     }
   }, [viewYearId]);
+
+  useEffect(() => {
+    if (forwardedRef && forwardedRef.current && sellers.length > 0) {
+      // Scroll to the table element when the component mounts
+      forwardedRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+    // Clear forwardedRef when component unmounts
+    return () => {
+      if (forwardedRef && forwardedRef.current) {
+        forwardedRef.current = null;
+      }
+    };
+  }, [forwardedRef]);
 
   // Get only active year ID
   const activeYears = availableYears
@@ -377,8 +382,8 @@ export default function SellersTable({ forwardedRef }) {
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      // key={index}
-                      key={seller.id} id={`seller-row-${seller.id}`}
+                      key={seller.id}
+                      id={`seller-row-${seller.id}`}
                       sx={{
                         ...(isEvenRow
                           ? { backgroundColor: evenRowColor }

@@ -11,11 +11,8 @@ import OrgGroupInfo from "../OrgGroupInfo/OrgGroupInfo";
 import NotesDisplay from "../NotesDisplay/NotesDisplay";
 import OrgDetailsGoalView from "../OrgDetailsGoalView/OrgDetailsGoalView";
 import DetailsTaskView from "../DetailsTaskView/DetailsTaskView";
-import CouponReviewCard from "../CouponReviewCard/CouponReviewCard";
 import BackButton from "../Buttons/BackButton";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
-import LocationsCard from "../LocationsCard/LocationsCard";
-import AddNewCouponModal from "../CouponReviewCard/AddNewCouponModal";
 import SellersTable from "../OrgSellers/SellersTable";
 import OrgAdminInfo from "./OrgAdminInfo";
 import LoadingSpinner from "../HomePage/LoadingSpinner";
@@ -94,7 +91,6 @@ export default function Details({
       payload: paramsObject.id,
     });
 
-    // console.log("Dispatching FETCH_MERCHANT_DETAILS or FETCH_ORG_FUNDRAISERS");
     const action = {
       type: isMerchantTaskPage
         ? "FETCH_MERCHANT_DETAILS"
@@ -112,15 +108,6 @@ export default function Details({
       type: actionType,
       payload: paramsObject.id,
     });
-
-    // Fetch locations if MerchantTaskPage is true
-    if (isMerchantTaskPage) {
-      console.log("Dispatching FETCH_MERCHANT_LOCATION");
-      dispatch({
-        type: "FETCH_MERCHANT_LOCATION",
-        payload: paramsObject.id,
-      });
-    }
 
     if (!isMerchantTaskPage) {
       console.log("Dispatching FETCH_ORG_GROUPS");
@@ -184,18 +171,9 @@ export default function Details({
     setGroupAdded(true);
   };
 
-  const handleAddLocation = () => {
-    setLocationAdded(true);
-  };
-
-  // Note addition
-  const handleAddNote = () => {
-    // Update the noteAdded state to trigger a refresh
-    setNoteAdded(true);
-  };
-
-  const orgIdsArray = user.org_ids ? user.org_ids.split(',').map(id => parseInt(id.trim())) : [];
-
+  const orgIdsArray = user.org_ids
+    ? user.org_ids.split(",").map((id) => parseInt(id.trim()))
+    : [];
 
   return (
     <>
@@ -235,42 +213,16 @@ export default function Details({
                     caseType={1}
                   />
                 )}
-                {/* ////////////////////////////////// */}
-                {/* Check if it's a merchant task page */}
-                {/* ////////////////////////////////// */}
-                {isMerchantTaskPage &&
-                  !isOrgAdminPage &&
-                  // Map over merchantDetails and pass each object to NotesDisplay
-                  merchantDetails.map((merchantInfo) => (
-                    <React.Fragment key={merchantInfo.id}>
-                      <NotesDisplay
-                        key={merchantInfo.id}
-                        notes={notes}
-                        details={merchantInfo}
-                        isMerchantTaskPage={isMerchantTaskPage}
-                      />
-                    </React.Fragment>
-                  ))}
+
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~ Instructions for User ~~~~~~~~~~~ */}
                 {isOrgAdminPage && <OrgAdminInfo />}
 
                 <center>
-                  {isMerchantTaskPage ? (
-                    merchantDetails.map((info) => (
-                      <ContactDetails
-                        key={info.id}
-                        info={info}
-                        isMerchantTaskPage={isMerchantTaskPage}
-                      />
-                    ))
-                  ) : (
-                    // <OrgContactDetails info={orgDetails} isMerchantTaskPage={isMerchantTaskPage} />
-                    <ContactDetails
-                      info={orgDetails}
-                      isOrgAdminPage={isOrgAdminPage}
-                    />
-                  )}
+                  <ContactDetails
+                    info={orgDetails}
+                    isOrgAdminPage={isOrgAdminPage}
+                  />
                   <br />
                 </center>
 
@@ -322,63 +274,15 @@ export default function Details({
                   </>
                 )}
 
-                {isMerchantTaskPage && !isOrgAdminPage && (
-                  <>
-                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    {/* ~~~~~~~~~~ TASK SECTION ~~~~~~~~~~ */}
-                    <DetailsTaskView caseType={"merchantView"} />
-                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    {/* ~~~~~~~~~~ LOCATION INFO ~~~~~~~~~ */}
-                    {locations ? (
-                      <LocationsCard
-                        locations={locations}
-                        handleTaskUpdate={handleTaskUpdate}
-                        handleCaseTypeChange={handleCaseTypeChange}
-                        handleAddLocation={handleAddLocation}
-                      />
-                    ) : null}
-                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                    {/* ~~~~~ COUPON REVIEW CARDS ~~~~~ */}
-                    <div className="MerchantDetailsCard-container">
-                      <div
-                        style={{
-                          position: "absolute",
-                          left: 0,
-                          top: 0,
-                        }}
-                      >
-                        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                        {/* ~~~~~~~~~~ ADD COUPON BUTTON ~~~~~~~~~~ */}
-                        <AddNewCouponModal
-                          handleCaseTypeChange={handleCaseTypeChange}
-                          locations={locations}
-                        />
-                      </div>
-                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                      {/* ~~~~~~~~ COUPON PREVIEW CARDS ~~~~~~~~~ */}
-                      {merchantDetails.map((merchant, i) => (
-                        <CouponReviewCard
-                          key={i}
-                          merchant={merchant}
-                          onTaskUpdate={handleTaskUpdate}
-                        />
-                      ))}
-                    </div>
-                  </>
-                )}
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~ Sellers Table ~~~~~~~~~~ */}
-                {/* {(isTaskPage || isOrgDetailsPage) && <SellersTable />} */}
-                {/* {(isTaskPage || isOrgDetailsPage) &&
+
+                {/* forwardRef={tableRef} */}
+                {(isTaskPage || isOrgDetailsPage) &&
                   (!isOrgAdminPage ||
                     (isOrgAdminPage &&
-                      user.org_ids === organizationId &&
-                      user.org_admin)) && <SellersTable />} */}
-                      {(isTaskPage || isOrgDetailsPage) &&
-  (!isOrgAdminPage ||
-    (isOrgAdminPage &&
-      orgIdsArray.includes(organizationId) &&
-      user.org_admin)) && <SellersTable forwardedRef={tableRef} />}
+                      orgIdsArray.includes(organizationId) &&
+                      user.org_admin)) && <SellersTable />}
               </React.Fragment>
             ))}
           </div>
