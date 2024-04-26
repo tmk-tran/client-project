@@ -80,7 +80,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       // Email already exists, return an error
       return res
         .status(400)
-        .json({ error: "Email already exists in the user table." });
+        .json({ error: "This email is already in use. Please try again..." });
     }
 
     // Email does not exist, proceed with inserting into the customers table

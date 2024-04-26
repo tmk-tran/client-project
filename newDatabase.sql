@@ -374,6 +374,23 @@ FOR EACH ROW
 EXECUTE FUNCTION create_transaction_for_new_seller();
 ---------------------------------------------------------------------------
 
+---------- Function for updating seller earnings --------------------------
+CREATE OR REPLACE FUNCTION update_seller_earnings()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE seller
+    SET seller_earnings = (physical_book_cash + physical_book_digital + digital_book_credit) * NEW.organization_earnings
+    WHERE organization_id = NEW.id;
+    
+    RETURN NULL; -- Returning NULL to prevent update on organization table
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_seller_earnings_trigger
+AFTER UPDATE OF organization_earnings ON organization
+FOR EACH ROW
+EXECUTE FUNCTION update_seller_earnings();
+
 
 ----------------------------------------------------------------------
 -------------------- Coupon table ------------------------------------

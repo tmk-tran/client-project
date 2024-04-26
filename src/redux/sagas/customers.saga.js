@@ -24,28 +24,34 @@ function* fetchCustomerEmail(action) {
 }
 
 function* addCustomer(action) {
+  console.log(action);
   console.log(action.payload);
-
   try {
+    // Clear any existing error messages
+    yield put({ type: "CLEAR_ERROR_MESSAGE" });
     const response = yield axios.post(`/api/customers/`, action.payload);
-    const newCustomerId = response.data[0].id;
+    console.log(response.data);
 
+    // Email does not exist, proceed with other actions
+    const newCustomerId = response.data[0].id; // Assuming response.data is an object with an 'id' property
     yield put({
       type: "FETCH_CUSTOMER_EMAIL",
       payload: {
         id: newCustomerId,
       },
     });
-    // Clear any existing error messages
-    yield put({ type: "CLEAR_ERROR_MESSAGE" });
-    return response; // Return the response to indicate success
   } catch (error) {
     console.log("error in addCustomer Saga", error);
-    yield put({
-      type: "SET_ERROR_MESSAGE",
-      payload: "This username is already in use. Please try again...",
-    });
-    throw error; // Throw the error to indicate failure
+    console.log(error.response.data);
+    // Handle other errors if needed
+    if (error.response && error.response.data && error.response.data.error) {
+      // Set an error message for the email
+      yield put({
+        type: "SET_ERROR_MESSAGE",
+        payload: error.response.data.error,
+      });
+    }
+    // throw error; // Throw the error to indicate failure <--- DO NOT NEED THIS!!
   }
 }
 

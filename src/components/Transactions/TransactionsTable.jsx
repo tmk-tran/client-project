@@ -195,7 +195,7 @@ export default function TransactionsTable({ transactions }) {
           >
             <TableRow>
               <TableCell sx={footerCellStyle}>Totals:</TableCell>
-              <TableCell sx={footerCellStyle} colSpan={3}></TableCell>
+              <TableCell sx={footerCellStyle} colSpan={5}></TableCell>
               <TableCell sx={{ ...footerCellStyle, ...footerCellBorder }}>
                 ${totals.paymentAmount.toFixed(2)}
               </TableCell>

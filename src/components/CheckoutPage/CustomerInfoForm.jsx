@@ -31,7 +31,16 @@ export default function CustomerInfoForm({
   stateSelected,
   zip,
   setZip,
+  setFormSubmitted,
 }) {
+  console.log(errors);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    // Clear any existing email format error when user types in the email field
+    setErrors({ ...errors, email: "" });
+    setFormSubmitted(false);
+  };
 
   return (
     <div style={{ width: "90%", margin: "0 auto", padding: isMobile ? 0 : 5 }}>
@@ -89,12 +98,11 @@ export default function CustomerInfoForm({
               label="Email"
               value={email}
               onChange={(e) => {
-                setEmail(e.target.value);
+                handleEmailChange(e);
                 setErrors((prevErrors) => {
-                  return { ...prevErrors, email: "" };
+                  return { ...prevErrors, email: "", emailCheck: "" };
                 });
               }}
-              // onChange={handleEmailChange}
               variant="outlined"
               fullWidth
               required
@@ -104,21 +112,6 @@ export default function CustomerInfoForm({
           </Grid>
           {/* ~~~~~~~~~ Phone Number ~~~~~~~~~~~~~~~ */}
           <Grid item xs={12} sm={6}>
-            {/* <TextField
-              label="Phone Number"
-              value={phone}
-              onChange={(e) => {
-                setPhone(e.target.value);
-                setErrors((prevErrors) => {
-                  return { ...prevErrors, phone: "" };
-                });
-              }}
-              variant="outlined"
-              fullWidth
-              required
-              error={!!errors.phone}
-              helperText={errors.phone}
-            /> */}
             <PhoneInput
               caseType="addAccount"
               phoneNumber={phone}

@@ -18,10 +18,13 @@ import PayPalButtons from "./PayPalButtons";
 import Typography from "../Typography/Typography";
 import CustomButton from "../CustomButton/CustomButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
 import { navButtonStyle } from "./checkoutStyles";
-import { sellerPageInfo, bookYear, Errors } from "../../hooks/reduxStore";
+import {
+  sellerPageInfo,
+  Errors,
+  appActiveYear,
+} from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 
 export const containerStyle = {
@@ -37,18 +40,22 @@ const steps = ["Information", "Payment", "Order Confirmation"];
 export default function CheckoutPage({ caseType }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  console.log(caseType);
   const history = historyHook();
   const location = useLocation();
   const dispatch = dispatchHook();
+  console.log(location.state);
   const paramsObject = useParams();
   const refId = paramsObject.refId;
   // Access state from URL and use it in component //
   const selectedProducts = location.state?.selectedProducts ?? [];
+  console.log(selectedProducts);
   const orderTotal = location.state?.orderTotal ?? 0;
   const customDonation = location.state?.customDonation ?? 0;
   // Access digital payment amount //
   let digitalPayment;
   digitalPayment = orderTotal - customDonation;
+  console.log(digitalPayment);
   const [physicalCouponBook, setPhysicalCouponBook] = useState(false);
   // Number of books sold //
   const [physicalBookDigital, setPhysicalBookDigital] = useState(0);
@@ -58,22 +65,25 @@ export default function CheckoutPage({ caseType }) {
   const [activeStep, setActiveStep] = useState(0);
   const [stateSelected, setStateSelected] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  console.log(isSubmitted);
 
   // ~~~~~ Store Data ~~~~~ //
   const sellerData = sellerPageInfo() || [];
   const orgId = sellerData ? sellerData[0].organization_id : "";
   const sellerId = sellerData ? sellerData[0].id : "";
-  const currentYear = bookYear() || [];
+  const currentYear = appActiveYear() || [];
   const activeYearId = currentYear ? currentYear[0].id : "";
-  const errorStore = Errors() || [];
-  const msgFromReducer = errorStore
-    ? errorStore.errorReducer.errorMessage
-    : null;
+  // const errorStore = Errors();
+  const errorState = Errors();
+  console.log(errorState);
+  const errorStore = errorState.errorReducer.errorMessage;
+  console.log(errorStore);
 
   // ~~~~~~~~~~ Form state ~~~~~~~~~~ //
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [emailChanged, setEmailChanged] = useState(false);
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [unit, setUnit] = useState("");
@@ -149,14 +159,24 @@ export default function CheckoutPage({ caseType }) {
     setDigitalDonation(donationAmount);
   }, [selectedProducts, caseType]);
 
+  // useEffect(() => {
+  //   if (msgFromReducer) {
+  //     setErrors((prevErrors) => ({
+  //       ...prevErrors,
+  //       emailCheck: msgFromReducer,
+  //     }));
+  //   }
+
   useEffect(() => {
-    if (msgFromReducer) {
+    if (errorStore) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        emailCheck: msgFromReducer,
+        emailCheck: errorStore,
       }));
     }
-  }, [msgFromReducer]);
+  }, [errorStore]);
+  console.log(errorStore);
+  console.log(errors);
 
   console.log(physicalCouponBook);
   console.log(physicalBookDigital);
@@ -207,6 +227,7 @@ export default function CheckoutPage({ caseType }) {
             stateSelected={stateSelected}
             zip={zip}
             setZip={setZip}
+            setFormSubmitted={setFormSubmitted}
           />
         );
       case 1:
@@ -242,7 +263,7 @@ export default function CheckoutPage({ caseType }) {
     }
   };
 
-  const handleForm = () => {
+  const handleForm = async () => {
     const newErrors = {};
     if (!firstName) {
       newErrors.firstName = "Please enter your first name";
@@ -273,20 +294,38 @@ export default function CheckoutPage({ caseType }) {
     setErrors(newErrors);
     // Check if there are any errors
     const hasErrors = Object.keys(newErrors).length > 0;
+    // For state validation
     !hasErrors && setIsSubmitted(true);
 
-    // saveCustomerInfo();
-    if (!hasErrors) {
-      // Assuming saveCustomerInfo is an asynchronous function, you can handle it like this:
-      saveCustomerInfo()
-        .then(() => {
-          // Handle success, e.g., advance the form
-          handleNext();
-        })
-        .catch((error) => {
-          // Handle error, e.g., display an error message
-          console.error("Failed to save customer info:", error);
-        });
+    if (Object.keys(newErrors).length === 0) {
+      try {
+        await saveCustomerInfo();
+        // No action here...
+      } catch (error) {
+        console.error("Failed to save customer info:", error);
+      }
+    }
+  };
+  console.log(isSubmitted);
+  console.log(errors);
+  console.log(errorStore);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  console.log(formSubmitted);
+
+  // useEffect to run runHandleNext whenever formSubmitted, errors, or errorStore changes
+  useEffect(() => {
+    if (formSubmitted) {
+      runHandleNext();
+      setFormSubmitted(false);
+    }
+  }, [errorStore]);
+
+  const runHandleNext = () => {
+    if (Object.keys(errors).length === 0 && !errorStore) {
+      console.log("running handleNext");
+      handleNext();
+    } else {
+      console.log("not running handleNext");
     }
   };
 
@@ -371,27 +410,7 @@ export default function CheckoutPage({ caseType }) {
     setOrderInfo(orderData);
     handleNext();
   };
-  console.log(orderInfo);
 
-  // const saveCustomerInfo = () => {
-  //   const saveAction = {
-  //     type: "ADD_CUSTOMER",
-  //     payload: {
-  //       refId: refId,
-  //       last_name: lastName,
-  //       first_name: firstName,
-  //       email: email,
-  //       phone: phone,
-  //       address: address,
-  //       unit: unit,
-  //       city: city,
-  //       state: stateSelected,
-  //       zip: zip,
-  //     },
-  //   };
-  //   console.log("Dispatching action:", saveAction);
-  //   dispatch(saveAction);
-  // };
   const saveCustomerInfo = () => {
     const saveAction = {
       type: "ADD_CUSTOMER",
@@ -408,18 +427,15 @@ export default function CheckoutPage({ caseType }) {
         zip: zip,
       },
     };
-    console.log("Dispatching action:", saveAction);
     return new Promise((resolve, reject) => {
       try {
-        dispatch(saveAction)
-          .then(() => {
-            resolve(); // Resolve the outer promise once the dispatch is complete
-          })
-          .catch((error) => {
-            reject(error); // Reject the outer promise if there's an error with dispatch
-          });
+        dispatch(saveAction);
+        console.log("Dispatching action:", saveAction);
+        setFormSubmitted(true);
+        resolve();
       } catch (error) {
-        reject(error); // Reject if there's an error with the try block
+        console.log(error);
+        reject(error);
       }
     });
   };

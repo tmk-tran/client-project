@@ -22,7 +22,7 @@ export default function Transactions() {
         variant="h5"
         sx={{ mt: 2, fontWeight: "bold", textAlign: "center" }}
       >
-        Transactions
+        Electronic Payment Transactions
       </Typography>
       <Box sx={{ width: "100%", mt: 2 }}>
         {transactionList.length > 0 ? (
