@@ -25,7 +25,6 @@ const refIdStyle = {
 };
 
 const TopDrawer = ({ sellers }) => {
-  console.log(sellers);
   const dispatch = dispatchHook();
   const history = historyHook();
   const [open, setOpen] = useState(false);
@@ -58,7 +57,6 @@ const TopDrawer = ({ sellers }) => {
         lastname: lastName,
       },
     };
-    console.log(fetchSellersByName);
     dispatch(fetchSellersByName);
   };
 
@@ -78,21 +76,14 @@ const TopDrawer = ({ sellers }) => {
     resetSearchField();
   };
 
-  //   const navigateToOrg = (sellerId) => {
-  //     setLoading(true); // Set loading to true when navigating
-  //     history.push(`/fargo/orgDetails/${sellerId}`);
-  //     resetSearchField();
-  //   };
-  const navigateToOrg = (sellerId) => {
+  const navigateToOrg = (orgId) => {
     setLoading(true); // Set loading to true first
     setTimeout(() => {
-      history.push(`/fargo/orgDetails/${sellerId}`); // Navigate to the new URL
+      history.push(`/fargo/orgDetails/${orgId}`); // Navigate to the new URL
       setLoading(false); // Set loading to false after navigation
     }, 0); // Use setTimeout to ensure the setLoading(false) runs after the state is updated
     resetSearchField();
   };
-
-  console.log(loading);
 
   return (
     <div>

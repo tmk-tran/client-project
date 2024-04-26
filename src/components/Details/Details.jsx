@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useLocation } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import "./Details.css";
@@ -49,6 +49,7 @@ export default function Details({
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
   console.log(paramsObject);
+  const tableRef = useRef(null);
   const location = useLocation();
   const isOrgDetailsPage = location.pathname.includes("/orgDetails");
   console.log(isOrgDetailsPage);
@@ -377,7 +378,7 @@ export default function Details({
   (!isOrgAdminPage ||
     (isOrgAdminPage &&
       orgIdsArray.includes(organizationId) &&
-      user.org_admin)) && <SellersTable />}
+      user.org_admin)) && <SellersTable forwardedRef={tableRef} />}
               </React.Fragment>
             ))}
           </div>

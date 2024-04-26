@@ -316,6 +316,7 @@ export default function CheckoutPage({ caseType }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   console.log(formSubmitted);
 
+  // ~~~ State for adding a customer ~~~ //
   const formStatus = CustomerAdded();
 
   // useEffect to run runHandleNext

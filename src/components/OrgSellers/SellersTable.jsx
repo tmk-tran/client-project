@@ -69,7 +69,7 @@ const teacher = "Jane Smith";
 const refId = generateRefId(firstName, lastName, teacher);
 console.log(refId);
 
-export default function SellersTable() {
+export default function SellersTable({ forwardedRef }) {
   const dispatch = dispatchHook();
   const paramsObject = useParams();
   const orgId = paramsObject.id;
@@ -95,15 +95,18 @@ export default function SellersTable() {
   console.log(updateActions);
 
   const user = User() || [];
-  console.log(user);
-
   const sellers = oSellers() || [];
-  console.log(sellers);
   const year = appActiveYear() || [];
-  console.log(year);
   const yearId = year.length > 0 ? year[0].id : null;
   const availableYears = allYears();
   const [viewYearId, setViewYearId] = useState(year ? yearId : null);
+
+  useEffect(() => {
+    if (forwardedRef && forwardedRef.current) {
+      // Scroll to the table element when the component mounts
+      forwardedRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [forwardedRef]);
 
   useEffect(() => {
     const dispatchAction = {
@@ -333,7 +336,7 @@ export default function SellersTable() {
       <Paper elevation={3} sx={{ width: "100%" }}>
         <TableContainer sx={{ maxHeight: 600, overflowX: "auto" }}>
           {/* {!viewUrlTable ? ( */}
-          <Table stickyHeader aria-label="sticky table">
+          <Table ref={forwardedRef} stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
@@ -374,7 +377,8 @@ export default function SellersTable() {
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      key={index}
+                      // key={index}
+                      key={seller.id} id={`seller-row-${seller.id}`}
                       sx={{
                         ...(isEvenRow
                           ? { backgroundColor: evenRowColor }
