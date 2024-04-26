@@ -28,24 +28,59 @@ const deleteIconStyle = {
 export default function UserActions({ user, startEdit, handleDelete }) {
   return (
     <Box sx={flexRowSpace}>
-      <ActionButton
-        title="Edit Username"
-        Icon={EditNoteIcon}
-        buttonSx={{ mr: 3 }}
-        iconSx={editIconStyle}
-        onClick={() => startEdit(user.id)}
-        onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.3)")}
-        onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-      />
+      {user.id === 3 || user.id === 4 ? (
+        <>
+          <ActionButton
+            title="Edit Username"
+            Icon={EditNoteIcon}
+            buttonSx={{ mr: 3 }}
+            iconSx={editIconStyle}
+            disabled={true}
+            // onClick={() => startEdit(user.id)}
+            // onMouseOver={(e) =>
+            //   (e.currentTarget.style.transform = "scale(1.3)")
+            // }
+            // onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          />
 
-      <ActionButton
-        title="Delete user"
-        Icon={DeleteForeverIcon}
-        iconSx={deleteIconStyle}
-        onClick={() => handleDelete(user.id)}
-        onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
-        onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-      />
+          <ActionButton
+            title="Delete user"
+            Icon={DeleteForeverIcon}
+            iconSx={deleteIconStyle}
+            disabled={true}
+            // onClick={() => handleDelete(user.id)}
+            // onMouseOver={(e) =>
+            //   (e.currentTarget.style.transform = "scale(1.1)")
+            // }
+            // onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          />
+        </>
+      ) : (
+        <>
+          <ActionButton
+            title="Edit Username"
+            Icon={EditNoteIcon}
+            buttonSx={{ mr: 3 }}
+            iconSx={editIconStyle}
+            onClick={() => startEdit(user.id)}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.transform = "scale(1.3)")
+            }
+            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          />
+
+          <ActionButton
+            title="Delete user"
+            Icon={DeleteForeverIcon}
+            iconSx={deleteIconStyle}
+            onClick={() => handleDelete(user.id)}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.transform = "scale(1.1)")
+            }
+            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          />
+        </>
+      )}
     </Box>
   );
 }
