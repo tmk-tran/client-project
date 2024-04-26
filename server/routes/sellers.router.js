@@ -24,14 +24,13 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.get("/name", rejectUnauthenticated, (req, res) => {
-  console.log(req.query);
-
   const queryText = `
           SELECT sellers.*, o.organization_name
           FROM sellers
           JOIN organization o ON sellers.organization_id = o.id
           WHERE sellers.lastname = $1
           ${req.query.firstname ? "AND sellers.firstname = $2" : ""}
+          AND sellers.is_deleted = false
         `;
 
   const params = [req.query.lastname];

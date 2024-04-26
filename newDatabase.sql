@@ -556,7 +556,7 @@ CREATE TABLE "user" (
 
 ---------- JOIN table for users who are orgAdmins -----------
 CREATE TABLE user_org_admin (
-    user_id integer REFERENCES "user"(id),
+    user_id integer REFERENCES "user"(id) ON DELETE CASCADE,
     org_id integer REFERENCES organization(id),
     CONSTRAINT user_org_admin_pkey PRIMARY KEY (user_id, org_id)
 );
