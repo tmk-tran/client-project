@@ -20,7 +20,13 @@ import EditAttributesIcon from "@mui/icons-material/EditAttributes";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { columns } from "./sellerTableColumns";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { User, oSellers, bookYear, allYears, appActiveYear } from "../../hooks/reduxStore";
+import {
+  User,
+  oSellers,
+  bookYear,
+  allYears,
+  appActiveYear,
+} from "../../hooks/reduxStore";
 import { primaryColor } from "../Utils/colors";
 import { border } from "../Utils/colors";
 import { showDeleteSweetAlert, showSaveSweetAlert } from "../Utils/sweetAlerts";
@@ -90,7 +96,7 @@ export default function SellersTable() {
 
   const user = User() || [];
   console.log(user);
-  
+
   const sellers = oSellers() || [];
   console.log(sellers);
   const year = appActiveYear() || [];
@@ -489,7 +495,7 @@ export default function SellersTable() {
                   const sum = calculateColumnSum(sellers, column.id);
                   const displaySum = !isNaN(sum); // Check if sum is a valid number and not zero
                   const isExcludedColumn =
-                    column.id === "refId" ||
+                    // column.id === "refId" ||
                     column.id === "lastname" ||
                     column.id === "firstname" ||
                     column.id === "level" ||
@@ -525,6 +531,8 @@ export default function SellersTable() {
                               column.id === "digital" ||
                               column.id === "seller_earnings"
                               ? "$" + parseFloat(sum).toFixed(2)
+                              : column.id === "refId"
+                              ? `Sellers: ${Number(sellers.length)}`
                               : sum
                             : null}
                         </TableCell>
