@@ -426,6 +426,12 @@ export default function CouponReviewDetails() {
                         <Box sx={{ mt: 2, p: 1 }}>
                           <Box sx={flexRowSpace}>
                             <ToggleButton
+                              title={
+                                !showLocations
+                                  ? "View Locations Accepted"
+                                  : "View Coupon Details "
+                              }
+                              placement="top"
                               onClick={handleToggleLocations}
                               toggleState={showLocations}
                               label1="Locations"
