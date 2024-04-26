@@ -193,7 +193,7 @@ export default function Details({
     setNoteAdded(true);
   };
 
-  const orgIdsArray = user.org_ids.split(',').map(id => parseInt(id.trim()));
+  const orgIdsArray = user.org_ids ? user.org_ids.split(',').map(id => parseInt(id.trim())) : [];
 
 
   return (
