@@ -51,7 +51,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.post("/", rejectUnauthenticated, async (req, res) => {
+router.post("/", async (req, res) => {
   const customer = req.body;
   const refId = customer.refId;
   const lastName = customer.last_name;
