@@ -172,6 +172,7 @@ export default function BasicTabs() {
             customText="Task"
             merchantTab={merchantTab}
             onChange={handleTaskUpdate}
+            disabled={activeTab === "book year" ? true : false}
           />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         </Box>
