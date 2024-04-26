@@ -5,7 +5,6 @@ import {
   Paper,
   Pagination,
   Typography,
-  Fab,
   Tooltip,
 } from "@mui/material";
 import "./HomePage.css";
@@ -28,16 +27,12 @@ import {
 import { buttonIconSpacing } from "../Utils/helpers.js";
 import { dispatchHook } from "../../hooks/useDispatch.js";
 
-function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
-  console.log(isOrgAdmin);
-  console.log(orgAdminId);
-  console.log(isGraphicDesigner);
+function HomePage({ isOrgAdmin, isGraphicDesigner }) {
   const dispatch = dispatchHook();
 
   const [isMerchantList, setIsMerchantList] = useState(
     Cookies.get("isMerchantList") === "true" || false
   );
-  console.log(isMerchantList);
 
   // state for the search and modal and pagination
   const [query, setQuery] = useState(" ");
@@ -83,14 +78,12 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
       dispatch({ type: fetchDataAction });
       setEditComplete(false);
     }
-
   }, [isMerchantList, editComplete]);
 
   // fuzzy search information
   const listToSearch = !isMerchantList ? organizationsList : merchants;
-  console.log(listToSearch);
+
   const keys = !isMerchantList ? ["organization_name"] : ["merchant_name"];
-  console.log(keys);
 
   const fuse = new Fuse(listToSearch, {
     keys: keys,
@@ -99,12 +92,10 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
     minMatchCharLength: 2,
   });
   const results = fuse.search(query);
-  console.log(results);
+
   const searchResult = results.map((result) => result.item);
-  console.log(searchResult);
 
   const handleOnSearch = (value) => {
-    console.log(value);
     setQuery(value);
     if (!showInput) {
       setShowInput(true);
@@ -131,23 +122,6 @@ function HomePage({ isOrgAdmin, orgAdminId, isGraphicDesigner }) {
   // Index for pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
-  // const currentItems =
-  //   searchResult.length > 0
-  //     ? searchResult.slice(indexOfFirstItem, indexOfLastItem)
-  //     : isMerchantList
-  //     ? merchants.slice(indexOfFirstItem, indexOfLastItem)
-  //     : organizationsList.slice(indexOfFirstItem, indexOfLastItem);
-
-  // console.log(currentItems);
-
-  // const totalItems =
-  //   searchResult.length > 0
-  //     ? searchResult.length
-  //     : !isMerchantList
-  //     ? organizationsList.length
-  //     : merchants.length;
-  // const pageCount = Math.ceil(totalItems / itemsPerPage);
 
   const orgIdsArray = user.org_ids
     ? user.org_ids.split(",").map((id) => parseInt(id.trim(), 10))
