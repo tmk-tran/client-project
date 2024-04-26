@@ -33,9 +33,17 @@ const TopDrawer = ({ sellers }) => {
   const [loading, setLoading] = useState(false);
   const [searchInitiated, setSearchInitiated] = useState(false);
 
+  // useEffect(() => {
+  //   // Update searchResults when sellers prop changes
+  //   setSearchResults(sellers ? sellers : []);
+  // }, [sellers]);
   useEffect(() => {
+    setLoading(true);
     // Update searchResults when sellers prop changes
     setSearchResults(sellers ? sellers : []);
+    setTimeout(() => {
+      setLoading(false);
+    }, 0);
   }, [sellers]);
 
   useEffect(() => {
