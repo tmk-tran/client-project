@@ -69,7 +69,11 @@ function App() {
     const currentSeason = getCurrentSeason();
     console.log(currentSeason);
 
-    dispatch({ type: "FETCH_USER" });
+    // dispatch({ type: "FETCH_USER" });
+    if (user.id) {
+      // User is logged in, fetch user data
+      dispatch({ type: "FETCH_USER" });
+    }
     // dispatch({ type: "FETCH_COUPON_BOOKS" });
     const dispatchAction2 = {
       type: "FETCH_BOOK_YEAR",
@@ -77,7 +81,7 @@ function App() {
     };
     console.log(dispatchAction2);
     dispatch(dispatchAction2);
-  }, []);
+  }, [user.id]);
 
   useEffect(() => {
     if (user.org_admin) {
