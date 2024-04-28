@@ -2,13 +2,8 @@ import axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
 
 function* addContactSaga(action) {
-  console.log("payload from ac saga", action.payload);
+  // console.log("payload from ac saga", action.payload);
   try {
-    // const response = yield axios({
-    //     method: "POST",
-    //     url: `/api/contact`,
-    //     data: action.payload
-    // });
     const response = yield axios.post("/api/contact", action.payload);
     console.log("Response: ", response);
 

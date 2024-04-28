@@ -41,22 +41,21 @@ const steps = ["Information", "Payment", "Order Confirmation"];
 export default function CheckoutPage({ caseType }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  console.log(caseType);
+
   const history = historyHook();
   const location = useLocation();
   const dispatch = dispatchHook();
-  console.log(location.state);
+
   const paramsObject = useParams();
   const refId = paramsObject.refId;
   // Access state from URL and use it in component //
   const selectedProducts = location.state?.selectedProducts ?? [];
-  console.log(selectedProducts);
   const orderTotal = location.state?.orderTotal ?? 0;
   const customDonation = location.state?.customDonation ?? 0;
   // Access digital payment amount //
   let digitalPayment;
   digitalPayment = orderTotal - customDonation;
-  console.log(digitalPayment);
+
   const [physicalCouponBook, setPhysicalCouponBook] = useState(false);
   // Number of books sold //
   const [physicalBookDigital, setPhysicalBookDigital] = useState(0);
@@ -66,7 +65,6 @@ export default function CheckoutPage({ caseType }) {
   const [activeStep, setActiveStep] = useState(0);
   const [stateSelected, setStateSelected] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  console.log(isSubmitted);
 
   // ~~~~~ Store Data ~~~~~ //
   const sellerData = sellerPageInfo() || [];
@@ -76,9 +74,7 @@ export default function CheckoutPage({ caseType }) {
   const activeYearId = currentYear ? currentYear[0].id : "";
   // const errorStore = Errors();
   const errorState = Errors();
-  console.log(errorState);
   const errorStore = errorState.errorReducer.errorMessage;
-  console.log(errorStore);
 
   // ~~~~~~~~~~ Form state ~~~~~~~~~~ //
   const [firstName, setFirstName] = useState("");
@@ -114,7 +110,7 @@ export default function CheckoutPage({ caseType }) {
       bookType: selectedProducts[0].bookType,
       type: caseType,
     };
-    console.log("Contact Data from acInfo", contactData);
+    // console.log("Contact Data from acInfo", contactData);
     dispatch({ type: "ADD_CONTACT", payload: contactData });
   };
 
@@ -159,14 +155,6 @@ export default function CheckoutPage({ caseType }) {
     setDigitalBookCredit(digitalCredit);
     setDigitalDonation(donationAmount);
   }, [selectedProducts, caseType]);
-
-  // useEffect(() => {
-  //   if (msgFromReducer) {
-  //     setErrors((prevErrors) => ({
-  //       ...prevErrors,
-  //       emailCheck: msgFromReducer,
-  //     }));
-  //   }
 
   useEffect(() => {
     if (errorStore) {
@@ -302,7 +290,6 @@ export default function CheckoutPage({ caseType }) {
       try {
         console.log("Before saveCustomerInfo");
         const response = await saveCustomerInfo();
-        console.log("After saveCustomerInfo, response:", response);
         // setFormSubmitted(true);
         // No action here...
       } catch (error) {
@@ -408,7 +395,6 @@ export default function CheckoutPage({ caseType }) {
         },
       });
 
-    console.log("Dispatching action:", updateActions);
     updateActions.forEach((action) => dispatch(action));
   };
 
