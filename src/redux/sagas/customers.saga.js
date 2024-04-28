@@ -4,7 +4,7 @@ import { put, takeEvery } from "redux-saga/effects";
 function* fetchCustomers() {
   try {
     const items = yield axios.get(`/api/customers/`);
-    console.log("FETCH request from customers.saga, ITEMS = ", items.data);
+    console.log("FETCH customers request from customers.saga successful");
     yield put({ type: "SET_CUSTOMERS", payload: items.data });
   } catch (error) {
     console.log("error in customers Saga", error);
@@ -12,11 +12,10 @@ function* fetchCustomers() {
 }
 
 function* fetchCustomerEmail(action) {
-  console.log("from customers.saga, action.payload = ", action.payload);
   const customerId = action.payload.id;
   try {
     const items = yield axios.get(`/api/customers/${customerId}`);
-    console.log("FETCH request from customers.saga, ITEMS = ", items.data);
+    console.log("FETCH customerEmail request from customers.saga successful");
     yield put({ type: "SET_CUSTOMERS", payload: items.data });
   } catch (error) {
     console.log("error in customers Saga", error);
@@ -24,13 +23,11 @@ function* fetchCustomerEmail(action) {
 }
 
 function* addCustomer(action) {
-  console.log(action);
-  console.log(action.payload);
   try {
     // Clear any existing error messages
     yield put({ type: "CLEAR_ERROR_MESSAGE" });
     const response = yield axios.post(`/api/customers/`, action.payload);
-    console.log(response.data);
+    // console.log(response.data);
 
     // Email does not exist, proceed with other actions
     const newCustomerId = response.data[0].id; // Assuming response.data is an object with an 'id' property
@@ -44,7 +41,6 @@ function* addCustomer(action) {
     yield put({ type: "CUSTOMER_ADDED_SUCCESSFULLY", payload: true });
   } catch (error) {
     console.log("error in addCustomer Saga", error);
-    console.log(error.response.data);
     // Handle other errors if needed
     if (error.response && error.response.data && error.response.data.error) {
       // Set an error message for the email
