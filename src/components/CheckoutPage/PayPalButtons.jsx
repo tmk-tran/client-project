@@ -10,11 +10,9 @@ function Message({ content }) {
 }
 
 function PayPalButton({ refId, selectedProducts, customDonation, orderSuccess }) {
-  console.log(selectedProducts);
-  console.log(customDonation);
+  // comes through undefined in test environment
   console.log(process.env.REACT_APP_PAYPAL_CLIENT_ID);
   const dispatch = dispatchHook();
-  console.log(refId);
 
   // Removed 'venmo' from "enable-funding"
   const initialOptions = {

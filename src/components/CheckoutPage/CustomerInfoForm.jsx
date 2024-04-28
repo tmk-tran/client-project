@@ -33,7 +33,6 @@ export default function CustomerInfoForm({
   setZip,
   setFormSubmitted,
 }) {
-  console.log(errors);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);

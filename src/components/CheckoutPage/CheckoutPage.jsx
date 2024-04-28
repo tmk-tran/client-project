@@ -286,22 +286,8 @@ export default function CheckoutPage({ caseType }) {
     // For state validation
     !hasErrors && setIsSubmitted(true);
 
-    if (Object.keys(newErrors).length === 0) {
-      try {
-        console.log("Before saveCustomerInfo");
-        const response = await saveCustomerInfo();
-        // setFormSubmitted(true);
-        // No action here...
-      } catch (error) {
-        console.error("Failed to save customer info:", error);
-      }
-    }
   };
-  console.log(isSubmitted);
-  console.log(errors);
-  console.log(errorStore);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  console.log(formSubmitted);
 
   // ~~~ State for adding a customer ~~~ //
   const formStatus = CustomerAdded();
