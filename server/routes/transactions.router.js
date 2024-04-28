@@ -66,7 +66,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.put("/:id", rejectUnauthenticated, (req, res) => {
+router.put("/:id", (req, res) => {
   const seller = req.body;
   const refId = req.params.id;
   const caseType = req.body.caseType;
