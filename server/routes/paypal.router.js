@@ -30,7 +30,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.post("/", rejectUnauthenticated, (req, res) => {
+router.post("/", (req, res) => {
   const data = req.body;
 
   const values = [
