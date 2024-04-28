@@ -27,7 +27,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-router.get("/:id", rejectUnauthenticated, (req, res) => {
+router.get("/:id", (req, res) => {
   const customerId = req.params.id;
 
   const queryText = `

@@ -62,6 +62,7 @@ const theme = createTheme({
 function App() {
   const dispatch = dispatchHook();
   const user = User();
+  console.log(user);
   const [orgAdminId, setOrgAdminId] = useState(null);
 
   useEffect(() => {
@@ -69,11 +70,11 @@ function App() {
     const currentSeason = getCurrentSeason();
     console.log(currentSeason);
 
-    // dispatch({ type: "FETCH_USER" });
-    if (user.id) {
-      // User is logged in, fetch user data
-      dispatch({ type: "FETCH_USER" });
-    }
+    dispatch({ type: "FETCH_USER" });
+    // if (user.id) {
+    //   // User is logged in, fetch user data
+    //   dispatch({ type: "FETCH_USER" });
+    // }
     // dispatch({ type: "FETCH_COUPON_BOOKS" });
     const dispatchAction2 = {
       type: "FETCH_BOOK_YEAR",
