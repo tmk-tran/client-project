@@ -62,13 +62,11 @@ const theme = createTheme({
 function App() {
   const dispatch = dispatchHook();
   const user = User();
-  console.log(user);
   const [orgAdminId, setOrgAdminId] = useState(null);
 
   useEffect(() => {
     // Set the current season
     const currentSeason = getCurrentSeason();
-    console.log(currentSeason);
 
     dispatch({ type: "FETCH_USER" });
     // if (user.id) {
@@ -80,7 +78,6 @@ function App() {
       type: "FETCH_BOOK_YEAR",
       payload: currentSeason,
     };
-    console.log(dispatchAction2);
     dispatch(dispatchAction2);
   }, [user.id]);
 

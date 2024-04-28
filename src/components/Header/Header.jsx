@@ -2,7 +2,6 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 // ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import "./Header.css";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
-import { border } from "../Utils/colors";
 import { historyHook } from "../../hooks/useHistory";
 import { flexCenter } from "../Utils/pageStyles";
 // ~~~~~~~~~~ Component ~~~~~~~~~~ //
@@ -12,7 +11,6 @@ import RegionText from "./RegionText";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export default function Header({ user }) {
-  console.log(user);
   const history = historyHook();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));

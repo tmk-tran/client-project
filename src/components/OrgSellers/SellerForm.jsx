@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Button,
   Modal,
   TextField,
   Grid,
@@ -11,18 +10,13 @@ import {
 // ~~~~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider } from "../Utils/modalStyles";
 import { highlightColor, primaryColor, border } from "../Utils/colors";
-import {
-  capitalizeFirstWord,
-  capitalizeWords,
-} from "../Utils/helpers";
+import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
 import { useCaseType } from "../Utils/useCaseType";
-import { dispatchHook } from "../../hooks/useDispatch";
 // ~~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~ //
-import Typography from "../Typography/Typography";
 import ModalButtons from "../Modals/ModalButtons";
 import CashUpdateModal from "../SellerPage/CashUpdateModal";
 import SellerFormHeader from "./SellerFormHeader";
-import { appActiveYear, bookYear } from "../../hooks/reduxStore";
+import { appActiveYear } from "../../hooks/reduxStore";
 
 const style = {
   position: "absolute",
@@ -54,7 +48,7 @@ const generateRefId = (firstName, lastName, teacher) => {
 };
 
 const sample = generateRefId("susie", "larson", "ms jones");
-console.log(sample);
+// console.log(sample);
 
 export default function SellerForm({
   user,
@@ -74,8 +68,6 @@ export default function SellerForm({
   console.log(sellerToEdit);
   console.log(mode);
 
-  
-
   const initialFormState = columns.reduce((acc, column) => {
     acc[column.id] = [
       "initial_books",
@@ -94,25 +86,21 @@ export default function SellerForm({
   console.log(initialFormState);
 
   const [formData, setFormData] = useState(initialFormState);
-  console.log(formData);
   const [errors, setErrors] = useState({
     lastname: false,
     firstname: false,
     teacher: false,
   });
   const { caseType, handleCaseTypeChange } = useCaseType("default");
-  console.log(caseType);
+
   // ~~~~~~~~~~ Money update state ~~~~~~~~~~ //
   const [updateMoneyAmount, setUpdateMoneyAmount] = useState(0);
-  console.log(updateMoneyAmount);
   const [cashEditAmount, setCashEditAmount] = useState(0);
   const [checksEditAmount, setChecksEditAmount] = useState(0);
   const [donationsEditAmount, setDonationsEditAmount] = useState(0);
 
   const year = appActiveYear() || [];
-  console.log(year);
   const activeYearId = year.length > 0 ? year[0].id : null;
-  console.log(activeYearId);
 
   useEffect(() => {
     if (mode === "edit") {
@@ -123,7 +111,7 @@ export default function SellerForm({
   }, [mode, sellerToEdit, updateMoneyAmount]);
 
   const handleChange = (e) => {
-    console.log(e.target.name);
+    // console.log(e.target.name);
     const { name, value } = e.target;
     const capitalizeValue =
       name === "firstname" ||
@@ -135,7 +123,7 @@ export default function SellerForm({
         ? capitalizeFirstWord(value)
         : value;
 
-    console.log(name, capitalizeValue);
+    // console.log(name, capitalizeValue);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: capitalizeValue,
@@ -213,7 +201,7 @@ export default function SellerForm({
       handleEditSeller(editPayload);
     }
 
-    console.log(updatedFormData);
+    // console.log(updatedFormData);
     handleFormReset();
   };
 
@@ -229,10 +217,10 @@ export default function SellerForm({
   };
 
   const updateSellerInfo = (updateType, amountToUpdate) => {
-    console.log(updateType);
-    console.log(amountToUpdate);
+    // console.log(updateType);
+    // console.log(amountToUpdate);
     const sellerId = sellerToEdit.id;
-    console.log(sellerId);
+    // console.log(sellerId);
     const refId = sellerToEdit.refId;
     const updateAction = {
       type: `UPDATE_${updateType.toUpperCase()}`,
@@ -244,7 +232,6 @@ export default function SellerForm({
         orgId: orgId,
       },
     };
-    console.log("Dispatch action:", updateAction);
 
     // Add the update action to the array
     const updatedActions = [...updateActions, updateAction];

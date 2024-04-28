@@ -47,26 +47,6 @@ const sellersBorder = {
   borderRadius: "5px",
 };
 
-function generateRefId(firstName, lastName, teacher) {
-  const firstInitial = firstName.charAt(0).toUpperCase();
-  const lastInitial = lastName.charAt(0).toUpperCase();
-  const teacherInitials = teacher
-    .split(" ")
-    .map((name) => name.charAt(0).toUpperCase())
-    .join("");
-  // const randomDigits = Math.floor(1000 + Math.random() * 9000); // Generate random 4-digit number
-  const randomDigits = Math.floor(100000 + Math.random() * 900000); // Generate random 6-digit number
-
-  return `${firstInitial}${lastInitial}${teacherInitials}${randomDigits}`;
-}
-
-// Example usage
-const firstName = "John";
-const lastName = "Doe";
-const teacher = "Jane Smith";
-const refId = generateRefId(firstName, lastName, teacher);
-console.log(refId);
-
 export default function SellersTable({ forwardedRef }) {
   const dispatch = dispatchHook();
   const paramsObject = useParams();
