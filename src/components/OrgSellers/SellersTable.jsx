@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
@@ -71,6 +71,8 @@ export default function SellersTable({ forwardedRef }) {
   const availableYears = allYears();
   const [viewYearId, setViewYearId] = useState(year ? yearId : null);
 
+  // move this to Details parent component, and
+  // send the store data as props to this component
   useEffect(() => {
     const dispatchAction = {
       type: "FETCH_SELLERS",
@@ -97,18 +99,15 @@ export default function SellersTable({ forwardedRef }) {
     }
   }, [viewYearId]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (forwardedRef && forwardedRef.current && sellers.length > 0) {
-      // Scroll to the table element when the component mounts
-      forwardedRef.current.scrollIntoView({ behavior: "smooth" });
+      // Delay the scroll operation slightly to allow the table to render completely
+      setTimeout(() => {
+        forwardedRef.current.scrollIntoView({ behavior: "instant" });
+      }, 100); // Adjust the delay as needed
     }
-    // Clear forwardedRef when component unmounts
-    return () => {
-      if (forwardedRef && forwardedRef.current) {
-        forwardedRef.current = null;
-      }
-    };
-  }, [forwardedRef]);
+    // No need to clear forwardedRef here
+  }, [forwardedRef, sellers.length]);
 
   // Get only active year ID
   const activeYears = availableYears

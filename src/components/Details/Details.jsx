@@ -48,10 +48,14 @@ export default function Details({
   console.log(paramsObject);
   const tableRef = useRef(null);
   const location = useLocation();
-  const queryString = window.location.hash.split('?')[1]; // Get the query string after the hash
-  const params = new URLSearchParams(queryString);
-  const isSellerSearched = params.get('isSellerSearched') === 'true';
+  const fragment = window.location.hash.substring(1); // Remove the '#'
+  console.log(fragment);
+  // Extract the query paramaeter from the fragment
+  const urlSearchParams = new URLSearchParams(fragment.substring(fragment.indexOf('?')));
+  const isSellerSearched = urlSearchParams.get('isSellerSearched') === 'true';
   console.log(isSellerSearched);
+   
+
   
   const isOrgDetailsPage = location.pathname.includes("/orgDetails");
   console.log(isOrgDetailsPage);
@@ -67,6 +71,7 @@ export default function Details({
   const user = User();
   console.log(user);
   const detailsOrg = oDetails();
+  console.log(detailsOrg);
   const organizationId =
     detailsOrg.length > 0 ? detailsOrg[0].organization_id : null;
   // Use organizationId, which will be null if detailsOrg is empty
@@ -88,6 +93,10 @@ export default function Details({
   console.log(locationAdded);
   const [noteAdded, setNoteAdded] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     console.log("Dispatching FETCH_ORG_DETAILS");
@@ -282,12 +291,12 @@ export default function Details({
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~ Sellers Table ~~~~~~~~~~ */}
 
-                {/* forwardRef={tableRef} */}
+                {/* forwardedRef={isSellerSearched ? tableRef : null} */}
                 {(isTaskPage || isOrgDetailsPage) &&
                   (!isOrgAdminPage ||
                     (isOrgAdminPage &&
                       orgIdsArray.includes(organizationId) &&
-                      user.org_admin)) && <SellersTable />}
+                      user.org_admin)) && <SellersTable forwardedRef={isSellerSearched ? tableRef : null} />}
               </React.Fragment>
             ))}
           </div>

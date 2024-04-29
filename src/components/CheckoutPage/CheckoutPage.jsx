@@ -164,13 +164,6 @@ export default function CheckoutPage({ caseType }) {
       }));
     }
   }, [errorStore]);
-  console.log(errorStore);
-  console.log(errors);
-
-  console.log(physicalCouponBook);
-  console.log(physicalBookDigital);
-  console.log(digitalBookCredit);
-  console.log(digitalDonation);
 
   const handleStateChange = (state, value) => {
     // Handle the state change in the parent component
@@ -296,9 +289,9 @@ export default function CheckoutPage({ caseType }) {
       }
     }
   };
-  const [formSubmitted, setFormSubmitted] = useState(false);
 
   // ~~~ State for adding a customer ~~~ //
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const formStatus = CustomerAdded();
 
   // useEffect to run runHandleNext
@@ -418,7 +411,6 @@ export default function CheckoutPage({ caseType }) {
     return new Promise((resolve, reject) => {
       try {
         dispatch(saveAction);
-        console.log("Dispatching action:", saveAction);
         setFormSubmitted(true);
         resolve();
       } catch (error) {
