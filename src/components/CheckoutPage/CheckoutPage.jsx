@@ -286,6 +286,15 @@ export default function CheckoutPage({ caseType }) {
     // For state validation
     !hasErrors && setIsSubmitted(true);
 
+    if (Object.keys(newErrors).length === 0) {
+      try {
+        await saveCustomerInfo();
+        // setFormSubmitted(true);
+        // No action here...
+      } catch (error) {
+        console.error("Failed to save customer info:", error);
+      }
+    }
   };
   const [formSubmitted, setFormSubmitted] = useState(false);
 
