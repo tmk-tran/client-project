@@ -5,6 +5,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import UserProfile from "../UserProfile/UserProfile";
@@ -65,10 +66,21 @@ function App() {
   const [orgAdminId, setOrgAdminId] = useState(null);
 
   useEffect(() => {
+    const userCookie = Cookies.get('user');
+
+    if (userCookie) {
+      // Set user in Redux state
+      // dispatch({ type: 'SET_USER', payload: JSON.parse(userCookie) });
+      dispatch({ type: "FETCH_USER" });
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
     // Set the current season
     const currentSeason = getCurrentSeason();
 
-    dispatch({ type: "FETCH_USER" });
+    // dispatch({ type: "FETCH_USER" });
+    
     // if (user.id) {
     //   // User is logged in, fetch user data
     //   dispatch({ type: "FETCH_USER" });
