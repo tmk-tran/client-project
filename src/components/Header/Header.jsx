@@ -41,7 +41,7 @@ export default function Header({ user }) {
             className="main-logo"
             src="../images/main-logo.jpg"
             alt="Preferred Saving Guide logo in colors blue and gold"
-            onClick={() => history.push("/home")}
+            onClick={() => history.push("/fargo/home")}
             style={{ cursor: "pointer" }}
           />
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
