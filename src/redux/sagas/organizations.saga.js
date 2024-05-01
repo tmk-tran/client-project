@@ -4,7 +4,7 @@ import { takeEvery, put } from "redux-saga/effects";
 function* fetchOrganizationsSaga() {
   try {
     const response = yield axios.get("/api/organizations");
-    console.log("FETCH request fetchOrganizationsSaga", response.data);
+    console.log("FETCH request fetchOrganizationsSaga successful");
     yield put({ type: "SET_ORGANIZATIONS", payload: response.data });
   } catch {
     console.log("error in fetchOrganizationsSaga");
@@ -13,7 +13,7 @@ function* fetchOrganizationsSaga() {
 
 function* addOrganizationSaga(action) {
   try {
-    console.log(action.payload);
+    // console.log(action.payload);
     // Create a FormData object to send the file data
     const formData = new FormData();
     formData.append("organization_name", action.payload.organization_name);
@@ -60,8 +60,6 @@ function* addOrganizationSaga(action) {
 }
 
 function* deleteOrganizationSaga(action) {
-  console.log(action.payload);
-  console.log(action.payload.dataId);
   const organizationId = action.payload.dataId;
   try {
     yield axios.delete(`/api/organizations/${organizationId}`);
@@ -73,10 +71,7 @@ function* deleteOrganizationSaga(action) {
 
 function* editOrganizationSaga(action) {
   try {
-    console.log("ACTION PAYLOAD IS", action.payload);
-    console.log(action.payload);
     const orgId = action.payload.id;
-    console.log(orgId);
 
     // Create a FormData object to send the file data
     const formData = new FormData();

@@ -6,13 +6,12 @@ import "./ListView.css";
 import Swal from "sweetalert2";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { User } from "../../hooks/reduxStore";
-import { backgroundColor, border } from "../Utils/colors";
+import { backgroundColor } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import ImageRender from "../ImageRender/ImageRender";
 import EditAccountModal from "../EditAccountModal/EditAccountModal";
 
 function ListView({ data, isMerchantList, onChange, isOrgAdmin, numCoupons }) {
-  console.log(data);
   const history = useHistory();
   const dispatch = dispatchHook();
   const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -128,7 +127,6 @@ function ListView({ data, isMerchantList, onChange, isOrgAdmin, numCoupons }) {
     Number(orgBooksSold) * Number(data.organization_earnings);
   const psgEarningsCalc =
     (25 - Number(data.organization_earnings)) * Number(orgBooksSold);
-  console.log(psgEarningsCalc);
 
   return (
     <>
