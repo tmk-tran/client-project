@@ -28,15 +28,12 @@ export default function BooksSoldForm({
 }) {
   const dispatch = dispatchHook();
   const [editedAmount, setEditedAmount] = useState(0);
-  console.log(editedAmount);
 
   const handleAmountChange = (e) => {
     setEditedAmount(e.target.value);
   };
 
   const handleSubmit = () => {
-    console.log(editedAmount);
-
     const valuesToSend = {
       refId: editingRefId,
       orgId: orgId,
@@ -49,7 +46,6 @@ export default function BooksSoldForm({
       type: "UPDATE_BOOKS_SOLD",
       payload: valuesToSend,
     };
-    console.log("Dispatching action:", updateAction);
     dispatch(updateAction);
     handleClose();
     showSaveSweetAlert({ label: "Updated" });

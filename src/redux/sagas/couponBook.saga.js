@@ -4,7 +4,6 @@ import { takeEvery, put } from "redux-saga/effects";
 function* fetchCouponBooksSaga() {
   try {
     const response = yield axios.get("/api/couponbook");
-    console.log("FETCH request fetchCouponBooksSaga successful");
     yield put({ type: "SET_COUPON_BOOKS", payload: response.data });
   } catch (err) {
     console.log("error in fetching coupon books", err);

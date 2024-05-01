@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 // ~~~~~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 import { lineDivider } from "../Utils/modalStyles";
-import { highlightColor, primaryColor, border } from "../Utils/colors";
+import { highlightColor, primaryColor } from "../Utils/colors";
 import { capitalizeFirstWord, capitalizeWords } from "../Utils/helpers";
 import { useCaseType } from "../Utils/useCaseType";
 // ~~~~~~~~~~~~ Components ~~~~~~~~~~~~~~~~~~~~~ //
@@ -63,11 +63,6 @@ export default function SellerForm({
   updateActions,
   setUpdateActions,
 }) {
-  console.log(user);
-  console.log(orgId);
-  console.log(sellerToEdit);
-  console.log(mode);
-
   const initialFormState = columns.reduce((acc, column) => {
     acc[column.id] = [
       "initial_books",
@@ -83,7 +78,6 @@ export default function SellerForm({
       : "";
     return acc;
   }, {});
-  console.log(initialFormState);
 
   const [formData, setFormData] = useState(initialFormState);
   const [errors, setErrors] = useState({

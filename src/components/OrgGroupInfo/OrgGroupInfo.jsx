@@ -11,7 +11,6 @@ import { User } from "../../hooks/reduxStore";
 export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
   const user = User();
-  console.log(user);
 
   return (
     <Card

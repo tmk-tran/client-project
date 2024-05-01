@@ -10,7 +10,6 @@ import { oFundraisers } from "../../hooks/reduxStore";
 
 export default function OrgDetailsGoalView({ info, groups, handleAddGroup }) {
   const fundraiserInfo = oFundraisers();
-  console.log(fundraiserInfo);
 
   // Total number of goals for groups
   const totalGoals = groups.reduce((total, group) => {
