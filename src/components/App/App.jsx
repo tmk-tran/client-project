@@ -192,14 +192,12 @@ function App() {
                   <Details
                     isMerchantTaskPage={false}
                     isTaskPage={false}
-                    isMerchantDetails={false}
                     isOrgAdminPage={false}
                   />
                 ) : (
                   <Details
                     isMerchantTaskPage={false}
                     isTaskPage={false}
-                    isMerchantDetails={false}
                     isOrgAdminPage={true}
                   />
                 )}

@@ -19,78 +19,45 @@ import LoadingSpinner from "../HomePage/LoadingSpinner";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
 import { useAlert } from "../SuccessAlert/useAlert";
-import {
-  oDetails,
-  oGroups,
-  oNotes,
-  mDetails,
-  mNotes,
-  mComments,
-  mLocations,
-  User,
-} from "../../hooks/reduxStore";
+import { oDetails, oNotes, mNotes, User } from "../../hooks/reduxStore";
 import { useCaseType } from "../Utils/useCaseType";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 export default function Details({
   isMerchantTaskPage,
   isTaskPage,
-  isMerchantDetails,
   isOrgAdminPage,
 }) {
-  console.log(isMerchantTaskPage);
-  console.log(isTaskPage);
-  console.log(isMerchantDetails);
-  console.log(isOrgAdminPage);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const paramsObject = useParams();
-  console.log(paramsObject);
   const tableRef = useRef(null);
   const location = useLocation();
   const fragment = window.location.hash.substring(1); // Remove the '#'
-  console.log(fragment);
+  // console.log(fragment);
   // Extract the query paramaeter from the fragment
-  const urlSearchParams = new URLSearchParams(fragment.substring(fragment.indexOf('?')));
-  const isSellerSearched = urlSearchParams.get('isSellerSearched') === 'true';
-  console.log(isSellerSearched);
-   
+  const urlSearchParams = new URLSearchParams(
+    fragment.substring(fragment.indexOf("?"))
+  );
+  const isSellerSearched = urlSearchParams.get("isSellerSearched") === "true";
+  // console.log(isSellerSearched);
 
-  
   const isOrgDetailsPage = location.pathname.includes("/orgDetails");
-  console.log(isOrgDetailsPage);
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
   const { caseType, handleCaseTypeChange } = useCaseType("default");
 
-  // Check if the user is on the task page
-  console.log(isTaskPage);
-
   // ~~~~~~~~~~ Hooks ~~~~~~~~~~
   const dispatch = dispatchHook();
   const user = User();
-  console.log(user);
   const detailsOrg = oDetails();
-  console.log(detailsOrg);
   const organizationId =
     detailsOrg.length > 0 ? detailsOrg[0].organization_id : null;
   // Use organizationId, which will be null if detailsOrg is empty
-  console.log(organizationId);
-  const groups = oGroups();
-  console.log(groups);
   const notes = isMerchantTaskPage ? mNotes() : oNotes();
-  console.log(notes);
-  const merchantDetails = mDetails();
-  console.log(merchantDetails);
-  const comments = mComments();
-  console.log(comments);
-  const locations = mLocations();
-  console.log(locations);
 
   const [groupAdded, setGroupAdded] = useState(false);
-  console.log(groupAdded);
   const [locationAdded, setLocationAdded] = useState(false);
-  console.log(locationAdded);
   const [noteAdded, setNoteAdded] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -99,7 +66,6 @@ export default function Details({
   }, []);
 
   useEffect(() => {
-    console.log("Dispatching FETCH_ORG_DETAILS");
     dispatch({
       type: "FETCH_ORG_DETAILS",
       payload: paramsObject.id,
@@ -111,27 +77,19 @@ export default function Details({
         : "FETCH_ORG_FUNDRAISERS",
       payload: paramsObject.id,
     };
-    console.log(action);
     dispatch(action);
 
-    const actionType = isMerchantTaskPage
-      ? "FETCH_MERCHANT_DETAILS"
-      : "FETCH_ORG_DETAILS";
-    console.log("Dispatching:", actionType);
+    const actionType = "FETCH_ORG_DETAILS";
     dispatch({
       type: actionType,
       payload: paramsObject.id,
     });
 
-    if (!isMerchantTaskPage) {
-      console.log("Dispatching FETCH_ORG_GROUPS");
-      dispatch({
-        type: "FETCH_ORG_GROUPS",
-        payload: paramsObject.id,
-      });
-    }
+    dispatch({
+      type: "FETCH_ORG_GROUPS",
+      payload: paramsObject.id,
+    });
 
-    console.log("Dispatching FETCH_ORGANIZATIONS");
     dispatch({
       type: "FETCH_ORGANIZATIONS",
       payload: paramsObject.id,
@@ -296,7 +254,11 @@ export default function Details({
                   (!isOrgAdminPage ||
                     (isOrgAdminPage &&
                       orgIdsArray.includes(organizationId) &&
-                      user.org_admin)) && <SellersTable forwardedRef={isSellerSearched ? tableRef : null} />}
+                      user.org_admin)) && (
+                    <SellersTable
+                      forwardedRef={isSellerSearched ? tableRef : null}
+                    />
+                  )}
               </React.Fragment>
             ))}
           </div>
