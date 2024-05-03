@@ -1,4 +1,4 @@
-# Preferred Savings Guide (co-op project)
+# Preferred Savings Guide (co-op project, Dec 2023 - May 2024)
 This application is a continuation of our client project developed in the Koss cohort at Emerging Digital Academy. This second version aims to enhance the existing platform by providing a comprehensive solution for coupon development, management, and sales. The key objectives of this project include:
 
  - Coupon Development Platform: Enable administrators to create, manage, and publish coupons, facilitating the entire lifecycle from initial design to consumer availability.
@@ -21,7 +21,7 @@ In addition to the main objectives, various enhancements provided our team with 
  - Enhanced User Management: Develop a feature for application administrators to manage user information more effectively. This includes editing usernames, assigning coupon books to users, and removing users from the application as needed.
 
 
-# PSG Admin Dashboard (client project)
+# PSG Admin Dashboard (client project, Nov 2023)
 
 The first version of this project was developed as an admin dashboard for the Preferred Savings Guide based in Fargo, ND. Admin users will be able to log in, add, delete, and edit organizations and groups that host fundraisers. The fundraisers track the books requested, sold, checked back in, as well as money received and outstanding balance. This is the first step in a bigger project to digitize part of their coupon book to cut costs and be less paper waste for the enviorment.
 
