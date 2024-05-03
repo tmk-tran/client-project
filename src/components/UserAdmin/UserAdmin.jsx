@@ -9,6 +9,7 @@ import {
   TableCell,
   TableBody,
   Typography,
+  Tooltip,
 } from "@mui/material";
 // ~~~~~~~~~ Hooks ~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
@@ -31,6 +32,11 @@ import UserActions from "./UserActions";
 import ActionButton from "../OrgSellers/ActionButton";
 import EditUsernameField from "./EditUsernameField";
 
+const pageBoxStyle = {
+  width: "80%",
+  margin: "0 auto",
+};
+
 const pageHeaderStyle = {
   textAlign: "center",
   mb: 2,
@@ -48,6 +54,10 @@ const shortHeaderCell = {
 
 const wideCellSx = {
   border: "1px solid #ddd",
+  maxWidth: 140,
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 };
 
 const userNameCellSx = {
@@ -277,7 +287,7 @@ export default function UserAdmin() {
   };
 
   return (
-    <div style={{ ...containerStyle }}>
+    <Box sx={pageBoxStyle}>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ Header ~~~~~~~~~~ */}
       <UserAdminHeader
@@ -330,8 +340,16 @@ export default function UserAdmin() {
                     index % 2 === 0 ? "rgba(0, 0, 0, 0.04)" : "transparent",
                 }}
               >
-                <TableCell sx={wideCellSx}>{row.last_name}</TableCell>
-                <TableCell sx={wideCellSx}>{row.first_name}</TableCell>
+                <TableCell sx={wideCellSx}>
+                  <Tooltip title={row.last_name}>
+                    <span>{row.last_name}</span>
+                  </Tooltip>
+                </TableCell>
+                <TableCell sx={wideCellSx}>
+                  <Tooltip title={row.first_name}>
+                    <span>{row.first_name}</span>
+                  </Tooltip>
+                </TableCell>
                 {/* ~~~~~~~~~~ Username Column ~~~~~~~~~~ */}
                 <TableCell>
                   {editMode && userToEdit === row.id ? (
@@ -504,6 +522,6 @@ export default function UserAdmin() {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Box>
   );
 }
