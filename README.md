@@ -53,7 +53,7 @@ Before you get started, make sure you have the following software installed on y
 SERVER_SESSION_SECRET=superDuperSecret
 ```
 
-While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning. 8. Create a database named `psg_project` in PostgresSQL
+While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `imArandomString12345changeMe` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning. 8. Create a database named `psg_project` in PostgresSQL
 -If you would like to name your database something else, you will need to change `psg_project` to the name of your new database name in `server/modules/pool.js` 9. The queries in the database.sql file are set up to create all the necessary tables that you need, as well as mock data to test the app. Copy and paste those queries in the SQL query of the database. If this is going to production, leave out the mock data. 10. Start postgres if not running already by using `brew services start postgresql` 11. Run `npm run server` in your VS Code terminal 12. Open a second terminal and run `npm run client` 13. Navigate to `localhost:3000`
 
 ## Database Configuration
