@@ -1,6 +1,29 @@
-# PSG Admin Dashboard
+# Preferred Savings Guide (co-op project)
+This application is a continuation of our client project developed in the Koss cohort at Emerging Digital Academy. This second version aims to enhance the existing platform by providing a comprehensive solution for coupon development, management, and sales. The key objectives of this project include:
 
-This is an admin dashboard for the Preferred Savings Guide based in Fargo, ND. Admin users will be able to log in, add, delete, and edit organizations and groups that host fundraisers. The fundraisers track the books requested, sold, checked back in, as well as money received and outstanding balance. This is the first step in a bigger project to digitize part of their coupon book to cut costs and be less paper waste for the enviorment.
+ - Coupon Development Platform: Enable administrators to create, manage, and publish coupons, facilitating the entire lifecycle from initial design to consumer availability.
+
+ - Task Tracking System: Implement a task management feature for administrators to track, create, update, and complete tasks. This feature also enables communication with graphic designers for coupon development and facilitates communication with merchants.
+
+ - Seller Organization: Provide tools to organize sellers associated with organizations. This includes tracking metrics such as books sold, due, sales data, and other relevant information.
+
+ - Unique Seller URLs: Generate and assign unique URLs to sellers, allowing them to sell coupon books for their fundraisers effectively.
+
+ - PayPal Integration: Integrate PayPal payment gateway to facilitate secure transactions within the application.
+
+This project aims to streamline the coupon management process, enhance seller organization, and improve overall user experience for both administrators and sellers.
+
+## Additional objectives:
+In addition to the main objectives, various enhancements provided our team with the opportunity to further expand the application's functionality, incorporating:
+
+ - Active Campaign API Integration: Implement the Active Campaign API to automate email communication with users. This integration allows for user management tasks such as assigning new users to the application and facilitating password reset processes.
+
+ - Enhanced User Management: Develop a feature for application administrators to manage user information more effectively. This includes editing usernames, assigning coupon books to users, and removing users from the application as needed.
+
+
+# PSG Admin Dashboard (client project)
+
+The first version of this project was developed as an admin dashboard for the Preferred Savings Guide based in Fargo, ND. Admin users will be able to log in, add, delete, and edit organizations and groups that host fundraisers. The fundraisers track the books requested, sold, checked back in, as well as money received and outstanding balance. This is the first step in a bigger project to digitize part of their coupon book to cut costs and be less paper waste for the enviorment.
 
 ### Authors
 
