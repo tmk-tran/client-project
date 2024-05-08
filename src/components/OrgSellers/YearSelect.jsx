@@ -17,7 +17,7 @@ export default function YearSelect({
   sx,
   setActiveYearError,
   error,
-  helperText,
+  helpertext,
 }) {
   const dispatch = dispatchHook();
   const [yearSelected, setYearSelected] = useState("");
@@ -57,7 +57,7 @@ export default function YearSelect({
               label="Book Year"
               onChange={handleChange}
               error={error}
-              helperText={error ? helperText : ""}
+              helperText={error ? helpertext : ""}
             >
               {years.map((year) => (
                 <MenuItem key={year.id} value={year.id}>
@@ -67,7 +67,7 @@ export default function YearSelect({
             </Select>
             {error && (
               <Typography variant="caption" sx={{ color: "red" }}>
-                {helperText}
+                {helpertext}
               </Typography>
             )}
           </FormControl>

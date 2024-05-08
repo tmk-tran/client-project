@@ -167,7 +167,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
                 setYear={setSeasonIdSelected}
                 setActiveYearError={setActiveYearError}
                 error={activeYearError}
-                helperText={activeYearError ? "Please select a book year" : ""}
+                helpertext={activeYearError ? "Please select a book year" : ""}
               />
             </Grid>
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
