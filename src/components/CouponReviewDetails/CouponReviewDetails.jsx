@@ -318,10 +318,11 @@ export default function CouponReviewDetails() {
                         >
                           Front of Coupon
                         </Typography>
+
                         <Box
-                          sx={{
-                            ...centeredStyle,
-                          }}
+                        // sx={{
+                        //   ...centeredStyle,
+                        // }}
                         >
                           <FilePreview
                             directFile={file}
@@ -369,7 +370,8 @@ export default function CouponReviewDetails() {
                         >
                           Back of Coupon
                         </Typography>
-                        <Box sx={{ ...centeredStyle }}>
+                        {/* <Box sx={{ ...centeredStyle }}> */}
+                        <Box>
                           <FilePreview
                             directFile={file}
                             showBackViewFiles={true}
