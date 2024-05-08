@@ -175,7 +175,11 @@ export default function Details({
             {[...orgMap.values()].map(({ orgDetails, groups }) => (
               <React.Fragment key={orgDetails.organization_id}>
                 {!isTaskPage && !isMerchantTaskPage && !isOrgAdminPage && (
-                  <NotesDisplay notes={notes} details={orgDetails} />
+                  <NotesDisplay
+                    notes={notes}
+                    details={orgDetails}
+                    caseType={1}
+                  />
                 )}
 
                 {isTaskPage && !isOrgAdminPage && (
@@ -196,6 +200,11 @@ export default function Details({
                     isOrgAdminPage={isOrgAdminPage}
                   />
                   <br />
+                  {/* <OrgDetailsGoalView
+                      info={orgDetails}
+                      groups={groups}
+                      handleAddGroup={handleAddGroup}
+                    /> */}
                 </center>
 
                 {/* ~~~~~~~~~~ May use later, disabled for now ~~~~~~~~~~ */}
@@ -203,16 +212,20 @@ export default function Details({
                   <OrgNotesModal info={orgDetails} />
                   <AddGroupPopover info={orgDetails} />
                 </div> */}
+                {/* ~~~~~~~~~~ Task Section ~~~~~~~~~~ */}
+
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~  Fundraiser / Group section ~~~~~~~~~~~ */}
                 {!isTaskPage && !isMerchantTaskPage && !isOrgAdminPage && (
                   <>
-                    <OrgDetailsGoalView
-                      info={orgDetails}
-                      groups={groups}
-                      handleAddGroup={handleAddGroup}
-                    />
+                    <center>
+                      <OrgDetailsGoalView
+                        info={orgDetails}
+                        groups={groups}
+                        handleAddGroup={handleAddGroup}
+                      />
+                    </center>
 
                     {!isOrgAdminPage ? (
                       <div className="OrgDetailsCard-container">
@@ -238,11 +251,11 @@ export default function Details({
                   </>
                 )}
 
-                {isTaskPage && !isOrgAdminPage && (
+                {!isOrgAdminPage && (
                   // Show task-related content on the task page
                   <>
                     <DetailsTaskView caseType="orgTaskView" />
-                    <div style={{ height: "40vh" }}></div>
+                    <div style={{ height: isTaskPage ? "21vh" : "5vh" }}></div>
                   </>
                 )}
 
