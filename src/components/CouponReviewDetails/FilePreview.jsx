@@ -116,8 +116,8 @@ export default function FilePreview({
             {(showFrontViewFiles && directFile.frontViewBlob === null) ||
             (showBackViewFiles && directFile.backViewBlob === null) ? (
               <Box>
-                <Box sx={{ height: 25, ...border }}></Box>
-                <Box sx={{ ...thumbnailSize, ...flexCenter }}>
+                <Box sx={{ height: 25 }}></Box>
+                <Box sx={{ ...thumbnailSize, ...flexCenter, margin: "0 auto" }}>
                   <Typography variant="caption">No file available</Typography>
                 </Box>
               </Box>
