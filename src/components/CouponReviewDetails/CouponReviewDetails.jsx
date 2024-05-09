@@ -92,13 +92,10 @@ export default function CouponReviewDetails() {
       dispatch({ type: "FETCH_MERCHANT_TASKS", payload: merchantId });
     }
     if (merchantId && file?.taskId !== null) {
-      console.log(file?.taskId);
-      // dispatch({ type: "FETCH_COUPON_COMMENTS", payload: file.taskId });
       const action2 = {
         type: "FETCH_COUPON_COMMENTS",
         payload: file?.taskId,
       };
-      console.log(action2);
       dispatch(action2);
       setBookId(file?.bookId);
     }
@@ -125,7 +122,6 @@ export default function CouponReviewDetails() {
         type: "FETCH_YEAR_BY_ID",
         payload: bookId,
       };
-      console.log(action);
       dispatch(action);
     }
   }, [bookId]);
@@ -145,9 +141,9 @@ export default function CouponReviewDetails() {
     setIsTaskUpdate(true);
   };
 
-  const updateTaskState = (isCompleted) => {
-    console.log(isCompleted);
-    // setIsTaskUpdate(newValue);
+  const updateTaskState = (newValue) => {
+    console.log(newValue);
+    setIsTaskUpdate(newValue);
   };
 
   const updateComments = () => {

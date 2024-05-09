@@ -127,6 +127,8 @@ function ListView({ data, isMerchantList, onChange, isOrgAdmin, numCoupons }) {
     Number(orgBooksSold) * Number(data.organization_earnings);
   const psgEarningsCalc =
     (25 - Number(data.organization_earnings)) * Number(orgBooksSold);
+  const donationsTotal =
+    Number(data.total_donations) + Number(data.total_digital_donations);
 
   return (
     <>
@@ -165,6 +167,12 @@ function ListView({ data, isMerchantList, onChange, isOrgAdmin, numCoupons }) {
                       {/* ~~~~~~~~~~~ EARNINGS ~~~~~~~~~~~~ */}
                       <Typography variant="body2">
                         Organization Earnings: ${orgEarningsCalc}
+                      </Typography>
+
+                      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                      {/* ~~~~~~~~~~~ Donations ~~~~~~~~~~~ */}
+                      <Typography variant="body2">
+                        Total Donations: ${donationsTotal}
                       </Typography>
 
                       {/* ~~~~~ For Groups ~~~~~ */}

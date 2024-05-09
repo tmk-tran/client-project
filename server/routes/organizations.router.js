@@ -39,7 +39,9 @@ router.get("/", (req, res) => {
       COALESCE(total_books_due.total_books_due, 0) AS total_books_due,
       COALESCE(org_total_books_sold.physical_book_cash, 0) AS physical_book_cash,
       COALESCE(org_total_books_sold.physical_book_digital, 0) AS physical_book_digital,
-      COALESCE(org_total_books_sold.digital_book_credit, 0) AS digital_book_credit
+      COALESCE(org_total_books_sold.digital_book_credit, 0) AS digital_book_credit,
+      COALESCE(org_total_donations.total_donations, 0) AS total_donations,
+      COALESCE(org_total_donations.total_digital_donations, 0) AS total_digital_donations
   FROM
       organization o
   LEFT JOIN (
@@ -149,6 +151,15 @@ router.get("/", (req, res) => {
     GROUP BY
         organization_id
   ) AS org_total_books_sold ON o.id = org_total_books_sold.organization_id
+  LEFT JOIN (
+    SELECT organization_id,
+    SUM(donations) AS total_donations,
+    SUM(digital_donations) AS total_digital_donations
+    FROM 
+        sellers
+    GROUP BY
+        organization_id
+  ) AS org_total_donations ON o.id = org_total_donations.organization_id
   WHERE
       o.is_deleted = false
   ORDER BY
