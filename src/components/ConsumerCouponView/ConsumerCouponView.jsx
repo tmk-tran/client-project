@@ -12,7 +12,11 @@ import {
 } from "../Utils/pageStyles";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
-import { User, couponsData, bookYear, appActiveYear } from "../../hooks/reduxStore";
+import {
+  User,
+  couponsData,
+  appActiveYear,
+} from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
 import Typography from "../Typography/Typography";
 import CouponCard from "./CouponCard";
@@ -27,7 +31,6 @@ export default function ConsumerCouponView() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [isLoading, setIsLoading] = useState(true);
   const [toggleView, setToggleView] = useState(false);
-  console.log(toggleView);
   const [query, setQuery] = useState("");
   const [filteredCoupons, setFilteredCoupons] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -83,7 +86,6 @@ export default function ConsumerCouponView() {
       typeof coupon.merchantName === "string" &&
       coupon.merchantName.toLowerCase().includes(query.toLowerCase())
   );
-  console.log(filteredMerchants);
 
   const clearInput = () => {
     setQuery("");
@@ -100,7 +102,6 @@ export default function ConsumerCouponView() {
   );
   const totalFilteredMerchants =
     query.trim() === "" ? coupons.length : filteredMerchants.length;
-  console.log(totalFilteredMerchants);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
