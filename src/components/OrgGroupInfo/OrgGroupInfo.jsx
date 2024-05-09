@@ -66,7 +66,7 @@ export default function OrgGroupInfoCard({ groupInfo }) {
         </div> */}
         <br />
         {groupInfo.group_nickname ? (
-          <Typography variant="h6" style={centerStyle}>
+          <Typography variant="h6" sx={{ ...centerStyle, fontSize: 23 }}>
             Group: "{capitalizeWords(groupInfo.group_nickname)}"
           </Typography>
         ) : (
