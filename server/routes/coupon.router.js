@@ -286,4 +286,46 @@ router.put(
   }
 );
 
+router.delete("/:id/front", (req, res) => {
+  const couponId = req.params.id;
+
+  const queryText = `
+    UPDATE coupon
+    SET filename_front = NULL, front_view_pdf = NULL
+    WHERE id = $1;
+  `;
+
+  pool
+    .query(queryText, [couponId])
+    .then((response) => {
+      console.log("Successful DELETE in coupon.router");
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error("Error in DELETE coupon.router", error);
+      res.sendStatus(500);
+    });
+});
+
+router.delete("/:id/back", (req, res) => {
+  const couponId = req.params.id;
+
+  const queryText = `
+    UPDATE coupon
+    SET filename_back = NULL, back_view_pdf = NULL
+    WHERE id = $1;
+  `;
+
+  pool
+    .query(queryText, [couponId])
+    .then((response) => {
+      console.log("Successful DELETE in coupon.router");
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error("Error in DELETE coupon.router", error);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

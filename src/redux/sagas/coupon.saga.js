@@ -228,7 +228,28 @@ function* updateCoupon(action) {
     yield put({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
   } catch (error) {
     console.log("error in updateCoupon Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
+  }
+}
+
+function* deleteFileFront(action) {
+  const couponId = action.payload;
+
+  try {
+    yield axios.delete(`/api/coupon/${couponId}/front`);
+    yield put({ type: "FETCH_PDF_FILE", payload: couponId });
+  } catch (error) {
+    console.log("error in deleteFileFront Saga", error);
+  }
+}
+
+function* deleteFileBack(action) {
+  const couponId = action.payload;
+
+  try {
+    yield axios.delete(`/api/coupon/${couponId}/back`);
+    yield put({ type: "FETCH_PDF_FILE", payload: couponId });
+  } catch (error) {
+    console.log("error in deleteFileBack Saga", error);
   }
 }
 
@@ -240,6 +261,8 @@ export default function* couponSaga() {
   yield takeEvery("UPLOAD_FRONT_VIEW_PDF", frontViewUpload);
   yield takeEvery("UPLOAD_BACK_VIEW_PDF", backViewUpload);
   yield takeEvery("UPDATE_COUPON", updateCoupon);
+  yield takeEvery("DELETE_FILE_FRONT", deleteFileFront);
+  yield takeEvery("DELETE_FILE_BACK", deleteFileBack);
 }
 
 export { fetchPdfRequest };

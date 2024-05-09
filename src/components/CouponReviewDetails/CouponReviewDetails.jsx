@@ -23,6 +23,7 @@ import { couponsData, mTasks, bookYear } from "../../hooks/reduxStore";
 import { centeredStyle, flexCenter, flexRowSpace } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
 import { capitalizeFirstWord, formatDate } from "../Utils/helpers";
+import { showDeleteSweetAlert } from "../Utils/sweetAlerts";
 
 const uploadBoxStyle = {
   width: "100%",
@@ -74,6 +75,7 @@ export default function CouponReviewDetails() {
 
   const files = couponsData() || [];
   const file = files.length > 0 ? files[0] : null;
+  console.log(file);
   const formattedDate =
     file && file.expiration ? formatDate(file.expiration) : null;
   const tasks = mTasks() || [];
@@ -258,8 +260,24 @@ export default function CouponReviewDetails() {
     console.log(showLocations);
   };
 
-  const handleDeleteFile = (fileId) => {
-    console.log("delete: ", fileId)
+  const deleteFrontFile = (fileId) => {
+    const frontAction = {
+      type: "DELETE_FILE_FRONT",
+      payload: fileId,
+    };
+    showDeleteSweetAlert(() => {
+      dispatch(frontAction);
+    }, "removePdf");
+  };
+
+  const deleteBackFile = (fileId) => {
+    const backAction = {
+      type: "DELETE_FILE_BACK",
+      payload: fileId,
+    };
+    showDeleteSweetAlert(() => {
+      dispatch(backAction);
+    }, "removePdf");
   };
 
   return (
@@ -332,7 +350,7 @@ export default function CouponReviewDetails() {
                             directFile={file}
                             showFrontViewFiles={true}
                             showBackViewFiles={false}
-                            handleDeleteFile={handleDeleteFile}
+                            handleDeleteFile={deleteFrontFile}
                           />
                           {frontViewFile && !isUploaded && (
                             <div>
@@ -381,7 +399,7 @@ export default function CouponReviewDetails() {
                             directFile={file}
                             showBackViewFiles={true}
                             showFrontViewFiles={false}
-                            handleDeleteFile={handleDeleteFile}
+                            handleDeleteFile={deleteBackFile}
                           />
                           {backViewFile && !isUploaded && (
                             <div>

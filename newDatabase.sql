@@ -412,6 +412,27 @@ CREATE TABLE coupon (
 );
 ----------------------------------------------------------------------
 
+--------------------------------------------------------------------
+-------- For updating coupon list when merchant is archived --------          
+
+CREATE OR REPLACE FUNCTION update_coupon_on_merchant_archive()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.is_deleted IS DISTINCT FROM NEW.is_deleted AND NEW.is_deleted = true THEN
+        UPDATE coupon SET is_deleted = true WHERE merchant_id = NEW.id;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_coupon_trigger
+AFTER UPDATE OF is_deleted ON merchant
+FOR EACH ROW
+EXECUTE FUNCTION update_coupon_on_merchant_archive();
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
 ----------------------------------------------------------
 ------- Table to tie locations to coupons ----------------
 CREATE TABLE coupon_location (

@@ -71,6 +71,7 @@ export default function FilePreview({
                         size={25}
                         deleteTitle="Delete PDF"
                         onDelete={handleDeleteFile}
+                        fileId={directFile.id}
                       />
                       <Box sx={{ flexGrow: 1 }}></Box>
                       {/* ~~~~~ View PDF ~~~~~ */}
@@ -101,6 +102,7 @@ export default function FilePreview({
                         size={25}
                         deleteTitle="Delete PDF"
                         onDelete={handleDeleteFile}
+                        fileId={directFile.id}
                       />
                       <Box sx={{ flexGrow: 1 }}></Box>
                       {/* ~~~~~ View PDF ~~~~~ */}
