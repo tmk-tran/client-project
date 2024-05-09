@@ -17,6 +17,7 @@ import { capitalizeFirstWord } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import SearchButtons from "./SearchButtons";
 import LinearProgressBar from "../LinearProgressBar/LinearProgressBar";
+import SearchOptions from "./SearchOptions";
 
 const refIdStyle = {
   ...highlightColor,
@@ -29,9 +30,12 @@ const TopDrawer = ({ sellers }) => {
   const history = historyHook();
   const [open, setOpen] = useState(false);
   const [lastName, setLastName] = useState("");
+  const [refId, setRefId] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchInitiated, setSearchInitiated] = useState(false);
+  const [searchByLastName, setSearchByLastName] = useState(false);
+  const [searchByRefId, setSearchByRefId] = useState(false);
 
   // useEffect(() => {
   //   // Update searchResults when sellers prop changes
@@ -51,9 +55,17 @@ const TopDrawer = ({ sellers }) => {
     setSearchInitiated(false);
   }, [lastName]);
 
+  // add conditions for if last name or ref id, and set state
+  // accordingly
   const handleSearchChange = (e) => {
     const searchTerm = e.target.value;
-    setLastName(capitalizeFirstWord(searchTerm));
+    if (searchByLastName) {
+      setLastName(capitalizeFirstWord(searchTerm));
+    }
+
+    if (searchByRefId) {
+      setRefId(searchTerm);
+    }
   };
 
   const handleFetchSeller = () => {
@@ -74,6 +86,7 @@ const TopDrawer = ({ sellers }) => {
 
   const resetSearchField = () => {
     setLastName("");
+    setRefId("");
     setSearchResults([]);
     // Clear the reducer
     dispatch(resetSearchedSellers());
@@ -95,6 +108,19 @@ const TopDrawer = ({ sellers }) => {
     resetSearchField();
   };
 
+  const selectSearchBy = (value) => {
+    if (value === "lastname") {
+      setSearchByLastName(true);
+      setSearchByRefId(false);
+    }
+    if (value === "refid") {
+      setSearchByLastName(false);
+      setSearchByRefId(true);
+    }
+  };
+  console.log(lastName);
+  console.log(refId);
+
   return (
     <div>
       <Button sx={{ m: 2 }} onClick={() => setOpen(true)}>
@@ -103,14 +129,27 @@ const TopDrawer = ({ sellers }) => {
       </Button>
       <Drawer anchor="top" open={open} onClose={handleClose}>
         <div style={{ padding: "16px", width: "50%", margin: "0 auto" }}>
-          <TextField
-            label="Search Sellers by Last Name"
-            variant="outlined"
-            fullWidth
-            value={lastName}
-            onChange={handleSearchChange}
-            sx={{ mb: 1 }}
-          />
+          <SearchOptions onChange={selectSearchBy} />
+          {searchByLastName && (
+            <TextField
+              label="Seller Last Name"
+              variant="outlined"
+              fullWidth
+              value={lastName}
+              onChange={handleSearchChange}
+              sx={{ mb: 1 }}
+            />
+          )}
+          {searchByRefId && (
+            <TextField
+              label="Seller Referral ID"
+              variant="outlined"
+              fullWidth
+              value={refId}
+              onChange={handleSearchChange}
+              sx={{ mb: 1 }}
+            />
+          )}
           {/* ~~~~~ Action Buttons ~~~~~ */}
           {!loading && (
             <SearchButtons
