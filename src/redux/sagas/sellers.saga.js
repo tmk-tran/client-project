@@ -27,6 +27,7 @@ function* fetchByName(action) {
 }
 
 function* fetchSellers(action) {
+  console.log(action.payload);
   const orgId = action.payload.orgId;
   const yearId = action.payload.yearId;
 
@@ -40,13 +41,15 @@ function* fetchSellers(action) {
 }
 
 function* addSeller(action) {
+  console.log(action.payload);
   const orgId = action.payload.organization_id;
+  const yearId = action.payload.coupon_book_id;
 
   try {
     yield axios.post(`/api/sellers/`, action.payload);
     yield put({
       type: "FETCH_SELLERS",
-      payload: orgId,
+      payload: { orgId, yearId },
     });
   } catch (error) {
     console.log("error in addSeller Saga", error);

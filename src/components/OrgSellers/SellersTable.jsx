@@ -151,7 +151,7 @@ export default function SellersTable({ forwardedRef }) {
       type: "ADD_SELLER",
       payload: formDataWithId,
     };
-    // console.log("Dispatching action:", action);
+    console.log("Dispatching action:", action);
     dispatch(action);
     showSaveSweetAlert({ label: "Seller Added" });
   };
