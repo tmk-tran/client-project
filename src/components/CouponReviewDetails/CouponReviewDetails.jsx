@@ -258,6 +258,10 @@ export default function CouponReviewDetails() {
     console.log(showLocations);
   };
 
+  const handleDeleteFile = (fileId) => {
+    console.log("delete: ", fileId)
+  };
+
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
       <Box className="details-card">
@@ -328,6 +332,7 @@ export default function CouponReviewDetails() {
                             directFile={file}
                             showFrontViewFiles={true}
                             showBackViewFiles={false}
+                            handleDeleteFile={handleDeleteFile}
                           />
                           {frontViewFile && !isUploaded && (
                             <div>
@@ -376,6 +381,7 @@ export default function CouponReviewDetails() {
                             directFile={file}
                             showBackViewFiles={true}
                             showFrontViewFiles={false}
+                            handleDeleteFile={handleDeleteFile}
                           />
                           {backViewFile && !isUploaded && (
                             <div>

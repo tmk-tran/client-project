@@ -32,6 +32,7 @@ export default function FilePreview({
   showBackViewFiles,
   caseType,
   directFile,
+  handleDeleteFile,
 }) {
   const handleButtonClick = (file, type) => {
     let blob = null;
@@ -66,7 +67,11 @@ export default function FilePreview({
                 {caseType !== "preview" && (
                   <Box sx={boxStyle}>
                     <>
-                      <DeletePdfIcon size={25} deleteTitle="Delete PDF" />
+                      <DeletePdfIcon
+                        size={25}
+                        deleteTitle="Delete PDF"
+                        onDelete={handleDeleteFile}
+                      />
                       <Box sx={{ flexGrow: 1 }}></Box>
                       {/* ~~~~~ View PDF ~~~~~ */}
                       <PageViewButton
@@ -92,7 +97,11 @@ export default function FilePreview({
                 {caseType !== "preview" && (
                   <Box sx={boxStyle}>
                     <>
-                      <DeletePdfIcon size={25} deleteTitle="Delete PDF" />
+                      <DeletePdfIcon
+                        size={25}
+                        deleteTitle="Delete PDF"
+                        onDelete={handleDeleteFile}
+                      />
                       <Box sx={{ flexGrow: 1 }}></Box>
                       {/* ~~~~~ View PDF ~~~~~ */}
                       <PageViewButton

@@ -72,6 +72,7 @@ function* deleteOrganizationSaga(action) {
 function* editOrganizationSaga(action) {
   try {
     const orgId = action.payload.id;
+    console.log(orgId);
 
     // Create a FormData object to send the file data
     const formData = new FormData();
@@ -122,7 +123,7 @@ function* editOrganizationSaga(action) {
 
     console.log("RESPONSE IS", response);
 
-    yield put({ type: "FETCH_ORGANIZATIONS", payload: action.payload });
+    yield put({ type: "FETCH_ORGANIZATIONS" });
   } catch (error) {
     console.log("error in edit invoice", error);
   }
