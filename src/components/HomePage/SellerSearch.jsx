@@ -130,8 +130,6 @@ const TopDrawer = ({ sellers }) => {
       setSearchByRefId(true);
     }
   };
-  console.log(lastName);
-  console.log(refId);
 
   return (
     <div>
