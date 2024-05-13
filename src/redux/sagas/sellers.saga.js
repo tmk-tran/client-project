@@ -10,7 +10,6 @@ import { put, takeEvery } from "redux-saga/effects";
 //     yield put({ type: "SET_SELLERS", payload: items.data });
 //   } catch (error) {
 //     console.log("error in sellers Saga", error);
-//     yield put({ type: "SET_ERROR", payload: error });
 //   }
 // }
 
@@ -22,7 +21,18 @@ function* fetchByName(action) {
     yield put({ type: "SET_SEARCHED_SELLER", payload: items.data });
   } catch (error) {
     console.log("error in sellers Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
+  }
+}
+
+function* fetchByRefId(action) {
+  console.log(action.payload);
+  try {
+    const items = yield axios.get(`/api/sellers/byrefid`, {
+      params: action.payload,
+    });
+    yield put({ type: "SET_SEARCHED_SELLER", payload: items.data });
+  } catch (error) {
+    console.log("error in sellers Saga", error);
   }
 }
 
@@ -35,7 +45,6 @@ function* fetchSellers(action) {
     yield put({ type: "SET_SELLERS", payload: items.data });
   } catch (error) {
     console.log("error in sellers Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
   }
 }
 
@@ -51,7 +60,6 @@ function* addSeller(action) {
     });
   } catch (error) {
     console.log("error in addSeller Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
   }
 }
 
@@ -65,7 +73,6 @@ function* updateSeller(action) {
     yield put({ type: "FETCH_SELLERS", payload: { orgId, yearId } });
   } catch (error) {
     console.log("error in updateSeller Saga", error);
-    yield put({ type: "SET_ERROR", payload: error });
   }
 }
 
@@ -88,6 +95,7 @@ function* archiveSeller(action) {
 export default function* merchantCommentsSaga() {
   // yield takeEvery("FETCH_ALL_SELLERS", getAllSellers);
   yield takeEvery("FETCH_SELLER_BY_NAME", fetchByName);
+  yield takeEvery("FETCH_SELLER_BY_REFID", fetchByRefId);
   yield takeEvery("FETCH_SELLERS", fetchSellers);
   yield takeEvery("ADD_SELLER", addSeller);
   yield takeEvery("EDIT_SELLER", updateSeller);

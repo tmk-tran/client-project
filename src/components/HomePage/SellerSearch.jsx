@@ -68,7 +68,7 @@ const TopDrawer = ({ sellers }) => {
     }
   };
 
-  const handleFetchSeller = () => {
+  const handleFetchSellerByName = () => {
     setSearchInitiated(true); // Set searchInitiated to true when search is initiated
     // Dispatch a fetch action to retrieve sellers matching the search term
     const fetchSellersByName = {
@@ -78,6 +78,18 @@ const TopDrawer = ({ sellers }) => {
       },
     };
     dispatch(fetchSellersByName);
+  };
+
+  const handleFetchSellerByRefId = () => {
+    setSearchInitiated(true);
+
+    const fetchByRefId = {
+      type: "FETCH_SELLER_BY_REFID",
+      payload: {
+        refId: refId,
+      },
+    };
+    dispatch(fetchByRefId);
   };
 
   const resetSearchedSellers = () => ({
@@ -129,7 +141,11 @@ const TopDrawer = ({ sellers }) => {
       </Button>
       <Drawer anchor="top" open={open} onClose={handleClose}>
         <div style={{ padding: "16px", width: "50%", margin: "0 auto" }}>
-          <SearchOptions onChange={selectSearchBy} />
+          {/* ~~~~~ Search Radio Buttons ~~~~~ */}
+          <SearchOptions
+            onChange={selectSearchBy}
+            resetSearchField={resetSearchField}
+          />
           {searchByLastName && (
             <TextField
               label="Seller Last Name"
@@ -154,7 +170,9 @@ const TopDrawer = ({ sellers }) => {
           {!loading && (
             <SearchButtons
               handleClose={handleClose}
-              handleFetchSeller={handleFetchSeller}
+              fetchByName={handleFetchSellerByName}
+              searchByRefId={searchByRefId}
+              fetchByRefId={handleFetchSellerByRefId}
             />
           )}
           <List>
@@ -188,12 +206,24 @@ const TopDrawer = ({ sellers }) => {
                 />
               </ListItem>
             ))}
-            {searchInitiated &&
+            {/* {searchInitiated &&
               searchResults.length === 0 &&
               !loading &&
               lastName.trim() !== "" && (
                 <p>No results found for "{lastName}"</p>
-              )}
+              )} */}
+            {(searchInitiated &&
+              searchByLastName &&
+              searchResults.length === 0 &&
+              lastName.trim() !== "") ||
+            (searchInitiated &&
+              searchByRefId &&
+              searchResults.length === 0 &&
+              refId.trim() !== "") ? (
+              <p>
+                No results found for "{searchByLastName ? lastName : refId}"
+              </p>
+            ) : null}
           </List>
           {/* ~~~~~ Loading Message ~~~~~ */}
           {loading && (

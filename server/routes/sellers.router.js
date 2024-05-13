@@ -34,9 +34,32 @@ router.get("/name", rejectUnauthenticated, (req, res) => {
         `;
 
   const params = [req.query.lastname];
+
   if (req.query.firstname) {
     params.push(req.query.firstname);
   }
+
+  pool
+    .query(queryText, params)
+    .then((response) => {
+      res.send(response.rows).status(200);
+    })
+    .catch((err) => {
+      console.log("error in the GET / request for seller details", err);
+      res.sendStatus(500);
+    });
+});
+
+router.get("/byrefid", rejectUnauthenticated, (req, res) => {
+  const queryText = `
+          SELECT sellers.*, o.organization_name
+          FROM sellers
+          JOIN organization o ON sellers.organization_id = o.id
+          WHERE sellers."refId" = $1
+          AND sellers.is_deleted = false;
+        `;
+
+  const params = [req.query.refId];
 
   pool
     .query(queryText, params)

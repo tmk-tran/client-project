@@ -5,7 +5,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
-export default function RowRadioButtonsGroup({ onChange }) {
+export default function RowRadioButtonsGroup({ onChange, resetSearchField }) {
   const [selectedValue, setSelectedValue] = useState("lastname");
 
   useEffect(() => {
@@ -14,6 +14,7 @@ export default function RowRadioButtonsGroup({ onChange }) {
 
   const handleSelect = (event) => {
     setSelectedValue(event.target.value);
+    resetSearchField();
   };
 
   return (
