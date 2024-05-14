@@ -79,6 +79,33 @@ export default function EditCouponModal({ file }) {
     }
   }, [file]);
 
+  useEffect(() => {
+    // Set the initial value when the component mounts
+    if (
+      validLocationId &&
+      validLocationId.length === 1 &&
+      selectedLocations.length === 0
+    ) {
+      const initialLocation = locations.find(
+        (loc) => loc.id === validLocationId[0]
+      );
+      console.log(initialLocation);
+      if (initialLocation) {
+        setSelectedLocations(initialLocation.location_name);
+      }
+    } else {
+      if (selectedLocations && selectedLocations.length === 1) {
+        const newLocation = locations.find(
+          (loc) => loc.id === selectedLocations[0]
+        );
+        console.log(newLocation);
+        if (newLocation) {
+          setSelectedLocations(newLocation.location_name);
+        }
+      }
+    }
+  }, [validLocationId, locations, selectedLocations]);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -123,6 +150,7 @@ export default function EditCouponModal({ file }) {
     }
     setLocationsError(false);
   };
+  console.log(selectedLocations);
 
   const handleSelect = (boolean) => {
     console.log(boolean);
@@ -154,6 +182,7 @@ export default function EditCouponModal({ file }) {
               <LocationSelect
                 label="Participating Location"
                 locations={locations}
+                selectedLocations={selectedLocations}
                 selectAllLocations={selectAllLocations}
                 onLocationChange={handleLocationChange}
                 error={locationsError}
@@ -171,7 +200,10 @@ export default function EditCouponModal({ file }) {
                   mt: 3.6,
                 }}
               >
-                <AllLocationsButton onSelect={handleSelect} acceptedAt={validLocationId} />
+                <AllLocationsButton
+                  onSelect={handleSelect}
+                  acceptedAt={validLocationId}
+                />
               </Box>
             </Grid>
             {/* ~~~~~~ OFFER ~~~~~ */}

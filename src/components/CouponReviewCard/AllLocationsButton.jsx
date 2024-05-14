@@ -17,6 +17,11 @@ function ValidAtAllLocationsRadio({ onSelect, acceptedAt }) {
     onSelect(true);
   };
 
+  const resetButton = () => {
+    setSelectedValue("");
+    onSelect(false);
+  };
+
   return (
     <FormGroup>
       <FormControlLabel

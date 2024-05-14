@@ -15,6 +15,7 @@ import {
 export default function LocationSelect({
   label,
   locations,
+  selectedLocations,
   onLocationChange,
   selectAllLocations,
   error,
@@ -22,21 +23,14 @@ export default function LocationSelect({
 }) {
   console.log(locations);
   console.log(acceptedAt);
+  console.log(selectedLocations);
   const [selectedLocation, setSelectedLocation] = useState("");
   console.log(selectedLocation);
 
+  // Update the local state when the parent's selectedLocations prop changes
   useEffect(() => {
-    // Set the initial value when the component mounts
-    if (acceptedAt && acceptedAt.length === 1 && !selectedLocation) {
-      const initialLocation = locations.find(
-        (loc) => loc.id === acceptedAt[0]
-      );
-      console.log(initialLocation);
-      if (initialLocation) {
-        setSelectedLocation(initialLocation.location_name);
-      }
-    }
-  }, [acceptedAt, locations, selectedLocation]);  
+    setSelectedLocation(selectedLocations);
+  }, []);
 
   const handleLocationChange = (event) => {
     setSelectedLocation(event.target.value);
