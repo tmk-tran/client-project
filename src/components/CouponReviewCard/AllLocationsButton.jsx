@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Radio, FormControlLabel, FormGroup } from "@mui/material";
 
-function ValidAtAllLocationsRadio({ onSelect }) {
+function ValidAtAllLocationsRadio({ onSelect, acceptedAt }) {
   const [selectedValue, setSelectedValue] = useState("");
   console.log(selectedValue);
+  console.log(acceptedAt);
+
+  useEffect(() => {
+    if (acceptedAt && acceptedAt.length > 1) {
+      setSelectedValue("validAtAllLocations");
+    }
+  }, [acceptedAt]);
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);

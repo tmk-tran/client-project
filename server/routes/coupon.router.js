@@ -241,6 +241,51 @@ router.put("/back/:id", upload.single("pdf"), (req, res) => {
 });
 
 // EDIT route for updating coupon details
+// router.put(
+//   "/:merchantId/:couponId",
+//   rejectUnauthenticated,
+//   async (req, res) => {
+//     const coupon = req.body;
+//     const couponId = req.params.couponId;
+
+//     const offer = coupon.offer;
+//     const value = coupon.value;
+//     const exclusions = coupon.exclusions;
+//     const expiration = coupon.expiration;
+//     const additionalInfo = coupon.additional_info;
+
+//     const queryText = `
+//       UPDATE
+//         coupon
+//       SET
+//         offer = $1,
+//         value = $2,
+//         exclusions = $3,
+//         expiration = $4,
+//         additional_info = $5
+//       WHERE id = $6;
+//   `;
+
+//     pool
+//       .query(queryText, [
+//         offer,
+//         value,
+//         exclusions,
+//         expiration,
+//         additionalInfo,
+//         couponId,
+//       ])
+//       .then((response) => {
+//         console.log("Successful PUT in coupon.router");
+//         res.sendStatus(200);
+//       })
+//       .catch((error) => {
+//         console.error("Error in EDIT coupon PUT route", error);
+//         res.sendStatus(500);
+//       });
+//   }
+// );
+
 router.put(
   "/:merchantId/:couponId",
   rejectUnauthenticated,
@@ -253,36 +298,56 @@ router.put(
     const exclusions = coupon.exclusions;
     const expiration = coupon.expiration;
     const additionalInfo = coupon.additional_info;
+    const locationIds = coupon.location_ids; // Assuming location_ids is passed in the request
 
-    const queryText = `
-      UPDATE 
-        coupon
-      SET 
-        offer = $1,
-        value = $2,
-        exclusions = $3,
-        expiration = $4,
-        additional_info = $5
+    try {
+      // Start a transaction
+      await pool.query("BEGIN");
+
+      // Update coupon in coupon table
+      const couponUpdateQuery = `
+      UPDATE coupon
+      SET offer = $1,
+          value = $2,
+          exclusions = $3,
+          expiration = $4,
+          additional_info = $5
       WHERE id = $6;
-  `;
-
-    pool
-      .query(queryText, [
+    `;
+      await pool.query(couponUpdateQuery, [
         offer,
         value,
         exclusions,
         expiration,
         additionalInfo,
         couponId,
-      ])
-      .then((response) => {
-        console.log("Successful PUT in coupon.router");
-        res.sendStatus(200);
-      })
-      .catch((error) => {
-        console.error("Error in EDIT coupon PUT route", error);
-        res.sendStatus(500);
-      });
+      ]);
+
+      // Delete existing locations for the coupon
+      const deleteLocationsQuery = `
+      DELETE FROM coupon_location
+      WHERE coupon_id = $1;
+    `;
+      await pool.query(deleteLocationsQuery, [couponId]);
+
+      // Insert updated locations into coupon_location table
+      const locationInsertQuery = `
+      INSERT INTO coupon_location (coupon_id, location_id)
+      SELECT $1, location_id
+      FROM unnest($2::integer[]) AS location_id;
+    `;
+      await pool.query(locationInsertQuery, [couponId, locationIds]);
+
+      // Commit the transaction
+      await pool.query("COMMIT");
+
+      res.sendStatus(200);
+    } catch (error) {
+      // Rollback the transaction in case of an error
+      await pool.query("ROLLBACK");
+      console.error("Error in EDIT coupon PUT route", error);
+      res.sendStatus(500);
+    }
   }
 );
 

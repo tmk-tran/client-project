@@ -11,12 +11,15 @@ import {
   InputAdornment,
 } from "@mui/material";
 // ~~~~~~~~~~~ Hooks ~~~~~~~~~~~ //
+import { couponsData, mLocations } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
 import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~ //
 import EditButton from "../Buttons/EditButton";
 import ModalButtons from "../Modals/ModalButtons";
+import LocationSelect from "../CouponReviewCard/LocationSelect";
+import AllLocationsButton from "../CouponReviewCard/AllLocationsButton";
 
 const style = {
   position: "absolute",
@@ -49,6 +52,20 @@ export default function EditCouponModal({ file }) {
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [website, setWebsite] = useState("");
+  // ~~~~~~~~~~ Location State ~~~~~~~~~~~~~~~~~~~ //
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  console.log(selectedLocations);
+  const [selectAllLocations, setSelectAllLocations] = useState(false);
+  console.log(selectAllLocations);
+  // ~~~~~~~~~~ Errors ~~~~~~~~~~~~~~~~~~~~~~~ //
+  const [locationsError, setLocationsError] = useState(false);
+
+  const locations = mLocations() || [];
+  console.log(locations);
+  const couponLocations = couponsData() || [];
+  console.log(couponLocations);
+  const validLocationId = couponLocations.map((coupon) => coupon.location_id);
+  console.log(validLocationId);
 
   useEffect(() => {
     if (file) {
@@ -76,6 +93,9 @@ export default function EditCouponModal({ file }) {
         exclusions: exclusions,
         expiration: expiration,
         additional_info: additionalInfo,
+        ...(selectedLocations.length > 0 && {
+          location_ids: [selectedLocations],
+        }),
       },
     };
     console.log(dispatchAction);
@@ -94,6 +114,26 @@ export default function EditCouponModal({ file }) {
     handleClose();
   };
 
+  const handleLocationChange = (locationId) => {
+    // console.log(locationId);
+    if (Array.isArray(locationId)) {
+      setSelectedLocations(locationId);
+    } else {
+      setSelectedLocations([locationId]);
+    }
+    setLocationsError(false);
+  };
+
+  const handleSelect = (boolean) => {
+    console.log(boolean);
+    setSelectAllLocations(boolean);
+  };
+
+  const clearLocationField = () => {
+    // setSelectedLocations([]);
+    setSelectAllLocations(false);
+  };
+
   return (
     <div>
       <EditButton onClick={handleOpen} title={"Edit Coupon Details"} />
@@ -109,6 +149,32 @@ export default function EditCouponModal({ file }) {
           </Typography>
           <Divider sx={lineDivider} />
           <Grid container spacing={2}>
+            {/* ~~~~~~~ LOCATION SELECT ~~~~~~~ */}
+            <Grid item xs={6}>
+              <LocationSelect
+                label="Participating Location"
+                locations={locations}
+                selectAllLocations={selectAllLocations}
+                onLocationChange={handleLocationChange}
+                error={locationsError}
+                acceptedAt={validLocationId}
+              />
+            </Grid>
+            {/* ~~~~~~ VALID AT ALL LOCATIONS ~~~~~ */}
+            <Grid item xs={6}>
+              <Box
+                sx={{
+                  border: "1px solid rgba(0, 0, 0, 0.23)", // Match the border style
+                  borderRadius: "4px", // Match the border radius
+                  padding: "6px 10px", // Match the padding
+                  marginBottom: "16px", // Match the margin bottom
+                  mt: 3.6,
+                }}
+              >
+                <AllLocationsButton onSelect={handleSelect} acceptedAt={validLocationId} />
+              </Box>
+            </Grid>
+            {/* ~~~~~~ OFFER ~~~~~ */}
             <Grid item xs={12}>
               <TextField
                 label="Offer"
@@ -143,6 +209,7 @@ export default function EditCouponModal({ file }) {
                 }}
               />
             </Grid>
+
             <Grid item xs={6}>
               <InputLabel>Value</InputLabel>
               <TextField

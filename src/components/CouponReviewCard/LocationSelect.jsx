@@ -18,10 +18,25 @@ export default function LocationSelect({
   onLocationChange,
   selectAllLocations,
   error,
+  acceptedAt,
 }) {
   console.log(locations);
+  console.log(acceptedAt);
   const [selectedLocation, setSelectedLocation] = useState("");
   console.log(selectedLocation);
+
+  useEffect(() => {
+    // Set the initial value when the component mounts
+    if (acceptedAt && acceptedAt.length === 1 && !selectedLocation) {
+      const initialLocation = locations.find(
+        (loc) => loc.id === acceptedAt[0]
+      );
+      console.log(initialLocation);
+      if (initialLocation) {
+        setSelectedLocation(initialLocation.location_name);
+      }
+    }
+  }, [acceptedAt, locations, selectedLocation]);  
 
   const handleLocationChange = (event) => {
     setSelectedLocation(event.target.value);

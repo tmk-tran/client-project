@@ -90,7 +90,9 @@ export default function CouponReviewDetails() {
       // dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: merchantId });
       // dispatch({ type: "FETCH_COUPON_COMMENTS", payload: file.taskId });
       dispatch({ type: "FETCH_MERCHANT_TASKS", payload: merchantId });
+      dispatch({ type: "FETCH_MERCHANT_LOCATION", payload: merchantId });
     }
+    
     if (merchantId && file?.taskId !== null) {
       const action2 = {
         type: "FETCH_COUPON_COMMENTS",
