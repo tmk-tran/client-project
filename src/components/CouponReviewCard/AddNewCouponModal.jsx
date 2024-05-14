@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 // ~~~~~~~~~~~ Components ~~~~~~~~~~~ //
 import AddBox from "../AddBoxIcon/AddBoxIcon";
-import SelectMenu from "./SelectMenu";
+import LocationSelect from "./LocationSelect";
 import ModalButtons from "../Modals/ModalButtons";
 import AllLocationsButton from "./AllLocationsButton";
 import YearSelect from "../OrgSellers/YearSelect";
@@ -150,7 +150,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
           {/* ~~~~~~~ LOCATION SELECT ~~~~~~~ */}
           <Grid container spacing={2}>
             <Grid item xs={6}>
-              <SelectMenu
+              <LocationSelect
                 label="Participating Location"
                 locations={locations}
                 selectAllLocations={selectAllLocations}
