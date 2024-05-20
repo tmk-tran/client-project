@@ -242,7 +242,7 @@ router.delete("/:id", (req, res) => {
 router.put("/:id", upload.single("organization_logo"), (req, res) => {
   const organizationId = req.params.id;
   const organization = req.body;
-  console.log(organization);
+  console.log("from PUT router organizations", organization);
   let organization_logo = null;
   if (req.file) {
     organization_logo = req.file.buffer;
@@ -330,7 +330,9 @@ router.put("/:id", upload.single("organization_logo"), (req, res) => {
     })
     .catch((err) => {
       console.log("error with organizations PUT route", err);
-      res.sendStatus(500);
+      // res.sendStatus(500);
+      // Send the error message back to the client
+      res.status(500).json({ error: err.message });
     });
 });
 

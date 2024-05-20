@@ -83,8 +83,7 @@ export default function EditCouponModal({ file }) {
     // Set the initial value when the component mounts
     if (
       validLocationId &&
-      validLocationId.length === 1 &&
-      selectedLocations.length === 0
+      validLocationId.length === 1
     ) {
       const initialLocation = locations.find(
         (loc) => loc.id === validLocationId[0]
@@ -93,17 +92,19 @@ export default function EditCouponModal({ file }) {
       if (initialLocation) {
         setSelectedLocations(initialLocation.location_name);
       }
-    } else {
-      if (selectedLocations && selectedLocations.length === 1) {
-        const newLocation = locations.find(
-          (loc) => loc.id === selectedLocations[0]
-        );
-        console.log(newLocation);
-        if (newLocation) {
-          setSelectedLocations(newLocation.location_name);
-        }
-      }
-    }
+    } 
+  // else {
+  //     if (selectedLocations && selectedLocations.length === 1) {
+  //       const newLocation = locations.find(
+  //         (loc) => loc.id === selectedLocations[0]
+  //       );
+  //       console.log(newLocation);
+  //       if (newLocation) {
+  //         // setSelectedLocations(newLocation.location_name);
+  //         setSelectedLocations(newLocation.location_name);
+  //       }
+  //     }
+  //   }
   }, [validLocationId, locations, selectedLocations]);
 
   const handleOpen = () => setOpen(true);
@@ -142,12 +143,13 @@ export default function EditCouponModal({ file }) {
   };
 
   const handleLocationChange = (locationId) => {
-    // console.log(locationId);
-    if (Array.isArray(locationId)) {
-      setSelectedLocations(locationId);
-    } else {
-      setSelectedLocations([locationId]);
-    }
+    console.log(locationId);
+    // if (Array.isArray(locationId)) {
+    //   setSelectedLocations(locationId);
+    // } else {
+    //   setSelectedLocations([locationId]);
+    // }
+    setSelectedLocations([locationId])
     setLocationsError(false);
   };
   console.log(selectedLocations);

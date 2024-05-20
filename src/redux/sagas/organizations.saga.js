@@ -73,6 +73,7 @@ function* editOrganizationSaga(action) {
   try {
     const orgId = action.payload.id;
     console.log(orgId);
+    console.log(action.payload);
 
     // Create a FormData object to send the file data
     const formData = new FormData();
