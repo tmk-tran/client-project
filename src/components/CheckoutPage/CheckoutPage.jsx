@@ -463,8 +463,8 @@ export default function CheckoutPage({ caseType }) {
             onClick={
               activeStep === 0
                 ? handleForm // First step, check form info
-                : activeStep === 1
-                ? updateTransactions // If it's the second step, update transactions
+                // : activeStep === 1
+                // ? updateTransactions // If it's the second step, update transactions
                 : activeStep === 2
                 ? handleSubmit // If it's the last step, handle form submission
                 : handleNext // Otherwise, move to the next step
