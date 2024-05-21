@@ -19,7 +19,12 @@ import EditButton from "../Buttons/EditButton";
 import EditCouponModal from "./EditCouponModal";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { dispatchHook } from "../../hooks/useDispatch";
-import { couponsData, mTasks, bookYear } from "../../hooks/reduxStore";
+import {
+  couponsData,
+  mTasks,
+  bookYear,
+  appActiveYear,
+} from "../../hooks/reduxStore";
 import { centeredStyle, flexCenter, flexRowSpace } from "../Utils/pageStyles";
 import { grayBackground } from "../Utils/colors";
 import { capitalizeFirstWord, formatDate } from "../Utils/helpers";
@@ -75,7 +80,6 @@ export default function CouponReviewDetails() {
 
   const files = couponsData() || [];
   const file = files.length > 0 ? files[0] : null;
-  console.log(file);
   const formattedDate =
     file && file.expiration ? formatDate(file.expiration) : null;
   const tasks = mTasks() || [];
@@ -92,14 +96,14 @@ export default function CouponReviewDetails() {
       dispatch({ type: "FETCH_MERCHANT_TASKS", payload: merchantId });
       dispatch({ type: "FETCH_MERCHANT_LOCATION", payload: merchantId });
     }
-    
+
     if (merchantId && file?.taskId !== null) {
       const action2 = {
         type: "FETCH_COUPON_COMMENTS",
         payload: file?.taskId,
       };
       dispatch(action2);
-      setBookId(file?.bookId);
+      setBookId(file ? file.bookId : "");
     }
 
     if (couponTask) {
@@ -120,10 +124,16 @@ export default function CouponReviewDetails() {
 
   useEffect(() => {
     if (bookId) {
+      // const action = {
+      //   type: "FETCH_YEAR_BY_ID",
+      //   payload: bookId,
+      // };
       const action = {
         type: "FETCH_YEAR_BY_ID",
+        reducerType: "SET_BOOK_YEAR",
         payload: bookId,
       };
+
       dispatch(action);
     }
   }, [bookId]);

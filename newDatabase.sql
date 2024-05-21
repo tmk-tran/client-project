@@ -570,7 +570,6 @@ CREATE TABLE "user" (
     is_deleted boolean DEFAULT false,
     org_admin boolean DEFAULT false,
     graphic_designer boolean DEFAULT false,
-    org_id integer REFERENCES organization(id),
     first_name character varying(100),
     last_name character varying(100)
 );

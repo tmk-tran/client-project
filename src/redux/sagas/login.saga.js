@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 
 // worker Saga: will be fired on "LOGIN" actions
 function* loginUser(action) {
-  console.log(action.payload);
   try {
     // clear any existing error on the login page
     yield put({ type: 'CLEAR_LOGIN_ERROR' });
