@@ -24,6 +24,11 @@ const cellBorder = {
   border: "1px solid #ddd",
 };
 
+const noWrapBorder = {
+  whiteSpace: "nowrap",
+  ...cellBorder,
+};
+
 const footerCellBorder = {
   border: "1px solid #f0f0f0",
 };
@@ -117,17 +122,17 @@ export default function TransactionsTable({ transactions }) {
               >
                 <TableCell sx={cellBorder}>{transaction.id}</TableCell>
                 {/* ~~~~~ Created ~~~~~ */}
-                <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
+                <TableCell sx={noWrapBorder}>
                   {formatDateTime(
                     transaction.purchase_units_payments_captures_create_time
                   )}
                 </TableCell>
                 {/* ~~~~~ Seller Name ~~~~~ */}
-                <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
+                <TableCell sx={noWrapBorder}>
                   {transaction.seller_first_name} {transaction.seller_last_name}
                 </TableCell>
                 {/* ~~~~~ Organization ~~~~~ */}
-                <TableCell sx={cellBorder}>
+                <TableCell sx={noWrapBorder}>
                   {transaction.organization_name}
                 </TableCell>
                 {/* ~~~~~ Status ~~~~~ */}
@@ -145,13 +150,13 @@ export default function TransactionsTable({ transactions }) {
                   {transaction.payment_source_email}
                 </TableCell>
                 {/* ~~~~~ Shipping Name ~~~~~ */}
-                <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
+                <TableCell sx={noWrapBorder}>
                   {capitalizeWords(
                     transaction.purchase_units_shipping_name_full_name
                   )}
                 </TableCell>
                 {/* ~~~~~ Address ~~~~~ */}
-                <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
+                <TableCell sx={noWrapBorder}>
                   {capitalizeWords(
                     transaction.purchase_units_shipping_address_address_line_1
                   )}{" "}
@@ -166,7 +171,7 @@ export default function TransactionsTable({ transactions }) {
                   {transaction.payment_source_account_id}
                 </TableCell>
                 {/* ~~~~~ Payer Name ~~~~~ */}
-                <TableCell sx={{ whiteSpace: "nowrap", ...cellBorder }}>
+                <TableCell sx={noWrapBorder}>
                   {capitalizeWords(transaction.payer_name_given_name)}{" "}
                   {capitalizeWords(transaction.payer_name_surname)}
                 </TableCell>
