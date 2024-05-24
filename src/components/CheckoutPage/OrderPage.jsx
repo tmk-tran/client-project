@@ -125,16 +125,18 @@ export default function OrderPage({ caseType }) {
     setOrderTotal(total);
   };
 
-  const handleFormChange = (incomingData) => {
-    console.log(incomingData);
+  // REMOVED THIS FOR TESTING ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
-    const dispatchAction = {
-      type: "ADD_CUSTOMER",
-      payload: incomingData,
-    };
-    console.log("Dispatching action:", dispatchAction);
-    dispatch(dispatchAction);
-  };
+  // const handleFormChange = (incomingData) => {
+  //   console.log(incomingData);
+
+  //   const dispatchAction = {
+  //     type: "ADD_CUSTOMER",
+  //     payload: incomingData,
+  //   };
+  //   console.log("Dispatching action:", dispatchAction);
+  //   dispatch(dispatchAction);
+  // };
 
   const addToCart = () => {
     history.push({

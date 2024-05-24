@@ -101,6 +101,10 @@ router.post("/", async (req, res) => {
       RETURNING "id";
     `;
 
+    // ADDED FOR TESTING ~~~~~~~~~~~~~~~~~~~~~~~ //
+    // Log the customer object to debug potential null values
+    console.log("Customer object received:", customer);
+
     const response = await pool.query(insertQuery, [
       refId,
       lastName,
@@ -114,10 +118,18 @@ router.post("/", async (req, res) => {
       zip,
     ]);
 
-    console.log("Successful POST in customers.router");
+    // ADDED FOR TESTING ~~~~~~~~~~~~~~~~~~~~~~~ //
+    console.log("Successful POST in customers.router:", response.rows);
     res.status(201).send(response.rows);
   } catch (error) {
     console.log("error in customers POST route", error);
+
+    // ADDED FOR TESTING ~~~~~~~~~~~~~~~~~~~~~~~ //
+    // Check for NOT NULL constraint violation
+    if (error.code === '23502') { // PostgreSQL error code for NOT NULL violation
+      return res.status(400).json({ error: "One or more required fields are missing." });
+    }
+
     res.sendStatus(500);
   }
 });

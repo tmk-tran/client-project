@@ -92,6 +92,7 @@ export default function CheckoutPage({ caseType }) {
   // ~~~~~~~~~~ Order Info ~~~~~~~~~~ //
   const [orderInfo, setOrderInfo] = useState(null);
 
+  // DISABLED AC FOR NOW ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  //
   const acInfo = () => {
     const contactData = {
       firstName: firstName,
@@ -110,8 +111,8 @@ export default function CheckoutPage({ caseType }) {
       bookType: selectedProducts[0].bookType,
       type: caseType,
     };
-    // console.log("Contact Data from acInfo", contactData);
-    dispatch({ type: "ADD_CONTACT", payload: contactData });
+    console.log("Contact Data from acInfo", contactData);
+    // dispatch({ type: "ADD_CONTACT", payload: contactData });
   };
 
   useEffect(() => {
