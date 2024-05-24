@@ -49,38 +49,17 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   const history = historyHook();
 
   useEffect(() => {
-    // dispatch({
-    //   type: "FETCH_MERCHANT_COMMENTS",
-    //   payload: merchantId,
-    // });
-    // const taskIds = couponFiles.map((coupon) => coupon.taskId);
-
-    // Fetch comments for all coupon taskIds
-    // taskIds.forEach((taskId) => {
-    //   dispatch({
-    //     type: "FETCH_COUPON_COMMENTS",
-    //     payload: taskId,
-    //   });
-    // });
-
     merchantId &&
       dispatch({
         type: "FETCH_PDF_FILE",
         payload: merchantId,
       });
-    // dispatch({
-    //   type: "FETCH_MERCHANT_TASKS",
-    //   payload: merchantId,
-    // });
   }, [merchantId]);
 
   const couponFiles = couponsData() || [];
   console.log(couponFiles);
   const merchantComments = mComments();
   console.log(merchantComments);
-  // const mostRecentComment =
-  //   merchantComments.length > 0 ? merchantComments[0] : null;
-  // console.log(mostRecentComment);
   const tasks = mTasks() || [];
   console.log(tasks);
 
@@ -168,7 +147,8 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
             (comment) => comment.coupon_id === file.id
           );
 
-          const mostRecentComment = relatedComments.length > 0 ? relatedComments[0] : null;
+          const mostRecentComment =
+            relatedComments.length > 0 ? relatedComments[0] : null;
 
           return (
             <Card
@@ -286,12 +266,13 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                     {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     <Box sx={{ mt: 5, p: 0.5 }}>
-                      {/* <CommentDisplay comment={mostRecentComment} /> */}
-                      {/* {relatedComments.length > 0 ? (
-                        relatedComments.map((comment, index) => (
-                          <CommentDisplay key={mostRecentComment.id} comment={mostRecentComment} showAllComments={false} />
-                          // <CommentDisplay key={relatedComments[0].id} comment={relatedComments[0]} showAllComments={false} />
-                        ))
+                      {mostRecentComment ? (
+                        <CommentDisplay
+                          key={mostRecentComment.id}
+                          comment={mostRecentComment}
+                          showAllComments={false}
+                          maxWidth={{ maxWidth: "200px" }}
+                        />
                       ) : (
                         <Typography
                           variant="body2"
@@ -299,22 +280,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                         >
                           No comment available
                         </Typography>
-                      )} */}
-                      {mostRecentComment ? (
-                      <CommentDisplay
-                        key={mostRecentComment.id}
-                        comment={mostRecentComment}
-                        showAllComments={false}
-                        maxWidth={{ maxWidth: "200px" }}
-                      />
-                    ) : (
-                      <Typography
-                        variant="body2"
-                        sx={{ ml: 3, textAlign: "center" }}
-                      >
-                        No comment available
-                      </Typography>
-                    )}
+                      )}
                     </Box>
                   </Box>
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
