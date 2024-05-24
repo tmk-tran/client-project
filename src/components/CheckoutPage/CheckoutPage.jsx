@@ -447,23 +447,17 @@ export default function CheckoutPage({ caseType }) {
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ CHECKOUT NAV BUTTONS ~~~~~~~~~~ */}
         <Box sx={navButtonStyle}>
-          {/* <CustomButton
-            label="Back"
-            disabled={activeStep === 0}
-            onClick={handleBack}
-          /> */}
-          <CustomButton label="Return to Store" onClick={returnToStore} />
+          <CustomButton label="Return to Store" onClick={returnToStore} disabled={ activeStep === 1 ? true : false } />
           <CustomButton
             label={
               activeStep === steps.length - 1
                 ? "Complete Order"
-                : // : activeStep === steps.length - 2
-                  // ? "Place Order"
-                  "Continue"
+                : "Continue"
             }
             onClick={
               activeStep === 0
                 ? handleForm // First step, check form info
+                // ~~~ HAD THIS, BUT IT WAS CAUSING AN EXTRA BOOK TO GET ADDED ~~~ //
                 // : activeStep === 1
                 // ? updateTransactions // If it's the second step, update transactions
                 : activeStep === 2
@@ -471,6 +465,7 @@ export default function CheckoutPage({ caseType }) {
                 : handleNext // Otherwise, move to the next step
             }
             variant="contained"
+            disabled={ activeStep === 1 ? true : false }
           />
         </Box>
       </div>
