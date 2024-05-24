@@ -218,7 +218,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                   ) : null}
                 </div>
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
                 <hr />
 
                 <div style={{ display: "flex", flexDirection: "row", gap: 5 }}>
