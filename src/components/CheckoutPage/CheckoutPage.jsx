@@ -92,7 +92,7 @@ export default function CheckoutPage({ caseType }) {
   // ~~~~~~~~~~ Order Info ~~~~~~~~~~ //
   const [orderInfo, setOrderInfo] = useState(null);
 
-  // DISABLED AC FOR NOW ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  //
+  // DISABLED AC DISPATCH ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  //
   const acInfo = () => {
     const contactData = {
       firstName: firstName,
