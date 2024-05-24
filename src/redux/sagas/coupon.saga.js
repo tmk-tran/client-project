@@ -226,6 +226,11 @@ function* updateCoupon(action) {
   try {
     yield axios.put(`/api/coupon/${merchantId}/${couponId}`, action.payload);
     yield put({ type: "FETCH_PDF_FILE", payload: { merchantId, couponId } });
+    yield put({
+      type: "FETCH_YEAR_BY_ID",
+      reducerType: "SET_BOOK_YEAR",
+      payload: coupon.book_id,
+    });
   } catch (error) {
     console.log("error in updateCoupon Saga", error);
   }

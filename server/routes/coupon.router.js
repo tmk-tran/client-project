@@ -291,6 +291,7 @@ router.put(
   rejectUnauthenticated,
   async (req, res) => {
     const coupon = req.body;
+    console.log("from coupon router: ", coupon);
     const couponId = req.params.couponId;
 
     const offer = coupon.offer;
@@ -298,7 +299,8 @@ router.put(
     const exclusions = coupon.exclusions;
     const expiration = coupon.expiration;
     const additionalInfo = coupon.additional_info;
-    const locationIds = coupon.location_ids; // Assuming location_ids is passed in the request
+    const bookId = coupon.book_id;
+    const locationIds = coupon.location_ids;
 
     try {
       // Start a transaction
@@ -311,8 +313,9 @@ router.put(
           value = $2,
           exclusions = $3,
           expiration = $4,
-          additional_info = $5
-      WHERE id = $6;
+          additional_info = $5,
+          book_id = $6
+      WHERE id = $7;
     `;
       await pool.query(couponUpdateQuery, [
         offer,
@@ -320,6 +323,7 @@ router.put(
         exclusions,
         expiration,
         additionalInfo,
+        bookId,
         couponId,
       ]);
 

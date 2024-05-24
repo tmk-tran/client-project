@@ -306,6 +306,7 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
                         key={mostRecentComment.id}
                         comment={mostRecentComment}
                         showAllComments={false}
+                        maxWidth={{ maxWidth: "200px" }}
                       />
                     ) : (
                       <Typography

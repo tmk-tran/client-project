@@ -145,21 +145,6 @@ CREATE TABLE merchant_notes (
 );
 
 
------------- Alter Tables for file uploads --------------------------------
--- First, drop the existing column if it exists
-ALTER TABLE merchant DROP COLUMN IF EXISTS merchant_logo;
-
--- Then, add the merchant_logo column with the bytea data type
-ALTER TABLE merchant ADD COLUMN merchant_logo bytea;
-
--- First, drop the existing column if it exists
-ALTER TABLE organization DROP COLUMN IF EXISTS organization_logo;
-
--- Then, add the merchant_logo column with the bytea data type
-ALTER TABLE organization ADD COLUMN organization_logo bytea;
-
-
-
 -------------------- Merchant Table ----------------------------------
 CREATE TABLE merchant (
     id SERIAL PRIMARY KEY,

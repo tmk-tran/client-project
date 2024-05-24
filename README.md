@@ -1,3 +1,11 @@
+# Table of Contents
+
+1. [Installation](#installation)
+2. [Project Database Setup](#database-configuration)
+    - [SQL Files](#sql-files)
+3. [Built With](#built-with)
+
+
 # Preferred Savings Guide (co-op project, Dec 2023 - May 2024)
 This application is a continuation of our client project developed in the Koss cohort at Emerging Digital Academy. This second version aims to enhance the existing platform by providing a comprehensive solution for coupon development, management, and sales. The key objectives of this project include:
 
@@ -31,7 +39,7 @@ Joe Colago, Alyssa Nichols, and T Mark Schisel
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. This project should be able to run in your favorite IDE. I used VS code while building it.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. This project should be able to run in your favorite IDE. VS Code was used for development.
 
 ### Prerequisites
 
@@ -54,12 +62,20 @@ SERVER_SESSION_SECRET=superDuperSecret
 ```
 
 While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `imArandomString12345changeMe` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning. 8. Create a database named `psg_project` in PostgresSQL
+
 -If you would like to name your database something else, you will need to change `psg_project` to the name of your new database name in `server/modules/pool.js` 9. The queries in the database.sql file are set up to create all the necessary tables that you need, as well as mock data to test the app. Copy and paste those queries in the SQL query of the database. If this is going to production, leave out the mock data. 10. Start postgres if not running already by using `brew services start postgresql` 11. Run `npm run server` in your VS Code terminal 12. Open a second terminal and run `npm run client` 13. Navigate to `localhost:3000`
 
 ## Database Configuration
 
-- For this project, we created a database using Postico 2
-- If you would like to create a database using mock data, please review the database.sql file
+For this project, we created a database using Postico 2. If you would like to create a database using mock data, please review the `.sql` files provided below:
+
+### SQL Files
+
+- **[db.sql](./db.sql)**: Used for FLY DB deployment.
+
+- **[client_project_db.sql](./client_project_db.sql)**: The original schema we used for the client project, containing some mock data.
+
+- **[current_database.sql](./current_database.sql)**: A copy of the most current schema used with this application. This file should be used to set up the application. Functions and triggers for tables are located here.
 
 ## Built With
 

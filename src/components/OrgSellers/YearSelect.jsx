@@ -18,9 +18,10 @@ export default function YearSelect({
   setActiveYearError,
   error,
   helpertext,
+  assignedYearId,
 }) {
   const dispatch = dispatchHook();
-  const [yearSelected, setYearSelected] = useState("");
+  const [yearSelected, setYearSelected] = useState(assignedYearId);
 
   useEffect(() => {
     // Set the initial selected year to the ID of the active year

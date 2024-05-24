@@ -20,6 +20,7 @@ import EditButton from "../Buttons/EditButton";
 import ModalButtons from "../Modals/ModalButtons";
 import LocationSelect from "../CouponReviewCard/LocationSelect";
 import AllLocationsButton from "../CouponReviewCard/AllLocationsButton";
+import YearSelect from "../OrgSellers/YearSelect";
 
 const style = {
   position: "absolute",
@@ -37,7 +38,7 @@ const textfieldStyle = {
   mb: 2,
 };
 
-export default function EditCouponModal({ file }) {
+export default function EditCouponModal({ file, assignedYear }) {
   console.log(file);
   const dispatch = dispatchHook();
   const params = useParams();
@@ -45,16 +46,19 @@ export default function EditCouponModal({ file }) {
   const couponId = params.couponId;
   const merchantId = params.merchantId;
   const [open, setOpen] = useState(false);
-  const [offer, setOffer] = useState("");
+  const [offer, setOffer] = useState(null);
+  const [validYear, setValidYear] = useState(null);
+  console.log(validYear);
   const [value, setValue] = useState(null);
-  const [exclusions, setExclusions] = useState("");
-  const [expiration, setExpiration] = useState("");
-  const [additionalInfo, setAdditionalInfo] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [website, setWebsite] = useState("");
+  const [exclusions, setExclusions] = useState(null);
+  const [expiration, setExpiration] = useState(null);
+  const [additionalInfo, setAdditionalInfo] = useState(null);
+
   // ~~~~~~~~~~ Location State ~~~~~~~~~~~~~~~~~~~ //
   const [selectedLocations, setSelectedLocations] = useState([]);
   console.log(selectedLocations);
+  const [selectedLocationId, setSelectedLocationId] = useState(null);
+  console.log(selectedLocationId);
   const [selectAllLocations, setSelectAllLocations] = useState(false);
   console.log(selectAllLocations);
   // ~~~~~~~~~~ Errors ~~~~~~~~~~~~~~~~~~~~~~~ //
@@ -64,18 +68,23 @@ export default function EditCouponModal({ file }) {
   console.log(locations);
   const couponLocations = couponsData() || [];
   console.log(couponLocations);
+
+  // Obtain the coupon book id for the year, use in edit
+  const coupon = couponLocations[0];
+  const couponBookId = coupon ? coupon.bookId : null;
+  console.log(couponBookId);
+
   const validLocationId = couponLocations.map((coupon) => coupon.location_id);
   console.log(validLocationId);
 
   useEffect(() => {
     if (file) {
-      setOffer(file.offer || "");
+      setOffer(file.offer || null);
+      setValidYear(file.bookId || null);
       setValue(file.value || 0);
-      setExclusions(file.exclusions || "");
-      setExpiration(file.expiration || "");
-      setAdditionalInfo(file.additionalInfo || "");
-      setPhoneNumber(file.phoneNumber || "");
-      setWebsite(file.website || "");
+      setExclusions(file.exclusions || null);
+      setExpiration(file.expiration || null);
+      setAdditionalInfo(file.additionalInfo || null);
     }
   }, [file]);
 
@@ -110,6 +119,7 @@ export default function EditCouponModal({ file }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // add bookId here to edit the assigned year, also to saga and router
   const updateCoupon = () => {
     const dispatchAction = {
       type: "UPDATE_COUPON",
@@ -121,22 +131,24 @@ export default function EditCouponModal({ file }) {
         exclusions: exclusions,
         expiration: expiration,
         additional_info: additionalInfo,
+        book_id: validYear,
         ...(selectedLocations.length > 0 && {
-          location_ids: [selectedLocations],
+          location_ids: [selectedLocationId],
         }),
       },
     };
-    console.log(dispatchAction);
+    // console.log(dispatchAction);
     dispatch(dispatchAction);
     resetForm();
   };
 
   const resetForm = () => {
-    setOffer("");
+    setOffer(null);
+    setValidYear(null);
     setValue(0);
-    setExclusions("");
-    setExpiration("");
-    setAdditionalInfo("");
+    setExclusions(null);
+    setExpiration(null);
+    setAdditionalInfo(null);
     showSaveSweetAlert({ label: "Coupon Updated" });
 
     handleClose();
@@ -149,10 +161,11 @@ export default function EditCouponModal({ file }) {
     // } else {
     //   setSelectedLocations([locationId]);
     // }
-    setSelectedLocations([locationId])
+    // setSelectedLocations([locationId])
+    setSelectedLocationId(locationId);
     setLocationsError(false);
   };
-  console.log(selectedLocations);
+  console.log(selectedLocationId);
 
   const handleSelect = (boolean) => {
     console.log(boolean);
@@ -209,7 +222,7 @@ export default function EditCouponModal({ file }) {
               </Box>
             </Grid>
             {/* ~~~~~~ OFFER ~~~~~ */}
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <TextField
                 label="Offer"
                 fullWidth
@@ -219,6 +232,10 @@ export default function EditCouponModal({ file }) {
                 }}
                 sx={textfieldStyle}
               />
+            </Grid>
+            {/* ~~~~~ Assigned Year Field ~~~~~ */}
+            <Grid item xs={6}>
+              <YearSelect setYear={setValidYear} assignedYearId={couponBookId}/>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -271,27 +288,6 @@ export default function EditCouponModal({ file }) {
                   setExpiration(e.target.value);
                 }}
                 sx={textfieldStyle}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                type="number"
-                label="Phone"
-                fullWidth
-                value={phoneNumber}
-                onChange={(e) => {
-                  setPhoneNumber(e.target.value);
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Website"
-                fullWidth
-                value={website}
-                onChange={(e) => {
-                  setWebsite(e.target.value);
-                }}
               />
             </Grid>
           </Grid>

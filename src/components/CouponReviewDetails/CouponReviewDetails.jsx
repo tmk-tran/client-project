@@ -84,6 +84,12 @@ export default function CouponReviewDetails() {
     file && file.expiration ? formatDate(file.expiration) : null;
   const tasks = mTasks() || [];
   const year = bookYear();
+  console.log(year);
+  // Get active year value to send as props to EditCouponModal
+  const active = year[0];
+  const assignedYear = active ? active.year : null;
+  console.log(assignedYear);
+
   const couponTask = Array.isArray(tasks)
     ? tasks.find((task) => task.coupon_id === Number(couponId))
     : null;
@@ -473,7 +479,10 @@ export default function CouponReviewDetails() {
                             />
                             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                             {/* ~~~~~~~~~~ Edit Button ~~~~~~~~~~~ */}
-                            <EditCouponModal file={file} />
+                            <EditCouponModal
+                              file={file}
+                              assignedYear={assignedYear}
+                            />
                             {/* {files.map((file, index) => (
                               <EditCouponModal key={index} file={file} />
                             ))} */}
