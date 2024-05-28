@@ -12,7 +12,13 @@ import EditButton from "../Buttons/EditButton";
 import { capitalizeWords, formatPhoneNumber } from "../Utils/helpers";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
-import { border } from "../Utils/colors";
+
+const accountNameStyle = {
+  fontWeight: "bold",
+  whiteSpace: "normal",
+  wordWrap: "break-word",
+  overflowWrap: "break-word",
+};
 
 export default function ContactDetails({
   info,
@@ -83,11 +89,11 @@ export default function ContactDetails({
           <div className="org-address">
             <div className="org-name-container">
               {!isMerchantTaskPage ? (
-                <Typography variant="h5" style={{ fontWeight: "bold" }}>
+                <Typography variant="h5" sx={accountNameStyle}>
                   {capitalizeWords(info.organization_name)}
                 </Typography>
               ) : (
-                <Typography variant="h5" style={{ fontWeight: "bold" }}>
+                <Typography variant="h5" sx={accountNameStyle}>
                   {capitalizeWords(info.merchant_name)}
                 </Typography>
               )}
