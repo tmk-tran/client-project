@@ -2,8 +2,6 @@ import React, { useState } from "react";
 // ~~~~~~~~~~ Styles ~~~~~~~~~~
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import "./OrgContactDetails.css";
-// ~~~~~~~~~~ Icons ~~~~~~~~~~
-import EditNoteIcon from "@mui/icons-material/EditNote";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import DetailsEdit from "../DetailsEdit/DetailsEdit";
 import ContactDetailsCard from "./ContactDetailsCard";
