@@ -43,7 +43,7 @@ export default function OrgDetailsGoalView({ info, groups, handleAddGroup }) {
   return (
     <>
       {/* <Card elevation={3} className="goals-display-card"> */}
-      <Card elevation={3} sx={{ width: "50vh" }}>
+      <Card elevation={3} sx={{ width: "25vw" }}>
         <CardContent>
           <Typography
             variant="h6"

@@ -164,7 +164,8 @@ export default function Details({
           caseType={caseType}
         />
         <div style={{ position: "relative" }}>
-          <div style={{ position: "absolute", top: 0, left: 0 }}>
+          {/* <div style={{ position: "absolute", top: 0, left: 0 }}> */}
+          <div>
             <BackButton />
           </div>
         </div>
