@@ -103,7 +103,7 @@ const AccountMenu = ({ isMobile }) => {
               history.push("/fargo/useradmin");
             }}
           >
-            User Roles
+            Users
           </MenuItem>
         ),
         // user.is_admin && <hr key="divider2" style={{ width: "90%" }} />,
