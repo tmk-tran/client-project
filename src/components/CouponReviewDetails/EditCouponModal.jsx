@@ -132,12 +132,12 @@ export default function EditCouponModal({ file, assignedYear }) {
         expiration: expiration,
         additional_info: additionalInfo,
         book_id: validYear,
-        ...(selectedLocations.length > 0 && {
+        // ...(selectedLocations.length > 0 && {
           location_ids: [selectedLocationId],
-        }),
+        // }),
       },
     };
-    // console.log(dispatchAction);
+    console.log(dispatchAction);
     dispatch(dispatchAction);
     resetForm();
   };
