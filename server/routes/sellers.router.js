@@ -73,6 +73,7 @@ router.get("/byrefid", rejectUnauthenticated, (req, res) => {
 });
 
 router.get("/:orgId/:yearId", rejectUnauthenticated, (req, res) => {
+  console.log("From sellers router: ", req.params);
   const orgId = req.params.orgId;
   const yearId = req.params.yearId;
 

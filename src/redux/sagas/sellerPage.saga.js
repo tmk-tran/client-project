@@ -12,45 +12,51 @@ function* fetchSeller(action) {
 }
 
 function* updateCash(action) {
-  // console.log(action.payload);
+  console.log(action.payload);
   const sellerId = action.payload.id;
   const orgId = action.payload.orgId;
+  const yearId = action.payload.yearId;
 
   try {
     yield axios.put(`/api/seller/${sellerId}`, action.payload);
-    yield put({ type: "FETCH_SELLERS", payload: orgId });
+    yield put({ type: "FETCH_SELLERS", payload: { orgId: orgId, yearId: yearId } });
   } catch (error) {
     console.log("error in updateCash Saga", error);
   }
 }
-
+// START HERE ON RETURN, ADD A SELECT OPTION FOR CHECKS
+// WHEN USER MAKES A SALE, THEN UPDATE THE PAYLOAD SENT TO 
+// FETCH SELLERS TO INCLUDE THE YEARID
 function* updateChecks(action) {
+  console.log(action.payload);
   const sellerId = action.payload.id;
   const orgId = action.payload.orgId;
+  const yearId = action.payload.yearId;
 
   try {
     yield axios.put(`/api/seller/${sellerId}`, action.payload);
-    yield put({ type: "FETCH_SELLERS", payload: orgId });
+    yield put({ type: "FETCH_SELLERS", payload: { orgId: orgId, yearId: yearId } });
   } catch (error) {
     console.log("error in updateChecks Saga", error);
   }
 }
 
 function* updateDonations(action) {
-  // console.log(action.payload);
+  console.log(action.payload);
   const sellerId = action.payload.id;
   const orgId = action.payload.orgId;
+  const yearId = action.payload.yearId;
 
   try {
     yield axios.put(`/api/seller/${sellerId}`, action.payload);
-    yield put({ type: "FETCH_SELLERS", payload: orgId });
+    yield put({ type: "FETCH_SELLERS", payload: { orgId: orgId, yearId: yearId } });
   } catch (error) {
     console.log("error in updateDigitalCash Saga", error);
   }
 }
 
 function* updateDigitalPayments(action) {
-  // console.log("DIGITAL PAYMENTS = ", action.payload);
+  console.log("DIGITAL PAYMENTS = ", action.payload);
   const sellerId = action.payload.id;
   const refId = action.payload.refId;
 

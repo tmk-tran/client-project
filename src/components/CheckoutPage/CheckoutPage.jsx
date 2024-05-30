@@ -347,7 +347,54 @@ export default function CheckoutPage({ caseType }) {
     }
   };
 
+  // const updateTransactions = () => {
+  //   const updateAction = {
+  //     type: "UPDATE_BOOKS_SOLD",
+  //     payload: {
+  //       refId: refId,
+  //       orgId: orgId,
+  //       yearId: activeYearId,
+  //       physical_book_cash: 0,
+  //       physical_book_digital: physicalBookDigital,
+  //       digital_book_credit: digitalBookCredit,
+  //     },
+  //   };
+  //   let updateActions = [updateAction];
+
+  //   customDonation > 0 &&
+  //     updateActions.push({
+  //       type: "UPDATE_DONATIONS",
+  //       payload: {
+  //         updateType: "digital_donations",
+  //         id: sellerId,
+  //         refId: refId,
+  //         digital_donations: customDonation,
+  //         orgId: orgId,
+  //         yearId: activeYearId,
+  //       },
+  //     });
+
+  //   orderTotal > 0 &&
+  //     updateActions.push({
+  //       type: "UPDATE_DIGITAL_PAYMENTS",
+  //       payload: {
+  //         updateType: "digital",
+  //         id: sellerId,
+  //         refId: refId,
+  //         digital: digitalPayment,
+  //         orgId: orgId,
+  //         yearId: activeYearId,
+  //       },
+  //     });
+
+  //   updateActions.forEach((action) => dispatch(action));
+  // };
+
   const updateTransactions = () => {
+    console.log("refId: ", refId);
+    console.log("orgId: ", orgId);
+    console.log("yearId: ", activeYearId);
+  
     const updateAction = {
       type: "UPDATE_BOOKS_SOLD",
       payload: {
@@ -359,10 +406,11 @@ export default function CheckoutPage({ caseType }) {
         digital_book_credit: digitalBookCredit,
       },
     };
+  
     let updateActions = [updateAction];
-
-    customDonation > 0 &&
-      updateActions.push({
+  
+    if (customDonation > 0) {
+      const donationAction = {
         type: "UPDATE_DONATIONS",
         payload: {
           updateType: "digital_donations",
@@ -370,11 +418,15 @@ export default function CheckoutPage({ caseType }) {
           refId: refId,
           digital_donations: customDonation,
           orgId: orgId,
+          yearId: activeYearId,
         },
-      });
-
-    orderTotal > 0 &&
-      updateActions.push({
+      };
+      console.log("Dispatching donation action: ", donationAction);
+      updateActions.push(donationAction);
+    }
+  
+    if (orderTotal > 0) {
+      const paymentAction = {
         type: "UPDATE_DIGITAL_PAYMENTS",
         payload: {
           updateType: "digital",
@@ -382,10 +434,17 @@ export default function CheckoutPage({ caseType }) {
           refId: refId,
           digital: digitalPayment,
           orgId: orgId,
+          yearId: activeYearId,
         },
-      });
-
-    updateActions.forEach((action) => dispatch(action));
+      };
+      console.log("Dispatching payment action: ", paymentAction);
+      updateActions.push(paymentAction);
+    }
+  
+    updateActions.forEach((action) => {
+      console.log("Dispatching action: ", action);
+      dispatch(action);
+    });
   };
 
   const handleOrderInfo = (orderData) => {

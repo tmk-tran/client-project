@@ -85,7 +85,6 @@ export const showSaveSweetAlert = ({ label }) => {
 
 // Sweet Alert for RequestBooks.jsx
 export const submitPaymentSweetAlert = (saveCall) => {
-  console.log(saveCall);
   Swal.fire({
     title: "Cash or check received?",
     icon: "warning",
