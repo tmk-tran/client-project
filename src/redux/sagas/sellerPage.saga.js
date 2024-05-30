@@ -19,14 +19,15 @@ function* updateCash(action) {
 
   try {
     yield axios.put(`/api/seller/${sellerId}`, action.payload);
-    yield put({ type: "FETCH_SELLERS", payload: { orgId: orgId, yearId: yearId } });
+    yield put({
+      type: "FETCH_SELLERS",
+      payload: { orgId: orgId, yearId: yearId },
+    });
   } catch (error) {
     console.log("error in updateCash Saga", error);
   }
 }
-// START HERE ON RETURN, ADD A SELECT OPTION FOR CHECKS
-// WHEN USER MAKES A SALE, THEN UPDATE THE PAYLOAD SENT TO 
-// FETCH SELLERS TO INCLUDE THE YEARID
+
 function* updateChecks(action) {
   console.log(action.payload);
   const sellerId = action.payload.id;
@@ -35,7 +36,10 @@ function* updateChecks(action) {
 
   try {
     yield axios.put(`/api/seller/${sellerId}`, action.payload);
-    yield put({ type: "FETCH_SELLERS", payload: { orgId: orgId, yearId: yearId } });
+    yield put({
+      type: "FETCH_SELLERS",
+      payload: { orgId: orgId, yearId: yearId },
+    });
   } catch (error) {
     console.log("error in updateChecks Saga", error);
   }
@@ -49,7 +53,10 @@ function* updateDonations(action) {
 
   try {
     yield axios.put(`/api/seller/${sellerId}`, action.payload);
-    yield put({ type: "FETCH_SELLERS", payload: { orgId: orgId, yearId: yearId } });
+    yield put({
+      type: "FETCH_SELLERS",
+      payload: { orgId: orgId, yearId: yearId },
+    });
   } catch (error) {
     console.log("error in updateDigitalCash Saga", error);
   }
