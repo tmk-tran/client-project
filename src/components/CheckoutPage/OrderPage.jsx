@@ -190,7 +190,7 @@ export default function OrderPage({ caseType }) {
       {caseType === "cash" && (
         <Box sx={{ mb: 2 }}>
           <CustomerNameInfo
-            onSubmit={handleFormChange}
+            // removed handleForChange from here
             setShowOrderTable={setShowOrderTable}
             pageLoad={pageLoad}
             setPageLoad={setPageLoad}

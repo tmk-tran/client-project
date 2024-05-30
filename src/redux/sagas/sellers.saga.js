@@ -37,6 +37,7 @@ function* fetchByRefId(action) {
 }
 
 function* fetchSellers(action) {
+  console.log(action.payload);
   const orgId = action.payload.orgId;
   const yearId = action.payload.yearId;
 
