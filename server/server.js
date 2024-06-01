@@ -689,6 +689,51 @@ app.post(`/api/contact`, async (req, res) => {
   }
 });
 
+app.post("/api/recoverPassword", async (req, res) => {
+  try {
+    const email = req.body.email;
+    console.log(email);
+    const apiKey = process.env.AC_API_KEY;
+    // const emailChecked = await axios.get(`https://${process.env.ac_address}/api/${process.env.version}/contacts?filters[email]=${email}`,
+    const emailChecked = await axios.get(
+      `https://northpointeinsure57220.api-us1.com/api/3/contacts?filters[email]=${email}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Api-Token": apiKey,
+        },
+      }
+    );
+    console.log(emailChecked.data);
+    const id =
+      emailChecked.data.contacts.length > 0
+        ? emailChecked.data.contacts[0].id
+        : null;
+    console.log(id);
+    const resetAcc = await axios.post(
+      // `https://${process.env.ac_address}/api/${process.env.version}/contactTags`,
+      `https://northpointeinsure57220.api-us1.com/api/3/contactTags`,
+      JSON.stringify({
+        contactTag: {
+          contact: id,
+          tag: 64,
+        },
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Api-Token": apiKey,
+        },
+      }
+    );
+    console.log("Response from adding tag to contact:", resetAcc.data);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log("Error adding recover password tag to AC contact", error);
+    res.sendStatus(500);
+  }
+});
+
 // End Active Campaign ~~~~~~~~~~ //
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
