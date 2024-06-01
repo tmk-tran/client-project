@@ -19,7 +19,7 @@ import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 import EditButton from "../Buttons/EditButton";
 import ModalButtons from "../Modals/ModalButtons";
 import LocationSelect from "../CouponReviewCard/LocationSelect";
-import AllLocationsButton from "../CouponReviewCard/AllLocationsButton";
+import LocationsRadioGroup from "../CouponReviewCard/LocationsRadioGroup";
 import YearSelect from "../OrgSellers/YearSelect";
 
 const style = {
@@ -27,7 +27,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 600,
+  width: 700,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -38,13 +38,14 @@ const textfieldStyle = {
   mb: 2,
 };
 
-export default function EditCouponModal({ file, assignedYear }) {
+export default function EditCouponModal({ file }) {
   console.log(file);
   const dispatch = dispatchHook();
   const params = useParams();
   console.log(params);
   const couponId = params.couponId;
   const merchantId = params.merchantId;
+  // ~~~~~~~~~~ State ~~~~~~~~~~~~~~~~~~~ //
   const [open, setOpen] = useState(false);
   const [offer, setOffer] = useState(null);
   const [validYear, setValidYear] = useState(null);
@@ -55,12 +56,16 @@ export default function EditCouponModal({ file, assignedYear }) {
   const [additionalInfo, setAdditionalInfo] = useState(null);
 
   // ~~~~~~~~~~ Location State ~~~~~~~~~~~~~~~~~~~ //
-  const [selectedLocations, setSelectedLocations] = useState([]);
+  // FIGURE OUT WHY THIS IS GETTING FORMATTED AS AN ARRAY
+  const [selectedLocations, setSelectedLocations] = useState(null);
   console.log(selectedLocations);
   const [selectedLocationId, setSelectedLocationId] = useState(null);
   console.log(selectedLocationId);
   const [selectAllLocations, setSelectAllLocations] = useState(false);
   console.log(selectAllLocations);
+  const [participatingLocations, setParticipatingLocations] = useState(false);
+  console.log(participatingLocations);
+  const [isDropdownSelected, setIsDropdownSelected] = useState(false);
   // ~~~~~~~~~~ Errors ~~~~~~~~~~~~~~~~~~~~~~~ //
   const [locationsError, setLocationsError] = useState(false);
 
@@ -88,12 +93,44 @@ export default function EditCouponModal({ file, assignedYear }) {
     }
   }, [file]);
 
+  // useEffect(() => {
+  //   // Set the initial value when the component mounts
+  //   if (validLocationId && validLocationId.length === 1) {
+  //     const initialLocation = locations.find(
+  //       (loc) => loc.id === validLocationId[0]
+  //     );
+  //     console.log(initialLocation);
+  //     if (initialLocation) {
+  //       setSelectedLocations(initialLocation.location_name);
+  //     }
+  //   }
+
+  // }, [validLocationId, locations, selectedLocations, participatingLocations]);
   useEffect(() => {
-    // Set the initial value when the component mounts
-    if (
-      validLocationId &&
-      validLocationId.length === 1
-    ) {
+    if (open && validLocationId && validLocationId.length === 1) {
+      const initialLocation = locations.find(
+        (loc) => loc.id === validLocationId[0]
+      );
+      if (initialLocation) {
+        setSelectedLocations(initialLocation.location_name);
+        // setSelectedLocationId(initialLocation.id);
+      }
+    }
+  }, [open, validLocationId, locations]);
+
+  useEffect(() => {
+    if (isDropdownSelected) {
+      setSelectAllLocations(false);
+      setParticipatingLocations(false);
+    }
+  }, [isDropdownSelected])
+  console.log(isDropdownSelected);
+  console.log(selectAllLocations);
+  console.log(participatingLocations);
+
+  const handleOpen = () => {
+    setOpen(true);
+    if (validLocationId && validLocationId.length === 1) {
       const initialLocation = locations.find(
         (loc) => loc.id === validLocationId[0]
       );
@@ -101,23 +138,15 @@ export default function EditCouponModal({ file, assignedYear }) {
       if (initialLocation) {
         setSelectedLocations(initialLocation.location_name);
       }
-    } 
-  // else {
-  //     if (selectedLocations && selectedLocations.length === 1) {
-  //       const newLocation = locations.find(
-  //         (loc) => loc.id === selectedLocations[0]
-  //       );
-  //       console.log(newLocation);
-  //       if (newLocation) {
-  //         // setSelectedLocations(newLocation.location_name);
-  //         setSelectedLocations(newLocation.location_name);
-  //       }
-  //     }
-  //   }
-  }, [validLocationId, locations, selectedLocations]);
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+    }
+  };
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedLocationId(null);
+    setSelectedLocations(null);
+    setSelectAllLocations(null);
+    setIsDropdownSelected(false);
+  };
 
   // add bookId here to edit the assigned year, also to saga and router
   const updateCoupon = () => {
@@ -132,9 +161,7 @@ export default function EditCouponModal({ file, assignedYear }) {
         expiration: expiration,
         additional_info: additionalInfo,
         book_id: validYear,
-        // ...(selectedLocations.length > 0 && {
-          location_ids: [selectedLocationId],
-        // }),
+        location_ids: [selectedLocationId],
       },
     };
     console.log(dispatchAction);
@@ -149,32 +176,34 @@ export default function EditCouponModal({ file, assignedYear }) {
     setExclusions(null);
     setExpiration(null);
     setAdditionalInfo(null);
+    setSelectedLocationId(null);
     showSaveSweetAlert({ label: "Coupon Updated" });
 
     handleClose();
   };
 
+  // Sets the Location Ids from Radio Group
   const handleLocationChange = (locationId) => {
     console.log(locationId);
-    // if (Array.isArray(locationId)) {
-    //   setSelectedLocations(locationId);
-    // } else {
-    //   setSelectedLocations([locationId]);
-    // }
-    // setSelectedLocations([locationId])
     setSelectedLocationId(locationId);
     setLocationsError(false);
   };
   console.log(selectedLocationId);
+  console.log(participatingLocations);
 
-  const handleSelect = (boolean) => {
+  const handleSelectAllLocs = (boolean) => {
     console.log(boolean);
     setSelectAllLocations(boolean);
   };
 
-  const clearLocationField = () => {
-    // setSelectedLocations([]);
-    setSelectAllLocations(false);
+  const handleParticipatingLocations = (boolean) => {
+    setParticipatingLocations(boolean);
+  };
+
+  // For the dropdown selection, sets to true or false
+  const handleDropdownSelectChange = (state) => {
+    console.log(state);
+    setIsDropdownSelected(state);
   };
 
   return (
@@ -192,20 +221,8 @@ export default function EditCouponModal({ file, assignedYear }) {
           </Typography>
           <Divider sx={lineDivider} />
           <Grid container spacing={2}>
-            {/* ~~~~~~~ LOCATION SELECT ~~~~~~~ */}
-            <Grid item xs={6}>
-              <LocationSelect
-                label="Participating Location"
-                locations={locations}
-                selectedLocations={selectedLocations}
-                selectAllLocations={selectAllLocations}
-                onLocationChange={handleLocationChange}
-                error={locationsError}
-                acceptedAt={validLocationId}
-              />
-            </Grid>
-            {/* ~~~~~~ VALID AT ALL LOCATIONS ~~~~~ */}
-            <Grid item xs={6}>
+            {/* ~~~~~~ RADIO BUTTON GROUP ~~~~~ */}
+            <Grid item xs={12}>
               <Box
                 sx={{
                   border: "1px solid rgba(0, 0, 0, 0.23)", // Match the border style
@@ -215,9 +232,17 @@ export default function EditCouponModal({ file, assignedYear }) {
                   mt: 3.6,
                 }}
               >
-                <AllLocationsButton
-                  onSelect={handleSelect}
+                <LocationsRadioGroup
                   acceptedAt={validLocationId}
+                  onSelectAll={handleSelectAllLocs}
+                  onSelectParticipatingLocs={handleParticipatingLocations}
+                  isDropdownSelected={isDropdownSelected}
+                  onDropdownSelectChange={handleDropdownSelectChange}
+                  locations={locations}
+                  selectedLocations={selectedLocations}
+                  participatingLocs={participatingLocations}
+                  selectAllLocations={selectAllLocations}
+                  onLocationChange={handleLocationChange}
                 />
               </Box>
             </Grid>
@@ -235,7 +260,10 @@ export default function EditCouponModal({ file, assignedYear }) {
             </Grid>
             {/* ~~~~~ Assigned Year Field ~~~~~ */}
             <Grid item xs={6}>
-              <YearSelect setYear={setValidYear} assignedYearId={couponBookId}/>
+              <YearSelect
+                setYear={setValidYear}
+                assignedYearId={couponBookId}
+              />
             </Grid>
             <Grid item xs={12}>
               <TextField

@@ -327,6 +327,16 @@ router.put(
         couponId,
       ]);
 
+      // Check if locationIds contains only null
+      if (locationIds.length === 1 && locationIds[0] === null) {
+        // Delete existing locations for the coupon
+        const deleteLocationsQuery = `
+        DELETE FROM coupon_location
+        WHERE coupon_id = $1;
+      `;
+        await pool.query(deleteLocationsQuery, [couponId]);
+      } else {
+
       // Delete existing locations for the coupon
       const deleteLocationsQuery = `
       DELETE FROM coupon_location
@@ -341,6 +351,7 @@ router.put(
       FROM unnest($2::integer[]) AS location_id;
     `;
       await pool.query(locationInsertQuery, [couponId, locationIds]);
+      }
 
       // Commit the transaction
       await pool.query("COMMIT");

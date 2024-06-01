@@ -5,6 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Typography,
 } from "@mui/material";
 import {
   capitalizeFirstWord,
@@ -14,23 +15,53 @@ import {
 
 export default function LocationSelect({
   label,
+  fontSize = "16px",
   locations,
   selectedLocations,
-  onLocationChange,
+  onDropdownSelectChange,
+  participatingLocs,
   selectAllLocations,
+  onLocationChange,
   error,
   acceptedAt,
+  minWidth,
+  maxWidth,
+  mb = 2,
 }) {
   console.log(locations);
-  console.log(acceptedAt);
   console.log(selectedLocations);
+  console.log(participatingLocs);
+  console.log(selectAllLocations);
+  console.log(acceptedAt);
   const [selectedLocation, setSelectedLocation] = useState("");
   console.log(selectedLocation);
+  const [onDropdownSelect, setOnDropdownSelect] = useState(false);
 
   // Update the local state when the parent's selectedLocations prop changes
   useEffect(() => {
     setSelectedLocation(selectedLocations);
   }, []);
+
+  useEffect(() => {
+    if (typeof selectedLocation === "string" && selectedLocation !== "") {
+      setOnDropdownSelect(true);
+      onDropdownSelectChange(true);
+    } else if (Array.isArray(selectedLocation)) {
+      setOnDropdownSelect(false);
+    } else if (selectedLocation === null || selectedLocation === "") {
+      setOnDropdownSelect(false);
+    }
+  }, [selectedLocation]);
+  console.log(onDropdownSelect);
+
+  useEffect(() => {
+    if (selectAllLocations) {
+      setOnDropdownSelect(false);
+    }
+  }, [selectAllLocations]);
+  // useEffect(() => {
+  //   onDropdownSelectChange(onDropdownSelect);
+  // }, [onDropdownSelect, onDropdownSelectChange]);
 
   const handleLocationChange = (event) => {
     setSelectedLocation(event.target.value);
@@ -54,9 +85,20 @@ export default function LocationSelect({
   useEffect(() => {
     // Call handleSelectAll when selectAllLocations changes to true
     if (selectAllLocations) {
+      console.log(selectAllLocations);
       handleSelectAll();
+      setSelectedLocation("");
+    }
+
+    if (participatingLocs) {
+      resetSelectedLocation();
     }
   }, [selectAllLocations]);
+
+  const resetSelectedLocation = () => {
+    setSelectedLocation(null);
+    onLocationChange(null);
+  };
 
   return (
     <div>
@@ -66,7 +108,7 @@ export default function LocationSelect({
           value={selectedLocation}
           onChange={handleLocationChange}
           // displayEmpty
-          sx={{ mb: 2 }}
+          sx={{ mb: mb, minWidth: minWidth, maxWidth: maxWidth }}
         >
           <MenuItem value="" disabled>
             Please choose a location...
@@ -75,11 +117,19 @@ export default function LocationSelect({
             .filter((location) => !location.is_deleted)
             .map((location, i) => (
               <MenuItem key={i} value={location.location_name}>
-                {capitalizeFirstWord(location.location_name)}
-                <br />
-                {capitalizeWords(location.address)}{" "}
-                {capitalizeWords(location.city)},{" "}
-                {capitalizeStateAbbr(location.state)}
+                <Typography
+                  sx={{
+                    fontSize: fontSize,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  <strong>{capitalizeFirstWord(location.location_name)}</strong>
+                  <br />
+                  {capitalizeWords(location.address)}{" "}
+                  {capitalizeWords(location.city)},{" "}
+                  {capitalizeStateAbbr(location.state)}
+                </Typography>
               </MenuItem>
             ))}
         </Select>
