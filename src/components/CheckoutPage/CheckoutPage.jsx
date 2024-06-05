@@ -112,7 +112,7 @@ export default function CheckoutPage({ caseType }) {
       type: caseType,
     };
     console.log("Contact Data from acInfo", contactData);
-    // dispatch({ type: "ADD_CONTACT", payload: contactData });
+    dispatch({ type: "ADD_CONTACT", payload: contactData });
   };
 
   useEffect(() => {

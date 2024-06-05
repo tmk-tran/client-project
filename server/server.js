@@ -704,12 +704,13 @@ app.post("/api/recoverPassword", async (req, res) => {
         },
       }
     );
-    console.log(emailChecked.data);
+    console.log("emailChecked from server: ", emailChecked); // getting a 200 here
+    console.log(emailChecked.data); // this value is undefined, null
     const id =
       emailChecked.data.contacts.length > 0
         ? emailChecked.data.contacts[0].id
         : null;
-    console.log(id);
+    console.log(id); // coming through null
     const resetAcc = await axios.post(
       // `https://${process.env.ac_address}/api/${process.env.version}/contactTags`,
       `https://northpointeinsure57220.api-us1.com/api/3/contactTags`,

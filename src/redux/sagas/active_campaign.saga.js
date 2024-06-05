@@ -35,7 +35,8 @@ function* recoverPassword(action) {
     //   url: `/api/recoverPassword`,
     //   data: { email: email },
     // });
-    yield axios.post('/api/recoverPassword', { email: email });
+    const response = yield axios.post('/api/recoverPassword', { email: email });
+    console.log(response.data);
   } catch (error) {
     console.log("error in recoverPassword saga", error);
   }
