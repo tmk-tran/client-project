@@ -33,6 +33,7 @@ import Transactions from "../Transactions/Transactions";
 import MerchantDetails from "../Details/MerchantDetails";
 import UserAdmin from "../UserAdmin/UserAdmin";
 import RecoverPasswordForm from "../RecoverPasswordForm/RecoverPasswordForm";
+import HelpPage from "../UserDocs/HelpPage";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
@@ -312,6 +313,10 @@ function App() {
               <Route exact path="/fargo/home">
                 {user.id ? <Redirect to="/fargo/home" /> : <LoginPage />}
                 {/* {!user.is_admin && !user.org_admin && <Redirect to="/coupon" />} */}
+              </Route>
+
+              <Route exact path="/help">
+                <HelpPage />
               </Route>
 
               {/* If none of the other routes matched, we will show a 404. */}
