@@ -210,7 +210,7 @@ export default function NavLinks() {
             </>
           )
         )}
-        <Typography>
+        {/* <Typography>
           <MuiLink
             component={Link}
             className="main-navlink"
@@ -219,7 +219,7 @@ export default function NavLinks() {
           >
             Help
           </MuiLink>
-        </Typography>
+        </Typography> */}
       </div>
     </ThemeProvider>
   );

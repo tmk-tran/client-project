@@ -315,9 +315,9 @@ function App() {
                 {/* {!user.is_admin && !user.org_admin && <Redirect to="/coupon" />} */}
               </Route>
 
-              <Route exact path="/help">
+              {/* <Route exact path="/help">
                 <HelpPage />
-              </Route>
+              </Route> */}
 
               {/* If none of the other routes matched, we will show a 404. */}
               <Route>
