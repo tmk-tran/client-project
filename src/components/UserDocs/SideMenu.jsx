@@ -1,4 +1,11 @@
-import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 
 export default function SideMenu() {
   // Table of Contents
@@ -6,15 +13,15 @@ export default function SideMenu() {
     <Box sx={{ minWidth: 200, padding: 2 }}>
       <Typography variant="h6">Table of Contents</Typography>
       <List>
-        <ListItem button>
+        <ListItemButton>
           <ListItemText primary="Getting Started" />
-        </ListItem>
-        <ListItem button>
+        </ListItemButton>
+        <ListItemButton>
           <ListItemText primary="FAQs" />
-        </ListItem>
-        <ListItem button>
+        </ListItemButton>
+        <ListItemButton>
           <ListItemText primary="Troubleshooting" />
-        </ListItem>
+        </ListItemButton>
       </List>
     </Box>
   );
