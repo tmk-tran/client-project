@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
-import SideMenu from "./SideMenu";
+import SideMenu from "./SideMenu/SideMenu";
 import GettingStarted from "./GettingStarted";
 
 const HelpPage = () => {

@@ -20,7 +20,7 @@ export default function SideMenu() {
   const handleToggle = () => {
     setIsVideoTutorialsOpen(!isVideoTutorialsOpen);
   };
-  // Table of Contents
+
   return (
     <Box sx={{ minWidth: 200, padding: 2 }}>
       <List>
