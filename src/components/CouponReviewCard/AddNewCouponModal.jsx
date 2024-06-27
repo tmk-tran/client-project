@@ -78,8 +78,6 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
       setIsDropdownSelected(false);
     }
   }, [selectAllLocations]);
-  console.log(isDropdownSelected);
-  console.log(selectAllLocations);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -140,12 +138,7 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
     setSelectedLocations(locationId);
     setLocationsError(false);
   };
-  console.log(selectedLocations);
 
-  // const handleSelect = (boolean) => {
-  //   console.log(boolean);
-  //   setSelectAllLocations(boolean);
-  // };
   const handleSelect = (event) => {
     setSelectAllLocations(true);
     setSelectedValue(event.target.value);
@@ -154,15 +147,11 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
     setSelectAllLocations(false);
     setSelectedValue("");
   };
-  console.log(selectAllLocations);
-  console.log(selectedValue);
 
   // For the dropdown selection
   const handleDropdownSelectChange = (state) => {
-    console.log(state);
     setIsDropdownSelected(state);
   };
-  console.log(isDropdownSelected);
 
   return (
     <div>

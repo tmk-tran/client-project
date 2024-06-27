@@ -36,12 +36,8 @@ export default function AddLocationModal({
   editId,
   locationToEdit,
 }) {
-  console.log(isEditing);
-  console.log(editId);
-  console.log(locationToEdit);
   const dispatch = dispatchHook();
   const paramsObject = useParams();
-  console.log(paramsObject);
 
   const [open, setOpen] = useState(false);
 
@@ -54,14 +50,6 @@ export default function AddLocationModal({
   const [merchantId, setMerchantId] = useState(paramsObject.id);
   const [additionalDetails, setAdditionalDetails] = useState("");
 
-  console.log(locationName);
-  console.log(phoneNumber);
-  console.log(locationAddress);
-  console.log(city);
-  console.log(stateSelected);
-  console.log(zip);
-  console.log(merchantId);
-  console.log(additionalDetails);
   // ~~~~~~~~~~ Error State ~~~~~~~~~~~~~~~~~~~~ //
   const [nameError, setNameError] = useState(false);
   const [addressError, setAddressError] = useState(false);
@@ -71,7 +59,6 @@ export default function AddLocationModal({
   const [phoneError, setPhoneError] = useState(false);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
-  console.log(isSubmitted);
 
   useEffect(() => {
     if (locationToEdit) {

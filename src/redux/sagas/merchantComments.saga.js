@@ -16,15 +16,9 @@ function* fetchAllMerchantComments(action) {
 }
 
 function* merchantComments(action) {
-  console.log(action);
-  console.log(action.payload);
 
   try {
     const items = yield axios.get(`/api/merchantComments/${action.payload}`);
-    console.log(
-      "FETCH request from merchantComments.saga, ITEMS = ",
-      items.data
-    );
     yield put({ type: "SET_MERCHANT_COMMENTS", payload: items.data });
   } catch (error) {
     console.log("error in merchantComments Saga", error);
