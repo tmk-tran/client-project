@@ -15,7 +15,7 @@ function* merchantDetails(action) {
 function* allMerchants() {
   try {
     const items = yield axios.get("/api/merchants");
-    console.log("FETCH request from merchants.saga, ITEMS = ", items);
+    // console.log("FETCH request from merchants.saga, ITEMS = ", items);
     yield put({ type: "SET_MERCHANTS", payload: items.data });
   } catch (error) {
     console.log("Error in merchantsSaga", error);
@@ -26,7 +26,7 @@ function* allMerchants() {
 function* merchantCouponNumber() {
   try {
     const items = yield axios.get("/api/merchants/number");
-    console.log("FETCH request from merchants.saga, ITEMS = ", items);
+    // console.log("FETCH request from merchants.saga, ITEMS = ", items);
     yield put({ type: "SET_COUPON_NUMBER", payload: items.data });
   } catch (error) {
     console.log("Error in fetching coupon numbers, merchants saga: ", error);
