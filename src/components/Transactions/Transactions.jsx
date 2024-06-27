@@ -14,7 +14,6 @@ export default function Transactions() {
   }, []);
 
   const transactionList = paypalTransactions() || [];
-  console.log(transactionList);
 
   return (
     <Box>

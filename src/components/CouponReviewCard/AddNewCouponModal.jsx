@@ -110,7 +110,6 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
       type: "ADD_COUPON",
       payload: newCouponPayload,
     };
-    console.log(dispatchAction);
     dispatch(dispatchAction);
 
     handleCaseTypeChange("New Coupon");
@@ -134,7 +133,6 @@ export default function AddNewCouponModal({ handleCaseTypeChange, locations }) {
   };
 
   const handleLocationChange = (locationId) => {
-    console.log(locationId);
     setSelectedLocations(locationId);
     setLocationsError(false);
   };

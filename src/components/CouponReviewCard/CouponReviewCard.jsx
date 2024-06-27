@@ -68,7 +68,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
 
     // Log the dispatch action if it is defined
     if (dispatchAction) {
-      console.log("Dispatch Action:", dispatchAction);
       dispatch(dispatchAction);
     }
 
@@ -79,7 +78,6 @@ export default function CouponReviewCard({ merchant, onTaskUpdate }) {
           id: couponId,
         },
       };
-      console.log(dispatchAction2);
       dispatch(dispatchAction2);
     }
 

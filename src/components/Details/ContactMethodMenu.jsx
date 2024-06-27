@@ -12,7 +12,6 @@ const OrgMenu = ({ methods, defaultValue, onChange }) => {
 
   const handleChange = (event) => {
     const newValue = event.target.value;
-    console.log(newValue);
     setValue(newValue);
     onChange(newValue);
   };

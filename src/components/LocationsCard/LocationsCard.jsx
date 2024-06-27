@@ -28,7 +28,6 @@ export default function LocationsCard({
   const [locationToEdit, setLocationToEdit] = useState(null);
 
   const handleEditToggle = (locationFromSpeedDial) => {
-    console.log(locationFromSpeedDial);
     setIsEditing(!isEditing);
     if (locationFromSpeedDial !== null) {
       setLocationToEdit(locationFromSpeedDial); // Set the location being edited
@@ -36,9 +35,6 @@ export default function LocationsCard({
   };
 
   const handleDelete = (locationId, merchantId) => {
-    console.log(locationId);
-    console.log(merchantId);
-
     dispatch({
       type: "DELETE_LOCATION",
       payload: {
@@ -57,8 +53,6 @@ export default function LocationsCard({
   };
 
   const handleEdit = (locationId, merchantId) => {
-    console.log(locationId);
-    console.log(merchantId);
     setEditId(locationId);
   };
 

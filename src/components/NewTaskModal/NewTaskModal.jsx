@@ -134,9 +134,7 @@ export default function NewTaskModal({
   };
 
   const handleAccountChange = (event, value) => {
-    console.log(value);
     const selectedName = value;
-    console.log(selectedName);
 
     if (merchantTab) {
       // Logic for merchantTab being true
@@ -144,12 +142,8 @@ export default function NewTaskModal({
         merchants.find((merchant) => merchant.merchant_name === selectedName)
           ?.id || "";
 
-      console.log(merchants);
-      console.log(selectedId);
-      console.log(selectedName);
       setThirdMenuChoice(selectedName);
       setMerchantId(selectedId);
-      console.log(selectedId);
     } else {
       // Logic for merchantTab being false (organizations logic)
       const selectedId =
@@ -157,10 +151,8 @@ export default function NewTaskModal({
           (organization) => organization.organization_name === selectedName
         )?.id || "";
 
-      console.log(selectedName);
       setThirdMenuChoice(selectedName);
       setOrganizationId(selectedId);
-      console.log(selectedId);
     }
   };
 

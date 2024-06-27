@@ -16,10 +16,8 @@ import CouponDetails from "./CouponDetails";
 
 export default function CouponCard({ isMobile, coupon, i }) {
   const dispatch = dispatchHook();
-  console.log(coupon);
 
   const user = User() || {};
-  console.log(user);
 
   const cardStyle = {
     mb: 4,
@@ -49,9 +47,6 @@ export default function CouponCard({ isMobile, coupon, i }) {
   };
 
   const handleRedeem = (couponId, locationId, userId) => {
-    console.log(couponId);
-    console.log(locationId);
-    console.log(userId);
     const saveCall = () => {
       const redeemAction = {
         type: "REDEEM_COUPON",
@@ -61,7 +56,6 @@ export default function CouponCard({ isMobile, coupon, i }) {
           userId,
         },
       };
-      console.log(redeemAction);
       dispatch(redeemAction);
     };
     redeemCouponSweetAlert(saveCall);

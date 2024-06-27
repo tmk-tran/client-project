@@ -122,9 +122,7 @@ export default function UserAdmin() {
 
   const tableData = userTableData() || [];
   const orgAdmins = UserOrgAdmins() || [];
-  // console.log(orgAdmins);
   const allOrgs = allOrganizations() || [];
-  // console.log(allOrgs);
   const userBooks = userBooksData() || [];
 
   const fuse = new Fuse(tableData, {
@@ -134,8 +132,6 @@ export default function UserAdmin() {
   });
 
   const handleSwitch = (id, type, newValue) => {
-    console.log(id, type, newValue);
-
     if (type === "graphic_designer" || type === "org_admin") {
       const action = {
         type: "CHANGE_USER_ROLE",
@@ -145,7 +141,6 @@ export default function UserAdmin() {
             newValue,
         },
       };
-      console.log(action);
       dispatch(action);
       showSaveSweetAlert({ label: "User Role Updated" });
     }
@@ -158,7 +153,6 @@ export default function UserAdmin() {
           show_book: newValue,
         },
       };
-      console.log(action2);
       dispatch(action2);
       showSaveSweetAlert({ label: "Book Access Updated" });
     }
@@ -174,7 +168,6 @@ export default function UserAdmin() {
           org_id: newId,
         },
       };
-      // console.log(dispatchAction);
       dispatch(dispatchAction);
       showSaveSweetAlert({ label: "Organization Admin Set" });
       setAddNewOrg(false);
@@ -188,7 +181,6 @@ export default function UserAdmin() {
           org_id: newId,
         },
       };
-      // console.log(addAction);
       dispatch(addAction);
     }
   };
@@ -260,7 +252,6 @@ export default function UserAdmin() {
         username: newUserName,
       },
     };
-    // console.log(editAction);
     dispatch(editAction);
     resetEditUser();
 

@@ -4,10 +4,10 @@ import { put, takeEvery } from "redux-saga/effects";
 function* fetchAllMerchantComments(action) {
   try {
     const items = yield axios.get(`/api/merchantComments`);
-    console.log(
-      "FETCH request from merchantComments.saga, ITEMS = ",
-      items.data
-    );
+    // console.log(
+    //   "FETCH request from merchantComments.saga, ITEMS = ",
+    //   items.data
+    // );
     yield put({ type: "SET_MERCHANT_COMMENTS", payload: items.data });
   } catch (error) {
     console.log("error in merchantComments Saga", error);
@@ -16,7 +16,6 @@ function* fetchAllMerchantComments(action) {
 }
 
 function* merchantComments(action) {
-
   try {
     const items = yield axios.get(`/api/merchantComments/${action.payload}`);
     yield put({ type: "SET_MERCHANT_COMMENTS", payload: items.data });
@@ -27,14 +26,11 @@ function* merchantComments(action) {
 }
 
 function* couponComments(action) {
-  console.log(action);
-  console.log(action.payload);
-
   try {
     const items = yield axios.get(
       `/api/merchantComments/task/${action.payload}`
     );
-    console.log("FETCH request from couponComments.saga, ITEMS = ", items.data);
+    // console.log("FETCH request from couponComments.saga, ITEMS = ", items.data);
     yield put({ type: "SET_MERCHANT_COMMENTS", payload: items.data });
   } catch (error) {
     console.log("error in couponComments Saga", error);
@@ -43,8 +39,6 @@ function* couponComments(action) {
 
 function* addComments(action) {
   try {
-    console.log(action.payload);
-    console.log(action.payload.merchant_id);
     yield axios.post(`/api/merchantComments/`, action.payload);
     yield put({
       type: "FETCH_MERCHANT_COMMENTS",

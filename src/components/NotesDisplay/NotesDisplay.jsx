@@ -166,23 +166,11 @@ export default function NotesDisplay({
                             className="notes-delete-btn"
                             onClick={() => {
                               if (isMerchantTaskPage) {
-                                console.log(
-                                  "Merchant Task Page - Note ID:",
-                                  note.id,
-                                  "Merchant ID:",
-                                  note.merchant_id
-                                );
                                 showDeleteConfirmation(
                                   note.id,
                                   note.merchant_id
                                 );
                               } else {
-                                console.log(
-                                  "Organization Task Page - Note ID:",
-                                  note.id,
-                                  "Organization ID:",
-                                  note.organization_id
-                                );
                                 showDeleteConfirmation(
                                   note.id,
                                   note.organization_id

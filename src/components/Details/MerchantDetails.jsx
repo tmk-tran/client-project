@@ -65,7 +65,6 @@ export default function MerchantDetails({ isMerchantTaskPage }) {
   };
 
   const handleContactMethod = (newValue) => {
-    console.log(newValue);
     const dispatchAction = {
       type: "UPDATE_CONTACT_METHOD",
       payload: {

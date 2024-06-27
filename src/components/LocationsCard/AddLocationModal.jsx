@@ -163,7 +163,6 @@ export default function AddLocationModal({
       type: "EDIT_LOCATION",
       payload: { editId, ...newLocationPayload },
     };
-    console.log("Dispatching action:", action);
     dispatch(action);
 
     showSaveSweetAlert({ label: "Changes Saved" });
@@ -172,7 +171,6 @@ export default function AddLocationModal({
 
   const handleStateChange = (state, value) => {
     // Handle the state change in the parent component
-    console.log(state, value);
     !state
       ? alert("Please select a state.")
       : console.log("READY FOR SUBMIT LOGIC HERE");

@@ -12,7 +12,6 @@ function* fetchSeller(action) {
 }
 
 function* updateCash(action) {
-  console.log(action.payload);
   const sellerId = action.payload.id;
   const orgId = action.payload.orgId;
   const yearId = action.payload.yearId;
@@ -29,7 +28,6 @@ function* updateCash(action) {
 }
 
 function* updateChecks(action) {
-  console.log(action.payload);
   const sellerId = action.payload.id;
   const orgId = action.payload.orgId;
   const yearId = action.payload.yearId;
@@ -46,7 +44,6 @@ function* updateChecks(action) {
 }
 
 function* updateDonations(action) {
-  console.log(action.payload);
   const sellerId = action.payload.id;
   const orgId = action.payload.orgId;
   const yearId = action.payload.yearId;
@@ -63,7 +60,6 @@ function* updateDonations(action) {
 }
 
 function* updateDigitalPayments(action) {
-  console.log("DIGITAL PAYMENTS = ", action.payload);
   const sellerId = action.payload.id;
   const refId = action.payload.refId;
 
