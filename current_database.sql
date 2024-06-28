@@ -605,7 +605,7 @@ EXECUTE FUNCTION insert_user_coupons();
 ----------------------------------------------------------------------
 
 ----------------------------------------------------------------------
-------- Function and trigger for unique coupons for users ------------
+------- Function and trigger for redeeming coupons for users ------------
 CREATE OR REPLACE FUNCTION redeem_coupon_trigger_function()
 RETURNS TRIGGER AS
 $$
