@@ -46,14 +46,15 @@ export default function CouponCard({ isMobile, coupon, i }) {
     width: "100%",
   };
 
-  const handleRedeem = (couponId, locationId, userId) => {
+  const handleRedeem = (couponId, locationId, userId, yearId) => {
     const saveCall = () => {
       const redeemAction = {
         type: "REDEEM_COUPON",
         payload: {
-          couponId,
-          locationId,
-          userId,
+          couponId: couponId,
+          locationId: locationId,
+          userId: userId,
+          yearId: yearId,
         },
       };
       dispatch(redeemAction);

@@ -7,6 +7,7 @@ const {
 
 router.post("/", rejectUnauthenticated, (req, res) => {
   const coupon = req.body;
+  console.log(req.body);
 
   const queryText = `
       INSERT INTO 

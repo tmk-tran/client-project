@@ -38,6 +38,7 @@ export default function ConsumerCouponView() {
   const coupons = couponsData() || [];
   // For Coupon Book Year
   const activeYear = appActiveYear();
+  console.log(activeYear);
   const expirationYear =
     activeYear && activeYear[0] ? activeYear[0].year.split("-")[1] : "";
   // Year ID //
@@ -173,7 +174,7 @@ export default function ConsumerCouponView() {
           )}
           {!isLoading &&
             currentCoupons.map((coupon, index) => (
-              <CouponCard isMobile={isMobile} key={index} coupon={coupon} />
+              <CouponCard isMobile={isMobile} key={index} coupon={coupon} activeYearId={activeYearId} />
             ))}
         </>
       ) : (
