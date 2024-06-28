@@ -18,36 +18,68 @@ export default function GlobalFundraiserInput() {
     dispatch({
       type: "FETCH_ALL_GROUPS",
     });
+    dispatch({
+      type: "FETCH_COUPON_BOOKS",
+    });
   }, []);
-  // set state for organization id and group id
+
   const [selectedOrganizationId, setSelectedOrganizationId] = useState("");
   const [selectedGroup, setSelectedGroup] = useState("");
-
-  const handleOrganizationChange = (event) => {
-    setSelectedOrganizationId(event.target.value);
-  };
-
-  const handleGroupChange = (event) => {
-    setSelectedGroup(event.target.value);
-  };
-  // filter groups based off of organization id
-  const filteredGroups = groupList.filter(
-    (group) => group.organization_id === selectedOrganizationId
-  );
-  // state to create a new fundraiser- some state isnt used to its commented out
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [goal, setGoal] = useState("");
   const [booksRequested, setBooksRequested] = useState("");
   const [booksCheckedOut, setBooksCheckedOut] = useState("");
-  // const [booksOutValue, setBooksOutValue] = useState(null);
-  // const [booksCheckedIn, setBooksCheckedIn] = useState(null);
-  // const [booksSold, setBooksSold] = useState(null);
-  // const [moneyReceived, setMoneyReceived] = useState(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [couponBookId, setCouponBookId] = useState("");
-  // const [outstandingBalance, setOutstandingBalance] = useState(0);
+  const [isCancelButtonDisabled, setCancelButtonDisabled] = useState(true);
+
+  // filter groups based off of organization id
+  const filteredGroups = groupList.filter(
+    (group) => group.organization_id === selectedOrganizationId
+  );
+
+  const handleChange = (field, value) => {
+    if (!isCancelButtonDisabled) {
+      setCancelButtonDisabled(true);
+    }
+    switch (field) {
+      case "selectedOrganizationId":
+        setSelectedOrganizationId(value);
+        break;
+      case "selectedGroup":
+        setSelectedGroup(value);
+        break;
+      case "title":
+        setTitle(value);
+        break;
+      case "description":
+        setDescription(value);
+        break;
+      case "goal":
+        setGoal(value);
+        break;
+      case "booksRequested":
+        setBooksRequested(Number(value));
+        break;
+      case "booksCheckedOut":
+        setBooksCheckedOut(Number(value));
+        break;
+      case "startDate":
+        setStartDate(value);
+        break;
+      case "endDate":
+        setEndDate(value);
+        break;
+      case "couponBookId":
+        setCouponBookId(value);
+        break;
+      default:
+        break;
+    }
+    setCancelButtonDisabled(false);
+  };
 
   // clears the input fields
   function clearFields() {
@@ -61,6 +93,7 @@ export default function GlobalFundraiserInput() {
     setCouponBookId("");
     setSelectedOrganizationId("");
     setSelectedGroup("");
+    setCancelButtonDisabled(true);
   }
 
   // submit fundraiser, sweet alert, then clears inputs
@@ -143,7 +176,9 @@ export default function GlobalFundraiserInput() {
                 label="Select an Organization"
                 id="serviceSelect"
                 value={selectedOrganizationId}
-                onChange={handleOrganizationChange}
+                onChange={(e) =>
+                  handleChange("selectedOrganizationId", e.target.value)
+                }
                 fullWidth
               >
                 {organizations
@@ -171,7 +206,9 @@ export default function GlobalFundraiserInput() {
                   id="serviceSelect"
                   fullWidth
                   value={selectedGroup}
-                  onChange={handleGroupChange}
+                  onChange={(e) =>
+                    handleChange("selectedGroup", e.target.value)
+                  }
                 >
                   {filteredGroups?.map((group, index) => (
                     <MenuItem key={group.id} value={group.id}>
@@ -204,7 +241,7 @@ export default function GlobalFundraiserInput() {
                   sx={{ width: "45ch" }}
                   label="Coupon Book Year"
                   value={couponBookId}
-                  onChange={(e) => setCouponBookId(e.target.value)}
+                  onChange={(e) => handleChange("couponBookId", e.target.value)}
                 >
                   {couponBooks
                     .sort((a, b) => parseInt(a.year, 10) - parseInt(b.year, 10))
@@ -246,14 +283,14 @@ export default function GlobalFundraiserInput() {
                 type="text"
                 label="Fundraiser Name"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => handleChange("title", e.target.value)}
                 fullWidth
               />
               <TextField
                 label="$ Fundraiser Financial Goal"
                 type="number"
                 value={goal}
-                onChange={(e) => setGoal(e.target.value)}
+                onChange={(e) => handleChange("goal", e.target.value)}
                 fullWidth
               />
               <TextField
@@ -263,7 +300,7 @@ export default function GlobalFundraiserInput() {
                 type="text"
                 placeholder="Description"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => handleChange("description", e.target.value)}
                 fullWidth
               />
             </Box>
@@ -278,7 +315,9 @@ export default function GlobalFundraiserInput() {
               <TextField
                 type="number"
                 value={booksRequested}
-                onChange={(e) => setBooksRequested(Number(e.target.value))}
+                onChange={(e) =>
+                  handleChange("booksRequested", Number(e.target.value))
+                }
                 label="Books Requested"
                 fullWidth
                 style={{ marginLeft: "10.5%" }}
@@ -286,7 +325,9 @@ export default function GlobalFundraiserInput() {
               <TextField
                 type="number"
                 value={booksCheckedOut}
-                onChange={(e) => setBooksCheckedOut(Number(e.target.value))}
+                onChange={(e) =>
+                  handleChange("booksCheckedOut", Number(e.target.value))
+                }
                 label="Books Checked Out"
                 fullWidth
                 style={{ marginRight: "10.5%" }}
@@ -313,7 +354,7 @@ export default function GlobalFundraiserInput() {
               <TextField
                 type="date"
                 value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
+                onChange={(e) => handleChange("startDate", e.target.value)}
                 fullWidth
                 style={{ marginLeft: "10%" }}
               />
@@ -321,7 +362,7 @@ export default function GlobalFundraiserInput() {
               <TextField
                 type="date"
                 value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
+                onChange={(e) => handleChange("endDate", e.target.value)}
                 fullWidth
                 style={{ marginRight: "10%" }}
               />
@@ -329,14 +370,13 @@ export default function GlobalFundraiserInput() {
             <br />
             <br />
             <Button
-              variant="outlined"
               style={{
                 fontSize: "16px",
                 marginTop: "0px",
-                marginRight: "10px",
               }}
               sx={{ padding: "10px 28px" }}
               onClick={() => clearFields()}
+              disabled={isCancelButtonDisabled}
             >
               Cancel
             </Button>

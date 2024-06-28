@@ -1,64 +1,87 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-// ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Button, Card, CardContent, Typography } from "@mui/material";
-import { border } from "../Utils/colors";
-// ~~~~~~~~~~ Component ~~~~~~~~~~
+// ~~~~~~~~~~ Style ~~~~~~~~~~ //
+import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import { borderPrimaryColor } from "../Utils/colors";
+// ~~~~~~~~~~ Component ~~~~~~~~~~ //
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { historyHook } from "../../hooks/useHistory";
+import FilePreview from "../CouponReviewDetails/FilePreview";
 import CouponStatusDropdown from "../CouponStatusDropdown/CouponStatusDropdown";
+import NoDetailsCard from "../NoDetailsCard/NoDetailsCard";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
+import { historyHook } from "../../hooks/useHistory";
 import { dispatchHook } from "../../hooks/useDispatch";
-import { mComments } from "../../hooks/reduxStore";
+import { couponsData, mComments, mTasks } from "../../hooks/reduxStore";
+import { flexCenter, textCenter } from "../Utils/pageStyles";
+import { grayBackground } from "../Utils/colors";
+import { thumbnailSize } from "../CouponReviewDetails/FilePreview";
+import { capitalizeWords } from "../Utils/helpers";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
 
-export default function CouponReviewCard({ merchant }) {
-  console.log(merchant);
+const thumbnailHeaderStyle = {
+  ...grayBackground,
+  ...textCenter,
+};
+
+export default function CouponReviewCard({ merchant, onTaskUpdate }) {
   const mId = useParams();
-  console.log(mId);
   const merchantId = mId.id;
-  console.log(merchantId);
+
+  const [taskId, setTaskId] = useState("");
+  const [couponId, setCouponId] = useState("");
+  const [taskStatus, setTaskStatus] = useState("");
+  const [newTaskStatus, setNewTaskStatus] = useState("");
+  const [isTaskUpdate, setIsTaskUpdate] = useState(false);
+  const [changesRequested, setChangesRequested] = useState(false);
+  const [completedCoupon, setCompletedCoupon] = useState(false);
 
   const dispatch = dispatchHook();
   const history = historyHook();
 
   useEffect(() => {
-    dispatch({
-      type: "FETCH_MERCHANT_COMMENTS",
-      payload: merchantId,
-    });
-  }, []);
+    merchantId &&
+      dispatch({
+        type: "FETCH_PDF_FILE",
+        payload: merchantId,
+      });
+  }, [merchantId]);
 
-  const merchantComments = mComments(merchantId);
-  console.log(merchantComments);
-  // const mostRecentComment = merchantComments.length > 0 ? merchantComments[0] : null;
-  // console.log(mostRecentComment);
-
-  // Create a map to store the most recent comment for each task
-  const mostRecentCommentsMap = new Map();
-
-  // Iterate through each comment and update the map with the most recent comment for each task
-  merchantComments.forEach((comment) => {
-    const taskId = comment.task_id;
-    console.log(taskId);
-    const existingComment = mostRecentCommentsMap.get(taskId);
-    console.log(existingComment);
-
-    if (!existingComment || comment.date > existingComment.date) {
-      mostRecentCommentsMap.set(taskId, comment);
-    }
-  });
-
-  // Convert the map values (most recent comments) into an array
-  const mostRecentComments = Array.from(mostRecentCommentsMap.values());
-  console.log(mostRecentComments);
+  const couponFiles = couponsData() || [];
+  const merchantComments = mComments();
+  const tasks = mTasks() || [];
 
   const handleUpdateClick = (event) => {
-    // Add your logic for the Update button click
-    // ...
-
     // Prevent the click event from propagating to the Card and triggering history.push
     event.stopPropagation();
+
+    const dispatchAction = newTaskStatus
+      ? {
+          type: "UPDATE_MERCHANT_TASK",
+          payload: {
+            id: taskId,
+            task: newTaskStatus,
+            task_status: taskStatus,
+            merchantId: merchantId,
+          },
+        }
+      : null;
+
+    // Log the dispatch action if it is defined
+    if (dispatchAction) {
+      dispatch(dispatchAction);
+    }
+
+    if (completedCoupon) {
+      const dispatchAction2 = {
+        type: "ADD_TO_CONSUMER_LIST",
+        payload: {
+          id: couponId,
+        },
+      };
+      dispatch(dispatchAction2);
+    }
+
+    showSaveSweetAlert({ label: "Task Updated" });
   };
 
   const handleContainerClick = (event) => {
@@ -66,103 +89,186 @@ export default function CouponReviewCard({ merchant }) {
     event.stopPropagation();
   };
 
+  const handleUpdateTask = (taskId, couponId, choice, selectedTaskStatus) => {
+    setTaskId(taskId);
+    setCouponId(couponId);
+    setNewTaskStatus(choice);
+    setTaskStatus(selectedTaskStatus);
+    setIsTaskUpdate(true);
+  };
+
+  const handleChangeRequest = (boolean) => {
+    setChangesRequested(boolean);
+  };
+
+  const handleCompletedCoupon = (boolean) => {
+    setCompletedCoupon(boolean);
+  };
+
+  const handleCardClick = (couponId) => {
+    history.push({
+      pathname: `/fargo/coupon/${merchantId}/${couponId}`,
+    });
+  };
+
   return (
-    <Card
-      elevation={6}
-      className="details-view-card"
-      onClick={() => {
-        history.push(`/coupon/${1}`);
-      }}
-      // sx={{ height: "80%" }}
-    >
-      <CardContent>
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~~ */}
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            marginBottom: "20px",
-          }}
-          onClick={handleContainerClick}
-        >
-          {/* Status Menu */}
-          <CouponStatusDropdown />
+    <>
+      {couponFiles.length > 0 ? (
+        couponFiles.map((file, i) => {
+          // const couponTask = tasks.find((task) => task.coupon_id === file.id);
+          const couponTask = Array.isArray(tasks)
+            ? tasks.find((task) => task.coupon_id === file.id)
+            : null;
 
-          <Button sx={{ marginLeft: "10px" }} onClick={handleUpdateClick}>
-            Update
-          </Button>
-        </div>
-        {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          const relatedComments = merchantComments.filter(
+            (comment) => comment.coupon_id === file.id
+          );
 
-        <hr />
+          const mostRecentComment =
+            relatedComments.length > 0 ? relatedComments[0] : null;
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
-          {/* REMOVE BORDERS AND PLACEHOLDERS UPON HOOKUP TO DB ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~ FRONT OF COUPON ~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* <div style={border}> */}
-          <div>
-            <div
-              style={{
-                height: "15vh",
-                backgroundColor: "#D9D9D9",
+          return (
+            <Card
+              key={i}
+              elevation={3}
+              sx={{
+                "&:hover": { cursor: "pointer", transform: "scale(1.03)" },
+              }}
+              onClick={() => {
+                handleCardClick(file.id);
               }}
             >
-              <Typography sx={{ textAlign: "center", lineHeight: "15vh" }}>
-                Front of Coupon
-              </Typography>
-            </div>
-          </div>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~ BACK OF COUPON ~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* <div style={border}> */}
-          <div>
-            <div
-              style={{
-                height: "15vh",
-                backgroundColor: "#D9D9D9",
-              }}
-            >
-              <Typography sx={{ textAlign: "center", lineHeight: "15vh" }}>
-                Back of Coupon
-              </Typography>
-            </div>
-          </div>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~ COUPON DETAILS ~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* <div style={border}> */}
-          <div>
-            <div
-              style={{
-                height: "10vh",
-                backgroundColor: "rgba(96, 96, 96, 0.1)",
-              }}
-            >
-              <Typography
-                variant="body2"
-                sx={{ textAlign: "center", lineHeight: "10vh" }}
-              >
-                Details of Coupon
-              </Typography>
-            </div>
-          </div>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          <div style={{ padding: "5%" }}>
-            {mostRecentComments.map((comment) => (
-              <CommentDisplay key={comment.id} comment={comment} />
-            ))}
-          </div>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        </div>
-      </CardContent>
-    </Card>
+              <CardContent>
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~ HEADER ~~~~~~~~~~~ */}
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    marginBottom: "20px",
+                  }}
+                  onClick={handleContainerClick}
+                >
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~~~~~ Status Menu ~~~~~~~~~~ */}
+                  {file.taskId ? (
+                    <>
+                      <Box sx={flexCenter}>
+                        <Typography sx={{ mr: 2 }}>#{file.id}</Typography>
+                      </Box>
+                      <CouponStatusDropdown
+                        couponId={file.id}
+                        task={couponTask}
+                        handleUpdateTask={handleUpdateTask}
+                        onChange={handleChangeRequest}
+                        complete={handleCompletedCoupon}
+                      />
+
+                      <Button
+                        sx={{ marginLeft: "10px" }}
+                        onClick={handleUpdateClick}
+                      >
+                        Update
+                      </Button>
+                    </>
+                  ) : null}
+                </div>
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                <hr />
+
+                <div style={{ display: "flex", flexDirection: "row", gap: 5 }}>
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~ FRONT OF COUPON ~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  <div style={borderPrimaryColor}>
+                    <Typography variant="body2" sx={thumbnailHeaderStyle}>
+                      Front
+                    </Typography>
+                    <FilePreview
+                      directFile={file}
+                      showFrontViewFiles={true}
+                      showBackViewFiles={false}
+                      caseType="preview"
+                    />
+                  </div>
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~ BACK OF COUPON ~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  <div style={borderPrimaryColor}>
+                    <Typography variant="body2" sx={thumbnailHeaderStyle}>
+                      Back
+                    </Typography>
+                    <FilePreview
+                      directFile={file}
+                      showFrontViewFiles={false}
+                      showBackViewFiles={true}
+                      caseType="preview"
+                    />
+                  </div>
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  {/* ~~~~~~ COUPON DETAILS ~~~~~~~ */}
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                  <div style={borderPrimaryColor}>
+                    <Typography variant="body2" sx={thumbnailHeaderStyle}>
+                      Offer:
+                    </Typography>
+                    <div style={{ ...thumbnailSize, ...flexCenter }}>
+                      {file.offer ? (
+                        <Typography
+                          variant="body2"
+                          sx={{ fontWeight: "bold", p: 1, ...textCenter }}
+                        >
+                          {/* Details of Coupon */}
+                          {capitalizeWords(file.offer)}
+                        </Typography>
+                      ) : (
+                        <Typography variant="caption">No offer set</Typography>
+                      )}
+                    </div>
+                  </div>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "100%",
+                    }}
+                  >
+                    {file.year ? (
+                      <Typography variant="body2" sx={thumbnailHeaderStyle}>
+                        Year: <strong>{file.year}</strong>
+                      </Typography>
+                    ) : null}
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~ COMMENTS ~~~~~~~~~~ */}
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    <Box sx={{ mt: 5, p: 0.5 }}>
+                      {mostRecentComment ? (
+                        <CommentDisplay
+                          key={mostRecentComment.id}
+                          comment={mostRecentComment}
+                          showAllComments={false}
+                          maxWidth={{ maxWidth: "200px" }}
+                        />
+                      ) : (
+                        <Typography
+                          variant="body2"
+                          sx={{ ml: 3, textAlign: "center" }}
+                        >
+                          No comment available
+                        </Typography>
+                      )}
+                    </Box>
+                  </Box>
+                  {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })
+      ) : (
+        <NoDetailsCard label="Coupons empty" />
+      )}
+    </>
   );
 }

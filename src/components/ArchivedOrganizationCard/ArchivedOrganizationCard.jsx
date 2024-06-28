@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import Swal from "sweetalert2";
 import "./ArchivedOrganizationCard.css";
+import { successColor } from "../Utils/colors";
 
 function ArchivedOrganizationCard({ organization }) {
   const history = useHistory();
@@ -14,18 +15,18 @@ function ArchivedOrganizationCard({ organization }) {
   // sweet alert to confirm
   function unArchive(organizationId) {
     Swal.fire({
-      title: "Are you sure you want to Un-Archive this Organization?",
+      title: "Are you sure you want to restore this organization?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: successColor.color,
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Un-Archive It",
+      confirmButtonText: "Yes, restore it",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch({ type: "RESET_ORGANIZATION", payload: organizationId });
         dispatch({ type: "FETCH_ORGANIZATIONS" });
         dispatch({ type: "FETCH_ARCHIVED_ORGANIZATIONS" });
-        Swal.fire("Organization Successfully Un-Archived!");
+        Swal.fire("Organization successfully restored!");
       }
     });
   }
@@ -108,16 +109,16 @@ function ArchivedOrganizationCard({ organization }) {
 
           <div
             className="archivedOrganizationActions"
-            style={{ marginTop: "-85px" }}
+            style={{ marginTop: "-150px" }}
           >
             <Button
-              style={{ marginRight: "16px" }}
+              sx={{ mr: 2 }}
               onClick={(e) => {
                 e.stopPropagation();
                 unArchive(organization.id);
               }}
             >
-              <span className="archive-button">Un-archive</span>
+              Restore
             </Button>
           </div>
         </CardContent>

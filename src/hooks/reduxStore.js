@@ -44,10 +44,74 @@ export const mComments = () => {
   return useSelector((store) => store.merchantComments);
 };
 
+export const mLocations = () => {
+  return useSelector((store) => store.locations);
+};
+
+export const mCoupons = () => {
+  return useSelector((store) => store.merchantCoupons);
+};
+
+export const oSellers = () => {
+  return useSelector((store) => store.sellers);
+};
+
+export const sellerPageInfo = () => {
+  return useSelector((store) => store.sellerPage);
+};
+
+export const searchedSeller = () => {
+  return useSelector((store) => store.sellerSearch);
+};
+
+export const couponsData = () => {
+  return useSelector((store) => store.coupons);
+};
+
+export const bookYear = () => {
+  return useSelector((store) => store.bookYear);
+};
+
+export const appActiveYear = () => {
+  return useSelector((store) => store.activeYear);
+};
+
+export const allYears = () => {
+  return useSelector((store) => store.couponBooks);
+};
+
+export const customerList = () => {
+  return useSelector((store) => store.customers);
+};
+
+export const paypalTransactions = () => {
+  return useSelector((store) => store.paypal);
+};
+
+export const digitalBookTypeSold = () => {
+  return useSelector((store) => store.digitalBookType);
+};
+
+export const userTableData = () => {
+  return useSelector((store) => store.userTable);
+};
+
+export const userBooksData = () => {
+  return useSelector((store) => store.userBooks);
+};
+
 export const User = () => {
   return useSelector((store) => store.user);
 };
 
+export const UserOrgAdmins = () => {
+  return useSelector((store) => store.userOrgAdmins);
+};
+
 export const Errors = () => {
   return useSelector((store) => store.errors);
+};
+
+export const CustomerAdded = () => {
+  return useSelector((store) => store.customerAddSuccess);
 };

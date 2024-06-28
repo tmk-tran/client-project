@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Typography,
@@ -32,114 +33,193 @@ const theme = createTheme({
 });
 
 export default function NavLinks() {
+  const location = useLocation();
   const user = User();
+
+  // Hide NavLinks component on the checkout page
+  if (location.pathname === "/checkout") {
+    return null;
+  }
 
   return (
     <ThemeProvider theme={theme}>
       <div className="NavLinks-container">
-        {/* If no user is logged in, show these links */}
-        {!user.id && (
+        {/* If no user is logged in or user is an org admin, show these links */}
+        {!user.id || user.org_admin || user.graphic_designer ? (
           <>
-            {/* <Typography>
-            <MuiLink
-              component={Link}
-              className="main-navlink"
-              to="/publicOrgs"
-              underline="hover"
-            >
-              View Organizations
-            </MuiLink>
-          </Typography> */}
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/login"
-                underline="hover"
+            {!user.id && (
+              <Typography
+                sx={{
+                  textAlign: !user.id ? "center" : "inherit",
+                  flexGrow: !user.id ? 1 : "inherit",
+                }}
               >
-                Login / Register
-              </MuiLink>
-            </Typography>
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/about"
-                underline="hover"
-              >
-                About
-              </MuiLink>
-            </Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/login"
+                  underline="hover"
+                >
+                  Login
+                </MuiLink>
+              </Typography>
+            )}
+            {/* Added the /home link for org admins */}
+            {user.org_admin && !user.graphic_designer && (
+              <>
+                <Typography>
+                  <MuiLink
+                    component={Link}
+                    className="main-navlink"
+                    to="/fargo/home"
+                    underline="hover"
+                  >
+                    Organizations
+                  </MuiLink>
+                </Typography>
+                <Typography>
+                  <MuiLink
+                    component={Link}
+                    className="main-navlink"
+                    to="/fargo/coupon"
+                    underline="hover"
+                  >
+                    Coupons
+                  </MuiLink>
+                </Typography>
+              </>
+            )}
+            {/* Links for graphic designer */}
+            {user.graphic_designer && user.org_admin && !user.is_admin && (
+              <>
+                <Typography>
+                  <MuiLink
+                    component={Link}
+                    className="main-navlink"
+                    to="/fargo/home"
+                    underline="hover"
+                  >
+                    Merchants
+                  </MuiLink>
+                </Typography>
+
+                <Typography>
+                  <MuiLink
+                    component={Link}
+                    className="main-navlink"
+                    to="/fargo/coupon"
+                    underline="hover"
+                  >
+                    Coupons
+                  </MuiLink>
+                </Typography>
+
+                <Typography>
+                  <MuiLink
+                    component={Link}
+                    className="main-navlink"
+                    to="/fargo/tasks"
+                    underline="hover"
+                  >
+                    Tasks
+                  </MuiLink>
+                </Typography>
+              </>
+            )}
           </>
+        ) : (
+          // If a user is_admin status, show these links
+          user.is_admin && (
+            <>
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/fargo/home"
+                  underline="hover"
+                >
+                  Home
+                </MuiLink>
+              </Typography>
+
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/fargo/newFundraiser"
+                  underline="hover"
+                >
+                  New Fundraiser
+                </MuiLink>
+              </Typography>
+
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/fargo/archivedOrganizations"
+                  underline="hover"
+                >
+                  Archived Organizations
+                </MuiLink>
+              </Typography>
+
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/fargo/coupon"
+                  underline="hover"
+                >
+                  Coupons
+                </MuiLink>
+              </Typography>
+
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/fargo/tasks"
+                  underline="hover"
+                >
+                  Tasks
+                </MuiLink>
+              </Typography>
+
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/fargo/transactions"
+                  underline="hover"
+                >
+                  Transactions
+                </MuiLink>
+              </Typography>
+
+              <Typography>
+                <MuiLink
+                  component={Link}
+                  className="main-navlink"
+                  to="/fargo/useradmin"
+                  underline="hover"
+                >
+                  Users
+                </MuiLink>
+              </Typography>
+            </>
+          )
         )}
-        {/* If a user is logged in, show these links */}
-        {user.id && (
-          <>
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/home"
-                underline="hover"
-              >
-                Home
-              </MuiLink>
-            </Typography>
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/newFundraiser"
-                underline="hover"
-              >
-                New Fundraiser
-              </MuiLink>
-            </Typography>
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/archivedOrganizations"
-                underline="hover"
-              >
-                Archived Organizations
-              </MuiLink>
-            </Typography>
-
-            {/* <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/coupon"
-                underline="hover"
-              >
-                Coupon
-              </MuiLink>
-            </Typography> */}
-
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/tasks"
-                underline="hover"
-              >
-                Tasks
-              </MuiLink>
-            </Typography>
-
-            <Typography>
-              <MuiLink
-                component={Link}
-                className="main-navlink"
-                to="/about"
-                underline="hover"
-              >
-                About
-              </MuiLink>
-            </Typography>
-          </>
-        )}
+        {/* <Typography>
+          <MuiLink
+            component={Link}
+            className="main-navlink"
+            to="/help"
+            underline="hover"
+          >
+            Help
+          </MuiLink>
+        </Typography> */}
       </div>
     </ThemeProvider>
   );

@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Styles ~~~~~~~~~~
-import {
-  Box,
-  Button,
-  Card,
-  Divider,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import "./OrgContactDetails.css";
-// ~~~~~~~~~~ Icons ~~~~~~~~~~
-import EditNoteIcon from "@mui/icons-material/EditNote";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import DetailsEdit from "../DetailsEdit/DetailsEdit";
 import ContactDetailsCard from "./ContactDetailsCard";
+import EditButton from "../Buttons/EditButton";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
 import { capitalizeWords, formatPhoneNumber } from "../Utils/helpers";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 
-export default function ContactDetails({ info, isMerchantTaskPage }) {
-  console.log(info);
-  console.log(isMerchantTaskPage);
+const accountNameStyle = {
+  fontWeight: "bold",
+  whiteSpace: "normal",
+  wordWrap: "break-word",
+  overflowWrap: "break-word",
+};
+
+export default function ContactDetails({
+  info,
+  isMerchantTaskPage,
+  isOrgAdminPage,
+}) {
   const dispatch = dispatchHook();
   const contactPhone = isMerchantTaskPage
     ? formatPhoneNumber(info.contact_phone_number)
@@ -40,7 +41,6 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
   };
 
   const handleSaveContact = (editedItem) => {
-    console.log("New Contact Info:", editedItem);
     isMerchantTaskPage
       ? dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedItem })
       : dispatch({ type: "EDIT_ORG_DETAILS", payload: editedItem });
@@ -48,10 +48,15 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
   };
 
   const handleSaveOrgDetails = (editedDetails) => {
-    console.log("New Details:", editedDetails);
-    isMerchantTaskPage
-      ? dispatch({ type: "EDIT_MERCHANT_DETAILS", payload: editedDetails })
-      : dispatch({ type: "EDIT_ORG_DETAILS", payload: editedDetails });
+    const merchantAction = {
+      type: "EDIT_MERCHANT_DETAILS",
+      payload: editedDetails,
+    };
+    const orgAction = {
+      type: "EDIT_ORG_DETAILS",
+      payload: editedDetails,
+    };
+    isMerchantTaskPage ? dispatch(merchantAction) : dispatch(orgAction);
   };
 
   return (
@@ -62,9 +67,12 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
             <center>
               <div className="org-details-header">
                 <div className="edit-icon-btn">
-                  <Button onClick={handleEditOrg}>
-                    <EditNoteIcon className="edit-note-icon" />
-                  </Button>
+                  {!isOrgAdminPage && (
+                    <EditButton
+                      onClick={handleEditOrg}
+                      title={"Edit Account Details"}
+                    />
+                  )}
                 </div>
                 <DetailsEdit
                   isOpen={isEditingOrgDetails}
@@ -79,11 +87,11 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
           <div className="org-address">
             <div className="org-name-container">
               {!isMerchantTaskPage ? (
-                <Typography variant="h5" style={{ fontWeight: "bold" }}>
+                <Typography variant="h5" sx={accountNameStyle}>
                   {capitalizeWords(info.organization_name)}
                 </Typography>
               ) : (
-                <Typography variant="h5" style={{ fontWeight: "bold" }}>
+                <Typography variant="h5" sx={accountNameStyle}>
                   {capitalizeWords(info.merchant_name)}
                 </Typography>
               )}
@@ -97,7 +105,7 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
           <br />
         </div>
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-        {/* Organization Contact Details Card */}
+        {/* ~~~~~ Contact Details Card ~~~~~~ */}
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <ContactDetailsCard
           contactPhone={contactPhone}
@@ -108,6 +116,7 @@ export default function ContactDetails({ info, isMerchantTaskPage }) {
           isMerchantTaskPage={isMerchantTaskPage}
           isSmallScreen={isSmallScreen}
           setIsEditing={setIsEditing}
+          isOrgAdminPage={isOrgAdminPage}
         />
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         <Box sx={{ flexGrow: 1 }}></Box>

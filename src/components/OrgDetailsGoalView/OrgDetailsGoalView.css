@@ -1,15 +1,14 @@
 .goals-display-card {
   position: absolute;
-  margin-right: 2vh;
   width: 50vh;
-  /* right: 80px; */
-  right: 1vh;
+  right: 0;
   top: 0;
+  /* height: 40vh; */
 }
 
 .org-detail-goal-container {
-  height: 28vh;
-  max-height: 32vh;
+  /* height: 28vh;
+  max-height: 32vh; */
   overflow-y: auto;
   border: 1px solid #273a9158;
   border-radius: 4px;

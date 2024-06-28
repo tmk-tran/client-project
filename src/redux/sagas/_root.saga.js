@@ -2,6 +2,7 @@ import { all } from "redux-saga/effects";
 import loginSaga from "./login.saga";
 import registrationSaga from "./registration.saga";
 import userSaga from "./user.saga";
+import userOrgAdminSaga from "./userOrgAdmin.saga";
 
 import orgDetailsSaga from "./orgDetails.saga";
 import organizationsSaga from "./organizations.saga";
@@ -13,25 +14,28 @@ import couponBookSaga from "./couponBook.saga";
 import groupAdminSaga from "./groupAdmin.saga";
 import orgNotesSaga from "./orgNotes.saga";
 import allUsersSaga from "./allUsers.saga";
-import filesSaga from "./files.saga";
-import merchantDetailsSaga from "./merchantDetails.saga";
+import couponSaga from "./coupon.saga";
+import merchantsSaga from "./merchants.saga";
 import merchantNotesSaga from "./merchantNotes.saga";
 import merchantTaskSaga from "./merchantTask.saga";
 import organizationTaskSaga from "./organizationTask.saga";
 import merchantCommentsSaga from "./merchantComments.saga";
+import locationsSaga from "./locations.saga";
+import sellersSaga from "./sellers.saga";
+import sellerPageSaga from "./sellerPage.saga";
+import customersSaga from "./customers.saga";
+import transactionsSaga from "./transactions.saga";
+import redeemSaga from "./couponRedeem.saga";
+import paypalSaga from "./paypal.saga";
+import userCouponSaga from "./userCoupon.saga";
+import activeCampaignSaga from "./active_campaign.saga";
 
-// rootSaga is the primary saga.
-// It bundles up all of the other sagas so our project can use them.
-// This is imported in index.js as rootSaga
-
-// some sagas trigger other sagas, as an example
-// the registration triggers a login
-// and login triggers setting the user
 export default function* rootSaga() {
   yield all([
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
+    userOrgAdminSaga(),
     orgDetailsSaga(),
     organizationsSaga(),
     groupSaga(),
@@ -42,11 +46,20 @@ export default function* rootSaga() {
     groupAdminSaga(),
     orgNotesSaga(),
     allUsersSaga(),
-    filesSaga(),
-    merchantDetailsSaga(),
+    couponSaga(),
+    merchantsSaga(),
     merchantNotesSaga(),
     merchantTaskSaga(),
     organizationTaskSaga(),
     merchantCommentsSaga(),
+    locationsSaga(),
+    sellersSaga(),
+    sellerPageSaga(),
+    customersSaga(),
+    transactionsSaga(),
+    redeemSaga(),
+    paypalSaga(),
+    userCouponSaga(),
+    activeCampaignSaga(),
   ]);
 }

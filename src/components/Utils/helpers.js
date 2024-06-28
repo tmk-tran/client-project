@@ -12,20 +12,36 @@ export function formatPhoneNumber(phoneNumber) {
 
 // Format date to MM/DD/YYYY, used in OrgNotes component
 export const formatDate = (dateString) => {
+  if (!dateString) return null; // Return null if dateString is undefined or null
   const dateWithoutTime = dateString.split("T")[0]; // Extract only the date part
   const [year, month, day] = dateWithoutTime.split("-");
   return `${month}/${day}/${year}`;
 };
 
 export const convertTo12HourFormat = (time24hr) => {
-  const [hours, minutes] = time24hr.split(':');
+  const [hours, minutes] = time24hr.split(":");
   const dummyDate = new Date(0, 0, 0, hours, minutes);
-  const time12hr = dummyDate.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
+  const time12hr = dummyDate.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
     hour12: true,
   });
   return time12hr;
+};
+
+export const formatDateTime = (dateTimeString) => {
+  const date = new Date(dateTimeString);
+  const formattedDate = date.toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  });
+  const formattedTime = date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+  return `${formattedDate} ${formattedTime}`;
 };
 
 // Function to capitalize the first letter of each word
@@ -33,19 +49,34 @@ export const capitalizeWords = (sentence) => {
   return sentence
     ? sentence
         .split(" ")
-        .map(
-          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        .map((word) =>
+          word.length === 1
+            ? word.toUpperCase()
+            : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
         )
         .join(" ")
     : "";
 };
 
 export const capitalizeFirstWord = (sentence) => {
-  if (typeof sentence !== 'string' || sentence.length === 0) {
-    return '';
+  if (typeof sentence !== "string" || sentence.length === 0) {
+    return "";
   }
 
   return sentence.charAt(0).toUpperCase() + sentence.slice(1);
+};
+
+export function capitalize(str) {
+  return str.replace(/\b\w/g, function (char) {
+    return char.toUpperCase();
+  });
+}
+
+export function capitalizeStateAbbr(abbr) {
+  if (abbr == null) {
+    return "";
+  }
+  return abbr.slice(0, 2).toUpperCase();
 }
 
 // In progress, trying to account for acronyms in a sentence
@@ -97,12 +128,6 @@ export const style = {
   },
 };
 
-export const centeredStyle = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-};
-
 export const styleFlexBox = {
   display: "flex",
   justifyContent: "center",
@@ -117,27 +142,96 @@ export const styleImage = {
   objectFit: "contain",
 };
 
-// Flexbox style for buttons in modals OrgDetails component
-export const modalBtnStyle = {
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-};
-
 // Center style for table cells, and list items in OrgContactDetails component
 export const centerStyle = {
   textAlign: "center",
-};
-
-// Style for center of divs
-export const centerDiv = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
 };
 
 // Style for hr lines in Notes and Task display
 export const hrStyle = {
   width: "90%",
   border: "1px solid #273b91",
+};
+
+// Tab width for Tabs in TaskTabs, and HomePageTabs
+export const tabWidth = {
+  width: "25vw",
+};
+
+// Validate phone number format
+export const validatePhoneNumber = (phoneNumber) => {
+  const phoneRegex = /^[0-9]*$/;
+  return phoneRegex.test(phoneNumber) && phoneNumber.length === 10;
+};
+
+// export const validatePhoneNumber = (phoneNumber) => {
+//   return /^[0-9]*$/.test(phoneNumber);
+// };
+
+// Validate email address format
+export const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return email === "" || emailRegex.test(email);
+};
+
+// Validate website address format
+export const validateWebsiteFormat = (website) => {
+  const websiteRegex =
+    /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
+  return websiteRegex.test(website);
+};
+
+// Spacing for buttons with AddBoxIcons
+export const buttonIconSpacing = {
+  marginRight: "5px",
+};
+
+// Button width for save button in modals
+export const saveBtnWidth = {
+  width: "60%",
+};
+
+// Handle caseType change
+export const handleCaseTypeChange = (newValue) => {
+  setCaseType(newValue);
+};
+
+export const getExpirationYear = (bookYearData) => {
+  const years = bookYearData[0].year;
+  const expirationYear = years.split("-")[1];
+  return expirationYear;
+};
+
+// Season function
+export const getCurrentSeason = () => {
+  // Fetch the current year
+  const currentYear = new Date().getFullYear();
+
+  // Fetch the current date
+  const currentDate = new Date();
+
+  // Determine the current season based on the current date
+  let currentSeason;
+  if (
+    currentDate >= new Date(`${currentYear - 1}-09-02`) &&
+    currentDate <= new Date(`${currentYear}-09-01`)
+  ) {
+    // Season starts after September 1st
+    currentSeason = `${currentYear - 1}-${currentYear}`;
+  } else {
+    currentSeason = `${currentYear}-${currentYear + 1}`;
+  }
+
+  return currentSeason;
+};
+
+// Date change function
+export const handleDateChange = (date, setState) => {
+  const formattedDate = date.$d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  setState(formattedDate);
 };

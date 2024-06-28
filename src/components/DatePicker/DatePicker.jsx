@@ -5,11 +5,15 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { InputLabel } from "@mui/material";
 
-export default function BasicDatePicker({ initialDate, onChange}) {
+export default function BasicDatePicker({
+  initialDate,
+  onChange,
+  hideInputLabel,
+}) {
   const [date, setDate] = useState(initialDate);
-  console.log(date);
-  const logDate = date.$d;
-  console.log(logDate);
+  if (date) {
+    const logDate = date.$d;
+  }
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
@@ -19,14 +23,14 @@ export default function BasicDatePicker({ initialDate, onChange}) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <InputLabel>Due:</InputLabel>
+      {hideInputLabel ? null : <InputLabel>Due:</InputLabel>}
       <DemoContainer components={["DatePicker"]}>
         <DatePicker
           // label="Date"
           // value={date}
           onChange={handleDateChange}
           slotProps={{
-            textField: { placeholder: "Date Here...", sx: { width: "100%" } },
+            textField: { placeholder: "Date Due...", sx: { width: "100%" } },
           }}
         />
       </DemoContainer>

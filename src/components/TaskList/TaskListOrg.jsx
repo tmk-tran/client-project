@@ -1,25 +1,39 @@
-import React, { useState } from "react";
-// ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Typography, MenuItem, Select, Box } from "@mui/material";
+import React, { useState, useEffect } from "react";
+// ~~~~~~~~~~ Style ~~~~~~~~~~ //
+import {
+  CircularProgress,
+  Typography,
+  MenuItem,
+  Select,
+  Box,
+} from "@mui/material";
 import "./TaskList.css";
-// ~~~~~~~~~~ Components ~~~~~~~~~~
+// ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import TaskCard from "../TaskCard/TaskCard";
 import SuccessAlert from "../SuccessAlert/SuccessAlert";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { oTasks } from "../../hooks/reduxStore";
 import { useAlert } from "../SuccessAlert/useAlert";
+import { spinnerSx } from "../TaskTabs/TaskTabs";
 
-export default function TaskListOrg() {
+export default function TaskListOrg({ isLoading, loadComplete }) {
   const [selectedTasks, setSelectedTasks] = useState({
     newTask: "",
     inProgressTask: "",
     completeTask: "",
   });
+  const [caseType, setCaseType] = useState("");
 
   const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
 
   const orgTasks = oTasks() || [];
-  console.log(orgTasks);
+
+  // Set isLoading to false when the tasks are loaded
+  useEffect(() => {
+    if (orgTasks.length > 0) {
+      loadComplete();
+    }
+  }, [orgTasks]);
 
   // Group tasks by task_status (case-insensitive)
   // Check if orgTasks is an array before using reduce
@@ -37,8 +51,17 @@ export default function TaskListOrg() {
   const sortedInProgressTasks = tasksByStatus["in progress"] || [];
   const sortedCompleteTasks = tasksByStatus["complete"] || [];
 
+  const handleCaseTypeChange = (newValue) => {
+    setCaseType(newValue);
+  };
+
   return (
     <Box className="list-container">
+      <SuccessAlert
+        isOpen={isAlertOpen}
+        onClose={handleAlertClose}
+        caseType={caseType}
+      />
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~ Dropdown for New Tasks ~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -52,8 +75,17 @@ export default function TaskListOrg() {
           <Typography>
             {"New"}&nbsp;
             {`(${sortedNewTasks.length})`}
+            {isLoading && <CircularProgress sx={spinnerSx} size={16} />}
           </Typography>
         )}
+        // renderValue={() => (
+        //   <Typography fontWeight={!isNewTasksMenuOpen ? "bold" : "normal"}>
+        //     {"New"}&nbsp;
+        //     {`(${sortedNewTasks.length})`}
+        //     {isNewTasksMenuOpen && <span style={{ marginLeft: "5px" }}>New!</span>}
+        //   </Typography>
+        // )}
+        // onOpen={handleMenuOpen}
         MenuProps={{ disableAutoFocusItem: true }}
       >
         {sortedNewTasks.map((task, i) => (
@@ -82,6 +114,7 @@ export default function TaskListOrg() {
           <Typography>
             {"In Progress"}&nbsp;
             {`(${sortedInProgressTasks.length})`}
+            {isLoading && <CircularProgress sx={spinnerSx} size={16} />}
           </Typography>
         )}
       >
@@ -100,7 +133,6 @@ export default function TaskListOrg() {
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~ Dropdown for Complete Tasks ~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
       <Select
         value={selectedTasks.completeTask}
         onChange={(e) =>
@@ -115,6 +147,7 @@ export default function TaskListOrg() {
             <Typography>
               {"Complete"}&nbsp;
               {`(${nonDeletedTasks.length})`}
+              {isLoading && <CircularProgress sx={spinnerSx} size={16} />}
             </Typography>
           );
         }}
@@ -131,6 +164,7 @@ export default function TaskListOrg() {
                   taskType="organization"
                   index={i}
                   onTaskUpdate={handleTaskUpdate}
+                  handleCaseTypeChange={handleCaseTypeChange}
                 />
               </MenuItem>
             ) : null

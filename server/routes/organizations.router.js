@@ -1,12 +1,32 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+// ~~~~~~~~~~ Upload Files ~~~~~~~~~~
+const multer = require("multer");
+const storage = multer.memoryStorage(); // Store files in memory
+const upload = multer({ storage: storage });
 
 router.get("/", (req, res) => {
   pool
     .query(
       `  SELECT
-      o.*,
+      o.id,
+      o.organization_name,
+      o.type,
+      o.address,
+      o.city,
+      o.state,
+      o.zip,
+      o.primary_contact_first_name,
+      o.primary_contact_last_name,
+      o.primary_contact_phone,
+      o.primary_contact_email,
+      o.is_deleted,
+      o.organization_earnings,
+      encode(o.organization_logo, 'base64') AS organization_logo_base64,
+      o.filename,
+      COALESCE(group_count.total_groups, 0) AS total_groups,
+      COALESCE(fundraiser_count.total_fundraisers, 0) AS total_fundraisers,
       COALESCE(group_count.total_groups, 0) AS total_groups,
       COALESCE(fundraiser_count.total_fundraisers, 0) AS total_fundraisers,
       COALESCE(closed_fundraiser_count.total_closed_fundraisers, 0) AS total_closed_fundraisers,
@@ -15,7 +35,13 @@ router.get("/", (req, res) => {
       COALESCE(total_outstanding_balance.total_outstanding_balance, 0) AS total_outstanding_balance,
       COALESCE(total_books_sold.total_books_sold, 0) * COALESCE(o.organization_earnings, 0) AS total_org_earnings,
       COALESCE(total_checked_out_books.total_checked_out_books, 0) AS total_checked_out_books,
-      COALESCE(total_checked_in_books.total_checked_in_books, 0) AS total_checked_in_books
+      COALESCE(total_checked_in_books.total_checked_in_books, 0) AS total_checked_in_books,
+      COALESCE(total_books_due.total_books_due, 0) AS total_books_due,
+      COALESCE(org_total_books_sold.physical_book_cash, 0) AS physical_book_cash,
+      COALESCE(org_total_books_sold.physical_book_digital, 0) AS physical_book_digital,
+      COALESCE(org_total_books_sold.digital_book_credit, 0) AS digital_book_credit,
+      COALESCE(org_total_donations.total_donations, 0) AS total_donations,
+      COALESCE(org_total_donations.total_digital_donations, 0) AS total_digital_donations
   FROM
       organization o
   LEFT JOIN (
@@ -107,6 +133,33 @@ router.get("/", (req, res) => {
       GROUP BY
           g.organization_id
   ) AS total_checked_in_books ON o.id = total_checked_in_books.organization_id
+  LEFT JOIN (
+    SELECT organization_id,
+    SUM(books_due) AS total_books_due
+    FROM
+        sellers
+    GROUP BY
+        organization_id
+  ) AS total_books_due ON o.id = total_books_due.organization_id
+  LEFT JOIN (
+    SELECT organization_id,
+    SUM(physical_book_cash) AS physical_book_cash,
+    SUM(physical_book_digital) AS physical_book_digital,
+    SUM(digital_book_credit) AS digital_book_credit
+    FROM 
+        transactions
+    GROUP BY
+        organization_id
+  ) AS org_total_books_sold ON o.id = org_total_books_sold.organization_id
+  LEFT JOIN (
+    SELECT organization_id,
+    SUM(donations) AS total_donations,
+    SUM(digital_donations) AS total_digital_donations
+    FROM 
+        sellers
+    GROUP BY
+        organization_id
+  ) AS org_total_donations ON o.id = org_total_donations.organization_id
   WHERE
       o.is_deleted = false
   ORDER BY
@@ -121,11 +174,10 @@ router.get("/", (req, res) => {
     });
 });
 
-// POST ROUTE
-router.post("/", (req, res) => {
+router.post("/", upload.single("organization_logo"), (req, res) => {
   const organization = req.body;
-  console.log(req.body);
-  console.log(req.user);
+  const organizationLogo = req.file ? req.file.buffer : null; // Get the file buffer from multer
+
   const queryText = `
       INSERT INTO "organization" (
         "organization_name",
@@ -139,9 +191,10 @@ router.post("/", (req, res) => {
         "primary_contact_phone",
         "primary_contact_email",
         "organization_earnings",
-        "organization_logo"
+        "organization_logo",
+        "filename"
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`;
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
 
   pool
     .query(queryText, [
@@ -156,7 +209,8 @@ router.post("/", (req, res) => {
       organization.primary_contact_phone,
       organization.primary_contact_email,
       organization.organization_earnings,
-      organization.organization_logo
+      organizationLogo, // Use the file buffer as the organization logo
+      organization.filename ? organization.filename : null,
     ])
     .then((response) => {
       res.sendStatus(201);
@@ -182,23 +236,37 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", upload.single("organization_logo"), (req, res) => {
+  const organizationId = req.params.id;
   const organization = req.body;
-  const queryText = `
-  UPDATE "organization" 
-  SET "organization_name" = $1, "type" = $2, "address" = $3,
-      "city" = $4,
-      "state" = $5,
-      "zip" = $6,
-      "primary_contact_first_name" = $7,
-      "primary_contact_last_name" = $8,
-      "primary_contact_phone" = $9,
-      "primary_contact_email" = $10,
-      "organization_earnings" = $11,
-      "organization_logo" = $12
-  WHERE "id" = $13;`;
-  pool
-    .query(queryText, [
+  let organization_logo = null;
+  if (req.file) {
+    organization_logo = req.file.buffer;
+  }
+
+  let queryText;
+  let values;
+  if (organization_logo) {
+    // If a new logo is being uploaded, update the organization logo as well
+    queryText = `
+        UPDATE "organization"
+        SET
+          "organization_name" = $1,
+          "type" = $2,
+          "address" = $3,
+          "city" = $4,
+          "state" = $5,
+          "zip" = $6,
+          "primary_contact_first_name" = $7,
+          "primary_contact_last_name" = $8,
+          "primary_contact_phone" = $9,
+          "primary_contact_email" = $10,
+          "organization_earnings" = $11,
+          "organization_logo" = $12,
+          "filename" = $13
+        WHERE "id" = $14;`;
+
+    values = [
       organization.organization_name,
       organization.type,
       organization.address,
@@ -210,15 +278,55 @@ router.put("/:id", (req, res) => {
       organization.primary_contact_phone,
       organization.primary_contact_email,
       organization.organization_earnings,
-      organization.organization_logo,
-      req.params.id,
-    ])
+      organization_logo,
+      organization.filename,
+      organizationId,
+    ];
+  } else {
+    // If no new logo is being uploaded, skip updating the organization logo
+    queryText = `
+        UPDATE "organization"
+        SET
+          "organization_name" = $1,
+          "type" = $2,
+          "address" = $3,
+          "city" = $4,
+          "state" = $5,
+          "zip" = $6,
+          "primary_contact_first_name" = $7,
+          "primary_contact_last_name" = $8,
+          "primary_contact_phone" = $9,
+          "primary_contact_email" = $10,
+          "organization_earnings" = $11,
+          "filename" = $12
+        WHERE "id" = $13;`;
+
+    values = [
+      organization.organization_name,
+      organization.type,
+      organization.address,
+      organization.city,
+      organization.state,
+      organization.zip,
+      organization.primary_contact_first_name,
+      organization.primary_contact_last_name,
+      organization.primary_contact_phone,
+      organization.primary_contact_email,
+      organization.organization_earnings,
+      organization.filename,
+      organizationId,
+    ];
+  }
+
+  pool
+    .query(queryText, values)
     .then((response) => {
       res.sendStatus(200);
     })
     .catch((err) => {
       console.log("error with organizations PUT route", err);
-      res.sendStatus(500);
+      // Send the error message back to the client
+      res.status(500).json({ error: err.message });
     });
 });
 

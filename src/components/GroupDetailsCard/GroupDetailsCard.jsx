@@ -1,5 +1,5 @@
 //Imports used for component
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -16,7 +16,7 @@ import {
   MenuItem,
   Grid,
 } from "@mui/material";
-import { modalBtnStyle } from "../Utils/helpers";
+import { flexRowSpace } from "../Utils/pageStyles";
 
 //Function for the component, takes in the group prop for use
 export default function GroupDetailsCard({ group }) {
@@ -41,6 +41,11 @@ export default function GroupDetailsCard({ group }) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [couponBookId, setCouponBookId] = useState("");
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_COUPON_BOOKS" });
+  }, []);
+
   //Function that runs on click of the submit button in add fundraiser form. This creates a new objcet that is sent to the back end to be added to the database and resets the state of the inputs in the form and closes the modal. Also fires sweetalert to let user know that the fundraiser has been added.
   const submitFundraiser = (e) => {
     e.preventDefault;
@@ -58,7 +63,6 @@ export default function GroupDetailsCard({ group }) {
       end_date: endDate,
       coupon_book_id: couponBookId,
     };
-    console.log(newFundraiser);
     Swal.fire(
       "Fundraiser Created!",
       "Your fundraiser has been created!",
@@ -96,7 +100,7 @@ export default function GroupDetailsCard({ group }) {
   return (
     <>
       <Card
-        elevation={6}
+        elevation={3}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -121,7 +125,7 @@ export default function GroupDetailsCard({ group }) {
           </Typography>
           <Typography>{group.group_description}</Typography>
         </div>
-        <div style={modalBtnStyle}>
+        <div style={flexRowSpace}>
           <Button variant="outlined" onClick={() => history.goBack()}>
             <Typography style={{ fontSize: "15px" }}>Back</Typography>
           </Button>{" "}
@@ -133,8 +137,8 @@ export default function GroupDetailsCard({ group }) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="title"
-        aria-describedby="form"
+        aria-labelledby="group-details-modal"
+        aria-describedby="displays group details"
       >
         <Box sx={style}>
           <Typography
@@ -229,7 +233,7 @@ export default function GroupDetailsCard({ group }) {
               >
                 <Grid item xs={6}>
                   <TextField
-                   required
+                    required
                     fullWidth
                     style={{ margin: "5px" }}
                     label="Books Checked In"
@@ -241,7 +245,7 @@ export default function GroupDetailsCard({ group }) {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
-                   required
+                    required
                     fullWidth
                     style={{ margin: "5px" }}
                     label="Books Sold"
@@ -273,7 +277,7 @@ export default function GroupDetailsCard({ group }) {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
-                   required
+                    required
                     fullWidth
                     style={{ margin: "5px", marginRight: "0" }}
                     type="number"

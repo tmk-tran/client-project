@@ -1,23 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Button } from "@mui/material";
 import { errorColor, successColor } from "../Utils/colors";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { modalBtnStyle } from "../Utils/helpers";
-// ~~~~~~~~~~ Icons ~~~~~~~~~~
-import CheckIcon from "@mui/icons-material/Check";
-import CancelIcon from "@mui/icons-material/Cancel";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
-import SuccessAlert from "../SuccessAlert/SuccessAlert";
-import { useAlert } from "../SuccessAlert/useAlert";
+import { flexRowSpace } from "../Utils/pageStyles";
+import { dispatchHook } from "../../hooks/useDispatch";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
+
 export default function CouponReviewButtons({
   onDenyButtonClick,
   isTaskUpdate,
   updateTaskState,
+  changesRequested,
+  completedCoupon,
+  taskId,
+  newTaskStatus,
+  taskStatus,
+  merchantId,
+  setIsTaskUpdate,
+  couponId,
 }) {
-  console.log(isTaskUpdate);
-
-  const { isAlertOpen, handleAlertClose, handleTaskUpdate } = useAlert();
+  const dispatch = dispatchHook();
 
   const handleDenyClick = () => {
     // Call the parent component's function when the Deny button is clicked
@@ -36,45 +39,80 @@ export default function CouponReviewButtons({
     },
   };
 
-  const handleUpdateClick = () => {
-    // Perform any necessary actions in the child component
-    handleTaskUpdate();
-    // Update the state in the parent component
+  const cancelButton = {
+    backgroundColor: errorColor.color,
+  };
+
+  const buttonWidth = {
+    width: "40%",
+  };
+
+  const handleCancelClick = () => {
     updateTaskState(false);
   };
 
-  return (
-    <div style={modalBtnStyle}>
-      <SuccessAlert isOpen={isAlertOpen} onClose={handleAlertClose} />
+  const handleUpdateClick = () => {
+    const dispatchAction = {
+      type: "UPDATE_MERCHANT_TASK",
+      payload: {
+        id: taskId,
+        task: newTaskStatus,
+        task_status: taskStatus,
+        merchantId: merchantId,
+      },
+    };
+    dispatch(dispatchAction);
 
+    if (completedCoupon) {
+      const dispatchAction2 = {
+        type: "ADD_TO_CONSUMER_LIST",
+        payload: {
+          id: couponId,
+        },
+      };
+      dispatch(dispatchAction2);
+    }
+
+    setIsTaskUpdate(false);
+    showSaveSweetAlert({ label: "Task updated" });
+  };
+
+  return (
+    <div style={flexRowSpace}>
       {isTaskUpdate ? (
-        <Button onClick={handleUpdateClick} sx={{ backgroundColor: successColor.color, ...hoverAccept }} variant="contained" fullWidth>
-          Update
-        </Button>
-      ) : (
         <>
           <Button
+            onClick={handleCancelClick}
             variant="contained"
-            sx={{
-              width: "10vw",
-              ...hoverDeny,
-              backgroundColor: errorColor.color,
-            }}
-            onClick={handleDenyClick}
+            sx={{ ...cancelButton, ...hoverDeny, ...buttonWidth }}
           >
-            Deny &nbsp;
-            <CancelIcon />
+            Cancel
           </Button>
           <Button
-            variant="contained"
+            onClick={!changesRequested ? handleUpdateClick : handleDenyClick}
             sx={{
               backgroundColor: successColor.color,
-              width: "10vw",
               ...hoverAccept,
+              ...buttonWidth,
             }}
+            variant="contained"
           >
-            <CheckIcon />
-            &nbsp; Accept
+            {completedCoupon ? "Complete" : "Update"}
+          </Button>
+        </>
+      ) : (
+        // <div style={{ height: "4vh", ...border }}></div>
+        <>
+          <Button variant="contained" sx={buttonWidth} disabled>
+            Cancel
+          </Button>
+          <Button
+            sx={{ ...buttonWidth }}
+            variant="contained"
+            disabled
+            fullWidth
+          >
+            Update
           </Button>
         </>
       )}

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Backdrop, Divider, Tooltip } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { allMerchants, allOrganizations } from "../../hooks/reduxStore";
-// ~~~~~~~~~~ Components ~~~~~~~~~~
-import DatePicker from "../DatePicker/DatePicker";
-import SearchableSelect from "../NewTaskModal/SearchableSelect";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import {
   Box,
@@ -16,26 +14,30 @@ import {
   MenuItem,
   InputLabel,
 } from "@mui/material";
-import "./NewTaskModal.css";
 // ~~~~~~~~~~ Icons ~~~~~~~~~~
-import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
-import CloseIcon from "@mui/icons-material/Close";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
-import { border } from "../Utils/colors";
-import { useAlert } from "../SuccessAlert/useAlert";
-import SuccessAlert from "../SuccessAlert/SuccessAlert";
+import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
+import { capitalizeFirstWord, saveBtnWidth } from "../Utils/helpers";
+// ~~~~~~~~~~ Components ~~~~~~~~~~
+import DatePicker from "../DatePicker/DatePicker";
+import SearchableSelect from "../NewTaskModal/SearchableSelect";
+import ModalButtons from "../Modals/ModalButtons";
+import { showSaveSweetAlert } from "../Utils/sweetAlerts";
+import YearSelect from "../OrgSellers/YearSelect";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 450,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  maxHeight: "80vh",
+  overflow: "auto",
 };
 
 const taskOptions = {
@@ -53,14 +55,14 @@ const taskOptions = {
 const userOptions = ["Chris", "Lacey", "Wendy"];
 
 // ~~~~~~~~~ ADD USE ALERT HERE FOR SUCCESS ALERT ~~~~~~~~~~~~~~~~~~~ ADD USE ALERT HERE FOR SUCCESS ALERT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default function BasicModal({
+export default function NewTaskModal({
+  tabs,
   merchantTab,
   customIcon,
   customText,
   caseType,
-  onChange,
+  disabled,
 }) {
-  console.log(merchantTab);
   const dispatch = dispatchHook();
   // ~~~~~~~~~~ All Merchants from store ~~~~~~~~~~
   const merchants = allMerchants();
@@ -72,10 +74,9 @@ export default function BasicModal({
   const [firstMenuChoice, setFirstMenuChoice] = useState("");
   const [secondMenuChoice, setSecondMenuChoice] = useState("");
   const [thirdMenuChoice, setThirdMenuChoice] = useState("");
-  console.log(thirdMenuChoice);
+  const [bookYearId, setBookYearId] = useState(null);
   const [organizationId, setOrganizationId] = useState(null);
   const [merchantId, setMerchantId] = useState(null);
-  console.log(merchantId);
   const [fourthMenuChoice, setFourthMenuChoice] = useState("");
   const [couponDetails, setCouponDetails] = useState("");
   const [showDetailsInput, setShowDetailsInput] = useState(false);
@@ -85,19 +86,35 @@ export default function BasicModal({
   useEffect(() => {
     // Conditional logic based on merchantTab
     merchantTab
-      ? /* Logic for merchantTab being true */
-        (dispatch({ type: "FETCH_ALL_MERCHANTS" }),
-        console.log("Merchant Tab is true"))
-      : /* Logic for merchantTab being false */
-        (dispatch({ type: "FETCH_ORGANIZATIONS" }),
-        console.log("Merchant Tab is false"));
+    ? /* Logic for merchantTab being true */
+      dispatch({ type: "FETCH_MERCHANTS" })
+    : /* Logic for merchantTab being false */
+      dispatch({ type: "FETCH_ORGANIZATIONS" });  
 
     // Cleanup function or dependencies for useEffect
   }, [merchantTab]);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const resetForm = () => {
+    // Reset form fields
+    setFirstMenuChoice("");
+    setSecondMenuChoice("");
+    setThirdMenuChoice("");
+    setBookYearId(null);
+    setOrganizationId(null);
+    setMerchantId(null);
+    setFourthMenuChoice("");
+    setDueDate("");
+    setShowDetailsInput(false);
+    setAdditionalDetails("");
+    setCouponDetails("");
+    setAdditionalDetails("");
+  };
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    resetForm();
+    setOpen(false);
+  };
   const handleFirstMenuChange = (event) => {
     const choice = event.target.value;
     setFirstMenuChoice(choice);
@@ -117,9 +134,7 @@ export default function BasicModal({
   };
 
   const handleAccountChange = (event, value) => {
-    console.log(value);
     const selectedName = value;
-    console.log(selectedName);
 
     if (merchantTab) {
       // Logic for merchantTab being true
@@ -127,12 +142,8 @@ export default function BasicModal({
         merchants.find((merchant) => merchant.merchant_name === selectedName)
           ?.id || "";
 
-      console.log(merchants);
-      console.log(selectedId);
-      console.log(selectedName);
       setThirdMenuChoice(selectedName);
       setMerchantId(selectedId);
-      console.log(selectedId);
     } else {
       // Logic for merchantTab being false (organizations logic)
       const selectedId =
@@ -140,10 +151,8 @@ export default function BasicModal({
           (organization) => organization.organization_name === selectedName
         )?.id || "";
 
-      console.log(selectedName);
       setThirdMenuChoice(selectedName);
       setOrganizationId(selectedId);
-      console.log(selectedId);
     }
   };
 
@@ -162,90 +171,94 @@ export default function BasicModal({
       ? "ADD_MERCHANT_TASK"
       : "ADD_ORGANIZATION_TASK";
 
-    const payload = merchantTab
-      ? {
-          category: firstMenuChoice,
-          task: secondMenuChoice,
-          merchant_id: merchantId,
-          merchant_name: thirdMenuChoice,
-          assign: fourthMenuChoice,
-          due_date: dueDate,
-          description: additionalDetails,
-          task_status: "New",
-          coupon_details: couponDetails,
-        }
-      : {
-          // Adjust the payload properties for organization logic
-          // Example:
-          category: firstMenuChoice,
-          task: secondMenuChoice,
-          organization_id: organizationId,
-          organization_name: thirdMenuChoice,
-          assign: fourthMenuChoice,
-          due_date: dueDate,
-          description: additionalDetails,
-          task_status: "New",
-          // Adjust other properties as needed
-        };
+    const payload =
+      caseType === "merchantView"
+        ? {
+            // Include properties specific to the 'merchantView' case
+            fetchType: "FETCH_MERCHANT_TASKS",
+            category: firstMenuChoice,
+            task: secondMenuChoice,
+            merchant_id: merchantId,
+            assign: fourthMenuChoice,
+            due_date: dueDate,
+            description: additionalDetails,
+            task_status: "New",
+            coupon_details: couponDetails,
+            book_id: bookYearId,
+          }
+        : merchantTab
+        ? {
+            category: firstMenuChoice,
+            task: secondMenuChoice,
+            merchant_id: merchantId,
+            assign: fourthMenuChoice,
+            due_date: dueDate,
+            description: additionalDetails,
+            task_status: "New",
+            coupon_details: couponDetails,
+            book_id: bookYearId,
+          }
+        : {
+            // Adjust the payload properties for organization logic
+            category: firstMenuChoice,
+            task: secondMenuChoice,
+            organization_id: organizationId,
+            assign: fourthMenuChoice,
+            due_date: dueDate,
+            description: additionalDetails,
+            task_status: "New",
+            // Adjust other properties as needed
+          };
 
     dispatch({
       type: actionType,
       payload: payload,
     });
 
-    // Reset fields on submit
-    setFirstMenuChoice("");
-    setSecondMenuChoice("");
-    setThirdMenuChoice("");
-    setMerchantId(null);
-    setFourthMenuChoice("");
-    setDueDate("");
-    setShowDetailsInput(false);
-    setAdditionalDetails("");
-    setCouponDetails("");
-    setAdditionalDetails("");
+    showSaveSweetAlert({ label: "Task Added" });
     handleClose();
-    onChange();
   };
 
   return (
     <div>
-      <Button onClick={handleOpen} fullWidth>
-        {customIcon ? (
-          customIcon // Render the custom icon if provided
-        ) : (
-          // <LibraryAddIcon />
-          <AddBoxIcon />
-        )}
-        {customText && <span>&nbsp;{customText}</span>}
-      </Button>
+      <Tooltip title="New Task">
+        <Button
+          variant={tabs ? "text" : "contained"}
+          sx={{ mt: 1 }}
+          onClick={handleOpen}
+          fullWidth
+          disabled={disabled}
+        >
+          {customIcon ? (
+            customIcon // Render the custom icon if provided
+          ) : (
+            // <LibraryAddIcon />
+            <AddBoxIcon />
+          )}
+          {customText && (
+            <span style={{ marginLeft: "5px" }}>{customText}</span>
+          )}
+        </Button>
+      </Tooltip>
 
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          // Disable closing on backdrop click
+          onClick: (event) => event.stopPropagation(),
+          // Disable the backdrop from being clickable
+          clickable: false,
+        }}
       >
         <Box sx={style}>
-          <div
-            style={{
-              position: "relative",
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "20px",
-            }}
-          >
-            <Button
-              className="close-btn"
-              onClick={handleClose}
-              style={{ position: "absolute", left: 0 }}
-            >
-              <CloseIcon />
-            </Button>
-            <Typography variant="h6" sx={{ textAlign: "center", flexGrow: 1 }}>
-              New Task
-            </Typography>
-          </div>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+          {/* ~~~~~~~~~~~~ HEADER ~~~~~~~~~~~~~~~~~~ */}
+          <Typography variant="h6" sx={modalHeaderStyle}>
+            New Task
+          </Typography>
+          <Divider sx={lineDivider} />
 
           <div style={{ display: "flex", flexDirection: "column" }}>
             <InputLabel>Category:</InputLabel>
@@ -283,11 +296,14 @@ export default function BasicModal({
             </Select>
             {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
+            {/* ~~~~~ Year Select, Offer field ~~~~~ */}
+            {showDetailsInput && <YearSelect setYear={setBookYearId} />}
+
             {showDetailsInput && (
               <TextField
                 id="outlined-multiline-static"
-                label="Coupon Details"
-                placeholder="Please enter coupon details here..."
+                label="Coupon Offer"
+                placeholder="Please enter coupon offer here..."
                 fullWidth
                 multiline
                 rows={2}
@@ -304,13 +320,21 @@ export default function BasicModal({
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~ SEARCHABLE FIELD ~~~~~~~~~~~ */}
             {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-            <SearchableSelect
-              thirdMenuChoice={thirdMenuChoice}
-              handleAccountChange={handleAccountChange}
-              merchantTab={merchantTab}
-              merchants={merchants}
-              organizations={organizations}
-            />
+            {merchantTab ? (
+              <SearchableSelect
+                thirdMenuChoice={thirdMenuChoice}
+                handleAccountChange={handleAccountChange}
+                merchantTab={true}
+                merchants={merchants}
+              />
+            ) : (
+              <SearchableSelect
+                thirdMenuChoice={thirdMenuChoice}
+                handleAccountChange={handleAccountChange}
+                merchantTab={false}
+                organizations={organizations}
+              />
+            )}
             {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
 
             <InputLabel>Assign To:</InputLabel>
@@ -349,19 +373,17 @@ export default function BasicModal({
             rows={3}
             fullWidth
             sx={{ margin: "10px auto" }}
-            onChange={(event) => setAdditionalDetails(event.target.value)}
+            value={additionalDetails}
+            onChange={(event) =>
+              setAdditionalDetails(capitalizeFirstWord(event.target.value))
+            }
           />
           {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
-
-          <Button
-            variant="contained"
-            color="secondary"
-            fullWidth
-            onClick={addNewTask}
-          >
-            <AddBoxIcon sx={{ mr: 2 }} />
-            Create Task
-          </Button>
+          <ModalButtons
+            label="Create Task"
+            onSave={addNewTask}
+            onCancel={handleClose}
+          />
         </Box>
       </Modal>
     </div>

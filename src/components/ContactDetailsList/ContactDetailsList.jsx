@@ -1,11 +1,18 @@
 import React from "react";
 import { List, ListItem, ListItemIcon, Typography } from "@mui/material";
+// ~~~~~~~~~~ Icons ~~~~~~~~~~
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import PublicIcon from "@mui/icons-material/Public";
 // ~~~~~~~~~~ Utils ~~~~~~~~~~
-import { capitalizeWords, centerStyle, centeredStyle } from "../Utils/helpers";
+import { capitalizeWords, centerStyle } from "../Utils/helpers";
+import { centeredStyle } from "../Utils/pageStyles";
 import { primaryColor } from "../Utils/colors";
+
+const typographySx = {
+  mr: 2,
+};
 
 export default function ContactDetailsList({
   info,
@@ -13,11 +20,11 @@ export default function ContactDetailsList({
   isMerchantTaskPage,
 }) {
   return (
-    <List style={{ padding: "15px", width: "70%", marginTop: "5px" }}>
+    <List style={{ padding: "15px", marginTop: "5px" }}>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {/* ~~~~~~~~~~ CONTACT NAME ~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ CONTACT NAME ~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      <ListItem disablePadding style={centerStyle}>
+      <ListItem disablePadding>
         <ListItemIcon style={centeredStyle}>
           <AccountBoxIcon style={primaryColor} />
         </ListItemIcon>
@@ -26,7 +33,7 @@ export default function ContactDetailsList({
         )} ${capitalizeWords(info.primary_contact_last_name)}`}</Typography>
       </ListItem>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {/* ~~~~~~~~~~ PHONE NUMBER ~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~ PHONE NUMBER ~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <ListItem disablePadding style={centerStyle}>
         <ListItemIcon style={centeredStyle}>
@@ -35,31 +42,51 @@ export default function ContactDetailsList({
         <Typography>{contactPhone}</Typography>
       </ListItem>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {/* ~~~~~~~~~~ EMAIL ~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~ EMAIL ~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       <ListItem disablePadding style={centerStyle}>
         <ListItemIcon style={centeredStyle}>
           <EmailIcon style={primaryColor} />
         </ListItemIcon>
-        {isMerchantTaskPage ? (
-          <Typography style={{ maxWidth: "90%", overflowWrap: "break-word" }}>
-            <a href={`mailto:${info.contact_email}`}>{info.contact_email}</a>
-          </Typography>
-        ) : (
-          <Typography>
-            {info.primary_contact_email ? (
-              <a href={`mailto:${info.primary_contact_email}`}>
-                {info.primary_contact_email}
+        <Typography sx={typographySx}>
+          {isMerchantTaskPage ? (
+            info.contact_email ? (
+              <a href={`mailto:${info.contact_email}`}>{info.contact_email}</a>
+            ) : (
+              "No Email Provided"
+            )
+          ) : info.primary_contact_email ? (
+            <a href={`mailto:${info.primary_contact_email}`}>
+              {info.primary_contact_email}
+            </a>
+          ) : (
+            "No Email Provided"
+          )}
+        </Typography>
+      </ListItem>
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~ WEBSITE ~~~~~~~~~~~~~~~~~~~ */}
+      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+      {isMerchantTaskPage ? (
+        <ListItem disablePadding style={centerStyle}>
+          <ListItemIcon style={centeredStyle}>
+            <PublicIcon style={primaryColor} />
+          </ListItemIcon>
+          <Typography sx={typographySx}>
+            {info.website ? (
+              <a
+                href={`https://${info.website}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {info.website}
               </a>
             ) : (
-              // Render this if no email is provided
-              <>
-                <Typography>No Email Provided</Typography>
-              </>
+              <Typography>No Website Provided</Typography>
             )}
           </Typography>
-        )}
-      </ListItem>
+        </ListItem>
+      ) : null}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
     </List>
   );

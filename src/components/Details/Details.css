@@ -4,25 +4,34 @@
 }
 
 .details-card {
-  width: 88%;
+  width: 90%;
   margin: 20px auto 0 auto;
   position: relative;
 }
 
-.OrgDetailsCard-container,
-.MerchantDetailsCard-container {
+.OrgDetailsCard-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 50px;
-  align-items: center;
-  margin-top: 50px;
+  gap: 40px;
+  margin-top: 25px;
+  padding-top: 55px;
 }
 
+/* .OrgDetailsCard-container {
+  border: 1px solid #19338e;
+  border-radius: 5px;
+} */
+
 .MerchantDetailsCard-container {
-  /* border: 1px solid red; */
-  width: 58vw;
+  /* width: 58vw; */
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 40px;
+  margin-top: 25px;
+  padding-top: 55px;
 }
 
 .add-group-fields {

@@ -1,64 +1,91 @@
 import React, { useState } from "react";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
-import { Card, CardContent, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import "./TaskCard.css";
+import EditCalendarIcon from "@mui/icons-material/EditCalendar";
+import EditIcon from "@mui/icons-material/Edit";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
+import { dispatchHook } from "../../hooks/useDispatch";
+import { flexCenter } from "../Utils/pageStyles";
+import { mComments } from "../../hooks/reduxStore";
 import {
   successColor,
   hoverAccept,
-  border,
   primaryColor,
   dueDateHighlight,
+  whiteBackground,
 } from "../Utils/colors";
 import {
   capitalizeFirstWord,
   capitalizeWords,
   formatDate,
+  handleDateChange,
 } from "../Utils/helpers";
 // ~~~~~~~~~~ Components ~~~~~~~~~~
 import TaskDropdown from "./TaskDropdown";
 import CommentDisplay from "../CommentDisplay/CommentDisplay";
-import { dispatchHook } from "../../hooks/useDispatch";
-import { mComments } from "../../hooks/reduxStore";
+import AssignSelect from "./AssignSelect";
+import TaskCardButtons from "./TaskCardButtons";
+import DatePicker from "../DatePicker/DatePicker";
 
-export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
-  console.log(id);
-  console.log(taskType);
-  const [selectedTask, setSelectedTask] = useState(null);
-  console.log(task);
-  console.log(task.id);
-  console.log(task.merchant_id);
-  console.log(task.organization_id);
-  const oId = task.organization_id;
-  const mId = task.merchant_id;
-  console.log(mId);
-  console.log(oId);
-  console.log(index);
-  console.log(task.task_status);
-  const complete = task.task_status;
-  console.log(complete);
-  const [completedTask, setCompletedTask] = useState(complete === "Complete");
-  console.log(completedTask);
+const fullWidth = {
+  width: "100%",
+};
+
+const flexColumn = {
+  display: "flex",
+  flexDirection: "column",
+};
+
+const commentBorder = {
+  border: `1px solid ${primaryColor.color}`,
+  borderRadius: "5px",
+};
+
+const iconButtonStyle = {
+  mt: 3,
+  ml: 1,
+  color: primaryColor.color,
+};
+
+export default function TaskCard({
+  task,
+  taskType,
+  index,
+  onTaskUpdate,
+  handleCaseTypeChange,
+}) {
   const history = historyHook();
   const dispatch = dispatchHook();
 
+  const oId = task ? task.organization_id : null;
+  const mId = task ? task.merchant_id : null;
+  const taskStatus = task ? task.task_status : null;
+
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [completedTask, setCompletedTask] = useState(taskStatus === "Complete");
+  const [assignedUser, setAssignedUser] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [isDateEdit, setIsDateEdit] = useState(false);
+  const [newDueDate, setNewDueDate] = useState("");
+
   // Comments
   const merchantComments = mComments(mId) || [];
-  console.log(merchantComments);
 
   const matchingComment = merchantComments.find(
     (comment) => comment.id === task.id
   );
 
-  if (matchingComment) {
-    console.log("Found matching comment:", matchingComment);
-  } else {
-    console.log("No matching comment found for task_id:", task.id);
-  }
-
   const handleTaskChange = (taskStatus) => {
-    console.log(taskStatus);
     setSelectedTask(taskStatus); // Update selectedTask with the value received from TaskDropdown
   };
 
@@ -71,54 +98,100 @@ export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
     const updateActionType =
       taskType === "organization"
         ? "UPDATE_ORGANIZATION_TASK"
-        : "UPDATE_MERCHANT_TASK";
+        : "CHANGE_MERCHANT_TASK_STATUS";
 
-    console.log(updateActionType);
-    console.log(task.id);
-    console.log(selectedTask);
-    dispatch({
+    const dispatchAction = {
       type: updateActionType,
       payload: {
         id: task.id,
+        task: task.task,
         task_status: selectedTask,
       },
-    });
+    };
+    dispatch(dispatchAction);
     // Notify the parent component about the task update
     onTaskUpdate();
-    // Show the success alert
-    // setIsAlertOpen(true);
   };
 
   const archiveTask = () => {
-    console.log(id);
-
     const archiveActionType =
       taskType === "organization"
         ? "ARCHIVE_ORGANIZATION_TASK"
         : "ARCHIVE_MERCHANT_TASK";
 
-    console.log(archiveActionType);
-    console.log(task.id);
     dispatch({
       type: archiveActionType,
       payload: {
         id: task.id,
       },
     });
+    onTaskUpdate();
+    handleCaseTypeChange("Archived");
   };
 
-  const fullWidth = {
-    width: "100%",
+  const handleDateEdit = () => {
+    setIsDateEdit(true);
   };
 
-  const flexColumn = {
-    display: "flex",
-    flexDirection: "column",
+  const returnNewDate = (newDate) => {
+    handleDateChange(newDate, setNewDueDate);
   };
 
-  const commentBorder = {
-    border: `1px solid ${primaryColor.color}`,
-    borderRadius: "5px",
+  const saveNewDueDate = () => {
+    const idToSend = taskType === "organization" ? oId : mId;
+
+    const actionType = taskType === "organization" ? "CHANGE_DUE_DATE_ORG" : "CHANGE_DUE_DATE_MER";
+
+    const action = {
+      type: actionType,
+      payload: {
+        id: task.id,
+        due_date: newDueDate,
+        accountId: idToSend,
+      },
+    };
+    dispatch(action);
+    clearDateField();
+  };
+
+  const clearDateField = () => {
+    setNewDueDate("");
+    setIsDateEdit(false);
+  };
+
+  const handleEditMode = () => {
+    setIsEditing(true);
+  };
+
+  const handleCloseEditMode = () => {
+    setIsEditing(false);
+  };
+
+  const assignNewUser = () => {
+    if (assignedUser && taskType === "merchant") {
+      const dispatchAction = {
+        type: "CHANGE_ASSIGNED_TO",
+        payload: {
+          id: task.id,
+          assign: assignedUser,
+          merchantId: mId,
+        },
+      };
+      dispatch(dispatchAction);
+    }
+    if (assignedUser && taskType === "organization") {
+      const dispatchAction2 = {
+        type: "CHANGE_ASSIGNED_ORG",
+        payload: {
+          id: task.id,
+          assign: assignedUser,
+          organizationId: oId,
+        },
+      };
+      dispatch(dispatchAction2);
+    }
+    onTaskUpdate();
+    handleCloseEditMode();
   };
 
   return (
@@ -164,17 +237,48 @@ export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~~~~ DATE ~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                <div style={dueDateHighlight}>
-                  <Typography
-                    sx={{
-                      fontWeight: "bold",
-                      width: "10vw",
-                      textAlign: "center",
-                      mt: 0.5,
-                    }}
-                  >
-                    Due: {formatDate(task.due_date)}
-                  </Typography>
+
+                <div style={isDateEdit ? whiteBackground : dueDateHighlight}>
+                  {isDateEdit ? (
+                    <>
+                      <DatePicker
+                        initialDate={task.due_date}
+                        onChange={returnNewDate}
+                        hideInputLabel
+                      />
+                      <Box sx={{ backgroundColor: "white" }}>
+                        <TaskCardButtons
+                          onSave={saveNewDueDate}
+                          onCancel={clearDateField}
+                        />
+                      </Box>
+                    </>
+                  ) : (
+                    <Typography
+                      sx={{
+                        fontWeight: "bold",
+                        width: "9vw",
+                        textAlign: "center",
+                        mt: 0.5,
+                        display: "inline-flex",
+                      }}
+                    >
+                      Due: {formatDate(task.due_date)}
+                    </Typography>
+                  )}
+                  {!isDateEdit && (
+                    <Tooltip title="Select a Due Date">
+                      <IconButton
+                        onClick={handleDateEdit}
+                        sx={{
+                          // ...iconButtonStyle,
+                          display: isEditing ? "none" : "inline-flex", // Hide when editing
+                        }}
+                      >
+                        <EditCalendarIcon sx={{ fontSize: 23 }} />
+                      </IconButton>
+                    </Tooltip>
+                  )}
                 </div>
                 {/* ~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~ */}
               </div>
@@ -197,12 +301,39 @@ export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~~~~~~~~ ASSIGNED ~~~~~~~~~~~~~~~~~ */}
                   {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-                  <div>
-                    <Typography sx={{ width: "10vw", textAlign: "center" }}>
-                      <strong>Assigned to: </strong>
-                      {task.assign}
-                    </Typography>
-                  </div>
+                  <Box sx={flexCenter}>
+                    {isEditing ? (
+                      <Box sx={flexColumn}>
+                        <AssignSelect
+                          selectedUser={assignedUser}
+                          onUserChange={setAssignedUser}
+                        />
+                        {/* ~~~~~ Buttons for assigned user ~~~~~ */}
+                        <TaskCardButtons
+                          onSave={assignNewUser}
+                          onCancel={handleCloseEditMode}
+                        />
+                      </Box>
+                    ) : (
+                      <Typography sx={{ textAlign: "center", mt: 3 }}>
+                        <strong>Assigned to: </strong>
+                        {task.assign}
+                      </Typography>
+                    )}
+                    {!isEditing && (
+                      <Tooltip title="Change Assignment">
+                        <IconButton
+                          onClick={handleEditMode}
+                          sx={{
+                            ...iconButtonStyle,
+                            display: isEditing ? "none" : "inline-flex", // Hide when editing
+                          }}
+                        >
+                          <EditIcon sx={{ fontSize: 23 }} />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </Box>
                 </div>
                 {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                 {/* ~~~~~~~~~~~~~ DESCRIPTION ~~~~~~~~~~~~~ */}
@@ -267,7 +398,7 @@ export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
                   variant="contained"
                   onClick={() =>
                     history.push(
-                      `/${
+                      `/fargo/${
                         taskType === "organization"
                           ? "organizationTaskDetails"
                           : "merchantTaskDetails"
@@ -279,7 +410,6 @@ export default function TaskCard({ id, task, taskType, index, onTaskUpdate }) {
                     )
                   }
                   fullWidth
-                  // sx={{ height: "100%" }}
                   sx={{ height: "30%", maxHeight: "50px", mb: 2 }}
                 >
                   Details

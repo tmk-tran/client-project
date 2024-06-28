@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { Typography, Card, CardContent } from "@mui/material";
@@ -15,18 +15,21 @@ export default function DetailsTaskView({ caseType }) {
   const dispatch = dispatchHook();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  console.log(caseType);
   const merchantId = useParams();
   const mId = merchantId.id;
 
   useEffect(() => {
-    dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: mId });
-    dispatch({
-      type: "FETCH_MERCHANT_TASKS",
-      payload: mId,
-    });
-  }, [dispatch, mId]);
-  
+    if (caseType === "orgTaskView") {
+      dispatch({
+        type: "FETCH_ORGANIZATION_TASKS",
+        payload: mId,
+      });
+    } else {
+      dispatch({ type: "FETCH_MERCHANT_COMMENTS", payload: mId });
+      dispatch({ type: "FETCH_MERCHANT_TASKS", payload: mId });
+    }
+  }, [mId, caseType]);
+
   return (
     <div className={`details-container ${isSmallScreen ? "small-screen" : ""}`}>
       <Card elevation={3} className="goals-display-card">
@@ -38,24 +41,31 @@ export default function DetailsTaskView({ caseType }) {
             Tasks
           </Typography>
           <div
+            // style={{ height: "28vh" }}
             className={`task-display-container ${
               caseType === "merchantView" ? "merchant-task-view" : ""
             }`}
           >
-            <TableTaskDetails />
+            <TableTaskDetails caseType={caseType} mId={mId} />
           </div>
 
           <div>
             {caseType === "merchantView" ? (
               // Render NewTaskModal with 'merchantTab' props
               <NewTaskModal
+                tabs={false}
                 customIcon={<AddBoxIcon />}
                 customText="Task"
+                merchantTab={true}
                 caseType={"merchantView"}
               />
             ) : (
               // Render regular NewTaskModal
-              <NewTaskModal customIcon={<AddBoxIcon />} customText="Task" />
+              <NewTaskModal
+                tabs={false}
+                customIcon={<AddBoxIcon />}
+                customText="Task"
+              />
             )}
           </div>
         </CardContent>

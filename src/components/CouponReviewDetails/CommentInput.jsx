@@ -1,14 +1,39 @@
-import React from "react";
-import { TextField, Button, IconButton, Paper } from "@mui/material";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
+import React, { useState, useRef } from "react";
+import { TextField, Button, Paper } from "@mui/material";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+import { dispatchHook } from "../../hooks/useDispatch";
+import { User } from "../../hooks/reduxStore";
+import { capitalizeFirstWord } from "../Utils/helpers";
 
-export default function CommentInput() {
-  const handleSubmit = () => {
-    // Handle comment submission logic
+export default function CommentInput({
+  merchantId,
+  taskId,
+  onSubmit,
+  onChange,
+  file,
+}) {
+  const dispatch = dispatchHook();
+
+  const [comment, setComment] = useState("");
+  const [commentAdded, setCommentAdded] = useState(false);
+  const user = User() || [];
+  const currentUsername = user.username;
+
+  const newComment = {
+    merchant_id: merchantId,
+    comment_content: comment,
+    user: currentUsername,
+    task_id: taskId,
+    coupon_id: file?.id,
   };
 
-  const handleFileUpload = () => {
-    // Handle file upload logic
+  const handleSubmit = () => {
+    // Handle comment submission logic
+    dispatch({ type: "ADD_MERCHANT_COMMENT", payload: newComment });
+    setCommentAdded(true);
+    setComment("");
+    onSubmit();
+    onChange();
   };
 
   return (
@@ -26,6 +51,8 @@ export default function CommentInput() {
         multiline
         maxRows={4}
         variant="outlined"
+        value={comment}
+        onChange={(e) => setComment(capitalizeFirstWord(e.target.value))}
         style={{ marginBottom: "10px" }}
       />
 
@@ -36,9 +63,7 @@ export default function CommentInput() {
           alignItems: "center",
         }}
       >
-        <IconButton color="primary" onClick={handleFileUpload}>
-          <AttachFileIcon />
-        </IconButton>
+        <div style={{ flexGrow: 1 }}></div>
 
         <Button variant="contained" color="primary" onClick={handleSubmit}>
           Submit

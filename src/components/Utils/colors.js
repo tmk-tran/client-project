@@ -10,6 +10,10 @@ export const backgroundColor = { color: "#273B91" };
 
 export const border = { border: "1px solid red" };
 
+export const borderPrimaryColor = { border: "1px solid #19338E" };
+
+export const disabledColor = { color: "#F5F5F5" };
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // For Buttons in Coupon Review components
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -22,6 +26,7 @@ export const hoverDeny = {
 export const hoverAccept = {
   "&:hover": {
     backgroundColor: "#22A422", // Lighter shade for Accept button
+    color: "white",
   },
 };
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -37,3 +42,16 @@ export const dueDateHighlight = {
 };
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+export const highlightColor = {
+  backgroundColor: "rgba(111, 160, 216, 0.1)",
+};
+
+export const grayBackground = {
+  backgroundColor: "rgba(96, 96, 96, 0.1)",
+};
+
+export const whiteBackground = {
+  backgroundColor: "white",
+  borderRadius: "4px",
+};

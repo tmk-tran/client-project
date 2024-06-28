@@ -1,5 +1,5 @@
 //Imports used in the component
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Button,
   OutlinedInput,
@@ -483,7 +483,7 @@ export default function ActiveFundraiserItem({ fundraiser }) {
                     padding: "0",
                   }}
                 >
-                  ${fundraiser.books_sold * 10}
+                  ${fundraiser.books_sold * fundraiser.organization_earnings}
                 </Typography>
               </TableCell>
 

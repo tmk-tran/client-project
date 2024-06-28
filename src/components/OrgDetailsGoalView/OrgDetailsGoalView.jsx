@@ -1,16 +1,15 @@
 import React from "react";
-// ~~~~~~~~~~ Style ~~~~~~~~~~
+// ~~~~~~~~~~ Style ~~~~~~~~~~ //
 import { Typography, Card, CardContent } from "@mui/material";
 import "./OrgDetailsGoalView.css";
-// ~~~~~~~~~~ Component ~~~~~~~~~~
+// ~~~~~~~~~~ Component ~~~~~~~~~~ //
 import AddGroupPopover from "../AddGroupPopover/AddGroupPopover";
 import TableGroupDetails from "../TableGroupDetails/TableGroupDetails";
-// ~~~~~~~~~~ Hooks ~~~~~~~~~~
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { oFundraisers } from "../../hooks/reduxStore";
 
-export default function OrgDetailsGoalView({ info, groups }) {
+export default function OrgDetailsGoalView({ info, groups, handleAddGroup }) {
   const fundraiserInfo = oFundraisers();
-  console.log(fundraiserInfo);
 
   // Total number of goals for groups
   const totalGoals = groups.reduce((total, group) => {
@@ -43,13 +42,14 @@ export default function OrgDetailsGoalView({ info, groups }) {
 
   return (
     <>
-      <Card elevation={3} className="goals-display-card">
+      {/* <Card elevation={3} className="goals-display-card"> */}
+      <Card elevation={3} sx={{ width: "25vw" }}>
         <CardContent>
           <Typography
             variant="h6"
             sx={{ textAlign: "center", fontWeight: "bold" }}
           >
-            Details
+            Group Details
           </Typography>
           <div
             className={`org-detail-goal-container ${
@@ -58,9 +58,6 @@ export default function OrgDetailsGoalView({ info, groups }) {
                 : "no-fundraisers-bg"
             }`}
           >
-            {/* <div>
-                  <AddGroupPopover info={info} />
-                </div> */}
             <center>
               {/* <br /> */}
               {fundraiserInfo && fundraiserInfo.length > 0 ? (
@@ -73,13 +70,13 @@ export default function OrgDetailsGoalView({ info, groups }) {
                 />
               ) : (
                 <div className="no-fundraisers-container">
-                  <Typography variant="h6">No Fundraisers Available</Typography>
+                  <Typography>No Fundraisers Available</Typography>
                 </div>
               )}
             </center>
           </div>
           <div>
-            <AddGroupPopover info={info} />
+            <AddGroupPopover info={info} onChange={handleAddGroup} />
           </div>
         </CardContent>
       </Card>

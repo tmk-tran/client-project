@@ -6,11 +6,14 @@ import {
   Box,
   Typography,
   TextField,
-  Button,
+  Divider,
 } from "@mui/material";
-// ~~~~~~~~~~ Utils ~~~~~~~~~~
-import { showToast } from "../Utils/toasts";
+// ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { showSaveSweetAlert } from "../Utils/sweetAlerts";
+import { lineDivider, modalHeaderStyle } from "../Utils/modalStyles";
+import { capitalizeStateAbbr, capitalizeWords } from "../Utils/helpers";
+// ~~~~~~~~~~~ Components ~~~~~~~~~~~ //
+import ModalButtons from "../Modals/ModalButtons";
 
 export default function DetailsEdit({
   isOpen,
@@ -20,13 +23,9 @@ export default function DetailsEdit({
   isMerchantTaskPage,
 }) {
   // const [editedName, setEditedName] = useState(info.organization_name);
-  console.log(isOpen);
-  console.log(info);
-  console.log(info.merchant_name);
   const [editedName, setEditedName] = useState(
     !isMerchantTaskPage ? info.organization_name : info.merchant_name
   );
-  console.log(editedName);
   const [editedType, setEditedType] = useState(info.type);
   const [editedAddress, setEditedAddress] = useState(info.address);
   const [editedCity, setEditedCity] = useState(info.city);
@@ -42,11 +41,12 @@ export default function DetailsEdit({
   const [contactPhone, setContactPhone] = useState(
     !isMerchantTaskPage ? info.primary_contact_phone : info.contact_phone_number
   );
-  console.log(contactPhone);
   const [contactEmail, setContactEmail] = useState(
     !isMerchantTaskPage ? info.primary_contact_email : info.contact_email
   );
-  console.log(contactEmail);
+  const [contactWebsite, setContactWebsite] = useState(
+    isMerchantTaskPage ? info.website : null
+  );
 
   useEffect(() => {
     setContactFirstName(info.primary_contact_first_name);
@@ -57,6 +57,9 @@ export default function DetailsEdit({
     !isMerchantTaskPage
       ? setContactEmail(info.primary_contact_email)
       : setContactEmail(info.contact_email);
+    isMerchantTaskPage
+      ? setContactWebsite(info.website)
+      : setContactWebsite(null);
   }, [info, isOpen]);
 
   const handleSave = () => {
@@ -69,12 +72,9 @@ export default function DetailsEdit({
     const detailsInfo = {
       ...info,
     };
-    console.log(detailsInfo);
 
     const orgId = detailsInfo.organization_id;
-    console.log(orgId);
     const merchantId = detailsInfo.id;
-    console.log(merchantId);
 
     const editedDetails = !isMerchantTaskPage
       ? {
@@ -100,14 +100,12 @@ export default function DetailsEdit({
           primary_contact_last_name: contactLastName,
           contact_phone_number: contactPhone,
           contact_email: contactEmail,
+          website: contactWebsite,
           id: merchantId,
         };
 
-    // from Utils
-    // showToast();
-
     // Sweet Alert
-    showSaveSweetAlert();
+    showSaveSweetAlert({ label: "Details Updated" });
 
     setZipError(false);
 
@@ -150,6 +148,7 @@ export default function DetailsEdit({
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,
+          width: 400,
           p: 4,
           display: "flex",
           flexDirection: "column",
@@ -157,23 +156,18 @@ export default function DetailsEdit({
         }}
       >
         {!isMerchantTaskPage ? (
-          <Typography
-            variant="h5"
-            sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
-          >
+          <Typography variant="h6" sx={modalHeaderStyle}>
             Edit Organization Details
           </Typography>
         ) : (
-          <Typography
-            variant="h5"
-            sx={{ p: 2, textAlign: "center", fontWeight: "bold" }}
-          >
+          <Typography variant="h6" sx={modalHeaderStyle}>
             Edit Merchant Details
           </Typography>
         )}
+        <Divider sx={lineDivider} />
         <TextField
           label="Name"
-          value={editedName}
+          value={capitalizeWords(editedName)}
           onChange={(e) => setEditedName(e.target.value)}
         />
         {!isMerchantTaskPage ? (
@@ -185,18 +179,18 @@ export default function DetailsEdit({
         ) : null}
         <TextField
           label="Address"
-          value={editedAddress}
+          value={capitalizeWords(editedAddress)}
           onChange={(e) => setEditedAddress(e.target.value)}
         />
         {/* <div style={{ display: "flex", flexDirection: "row", gap: "3px" }}> */}
         <TextField
           label="City"
-          value={editedCity}
+          value={capitalizeWords(editedCity)}
           onChange={(e) => setEditedCity(e.target.value)}
         />
         <TextField
           label="State"
-          value={editedState}
+          value={capitalizeStateAbbr(editedState)}
           onChange={(e) => setEditedState(e.target.value)}
         />
         <TextField
@@ -211,18 +205,7 @@ export default function DetailsEdit({
           helperText={zipError ? "Invalid zip code" : ""}
         />
         {/* </div> */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Button className="modal-cancel-btn" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button onClick={handleSave}>Save</Button>
-        </div>
+        <ModalButtons label="Save" onSave={handleSave} onCancel={handleClose} />
       </Box>
     </Modal>
   );
