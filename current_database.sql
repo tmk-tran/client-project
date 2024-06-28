@@ -630,6 +630,28 @@ FOR EACH ROW
 EXECUTE FUNCTION redeem_coupon_trigger_function();
 
 ----------------------------------------------------
+----- For removing a coupon from the user list when is_deleted is true in the COUPON table -----
+
+CREATE OR REPLACE FUNCTION delete_user_coupons_on_coupon_delete()
+RETURNS TRIGGER AS
+$$
+BEGIN
+    -- Delete from user_coupon where coupon_id matches the deleted coupon
+    DELETE FROM user_coupon
+    WHERE coupon_id = OLD.id;
+
+    RETURN OLD;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE TRIGGER delete_user_coupons_trigger
+AFTER UPDATE OF is_deleted ON coupon
+FOR EACH ROW
+WHEN (OLD.is_deleted = false AND NEW.is_deleted = true)
+EXECUTE FUNCTION delete_user_coupons_on_coupon_delete();
+----------------------------------------------------
 
 ----------------------------------------------------
 ------------- Coupon Book Table --------------------
