@@ -53,10 +53,6 @@ function* addComments(action) {
 export default function* merchantCommentsSaga() {
   yield takeEvery("FETCH_ALL_MERCHANT_COMMENTS", fetchAllMerchantComments);
   yield takeEvery("FETCH_MERCHANT_COMMENTS", merchantComments);
-<<<<<<< HEAD
-  yield takeEvery("ADD_MERCHANT_COMMENTS", addComments);
-=======
   yield takeEvery("FETCH_COUPON_COMMENTS", couponComments);
   yield takeEvery("ADD_MERCHANT_COMMENT", addComments);
->>>>>>> testing-psg/main
 }
