@@ -363,9 +363,9 @@ EXECUTE FUNCTION create_transaction_for_new_seller();
 CREATE OR REPLACE FUNCTION update_seller_earnings()
 RETURNS TRIGGER AS $$
 BEGIN
-    UPDATE seller
-    SET seller_earnings = (physical_book_cash + physical_book_digital + digital_book_credit) * NEW.organization_earnings
-    WHERE organization_id = NEW.id;
+    UPDATE transactions
+    SET seller_earnings = (transactions.physical_book_cash + transactions.physical_book_digital + transactions.digital_book_credit) * NEW.organization_earnings
+    WHERE transactions.organization_id = NEW.id;
     
     RETURN NULL; -- Returning NULL to prevent update on organization table
 END;
@@ -414,6 +414,24 @@ CREATE TRIGGER update_coupon_trigger
 AFTER UPDATE OF is_deleted ON merchant
 FOR EACH ROW
 EXECUTE FUNCTION update_coupon_on_merchant_archive();
+
+----------------- For unarchive action --------------------------------
+CREATE OR REPLACE FUNCTION update_coupon_on_merchant_unarchive()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.is_deleted IS DISTINCT FROM NEW.is_deleted AND NEW.is_deleted = false THEN
+        UPDATE coupon SET is_deleted = false WHERE merchant_id = NEW.id;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE TRIGGER update_coupon_on_unarchive_trigger
+AFTER UPDATE OF is_deleted ON merchant
+FOR EACH ROW
+EXECUTE FUNCTION update_coupon_on_merchant_unarchive();
 
 --------------------------------------------------------------------
 --------------------------------------------------------------------
