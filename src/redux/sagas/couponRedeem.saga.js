@@ -3,13 +3,15 @@ import { put, takeEvery } from "redux-saga/effects";
 
 function* redeemCoupon(action) {
   console.log(action.payload);
+  const yearId = action.payload.yearId;
+
   try {
     yield axios.post(`/api/redeem/`, action.payload);
     yield put({
       type: "FETCH_CONSUMER_COUPONS",
       payload: {
         id: action.payload.userId,
-        yearId: 1
+        yearId: 1,
       },
     });
   } catch (error) {

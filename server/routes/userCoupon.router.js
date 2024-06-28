@@ -22,8 +22,6 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.get("/:id", rejectUnauthenticated, (req, res) => {
-  console.log(req.params.id);
-  console.log(req.query.yearId);
   const userId = req.params.id;
   const yearId = req.query.yearId;
 

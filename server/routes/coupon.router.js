@@ -7,7 +7,7 @@ const {
 const { upload } = require("../modules/upload");
 
 router.get("/", (req, res) => {
-  // can add
+  // Add when feature is implemented for locations
   // ARRAY_AGG(l.coordinates) AS coordinates,
   // ARRAY_AGG(l.region_id) AS region_id,
   const queryText = `
@@ -173,27 +173,27 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
   }
 });
 
-// PUT route for redeeming a coupon
-router.put("/redeem/:id", (req, res) => {
-  const couponId = req.params.id;
+// // PUT route for redeeming a coupon
+// router.put("/redeem/:id", (req, res) => {
+//   const couponId = req.params.id;
 
-  const queryText = `
-    UPDATE coupon
-    SET is_redeemed = true
-    WHERE id = $1;
-  `;
+//   const queryText = `
+//     UPDATE coupon
+//     SET is_redeemed = true
+//     WHERE id = $1;
+//   `;
 
-  pool
-    .query(queryText, [couponId])
-    .then((response) => {
-      console.log("Coupon redeemed");
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.error("Error redeeming coupon:", error);
-      res.sendStatus(500);
-    });
-});
+//   pool
+//     .query(queryText, [couponId])
+//     .then((response) => {
+//       console.log("Coupon redeemed");
+//       res.sendStatus(200);
+//     })
+//     .catch((error) => {
+//       console.error("Error redeeming coupon:", error);
+//       res.sendStatus(500);
+//     });
+// });
 
 // PUT route for uploading front view PDF
 router.put("/front/:id", upload.single("pdf"), (req, res) => {
@@ -335,21 +335,20 @@ router.put(
       `;
         await pool.query(deleteLocationsQuery, [couponId]);
       } else {
-
-      // Delete existing locations for the coupon
-      const deleteLocationsQuery = `
+        // Delete existing locations for the coupon
+        const deleteLocationsQuery = `
       DELETE FROM coupon_location
       WHERE coupon_id = $1;
     `;
-      await pool.query(deleteLocationsQuery, [couponId]);
+        await pool.query(deleteLocationsQuery, [couponId]);
 
-      // Insert updated locations into coupon_location table
-      const locationInsertQuery = `
+        // Insert updated locations into coupon_location table
+        const locationInsertQuery = `
       INSERT INTO coupon_location (coupon_id, location_id)
       SELECT $1, location_id
       FROM unnest($2::integer[]) AS location_id;
     `;
-      await pool.query(locationInsertQuery, [couponId, locationIds]);
+        await pool.query(locationInsertQuery, [couponId, locationIds]);
       }
 
       // Commit the transaction
