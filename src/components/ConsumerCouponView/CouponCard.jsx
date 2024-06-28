@@ -57,6 +57,7 @@ export default function CouponCard({ isMobile, coupon, i }) {
           yearId: yearId,
         },
       };
+      console.log(redeemAction);
       dispatch(redeemAction);
     };
     redeemCouponSweetAlert(saveCall);
