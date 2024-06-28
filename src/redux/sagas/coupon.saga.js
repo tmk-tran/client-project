@@ -8,7 +8,7 @@ const fetchPdfRequest = (couponId) => ({
 });
 
 function* couponFiles(action) {
-  const userId = action.payload.id;
+  const userId = action.payload.userId;
   const yearId = action.payload.yearId;
 
   try {

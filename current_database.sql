@@ -610,14 +610,14 @@ CREATE OR REPLACE FUNCTION redeem_coupon_trigger_function()
 RETURNS TRIGGER AS
 $$
 BEGIN
-    -- Insert a record into the user_coupons table when a coupon is redeemed
-    INSERT INTO user_coupon (user_id, coupon_id, location_id)
-    VALUES (NEW.redeemed_by, NEW.coupon_id, NEW.location_id);
-    -- Update the redeemed column to true in the coupon_redemption table
+    -- Update the redeemed column to true
+    -- Check if location_id is NULL or matches the given location_id
     UPDATE user_coupon
     SET redeemed = true
-    WHERE user_id = NEW.redeemed_by AND coupon_id = NEW.coupon_id;
-    
+    WHERE user_id = NEW.redeemed_by
+      AND coupon_id = NEW.coupon_id
+      AND (location_id IS NULL OR location_id = NEW.location_id);
+
     RETURN NEW;
 END;
 $$
