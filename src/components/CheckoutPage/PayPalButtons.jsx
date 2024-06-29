@@ -16,7 +16,7 @@ function PayPalButton({
   orderSuccess,
 }) {
   // comes through undefined in test environment
-  console.log(process.env.REACT_APP_PAYPAL_CLIENT_ID);
+  // console.log(process.env.REACT_APP_PAYPAL_CLIENT_ID);
   const dispatch = dispatchHook();
 
   // Removed 'venmo' from "enable-funding"

@@ -3,11 +3,9 @@ import { useParams } from "react-router-dom";
 import { Box, Divider, useTheme, useMediaQuery } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
-import { dispatchHook } from "../../hooks/useDispatch";
-import { flexCenter, containerStyle } from "../Utils/pageStyles";
+import { containerStyle } from "../Utils/pageStyles";
 import { navButtonStyle } from "./checkoutStyles";
 import { sellerPageInfo } from "../../hooks/reduxStore";
-import { border } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
 import CustomButton from "../CustomButton/CustomButton";
 import Typography from "../Typography/Typography";
@@ -17,27 +15,20 @@ import RefIdDisplay from "../SellerPage/RefIdDisplay";
 import { lineDivider } from "../Utils/modalStyles";
 
 export default function OrderPage({ caseType }) {
-  console.log(caseType);
   const seller = useParams();
-  console.log(seller);
-  const dispatch = dispatchHook();
   const history = historyHook();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [selectedRows, setSelectedRows] = useState([]);
   const [customDonation, setCustomDonation] = useState(0);
-  console.log(customDonation);
   const [orderTotal, setOrderTotal] = useState(0);
-  console.log(orderTotal);
 
   // Seller info from store //
   const sellerData = sellerPageInfo() || [];
-  console.log(sellerData);
   // Extract the seller ID //
   const [firstSeller] = sellerData;
   const sellerId = firstSeller ? firstSeller.id : null;
-  console.log(sellerId);
   const [showOrderTable, setShowOrderTable] = useState(false);
   const [pageLoad, setPageLoad] = useState(true);
 
@@ -117,26 +108,11 @@ export default function OrderPage({ caseType }) {
   };  
 
   const selectedProducts = mapSelectedRowsToProducts();
-  console.log("Selected Products:", selectedProducts);
 
-  const handlePayment = (total) => {
+  const handlePayment = (subTotal) => {
     // Implement payment logic here
-    console.log("Subtotal being sent for payment:", total);
-    setOrderTotal(total);
+    setOrderTotal(subTotal);
   };
-
-  // REMOVED THIS FOR TESTING ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
-
-  // const handleFormChange = (incomingData) => {
-  //   console.log(incomingData);
-
-  //   const dispatchAction = {
-  //     type: "ADD_CUSTOMER",
-  //     payload: incomingData,
-  //   };
-  //   console.log("Dispatching action:", dispatchAction);
-  //   dispatch(dispatchAction);
-  // };
 
   const addToCart = () => {
     history.push({

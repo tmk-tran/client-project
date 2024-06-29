@@ -175,7 +175,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", upload.single("organization_logo"), (req, res) => {
-  console.log("BODY FROM ORG ROUTER", req.body);
   const organization = req.body;
   const organizationLogo = req.file ? req.file.buffer : null; // Get the file buffer from multer
 
@@ -224,8 +223,6 @@ router.post("/", upload.single("organization_logo"), (req, res) => {
 
 // DELETE
 router.delete("/:id", (req, res) => {
-  console.log("PARAMS FROM ORG ROUTER", req.params.id);
-  console.log("BODY FROM ORG ROUTER", req.body);
   pool
     .query(`UPDATE "organization" SET is_deleted = true WHERE id = $1;`, [
       req.params.id,
@@ -242,12 +239,10 @@ router.delete("/:id", (req, res) => {
 router.put("/:id", upload.single("organization_logo"), (req, res) => {
   const organizationId = req.params.id;
   const organization = req.body;
-  console.log("from PUT router organizations", organization);
   let organization_logo = null;
   if (req.file) {
     organization_logo = req.file.buffer;
   }
-  console.log(organization_logo);
 
   let queryText;
   let values;
@@ -330,7 +325,6 @@ router.put("/:id", upload.single("organization_logo"), (req, res) => {
     })
     .catch((err) => {
       console.log("error with organizations PUT route", err);
-      // res.sendStatus(500);
       // Send the error message back to the client
       res.status(500).json({ error: err.message });
     });

@@ -4,7 +4,7 @@ import { put, takeEvery } from "redux-saga/effects";
 function* merchantDetails(action) {
   try {
     const items = yield axios.get(`/api/merchants/${action.payload}`);
-    console.log("FETCH request from merchants.saga, ITEMS = ", items.data);
+    // console.log("FETCH request from merchants.saga, ITEMS = ", items.data);
     yield put({ type: "SET_MERCHANT_DETAILS", payload: items.data });
   } catch (error) {
     console.log("Error in merchantsSaga", error);
@@ -76,8 +76,6 @@ function* addMerchantSaga(action) {
       },
     });
 
-    console.log("RESPONSE IS", response.rows);
-
     yield put({ type: "FETCH_MERCHANTS", payload: action.payload });
   } catch (error) {
     console.log("error in merchant POST", error);
@@ -85,9 +83,7 @@ function* addMerchantSaga(action) {
 }
 
 function* editMerchant(action) {
-  console.log(action.payload);
   try {
-    // console.log("ACTION PAYLOAD IS", action.payload);
     const merchantId = action.payload.id;
 
     // Create a FormData object to send the file data
@@ -128,8 +124,6 @@ function* editMerchant(action) {
       },
     });
 
-    console.log("RESPONSE IS", response);
-
     yield put({ type: "FETCH_MERCHANT_DETAILS", payload: merchantId });
   } catch (error) {
     console.log("error in edit invoice", error);
@@ -143,7 +137,6 @@ function* changeContactMethod(action) {
       `/api/merchants/contact/${merchantId}`,
       action.payload
     );
-    console.log("From user saga: ", response.data);
     yield put({ type: "FETCH_MERCHANT_DETAILS", payload: merchantId });
   } catch (error) {
     console.log("GET for merchant details error: ", error);

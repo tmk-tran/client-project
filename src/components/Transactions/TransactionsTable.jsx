@@ -47,7 +47,6 @@ const footerCellStyle = {
 };
 
 export default function TransactionsTable({ transactions }) {
-  console.log(transactions);
   // Calculate totals
   const totals = transactions.reduce(
     (acc, transaction) => {
