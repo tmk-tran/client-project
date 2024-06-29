@@ -161,7 +161,9 @@ CREATE TABLE merchant (
     archive_reason character varying(150),
     merchant_logo bytea,
     filename character varying(255),
-    website character varying(150)
+    website character varying(150),
+    contact_method character varying(50),
+    region_id integer REFERENCES region(id)
 );
 
 
