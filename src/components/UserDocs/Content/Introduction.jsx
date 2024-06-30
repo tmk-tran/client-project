@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
 
 // Sets margin bottom to 2
-const CustomTypography = (props) => {
-  return <Typography {...props} sx={{ mb: 2 }} />;
+export const CustomTypography = (props) => {
+  return <Typography {...props} sx={{ mb: 2, color: "ghostwhite" }} />;
 };
 
 export default function GettingStarted() {
@@ -12,8 +12,7 @@ export default function GettingStarted() {
         Welcome to The Preferred Savings Guide!
       </CustomTypography>
       <CustomTypography variant="body1">
-        This application is designed to enhance an existing platform developed
-        in the Koss cohort at Emerging Digital Academy in Fargo, ND. Our goal is to provide a
+        This application is designed to provide a
         comprehensive solution for coupon development, management, and sales.
       </CustomTypography>
       <CustomTypography variant="body1">Key Objectives:</CustomTypography>
@@ -50,7 +49,7 @@ export default function GettingStarted() {
         </li>
       </ul>
       <CustomTypography variant="body1">
-        This application aims to streamline coupon management, improve seller
+        These modules aim to streamline coupon management, improve seller
         organization, and enhance the user experience for administrators and
         sellers alike.
       </CustomTypography>

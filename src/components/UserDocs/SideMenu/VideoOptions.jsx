@@ -1,8 +1,5 @@
 import { Collapse, List, ListItemButton, ListItemText } from "@mui/material";
-
-const IndentedListItemText = (props) => {
-  return <ListItemText {...props} sx={{ ml: 2 }} />;
-};
+import { IndentedListItemText } from "./GetStartedOptions";
 
 export default function VideoOptions({ isVideoTutorialsOpen }) {
   return (
