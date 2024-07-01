@@ -10,7 +10,6 @@ import { User } from "../../hooks/reduxStore";
 
 export default function OrgGroupInfoCard({ groupInfo }) {
   const history = useHistory();
-
   const user = User();
 
   return (
@@ -24,25 +23,28 @@ export default function OrgGroupInfoCard({ groupInfo }) {
         <div>
           <Typography
             variant="h6"
-            sx={{ textAlign: "center", marginBottom: "10px" }} >
-            {groupInfo.fundraiser_collection.map(goal => {
-            return(
+            sx={{ textAlign: "center", marginBottom: "10px" }}
+          >
+            {user.id ? (
               <div>
                 <strong>Goal:</strong>{" "}
-                {goal.goal !== null ? (
+                {groupInfo.goal !== null ? (
                   new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
                     minimumFractionDigits: 0, // Set this to 2 if you want cents
-                  }).format(goal.goal)
+                  }).format(groupInfo.goal)
                 ) : (
                   <span style={{ fontSize: "22px", fontWeight: 400 }}>
                     None Set
                   </span>
                 )}
               </div>
-              )
-          })}
+            ) : (
+              <Typography sx={{ fontWeight: "bold" }}>
+                *Please login to view goals*
+              </Typography>
+            )}
             <hr />
           </Typography>
         </div>

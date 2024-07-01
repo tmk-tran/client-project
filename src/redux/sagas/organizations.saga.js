@@ -1,7 +1,7 @@
 import axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
 
-function* fetchOrganizationsSaga(action) {
+function* fetchOrganizationsSaga() {
   try {
     const response = yield axios.get("/api/organizations");
     console.log("FETCH request fetchOrganizationsSaga successful");
