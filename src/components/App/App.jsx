@@ -46,7 +46,7 @@ import { getCurrentSeason } from "../Utils/helpers";
 const theme = createTheme({
   typography: {
     fontSize: 18,
-    fontFamily: "Helvetica, sans-serif",
+    fontFamily: "'Nunito', Helvetica, sans-serif",
   },
   palette: {
     primary: {
