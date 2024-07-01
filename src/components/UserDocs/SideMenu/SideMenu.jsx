@@ -7,6 +7,7 @@ import TasksOptions from "./TasksOptions";
 import VideoOptions from "./VideoOptions";
 import CouponsOptions from "./CouponsOptions";
 import { primaryColor } from "../../Utils/colors";
+import { border } from "../../Utils/colors";
 
 const iconColor = {
   color: primaryColor.color,
@@ -61,7 +62,7 @@ export default function SideMenu({ setSelectedContent }) {
   };
 
   return (
-    <Box sx={{ minWidth: 200, padding: 2 }}>
+    <Box sx={{ minWidth: 200, padding: 2, ...border }}>
       <List>
         {menuItems.map((item) => (
           <React.Fragment key={item.text}>

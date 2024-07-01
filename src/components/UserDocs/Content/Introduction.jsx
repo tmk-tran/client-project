@@ -1,9 +1,40 @@
 import { Typography } from "@mui/material";
+import {
+  typographyListColor,
+  StyledList,
+  StyledListItem,
+} from "./contentStyles";
 
 // Sets margin bottom to 2
 export const HelpPageTypography = (props) => {
   return <Typography {...props} sx={{ mb: 2, color: "ghostwhite" }} />;
 };
+
+const features = [
+  {
+    title: "Coupon Development",
+    description:
+      "Create, manage, and publish coupons from initial design to consumer availability.",
+  },
+  {
+    title: "Task Tracking System",
+    description: "Manage tasks, communicate with admin, and track progress.",
+  },
+  {
+    title: "Seller Organization",
+    description: "Organize sellers, track metrics, and manage sales data.",
+  },
+  {
+    title: "Unique Seller URLs",
+    description:
+      "Generate unique web links for sellers to sell their coupon books.",
+  },
+  {
+    title: "PayPal Integration",
+    description:
+      "Integrate PayPal for secure transactions within the application.",
+  },
+];
 
 export default function GettingStarted() {
   return (
@@ -12,42 +43,19 @@ export default function GettingStarted() {
         Welcome to The Preferred Savings Guide!
       </HelpPageTypography>
       <HelpPageTypography variant="body1">
-        This application is designed to provide a
-        comprehensive solution for coupon development, management, and sales.
+        This application is designed to provide a comprehensive solution for
+        coupon development, management, and sales.
       </HelpPageTypography>
       <HelpPageTypography variant="body1">Key Objectives:</HelpPageTypography>
-      <ul>
-        <li>
-          <Typography variant="body2">
-            <strong>Coupon Development:</strong> Create, manage, and publish
-            coupons from initial design to consumer availability.
-          </Typography>
-        </li>
-        <li>
-          <Typography variant="body2">
-            <strong>Task Tracking System:</strong> Manage tasks, communicate
-            with admin, and track progress.
-          </Typography>
-        </li>
-        <li>
-          <Typography variant="body2">
-            <strong>Seller Organization:</strong> Organize sellers, track
-            metrics, and manage sales data.
-          </Typography>
-        </li>
-        <li>
-          <Typography variant="body2">
-            <strong>Unique Seller URLs:</strong> Generate unique web links for
-            sellers to sell their coupon books.
-          </Typography>
-        </li>
-        <li>
-          <Typography variant="body2">
-            <strong>PayPal Integration:</strong> Integrate PayPal for secure
-            transactions within the application.
-          </Typography>
-        </li>
-      </ul>
+      <StyledList>
+        {features.map((feature, index) => (
+          <StyledListItem key={index}>
+            <Typography variant="body2" sx={typographyListColor}>
+              <strong>{feature.title}:</strong> {feature.description}
+            </Typography>
+          </StyledListItem>
+        ))}
+      </StyledList>
       <HelpPageTypography variant="body1">
         These modules aim to streamline coupon management, improve seller
         organization, and enhance the user experience for administrators and

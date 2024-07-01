@@ -39,6 +39,7 @@ const HelpPage = () => {
           padding: 2,
           backgroundColor: backgroundColor.color,
           borderRadius: 3,
+          overflowY: 'auto', // Enable vertical scrolling for content area
         }}
       >
         {/* Content Here */}

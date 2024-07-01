@@ -1,54 +1,70 @@
 import { HelpPageTypography } from "./Introduction";
-import { List, ListItem, styled, Typography } from "@mui/material";
-import { typographyListColor } from "./contentStyles";
+import { Box, Typography } from "@mui/material";
+import {
+  typographyListColor,
+  StyledList,
+  StyledListItem,
+  imgBoxStyle,
+} from "./contentStyles";
 
-// Custom styled ListItem to change bullet color
-const WhiteBulletListItem = styled(ListItem)(({ theme }) => ({
-  "&::before": {
-    content: '"\\2022"', // Bullet character
-    color: theme.palette.common.white, // White color for the bullet
-    marginRight: theme.spacing(1), // Adjust bullet position as needed
+const roles = ["Admin", "Graphic Designer", "Organization Admin", "Seller"];
+const roleDetails = [
+  {
+    role: "Admin",
+    description:
+      "The highest level of access with full control over the application.  The links available are:",
+    imageUrl: "/images/admin-navlinks.png",
   },
-}));
+  {
+    role: "Graphic Designer",
+    description:
+      "Responsible for designing coupon graphics and managing tasks within the application. Links available are:",
+    imageUrl: "/images/graphic-design-navlinks.png",
+  },
+  {
+    role: "Organization Admin",
+    description:
+      "Manages organization profile and sellers within. Will have access ONLY to the organization(s) they are assigned. The landing page will look similar to this:",
+    imageUrl: "/images/orgadmin-dashboard.png",
+  },
+  {
+    role: "Seller",
+    description:
+      "Manage the sale of coupon books. Each seller is assigned a unique referral ID, and issued a link to the application. A seller's link will navigate to this view:",
+  },
+];
 
 export default function RolesHelpContent() {
   return (
     <>
       <HelpPageTypography variant="h4">Roles</HelpPageTypography>
-      <HelpPageTypography variant="h6">Types of Roles</HelpPageTypography>
-      <HelpPageTypography variant="body2">
+      <HelpPageTypography variant="body1">
         This application supports the following user roles:
       </HelpPageTypography>
-      <List>
-        {["Admin", "Graphic Designer", "Organization Admin", "Seller"].map(
-          (role, index) => (
-            <WhiteBulletListItem key={index}>
-              <Typography variant="body2" sx={typographyListColor}>
-                {role}
-              </Typography>
-            </WhiteBulletListItem>
-          )
-        )}
-      </List>
+      <StyledList>
+        {roles.map((role, index) => (
+          <StyledListItem key={index}>
+            <Typography variant="body2" sx={typographyListColor}>
+              {role}
+            </Typography>
+          </StyledListItem>
+        ))}
+      </StyledList>
       <HelpPageTypography variant="h6">
         Each role has specific permissions and responsibilities:
       </HelpPageTypography>
-      <HelpPageTypography variant="body2">
-        <strong>Admin:</strong> The highest level of access with full control
-        over the application.
+      {roleDetails.map((detail, index) => (
+        <Box key={index} sx={{ mb: 5 }}>
+          <HelpPageTypography variant="body2">
+            <strong>{detail.role}:</strong> {detail.description}
+          </HelpPageTypography>
+          {/* <img src={detail.imageUrl} alt={detail.role} style={{ width: '100%', marginTop: '8px', borderRadius: '4px' }} /> */}
+          <img src={detail.imageUrl} alt={detail.role} style={imgBoxStyle} />
+        </Box>
+      ))}
+      <HelpPageTypography variant="body1">
+        Additional info here
       </HelpPageTypography>
-      <HelpPageTypography variant="body2">
-        <strong>Graphic Designer:</strong> Responsible for designing coupon graphics
-        and managing tasks within the application.
-      </HelpPageTypography>
-      <HelpPageTypography variant="body2">
-        <strong>Organization Admin:</strong> Manages organization profile and
-        sellers within.
-      </HelpPageTypography>
-      <HelpPageTypography variant="body2">
-        <strong>Seller:</strong> Manage the sale of coupon books.
-      </HelpPageTypography>
-      <HelpPageTypography variant="body1">Additional info here</HelpPageTypography>
     </>
   );
 }
