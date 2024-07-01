@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { HelpPageTypography } from "./Introduction";
-import { imageSize, imgBoxStyle } from "./contentStyles";
+import { imageSize, imageStyle, imgBoxStyle } from "./contentStyles";
 
 export default function LoginHelpContent() {
   return (
@@ -15,8 +15,8 @@ export default function LoginHelpContent() {
         <img
           src="/images/login-screen.png"
           alt="desktop image of login page"
-          style={imageSize}
-        ></img>
+          style={imageStyle}
+        />
       </Box>
       <HelpPageTypography variant="body2">
         Use this form to login to the application:

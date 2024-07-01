@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, createTheme, ThemeProvider } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
-import { backgroundColor } from "../Utils/colors";
+import { primaryColor } from "../Utils/colors";
 // ~~~~~~~~~~ Components ~~~~~~~~~~ //
 import SideMenu from "./SideMenu/SideMenu";
 import Introduction from "./Content/Introduction";
@@ -37,7 +37,8 @@ const HelpPage = () => {
         sx={{
           flex: 1,
           padding: 2,
-          backgroundColor: backgroundColor.color,
+          // backgroundColor: primaryColor.color,
+          backgroundColor: "#001D5D",
           borderRadius: 3,
           overflowY: 'auto', // Enable vertical scrolling for content area
         }}

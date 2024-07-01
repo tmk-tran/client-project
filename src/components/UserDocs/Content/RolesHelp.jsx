@@ -30,7 +30,8 @@ const roleDetails = [
   {
     role: "Seller",
     description:
-      "Manage the sale of coupon books. Each seller is assigned a unique referral ID, and issued a link to the application. A seller's link will navigate to this view:",
+      "Manage the sale of coupon books. Each seller is assigned a unique referral ID, and issued a link to the application. A seller's link will navigate to a page like this:",
+    imageUrl: "/images/seller-landing.png",
   },
 ];
 
@@ -54,7 +55,7 @@ export default function RolesHelpContent() {
         Each role has specific permissions and responsibilities:
       </HelpPageTypography>
       {roleDetails.map((detail, index) => (
-        <Box key={index} sx={{ mb: 5 }}>
+        <Box key={index} sx={{ mb: 8 }}>
           <HelpPageTypography variant="body2">
             <strong>{detail.role}:</strong> {detail.description}
           </HelpPageTypography>
@@ -62,9 +63,6 @@ export default function RolesHelpContent() {
           <img src={detail.imageUrl} alt={detail.role} style={imgBoxStyle} />
         </Box>
       ))}
-      <HelpPageTypography variant="body1">
-        Additional info here
-      </HelpPageTypography>
     </>
   );
 }

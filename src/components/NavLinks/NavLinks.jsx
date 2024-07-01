@@ -212,16 +212,18 @@ export default function NavLinks() {
             </>
           )
         )}
-        <Typography>
-          <MuiLink
-            component={Link}
-            className="main-navlink"
-            to="/help"
-            underline="hover"
-          >
-            Help
-          </MuiLink>
-        </Typography>
+        {user.id && (
+          <Typography>
+            <MuiLink
+              component={Link}
+              className="main-navlink"
+              to="/help"
+              underline="hover"
+            >
+              Help
+            </MuiLink>
+          </Typography>
+        )}
       </div>
     </ThemeProvider>
   );

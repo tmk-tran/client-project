@@ -6,13 +6,28 @@ export const imageSize = {
   height: "auto",
   objectFit: "cover",
   objectPosition: "center",
+  borderRadius: 2,
+};
+
+export const largeImageSize = {
+  width: "40rem",
+  height: "auto",
+  objectFit: "cover",
+  objectPosition: "center",
+  borderRadius: 2,
+};
+
+export const imageStyle = {
+  borderRadius: 2,
+  mb: 5,
 };
 
 export const imgBoxStyle = {
   mb: 5,
-  border: "1px solid white",
   width: "fit-content",
   height: "fit-content",
+  padding: 1,
+  borderRadius: 2,
 };
 
 // Typography style used in content

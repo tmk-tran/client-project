@@ -38,6 +38,7 @@ const pageBoxStyle = {
 };
 
 const pageHeaderStyle = {
+  fontWeight: "bold",
   textAlign: "center",
   mb: 2,
 };
