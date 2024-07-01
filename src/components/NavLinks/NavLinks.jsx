@@ -90,6 +90,8 @@ export default function NavLinks() {
               </>
             )}
             {/* Links for graphic designer */}
+            {/* Current graphic designer is both an org admin and a graphic designer */}
+            {/* this condition will need to change if the role is ever switched */}
             {user.graphic_designer && user.org_admin && !user.is_admin && (
               <>
                 <Typography>
@@ -210,16 +212,18 @@ export default function NavLinks() {
             </>
           )
         )}
-        {/* <Typography>
-          <MuiLink
-            component={Link}
-            className="main-navlink"
-            to="/help"
-            underline="hover"
-          >
-            Help
-          </MuiLink>
-        </Typography> */}
+        {user.id && (
+          <Typography>
+            <MuiLink
+              component={Link}
+              className="main-navlink"
+              to="/help"
+              underline="hover"
+            >
+              Help
+            </MuiLink>
+          </Typography>
+        )}
       </div>
     </ThemeProvider>
   );
