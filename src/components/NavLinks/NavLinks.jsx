@@ -16,7 +16,6 @@ import { User } from "../../hooks/reduxStore";
 const theme = createTheme({
   typography: {
     fontSize: 15,
-    fontFamily: "Telugu Sangam MN",
   },
   components: {
     MuiLink: {
@@ -25,7 +24,6 @@ const theme = createTheme({
           color: "#273b91", // Customize link color
           // Add other styles for MuiLink here
           textTransform: "uppercase",
-          fontFamily: "Telugu Sangam MN",
         },
       },
     },
