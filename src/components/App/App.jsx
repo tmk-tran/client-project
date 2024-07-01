@@ -37,6 +37,13 @@ import HelpPage from "../UserDocs/HelpPage";
 // ~~~~~~~~~~ Style ~~~~~~~~~~
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
+
+import PublicOrgPage from "../PublicOrgPage/PublicOrgPage";
+import PublicOrgDetails from "../PublicOrgDetails/PublicOrgDetails";
+import GlobalFundraiserInput
+  from "../GlobalFundraiserInput/GlobalFundraiserInput";
+// Theme establishing global color for MUI
+
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~
 import { dispatchHook } from "../../hooks/useDispatch";
 import { User } from "../../hooks/reduxStore";
@@ -59,6 +66,8 @@ const theme = createTheme({
   },
 });
 // ~~~~~ end theme ~~~~~
+
+
 
 function App() {
   const dispatch = dispatchHook();
@@ -104,6 +113,7 @@ function App() {
   }, [user.org_id]);
 
   return (
+
     <Router>
       <ThemeProvider theme={theme}>
         <div
@@ -329,7 +339,9 @@ function App() {
         <Footer />
       </ThemeProvider>
     </Router>
+
   );
 }
+
 
 export default App;

@@ -28,6 +28,7 @@ export default function GroupDetails() {
   //Instanciates dispatch for use in component
   const dispatch = useDispatch();
   //Store used to get the group and fundraiser data
+  const auth = useSelector((store) => store.auth)
   const groupDetails = useSelector((store) => store.group);
   const fundraisers = useSelector((store) => store.fundraisers);
 
@@ -53,11 +54,11 @@ export default function GroupDetails() {
 
   //Use Effect that runs on page load to fetch the group details
   useEffect(() => {
-    dispatch({ type: "FETCH_GROUP_DETAILS", payload: id });
+    dispatch({ type: "FETCH_GROUP_DETAILS", payload: {id: id, auth: auth }});
   }, []);
   //Use Effect that runs after group details are fetched. Grabs the fundraisers tied to the group id number
   useEffect(() => {
-    dispatch({ type: "FETCH_FUNDRAISERS", payload: id });
+    dispatch({ type: "FETCH_FUNDRAISERS", payload: {id: id, auth: auth }});
   }, [groupDetails]);
 
   //Elements used in component. Displays data based on the components that are called and has the headers for both open fundraisers and closed fundarisers tables

@@ -2,8 +2,38 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 
-router.get("/:id", (req, res) => {
+router.post("/:id", (req, res) => {
   const orgId = req.params.id;
+  const ACCESS_TOKEN = auth_response.access_token;
+  const QUERY_URL = "https://api.devii.io/query";
+  const query = `{\r\n   fundraiser (filter: "group.organization_id = ${orgId}"{\r\n id\r\n group_id\r\n title\r\n description\r\n requested_book_quantity\r\n book_quantity_checked_out\r\n book_checked_out_total_value\r\n book_quantity_checked_in\r\n books_sold\r\n money_received\r\n start_date\r\n end_date\r\n coupon_book_id\r\n outstanding_balance\r\n is_deleted\r\n closed\r\n goal\r\n
+  group {\r\n organization_id\r\n department\r\n sub_department\r\n group_nickname\r\n group_photo\r\n group_description\r\n is_deleted\r\n organization{\r\n organization_name\r\n type\r\n address\r\n city\r\n state\r\n zip\r\n primary_contact_first_name\r\n primary_contact_last_name\r\n primary_contact_phone\r\n primary_contact_email\r\n organization_logo\r\n is_deleted\r\n organization_earnings\r\n}\r\n}\r\n}\r\n}`;
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${ACCESS_TOKEN}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var graphql = JSON.stringify({
+    query: query,
+    variables: {},
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: graphql,
+    redirect: "follow",
+  };
+
+  fetch(QUERY_URL, requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+      res.sendStatus(200)
+    })
+    .catch((error) => {
+      console.log("Error getting data from Devii", error)
+      res.sendStatus(500)
+    });
   // const queryText = `SELECT
   // o.id AS organization_id,
   // o.organization_name,
@@ -84,15 +114,15 @@ router.get("/:id", (req, res) => {
           JOIN organization o ON g.organization_id = o.id
           WHERE o.id = $1;`;
 
-  pool
-    .query(queryText, [orgId])
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      console.log("ERROR in fundraisers", err);
-      res.sendStatus(500);
-    });
+  //   pool
+  //     .query(queryText, [orgId])
+  //     .then((result) => {
+  //       res.send(result.rows);
+  //     })
+  //     .catch((err) => {
+  //       console.log("ERROR in fundraisers", err);
+  //       res.sendStatus(500);
+  //     });
 });
 
 //Get route for fundraisers with a specific group id

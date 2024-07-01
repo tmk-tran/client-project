@@ -10,10 +10,26 @@ function ArchivedOrganizationCard({ organization }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const auth = useSelectore((store) => store.auth)
 
   // function to re activate organization and dispatch the data
   // sweet alert to confirm
   function unArchive(organizationId) {
+    const resetOrg = {  
+      id: organizationId,
+      organization_name: organization.organization_name,
+      type: organization.type,
+      address: organization.address,
+      city: organization.city,
+      state: organization.state,
+      zip: organization.zip,
+      primary_contact_first_name: organization.primary_contact_first_name,
+      primary_contact_last_name: organization.primary_contact_last_name,
+      primary_contact_phone: organization.primary_contact_phone,
+      primary_contact_email: contactEmail,
+      organization_logo: logoUrl,
+      organization_earnings: orgEarnings,
+      is_delete: false};
     Swal.fire({
       title: "Are you sure you want to restore this organization?",
       icon: "warning",

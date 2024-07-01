@@ -20,11 +20,13 @@ import { flexRowSpace } from "../Utils/pageStyles";
 
 //Function for the component, takes in the group prop for use
 export default function GroupDetailsCard({ group }) {
+  console.log(group)
   //Instanciates history and dispatch for use in the component
   const history = useHistory();
   const dispatch = useDispatch();
   //Selector for the coupon books. Used to grab the year of the coupon book in the dropdown menu
   const couponBooks = useSelector((store) => store.couponBooks);
+  const auth = useSelector((store) => store.auth)
   //State used for the modal add fundraiser form
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -47,28 +49,27 @@ export default function GroupDetailsCard({ group }) {
   }, []);
 
   //Function that runs on click of the submit button in add fundraiser form. This creates a new objcet that is sent to the back end to be added to the database and resets the state of the inputs in the form and closes the modal. Also fires sweetalert to let user know that the fundraiser has been added.
-  const submitFundraiser = (e) => {
-    e.preventDefault;
+  const submitFundraiser = () => {
     const newFundraiser = {
-      group_id: group.id,
+      group_id: Number(group.id),
       title: title,
       description: description,
-      requested_book_quantity: booksRequested,
-      book_quantity_checked_out: booksCheckedOut,
-      book_quantity_checked_in: booksCheckedIn,
-      books_sold: booksSold,
-      goal: goal,
-      money_received: moneyReceived,
+      requested_book_quantity: Number(booksRequested),
+      book_quantity_checked_out: Number(booksCheckedOut),
+      book_quantity_checked_in: Number(booksCheckedIn),
+      books_sold: Number(booksSold),
+      goal: Number(goal),
+      money_received: Number(moneyReceived),
       start_date: startDate,
       end_date: endDate,
-      coupon_book_id: couponBookId,
+      coupon_book_id: Number(couponBookId),
     };
     Swal.fire(
       "Fundraiser Created!",
       "Your fundraiser has been created!",
       "success"
     );
-    dispatch({ type: "ADD_FUNDRAISER", payload: newFundraiser });
+    dispatch({ type: "ADD_FUNDRAISER", payload:{ newFundraiser: newFundraiser, auth: auth }});
     setTitle("");
     setDescription("");
     setBooksRequested("");
@@ -96,6 +97,26 @@ export default function GroupDetailsCard({ group }) {
     p: 4,
   };
 
+  const renderLogoOrInitials = () => {
+    if (group.group_photo) {
+      return (
+        <img
+          className="logoImage"
+          src={group.group_photo}
+          alt="Organization Logo"
+        />
+      );
+    } else {
+      // If no logo, display initials of organization name
+      const initials = group.group_nickname
+        .split(" ")
+        .map((word) => word[0])
+        .join("")
+        .toUpperCase();
+
+      return <div className="initialsContainer">{initials}</div>;
+    }
+  };
   //Elements and data used in the component. Displays the group card and the add fundraiser modal
   return (
     <>
@@ -111,17 +132,18 @@ export default function GroupDetailsCard({ group }) {
           margin: "auto",
         }}
       >
-        <CardMedia
+        <div
+
           style={{ objectFit: "cover", margin: "auto" }}
           className="cardMedia"
-          component="img"
-          image={group.group_photo}
-        />
+        >
+          {renderLogoOrInitials()}
+        </div>
         <div
           style={{ margin: "auto", textAlign: "center", marginBottom: "10px" }}
         >
           <Typography variant="h5">
-            {group.department} {group.sub_department}
+            {group.group_nickname}
           </Typography>
           <Typography>{group.group_description}</Typography>
         </div>
@@ -129,7 +151,7 @@ export default function GroupDetailsCard({ group }) {
           <Button variant="outlined" onClick={() => history.goBack()}>
             <Typography style={{ fontSize: "15px" }}>Back</Typography>
           </Button>{" "}
-          <Button variant="outlined" onClick={handleOpen}>
+          <Button type="button" variant="outlined" onClick={handleOpen}>
             <Typography style={{ fontSize: "15px" }}>Add Fundraiser</Typography>
           </Button>
         </div>
@@ -152,7 +174,7 @@ export default function GroupDetailsCard({ group }) {
             Add A Fundraiser
           </Typography>
 
-          <form onSubmit={submitFundraiser}>
+          {/* <form onSubmit={submitFundraiser}> */}
             <div>
               <Grid
                 container
@@ -383,16 +405,17 @@ export default function GroupDetailsCard({ group }) {
               </Grid>
             </div>
             <Button
+              type="button"
               style={{ margin: "5px" }}
               variant="outlined"
               onClick={() => setOpen(false)}
             >
               Cancel
             </Button>
-            <Button type="submit" variant="contained" style={{ margin: "5px" }}>
+            <Button onClick={() => submitFundraiser()} variant="contained" style={{ margin: "5px" }}>
               Submit
             </Button>
-          </form>
+          {/* </form> */}
         </Box>
       </Modal>
     </>

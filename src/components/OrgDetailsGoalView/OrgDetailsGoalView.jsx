@@ -12,11 +12,12 @@ export default function OrgDetailsGoalView({ info, groups, handleAddGroup }) {
   const fundraiserInfo = oFundraisers();
 
   // Total number of goals for groups
-  const totalGoals = groups.reduce((total, group) => {
+  const totalGoals = fundraiserInfo.reduce((total, fundraiser) => {
     // Convert the goal to a number if it's not null
-    const goal = group.goal ? parseInt(group.goal, 10) : 0;
+    const goal = fundraiser.goal ? parseInt(fundraiser.goal, 10) : 0;
     return total + goal;
   }, 0);
+  console.log(totalGoals)
 
   // Money received
   const totalReceived = fundraiserInfo.reduce((total, fundraiser) => {
@@ -25,6 +26,7 @@ export default function OrgDetailsGoalView({ info, groups, handleAddGroup }) {
       : 0;
     return total + moneyIn;
   }, 0);
+  console.log(totalReceived)
 
   // To prevent rendering multiple times
   const goalData = {

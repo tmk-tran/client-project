@@ -2,7 +2,7 @@ import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
 
 // worker Saga: will be fired on "FETCH_USER" actions
-function* fetchUser() {
+function* fetchUser(action) {
   try {
     const config = {
       headers: { "Content-Type": "application/json" },

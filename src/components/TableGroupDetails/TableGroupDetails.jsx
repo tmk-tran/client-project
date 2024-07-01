@@ -25,8 +25,13 @@ export default function TableGroupDetails({
             </Typography>
           </TableCell>
           <TableCell>
+<<<<<<< HEAD
             <Typography variant="body1" sx={{ fontSize: "25px", fontWeight: "bold" }}>
               {totalGoals > 0 ? (
+=======
+            <Typography variant="h6" sx={{ mb: 1, mt: 2, fontSize: "28px" }}>
+              {totalGoals > 0  || totalGoals === 0 ? (
+>>>>>>> origin/master
                 new Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
@@ -65,7 +70,7 @@ export default function TableGroupDetails({
                   key={fundraiser.fundraiser_id}
                   sx={{ fontWeight: "bold", mb: 2 }}
                 >
-                  {formatDate(fundraiser.fundraiser_end_date)}
+                  {formatDate(fundraiser.end_date)}
                 </Typography>
               ) : null
             )}
