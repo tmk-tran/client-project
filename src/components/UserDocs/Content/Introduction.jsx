@@ -1,21 +1,21 @@
 import { Typography } from "@mui/material";
 
 // Sets margin bottom to 2
-export const CustomTypography = (props) => {
+export const HelpPageTypography = (props) => {
   return <Typography {...props} sx={{ mb: 2, color: "ghostwhite" }} />;
 };
 
 export default function GettingStarted() {
   return (
     <>
-      <CustomTypography variant="h4">
+      <HelpPageTypography variant="h4">
         Welcome to The Preferred Savings Guide!
-      </CustomTypography>
-      <CustomTypography variant="body1">
+      </HelpPageTypography>
+      <HelpPageTypography variant="body1">
         This application is designed to provide a
         comprehensive solution for coupon development, management, and sales.
-      </CustomTypography>
-      <CustomTypography variant="body1">Key Objectives:</CustomTypography>
+      </HelpPageTypography>
+      <HelpPageTypography variant="body1">Key Objectives:</HelpPageTypography>
       <ul>
         <li>
           <Typography variant="body2">
@@ -48,11 +48,11 @@ export default function GettingStarted() {
           </Typography>
         </li>
       </ul>
-      <CustomTypography variant="body1">
+      <HelpPageTypography variant="body1">
         These modules aim to streamline coupon management, improve seller
         organization, and enhance the user experience for administrators and
         sellers alike.
-      </CustomTypography>
+      </HelpPageTypography>
     </>
   );
 }

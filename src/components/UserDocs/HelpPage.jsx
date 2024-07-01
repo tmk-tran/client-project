@@ -42,8 +42,7 @@ const HelpPage = () => {
         }}
       >
         {/* Content Here */}
-        {/* <Introduction />} */}
-        {renderContent()}
+        <Box sx={{ ml: 5, width: "65rem" }}>{renderContent()}</Box>
       </Box>
     </Box>
   );

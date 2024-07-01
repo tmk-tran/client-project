@@ -1,4 +1,4 @@
-import { CustomTypography } from "./Introduction";
+import { HelpPageTypography } from "./Introduction";
 import { List, ListItem, styled, Typography } from "@mui/material";
 import { typographyListColor } from "./contentStyles";
 
@@ -14,11 +14,11 @@ const WhiteBulletListItem = styled(ListItem)(({ theme }) => ({
 export default function RolesHelpContent() {
   return (
     <>
-      <CustomTypography variant="h4">Roles</CustomTypography>
-      <CustomTypography variant="h6">Types of Roles</CustomTypography>
-      <CustomTypography variant="body2">
+      <HelpPageTypography variant="h4">Roles</HelpPageTypography>
+      <HelpPageTypography variant="h6">Types of Roles</HelpPageTypography>
+      <HelpPageTypography variant="body2">
         This application supports the following user roles:
-      </CustomTypography>
+      </HelpPageTypography>
       <List>
         {["Admin", "Graphic Designer", "Organization Admin", "Seller"].map(
           (role, index) => (
@@ -30,25 +30,25 @@ export default function RolesHelpContent() {
           )
         )}
       </List>
-      <CustomTypography variant="h6">
+      <HelpPageTypography variant="h6">
         Each role has specific permissions and responsibilities:
-      </CustomTypography>
-      <CustomTypography variant="body2">
+      </HelpPageTypography>
+      <HelpPageTypography variant="body2">
         <strong>Admin:</strong> The highest level of access with full control
         over the application.
-      </CustomTypography>
-      <CustomTypography variant="body2">
+      </HelpPageTypography>
+      <HelpPageTypography variant="body2">
         <strong>Graphic Designer:</strong> Responsible for designing coupon graphics
         and managing tasks within the application.
-      </CustomTypography>
-      <CustomTypography variant="body2">
+      </HelpPageTypography>
+      <HelpPageTypography variant="body2">
         <strong>Organization Admin:</strong> Manages organization profile and
         sellers within.
-      </CustomTypography>
-      <CustomTypography variant="body2">
+      </HelpPageTypography>
+      <HelpPageTypography variant="body2">
         <strong>Seller:</strong> Manage the sale of coupon books.
-      </CustomTypography>
-      <CustomTypography variant="body1">Additional info here</CustomTypography>
+      </HelpPageTypography>
+      <HelpPageTypography variant="body1">Additional info here</HelpPageTypography>
     </>
   );
 }

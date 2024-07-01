@@ -1,16 +1,16 @@
-import { CustomTypography } from "./Introduction";
+import { HelpPageTypography } from "./Introduction";
 
 export default function NavigationHelpContent() {
   return (
     <>
-      <CustomTypography variant="h4">Navigation</CustomTypography>
-      <CustomTypography variant="body1">
+      <HelpPageTypography variant="h4">Navigation</HelpPageTypography>
+      <HelpPageTypography variant="body1">
         How to navigate in app
-      </CustomTypography>
-      <CustomTypography variant="body1">
+      </HelpPageTypography>
+      <HelpPageTypography variant="body1">
         Steps with screenshots:
-      </CustomTypography>
-      <CustomTypography variant="body1">Additional info here</CustomTypography>
+      </HelpPageTypography>
+      <HelpPageTypography variant="body1">Additional info here</HelpPageTypography>
     </>
   );
 }
