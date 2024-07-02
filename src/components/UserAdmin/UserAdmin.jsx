@@ -362,8 +362,8 @@ export default function UserAdmin() {
                     ...centerMe,
                     ...(row.id === 3 ||
                     row.id === 4 ||
-                    row.id === 23 ||
-                    row.id === 24
+                    row.id === 26 ||
+                    row.id === 27
                       ? disabledCellSx
                       : {}),
                   }}
@@ -387,8 +387,8 @@ export default function UserAdmin() {
                   )}
                   {row.id === 3 ||
                   row.id === 4 ||
-                  row.id === 23 ||
-                  row.id === 24 ? (
+                  row.id === 26 ||
+                  row.id === 27 ? (
                     <ActionSwitch
                       disabled={true}
                       isChecked={row.graphic_designer}
@@ -412,8 +412,8 @@ export default function UserAdmin() {
                     ...centerMe,
                     ...(row.id === 3 ||
                     row.id === 4 ||
-                    row.id === 23 ||
-                    row.id === 24
+                    row.id === 26 ||
+                    row.id === 27
                       ? disabledCellSx
                       : {}),
                   }}
@@ -439,8 +439,8 @@ export default function UserAdmin() {
                       )}
                       {row.id === 3 ||
                       row.id === 4 ||
-                      row.id === 23 ||
-                      row.id === 24 ? (
+                      row.id === 26 ||
+                      row.id === 27 ? (
                         <ActionSwitch
                           disabled={true}
                           isChecked={row.org_admin}
