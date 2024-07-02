@@ -210,7 +210,7 @@ export default function NavLinks() {
             </>
           )
         )}
-        {/* {user.id && (
+        {user.id && (
           <Typography>
             <MuiLink
               component={Link}
@@ -221,7 +221,7 @@ export default function NavLinks() {
               Help
             </MuiLink>
           </Typography>
-        )} */}
+        )}
       </div>
     </ThemeProvider>
   );
