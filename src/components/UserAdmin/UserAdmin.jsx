@@ -439,8 +439,8 @@ export default function UserAdmin() {
                       )}
                       {row.id === 3 ||
                       row.id === 4 ||
-                      row.id === 26 ||
-                      row.id === 27 ? (
+                      row.id === 26 || // will be different in testpsg.fly.dev
+                      row.id === 27 ? ( // will be different in testpsg.fly.dev
                         <ActionSwitch
                           disabled={true}
                           isChecked={row.org_admin}
