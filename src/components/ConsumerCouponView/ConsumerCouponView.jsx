@@ -43,7 +43,7 @@ export default function ConsumerCouponView() {
     const dispatchAction = {
       type: "FETCH_CONSUMER_COUPONS",
       payload: {
-        userId: user.id,
+        id: user.id,
         yearId: activeYearId,
       },
     };
