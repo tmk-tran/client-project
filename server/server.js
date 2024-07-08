@@ -41,17 +41,9 @@ const redemptionRouter = require("./routes/couponRedemption.router");
 const paypalRouter = require("./routes/paypal.router");
 const userCouponRouter = require("./routes/userCoupon.router");
 
-// app.use(
-//   cors({
-//     origin: "https://www.paypal.com",
-//     methods: "GET,POST",
-//     allowedHeaders: "Content-Type,Authorization",
-//   })
-// );
-
 app.use(
   cors({
-    origin: ["https://www.paypal.com", "https://thepreferredsavingsguide.fly.dev"],
+    origin: "https://www.paypal.com",
     methods: "GET,POST",
     allowedHeaders: "Content-Type,Authorization",
   })
