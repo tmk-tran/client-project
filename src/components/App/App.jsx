@@ -77,18 +77,10 @@ function App() {
 
   useEffect(() => {
     // Set the current season
-    const currentSeason = getCurrentSeason();
+    // const currentSeason = getCurrentSeason();
 
-    // dispatch({ type: "FETCH_USER" });
-
-    // if (user.id) {
-    //   // User is logged in, fetch user data
-    //   dispatch({ type: "FETCH_USER" });
-    // }
-    // dispatch({ type: "FETCH_COUPON_BOOKS" });
     const dispatchAction2 = {
       type: "FETCH_BOOK_YEAR",
-      payload: currentSeason,
     };
     dispatch(dispatchAction2);
   }, [user.id]);
