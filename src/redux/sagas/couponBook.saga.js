@@ -23,7 +23,7 @@ function* fetchByIdSaga(action) {
 function* fetchByYearSaga(action) {
   try {
     const response = yield axios.get(
-      `/api/couponbook/season/${action.payload}`
+      `/api/couponbook/season`
     );
     yield put({ type: "SET_APP_YEAR", payload: response.data });
   } catch (err) {
