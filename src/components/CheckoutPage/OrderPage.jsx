@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Divider, useTheme, useMediaQuery } from "@mui/material";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~ //
 import { historyHook } from "../../hooks/useHistory";
 import { containerStyle } from "../Utils/pageStyles";
@@ -10,9 +10,8 @@ import { sellerPageInfo } from "../../hooks/reduxStore";
 import CustomButton from "../CustomButton/CustomButton";
 import Typography from "../Typography/Typography";
 import OrderTable from "./OrderTable";
-import CustomerNameInfo from "../SellerPage/CustomerNameInfo";
+import CustomerNameInfo from "../SellerPage/CustomerNameInfo"; // Disabled on July 2, 2024 (client request)
 import RefIdDisplay from "../SellerPage/RefIdDisplay";
-import { lineDivider } from "../Utils/modalStyles";
 
 export default function OrderPage({ caseType }) {
   const seller = useParams();
@@ -57,6 +56,7 @@ export default function OrderPage({ caseType }) {
           setRows((prevRows) =>
             prevRows.filter((row) => row.id === 1 || row.id === 4)
           );
+          setShowOrderTable(true);
           break;
         // Add other case types if needed
         default:
@@ -95,7 +95,7 @@ export default function OrderPage({ caseType }) {
   const handleQuantityChange = (newRows) => {
     setRows(newRows);
   };
-  
+
   const mapSelectedRowsToProducts = () => {
     return selectedRows.map((selectedId) => {
       const row = rows.find((row) => row.id === selectedId);
@@ -105,7 +105,7 @@ export default function OrderPage({ caseType }) {
       }
       return row;
     });
-  };  
+  };
 
   const selectedProducts = mapSelectedRowsToProducts();
 
@@ -140,10 +140,8 @@ export default function OrderPage({ caseType }) {
   };
 
   return (
-    // <div style={containerStyle}>
-    <div style={{ ...containerStyle, ...(isMobile && { width: '100%' }) }}>
+    <div style={{ ...containerStyle, ...(isMobile && { width: "100%" }) }}>
       <Typography
-        // label="Order Books"
         label={
           caseType === "cash"
             ? "Cash / Check"
@@ -163,7 +161,10 @@ export default function OrderPage({ caseType }) {
       </Box>
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ Customer info fields ~~~~~~~~~~ */}
-      {caseType === "cash" && (
+      {/* Removed on July 2, 2024 after feedback from client */}
+      {/* Need to define onSubmit if reinstated, and also */}
+      {/* an endpoint for the backend (where to save?) */}
+      {/* {caseType === "cash" && (
         <Box sx={{ mb: 2 }}>
           <CustomerNameInfo
             // removed handleFormChange from here
@@ -173,7 +174,7 @@ export default function OrderPage({ caseType }) {
           />
           <Divider sx={{ mt: 2, ...lineDivider }} />
         </Box>
-      )}
+      )} */}
       {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
       {/* ~~~~~~~~~~ Order Table ~~~~~~~~~~ */}
       {caseType === "cash" && showOrderTable && (
@@ -195,7 +196,6 @@ export default function OrderPage({ caseType }) {
             <CustomButton label="Clear" onClick={clearTotal} />
             <CustomButton
               label="Add to Cart"
-              // onClick={addToCart}
               onClick={addToCart}
               variant="contained"
             />
@@ -221,24 +221,12 @@ export default function OrderPage({ caseType }) {
             <CustomButton label="Clear" onClick={clearTotal} />
             <CustomButton
               label="Add to Cart"
-              // onClick={addToCart}
               onClick={addToCart}
               variant="contained"
             />
           </Box>
         </>
       )}
-      {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-      {/* ~~~~~~~~~~ Buttons ~~~~~~~~~~ */}
-      {/* <Box sx={navButtonStyle}>
-        <CustomButton label="Clear" onClick={clearTotal} />
-        <CustomButton
-          label="Add to Cart"
-          // onClick={addToCart}
-          onClick={addToCart}
-          variant="contained"
-        />
-      </Box> */}
     </div>
   );
 }

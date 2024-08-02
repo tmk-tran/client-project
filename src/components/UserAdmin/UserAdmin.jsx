@@ -360,7 +360,12 @@ export default function UserAdmin() {
                   sx={{
                     ...shortCellSx,
                     ...centerMe,
-                    ...(row.id === 3 || row.id === 4 ? disabledCellSx : {}),
+                    ...(row.id === 3 ||
+                    row.id === 4 ||
+                    row.id === 26 ||
+                    row.id === 27
+                      ? disabledCellSx
+                      : {}),
                   }}
                 >
                   {row.graphic_designer ? (
@@ -380,7 +385,10 @@ export default function UserAdmin() {
                       No
                     </Typography>
                   )}
-                  {row.id === 3 || row.id === 4 ? (
+                  {row.id === 3 ||
+                  row.id === 4 ||
+                  row.id === 26 ||
+                  row.id === 27 ? (
                     <ActionSwitch
                       disabled={true}
                       isChecked={row.graphic_designer}
@@ -397,14 +405,19 @@ export default function UserAdmin() {
                     />
                   )}
                 </TableCell>
+                {/* ~~~~~~~~~ Org Admin Column ~~~~~~~~~~ */}
                 <TableCell
                   sx={{
                     ...shortCellSx,
                     ...centerMe,
-                    ...(row.id === 3 || row.id === 4 ? disabledCellSx : {}),
+                    ...(row.id === 3 ||
+                    row.id === 4 ||
+                    row.id === 26 ||
+                    row.id === 27
+                      ? disabledCellSx
+                      : {}),
                   }}
                 >
-                  {/* ~~~~~~~~~ Org Admin Column ~~~~~~~~~~ */}
                   <Box sx={{ ...flexRowSpace, position: "relative" }}>
                     <Box>
                       {row.org_admin ? (
@@ -424,7 +437,10 @@ export default function UserAdmin() {
                           No
                         </Typography>
                       )}
-                      {row.id === 3 || row.id === 4 ? (
+                      {row.id === 3 ||
+                      row.id === 4 ||
+                      row.id === 26 || // will be different in testpsg.fly.dev
+                      row.id === 27 ? ( // will be different in testpsg.fly.dev
                         <ActionSwitch
                           disabled={true}
                           isChecked={row.org_admin}
