@@ -49,6 +49,18 @@ app.use(
   })
 );
 
+// For testing PayPal //
+app.use((req, res, next) => {
+  console.log(`Request URL: ${req.url}`);
+  console.log(`Request Method: ${req.method}`);
+  next();
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
 // Body parser middleware //
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
