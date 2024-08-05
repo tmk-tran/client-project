@@ -16,8 +16,8 @@ function PayPalButton({
   orderSuccess,
 }) {
   const dispatch = dispatchHook();
-  const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
-  console.log(clientId);
+  // const clientId = process.env.REACT_APP_PAYPAL_CLIENT_ID;
+  // console.log(clientId);
 
   // Removed 'venmo' from "enable-funding"
   const initialOptions = {
