@@ -12,6 +12,9 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV="production"
 
+# Set environment variables
+ARG REACT_APP_PAYPAL_CLIENT_ID
+ENV REACT_APP_PAYPAL_CLIENT_ID=$REACT_APP_PAYPAL_CLIENT_ID
 
 # Throw-away build stage to reduce size of final image
 FROM base as build

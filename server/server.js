@@ -43,7 +43,7 @@ const userCouponRouter = require("./routes/userCoupon.router");
 
 app.use(
   cors({
-    origin: "https://www.paypal.com",
+    origin: ["https://www.paypal.com", "https://thepreferredsavingsguide.fly.dev"],
     methods: "GET,POST",
     allowedHeaders: "Content-Type,Authorization",
   })
