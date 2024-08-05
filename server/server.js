@@ -43,23 +43,11 @@ const userCouponRouter = require("./routes/userCoupon.router");
 
 app.use(
   cors({
-    origin: ["https://www.paypal.com", "https://thepreferredsavingsguide.fly.dev"],
+    origin: "https://www.paypal.com",
     methods: "GET,POST",
     allowedHeaders: "Content-Type,Authorization",
   })
 );
-
-// For testing PayPal //
-app.use((req, res, next) => {
-  console.log(`Request URL: ${req.url}`);
-  console.log(`Request Method: ${req.method}`);
-  next();
-});
-
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
 
 // Body parser middleware //
 app.use(bodyParser.json());

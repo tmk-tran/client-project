@@ -66,21 +66,6 @@ function App() {
   const [orgAdminId, setOrgAdminId] = useState(null);
 
   useEffect(() => {
-    window.addEventListener('error', (event) => {
-      console.error('Client-Side Error occurred:', event.error);
-    });
-  
-    window.addEventListener('unhandledrejection', (event) => {
-      console.error('Client-Side Unhandled rejection:', event.reason);
-    });
-  
-    return () => {
-      window.removeEventListener('error', null);
-      window.removeEventListener('unhandledrejection', null);
-    };
-  }, []);
-
-  useEffect(() => {
     const userCookie = Cookies.get("user");
 
     if (userCookie) {
