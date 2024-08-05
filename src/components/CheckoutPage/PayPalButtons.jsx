@@ -21,7 +21,8 @@ function PayPalButton({
 
   // Removed 'venmo' from "enable-funding"
   const initialOptions = {
-    "client-id": clientId,
+    // "client-id": clientId,
+    "client-id": "ATtSyAhYrOFnWmMGTdJ17pmync8u8qNfrO4HiNd59A5Cmu-KwtRBRHeJGJIr8vC_H90JB-vYmDsg3qsv",
     "enable-funding": "paylater,card",
     "disable-funding": "",
     "data-sdk-integration-source": "integrationbuilder_sc",
