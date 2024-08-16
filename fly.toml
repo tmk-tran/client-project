@@ -2,7 +2,6 @@
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
-# Made changes to this branch, will need to merge with master and user-docs
 
 app = "thepreferredsavingsguide"
 primary_region = "ord"
