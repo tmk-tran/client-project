@@ -61,7 +61,9 @@ router.get("/:id", (req, res) => {
           FROM coupon c 
           JOIN coupon_book cb 
           ON c.book_id = cb.id 
-          WHERE c.merchant_id = $1`;
+          WHERE c.merchant_id = $1
+          AND c.is_deleted = false;        
+  `;
 
   pool
     .query(queryText, [merchantId])
@@ -363,6 +365,28 @@ router.put(
     }
   }
 );
+
+// Removes a coupon (soft delete)
+router.put("/:id", rejectUnauthenticated, (req, res) => {
+  const couponId = req.params.id;
+
+  const queryText = `
+    UPDATE coupon
+    SET is_deleted = true
+    WHERE id = $1;
+  `;
+
+  pool
+    .query(queryText, [couponId])
+    .then((response) => {
+      console.log("Coupon removed");
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error("Error removing coupon:", error);
+      res.sendStatus(500);
+    });
+});
 
 router.delete("/:id/front", (req, res) => {
   const couponId = req.params.id;
