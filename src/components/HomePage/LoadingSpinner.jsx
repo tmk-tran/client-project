@@ -40,7 +40,7 @@ export default function LoadingSpinner({
   return (
     <Box sx={centeredStyle}>
       <CircularProgress size={size} />
-      {showWaitingText && !displayedText && (
+      {showWaitingText && (
         <Typography variant="body2">{waitingText}</Typography>
       )}
       {displayedText && (
