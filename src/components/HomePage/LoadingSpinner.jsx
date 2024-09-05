@@ -27,6 +27,7 @@ export default function LoadingSpinner({
     // Timer to show finalText
     const finalTimer = setTimeout(() => {
       setDisplayedText(finalText);
+      setShowWaitingText(false); // Hide waitingText once finalText is displayed
     }, timeout || 6000); // Default timeout if not provided
 
     // Clean up timers on unmount
