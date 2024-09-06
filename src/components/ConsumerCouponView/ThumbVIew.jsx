@@ -69,7 +69,8 @@ export default function ThumbView({
                 caseType="consumer"
               />
             ) : (
-              <NoFile label="No file available" sx={couponPreviewStyle} />
+              // <NoFile label="No file available" sx={couponPreviewStyle} />
+              <NoFile label="Image temporarily unavailable" sx={couponPreviewStyle} />
             )}
           </Box>
           {/* ~~~~~ Back View ~~~~~ */}
@@ -84,7 +85,8 @@ export default function ThumbView({
                 caseType="consumer"
               />
             ) : (
-              <NoFile label="No file available" sx={couponPreviewStyle} />
+              // <NoFile label="No file available" sx={couponPreviewStyle} />
+              <NoFile label="Image temporarily unavailable" sx={couponPreviewStyle} />
             )}
           </Box>
         </>
