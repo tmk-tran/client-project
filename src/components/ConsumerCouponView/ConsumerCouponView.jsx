@@ -15,7 +15,7 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { User, couponsData, appActiveYear } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
 import Typography from "../Typography/Typography";
-import CouponCard from "./CouponCard";
+// import CouponCard from "./CouponCard";
 import SearchBar from "../SearchBar/SearchBar";
 import ToggleButton from "../ToggleButton/ToggleButton";
 import LoadingSpinner from "../HomePage/LoadingSpinner";
