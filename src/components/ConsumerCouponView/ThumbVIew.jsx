@@ -21,10 +21,10 @@ export default function ThumbView({
             <Typography variant="caption" sx={{ lineHeight: 1 }}>
               {isMobile ? null : "Front"}
             </Typography>
-            {coupon.frontViewBlob !== null ? (
+            {coupon.frontViewUrl !== null ? (
               <PdfThumbnail
                 isMobile={isMobile}
-                pdf={coupon.frontViewBlob}
+                pdf={coupon.frontViewUrl}
                 style={isMobile ? {} : couponPreviewStyle}
                 width={isMobile ? 150 : 200}
                 caseType="consumer"
@@ -41,10 +41,10 @@ export default function ThumbView({
             }}
           >
             {isMobile ? null : "Back"}
-            {coupon.backViewBlob !== null ? (
+            {coupon.backViewUrl !== null ? (
               <PdfThumbnail
                 isMobile={isMobile}
-                pdf={coupon.backViewBlob}
+                pdf={coupon.backViewUrl}
                 style={isMobile ? {} : couponPreviewStyle}
                 width={isMobile ? 150 : 200}
                 caseType="consumer"
@@ -60,33 +60,33 @@ export default function ThumbView({
             <Typography variant="caption" sx={{ lineHeight: 1 }}>
               {isMobile ? null : "Front"}
             </Typography>
-            {coupon.frontViewBlob !== null ? (
+            {coupon.frontViewUrl !== null ? (
               <PdfThumbnail
                 isMobile={isMobile}
-                pdf={coupon.frontViewBlob}
+                pdf={coupon.frontViewUrl}
                 style={isMobile ? {} : couponPreviewStyle}
                 width={isMobile ? 170 : 200}
                 caseType="consumer"
               />
             ) : (
               // <NoFile label="No file available" sx={couponPreviewStyle} />
-              <NoFile label="Image temporarily unavailable" sx={couponPreviewStyle} />
+              <NoFile label="Images temporarily unavailable" sx={couponPreviewStyle} />
             )}
           </Box>
           {/* ~~~~~ Back View ~~~~~ */}
           <Box sx={isMobile ? mobilePreviewBox : previewBoxStyle}>
             {isMobile ? null : "Back"}
-            {coupon.backViewBlob !== null ? (
+            {coupon.backViewUrl !== null ? (
               <PdfThumbnail
                 isMobile={isMobile}
-                pdf={coupon.backViewBlob}
+                pdf={coupon.backViewUrl}
                 style={isMobile ? {} : couponPreviewStyle}
                 width={isMobile ? 170 : 200}
                 caseType="consumer"
               />
             ) : (
               // <NoFile label="No file available" sx={couponPreviewStyle} />
-              <NoFile label="Image temporarily unavailable" sx={couponPreviewStyle} />
+              <NoFile label="Images temporarily unavailable" sx={couponPreviewStyle} />
             )}
           </Box>
         </>

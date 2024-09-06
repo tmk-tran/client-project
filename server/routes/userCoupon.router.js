@@ -64,13 +64,17 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   //       `;
 
   // Disabled PDFs to test 
+  // Added a replace for appending a URL
   const queryText = `
-  SELECT
+      SELECT
     c.id,
     c.merchant_id,
     c.is_deleted,
     c.filename_front,
-    c.filename_back,
+    c.front_view_url,
+    REPLACE(c.filename_back, ' ', '_') AS filename_back, -- Replace spaces with underscores
+    REPLACE(c.filename_front, ' ', '_') AS filename_front, -- Replace spaces with underscores
+    c.back_view_url,
     c.offer,
     c.value,
     c.exclusions,

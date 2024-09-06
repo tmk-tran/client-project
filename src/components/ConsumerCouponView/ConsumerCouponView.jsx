@@ -34,6 +34,9 @@ export default function ConsumerCouponView() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const coupons = couponsData() || [];
+  console.log(coupons);
+  // For PDF solution 
+  const baseURL = "https://fly.storage.tigris.dev/coupons/"
   // For Coupon Book Year
   const activeYear = appActiveYear();
   const expirationYear =
@@ -105,6 +108,13 @@ export default function ConsumerCouponView() {
     setCurrentPage(pageNumber);
   };
 
+  // Prepare coupons with complete URLs
+  const preparedCoupons = currentCoupons.map(coupon => ({
+    ...coupon,
+    backViewUrl: coupon.backViewUrl ? `${baseURL}${coupon.backViewUrl}` : null,
+    frontViewUrl: coupon.frontViewUrl ? `${baseURL}${coupon.frontViewUrl}` : null,
+  }));
+  
   return (
     <Box
       sx={{
@@ -173,7 +183,8 @@ export default function ConsumerCouponView() {
           )}
           {!isLoading && (
             <Suspense fallback={<LoadingSpinner text="Loading Coupons..." />}>
-              {currentCoupons.map((coupon, index) => (
+              {/* {currentCoupons.map((coupon, index) => ( */}
+              {preparedCoupons.map((coupon, index) => (
                 <CouponCard isMobile={isMobile} key={index} coupon={coupon} />
               ))}
             </Suspense>
