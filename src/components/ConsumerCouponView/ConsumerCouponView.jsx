@@ -47,8 +47,6 @@ export default function ConsumerCouponView() {
       payload: {
         userId: user.id,
         yearId: activeYearId,
-        // page: currentPage,
-        // limit: couponsPerPage,
       },
     };
     dispatch(dispatchAction);

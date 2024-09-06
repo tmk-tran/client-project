@@ -11,12 +11,10 @@ const fetchPdfRequest = (couponId) => ({
 function* couponFiles(action) {
   const userId = action.payload.userId;
   const yearId = action.payload.yearId;
-  const { page, limit } = action.payload;
 
   try {
     const response = yield axios.get(
       `/api/userCoupon/${userId}?yearId=${yearId}`
-      // `/api/userCoupon/${userId}?yearId=${yearId}&page=${page}&limit=${limit}`
     );
     // console.log("FETCH request from coupon.saga, RESPONSE = ", response.data);
 
