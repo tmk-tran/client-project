@@ -24,44 +24,91 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 router.get("/:id", rejectUnauthenticated, (req, res) => {
   const userId = req.params.id;
   const yearId = req.query.yearId;
+  // Added for backend pagination
+  const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
+  const limit = parseInt(req.query.limit) || 10; // Default to 10 items per page if not provided
 
+  // Calculate the offset
+  const offset = (page - 1) * limit;
+
+  // const queryText = `
+  //         SELECT
+  //           c.*,
+  //           cl.coupon_id AS coupon_id,
+  //           ARRAY_AGG(l.id) AS location_id,
+  //           ARRAY_AGG(l.location_name) AS location_name,
+  //           ARRAY_AGG(l.phone_number) AS phone_number,
+  //           ARRAY_AGG(l.address) AS address,
+  //           ARRAY_AGG(l.city) AS city,
+  //           ARRAY_AGG(l.state) AS state,
+  //           ARRAY_AGG(l.zip) AS zip,
+  //           ARRAY_AGG(l.merchant_id) AS location_merchant_id,
+  //           ARRAY_AGG(l.additional_details) AS location_additional_details,
+  //           m.merchant_name
+  //         FROM
+  //           coupon c
+  //         LEFT JOIN
+  //           coupon_location cl ON c.id = cl.coupon_id
+  //         LEFT JOIN
+  //           location l ON cl.location_id = l.id
+  //         JOIN
+  //           merchant m ON c.merchant_id = m.id
+  //         LEFT JOIN
+  //           user_coupon uc ON c.id = uc.coupon_id
+  //         JOIN
+  //           coupon_book cb ON c.book_id = cb.id
+  //         WHERE
+  //           uc.user_id = $1
+  //           AND uc.redeemed = false
+  //           AND uc.show_book = true
+  //           AND cb.id = $2
+  //           AND c.is_deleted = false
+  //         GROUP BY
+  //           c.id, m.merchant_name, cl.coupon_id, uc.show_book
+  //         ORDER BY
+  //           m.merchant_name ASC;
+  //       `;
+
+  // For testing pagination on the backend
   const queryText = `
           SELECT
-            c.*,
-            cl.coupon_id AS coupon_id,
-            ARRAY_AGG(l.id) AS location_id,
-            ARRAY_AGG(l.location_name) AS location_name,
-            ARRAY_AGG(l.phone_number) AS phone_number,
-            ARRAY_AGG(l.address) AS address,
-            ARRAY_AGG(l.city) AS city,
-            ARRAY_AGG(l.state) AS state,
-            ARRAY_AGG(l.zip) AS zip,
-            ARRAY_AGG(l.merchant_id) AS location_merchant_id,
-            ARRAY_AGG(l.additional_details) AS location_additional_details,
-            m.merchant_name
-          FROM
-            coupon c
-          LEFT JOIN
-            coupon_location cl ON c.id = cl.coupon_id
-          LEFT JOIN
-            location l ON cl.location_id = l.id
-          JOIN
-            merchant m ON c.merchant_id = m.id
-          LEFT JOIN
-            user_coupon uc ON c.id = uc.coupon_id
-          JOIN
-            coupon_book cb ON c.book_id = cb.id
-          WHERE
-            uc.user_id = $1
-            AND uc.redeemed = false
-            AND uc.show_book = true
-            AND cb.id = $2
-            AND c.is_deleted = false
-          GROUP BY
-            c.id, m.merchant_name, cl.coupon_id, uc.show_book
-          ORDER BY
-            m.merchant_name ASC;
-        `;
+  c.*,
+  cl.coupon_id AS coupon_id,
+  ARRAY_AGG(l.id) AS location_id,
+  ARRAY_AGG(l.location_name) AS location_name,
+  ARRAY_AGG(l.phone_number) AS phone_number,
+  ARRAY_AGG(l.address) AS address,
+  ARRAY_AGG(l.city) AS city,
+  ARRAY_AGG(l.state) AS state,
+  ARRAY_AGG(l.zip) AS zip,
+  ARRAY_AGG(l.merchant_id) AS location_merchant_id,
+  ARRAY_AGG(l.additional_details) AS location_additional_details,
+  m.merchant_name
+FROM
+  coupon c
+LEFT JOIN
+  coupon_location cl ON c.id = cl.coupon_id
+LEFT JOIN
+  location l ON cl.location_id = l.id
+JOIN
+  merchant m ON c.merchant_id = m.id
+LEFT JOIN
+  user_coupon uc ON c.id = uc.coupon_id
+JOIN
+  coupon_book cb ON c.book_id = cb.id
+WHERE
+  uc.user_id = $1
+  AND uc.redeemed = false
+  AND uc.show_book = true
+  AND cb.id = $2
+  AND c.is_deleted = false
+GROUP BY
+  c.id, m.merchant_name, cl.coupon_id, uc.show_book
+ORDER BY
+  m.merchant_name ASC
+LIMIT $3 OFFSET $4;
+  `;
+        
 
 //   // Disabled PDFs to test 
 //   const queryText = `
@@ -115,7 +162,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 // `;
 
   pool
-    .query(queryText, [userId, yearId])
+    .query(queryText, [userId, yearId, limit, offset])
     .then((result) => {
       res.send(result.rows);
     })
