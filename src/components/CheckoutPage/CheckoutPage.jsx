@@ -105,7 +105,7 @@ export default function CheckoutPage({ caseType }) {
       state: stateSelected,
       zip: zip,
       organization: sellerData[0].organization_name,
-      url: "testpsg.fly.dev/fargo/coupon",
+      url: "thepreferredsavingsguide.fly.dev/fargo/coupon", // Is this causing an issue?
       year: currentYear[0].year,
       donation: customDonation,
       bookType: selectedProducts[0].bookType,
