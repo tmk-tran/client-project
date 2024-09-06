@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { lazy, Suspense, useState, useEffect } from "react";
 import Fuse from "fuse.js";
 import { Box, useMediaQuery, Pagination } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -19,6 +19,8 @@ import CouponCard from "./CouponCard";
 import SearchBar from "../SearchBar/SearchBar";
 import ToggleButton from "../ToggleButton/ToggleButton";
 import LoadingSpinner from "../HomePage/LoadingSpinner";
+
+const CouponCard = lazy(() => import("./CouponCard"));
 
 export default function ConsumerCouponView() {
   const dispatch = dispatchHook();
@@ -169,10 +171,13 @@ export default function ConsumerCouponView() {
               timeout={15000}
             />
           )}
-          {!isLoading &&
-            currentCoupons.map((coupon, index) => (
-              <CouponCard isMobile={isMobile} key={index} coupon={coupon} />
-            ))}
+          {!isLoading && (
+            <Suspense fallback={<LoadingSpinner text="Loading Coupons..." />}>
+              {currentCoupons.map((coupon, index) => (
+                <CouponCard isMobile={isMobile} key={index} coupon={coupon} />
+              ))}
+            </Suspense>
+          )}
         </>
       ) : (
         <Typography label="Coupons Redeemed" />
