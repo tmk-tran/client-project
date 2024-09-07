@@ -15,6 +15,18 @@ function PayPalButton({
   customDonation,
   orderSuccess,
 }) {
+  // Extract bookType values and set them as a variable
+  const bookTypes = selectedProducts.map((book) => {
+    switch (book.bookType) {
+      case "Physical Coupon Book":
+        return "Physical";
+      case "Fargo - Moorhead (Digital Coupon Book)":
+        return "Digital";
+      default:
+        return book.bookType; // In case other book types are included, they remain unchanged
+    }
+  });
+
   const dispatch = dispatchHook();
   // Commented out to allow PROD to load the PayPal SDK. PSG-196
   // -----------------------------------------------------------
@@ -25,7 +37,8 @@ function PayPalButton({
   const initialOptions = {
     // "client-id": clientId,
     // client-id set, allowing buttons to load in PROD. PSG-196
-    "client-id": "ATtSyAhYrOFnWmMGTdJ17pmync8u8qNfrO4HiNd59A5Cmu-KwtRBRHeJGJIr8vC_H90JB-vYmDsg3qsv",
+    "client-id":
+      "ATtSyAhYrOFnWmMGTdJ17pmync8u8qNfrO4HiNd59A5Cmu-KwtRBRHeJGJIr8vC_H90JB-vYmDsg3qsv",
     "enable-funding": "paylater,card",
     "disable-funding": "",
     "data-sdk-integration-source": "integrationbuilder_sc",
@@ -99,6 +112,7 @@ function PayPalButton({
                   id: product.id,
                   quantity: product.quantity,
                   price: product.price,
+                  type: product.bookType,
                 })),
               };
 
@@ -291,6 +305,7 @@ function PayPalButton({
                     orderData.purchase_units[0].payments.captures[0]
                       .seller_receivable_breakdown.net_amount.value,
                   seller_ref_id: refId,
+                  book_type_sold: bookTypes,
                 };
 
                 const dispatchAction = {

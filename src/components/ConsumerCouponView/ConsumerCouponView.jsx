@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { lazy, Suspense, useState, useEffect } from "react";
 import Fuse from "fuse.js";
 import { Box, useMediaQuery, Pagination } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -15,10 +15,12 @@ import { dispatchHook } from "../../hooks/useDispatch";
 import { User, couponsData, appActiveYear } from "../../hooks/reduxStore";
 // ~~~~~~~~~~ Components ~~~~~~~~~ //
 import Typography from "../Typography/Typography";
-import CouponCard from "./CouponCard";
+// import CouponCard from "./CouponCard";
 import SearchBar from "../SearchBar/SearchBar";
 import ToggleButton from "../ToggleButton/ToggleButton";
 import LoadingSpinner from "../HomePage/LoadingSpinner";
+
+const CouponCard = lazy(() => import("./CouponCard"));
 
 export default function ConsumerCouponView() {
   const dispatch = dispatchHook();
@@ -32,6 +34,9 @@ export default function ConsumerCouponView() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const coupons = couponsData() || [];
+  console.log(coupons);
+  // For PDF solution 
+  const baseURL = "https://fly.storage.tigris.dev/coupons/"
   // For Coupon Book Year
   const activeYear = appActiveYear();
   const expirationYear =
@@ -48,7 +53,7 @@ export default function ConsumerCouponView() {
       },
     };
     dispatch(dispatchAction);
-  }, [activeYear]);
+  }, [activeYear, currentPage]);
 
   useEffect(() => {
     if (coupons.length > 0) {
@@ -103,6 +108,13 @@ export default function ConsumerCouponView() {
     setCurrentPage(pageNumber);
   };
 
+  // Prepare coupons with complete URLs
+  const preparedCoupons = currentCoupons.map(coupon => ({
+    ...coupon,
+    backViewUrl: coupon.backViewUrl ? `${baseURL}${coupon.backViewUrl}` : null,
+    frontViewUrl: coupon.frontViewUrl ? `${baseURL}${coupon.frontViewUrl}` : null,
+  }));
+  
   return (
     <Box
       sx={{
@@ -169,10 +181,14 @@ export default function ConsumerCouponView() {
               timeout={15000}
             />
           )}
-          {!isLoading &&
-            currentCoupons.map((coupon, index) => (
-              <CouponCard isMobile={isMobile} key={index} coupon={coupon} />
-            ))}
+          {!isLoading && (
+            <Suspense fallback={<LoadingSpinner text="Loading Coupons..." />}>
+              {/* {currentCoupons.map((coupon, index) => ( */}
+              {preparedCoupons.map((coupon, index) => (
+                <CouponCard isMobile={isMobile} key={index} coupon={coupon} />
+              ))}
+            </Suspense>
+          )}
         </>
       ) : (
         <Typography label="Coupons Redeemed" />

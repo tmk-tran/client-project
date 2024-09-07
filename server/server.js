@@ -224,10 +224,19 @@ app.post(`/api/contact`, async (req, res) => {
     return `${sanitizedLastName}${firstInitial}${randomNumber1}${randomNumber2}`;
   }
 
-  const randomPassword = generatePassword(
-    req.body.firstName,
-    req.body.lastName
-  );
+  // const randomPassword = generatePassword(
+  //   req.body.firstName,
+  //   req.body.lastName
+  // );
+  // Declare randomPassword with an initial value of null or an empty string
+  let randomPassword = null;
+  if (req.body.bookType === "Fargo - Moorhead (Digital Coupon Book)") {
+    // Generate the random password only for digital books
+    randomPassword = generatePassword(
+      req.body.firstName,
+      req.body.lastName
+    );
+  }
 
   try {
     const email = req.body.email;
@@ -360,18 +369,33 @@ app.post(`/api/contact`, async (req, res) => {
 
       let tag = 0;
 
+      // if (
+      //   req.body.bookType === "Physical Coupon Book" &&
+      //   req.body.type === "cash"
+      // ) {
+      //   tag = 58;
+      // } else if (
+      //   req.body.bookType === "Physical Coupon Book" ||
+      //   ("Fargo - Moorhead (Digital Coupon Book)" && req.body.type === "credit")
+      // ) {
+      //   tag = 56;
+      // } else if (req.body.bookType === "Donate") {
+      //   tag = 59;
+      // } else {
+      //   tag = 0;
+      // }
       if (
         req.body.bookType === "Physical Coupon Book" &&
-        req.body.type === "cash"
+        (req.body.type === "cash" || req.body.type === "credit")
       ) {
-        tag = 58;
+        tag = 58; // 58 is for PSG: CC Physical Book- Group (Cash & Carry)
       } else if (
-        req.body.bookType === "Physical Coupon Book" ||
-        ("Fargo - Moorhead (Digital Coupon Book)" && req.body.type === "credit")
+        req.body.bookType === "Fargo - Moorhead (Digital Coupon Book)" &&
+        req.body.type === "credit"
       ) {
-        tag = 56;
+        tag = 56; // 56 is for PSG: CC Digital- Any Group
       } else if (req.body.bookType === "Donate") {
-        tag = 59;
+        tag = 59; // 59 is for PSG: CC Donation
       } else {
         tag = 0;
       }
@@ -442,6 +466,8 @@ app.post(`/api/contact`, async (req, res) => {
           ],
         },
       };
+      res.send(randomPassword);
+
       //Updates current active campaign data
       const response1 = await axios.put(
         `https://northpointeinsure57220.api-us1.com/api/3/contacts/${returnerId}`,
@@ -551,14 +577,29 @@ app.post(`/api/contact`, async (req, res) => {
       // console.log("returning book type is:", req.body.bookType);
       let tag = 0;
 
+      // if (
+      //   req.body.bookType === "Physical Coupon Book" &&
+      //   req.body.type === "cash"
+      // ) {
+      //   tag = 58;
+      // } else if (
+      //   req.body.bookType === "Physical Coupon Book" ||
+      //   ("Fargo - Moorhead (Digital Coupon Book)" && req.body.type === "credit")
+      // ) {
+      //   tag = 56;
+      // } else if (req.body.bookType === "Donate") {
+      //   tag = 59;
+      // } else {
+      //   tag = 0;
+      // }
       if (
         req.body.bookType === "Physical Coupon Book" &&
-        req.body.type === "cash"
+        (req.body.type === "cash" || req.body.type === "credit")
       ) {
         tag = 58;
       } else if (
-        req.body.bookType === "Physical Coupon Book" ||
-        ("Fargo - Moorhead (Digital Coupon Book)" && req.body.type === "credit")
+        req.body.bookType === "Fargo - Moorhead (Digital Coupon Book)" &&
+        req.body.type === "credit"
       ) {
         tag = 56;
       } else if (req.body.bookType === "Donate") {
