@@ -360,16 +360,31 @@ app.post(`/api/contact`, async (req, res) => {
 
       let tag = 0;
 
+      // if (
+      //   req.body.bookType === "Physical Coupon Book" &&
+      //   req.body.type === "cash"
+      // ) {
+      //   tag = 58;
+      // } else if (
+      //   req.body.bookType === "Physical Coupon Book" ||
+      //   ("Fargo - Moorhead (Digital Coupon Book)" && req.body.type === "credit")
+      // ) {
+      //   tag = 56;
+      // } else if (req.body.bookType === "Donate") {
+      //   tag = 59;
+      // } else {
+      //   tag = 0;
+      // }
       if (
         req.body.bookType === "Physical Coupon Book" &&
-        req.body.type === "cash"
+        (req.body.type === "cash" || req.body.type === "credit")
       ) {
-        tag = 58;
+        tag = 58; // this may need to be changed to 56
       } else if (
-        req.body.bookType === "Physical Coupon Book" ||
-        ("Fargo - Moorhead (Digital Coupon Book)" && req.body.type === "credit")
+        req.body.bookType === "Fargo - Moorhead (Digital Coupon Book)" &&
+        req.body.type === "credit"
       ) {
-        tag = 56;
+        tag = 56; // this may need to be changed to 58
       } else if (req.body.bookType === "Donate") {
         tag = 59;
       } else {
@@ -551,14 +566,29 @@ app.post(`/api/contact`, async (req, res) => {
       // console.log("returning book type is:", req.body.bookType);
       let tag = 0;
 
+      // if (
+      //   req.body.bookType === "Physical Coupon Book" &&
+      //   req.body.type === "cash"
+      // ) {
+      //   tag = 58;
+      // } else if (
+      //   req.body.bookType === "Physical Coupon Book" ||
+      //   ("Fargo - Moorhead (Digital Coupon Book)" && req.body.type === "credit")
+      // ) {
+      //   tag = 56;
+      // } else if (req.body.bookType === "Donate") {
+      //   tag = 59;
+      // } else {
+      //   tag = 0;
+      // }
       if (
         req.body.bookType === "Physical Coupon Book" &&
-        req.body.type === "cash"
+        (req.body.type === "cash" || req.body.type === "credit")
       ) {
         tag = 58;
       } else if (
-        req.body.bookType === "Physical Coupon Book" ||
-        ("Fargo - Moorhead (Digital Coupon Book)" && req.body.type === "credit")
+        req.body.bookType === "Fargo - Moorhead (Digital Coupon Book)" &&
+        req.body.type === "credit"
       ) {
         tag = 56;
       } else if (req.body.bookType === "Donate") {
