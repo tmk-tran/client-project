@@ -34,9 +34,8 @@ export default function ConsumerCouponView() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const coupons = couponsData() || [];
-  console.log(coupons);
-  // For PDF solution 
-  const baseURL = "https://fly.storage.tigris.dev/coupons/"
+  // For PDF solution
+  const baseURL = "https://fly.storage.tigris.dev/coupons/";
   // For Coupon Book Year
   const activeYear = appActiveYear();
   const expirationYear =
@@ -53,7 +52,7 @@ export default function ConsumerCouponView() {
       },
     };
     dispatch(dispatchAction);
-  }, [activeYear, currentPage]);
+  }, [activeYear]); // Removed currentPage from the dependency array
 
   useEffect(() => {
     if (coupons.length > 0) {
@@ -94,7 +93,7 @@ export default function ConsumerCouponView() {
     // setCurrentPage(1); // Reset to the first page when clearing the search
   };
 
-  const couponsPerPage = 10;
+  const couponsPerPage = isMobile ? 5 : 10;
   const indexOfLastCoupon = currentPage * couponsPerPage;
   const indexOfFirstCoupon = indexOfLastCoupon - couponsPerPage;
   const currentCoupons = filteredMerchants.slice(
@@ -109,12 +108,14 @@ export default function ConsumerCouponView() {
   };
 
   // Prepare coupons with complete URLs
-  const preparedCoupons = currentCoupons.map(coupon => ({
+  const preparedCoupons = currentCoupons.map((coupon) => ({
     ...coupon,
     backViewUrl: coupon.backViewUrl ? `${baseURL}${coupon.backViewUrl}` : null,
-    frontViewUrl: coupon.frontViewUrl ? `${baseURL}${coupon.frontViewUrl}` : null,
+    frontViewUrl: coupon.frontViewUrl
+      ? `${baseURL}${coupon.frontViewUrl}`
+      : null,
   }));
-  
+
   return (
     <Box
       sx={{
@@ -173,7 +174,7 @@ export default function ConsumerCouponView() {
           </Box>
           {/* ~~~~~~~~~~~~~~~~ */}
           {/* ~~~~~ List ~~~~~ */}
-          {isLoading && (
+          {/* {isLoading && (
             <LoadingSpinner
               text="Loading from database..."
               waitingText="Please wait while we load image files..."
@@ -183,12 +184,26 @@ export default function ConsumerCouponView() {
           )}
           {!isLoading && (
             <Suspense fallback={<LoadingSpinner text="Loading Coupons..." />}>
-              {/* {currentCoupons.map((coupon, index) => ( */}
+              {currentCoupons.map((coupon, index) => (
               {preparedCoupons.map((coupon, index) => (
                 <CouponCard isMobile={isMobile} key={index} coupon={coupon} />
               ))}
             </Suspense>
-          )}
+          )} */}
+          <Suspense fallback={<LoadingSpinner text="Loading Coupons..." />}>
+            {isLoading ? (
+              <LoadingSpinner
+                text="Loading..."
+                waitingText="Please wait while we load image files..."
+                finalText="Oops! ...unexpected error. Please refresh the page, or try again later"
+                timeout={15000}
+              />
+            ) : (
+              preparedCoupons.map((coupon, index) => (
+                <CouponCard isMobile={isMobile} key={index} coupon={coupon} />
+              ))
+            )}
+          </Suspense>
         </>
       ) : (
         <Typography label="Coupons Redeemed" />
@@ -200,6 +215,14 @@ export default function ConsumerCouponView() {
         page={currentPage}
         onChange={(event, page) => paginate(page)}
         color="primary"
+        sx={{
+          "& .MuiPagination-ul": {
+            flexWrap: "nowrap", // Prevent wrapping of pagination items
+          },
+          "& .MuiPaginationItem-previousNext svg": {
+            fontSize: { xs: "3rem", sm: "3.5rem" }, // Increase icon size for arrows
+          },
+        }}
       />
     </Box>
   );
