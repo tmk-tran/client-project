@@ -14,6 +14,7 @@ export default function ThumbView({
 }) {
   return (
     <>
+      {/* ~~~~~ MOBILE VIEW ~~~~~ */}
       {isMobile ? (
         <Box sx={flexRowSpace}>
           {/* ~~~~~ Front View ~~~~~ */}
@@ -29,11 +30,10 @@ export default function ThumbView({
                 width={isMobile ? 150 : 200}
                 caseType="consumer"
               />
-            ) : // <NoFile label="No file available" sx={{ mt: 3 }} />
-            null}
+            ) : null}
           </Box>
           {/* ~~~~~ Back View ~~~~~ */}
-          <Box
+          {/* <Box
             sx={{
               ...(isMobile
                 ? { ...mobilePreviewBox, ml: 0.25 }
@@ -49,9 +49,8 @@ export default function ThumbView({
                 width={isMobile ? 150 : 200}
                 caseType="consumer"
               />
-            ) : // <NoFile label="No file available" sx={{ mt: 3 }} />
-            null}
-          </Box>
+            ) : null}
+          </Box> */}
         </Box>
       ) : (
         <>
@@ -69,8 +68,10 @@ export default function ThumbView({
                 caseType="consumer"
               />
             ) : (
-              // <NoFile label="No file available" sx={couponPreviewStyle} />
-              <NoFile label="Images temporarily unavailable" sx={couponPreviewStyle} />
+              <NoFile
+                label="Image temporarily unavailable"
+                sx={couponPreviewStyle}
+              />
             )}
           </Box>
           {/* ~~~~~ Back View ~~~~~ */}
@@ -85,8 +86,10 @@ export default function ThumbView({
                 caseType="consumer"
               />
             ) : (
-              // <NoFile label="No file available" sx={couponPreviewStyle} />
-              <NoFile label="Images temporarily unavailable" sx={couponPreviewStyle} />
+              <NoFile
+                label="Image temporarily unavailable"
+                sx={couponPreviewStyle}
+              />
             )}
           </Box>
         </>
