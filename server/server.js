@@ -213,9 +213,6 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
 // ~~~~~~ Active Campaign Section ~~~~~~ //
 // Helper to make API requests
 async function makeApiRequest(endpoint, method, data = null, apiKey) {
-  console.log(
-    ` <<< Coming from makeApiRequest in server >>> - making ${method.toUpperCase()} request to endpoint ---> '${endpoint}' --- Data package ---> ${data}`
-  );
   // Prepare the config for the axios request
   const config = {
     method,
@@ -235,11 +232,6 @@ async function makeApiRequest(endpoint, method, data = null, apiKey) {
   // Make the API request
   try {
     const response = await axios(config);
-    console.log(
-      ` <<< Response in makeApiRequest >>> from endpoint ---> '${endpoint}'`
-    );
-    console.log(" ----- Status >>> ", response.status);
-    // console.log(" ----- Data >>> ", response.data);
     return response;
   } catch (error) {
     console.error(`Error making request to '${endpoint}':`, error);
@@ -319,8 +311,7 @@ function generatePassword(lastName, firstName) {
 
 app.post(`/api/contact`, async (req, res) => {
   console.log(
-    " <<<<< Received contact request in server for Active Campaign >>>>> req.body = ",
-    req.body
+    " <<<<< Received contact request in server for Active Campaign >>>>> "
   );
   const apiKey = process.env.AC_API_KEY;
   const { email, firstName, lastName, bookType, type } = req.body;
@@ -345,31 +336,13 @@ app.post(`/api/contact`, async (req, res) => {
     const contactId = contactExists
       ? contactCheckResponse.data.contacts[0].id
       : null;
-    console.log(
-      " -----> Contact exists:",
-      contactExists,
-      " -----> Contact ID:",
-      contactId
-    );
-    console.log(
-      "Contact info from Active Campaign:",
-      contactInfoFromActiveCampaign
-    );
 
     if (contactExists) {
       // ---------------------------
       // UPDATE THE EXISTING CONTACT
       // ---------------------------
-      console.log(
-        " ----- Contact exists -----> Response from Active Campaign: ",
-        contactInfoFromActiveCampaign
-      );
       // Generate field values based on the req.body
       const fieldValues = generateFieldValues(req.body);
-      console.log(
-        "Field values coming from contactData --- if a contact exists in Active Campaign ---> ",
-        fieldValues
-      );
       // Create the data package to send to Active Campaign
       const contactData = createContactData(
         firstName,
@@ -377,10 +350,6 @@ app.post(`/api/contact`, async (req, res) => {
         req.body.phone,
         email,
         fieldValues
-      );
-      console.log(
-        " contactData --- if a contact exists in Active Campaign ---> ",
-        contactData
       );
       // If there is already a user in the Active Campaign database, update existing information and update the list a user is added to
       const updateActiveCampaignContact = await makeApiRequest(
@@ -404,13 +373,6 @@ app.post(`/api/contact`, async (req, res) => {
       console.log(
         " ----- No contact found, proceeding to create a new contact -----> "
       );
-      console.log("bookType:", bookType);
-      console.log("Is bookType an array?:", Array.isArray(bookType));
-      console.log(
-        "Does bookType include 'Fargo - Moorhead (Digital Coupon Book)'?:",
-        bookType.includes("Fargo - Moorhead (Digital Coupon Book)")
-      );
-
       // Check if bookType is an array and contains the specified value
       if (
         Array.isArray(bookType) &&
@@ -418,21 +380,11 @@ app.post(`/api/contact`, async (req, res) => {
       ) {
         // Generate a random password for the contact if bookType is 'Fargo - Moorhead (Digital Coupon Book)'
         const randomPassword = generatePassword(firstName, lastName);
-        // console.log(
-        //   "Generated randomPassword for digital book:",
-        //   randomPassword
-        // );
-
         // Add the password to the fieldValues array, to send to Active Campaign
         const fieldValuesForNewContact = generateFieldValues(
           req.body,
           randomPassword
         );
-        // console.log(
-        //   " -----> Adding a new contact -----> fieldValuesForNewContact -----> ",
-        //   fieldValuesForNewContact
-        // );
-
         // Create the new contact package to send to Active Campaign
         const newContactData = createContactData(
           firstName,
@@ -441,11 +393,6 @@ app.post(`/api/contact`, async (req, res) => {
           email,
           fieldValuesForNewContact
         );
-        // console.log(
-        //   " -----> Sending package to Active Campaign -----> newContactData -----> ",
-        //   newContactData
-        // );
-
         // Create the new contact in Active Campaign
         const createResponse = await makeApiRequest(
           `contacts`,
@@ -453,17 +400,10 @@ app.post(`/api/contact`, async (req, res) => {
           newContactData,
           apiKey
         );
-        // console.log(
-        //   " -----> Response from ActiveCampaign (creating new contact): ",
-        //   createResponse.data.contact
-        // );
-
         // ------------------------------------------------------------------------------------
         // Determine the tag to be added to the contact based on the book type and payment type
         // ------------------------------------------------------------------------------------
         const tag = determineTag(bookType, type);
-        // console.log(" <<< Tag to be added to the contact >>> -----> ", tag);
-
         // Package to send Active Campaign
         const tagPackage = {
           contactTag: {
@@ -471,7 +411,6 @@ app.post(`/api/contact`, async (req, res) => {
             tag: tag,
           },
         };
-
         // Add the tag to the contact in Active Campaign
         const assignTag = await makeApiRequest(
           `contactTags`,
@@ -485,11 +424,6 @@ app.post(`/api/contact`, async (req, res) => {
           " -----> ",
           assignTag.statusText
         );
-        // console.log(
-        //   " ----- Tag data added to Active Campaign: ",
-        //   assignTag.data
-        // );
-
         // -------------------------------------------------------
         // Add the contact to the relevant list in Active Campaign
         // -------------------------------------------------------
@@ -504,11 +438,6 @@ app.post(`/api/contact`, async (req, res) => {
             status: 1,
           },
         };
-        // console.log(
-        //   " -----> Adding contact to list --- contactList contains: ",
-        //   contactList
-        // );
-
         // Send the package, add the contact to the relevant list in Active Campaign
         const addContactToList = await makeApiRequest(
           `contactLists`,
@@ -516,14 +445,9 @@ app.post(`/api/contact`, async (req, res) => {
           contactList,
           apiKey
         );
-        // console.log(
-        //   " <<< Response from adding contact to list >>>:",
-        //   addContactToList.data
-        // );
         console.log(
           ` <<< Response from adding contact to list >>>: ${addContactToList.status} -----> ${addContactToList.statusText}`
         );
-
         // ----------------------------
         // Send response back to client
         // ----------------------------
