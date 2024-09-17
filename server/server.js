@@ -456,6 +456,9 @@ app.post(`/api/contact`, async (req, res) => {
           password: randomPassword,
         });
       } else {
+        // -----------------------------------------------------------
+        // ADD NEW CONTACT TO ACTIVE CAMPAIGN (no digital book)
+        // -----------------------------------------------------------
         // Generate field values based on the req.body
         const fieldValuesForNewContact = generateFieldValues(req.body);
         // Create the new contact package to send to Active Campaign
@@ -579,7 +582,6 @@ app.post("/api/recoverPassword", async (req, res) => {
     res.sendStatus(500);
   }
 });
-
 // End Active Campaign ~~~~~~~~~~ //
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
