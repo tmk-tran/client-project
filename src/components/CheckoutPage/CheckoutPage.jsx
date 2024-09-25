@@ -15,7 +15,7 @@ import {
 import CustomerInfoForm from "./CustomerInfoForm";
 import OrderSummaryDisplay from "./OrderSummaryDisplay";
 import PayPalButtons from "./PayPalButtons";
-import Typography from "../Typography/Typography";
+import CustomTypography from "../Typography/Typography";
 import CustomButton from "../CustomButton/CustomButton";
 // ~~~~~~~~~~ Hooks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { historyHook } from "../../hooks/useHistory";
@@ -27,6 +27,7 @@ import {
   CustomerAdded,
 } from "../../hooks/reduxStore";
 import { dispatchHook } from "../../hooks/useDispatch";
+import { backgroundColor, primaryColor, secondaryColor } from "../Utils/colors";
 
 export const containerStyle = {
   width: "50vw",
@@ -232,7 +233,31 @@ export default function CheckoutPage({ caseType }) {
       case 2:
         return (
           <div>
-            <Typography
+            <Box
+              sx={{
+                textAlign: "center",
+                py: 3,
+                mb: 2,
+                color: "ghostwhite",
+                backgroundColor: backgroundColor.color,
+              }}
+            >
+              <CustomTypography
+                label="Almost there! Please click 'Complete Order' to finalize your purchase"
+                variant="body1"
+                sx={{ fontWeight: "bold" }}
+              />
+              <CustomTypography
+                label="*If you do not click the 'Complete Order' button, your purchase will not be completed, and you will not receive your order"
+                variant="caption"
+                sx={{
+                  textAlign: "center",
+                  mb: 3,
+                  color: "lightgray",
+                }}
+              />
+            </Box>
+            <CustomTypography
               label="Order Confirmation"
               variant="h6"
               sx={{ ml: 6, pt: 4 }}
@@ -499,7 +524,7 @@ export default function CheckoutPage({ caseType }) {
           <CustomButton
             label="Return to Store"
             onClick={returnToStore}
-            disabled={activeStep === 1 ? true : false}
+            disabled={activeStep === 1 || activeStep === 2 ? true : false}
           />
           <CustomButton
             label={

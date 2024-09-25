@@ -415,6 +415,17 @@ app.post(`/api/contact`, async (req, res) => {
   const apiKey = process.env.AC_API_KEY;
   const { email, firstName, lastName, bookType, type } = req.body;
 
+  // True if purchase is a digital book
+  const isDigitalBook =
+    Array.isArray(bookType) &&
+    bookType.includes("Fargo - Moorhead (Digital Coupon Book)");
+  // Generate field values, with or without a password
+  const randomPassword = isDigitalBook
+    ? generatePassword(firstName, lastName)
+    : undefined;
+  // Package field values for Active Campaign
+  const fieldValues = generateFieldValues(req.body, randomPassword);
+
   try {
     // Check if contact already exists in Active Campaign --> GET
     const contactCheckResponse = await makeApiRequest(
@@ -435,15 +446,6 @@ app.post(`/api/contact`, async (req, res) => {
     // UPDATE THE EXISTING CONTACT ----------------------------------------------------------------- UPDATE THE EXISTING CONTACT
     // ---------------------------
     if (contactExists) {
-      // Generate field values based on the req.body
-      // Check if bookType digital, if so --> create a password
-      const fieldValues = generateFieldValues(
-        req.body,
-        Array.isArray(bookType) &&
-          bookType.includes("Fargo - Moorhead (Digital Coupon Book)")
-          ? generatePassword(firstName, lastName) // Generate a random password if applicable
-          : undefined // No password needed
-      );
       // Create the data package to send to Active Campaign
       const contactData = createContactData(
         firstName,
@@ -479,30 +481,20 @@ app.post(`/api/contact`, async (req, res) => {
       // ----------------------------------
       // Send a response back to the client
       // ----------------------------------
-      return res.status(200).json({
-        message: "Contact updated successfully",
-      });
+      const responseMessage = isDigitalBook
+        ? {
+            message:
+              "Contact updated successfully, digital purchase --> password returned",
+            password: randomPassword,
+          }
+        : { message: "Contact updated successfully" };
+      return res.status(201).json(responseMessage);
+    } else {
       // --------------------
       // CREATE A NEW CONTACT ------------------------------------------------------------------- CREATE A NEW CONTACT
       // --------------------
-    } else {
       console.log(
         " ----- No contact found, proceeding to create a new contact -----> "
-      );
-      // True if purchase is a digtal book
-      const isDigitalBook =
-        Array.isArray(bookType) &&
-        bookType.includes("Fargo - Moorhead (Digital Coupon Book)");
-      // -------------------------------------------------
-      // Generate field values, with or without a password
-      // -------------------------------------------------
-      const randomPassword = isDigitalBook
-        ? generatePassword(firstName, lastName)
-        : undefined;
-      // Package field values for Active Campaign
-      const fieldValuesForNewContact = generateFieldValues(
-        req.body,
-        randomPassword
       );
       // Create and send the new contact to Active Campaign
       const createResponse = await createNewContact(
@@ -510,7 +502,7 @@ app.post(`/api/contact`, async (req, res) => {
         lastName,
         req.body.phone,
         email,
-        fieldValuesForNewContact, // Package sent here
+        fieldValues, // Package sent here
         apiKey
       );
       const contactId = Number(createResponse.data.contact.id);
