@@ -50,6 +50,7 @@ export default function CheckoutPage({ caseType }) {
   const refId = paramsObject.refId;
   // Access state from URL and use it in component //
   const selectedProducts = location.state?.selectedProducts ?? [];
+  const bookTypeArray = selectedProducts.map((product) => product.bookType);
   const orderTotal = location.state?.orderTotal ?? 0;
   const customDonation = location.state?.customDonation ?? 0;
   // Access digital payment amount //
@@ -105,10 +106,10 @@ export default function CheckoutPage({ caseType }) {
       state: stateSelected,
       zip: zip,
       organization: sellerData[0].organization_name,
-      url: "thepreferredsavingsguide.fly.dev/fargo/coupon", // Is this causing an issue?
+      url: "testpsg.fly.dev/fargo/coupon",
       year: currentYear[0].year,
       donation: customDonation,
-      bookType: selectedProducts[0].bookType,
+      bookType: bookTypeArray,
       type: caseType,
     };
     // console.log("Contact Data from acInfo", contactData);
@@ -398,9 +399,9 @@ export default function CheckoutPage({ caseType }) {
         digital_book_credit: digitalBookCredit,
       },
     };
-  
+
     let updateActions = [updateAction];
-  
+
     if (customDonation > 0) {
       const donationAction = {
         type: "UPDATE_DONATIONS",
@@ -415,7 +416,7 @@ export default function CheckoutPage({ caseType }) {
       };
       updateActions.push(donationAction);
     }
-  
+
     if (orderTotal > 0) {
       const paymentAction = {
         type: "UPDATE_DIGITAL_PAYMENTS",
@@ -430,7 +431,7 @@ export default function CheckoutPage({ caseType }) {
       };
       updateActions.push(paymentAction);
     }
-  
+
     updateActions.forEach((action) => {
       dispatch(action);
     });
@@ -495,25 +496,27 @@ export default function CheckoutPage({ caseType }) {
         {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
         {/* ~~~~~~~~~~ CHECKOUT NAV BUTTONS ~~~~~~~~~~ */}
         <Box sx={navButtonStyle}>
-          <CustomButton label="Return to Store" onClick={returnToStore} disabled={ activeStep === 1 ? true : false } />
+          <CustomButton
+            label="Return to Store"
+            onClick={returnToStore}
+            disabled={activeStep === 1 ? true : false}
+          />
           <CustomButton
             label={
-              activeStep === steps.length - 1
-                ? "Complete Order"
-                : "Continue"
+              activeStep === steps.length - 1 ? "Complete Order" : "Continue"
             }
             onClick={
               activeStep === 0
                 ? handleForm // First step, check form info
-                // ~~~ HAD THIS, BUT IT WAS CAUSING AN EXTRA BOOK TO GET ADDED ~~~ //
+                : // ~~~ HAD THIS, BUT IT WAS CAUSING AN EXTRA BOOK TO GET ADDED ~~~ //
                 // : activeStep === 1
                 // ? updateTransactions // If it's the second step, update transactions
-                : activeStep === 2
+                activeStep === 2
                 ? handleSubmit // If it's the last step, handle form submission
                 : handleNext // Otherwise, move to the next step
             }
             variant="contained"
-            disabled={ activeStep === 1 ? true : false }
+            disabled={activeStep === 1 ? true : false}
           />
         </Box>
       </div>
