@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, CircularProgress, Typography } from "@mui/material";
-// ~~~~~~~~~ Hooks ~~~~~~~~~~ //
+// ~~~~~~~~~ Utils ~~~~~~~~~~ //
 import { centeredStyle } from "../Utils/pageStyles";
 
 export default function LoadingSpinner({
@@ -14,28 +14,23 @@ export default function LoadingSpinner({
   const [showWaitingText, setShowWaitingText] = useState(false);
 
   useEffect(() => {
-    // Timer to show waitingText
-    const waitingTimer = setTimeout(
-      () => {
-        if (waitingText) {
-          setShowWaitingText(true);
-        }
-      },
-      timeout ? timeout / 2 : 3000
-    ); // Show waitingText halfway through the timeout or default to 3000ms
+    if (!timeout) timeout = 6000; // default timeout if not provided
 
-    // Timer to show finalText
-    const finalTimer = setTimeout(() => {
+    // halfway point to show waitingText
+    const midTimeout = setTimeout(() => {
+      if (waitingText) setDisplayedText(waitingText);
+    }, timeout / 2);
+
+    // full timeout for finalText
+    const finalTimeout = setTimeout(() => {
       setDisplayedText(finalText);
-      setShowWaitingText(false); // Hide waitingText once finalText is displayed
-    }, timeout || 6000); // Default timeout if not provided
+    }, timeout);
 
-    // Clean up timers on unmount
     return () => {
-      clearTimeout(waitingTimer);
-      clearTimeout(finalTimer);
+      clearTimeout(midTimeout);
+      clearTimeout(finalTimeout);
     };
-  }, [finalText, timeout, waitingText]);
+  }, [waitingText, finalText, timeout]);
 
   return (
     <Box sx={centeredStyle}>
