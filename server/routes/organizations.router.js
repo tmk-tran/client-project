@@ -7,9 +7,9 @@ const storage = multer.memoryStorage(); // Store files in memory
 const upload = multer({ storage: storage });
 
 router.get("/", (req, res) => {
-  pool
-    .query(
-      `  SELECT
+
+  const queryText = `
+  SELECT
       o.id,
       o.organization_name,
       o.type,
@@ -163,8 +163,10 @@ router.get("/", (req, res) => {
   WHERE
       o.is_deleted = false
   ORDER BY
-      o.organization_name ASC;`
-    )
+      o.organization_name ASC;`;
+
+  pool
+    .query(queryText)
     .then((response) => {
       res.send(response.rows).status(200);
     })
