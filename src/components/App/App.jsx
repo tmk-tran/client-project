@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   HashRouter as Router,
   Redirect,
@@ -102,7 +102,8 @@ function App() {
           style={{
             display: "flex",
             flexDirection: "column",
-            minHeight: "92vh",
+            minHeight: "100dvh", // dynamic viewport height
+            boxSizing: "border-box", // prevents overflow
           }}
         >
           {/* ~~~~~ Header ~~~~~ */}
@@ -317,8 +318,8 @@ function App() {
               </Route>
             </Switch>
           </div>
+          <Footer />
         </div>
-        <Footer />
       </ThemeProvider>
     </Router>
   );
